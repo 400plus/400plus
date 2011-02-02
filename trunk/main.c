@@ -56,19 +56,25 @@ extern void* hOlcInfoMessQueue;
 extern void SetDispIso();
 extern void SetDispIso1();
 extern void SetDispIso2();
-int wait=0, test, modedial;
+int wait=0, test, modedial, sec1=0, sec2=0;
 
 void MyTask ()
 
 {
   //MyGlobalStdSet(); //Thai Remarked
- int* pMessage ;   int mesmode=3 ;
+ int* pMessage ;   int mesmode=3, receivemess ;
 
  while (1)
  { 
-    ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
+    ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0); 
+    TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
+    TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
+    //sec2=eventproc_GetSecond();
+    //if (sec1==sec2) {continue;}
+    //sec1=sec2;
+    sec1++;
     wait=1;
-    //SleepTask(50);
+    SleepTask(100);
     switch (pMessage[0])
     {
 
@@ -119,10 +125,18 @@ void MyTask ()
 	}
           //extend_iso
 	//eventproc_RiseEvent("RequestBuzzer");
-	ChangeDprData(41,1);
-SomeStateLock();
+//Test like canon did in firmware. not ok, still hang if press DP too fast 
+//SomeStateLock();
+//sub_FF936734();
+//sub_FF82B518(0x9);
 	SetDispIso();
-SomeStateUnLock();
+//SomeStateUnLock();
+//sub_FF936770();
+//guiGraphics_clearImage();
+//sub_FF84ED98 ();
+//sub_FF82B518(0x0); //Blink Scr
+SleepTask(600);
+//	ChangeDprData(41,1);
 	//break;
      }
    
@@ -303,7 +317,7 @@ void CreateMyTask()
 
   hMyTaskMessQue=(void*)CreateMessageQueue("MyTaskMessQue",0x40);
 
-  CreateTask("MyTask", 0x19, 0x2000, MyTask, 0);
+  CreateTask("MyTask", 0x19, 0, MyTask,0);
 
 }
 
@@ -336,10 +350,11 @@ void my_IntercomHandler (int r0, char* ptr)
      printf_log(8,8,"[!] sz: %02X, code: %2X, hex: %s",ptr[0],ptr[1],s);
 
 */
+  
      if(ptr[1]>=0x90 && ptr[1]<=0x93 &&modedial<3) {SendMyMessage(MY_MESS4,0);}  //Iso at switch on
 
      if(ptr[1]>=0x90 && ptr[1]<=0x93 &&modedial>2) {SetDispIso1();}  //Iso when roll mode dial
-     if(ptr[1]== 0xB8) {null_FFA5D758(); SendMyMessage(MY_MESS1,0);}  // Press Dp to set Iso
+     if(ptr[1]== 0xB8 && sec1+2>sec2) {sec2++; SendMyMessage(MY_MESS1,0);}  // Press Dp to set Iso
    //if(ptr[1]>=0xB1 && ptr[1]<=0xB4) {SendMyMessage(MY_MESS2,0);}
 
    //Change ISO value when use default camera feature.  
@@ -348,8 +363,9 @@ void my_IntercomHandler (int r0, char* ptr)
    //if (test2==0 && test1==0) // do nothing
    //if (test2!=0 && test1!=0)  //do nothing
      if (test2!=0 && test1==0) {test1=1; SetDispIso2();}
-
+  
      IntercomHandler(r0, ptr);
+
 }
 
 //--------------------------------
