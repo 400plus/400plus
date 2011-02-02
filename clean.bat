@@ -1,3 +1,3 @@
 @echo off
-set path=e:\400d\cgg;e:\400d\cgg\bin;
+set path=D:\mydoc\Foto\CHDK\GCC;D:\mydoc\Foto\CHDK\GCC\bin;
 gmake clean
