@@ -1,4 +1,4 @@
-    Additionnal ISO Values
+    Additionnal ISO Values:
 
         To set ISO: Press ISO button and set ISO to 100, 200 ...1600
         Then press "Direct Print" button repeatedly to set ISO.
@@ -9,13 +9,13 @@
         TO BE VERIFIED : ISO levels 16/32/40/50 can also be enabled if you go to menu and turn "shoot without CF" ON, but not sure if they really work 
 
 
-    Spot Metering
+    Spot Metering:
 
         To use spot metering,
         Go to metering selection screen,
         Then push the print button : Spot Metering is displayed on Screen within the normal Metering icon by a point
 
-    Factory Menu
+    Factory Menu:
 
         Go to menu,
         Push print button,
@@ -23,7 +23,7 @@
         "Factory menu" appears
         There is a specific topic about this Factory Menu in forum : http://chdk.setepontos.com/index.php/topic,4171.0.html
 
-    View Shutter actuation count
+    View Shutter actuation count:
 
         To view shutter actuation count, which was only viewable by canon themselves,
         Enter factory menu (see above),
@@ -34,7 +34,7 @@
         You will see a file called STDOUT.txt,
         Search the textfile for "Release" : there you see a number and that is the shutter count.
 
-    Focus Frame pattern
+    Focus Frame pattern:
 
         How to choose Focus frame pattern:
         Normal use:  
@@ -47,7 +47,7 @@
 	 frame mode.  
         - Note that external AF assist capability (via Speedlite or ST-E2) will not work with pattern AF modes. 
 
-    Auto Exposure Bracketing 
+    Auto Exposure Bracketing: 
 
 	Go to menu,
 	Picture Style,
@@ -62,21 +62,10 @@
 		 2   +-4.3EV
 		 3   +-4.7EV
 		 4   +-5.0EV
-	To enable(disable) AEB go to "Drive mode" menu and press print. Blue light means enabled, red - disabled. 
+	To enable(disable) AEB go to "Drive mode" menu and press print. Double red light means enabled, single red - disabled. 
 
-    AutoISO
+    Safety shift:
 
-	To enable AutoISO go to "ISO speed" menu and press print button. Blue light - enabled, Red - disabled.
-	To set maximum ISO, change contract and saturation values in User3.
-	Contrast values:
-              -1 100
-               0 200
-               1 400
-               2 800
-               3 1600
-               4 3200
-	Use saturation values from 0 to 4 to set how many times you want to increase main ISO to the next higher value.
- 	  Example:   contrast 2 and saturation 1 will set ISO 1000.
-	  Then switch to Tv or M mode and back to Av or P. You will see your max ISO as ISO value
-	Minimum shutter speed can be set from Tv or M modes. Shutter speed in those modes will be minimum set point for Av and P (after switch from M or 		  Tv to Av or P).
+	To enable Safety Shift go to "AF mode" and press print button. Double red light - enabled, single red - disabled.
 
+	
