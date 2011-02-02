@@ -1,13 +1,10 @@
     Additionnal ISO Values:
-
+		"DP for changing ISO" in info screen will turn this option on or off. 
         To set ISO: Press ISO button and set ISO to 100, 200 ...1600
         Then press "Direct Print" button repeatedly to set ISO.
         If you set ISO 100 and press Direct Print repeatedly, you will get  100->125->160->32->40->50->80->100
         Others are:   200-> 250-> 320;         400-> 500-> 640;           800->100->1250;          1600->2000->2200->3200
         Actual ISO Value is show on screen
-
-        TO BE VERIFIED : ISO levels 16/32/40/50 can also be enabled if you go to menu and turn "shoot without CF" ON, but not sure if they really work 
-
 
     Spot Metering:
 
@@ -43,13 +40,33 @@
 
         Pattern use:
         - Fast press focus frame button twice to show FP dialog. if you hear a beep and the dialog showed,
-		use Direct Print button to change pattern 
+		use left, right, up, down and set buttons to change pattern 
 		(if you press the focus frame button not fast enough, the dialog not showed).  - Press focus frame again 
 			to return to default canon focus frame mode.  
         - Note that external AF assist capability (via Speedlite or ST-E2) will not work with pattern AF modes. 
 
-  
-    Safety shift and Auto Exposure Bracketing can be set from Info screen with up, down, left and right controls.
+	New menus can be accessed from Info screen:
+		Av comp                    (+-6)
+		Flash exp. comp            (+-6)
+		AEB                        (+-6)
+		Safety Shift               (on,off)
+		Release Count              (display count)
+		Show ISO in Viewfinder     (on,off)
+		Color Temperature          (1800-11000K)
+		Flash                      (on,0ff)
+		AF Assist Beam             (on,off)
+		DP for changing ISO		   (on,off)   
+
 		To get to Info screen press menu, then disp. button.
+        Use Up and Down keys to change menu. Left and Right to change settings. 
+		Av+- to change a sign in Av comp and Flash exp comp. Av+- in Color Temperature will set temperature 
+		by preset values: 2200,3200,4000,5200,6000,7000K. Use Set to save (Av,Flash,AEB,ColorTemp.).
+		
+	To change ISO(100,200,400,800,1600,3200) while looking through viewfinder press left or right key. 
+		If Show ISO in Viewfinder is on new ISO will be shown in viewfinder while key is pressed 
+		(only works in Tv and M modes).   
+	To switch quality to RAW or back to JPG in Full Auto and other Auto modes 
+		press  "Direct Print" button from main screen.
+		
 
 	
