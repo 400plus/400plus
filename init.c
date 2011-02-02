@@ -550,8 +550,8 @@ int my_InitializeIntercom()
 }
 
 
-
-
+extern void* hOlcInfoMessQueue;
+/*
 
 extern int OlcInfoData[0xC0/4];
 
@@ -562,8 +562,6 @@ extern int OlcInfoFlags[24];
 extern char OlcInfoEmptyStr;
 
 extern void* hOlcInfoSem;
-
-extern void* hOlcInfoMessQueue;
 
 extern void* proc_OlcTftNotifyChange;
 
@@ -688,7 +686,7 @@ void my_task_OlcInfo()
 
         break;
 
-
+*/
 /*  wrong
 
       case OLC_MESSAGE_5:
@@ -784,7 +782,7 @@ OlcCounterFlag3=OlcInfoDataCopy[42];
 
 */
 
-
+/*
       case OLC_DISP_WARNING_DLG:
 
         flag=pMessage[1];
@@ -840,7 +838,7 @@ OlcCounterFlag3=OlcInfoDataCopy[42];
 
 }
 
-
+*/
 
 extern void task_OlcInfo();
 
