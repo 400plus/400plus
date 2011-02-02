@@ -602,7 +602,7 @@ void MyAutoISOTask()
 	}
 	   SleepTask(400);
 	}
-	else sw=0;
+	else {sw=0; SleepTask(400);}
 	}
 }
 
