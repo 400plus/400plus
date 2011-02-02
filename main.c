@@ -92,6 +92,8 @@ void MyTask ()
 	int flash_exp_val_temp, av_comp_val_temp;
 	SleepTask(1000);
 	ReadSettings();
+	if(!*(int*)(0x16B60+0xB0))SendToIntercom(0x31, 1, 1);		// enable CFn.8 for ISO H
+	SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
 	while (1)
 	{	//ChangeDprData(41,1); //this proc enable iso 16-80, 2000-3200
 		ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
@@ -118,11 +120,7 @@ void MyTask ()
 			//eventproc_RiseEvent("RequestBuzzer");
 			break;
 		case DP_PRESSED:
-			if(!*(int*)(0x16B60+0xB0))
-			{	SendToIntercom(0x31, 1, 1);		// enable CFn.8 for ISO H
-				SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
-			}
-
+		
 			//Spot metering mode
 			test=*(int*)(0x47EC) ; //OlMeterMode Dialog opened
 			if (test!=0)
