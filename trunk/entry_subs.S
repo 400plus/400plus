@@ -52,6 +52,8 @@ DEF(OlcCounterFlag1,0x005588)
 DEF(OlcCounterFlag2,0x00558C)
 DEF(OlcCounterFlag3,0x005590)
 
+DEF(aCf_extend_iso,0xFF93C198)
+
 // 
 STUB(FFB5F728)
 STUB(FFB0FF74)
