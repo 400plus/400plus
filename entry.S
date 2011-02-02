@@ -214,7 +214,7 @@ loc_FF810ADC:
                 BL      stdioInit
                 BL      fioLibInit
                 BL      selTaskDeleteHookAdd
-                BL      sub_FFB5F728
+                BL      sub_FFB5F728 // cplusCtorsLink     
 
                 // Add Hooks Create&Delete tasks
 
@@ -292,6 +292,7 @@ my_task_Startup:
                 LDR     R0, =AssertPrepare
                 BL      writeproc_to_D184_D188
                 BL      my_InitializeIntercom
+                //BL      InitializeIntercom
                 BL      AfeGain_CmosParam
                 BL      EngInit
                 BL      EDmacPriorityManager
@@ -414,7 +415,7 @@ my_task_Startup:
                 LDR     R0, [R3]
                 LDR     R1, =aUSBROOTDEVICEHANDLE
                 BL      registerResource
-                MOV     R0, #0xB8
+               MOV     R0, #0xB8
                 ADD     R0, R0, #0xC0000000
                 LDR     R1, =aU2VBUS
                 ADD     R0, R0, #0x220000
