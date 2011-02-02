@@ -73,16 +73,20 @@ int eaeb_sub_menu=0, st_1=0, st_2=0;
 int eaeb_frames=3, eaeb_ev=0x08;
 char* s_eaeb[2]={"Frames", "EV"};
 char* dp_button_string[3]={"Disabled", "Change ISO", "Extended AEB"};
-int iso_in_viewfinder, dp_opt=1;
-int settingsbuff[4];
+int iso_in_viewfinder, dp_opt=1, eaeb_delay;
+int settingsbuff[6];
+#define settings_def_version 2
 void ReadSettings()
 {	int file = FIO_OpenFile("A:/settings", O_RDONLY, 644);
 	if(file!=-1)
 	{	FIO_ReadFile(file, (int *)settingsbuff, sizeof(settingsbuff));
-		iso_in_viewfinder		= settingsbuff[0];
-		dp_opt					= settingsbuff[1];
-		eaeb_frames				= settingsbuff[2];
-		eaeb_ev					= settingsbuff[3];
+		if(settingsbuff[0]==settings_def_version)
+		{	iso_in_viewfinder		= settingsbuff[1];
+			dp_opt					= settingsbuff[2];
+			eaeb_frames				= settingsbuff[3];
+			eaeb_ev					= settingsbuff[4];
+			eaeb_delay				= settingsbuff[5];
+		}
 		FIO_CloseFile(file);
 	}
 }
@@ -90,10 +94,12 @@ void ReadSettings()
 void WriteSettings()
 {	int file = FIO_OpenFile("A:/settings", O_CREAT|O_WRONLY , 644);
 	if(file!=-1) {
-		settingsbuff[0]= iso_in_viewfinder;
-		settingsbuff[1]= dp_opt;
-		settingsbuff[2]= eaeb_frames;
-		settingsbuff[3]= eaeb_ev;
+		settingsbuff[0]=settings_def_version;
+		settingsbuff[1]= iso_in_viewfinder;
+		settingsbuff[2]= dp_opt;
+		settingsbuff[3]= eaeb_frames;
+		settingsbuff[4]= eaeb_ev;
+		settingsbuff[5]= eaeb_delay;
 		FIO_WriteFile(file, settingsbuff, sizeof(settingsbuff));
 		FIO_CloseFile(file);
 	}
@@ -103,6 +109,7 @@ void UpdateStVariables()
 {	switch (st_1)
 	{	case 0: st_2=eaeb_frames;	break;
 		case 1: st_2=eaeb_ev; break;
+		case 2: st_2=eaeb_delay; break;
 	}
 }
 
@@ -252,7 +259,7 @@ void MyTask ()
 						case 10:if(dp_opt<2){dp_opt++;WriteSettings();}break;
 						case 11:
 							if(eaeb_sub_menu==0)
-							{	if(st_1<1)
+							{	if(st_1<2)
 								{	st_1++;
 									UpdateStVariables();
 								}
@@ -264,6 +271,9 @@ void MyTask ()
 										break;
 									case 1:
 										if(st_2<0x18)st_2=GetValue(st_2,1);
+										break;
+									case 2:
+										st_2=1;
 										break;
 								}
 							}
@@ -296,6 +306,9 @@ void MyTask ()
 										break;
 									case 1:
 										if(st_2>0x04)st_2=GetValue(st_2,0);
+										break;
+									case 2:
+										st_2=0;
 										break;
 								}
 							}
@@ -344,6 +357,7 @@ void MyTask ()
 					{	switch (st_1)
 						{	case 0: eaeb_frames=st_2;	break;
 							case 1: eaeb_ev=st_2; break;
+							case 2: eaeb_delay=st_2; break;
 						}
 						WriteSettings();
 					}
@@ -355,6 +369,10 @@ void MyTask ()
 			AfPointExtend(pMessage[1]);
 			break;
 		case E_AEB:
+			if(st_2)
+			{	eventproc_RiseEvent("RequestBuzzer");
+				SleepTask(2000);
+			}
 			OldAvComp=CurAvCompCh;
 			av_enc=CurAvCompCh;
 			av_dec=CurAvCompCh;
@@ -654,8 +672,12 @@ char* my_GUIString()
 			return buff;
 		case 11:
 			if (update)UpdateStVariables();
-			if(st_1){HexToStr(st_2); sprintf(buff,"Extended AEB: %u.%u %s", one, two, s_eaeb[st_1]);}
-			else sprintf(buff,"Extended AEB: %u %s", st_2, s_eaeb[st_1]);
+			if(st_1==1){HexToStr(st_2); sprintf(buff,"Extended AEB: %u.%u %s", one, two, s_eaeb[st_1]);return buff;}
+			if(st_1==2)
+			{	if(st_2)return "Extended AEB: 2sec. Delay";
+				return "Extended AEB: No Delay";
+			}
+			sprintf(buff,"Extended AEB: %u %s", st_2, s_eaeb[st_1]);
 			return buff;
 	}
 }
