@@ -73,14 +73,21 @@ int flash_exp_val, av_comp_val, aeb_val, color_temp;
 int eaeb_sub_menu=0, st_1=0, st_2=0;
 int eaeb_frames=3, eaeb_ev=0x08;
 
+//for M mode
+int eaeb_m_min=0x10;
+int eaeb_m_max=0x98;
+
 int interval_time=2;
 int interval_original_ae_mode=0;
 
 char* s_eaeb[2]={"Frames", "EV"};
+char* s_m_eaeb[18]={"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000","1/4000"} ;
+
+
 char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};
 int iso_in_viewfinder, dp_opt=1, eaeb_delay;
 int settingsbuff[30];
-#define settings_def_version 3
+#define settings_def_version 4
 void ReadSettings()
 {	int file = FIO_OpenFile("A:/settings", O_RDONLY, 644);
 	if(file!=-1)
@@ -92,6 +99,8 @@ void ReadSettings()
 			eaeb_ev					= settingsbuff[4];
 			eaeb_delay				= settingsbuff[5];
 			interval_time				= settingsbuff[6];
+			eaeb_m_min				= settingsbuff[7];
+			eaeb_m_max				= settingsbuff[8];
 		}
 		FIO_CloseFile(file);
 	}
@@ -107,6 +116,9 @@ void WriteSettings()
 		settingsbuff[4]= eaeb_ev;
 		settingsbuff[5]= eaeb_delay;
 		settingsbuff[6]= interval_time;
+		settingsbuff[7]= eaeb_m_min;
+		settingsbuff[8]= eaeb_m_max;
+		
 		FIO_WriteFile(file, settingsbuff, sizeof(settingsbuff));
 		FIO_CloseFile(file);
 	}
@@ -117,6 +129,8 @@ void UpdateStVariables()
 	{	case 0: st_2=eaeb_frames;	break;
 		case 1: st_2=eaeb_ev; break;
 		case 2: st_2=eaeb_delay; break;
+		case 3: st_2=eaeb_m_min; break;
+		case 4: st_2=eaeb_m_max; break;
 	}
 }
 
@@ -266,7 +280,7 @@ void MyTask ()
 						case 10:if(dp_opt<3){dp_opt++;WriteSettings();}break;
 						case 11:
 							if(eaeb_sub_menu==0)
-							{	if(st_1<2)
+							{	if(st_1<4)
 								{	st_1++;
 									UpdateStVariables();
 								}
@@ -282,6 +296,13 @@ void MyTask ()
 									case 2:
 										st_2=1;
 										break;
+									case 3:
+									case 4:
+										if(st_2<=0x90)st_2+=8;//98 is maximum
+										break;  
+									  
+									      
+										
 								}
 							}
 							break;
@@ -319,6 +340,12 @@ void MyTask ()
 									case 2:
 										st_2=0;
 										break;
+									case 3:
+									case 4:
+										if(st_2>=0x18)st_2-=8;//10 is minimum
+										break;  
+										
+										
 								}
 							}
 							break;
@@ -368,6 +395,8 @@ void MyTask ()
 						{	case 0: eaeb_frames=st_2;	break;
 							case 1: eaeb_ev=st_2; break;
 							case 2: eaeb_delay=st_2; break;
+							case 3: eaeb_m_min=st_2; break;
+							case 4: eaeb_m_max=st_2; break;
 						}
 						WriteSettings();
 					}
@@ -386,32 +415,68 @@ void MyTask ()
 			{	eventproc_RiseEvent("RequestBuzzer");
 				SleepTask(2000);
 			}
-			OldAvComp=CurAvCompCh;
-			av_enc=CurAvCompCh;
-			av_dec=CurAvCompCh;
-			eventproc_Release();
-			m=0;
-			while(m<(eaeb_frames-1)/2)
-			{	av_dec -= eaeb_ev;
-				av_enc += eaeb_ev;
-				if(av_half_stop==0)
-				{	if((av_dec&0x06)==0x06)av_dec-=1;
-					else if((av_dec&0x07)==0x02)av_dec+=1;
-					if((av_enc&0x06)==0x06)av_enc-=1;
-					else if((av_enc&0x07)==0x02)av_enc+=1;
+			
+			if(AE_Mode==3){
+				int m_end;
+				m=eaeb_m_min;
+				do{
+				  SendToIntercom(0x8,1,m);
+				  SleepTask(5);				
+				  eventproc_Release();
+				  SleepTask(5);
+				  while(*(int*)(0x1CA8)){SleepTask(5);}
+				  //SleepTask(850);	
+				
+				  
+				if(eaeb_m_min==eaeb_m_max){
+				  m_end=m;
+				}else
+				if(eaeb_m_min<eaeb_m_max){
+				  m+=8;
+				  m_end=eaeb_m_max+8;
+				}else{
+				  m-=8;
+				  m_end=eaeb_m_max-8;
 				}
-				if(av_dec<0xCB)av_dec=0xCB;
-				if(av_enc>0x30)av_dec=0x30;
-				m++;
-				while(*(int*)(0x1CA8)){SleepTask(5);}
-				SendToIntercom(0xA,1,av_dec);
-				eventproc_Release();
-				while(*(int*)(0x1CA8)){SleepTask(5);}
-				SendToIntercom(0xA,1,av_enc);
-				eventproc_Release();
+
+				  
+				}while(	m!=m_end);
+			  
+					
+
+			}else{
+			
+			  OldAvComp=CurAvCompCh;
+			  av_enc=CurAvCompCh;
+			  av_dec=CurAvCompCh;
+			  eventproc_Release();
+			  m=0;
+			  while(m<(eaeb_frames-1)/2)
+			  {	av_dec -= eaeb_ev;
+				  av_enc += eaeb_ev;
+				  if(av_half_stop==0)
+				  {	if((av_dec&0x06)==0x06)av_dec-=1;
+					  else if((av_dec&0x07)==0x02)av_dec+=1;
+					  if((av_enc&0x06)==0x06)av_enc-=1;
+					  else if((av_enc&0x07)==0x02)av_enc+=1;
+				  }
+				  if(av_dec<0xCB)av_dec=0xCB;
+				  if(av_enc>0x30)av_dec=0x30;
+				  m++;
+				  while(*(int*)(0x1CA8)){SleepTask(5);}
+				  SendToIntercom(0xA,1,av_dec);
+				  eventproc_Release();
+				  while(*(int*)(0x1CA8)){SleepTask(5);}
+				  SendToIntercom(0xA,1,av_enc);
+				  eventproc_Release();
+			  }
+			  SleepTask(500);
+			  SendToIntercom(0xA,1,OldAvComp);
 			}
+			
+			eventproc_RiseEvent("RequestBuzzer");
 			SleepTask(500);
-			SendToIntercom(0xA,1,OldAvComp);
+			
 			break;
 		case INTERVAL:
 		    interval_original_ae_mode= AE_Mode;
@@ -705,6 +770,19 @@ char* my_GUIString()
 			{	if(st_2)return "Extended AEB: 2sec. Delay";
 				return "Extended AEB: No Delay";
 			}
+			if(st_1==3)
+			{
+			  sprintf(buff,"Extended AEB:M1 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
+			  return buff;
+			}
+			
+			if(st_1==4)
+			{
+			  sprintf(buff,"Extended AEB:M2 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
+			  return buff;
+			}
+			
+			
 			sprintf(buff,"Extended AEB: %u %s", st_2, s_eaeb[st_1]);
 			return buff;
 		case 12:
