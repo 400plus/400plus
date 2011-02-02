@@ -40,20 +40,16 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define	BUTTON_LEFT				0xB4
 #define	BUTTON_DP				0xB8
 #define	BUTTON_AV				0xBB
-extern void SpotImage();  extern void AutoAvComp(); extern void AfPointExtend();
+extern void SpotImage(); extern void AfPointExtend();
 extern void SetDispIso(); extern void SetDispIso1();char* my_GUIString();
 
 int* isolab1=(int*)0x5798, *isolab2=(int*)0x579C, *isolab4=(int*)0x57A0,*isolab8=(int*)0x57A4, *isolab16=(int*)0x57A8;
 int* isoolc=(int*)(0x179E8+0x20);
-char i16[5]="16 ", i32[5]="32 ", i40[5]="40 ", i50[5]="50 ", i80[5]="80  ", i100[5]="100 ", i125[5]="125 ", i160[5]="160 ";
+char i100[5]="100 ", i125[5]="125 ", i160[5]="160 ";
 char i200[5]="200", i250[5]="250 ", i320[5]="320 ", i400[5]="400 ", i500[5]="500 " , i640[5]="640 ", i800[5]="800 ";
-char i1000[5]="1000", i1250[5]="1250", i1600[5]="1600", i2000[5]="2000", i2500[5]="2500",i3200[5]="3200", isoblank[5]="    ";
+char i1000[5]="1000", i1250[5]="1250", i1600[5]="1600", i2000[5]="2000", i2500[5]="2500",i3200[5]="3200";
 
-//AvComp: 0->0; 3->1/3; 5->2/3; 8->1; 11->1+1/3; 13->1+2/3; 16->2; 18->2+1/3; 20->2+2/3; 23->3; 26->3+1/3; 28->3+2/3; 31->4
-int AvComp3[25]={-31&0xFF,-28&0xFF,-26&0xFF,-23&0xFF,-20&0xFF,-18&0xFF,-16&0xFF,-13&0xFF,-11&0xFF,-8&0xFF,-5&0xFF,-3&0xFF,
- 				  0,3,5,8,11,13,16,18,20,23,26,28,31}; 
-int AvComp2[17]={-31&0xFF,-27&0xFF,-23&0xFF,-19&0xFF,-16&0xFF,-12&0xFF,-8&0xFF,-4&0xFF, 0, 4, 8, 12, 16, 19, 23, 27, 31}; 
-int* AvC, currAvC, AFP_Sel;  
+int AFP_Sel;  
 int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
 			 24, 25, 26, 27, 386, 387, 409, 410, 411,  // Top
 			 96, 97, 100, 101, 388, 389, 481, 484, 485,  //Bottom
@@ -61,17 +57,16 @@ int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
 			 80, 81, 87, 336, 337, 342, 343} ;  //Right
 int wait=0, test, modedial;  int spotmode=3, evalue=0, iso_in_viewfinder; 
 int flag, flag1, test_iso;    int ia=0;
-int flag3;int i=0, option_number = 1;
-int  double_key=0, last_option = 7, update=1;
-int flash_exp_val, av_comp_val, aeb_val;
+int i=0, option_number = 1;
+int  double_key=0, last_option = 9, update=1;
+int flash_exp_val, av_comp_val, aeb_val, color_temp;
 void MyTask ()
 {	//MyGlobalStdSet(); //Thai Remarked
 	int* pMessage ;   int dem;
 	ia=*(int*)0xC300;
 		int flash_exp_val_temp, av_comp_val_temp;
 	while (1)
-	{	ChangeDprData(41,1); //this proc enable iso 16-80
-		ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0); 
+	{	ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0); 
 		wait=1;  //SleepTask(100); 
 		switch (pMessage[0])
 		{
@@ -79,8 +74,8 @@ void MyTask ()
 			//modedial++;
 			if (*(int*)(0x16B60)<6) //in creative zone
 			{	SetDispIso1();
-				if (hMyFsTask!=0 && *(int*)(0x16B60+0x4)==3) UnSuspendTask(hMyFsTask);
-			} 	//SpotImage(); 
+				if (hMyFsTask!=0 && *(int*)(0x16B60+0x4)==3) UnSuspendTask(hMyFsTask);//SpotImage();
+			} 	 
 			break;
 		case MY_MESS5:   //
 			eventproc_RiseEvent("RequestBuzzer");			
@@ -140,8 +135,7 @@ void MyTask ()
 				{	SetDispIso();dem=11;
 					SleepTask(20);  SetDispIso1(); 
 				} else; {SleepTask(100);}
-			}
-			AutoAvComp(); //Auto  Av Compensation for ISO lower than 100  			
+			}			
 			SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
 			break;
 		case FACE_SENSOR_ISO:
@@ -180,13 +174,29 @@ void MyTask ()
 						SleepTask(20);  
 					} else; {SleepTask(100);}
 				}
-				flag=test_iso; AutoAvComp();		
+				flag=test_iso;		
 			}else if (*(int*)(0x16B60)==1 || *(int*)(0x16B60)==3) { if(iso_in_viewfinder)SendToIntercom(0x8,2,test);}
 			break;
 		case INFO_SCREEN:
 			switch (pMessage[1])
 			{
-				case BUTTON_AV: i^=1;break;
+				case BUTTON_AV:
+					switch(option_number)
+					{	case 1:
+						case 2:
+							i^=1;break;
+						case 7:
+							if(color_temp<2200)color_temp=2200;
+							else if(color_temp<3200)color_temp=3200;
+							else if(color_temp<4000)color_temp=4000;
+							else if(color_temp<5200)color_temp=5200;
+							else if(color_temp<6000)color_temp=6000;
+							else if(color_temp<7000)color_temp=7000;
+							else if(color_temp>=7000)color_temp=2200;
+							update=0;
+							break;
+					}
+					break;
 				case BUTTON_UP:
 					if(option_number==1){option_number=last_option;}
 					else{option_number-=1;}
@@ -203,8 +213,11 @@ void MyTask ()
 						case 2:flash_exp_val=GetValue(flash_exp_val,1);break;
 						case 3:aeb_val=GetValue(aeb_val,1); break;
 						case 4:if (safety_shift==0) SendToIntercom(0x39,1,1);break;
-						case 6:SendToIntercom(0x29,1,0);break;//ShootWithoutCard on
-						case 7:iso_in_viewfinder=1;break;
+						//case 6:SendToIntercom(0x29,1,0);break;//ShootWithoutCard on
+						case 6:iso_in_viewfinder=1;break;
+						case 7:color_temp+=100;if (color_temp>11000)color_temp=1800;break;
+						case 8:SendToIntercom(0x30,1,0);break;
+						case 9:SendToIntercom(0x2E,1,0);break;
 					}
 					update=0;
 					break;
@@ -214,8 +227,11 @@ void MyTask ()
 						case 2:flash_exp_val=GetValue(flash_exp_val,0);break;
 						case 3:aeb_val=GetValue(aeb_val,0); break;
 						case 4:if (safety_shift==1) SendToIntercom(0x39,1,0);break;
-						case 6:SendToIntercom(0x29,1,1);break;
-						case 7:iso_in_viewfinder=0;break;					
+						//case 6:SendToIntercom(0x29,1,1);break;
+						case 6:iso_in_viewfinder=0;break;
+						case 7:color_temp-=100;if (color_temp<1800)color_temp=11000;break;
+						case 8:SendToIntercom(0x30,1,1);break;
+						case 9:SendToIntercom(0x2E,1,1);break;
 					}
 					update=0;
 					break;
@@ -232,6 +248,11 @@ void MyTask ()
 					if(i)flash_exp_val_temp=0-flash_exp_val;else flash_exp_val_temp=flash_exp_val;
 					SendToIntercom(0x03,1,flash_exp_val_temp);
 				case 3:SendToIntercom(0xd,1,aeb_val); break;
+				case 7:
+					SendToIntercom(0x10,2,color_temp);
+					if (*(int*)(0x16B60+0x10)!=0x08)SendToIntercom(0x5,1,0x08);
+					break;
+				
 				
 
 			}
@@ -263,50 +284,6 @@ void AfPointExtend()
 	//SendToIntercom(7,2,ia); ia++; //For test 512 pattern (2 bytes variable ia)
 }
 
-
-void AutoAvComp()
-{	int dem;
-	// Change AvComp when use Iso 16->80
-	if (*(int*)(0x16B60+0x60)==1) 			// if set Video = NTSC
-	{	int AvCompCalc3(int x)
-		{	if (x==0x32) return 9;
-			if (x==0x3C) return 7;
-			if (x==0x3D) return 6;
-			if (x==0x3F) return 5;
-			if (x==0x46) return 2;
-			if (x>=0x48) return 0;
-		}
-		int AvCompCalc2(int x)
-		{	if (x==0x32) return 6;
-			if (x==0x3C) return 5;
-			if (x==0x3D) return 4;
-			if (x==0x3F) return 3;
-			if (x==0x46) return 1;
-			if (x>=0x48) return 0;
-		}
-		currAvC=*(int*)(0x16B60+0x24);  	//get current Avcomp value
-		if (av_half_stop==0) 		// Av 1/3 stop
-		{	AvC=AvComp3;
-			for(dem=0;dem<=24;dem++) { if(currAvC==AvC[dem])  break; }
-			dem = dem + (AvCompCalc3(flag) - AvCompCalc3(flag1));
-			if (dem < 0)dem=0;
-			if (dem > 24)dem=24;
-			SendToIntercom(0xA,1,AvC[dem]);
-		}  
-		else 									//Av 1/2 stop
-		{	AvC=AvComp2;  						
-			for(dem=0;dem<=16;dem++) { if(currAvC==AvC[dem])  break; }
-			dem = dem + (AvCompCalc2(flag) - AvCompCalc2(flag1));
-			if (dem < 0)dem=0;
-			if (dem > 16)dem=16;
-			SendToIntercom(0xA,1,AvC[dem]);
-		}
-	}
-	if (flag1>=0x32 && flag1<=0x3F) {
-		/*GUIchangeMode();  int fla=*(int*)(0x179e8+0x28); eventproc_SetAeMode(&fla);*/ 
-		sub_FF85EC8C(); do_some_with_dialog(*(int*)(0x47F0)); }
-}
-
 //int* isohack=(int*)(0x179e8+0x1c);
 char* iso; //, iso1,*iso2,*iso4,*iso8,*iso16;
 int wait0=0;  int wait1;
@@ -330,31 +307,15 @@ int wait0=0;  int wait1;
 	if (flag==0x5D) {flag1=0x58; *isolab4=(int)i400;goto SET; }// 640 -> 400 
  	if (flag==0x5C) {flag1=0x5D; *isolab4=(int)i640;goto SET; }// 500 -> 640
 	if (flag==0x58) {flag1=0x5C; *isolab4=(int)i500;goto SET;}// 400 -> 500
-	//if (flag<0x58 || flag>0x5D) { iso4=i400;}
-                     //ISO 200->320
+
  	if (flag==0x56) {flag1=0x50; *isolab2=(int)i200;goto SET;}// 320 -> 200
 	if (flag==0x53) {flag1=0x56; *isolab2=(int)i320;goto SET; }// 250 -> 320
 	if (flag==0x50) {flag1=0x53; *isolab2=(int)i250;goto SET;}// 200 -> 250
-	//if (flag<0x50 || flag>0x56) {iso2=i200;}  
-                     //ISO 32-160
-	if (flag==0x4E)  // 160 -> 16 or 80
-	{	if (ShootWithoutCard==0) {flag1=0x32; *isoolc=(int)i16; } //ShootWithoutCard on 
-		else{flag1=0x48; *isolab1=(int)i100;} 
-		goto SET; 
-	}
+
+	if (flag==0x4E){flag1=0x48; *isolab1=(int)i100;goto SET; }//160 ->125 
 	if (flag==0x4C)  {flag1=0x4E; *isolab1=(int)i160;goto SET;}//125 -> 160
 	if (flag==0x48)  {flag1=0x4C; *isolab1=(int)i125;goto SET;}// 100 -> 125
-	if (ShootWithoutCard==0)
-	{	if (flag==0x46)  {flag1=0x48; *isolab1=(int)i100;goto SET; }// 80 -> 100
-		if (flag==0x3F)  {flag1=0x46; *isolab1=(int)i80;goto SET; }// 50 -> 80
-		if (flag==0x3D)  {flag1=0x3F; *isoolc=(int)i50;goto SET; }// 40 -> 50
-		if (flag==0x3C)  {flag1=0x3D; *isoolc=(int)i40;goto SET; }// 32 -> 40
-		if (flag==0x32)  {flag1=0x3C; *isolab1=(int)isoblank;SleepTask(20);*isoolc=(int)i32; goto SET; }// 16 -> 32
-	} 
-	else 
-	{ if (flag>=0x32 && flag<=0x3F){flag1=0x46; *isolab1=(int)i80;} 
-	}
-	//if (flag>0x4E || flag<0x32)  {iso1=i100;}
+
 	SET:
 	eventproc_SetIsoValue(&flag1);    
     wait0=0;  
@@ -387,18 +348,8 @@ void SetDispIso1 ( )
  	if (fla==0x4E)  { iso=i160;goto SET1; }// 160
 	if (fla==0x4C)  { iso=i125;goto SET1;}//125
 	if (fla==0x48)  { iso=i100;goto SET1;}// 100
-	if (fla==0x46)  { iso=i80;goto SET1; }// 80 
-	if (fla==0x3F)  {iso=i50; goto SET1; }// 50 
-	if (fla==0x3D)  {iso=i40; goto SET1;}// 40 
-	if (fla==0x3C)  {iso=i32; goto SET1;}// 32 
-	if (fla==0x32)  {iso=i16; goto SET1; }// 16
-	//if (fla>0x4E || fla<0x32)  {iso1=i100;}
-	//  eventproc_SetIsoValue(&fla);
-	//eventproc_RiseEvent("RequestBuzzer");
     SET1:
 	*isoolc=(int)iso;
-	//isohack=(int*)(0x179e8+0x44);
-	//*isohack=1;
     wait1=0;
     END1:
     return;
@@ -412,7 +363,7 @@ void SetDispIso2 ( )
 		else if (test_iso>0x58) *isolab4=(int)i400;
 		else if (test_iso>0x50) *isolab2=(int)i200;
 		else { *isolab1=(int)i100;}
-		flag=test_iso; AutoAvComp();
+		flag=test_iso;
 }
 	
 void MyFSTask()
@@ -519,12 +470,22 @@ char* my_GUIString(){
 		case 5:
 			sprintf(buff,"Release Count: %u",*(int*)(0xEBFC));
 			return buff;
-		case 6:
+/*		case 6:
 			if (ShootWithoutCard==0) return "ISO 16,32,40,50,80: On";
-			else return "ISO 16,32,40,50,80: Off"; break;
-		case 7:
+			else return "ISO 16,32,40,50,80: Off"; break; */
+		case 6:
 			if (iso_in_viewfinder)return "Show ISO in Viewfinder: On";
 			return "Show ISO in Viewfinder: Off";
+		case 7:
+			if (update)color_temp=*(int*)(0x16B9C);
+			sprintf(buff,"Color Temperature: %uK",color_temp);
+			return buff;
+		case 8:
+			if (*(int*)(0x16C0C))return "Flash:            Off";
+			else return "Flash:            On";
+		case 9:
+			if (*(int*)(0x16C04))return "AF Assist Beam:       Off";
+			else return "AF Assist Beam:       On";
 	}
 }
 
@@ -538,36 +499,37 @@ void my_IntercomHandler (int r0, char* ptr)
     printf_log(8,8,"[!] sz: %02X, code: %2X, hex: %s",ptr[0],ptr[1],s);
 */
   	//if(ptr[1]>0x50 && ptr[1]<0x80) {SendMyMessage(MY_MESS5,0);}  // Test some key
-
-    if(ptr[1]>=0x90 && ptr[1]<=0x93) {SendMyMessage(MY_MESS4,0);}  //Iso at switch on & roll dial
-
-	//Change ISO value when use default camera feature.  
-	if (*(int*)(0x47E8))	//OlIso Dialog opened
-	{	test_iso=CurIsoValue;
-		if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68) SetDispIso2();
-	}
-
-	//Set Evaluative when "Active Meter Mode is Spot"   
-	test4=*(int*)(0x47EC) ; //OlMeterMode Dialog opened
-	if (test4==0 && test3!=0) {test3=0;} 
-	if (test4!=0 && test3==0) {test3=1; SetEvaluativeDefault();}
+	
 	switch (ptr[1])
-	{    case BUTTON_DP: SendMyMessage(MY_MESS1,0);break;  // Press Dp to set Iso	
-			// AFP pattern
+	{   case BUTTON_DP: SendMyMessage(MY_MESS1,0);break;  // Press Dp to set Iso
+		case 0x90:
+		case 0x91:
+		case 0x92:
+		case 0x93:
+			SendMyMessage(MY_MESS4,0);//Iso at switch on & roll dial
 		case 0x50: 
-			if(*(int*)(0x4804)!=0) {ptr[1]=0x51; IntercomHandler(r0, ptr); ptr[1]=0x50;}break;
+			if(*(int*)(0x4804)!=0) {ptr[1]=0x51; IntercomHandler(r0, ptr); ptr[1]=0x50;}break;// AFP pattern
 		case 0xB9: SendMyMessage(MY_MESS2,0);break; //Auto focus point selection dialog on
 		case 0xA7:  //Auto focus point selection dialog off and custom on 
 			if(AFP_Sel==1) {/*IntercomHandler(r0, ptr);*/ ptr[1]=0xB9; SendMyMessage(MY_MESS3,0);}break;
 		case BUTTON_AV:if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}break;
 		case BUTTON_SET:if(GUIMode==4){SendMyMessage(MyUpdateTask,0);return;}break;
 		case BUTTON_UP:
-		case BUTTON_DOWN: if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}break;
+			if(GUIMode==0x11 || GUIMode==0)
+			{	test_iso=CurIsoValue;
+				if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
+				{	SetDispIso2();}  //Change ISO value when use default camera feature.
+			}
+		case BUTTON_DOWN: 
+			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
+			if(GUIMode==0x11 || GUIMode==0)if (*(int*)(0x16B60+0x10)==0x08)SendToIntercom(0x5,1,0x00);
+			break;
 		case BUTTON_RIGHT:
 			if (face_sensor){SendMyMessage(FACE_SENSOR_ISO,1);return;}
 			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
 			break;
 		case BUTTON_LEFT:
+			if(GUIMode==0x11 || GUIMode==0)SetEvaluativeDefault();//Set Evaluative when "Active Meter Mode is Spot"
 			if (face_sensor){SendMyMessage(FACE_SENSOR_ISO,0);return;}
 			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
 			break;
