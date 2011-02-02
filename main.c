@@ -10,7 +10,7 @@ int setMyPrintLevel()
 void MyGlobalStdSet ()
 { int f1 = -1;
   while (f1==-1)  { f1=FIO_CreateFile("A:/STDOUT.TXT");  if (f1==-1) SleepTask(100); }
-  ioGlobalStdSet(1,f1);   // ioGlobalStdSet(2,f1);
+  ioGlobalStdSet(1,f1);    //ioGlobalStdSet(2,f1);
 }
 
 int* hMyTaskMessQue, *hMyFaceSensorMessQue, *hMyFsTask, *OrgFsMesQueHnd;
@@ -18,6 +18,7 @@ int* hMyTaskMessQue, *hMyFaceSensorMessQue, *hMyFsTask, *OrgFsMesQueHnd;
 #define MY_MESS2 0x02
 #define MY_MESS3 0x03
 #define MY_MESS4 0x04
+#define MY_MESS5 0x05
 extern void SpotImage();  extern void AutoAvComp(); extern void AfPointExtend(); 
 extern void SetDispIso(); extern void SetDispIso1(); extern void SetDispIso2();
 //AvComp: 0->0; 3->1/3; 5->2/3; 8->1; 11->1+1/3; 13->1+2/3; 16->2; 18->2+1/3; 20->2+2/3; 23->3; 26->3+1/3; 28->3+2/3; 31->4
@@ -31,18 +32,42 @@ int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
  			 40, 41, 47, 168, 169, 174, 175,   //Left
 			 80, 81, 87, 336, 337, 342, 343} ;  //Right
 int wait=0, test, modedial;  int spotmode=3, evalue=0;
-int flag, flag1;    int ia=370, ib=0x70;
+int flag, flag1;    int ia=0, ib=0x70;
+/*
+unsigned char SpotItem[]= {
+0x80,0x79,0x91,0xFF, 0xFF,0xFF,0xFF,0xFF, 0xFF,0xFF,0xFF,0xFF, 0x0E,0x00,0x00,0x00,  
+0xFC,0xFF,0x20,0x00, 0xFF,0xFF,0xFF,0xFF, 0xFF,0xFF,0xFF,0xFF, 0x6C,0x00,0x00,0x00,
+0x01,0x00,0x00,0x01, 0xFF,0xFF,0xFF,0xFF, 0x00,0x00,0x00,0x00, 0xDC,0x01,0x00,0x00, 
+0xD8,0x00,0x00,0x00, 0x4E,0x00,0x00,0x00, 0x40,0x00,0x00,0x00, 0x00,0x00,0x00,0x00, 
+0x98,0xE0,0x91,0xFF, 0x01,0x00,0x00,0x00, 0x01,0x00,0x00,0x00, 0x00,0x00,0x00,0x00, 
+0xF4,0x01,0x00,0x00, 0x6D,0x01,0x00,0x00, 0x00,0x00,0x00,0x00, 0x14,0x00,0x00,0x00, 
+0x1A,0x00,0x00,0x00, 0x2D,0x01,0x00,0x00, 0x2B,0x00,0x00,0x00, 0x00,0x00,0x00,0x00, 
+0x00,0x00,0x00,0x00, 0x00,0x00,0x00,0x00, 0x00,0x00,0x00,0x00, 0x00,0x00,0x00,0x00, 
+0xFF,0xFF,0xFF,0xFF, 0xFF,0xFF,0xFF,0xFF, 0x2C,0x00,0x00,0x00, 0x0E,0x00,0x00,0x00, 
+0xFF,0xFF,0xFF,0xFF, 0xDC,0x01,0x00,0x00, 0xD8,0x00,0x00,0x00, 0x4E,0x00,0x00,0x00, 
+0x40,0x00,0x00,0x00, 0xFF,0xFF,0xFF,0x00, 0xFF,0xFF,0xFF,0xFF, 0xFF,0xFF,0xFF,0xFF};
+#define SpotItem_SIZE sizeof(SpotItem) //sizeof(SpotItem[0]))
+*/
+/*	FF917980 004B25D0 004B1420 00000003	0020FFFC 004B25A4 004B2630 0000006C
+	00000001 004B1420 00000000 000001DC 000000D8 0000004E 00000040 00000000
+	FF91E098 00000001 00000001 00000000 000001F4 0000016D 00000000 00000014
+	0000001A 00000122 0000002B 00000001 00000000 00000000 00000000 00000000
+	004B25C4 004B265C 0000002C 00000003 004B25B0 000001DC 000000D8 0000004E
+	00000040 004B147C 004B2584 004B2630 ///00200000 00000014 
+*/
+
 
 void MyTask ()
 {	//MyGlobalStdSet(); //Thai Remarked
 	int* pMessage ;   int dem;
 	
+	ia=*(int*)0xC300;
 	while (1)
 	{ 	ChangeDprData(41,1); //this proc enable iso 16-80
 		ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0); 
 		TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
 		TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
-		wait=1;  //SleepTask(100);
+		wait=1;  //SleepTask(100); 
 		switch (pMessage[0])
 		{
 		case MY_MESS4:   //Test Mode Dial 
@@ -52,8 +77,13 @@ void MyTask ()
 				if (hMyFsTask!=0 && *(int*)(0x16B60+0x4)==3) UnSuspendTask(hMyFsTask);
 			} 	//SpotImage(); 
 			break;
+		case MY_MESS5:   //
+			eventproc_RiseEvent("RequestBuzzer");			
+			break;
 		case MY_MESS3: //Notify Custom Focus Point Setting enable 	
-			eventproc_RiseEvent("RequestBuzzer");
+			if (*(int*)(0x16B60+0x38)==1) eventproc_RiseEvent("RequestBuzzer"); // if set Beep on
+			eventproc_EdLedOn(); *(int*)0xC02200A0=0x46;SleepTask(50); eventproc_EdLedOff(); *(int*)0xC02200A0=0x44; 
+			//Blueled on,Redled on, sleep, Blueled off,Redled off  
 			break;
 		case MY_MESS2: //Check double press AutoFocusPoint button   
 			AFP_Sel=1;
@@ -74,7 +104,26 @@ void MyTask ()
 			//Spot metering mode
 			test=*(int*)(0x47EC) ; //OlMeterMode Dialog opened
 			if (test!=0)
-			{ 	pressButton_(166);   //"Set" button
+			{ 	
+			// write log: 
+			int a, i, j;
+/*			char s[0x3000*2] ; 
+			for (i=0;  i<=0x80;  i=i+4)  
+			{
+				a=*(int*)(0x47EC+i); //*(int*)(0x179E8+i); //olcinfo data
+				sprintf(s+i*2,"%08X",a);
+			}
+			printf("[@@@@@@] hex: %s",s);
+
+			// write log: 
+			for (i=0;  i<=0x3000;  i=i+4)  
+			{
+				a=*(int*) ( *(int*)(0x47EC)+i); //*(int*)(0x179E8+i); //olcinfo data
+				sprintf(s+i*2,"%08X",a);
+			}
+			printf("[@@@@@@] hex: %s",s);
+*/			
+				pressButton_(166);   //"Set" button
 				eventproc_SetMesMode(&spotmode);  //Spot metering mode
 				if (*(int*)(0x16B60+0x38)==1) eventproc_RiseEvent("RequestBuzzer");  // if set Beep On
 				eventproc_PrintICUInfo();
@@ -82,19 +131,41 @@ void MyTask ()
 				if (hMyFsTask!=0 && *(int*)(0x16B60+0x4)==3) UnSuspendTask(hMyFsTask);
 				//ia=ia+5;
 				//int prop; for (prop=0x10; prop<=0x3F; prop++) {SendToIntercom(prop,1,0);} //Reset all custom and camera settings
+/*		
+				int MeterDlg, UnkEnd,IstItem, CurrItem, CurrItemAddr, CurrItemAddr1, LastOrgItemAddr,OrgValue, aFrom, aTo; 
+				MeterDlg=*(int*)0x47EC;  UnkEnd=MeterDlg+0x5C; 
+				CurrItemAddr=*(int*)(MeterDlg+0x74); CurrItem=*(int*)CurrItemAddr; IstItem=CurrItem;
+				int aa=1;
+				while (aa<=12)
+				{	CurrItemAddr1=*(int*)(CurrItemAddr+0x4);
+					if ((*(int*)(CurrItemAddr1+0x1C)==0x50 || *(int*)(CurrItemAddr1+0x1C)==0x6C) && CurrItem!=IstItem)
+					//(CurrItem<=0x3 || CurrItem==0xB || CurrItem==0xC || CurrItem==0xD)
+					{	//OrgValue=*(int*)(CurrItemAddr+0x8); *(int*)(CurrItemAddr+0x8)=OrgValue-0x10;
+						OrgValue=*(int*)(CurrItemAddr1+0x2C); *(int*)(CurrItemAddr1+0x2C)=OrgValue-0x20;
+					}
+					if (*(int*)(CurrItemAddr+0x18)==UnkEnd) break;					
+					CurrItemAddr=*(int*)(CurrItemAddr+0x18); CurrItem=*(int*)CurrItemAddr;
+					aa=aa++; 
+				}
+				LastOrgItemAddr=CurrItemAddr; 
+				aFrom=CurrItemAddr+0x2C-0x8; aTo=aFrom+SpotItem_SIZE+0x8; memcpy(aTo, aFrom, 0x48+0x8); //Copy bottom of original last item  to new location
+				aTo=aFrom+0x8; aFrom=(int)&SpotItem;  memcpy(aTo, aFrom, SpotItem_SIZE); //Copy new item
+				CurrItemAddr=aTo+0x8C; CurrItemAddr1=aTo;
+				*(int*)(LastOrgItemAddr+0x18)=CurrItemAddr; *(int*)(LastOrgItemAddr+0x24)=CurrItemAddr1+0x14; 
+				*(int*)(LastOrgItemAddr+0x28)=0x20;
 
-/*			// write log: 
-			int a, i;
-			char s[0xC0*4+1] ; 
-			for (i=0;  i<=0xC0;  i=i+4)  
-			{
-				a=*(int*)(0x179E8+i); //olcinfo data
-				sprintf(s+i*2,"%08X",a);
-			}
-			printf("[@@@@@@] hex: %s",s);
+				*(int*)(CurrItemAddr1+0x4)=CurrItemAddr1+0x20; *(int*)(CurrItemAddr1+0x8)=MeterDlg;
+				*(int*)(CurrItemAddr1+0x14)=CurrItemAddr1-0xC; *(int*)(CurrItemAddr1+0x18)=CurrItemAddr-0xC;
+				*(int*)(CurrItemAddr1+0x24)=MeterDlg;
+				*(int*)(CurrItemAddr-0xC)=CurrItemAddr1+0x14; *(int*)(CurrItemAddr-0x8)=CurrItemAddr+0x20; 
+				*(int*)(CurrItemAddr+0x4)=CurrItemAddr1; *(int*)(CurrItemAddr+0x18)=UnkEnd;
+				*(int*)(CurrItemAddr+0x1C)=LastOrgItemAddr; *(int*)(CurrItemAddr+0x20)=CurrItemAddr-0xC;
+				eventproc_RiseEvent("RequestBuzzer");
 */
-			break;
-			}
+			//do_some_with_dialog(*(int*)(0x47EC));
+				break;
+			} 			
+			
 	
 			//Debugmode enable--------- Need placed before FactoryMenu mode check 
 			test=*(int*)(0x49F4) ; //Factory main Dialog opened	
@@ -121,8 +192,17 @@ void MyTask ()
 			}
 			AutoAvComp(); //Auto  Av Compensation for ISO lower than 100  			
 			SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change 	 	
-			//ia++;
-			End:
+//SendToIntercom(0x8,4,ia); //Tv value:
+//eventproc_SetTvValue(&ia);
+//eventproc_PrintTgTableData();
+//ia++;
+//*(int*)(0x210928)=0x13E;
+/*
+*(int*)(0x47EC)=CreateDialogBox(0,0,0xFF85E2E8,0x53);
+//PalettePush();
+sub_FF85E5E8(*(int*)(0x47EC));
+do_some_with_dialog(*(int*)(0x47EC));
+*/			End:
 			break;
 			//eventproc_EnableDigitalGain(); //eventproc_DisableDigitalGain();		
 			}
@@ -354,10 +434,10 @@ void my_IntercomHandler (int r0, char* ptr)
 {   int thu;
     char s[255]; int i;
 	// Write Log
-	s[0]=0;
+/*	s[0]=0;
     for (i=0;  i<ptr[0];  i++)   {sprintf(s+i*2,"%02X",ptr[i]);}
     printf_log(8,8,"[!] sz: %02X, code: %2X, hex: %s",ptr[0],ptr[1],s);
-  
+*/  
     if(ptr[1]>=0x90 && ptr[1]<=0x93) {SendMyMessage(MY_MESS4,0);}  //Iso at switch on & roll dial
     if(ptr[1]== 0xB8) {SendMyMessage(MY_MESS1,0);}  // Press Dp to set Iso
 
@@ -374,13 +454,17 @@ void my_IntercomHandler (int r0, char* ptr)
 	//if (test2==0 && test1==0) // do nothing
 	//if (test2!=0 && test1!=0)  //do nothing
 	if (test4!=0 && test3==0) {test3=1; SetEvaluativeDefault();}
-	
+
+	// AFP pattern
+	if(ptr[1]==0x50) 
+	{	if(*(int*)(0x4804)!=0) {ptr[1]=0x51; IntercomHandler(r0, ptr); ptr[1]=0x50;}
+	}
 	if(ptr[1]==0xB9) {SendMyMessage(MY_MESS2,0);} //Auto focus point selection dialog on
 	if(ptr[1]==0xA7)  //Auto focus point selection dialog off and custom on 
-	{	if(AFP_Sel==1) {IntercomHandler(r0, ptr); ptr[1]=0xB9; SendMyMessage(MY_MESS3,0);}
+	{	if(AFP_Sel==1) {/*IntercomHandler(r0, ptr);*/ ptr[1]=0xB9; SendMyMessage(MY_MESS3,0);}
 	}  	
 
-	//if(ptr[1]>ia && ptr[1]<ia+10) {SendMyMessage(MY_MESS2,0);}  // Test some key
+	//if(ptr[1]>0x50 && ptr[1]<0x80) {SendMyMessage(MY_MESS5,0);}  // Test some key
 	IntercomHandler(r0, ptr);
 }
 
@@ -402,11 +486,11 @@ void my_IntercomHandler (int r0, char* ptr)
 //AeValue address 0x16B60
 	//0: P
 	//1:Tv
-//2:Av
+	//2:Av
 	//3:M
 	//4:unknow1
 	//5:A-DEP
-	//8:Full Auto 
+	//8:Full Auto (Green rectangular) 
 //MesureValue address 0x16B60+4
 	//3 Spot 
 	//0 Evaluative
@@ -425,6 +509,7 @@ void my_IntercomHandler (int r0, char* ptr)
 //SendToIntercom(0x6,1,1); //(0x6,1,0);  MF manual focus
 //SendToIntercom(0x7,1,1); // AF point selecttion: can extend some special: 7, 27, 41,47, 49, 73, 81,87, 97, 101, 105,113, 120,121, 116, 127, 135,
 //					139,165,168,169, 175, 185,   
+//SendToIntercom(0x8,2,1); //Tv value:
 //SendToIntercom(0xA,1,1); //AV comp ex selecttion: can extend some special  
 //SendToIntercom(0xB,1,1); // ISO set 
 //SendToIntercom(0xC,1,1); // Red eye 
@@ -433,7 +518,7 @@ void my_IntercomHandler (int r0, char* ptr)
 //SendToIntercom(0xF,1,1); // Beep
 //SendToIntercom(22,1,1); // LCDBrightness 
 //SendToIntercom(34,1,1); // RAW only, L+RAW, L only
-//SendToIntercom(35,1,1); // S,M,L. Combine 34 to M+RAW OK, S+RAW not ok
+//SendToIntercom(35,1,1); // S,M,L. Combine no.34 to M+RAW OK, S+RAW not ok
 //SendToIntercom(36,1,1); // JPG Fine or Medium quality.
 //SendToIntercom(43,1,1); // wb+-
 //SendToIntercom(44~~>49,1,1); // Cf1-->6

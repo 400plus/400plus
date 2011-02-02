@@ -1,10 +1,11 @@
-DEF(sub_FF936734,0xFF936734)
-DEF(sub_FF837A7C,0xFF837A7C)
-DEF(sub_FF936770,0xFF936770)
-DEF(loc_FF82A118,0xFF82A118)
+DEF(sub_FF85E5E8,0xFF85E5E8)
+
+DEF(SetFocusLensDefaultCondition,0xFF852754)
+DEF(eventproc_EdLedOff,0xFFAFCC78)
+DEF(eventproc_EdLedOn,0xFFAFCCA4)
+DEF(eventproc_EdLedBlink,0xFFAFCCD0)
 DEF(Create_AfPointSelection_Dlg,0xFF8609AC) //Auto forcus frame dialog
 DEF(Delete_AfPointSelection_Dlg,0xFF860A54) //Auto forcus frame dialog
-DEF(CancelExecuteEventHook,0xFF82F784)
 
 
 DEF(UnSuspendTask,0xFFB11264)
@@ -204,7 +205,7 @@ DEF(eventproc_EnterDirectBrMode,0xFF82023C)
 DEF(eventproc_SetFaceSensorOff,0xFF8202A0)
 DEF(eventproc_UILock,0xFF8202CC)
 DEF(eventproc_GUILock,0xFF8202E4)
-DEF(eventproc_DisableAF,0xFF8202FC)
+DEF(eventproc_DisableEnableAF,0xFF8202FC)
 
 DEF(eventproc_SetWBMode,0xFF820334)
 DEF(eventproc_SetActiveSweepDisable,0xFF82034C)
