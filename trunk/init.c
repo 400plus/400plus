@@ -1,6 +1,7 @@
 #include "headers.h"
 
 
+
 extern void* cache_0xFFB602F0;
 
 extern void* addr_0x1900;
@@ -19,7 +20,7 @@ void COPY()
   long* to  =(long*)0x7F0000;
 
 
-  for (i=0; i<0x2000; i++) //0x4000
+  for (i=0; i<4000; i++)
   {
 
     to[i]=from[i];
@@ -33,7 +34,7 @@ void COPY()
 
 
 
-extern void MyTaskR();
+//extern void MyTaskR();
 extern void my_IntercomHandler();
 
 
