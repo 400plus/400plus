@@ -58,6 +58,7 @@
 		DP Button                  (Disabled, Change ISO, Extended AEB, Interval)
 		Extended AEB               ((3,5,7,9)Frames, (0.3-3.0)EV Delay(On,Off) M1 M2)
 		Interval Time              (1 to 100)
+		IR Remote Release          (2sec.,Instant) 
 
 		To get to Info screen press menu, then disp. button.
         Use Up and Down keys to change menu. Left and Right to change settings. 
@@ -80,9 +81,8 @@
 			just press dp button. 
 		For use in Manual mode it uses alternative approach - it takes 1 image per EV between times set in M1 and M2 values.
 		      
-	  Interval shutter:
+	Interval shutter:
 		Choose "Interval time" in info screen menu.
 		Set "DP Button" to "Interval".
 		Press dp button to start shooting.
 		Turn the mode dial to exit interval shooting.
-
