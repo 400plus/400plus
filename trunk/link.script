@@ -1,0 +1,8 @@
+SECTIONS {
+	first 0x800000 :
+	{
+		entry.o;
+		entry_subs.o;
+		main.o;
+	}
+}
