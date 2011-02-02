@@ -32,6 +32,7 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define CurIsoValue				(*(int*)(0x16B60+0x28))
 #define CurFlashComp			(*(int*)(0x16B60+0x08))
 #define WhiteBalance			(*(int*)(0x16B60+0x10))
+#define CfNotEmitFlash			(*(int*)(0x16B60+0xAC))
 #define CurAvComp				(*(int*)(0x16B60+0x24))
 #define GUIMode					(*(int*)(0x00001ECC))
 #define hInfoCreative			(*(int*)(0x0000213C))
@@ -171,7 +172,8 @@ void MyTask ()
 				}
 				if(iso_in_viewfinder)
 				if (AE_Mode==1 || AE_Mode==3)
-				{	test=*(char*)(0x27E48);
+				{	if(!CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
+					test=*(char*)(0x27E48);
 					SendToIntercom(0x8,1,flag1+0x25);
 				}	
 				for (dem=1; dem<11; dem++)
@@ -180,7 +182,10 @@ void MyTask ()
 						SleepTask(20);  
 					} else; {SleepTask(100);}
 				}
-			}else if (AE_Mode==1 || AE_Mode==3) { if(iso_in_viewfinder)SendToIntercom(0x8,1,test);}
+			}else if (AE_Mode==1 || AE_Mode==3)
+			{	if(iso_in_viewfinder)SendToIntercom(0x8,1,test);
+				if(iso_in_viewfinder==2){SendToIntercom(0x30,1,0); iso_in_viewfinder=1;}
+			}
 			break;
 		repeat:
 		case INFO_SCREEN:
@@ -537,7 +542,7 @@ char* my_GUIString(){
 			sprintf(buff,"Color Temperature: %uK",color_temp);
 			return buff;
 		case 8:
-			if (*(int*)(0x16C0C))return "Flash:            Off";
+			if (CfNotEmitFlash)return "Flash:            Off";
 			else return "Flash:            On";
 		case 9:
 			if (*(int*)(0x16C04))return "AF Assist Beam:       Off";
