@@ -396,15 +396,21 @@ void SendMyMessage(int param0, int param1)
 }
 
 int GetValue(int temp, int button)
-{	switch (button)
+{	if (temp==0 && button==0 && option_number!=3)i=1;
+	if(i)button^=1;
+	switch (button)
 	{	case 0:
-			temp += 8; if(temp>0x30) temp=0;break;
+			if(av_half_stop==1)temp -= 4;
+			else{ if((temp&5)==5)temp -= 2; else temp -= 3;}
+			if(temp<0) temp=0;
+			break;
 		case 1:
 			if(av_half_stop==1)temp += 4;
 			else{ if((temp&3)==3)temp += 2; else temp += 3;}
-			if(temp>0x30) temp=0;
+			if(temp>0x30) temp=0x30;
 			break;
 	}
+	if(temp==0 && i==1)i=0;
 	return temp;
 }
 
