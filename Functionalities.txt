@@ -2,7 +2,7 @@
 		"DP for changing ISO" in info screen will turn this option on or off. 
         To set ISO: Press ISO button and set ISO to 100, 200 ...1600
         Then press "Direct Print" button repeatedly to set ISO.
-        If you set ISO 100 and press Direct Print repeatedly, you will get  100->125->160->32->40->50->80->100
+        If you set ISO 100 and press Direct Print repeatedly, you will get  100->125->160;
         Others are:   200-> 250-> 320;         400-> 500-> 640;           800->100->1250;          1600->2000->2200->3200
         Actual ISO Value is show on screen
 

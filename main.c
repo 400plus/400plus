@@ -172,7 +172,7 @@ void MyTask ()
 				if(iso_in_viewfinder)
 				if (AE_Mode==1 || AE_Mode==3)
 				{	test=*(char*)(0x27E48);
-					SendToIntercom(0x8,2,flag1+0x25);
+					SendToIntercom(0x8,1,flag1+0x25);
 				}	
 				for (dem=1; dem<11; dem++)
 				{	if (*(int*)(0x1C88)!=1) //MAIN Gui idle command
@@ -180,7 +180,7 @@ void MyTask ()
 						SleepTask(20);  
 					} else; {SleepTask(100);}
 				}
-			}else if (AE_Mode==1 || AE_Mode==3) { if(iso_in_viewfinder)SendToIntercom(0x8,2,test);}
+			}else if (AE_Mode==1 || AE_Mode==3) { if(iso_in_viewfinder)SendToIntercom(0x8,1,test);}
 			break;
 		repeat:
 		case INFO_SCREEN:
