@@ -1,6 +1,6 @@
 	.text
 	.org 0
-	.globl my_GUIInit, UpdateInfoScreen //, my_StartInfoCreativeApp
+	.globl my_GUIInit //, UpdateInfoScreen //, my_StartInfoCreativeApp
 	
 	my_GUIInit:
 		var_34          = -0x34
