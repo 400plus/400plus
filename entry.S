@@ -4,11 +4,11 @@
 
 start:
 _start:
-                BL      COPY
-                LDR     R0, =0xC0220000
-                LDR     R1, =0x46
+                
+		BL      COPY
+		LDR     R0, =0xC0220000
+		LDR     R1, =0x46
                 STR     R1, [R0]
-
                 LDR     R0, =0xC0100000
                 LDR     R1, =0x4D3
                 STR     R1, [R0]
@@ -21,11 +21,7 @@ _start:
                 LDR     SP, =0x1900
                 MOV     R11, #0
                 LDR     PC, =my_romStart
-
-
-
                 BL      my_LedBlueOn
-
                 B       loc_FF810054 
 
 // ==========================================
@@ -235,11 +231,13 @@ my_taskcreate_Startup:
                 SUB     SP, SP, #4
                 BL      uai_FFB11D7C
                 BL      uai_FFB0FF74
-                MOV     R0, #0x38400000
-                ADD     R0, R0, #0x2D4000
+//                MOV     R0, #0x38400000
+//                ADD     R0, R0, #0x2D4000
+MOV R0,#0x4000
                 ADD     R0, R0, #0x380
                 BL      uai_FFB2E108
                 BL      EnableDispatch
+                BL      CreateMyTask
                 MOV     R12, #0
                 MOV     R1, #0x19
                 MOV     R2, #0x2000
@@ -247,7 +245,6 @@ my_taskcreate_Startup:
                 LDR     R0, =aStartup
                 STR     R12, [SP,#4-0x4]
                 BL      CreateTask
-                BL      CreateMyTask
                 ADD     SP, SP, #4
                 LDR     PC, [SP],#0x4
                 MOV     PC, LR
@@ -282,8 +279,9 @@ my_task_Startup:
                 BL      sysClockRateSet_100
                 BL      sub_FFB2BD6C
                 BL      serialIO_sub_FFB2BB14
-                MOV     R0, #0x38400000
-                ADD     R0, R0, #0x2D4000
+//                MOV     R0, #0x38400000
+//                ADD     R0, R0, #0x2D4000
+MOV R0,#0x4000
                 ADD     R0, R0, #0x380
                 BL      sub_FFAF84E4
                 BL      AdjustDefect
@@ -416,7 +414,7 @@ my_task_Startup:
                 LDR     R1, =aUSBROOTDEVICEHANDLE
                 BL      registerResource
                MOV     R0, #0xB8
-                ADD     R0, R0, #0xC0000000
+//                ADD     R0, R0, #0xC0000000
                 LDR     R1, =aU2VBUS
                 ADD     R0, R0, #0x220000
                 BL      registerResource_env
@@ -471,5 +469,8 @@ my_task_Startup:
                 ADD     SP, SP, #4
                 LDR     PC, [SP],#4
                 MOV     PC, LR
+		
+
+
 .align 2
 fin:

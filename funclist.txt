@@ -1,13 +1,27 @@
-DEF(sub_FF84ED98  ,0xFF84ED98)
-DEF(sub_FF936770,0xFF936770)
 DEF(sub_FF936734,0xFF936734)
+DEF(sub_FF837A7C,0xFF837A7C)
+DEF(sub_FF936770,0xFF936770)
+DEF(loc_FF82A118,0xFF82A118)
+DEF(Create_AfPointSelection_Dlg,0xFF8609AC) //Auto forcus frame dialog
+DEF(Delete_AfPointSelection_Dlg,0xFF860A54) //Auto forcus frame dialog
+DEF(CancelExecuteEventHook,0xFF82F784)
+
+
+DEF(UnSuspendTask,0xFFB11264)
+DEF(sub_FF8382DC,0xFF8382DC)  //Refresh OLC Meter mode only
+DEF(sub_FF85EC8C,0xFF85EC8C)  //Refresh OLC main dialog items
+
+DEF(sub_FF849148,0xFF849148) //Create UNK1 dialog    
+DEF(sub_FF8490C8,0xFF8490C8) // Delete UNK1 dlg
+
+
 DEF(sub_FF82B518,0xFF82B518)
 
 DEF( sub_FF81B308,0xFF81B308)
-DEF(Delete_Ol_Main_dlg ,  0xFF8603D0 )
+DEF(Delete_Olc_Main_dlg ,  0xFF8603D0 )
 DEF(Set_Custom_WBalance_Dlg,0xFF8430DC)
-DEF(Create_Ol_Main_dlg,0xFF86033C)
-DEF(FullScr_Busy_Dlg,0x8519C4)
+DEF(Create_Olc_Main_dlg,0xFF86033C)
+DEF(create_FullScr_Busy_Dlg,0x8519C4)
 DEF(DeleteFullScr_Busy_Dlg,0x851CF0)
 DEF(romStart,0xFF8100A0)
 DEF(unknown_cache,0xFF8100D0)
@@ -191,6 +205,7 @@ DEF(eventproc_SetFaceSensorOff,0xFF8202A0)
 DEF(eventproc_UILock,0xFF8202CC)
 DEF(eventproc_GUILock,0xFF8202E4)
 DEF(eventproc_DisableAF,0xFF8202FC)
+
 DEF(eventproc_SetWBMode,0xFF820334)
 DEF(eventproc_SetActiveSweepDisable,0xFF82034C)
 DEF(eventproc_SetImageQuality,0xFF8203AC)
@@ -303,7 +318,11 @@ DEF(change_special_bc_result_0,0xFF8281E8)
 DEF(task_GuiMainTask,0xFF828308)
 DEF(GUI_IDLEHandler,0xFF8290D0)
 DEF(GUIInit,0xFF82A298)
-DEF(changeMode,0xFF82AFF0)
+
+
+DEF(GUIchangeMode,0xFF82AFF0)
+ // Refresh, blink screen
+
 DEF(RegistNotifyConnectDT,0xFF82B2FC)
 DEF(returnGui_event_number_,0xFF82B370)
 DEF(get_0x1EE8,0xFF82B3B4)
@@ -356,8 +375,11 @@ DEF
 DEF(one_SendGUI,0xFF833F7C)
 DEF(guiApi_sub_FF834018,0xFF834018)
 DEF(guiApi_sub_FF8340BC,0xFF8340BC)
+
 DEF(guiApi_sub_FF83415C,0xFF83415C)
+   //Refresh Display
 DEF(guiApi_sub_FF8341F8,0xFF8341F8)
+  //HangError13
 DEF(guiApi_sub_FF834298,0xFF834298)
 DEF(guiApi_sub_FF834338,0xFF834338)
 DEF(taskcreate_GuiMainTask,0xFF8343DC)
@@ -378,12 +400,12 @@ DEF(get_0x1FAC,0xFF837008)
 DEF(get_0x10A78,0xFF8371C0)
 DEF(get_0x1FB4,0xFF83720C)
 DEF(get_0x1FBC,0xFF837344)
-DEF(StartQRMode,0xFF8375BC)
+DEF(StartQuickReviewMode,0xFF8375BC)
 DEF(get_0x1FCC,0xFF8378C8)
 DEF(CreateQRevImgQueue,0xFF8378D8)
 DEF(SetGUIFactoryMenuProcInit,0xFF837CF8)
 DEF(__call_proc,0xFF837E4C)
-DEF(GetGUIFactoryMenuFlag,0xFF837F1C)
+DEF(eventproc_GetGUIFactoryMenuFlag,0xFF837F1C)
 DEF(eventproc_SetGUIFactoryMenu,0xFF837F2C)
 DEF(PaletteChange,0xFF838F78)
 DEF(PalettePush,0xFF838FD0)
@@ -404,10 +426,13 @@ DEF(LoadFirmwareVersion,0xFF83E504)
 DEF(Load_nothm.jpg,0xFF83E5D4)
 DEF(get_0x2124,0xFF83ECA4)
 DEF(guiMenuAppBrigh_sub_FF83EEA4,0xFF83EEA4)
+DEF(CreateDialogBox_MnSetWBto_UserMode,0xFF83F2E4)
+
 DEF(guiInfoApp_sub_FF8409E8,0xFF8409E8)
 DEF(guiInfoAutoApp_sub_FF840DB8,0xFF840DB8)
 
 
+DEF(CreateDialogBox_ChooseCustomWbPic,0xFF8431DC)
 
 DEF(return_0x2200,0xFF8475BC)
 DEF(return_0x2600,0xFF8475C8)
@@ -463,6 +488,9 @@ DEF(CreateDialogBox_MnMainCreativeR2,0xFF858704)
 DEF(CreateDialogBox_MnMainCreativeS1,0xFF8592B8)
 DEF(CreateDialogBox_MnMainCreativeS2,0xFF85A0A4)
 DEF(MnMainCreativeS2_Handler,0xFF85A1BC)
+
+DEF(sub_FF85BBA8,0xFF85BBA8)
+
 DEF(get_0x38B0,0xFF85D2A8)
 DEF(placeListFromTab,0xFF85D4C4)
 
@@ -484,6 +512,9 @@ DEF(GUI_BlinkData,0xFF85E738)
 DEF(OLErrorSTART,0xFF860CEC)
 DEF(StartDtMainMenuApp,0xFF860F0C)
 DEF(StartDtTransferringApp,0xFF868F24)
+
+DEF(CreateDialogBox_SensorCleaningAuto,0xFF869890)
+DEF(sub_FF86AAFC,0xFF86AAFC)
 DEF(get_0x11AD8,0xFF86ADB8)
 DEF(get_0x11AE4,0xFF86B9B8)
 DEF(get_0x11AF8,0xFF86C654)
@@ -568,7 +599,7 @@ DEF(ctrlMain_sub_FF913434,0xFF913434)
 DEF(ctrlMan_sub_FF9135A4,0xFF9135A4)
 DEF(CtrlManRecursiveLock,0xFF9136D4)
 DEF(task_CtrlSrv,0xFF9139BC)
-DEF(KillTimer,0xFF914200)
+DEF(CancelTimer,0xFF914200)
 DEF(CtrlSrvInit,0xFF914388)
 DEF(return_1,0xFF914924)
 DEF(CreateDialogBox,0xFF91496C)
@@ -1985,9 +2016,9 @@ DEF(bfill,0xFFB33CEC)
 DEF(ffsMsb,0xFFB33E14)
 DEF(ffsLsb,0xFFB33E58)
 DEF(intLock,0xFFB33EE4)
-DEF(intUnlock,0xFFB33EF8)
+DEF(intUnLock,0xFFB33EF8)
 DEF(intIFLock,0xFFB33F10)
-DEF(intIFUnlock,0xFFB33F24)
+DEF(intIFUnLock,0xFFB33F24)
 DEF(semGive,0xFFB34234)
 DEF(semTake,0xFFB34408)
 DEF(setjmp,0xFFB34740)
@@ -2291,7 +2322,7 @@ DEF(isdigit,0xFFB57A90)
 DEF(iscntrl,0xFFB57AA8)
 DEF(isalpha,0xFFB57AC0)
 DEF(isalnum,0xFFB57AD8)
-DEF(s_printf,0xFFB57AF0)
+DEF(s_printf,0xFFB570)
 DEF(return_0xD36C,0xFFB57B14)
 DEF(sysMmuLibInit,0xFFB5E27C)
 DEF(intVecBaseSet,0xFFB5E3D4)
