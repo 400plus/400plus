@@ -24,6 +24,7 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define SAVE_SETTINGS			0x08
 #define AF_PATTERN				0x09
 #define E_AEB					0x0A
+#define INTERVAL				0x0B
 #define safety_shift			(*((int*)0x16C30))
 #define AEB						(*((int*)0x16B90))
 #define av_half_stop			(*((int*)(0x16B60+0xA8)))
@@ -66,16 +67,20 @@ int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
 int test, modedial;  int spotmode=3, evalue=0; 
 int flag, flag1, test_iso;    int ia=0;
 int i=0, option_number = 1;
-int  double_key=0, last_option = 11, update=1;
+int  double_key=0, last_option = 12, update=1;
 int flash_exp_val, av_comp_val, aeb_val, color_temp;
 
 int eaeb_sub_menu=0, st_1=0, st_2=0;
 int eaeb_frames=3, eaeb_ev=0x08;
+
+int interval_time=2;
+int interval_original_ae_mode=0;
+
 char* s_eaeb[2]={"Frames", "EV"};
-char* dp_button_string[3]={"Disabled", "Change ISO", "Extended AEB"};
+char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};
 int iso_in_viewfinder, dp_opt=1, eaeb_delay;
-int settingsbuff[6];
-#define settings_def_version 2
+int settingsbuff[30];
+#define settings_def_version 3
 void ReadSettings()
 {	int file = FIO_OpenFile("A:/settings", O_RDONLY, 644);
 	if(file!=-1)
@@ -86,6 +91,7 @@ void ReadSettings()
 			eaeb_frames				= settingsbuff[3];
 			eaeb_ev					= settingsbuff[4];
 			eaeb_delay				= settingsbuff[5];
+			interval_time				= settingsbuff[6];
 		}
 		FIO_CloseFile(file);
 	}
@@ -100,6 +106,7 @@ void WriteSettings()
 		settingsbuff[3]= eaeb_frames;
 		settingsbuff[4]= eaeb_ev;
 		settingsbuff[5]= eaeb_delay;
+		settingsbuff[6]= interval_time;
 		FIO_WriteFile(file, settingsbuff, sizeof(settingsbuff));
 		FIO_CloseFile(file);
 	}
@@ -256,7 +263,7 @@ void MyTask ()
 						case 7:color_temp+=100;if (color_temp>11000)color_temp=1800;break;
 						case 8:SendToIntercom(0x30,1,0);break;
 						case 9:SendToIntercom(0x2E,1,0);break;
-						case 10:if(dp_opt<2){dp_opt++;WriteSettings();}break;
+						case 10:if(dp_opt<3){dp_opt++;WriteSettings();}break;
 						case 11:
 							if(eaeb_sub_menu==0)
 							{	if(st_1<2)
@@ -278,6 +285,8 @@ void MyTask ()
 								}
 							}
 							break;
+						case 12:interval_time=interval_time<101?interval_time+1:1; break;
+					; break;
 					}
 					update=0;
 					break;
@@ -313,6 +322,7 @@ void MyTask ()
 								}
 							}
 							break;
+						case 12:interval_time=interval_time>1?interval_time-1:100; break;
 					}
 					update=0;
 					break;
@@ -363,6 +373,9 @@ void MyTask ()
 					}
 					eaeb_sub_menu^=1;
 					break;
+				case 12:
+				    WriteSettings();
+				    break;
 			}
 			break;
 		case AF_PATTERN:
@@ -399,6 +412,21 @@ void MyTask ()
 			}
 			SleepTask(500);
 			SendToIntercom(0xA,1,OldAvComp);
+			break;
+		case INTERVAL:
+		    interval_original_ae_mode= AE_Mode;
+		    int i=0;
+		    while(interval_original_ae_mode== AE_Mode){ 
+		      while(*(int*)(0x1CA8)){SleepTask(5);}
+		      eventproc_Release();
+		      for(i=0;i<interval_time;i++){
+			if(interval_original_ae_mode== AE_Mode) SleepTask(1000);
+		      }
+		      
+		    }
+		    eventproc_RiseEvent("RequestBuzzer");
+		    
+		    break;
 		}
 	} 
 }
@@ -679,6 +707,9 @@ char* my_GUIString()
 			}
 			sprintf(buff,"Extended AEB: %u %s", st_2, s_eaeb[st_1]);
 			return buff;
+		case 12:
+			sprintf(buff,"Interval time: %u",interval_time);
+			return buff;
 	}
 }
 
@@ -699,6 +730,7 @@ void my_IntercomHandler (int r0, char* ptr)
 			if(AE_Mode>5){SendToIntercom(0x22,1,*(int*)(0x16B60+0x74)^3);break;} //Switch to RAW or JPG in auto mode
 			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}
 			if(GUIMode==0xF || dp_opt==2){SendMyMessage(E_AEB,0);return;}
+			if(dp_opt==3){SendMyMessage(INTERVAL ,0);return;}
 			if(GUIMode!=6)SendMyMessage(DP_PRESSED,0);break;  // Press Dp to set Iso
 		case 0x93:
 			SendMyMessage(MODE_DIAL,0);//Iso at switch on & roll dial
