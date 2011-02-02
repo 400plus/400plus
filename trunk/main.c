@@ -20,7 +20,7 @@ int* hMyTaskMessQue, *hMyFaceSensorMessQue, *hMyFsTask, *OrgFsMesQueHnd;
 #define MY_MESS4 0x04
 #define MY_MESS5 0x05
 extern void SpotImage();  extern void AutoAvComp(); extern void AfPointExtend(); 
-extern void SetDispIso(); extern void SetDispIso1(); extern void SetDispIso2();
+extern void SetDispIso(); extern void SetDispIso1(); extern void SetDispIso2(); extern void SetDispIso3(); extern void IsoSp ();
 //AvComp: 0->0; 3->1/3; 5->2/3; 8->1; 11->1+1/3; 13->1+2/3; 16->2; 18->2+1/3; 20->2+2/3; 23->3; 26->3+1/3; 28->3+2/3; 31->4
 int AvComp3[25]={-31&0xFF,-28&0xFF,-26&0xFF,-23&0xFF,-20&0xFF,-18&0xFF,-16&0xFF,-13&0xFF,-11&0xFF,-8&0xFF,-5&0xFF,-3&0xFF,
  				  0,3,5,8,11,13,16,18,20,23,26,28,31}; 
@@ -32,7 +32,7 @@ int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
  			 40, 41, 47, 168, 169, 174, 175,   //Left
 			 80, 81, 87, 336, 337, 342, 343} ;  //Right
 int wait=0, test, modedial;  int spotmode=3, evalue=0;
-int flag, flag1;    int ia=0, ib=0x70;
+int flag, flag1, s;    int ia=0, ib=0x70;
 /*
 unsigned char SpotItem[]= {
 0x80,0x79,0x91,0xFF, 0xFF,0xFF,0xFF,0xFF, 0xFF,0xFF,0xFF,0xFF, 0x0E,0x00,0x00,0x00,  
@@ -56,6 +56,29 @@ unsigned char SpotItem[]= {
 	00000040 004B147C 004B2584 004B2630 ///00200000 00000014 
 */
 
+int cur_speed;
+int low_sp;
+int high_sp;
+int highest_iso = 0x6F;
+int lowest_iso = 0x48;
+int cur_iso,iso_shift,shift,i,ii,a,aa,flag3;
+char iso_t[]=      {0x48,0x4C,0x4E,0x50,0x53,0x56,0x58,0x5C,0x5D,0x60,
+			0x64,0x66,0x68,0x6C,0x6D,0x6F};
+
+char speed[]=    {0x0C,0x10,0x13,0x15,0x18,0x1B,0x1D,0x20,0x24,0x25,
+			0x28,0x2B,0x2D,0x30,0x33,0x35,0x38,0x3B,0x3d,0x40,
+			0x43,0x45,0x48,0x4B,0x4D,0x50,0x54,0x55,0x58,0x5C,
+			0x5D,0x60,0x63,0x65,0x68,0x6B,0x6D,0x70,0x73,0x75,
+			0x78,0x7B,0x7D,0x80,0x83,0x85,0x88,0x8B,0x8D,0x90,
+			0x93,0x95,0x98};
+void IsoSp ()
+{
+	if (cur_iso>=0x48 && cur_iso<0x50){low_sp=36; high_sp=39;}//100 100-200
+	if (cur_iso>=0x50 && cur_iso<0x58){low_sp=34; high_sp=39;}//200 100-200
+	if (cur_iso>=0x58 && cur_iso<0x60){low_sp=31; high_sp=37;}//400 30-125
+	if (cur_iso>=0x60 && cur_iso<0x68){low_sp=28; high_sp=32;}//800 15-40
+	if (cur_iso>=0x68){low_sp=26; high_sp=29;}		   //1600 10-20
+}
 
 void MyTask ()
 {	//MyGlobalStdSet(); //Thai Remarked
@@ -63,7 +86,83 @@ void MyTask ()
 	
 	ia=*(int*)0xC300;
 	while (1)
-	{ 	ChangeDprData(41,1); //this proc enable iso 16-80
+	{ 	if ( *(int*)(0x16B60+0x90)==0 && (*(int*)(0x16B60)==0 || *(int*)(0x16B60)==2 ) ) {
+	cur_iso=*(int*)(0x16B60+0x28);
+	cur_speed=*(int*)(0x27E48);
+	cur_speed&=~0xFFFFFF00;
+	IsoSp();
+	if (cur_speed==0x14){cur_speed=0x15;}
+	if (cur_speed==0x1c){cur_speed=0x1D;}
+	if (cur_speed==0x23){cur_speed=0x24;}
+	if (cur_speed==0x44){cur_speed=0x45;}
+	if (cur_speed==0x4C){cur_speed=0x4D;}
+	if (cur_speed==0x53){cur_speed=0x54;}
+	if (cur_speed==0x5B){cur_speed=0x5C;}
+	if (cur_speed<speed[low_sp] && cur_speed!=0){
+		ii=100;
+		aa=100;
+		if (cur_iso!=highest_iso){
+			for (i=0; i<53; i++){
+				if (cur_speed<=speed[i]){
+					ii=i;
+					break;
+				}
+			}
+			for (a=0; a<16; a++){
+				if (cur_iso==iso_t[a]){
+					aa=a;
+					break;
+				}
+			}
+			if (ii!=100 && aa!=100){
+				for (s=aa+1; s<16; s++){
+					cur_iso=iso_t[s];
+					IsoSp();
+					ii++;
+					if (ii>=low_sp) break;
+				}
+				flag3=cur_iso;
+				SetDispIso3();
+	   		}
+
+		}
+	}
+
+	if (cur_speed>speed[high_sp]){
+		//cur_iso=*(int*)(0x16B60+0x28);
+		ii=100;
+		aa=100;
+		if (cur_iso!=lowest_iso){
+			for (i=0; i<53; i++){
+				if (cur_speed<=speed[i]){
+					ii=i;
+					break;
+				}
+			}
+			for (a=0; a<16; a++){
+				if (cur_iso==iso_t[a]){
+					aa=a;
+					break;
+				}
+			}
+			if (ii!=100 && aa!=100){
+				for (s=aa-1; s>-1; s--){
+					cur_iso=iso_t[s];
+					IsoSp();
+					ii--;
+					if (ii<=high_sp) break;
+				}
+				flag3=cur_iso;
+				SetDispIso3();
+			}
+
+		}
+	}
+
+	   SleepTask(100);
+}
+else{
+		ChangeDprData(41,1); //this proc enable iso 16-80
 		ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0); 
 		TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
 		TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
@@ -190,7 +289,7 @@ void MyTask ()
 					SleepTask(20);  SetDispIso1(); 
 				} else; {SleepTask(100);}
 			}
-			AutoAvComp(); //Auto  Av Compensation for ISO lower than 100  			
+			// AutoAvComp(); //Auto  Av Compensation for ISO lower than 100  			
 			SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change 	 	
 //SendToIntercom(0x8,4,ia); //Tv value:
 //eventproc_SetTvValue(&ia);
@@ -209,6 +308,7 @@ do_some_with_dialog(*(int*)(0x47EC));
 		//MainHeapFree(pMessage);  
 		wait=0;
 		//eventproc_UILock(1);
+	}
 	}
 }
 
@@ -255,8 +355,8 @@ void AutoAvComp()
 				if (flag<0x46 && dem==22) SendToIntercom(0xA,1,AvC[dem+2]);  
 				if (flag<0x46 && dem< 22) SendToIntercom(0xA,1,AvC[dem+3]);  
 			}
-			if (flag1==0x48 && dem<23) SendToIntercom(0xA,1,AvC[dem+2]); //Iso 100  
-			if (flag1==0x48 && dem==23) SendToIntercom(0xA,1,AvC[0]); //Iso 100  
+			if (flag1==0x48 && dem<23 && *(int*)(0x16B60+0x90)==0) SendToIntercom(0xA,1,AvC[dem+2]); //Iso 100  
+			if (flag1==0x48 && dem==23 && *(int*)(0x16B60+0x90)==0) SendToIntercom(0xA,1,AvC[0]); //Iso 100  
 			}  
 		else 									//Av 1/2 stop
 		{	AvC=AvComp2;  						
@@ -271,7 +371,7 @@ void AutoAvComp()
 				if (flag<0x46 && dem< 16) SendToIntercom(0xA,1,AvC[dem+2]);  
 				if (flag<0x46 && dem==16) SendToIntercom(0xA,1,AvC[0]);  
 				}
-			if (flag1==0x48 && dem<17) SendToIntercom(0xA,1,AvC[dem+1]); //Iso 100  
+			if (flag1==0x48 && dem<17 && *(int*)(0x16B60+0x90)==0) SendToIntercom(0xA,1,AvC[dem+1]); //Iso 100  
 		}
 	}
 	if (flag1>=0x32 && flag1<=0x3F) {
@@ -314,16 +414,19 @@ void SetDispIso ( )
 	if (flag==0x50) {flag1=0x53; iso=i250;goto SET;}// 200 -> 250
 	//if (flag<0x50 || flag>0x56) {iso2=i200;}  
                      //ISO 32-160
-	if (flag==0x4E)  // 160 -> 16 or 80
+	if (flag==0x4E)  {flag1=0x48; iso=i100;goto SET;}// 160 -> 100
+/*	if (flag==0x4E)  // 160 -> 16 or 100
 	{	if ( *(int*)(0x16B60+0x90)==0 ) {flag1=0x32; iso=i16; } //ShootWithoutCard on 
-		else{flag1=0x46; iso=i80;} 
+		else{flag1=0x48; iso=i100;} 
 		goto SET; 
 	}
+*/
 	if (flag==0x4C)  {flag1=0x4E; iso=i160;goto SET;}//125 -> 160
 	if (flag==0x48)  {flag1=0x4C; iso=i125;goto SET;}// 100 -> 125
-	if (flag==0x46)  {flag1=0x48; iso=i100;goto SET; }// 80 -> 100
-	if ( *(int*)(0x16B60+0x90)==0 ) 
-	{	if (flag==0x3F)  {flag1=0x46; iso=i80;goto SET; }// 50 -> 80
+
+/*	if ( *(int*)(0x16B60+0x90)==0 ) 
+	{	if (flag==0x46)  {flag1=0x48; iso=i100;goto SET; }// 80 -> 100
+		if (flag==0x3F)  {flag1=0x46; iso=i80;goto SET; }// 50 -> 80
 		if (flag==0x3D)  {flag1=0x3F; iso=i50;goto SET; }// 40 -> 50
 		if (flag==0x3C)  {flag1=0x3D; iso=i40;goto SET; }// 32 -> 40
 		if (flag==0x32)  {flag1=0x3C; iso=i32; goto SET; }// 16 -> 32
@@ -332,6 +435,7 @@ void SetDispIso ( )
 	{ if (flag>=0x32 && flag<=0x3F){flag1=0x46; iso=i80;} 
 	}
 	//if (flag>0x4E || flag<0x32)  {iso1=i100;}
+*/
 	SET:
     //*isolab1=(int)iso1;  *isolab2=(int)iso2; *isolab4=(int)iso4; *isolab8=(int)iso8; *isolab16=(int)iso16; 
     if (flag1>0x3F) {*isolab1=(int)iso;  *isolab2=(int)iso; *isolab4=(int)iso; *isolab8=(int)iso; *isolab16=(int)iso;} 
@@ -341,6 +445,44 @@ void SetDispIso ( )
 	END:
     return_0();
 } 
+
+void SetDispIso3 ( )
+{	
+	if (wait1==1 || wait0==1) goto END3;
+      wait1=1;
+      flag1=flag3;
+	if (flag1==0x6F) {iso=i3200; goto SET3;} //3200	 
+	if (flag1==0x6D) {iso=i2500; goto SET3;} //2500	 
+	if (flag1==0x6C) {iso=i2000; goto SET3;} //2000	 
+	if (flag1==0x68) {iso=i1600; goto SET3;} //1600	 
+  	if (flag1==0x66) {iso=i1250; goto SET3;}// 1250
+ 	if (flag1==0x64) {iso=i1000; goto SET3;} // 1000
+      if (flag1==0x60) {iso=i800;goto SET3; } // 800
+	if (flag1==0x5D) {iso=i640; goto SET3;}// 640 
+ 	if (flag1==0x5C) {iso=i500; goto SET3;}// 500 
+      if (flag1==0x58) {iso=i400; goto SET3;}// 400 
+	if (flag1==0x56) {iso=i320;goto SET3;}// 320 
+	if (flag1==0x53) {iso=i250;goto SET3; }// 250
+      if (flag1==0x50) {iso=i200;goto SET3;}// 200
+ 	if (flag1==0x4E) {iso=i160;goto SET3; }// 160
+	if (flag1==0x4C) {iso=i125;goto SET3;}//125
+	if (flag1==0x48) {iso=i100;goto SET3;}// 100
+	//if (flag1==0x46) {iso=i80;goto SET3; }// 80 
+	//if (flag1==0x3F) {iso=i50; goto SET3; }// 50 
+	//if (flag1==0x3D) {iso=i40; goto SET3;}// 40 
+	//if (flag1==0x3C) {iso=i32; goto SET3;}// 32 
+	//if (flag1==0x32) {iso=i16; goto SET3; }// 16
+    SET3:
+      if (flag1>0x3F) {*isolab1=(int)iso;  *isolab2=(int)iso; *isolab4=(int)iso; *isolab8=(int)iso; *isolab16=(int)iso;} 
+	else {*isolab1=(int)isoblank;} 
+	eventproc_SetIsoValue(&flag1);    
+	SleepTask(20); 
+ 	*isoolc=(int)iso;
+    wait1=0;
+    END3:
+    return;
+} 
+
 
 int wait2;
 void SetDispIso2 ( )
@@ -423,7 +565,8 @@ void CreateMyTask()
 	//hMyFaceSensorMessQue =(int*)CreateMessageQueue("hMyFaceSensorMessQue",0x40);
 	hMyFsTask=(int*)CreateTask("MyFSTask", 0x1A, 0x2000, MyFSTask,0);
 }
-void SendMyMessage(int param0, int param1)
+
+void SendMyMessage(int param0, int param1)
 {	int* pMessage=(int*)MainHeapAlloc(8);
 	pMessage[0]=param0;  pMessage[1]=param1;
 	TryPostMessageQueue(hMyTaskMessQue,pMessage,0);
