@@ -55,8 +55,9 @@
 		Color Temperature          (1800-11000K)
 		Flash                      (on,0ff)
 		AF Assist Beam             (on,off)
-		DP Button                  (Disabled, Change ISO, Extended AEB)
+		DP Button                  (Disabled, Change ISO, Extended AEB, Interval)
 		Extended AEB               ((3,5,7,9)Frames, (0.3-3.0)EV)
+		Interval Time              (1 to 100)
 
 		To get to Info screen press menu, then disp. button.
         Use Up and Down keys to change menu. Left and Right to change settings. 
@@ -74,4 +75,9 @@
 		Press set to save it.
 		To start Extended AEB go in Drive Mode screen and press dp button. Or if "DP Button" was set to "Extended AEB" 
 			just press dp button. 
-	
+	  Interval shutter:
+		Choose "Interval time" in info screen menu.
+		Set "DP Button" to "Interval".
+		Press dp button to start shooting.
+		Turn the mode dial to exit interval shooting.
+
