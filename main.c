@@ -93,7 +93,7 @@ void MyTask ()
 	{	ChangeDprData(41,1); //this proc enable iso 16-80
 		ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0); 
 		TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
-		TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
+		//TryReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
 		wait=1;  //SleepTask(100); 
 		switch (pMessage[0])
 		{
@@ -133,7 +133,7 @@ void MyTask ()
 			if (test!=0)
 			{ 	
 			// write log: 
-			int a, i, j;
+			//int a, i, j;
 /*			char s[0x3000*2] ; 
 			for (i=0;  i<=0x80;  i=i+4)  
 			{
@@ -211,15 +211,6 @@ void MyTask ()
 			//extend_iso_hack
 			//sub_FF82B518(9); //ISO mode
 			if (*(int*)(0x16B60)>=6) goto End;
-			for (dem=1; dem<11; dem++)
-			{	if (*(int*)(0x1C88)!=1) //MAIN Gui idle command
-				{	SetDispIso();dem=11;
-					SleepTask(20);  SetDispIso1(); 
-				} else; {SleepTask(100);}
-			}
-			AutoAvComp(); //Auto  Av Compensation for ISO lower than 100  			
-			SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
-
 			//AutoISO enable
 			test=*(int*)(0x47E8) ; //ISO menu Dialog opened	
 			if (test!=0)
@@ -228,17 +219,27 @@ void MyTask ()
 					SingleBlue();
 				}
 				else { SuspendTask(hMyAutoISOTask); AutoISO_switch=0; SingleRed();}
+				pressButton_(166);
 				SleepTask(700);
 				break;
 			} 
 			//AEB enable
-			test=*(int*)(0x4820) ; //Drive mode menu Dialog opened	
+			test=*(int*)(0x4820); //Drive mode menu Dialog opened	
 			if (test!=0)
 			{	if (!sw2){ SetAEB(); sw2=1; SingleBlue();}
 				else { 	SendToIntercom(0xd,1,0x00); sw2=0; SingleRed();}
+				pressButton_(166);
 				SleepTask(700);
 				break;
 			} 				 	
+			for (dem=1; dem<11; dem++)
+			{	if (*(int*)(0x1C88)!=1) //MAIN Gui idle command
+				{	SetDispIso();dem=11;
+					SleepTask(20);  SetDispIso1(); 
+				} else; {SleepTask(100);}
+			}
+			AutoAvComp(); //Auto  Av Compensation for ISO lower than 100  			
+			SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
 //SendToIntercom(0x8,4,ia); //Tv value:
 //eventproc_SetTvValue(&ia);
 //eventproc_PrintTgTableData();
@@ -596,7 +597,7 @@ void MyAutoISOTask()
 void SetEvaluativeDefault()
 { 	if ( *(int*)(0x16B60+0x4)==3 )  // Spot is actived 	
 	{ 	eventproc_SetMesMode(&evalue); }
-}
+} 
 
 void CreateMyTask()
 {
@@ -627,12 +628,19 @@ void my_IntercomHandler (int r0, char* ptr)
     if(ptr[1]== 0xB8) {SendMyMessage(MY_MESS1,0);}  // Press Dp to set Iso
 
 	//Change ISO value when use default camera feature.  
-    test2=*(int*)(0x47E8);  //OlIso Dialog opened
-	//if (test2==0 && test1!=0) {
-	//	test1=0;
-	if (test_iso!=*(int*)(0x16B60+0x28) && test1!=0){SetDispIso1();test1=0;flag=test_iso;flag1=*(int*)(0x16B60+0x28);AutoAvComp();}
-	//} 
-	if (test2!=0 && test1==0) {test1=1;test_iso=*(int*)(0x16B60+0x28);}
+	test2=*(int*)(0x47E8);  //OlIso Dialog opened
+	if (test1!=0)
+	{
+		if (test_iso!=*(int*)(0x16B60+0x28)){SetDispIso1();test1=0;flag=test_iso;flag1=*(int*)(0x16B60+0x28);AutoAvComp();}
+		else if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
+		{
+			flag1=0x48;
+			eventproc_SetIsoValue(&flag1);
+			*isolab1=(int)i100;
+			test1=0; flag=test_iso; AutoAvComp();
+		}	
+	}
+	else if (test2!=0) {test1=1;test_iso=*(int*)(0x16B60+0x28);}
 
 	//Set Evaluative when "Active Meter Mode is Spot"   
 	test4=*(int*)(0x47EC) ; //OlMeterMode Dialog opened
