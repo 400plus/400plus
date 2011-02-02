@@ -42,30 +42,14 @@
         - Press focus frame button again to close dialog.
 
         Pattern use:
-        - Fast press focus frame button twice to show FP dialog. if you hear a beep and the dialog showed, use Direct Print button to change pattern 
-	 (if you press the focus frame button not fast enough, the dialog not showed).  - Press focus frame again to return to default canon focus
-	 frame mode.  
+        - Fast press focus frame button twice to show FP dialog. if you hear a beep and the dialog showed,
+		use Direct Print button to change pattern 
+		(if you press the focus frame button not fast enough, the dialog not showed).  - Press focus frame again 
+			to return to default canon focus frame mode.  
         - Note that external AF assist capability (via Speedlite or ST-E2) will not work with pattern AF modes. 
 
-    Auto Exposure Bracketing: 
-
-	Go to menu,
-	Picture Style,
-	Select User Def. 3 and press jump.
-	Set Color tone value to desired AEB:
-		-4   +-2.3EV
-		-3   +-2.7EV
-		-2   +-3.0EV
-		-1   +-3.3EV
-		 0   +-3.7EV
-		 1   +-4.0EV
-		 2   +-4.3EV
-		 3   +-4.7EV
-		 4   +-5.0EV
-	To enable(disable) AEB go to "Drive mode" menu and press print. Double red light means enabled, single red - disabled. 
-
-    Safety shift:
-
-	To enable Safety Shift go to "AF mode" and press print button. Double red light - enabled, single red - disabled.
+  
+    Safety shift and Auto Exposure Bracketing can be set from Info screen with up, down, left and right controls.
+		To get to Info screen press menu, then disp. button.
 
 	

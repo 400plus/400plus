@@ -5,9 +5,6 @@ extern void* cache_0xFFB602F0;
 
 extern void* addr_0x1900;
 
-
-
-
 void COPY()
 
 {
@@ -452,7 +449,8 @@ CreateMyTask(); // MyTask
 
   CreateMemoryManagerPubInstance();
 
-  GUIInit();
+  //GUIInit();
+  my_GUIInit();
   GUIApiCalls();
 
   InitializeImagePlayer();
