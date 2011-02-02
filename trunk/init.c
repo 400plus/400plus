@@ -243,7 +243,7 @@ void my_task_Startup()
   dmProcInit();
 
   
-CreateMyTask(); // MyTask
+  CreateMyTask(); // MyTask
 
 
   sub_FFAFE5BC();
@@ -356,8 +356,8 @@ CreateMyTask(); // MyTask
   DigPropInit();
 
   ShootMainInit();
-  my_OlcInfoInit();
- //OlcInfoInit();
+  //my_OlcInfoInit();
+  OlcInfoInit();
 
   RegisterISR_EMERGENCY_CARDDOOR();
 
@@ -840,10 +840,10 @@ OlcCounterFlag3=OlcInfoDataCopy[42];
 
 */
 
-extern void task_OlcInfo();
+//extern void task_OlcInfo();
 
 
-
+/*
 void my_OlcInfoInit()
 
 {
@@ -852,4 +852,4 @@ void my_OlcInfoInit()
 
   CreateTask("OlcInfo", 0x17, 0, task_OlcInfo, 0);
 
-}
+} */

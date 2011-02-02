@@ -1,12 +1,12 @@
 #include "headers.h"
-
+/*
 int setMyPrintLevel()
 {  int i;  char* pt;
    pt = (char*) *(int*)0xD0A8;
    if (pt == 0) { return 0;}
    for(i=0; i<=31; i) 	{*(pt + 0x1C + (i<<1)) = 7; *(pt + 0x1D + (i<<1)) = 7; }
 }
-
+*/
 void MyGlobalStdSet ()
 { int f1 = -1;
   while (f1==-1)  { f1=FIO_CreateFile("A:/STDOUT.TXT");  if (f1==-1) SleepTask(100); }
@@ -14,18 +14,19 @@ void MyGlobalStdSet ()
 }
 
 int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
-#define MY_MESS1 				0x01
+#define DP_PRESSED 				0x01
 #define MY_MESS2 				0x02
 #define MY_MESS3 				0x03
-#define MY_MESS4 				0x04
-#define MY_MESS5 				0x05
+#define MODE_DIAL 				0x04
+#define REQUEST_BUZZER 			0x05
 #define FACE_SENSOR_ISO 		0x06
 #define INFO_SCREEN 			0x07
 #define SAVE_SETTINGS			0x08
+#define AF_PATTERN				0x09
 #define safety_shift			(*((int*)0x16C30))
 #define AEB						(*((int*)0x16B90))
 #define av_half_stop			(*((int*)(0x16B60+0xA8)))
-#define FaceSensor 			(*(int*)(0xCD38))
+#define FaceSensor 				(*(int*)(0xCD38))
 #define menu_dialog				(*(int*)(0x4A2C)) //Main menu Dialog opened
 #define MeteringMode			(*(int*)(0x16B60+0x4))
 #define CurIsoValue				(*(int*)(0x16B60+0x28))
@@ -42,22 +43,21 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define	BUTTON_LEFT				0xB4
 #define	BUTTON_DP				0xB8
 #define	BUTTON_AV				0xBB
+#define AE_Mode					(*(int*)(0x16B60))
 extern void SpotImage(); extern void AfPointExtend(int); extern void MainGUISt();
-extern void SetDispIso(); extern void SetDispIso1();char* my_GUIString();
+extern void SetDispIso(); char* my_GUIString();
 
-int* isolab1=(int*)0x5798, *isolab2=(int*)0x579C, *isolab4=(int*)0x57A0,*isolab8=(int*)0x57A4, *isolab16=(int*)0x57A8;
-int* isoolc=(int*)(0x179E8+0x20);
 char i100[5]="100 ", i125[5]="125 ", i160[5]="160 ";
 char i200[5]="200", i250[5]="250 ", i320[5]="320 ", i400[5]="400 ", i500[5]="500 " , i640[5]="640 ", i800[5]="800 ";
 char i1000[5]="1000", i1250[5]="1250", i1600[5]="1600", i2000[5]="2000", i2500[5]="2500",i3200[5]="3200";
-
+char* iso;
 int AFP_Sel;  
 int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
 			 24, 25, 26, 27, 386, 387, 409, 410, 411,  // Top
 			 96, 97, 100, 101, 388, 389, 481, 484, 485,  //Bottom
  			 40, 41, 47, 168, 169, 174, 175,   //Left
 			 80, 81, 87, 336, 337, 342, 343} ;  //Right
-int wait=0, test, modedial;  int spotmode=3, evalue=0; 
+int test, modedial;  int spotmode=3, evalue=0; 
 int flag, flag1, test_iso;    int ia=0;
 int i=0, option_number = 1;
 int  double_key=0, last_option = 10, update=1;
@@ -96,17 +96,14 @@ void MyTask ()
 	{	//ChangeDprData(41,1); //this proc enable iso 16-80, 2000-3200
 		ReceiveMessageQueue(hMyTaskMessQue,&pMessage,0);
 		t=0;
-		wait=1;  //SleepTask(100); 
 		switch (pMessage[0])
 		{
-		case MY_MESS4:   //Test Mode Dial 
-			//modedial++;
-			MainGUISt();
-			if (*(int*)(0x16B60)<6) //in creative zone
-			{	SetDispIso1();
+		case MODE_DIAL:   //Test Mode Dial 
+			if (AE_Mode<6) //in creative zone
+			{	MainGUISt();
 			} 	 
 			break;
-		case MY_MESS5:   //
+		case REQUEST_BUZZER:
 			eventproc_RiseEvent("RequestBuzzer");			
 			break;
 		case MY_MESS3: //Notify Custom Focus Point Setting enable 	
@@ -120,7 +117,7 @@ void MyTask ()
 			AFP_Sel=0;
 			//eventproc_RiseEvent("RequestBuzzer");
 			break;
-		case MY_MESS1:
+		case DP_PRESSED:
 			if(!*(int*)(0x16B60+0xB0))
 			{	SendToIntercom(0x31, 1, 1);		// enable CFn.8 for ISO H
 				SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
@@ -153,15 +150,8 @@ void MyTask ()
 
 			//extend_iso_hack
 			//sub_FF82B518(9); //ISO mode
-			if (*(int*)(0x16B60)>=6) break;
-			if (dp_to_change_iso)
-			{	for (dem=1; dem<11; dem++)
-				{	if (*(int*)(0x1C88)!=1) //MAIN Gui idle command
-					{	SetDispIso();dem=11;
-						SleepTask(20);  SetDispIso1(); 
-					} else; {SleepTask(100);}
-				}
-			}
+			if (AE_Mode>=6) break;
+			if (dp_to_change_iso)SetDispIso();
 			break;
 		case FACE_SENSOR_ISO:
 			if(double_key^=1){
@@ -172,7 +162,7 @@ void MyTask ()
 					else if (test_iso<0x58) flag1 = 0x58;
 					else if (test_iso<0x60) flag1 = 0x60;
 					else if (test_iso<0x68) flag1 = 0x68;
-					else{ flag1 = 0x6F;*isolab16=(int)i3200;}
+					else{ flag1 = 0x6F;}
 				}
 				else
 				{	if (test_iso>0x68) flag1 = 0x68;
@@ -181,15 +171,8 @@ void MyTask ()
 					else if (test_iso>0x50) flag1 = 0x50;
 					else flag1 = 0x48;
 				}
-				if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
-				{	if (test_iso>0x68 && flag1<=0x68) *isolab16=(int)i1600;
-					else if (test_iso>0x60) *isolab8=(int)i800;
-					else if (test_iso>0x58) *isolab4=(int)i400;
-					else if (test_iso>0x50) *isolab2=(int)i200;
-					else { *isolab1=(int)i100;}
-				}
 				if(iso_in_viewfinder)
-				if (*(int*)(0x16B60)==1 || *(int*)(0x16B60)==3)
+				if (AE_Mode==1 || AE_Mode==3)
 				{	test=*(char*)(0x27E48);
 					SendToIntercom(0x8,2,flag1+0x25);
 				}	
@@ -199,7 +182,7 @@ void MyTask ()
 						SleepTask(20);  
 					} else; {SleepTask(100);}
 				}
-			}else if (*(int*)(0x16B60)==1 || *(int*)(0x16B60)==3) { if(iso_in_viewfinder)SendToIntercom(0x8,2,test);}
+			}else if (AE_Mode==1 || AE_Mode==3) { if(iso_in_viewfinder)SendToIntercom(0x8,2,test);}
 			break;
 		repeat:
 		case INFO_SCREEN:
@@ -238,7 +221,6 @@ void MyTask ()
 						case 2:flash_exp_val=GetValue(flash_exp_val,1);break;
 						case 3:aeb_val=GetValue(aeb_val,1); break;
 						case 4:if (safety_shift==0) SendToIntercom(0x39,1,1);break;
-					//	case 6:SendToIntercom(0x29,1,0);break;//ShootWithoutCard on
 						case 6:iso_in_viewfinder=1;WriteSettings();break;
 						case 7:color_temp+=100;if (color_temp>11000)color_temp=1800;break;
 						case 8:SendToIntercom(0x30,1,0);break;
@@ -253,7 +235,6 @@ void MyTask ()
 						case 2:flash_exp_val=GetValue(flash_exp_val,0);break;
 						case 3:aeb_val=GetValue(aeb_val,0); break;
 						case 4:if (safety_shift==1) SendToIntercom(0x39,1,0);break;
-					//	case 6:SendToIntercom(0x29,1,1);break;
 						case 6:iso_in_viewfinder=0;WriteSettings();break;
 						case 7:color_temp-=100;if (color_temp<1800)color_temp=11000;break;
 						case 8:SendToIntercom(0x30,1,1);break;
@@ -298,23 +279,45 @@ void MyTask ()
 					SendToIntercom(0x10,2,color_temp);
 					if (WhiteBalance!=0x08){SendToIntercom(0x5,1,0x08);}
 					break;
-				
-				
-
 			}
-		} //end switch
-		//MainHeapFree(pMessage);  
-		wait=0;
-		//eventproc_UILock(1);
-	}  // end while
-//	}
+			break;
+		case AF_PATTERN:
+			AfPointExtend(pMessage[1]);
+			break;
+		}
+	} 
 }
+
+void DispIso( )
+{//	if (CurIsoValue!=0x48 && CurIsoValue!=0x50 && CurIsoValue!=0x58 && CurIsoValue!=0x60 && CurIsoValue!=0x68){
+	switch(CurIsoValue) // Set ISO String
+	{
+		case 0x6F: iso=i3200;break; //3200	 
+		case 0x6D: iso=i2500;break; //2500	 
+		case 0x6C: iso=i2000;break; //2000	 
+		case 0x68: iso=i1600;break; //1600	 
+		case 0x66: iso=i1250;break; //1250
+		case 0x64: iso=i1000;break; //1000
+		case 0x60: iso=i800;break;  //800
+		case 0x5D: iso=i640;break;  //640 
+		case 0x5C: iso=i500;break;  //500 
+		case 0x58: iso=i400;break;  //400 
+		case 0x56: iso=i320;break;  //320 
+		case 0x53: iso=i250;break;  //250
+		case 0x50: iso=i200;break;  //200
+		case 0x4E: iso=i160;break;  //160
+		case 0x4C: iso=i125;break;  //125
+		case 0x48: iso=i100;break;  //100
+	}
+	sub_FF837FA8(*(int*)(0x47F0),0x04,iso );
+	do_some_with_dialog(*(int*)(0x47F0));
+} 
 
 void SpotImage( )
 {	sub_FF8382DC(*(int*)(0x47F0),0xD,246);
 }
 
-void KImage()
+void KImage( )
 {	sub_FF8382DC(*(int*)(0x47F0),0xC,207);
 }
 
@@ -353,7 +356,7 @@ void AfPointExtend(button)
 	currAFset=*(int*)(0x16B60+0x18);
 	for(dem=0;dem<41;dem++) { if(currAFset==AFP[dem])  break; }
 	switch (button)
-	{	case BUTTON_DP:
+	{	case BUTTON_SET:
 			if (dem>=9)dem=0;
 			else dem++;
 			break;
@@ -377,96 +380,50 @@ void AfPointExtend(button)
 		SendToIntercom(7,2,AFP[dem]);
 	//SendToIntercom(7,2,ia); ia++; //For test 512 pattern (2 bytes variable ia)
 }
-
-char* iso; 
-int wait0=0;  int wait1;
-
- void SetDispIso ( )
-{ 	if (wait0==1 || wait1==1) goto END;
-    wait0=1;
-	flag=*(int*)(0x16B60+0x28);
-                     //ISO 1600->3200
-	if (flag==0x6F) {flag1=0x68; *isolab16=(int)i1600;goto SET; } //3200->1600	 
-	if (flag==0x6D) {flag1=0x6F; *isolab16=(int)i3200;goto SET; } //2500->3200	 
-	if (flag==0x6C) {flag1=0x6D; *isolab16=(int)i2500;goto SET; } //2000->2500	 
-	if (flag==0x68) {flag1=0x6C; *isolab16=(int)i2000;goto SET;} //1600->2000
-	//if (flag<0x68) { iso16=i1600; }	 
-                     //ISO 800->1250
-  	if (flag==0x66) {flag1=0x60; *isolab8=(int)i800;goto SET; }// 1250 -> 800
- 	if (flag==0x64) {flag1=0x66; *isolab8=(int)i1250;goto SET;} // 1000 -> 1250
-    if (flag==0x60) {flag1=0x64; *isolab8=(int)i1000;goto SET;} // 800 -> 1000
-	//if (flag<0x60 || flag>0x66) {iso8=i800;}
-                     //ISO 400->640
-	if (flag==0x5D) {flag1=0x58; *isolab4=(int)i400;goto SET; }// 640 -> 400 
- 	if (flag==0x5C) {flag1=0x5D; *isolab4=(int)i640;goto SET; }// 500 -> 640
-	if (flag==0x58) {flag1=0x5C; *isolab4=(int)i500;goto SET;}// 400 -> 500
-
- 	if (flag==0x56) {flag1=0x50; *isolab2=(int)i200;goto SET;}// 320 -> 200
-	if (flag==0x53) {flag1=0x56; *isolab2=(int)i320;goto SET; }// 250 -> 320
-	if (flag==0x50) {flag1=0x53; *isolab2=(int)i250;goto SET;}// 200 -> 250
-
-	if (flag==0x4E){flag1=0x48; *isolab1=(int)i100;goto SET; }//160 ->125 
-	if (flag==0x4C)  {flag1=0x4E; *isolab1=(int)i160;goto SET;}//125 -> 160
-	if (flag==0x48)  {flag1=0x4C; *isolab1=(int)i125;goto SET;}// 100 -> 125
-
-	SET:
-	eventproc_SetIsoValue(&flag1);    
-    wait0=0;  
-	END:
-    return_0();
-} 
-
-void SetDispIso1 ( )
-{	int fla;
-	if (wait1==1 || wait0==1) goto END1;
-    wait1=1;
-    fla=*(int*)(0x16B60+0x28);
-	if (fla==0x6F) {iso=i3200; goto SET1;} //3200	 
-	if (fla==0x6D) {iso=i2500; goto SET1;} //2500	 
-	if (fla==0x6C) {iso=i2000; goto SET1;} //2000	 
-	if (fla==0x68) {iso=i1600; goto SET1;} //1600	 
-	//if (fla<0x68) { iso16=i1600; }	 
-  	if (fla==0x66) {iso=i1250; goto SET1;}// 1250
- 	if (fla==0x64) {iso=i1000; goto SET1;} // 1000
-    if (fla==0x60) {iso=i800;goto SET1; } // 800
-	//if (fla<0x60 || fla>0x66) {iso8=i800;}
-	if (fla==0x5D) { iso=i640; goto SET1;}// 640 
- 	if (fla==0x5C) { iso=i500; goto SET1;}// 500 
-    if (fla==0x58) { iso=i400; goto SET1;}// 400 
-	//if (fla<0x58 || fla>0x5D) { iso4=i400;}
-	if (fla==0x56) {iso=i320;goto SET1;}// 320 
-	if (fla==0x53) {iso=i250;goto SET1; }// 250
-    if (fla==0x50) {iso=i200;goto SET1;}// 200
-	//if (fla<0x50 || fla>0x56) {iso2=i200;}  
- 	if (fla==0x4E)  { iso=i160;goto SET1; }// 160
-	if (fla==0x4C)  { iso=i125;goto SET1;}//125
-	if (fla==0x48)  { iso=i100;goto SET1;}// 100
-    SET1:
-	*isoolc=(int)iso;
-    wait1=0;
-    END1:
-    return;
+ 
+void SetDispIso( )
+{	switch(CurIsoValue)
+	{	case 0x6F: flag1=0x68; break;// 3200-> 1600	 
+		case 0x6D: flag1=0x6F; break;// 2500-> 3200	 
+		case 0x6C: flag1=0x6D; break;// 2000-> 2500	 
+		case 0x68: flag1=0x6C; break;// 1600-> 2000
+		case 0x66: flag1=0x60; break;// 1250-> 800
+		case 0x64: flag1=0x66; break;// 1000-> 1250
+		case 0x60: flag1=0x64; break;// 800 -> 1000
+		case 0x5D: flag1=0x58; break;// 640 -> 400 
+		case 0x5C: flag1=0x5D; break;// 500 -> 640
+		case 0x58: flag1=0x5C; break;// 400 -> 500
+		case 0x56: flag1=0x50; break;// 320 -> 200
+		case 0x53: flag1=0x56; break;// 250 -> 320
+		case 0x50: flag1=0x53; break;// 200 -> 250
+		case 0x4E: flag1=0x48; break;// 160 -> 125 
+		case 0x4C: flag1=0x4E; break;// 125 -> 160
+		case 0x48: flag1=0x4C; break;// 100 -> 125
+	}
+	eventproc_SetIsoValue(&flag1);
+	SleepTask(10);
+	DispIso();
 } 
 
 void SetDispIso2 ( )
-{		if (test_iso>0x68) {*isolab16=(int)i1600;flag1=0x68;}
-		else if (test_iso>0x60) {*isolab8=(int)i800;flag1=0x60;}
-		else if (test_iso>0x58) {*isolab4=(int)i400;flag1=0x58;}
-		else if (test_iso>0x50) {*isolab2=(int)i200;flag1=0x50;}
-		else { *isolab1=(int)i100;flag1=0x48;}
+{		if (test_iso>0x68) {flag1=0x68;}
+		else if (test_iso>0x60) {flag1=0x60;}
+		else if (test_iso>0x58) {flag1=0x58;}
+		else if (test_iso>0x50) {flag1=0x50;}
+		else {flag1=0x48;}
 		eventproc_SetIsoValue(&flag1);
 }
 
 extern void MainGUISt()
-{	if (hMyFsTask!=0) UnSuspendTask(hMyFsTask);
+{	if (AE_Mode<6)if (hMyFsTask!=0) UnSuspendTask(hMyFsTask);
 }
 	
 void MyFSTask()
 {	while (1)
-	{	SleepTask(40);
-		if (MeteringMode==3)SpotImage();
+	{	if (MeteringMode==3)SpotImage();
 		if (WhiteBalance==8)KImage();
 		if (CurFlashComp>0x10 && CurFlashComp<0xF0)FlashCompIm();
+		DispIso();
 		do_some_with_dialog(*(int*)(0x47F0));
 		update=1;
 		SuspendTask(hMyFsTask);
@@ -491,21 +448,6 @@ void SendMyMessage(int param0, int param1)
 	TryPostMessageQueue(hMyTaskMessQue,pMessage,0);
 }
 
-/*
-int GetValue(int temp, int button)
-{	switch (button)
-	{	case 0:
-			temp += 8; if(temp>0x30) temp=0;break;
-		case 1:
-			if(av_half_stop==1)temp += 4;
-			else{ if((temp&3)==3)temp += 2; else temp += 3;}
-			if(temp>0x30) temp=0;
-			break;
-	}
-	return temp;
-}
-//*/
-//*
 int GetValue(int temp, int button)
 {	if (temp==0 && button==0 && option_number!=3)i=1;
 	if(i)button^=1;
@@ -524,7 +466,6 @@ int GetValue(int temp, int button)
 	if(temp==0 && i==1)i=0;
 	return temp;
 }
-//*/
 
 int one = 0, two = 0;
 void HexToStr(int hex)
@@ -618,50 +559,54 @@ void my_IntercomHandler (int r0, char* ptr)
 	s[0]=0;
     for (i=0;  i<ptr[0];  i++)   {sprintf(s+i*2,"%02X",ptr[i]);}
     printf_log(8,8,"[!] sz: %02X, code: %2X, hex: %s",ptr[0],ptr[1],s);
-	if(ptr[1]>0x50 && ptr[1]<0x95) {SendMyMessage(MY_MESS5,0);}  // Test some key
+	if(ptr[1]>0x50 && ptr[1]<0x95) {SendMyMessage(REQUEST_BUZZER,0);}  // Test some key
 //*/
 	
 	switch (ptr[1])
 	{   case BUTTON_DP:
+			if(AE_Mode>5){SendToIntercom(0x22,1,*(int*)(0x16B60+0x74)^3);break;} //Switch to RAW or JPG in auto mode
 			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}
-			if(GUIMode==0x10)AfPointExtend(ptr[1]);
-			if(GUIMode!=6)SendMyMessage(MY_MESS1,0);break;  // Press Dp to set Iso
+			if(GUIMode!=6)SendMyMessage(DP_PRESSED,0);break;  // Press Dp to set Iso
+			
 	//	case 0x90:
 	//	case 0x91:
 	//	case 0x92:
 		case 0x93:
-			SendMyMessage(MY_MESS4,0);//Iso at switch on & roll dial
+			SendMyMessage(MODE_DIAL,0);//Iso at switch on & roll dial
+			break;
 		case 0x50: 
 			if(*(int*)(0x4804)!=0) {ptr[1]=0x51; IntercomHandler(r0, ptr); ptr[1]=0x50;}break;// AFP pattern
 		case 0xB9: SendMyMessage(MY_MESS2,0);break; //Auto focus point selection dialog on
 		case 0xA7:  //Auto focus point selection dialog off and custom on 
 			if(AFP_Sel==1) {/*IntercomHandler(r0, ptr);*/ ptr[1]=0xB9; SendMyMessage(MY_MESS3,0);}break;
 		case BUTTON_AV:if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}break;
-		case BUTTON_SET:if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}break;
+		case BUTTON_SET:
+			if(GUIMode==0x10){SendMyMessage(AF_PATTERN,ptr[1]);return;}
+			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}break;
 		case BUTTON_UP:
 			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
 			if(GUIMode==0x11 || GUIMode==0)
 			{	test_iso=CurIsoValue;
 				if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
-				{	SetDispIso2();}  //Change ISO value when use default camera feature.
-			}
-			if(GUIMode==0x10)if(double_key^=1)AfPointExtend(ptr[1]);
+				{	SetDispIso2();break;}  //Change ISO value when use default camera feature.
+			}			
+			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
 			break;
 		case BUTTON_DOWN: 
 			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			if(GUIMode==0x11 || GUIMode==0)if (WhiteBalance==0x08)SendToIntercom(0x5,1,0x00);
-			if(GUIMode==0x10)if(double_key^=1)AfPointExtend(ptr[1]);
+			if(GUIMode==0x11 || GUIMode==0)if (WhiteBalance==0x08){SendToIntercom(0x5,1,0x00);break;}
+			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
 			break;
 		case BUTTON_RIGHT:
 			if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,1);return;}
 			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			if(GUIMode==0x10)if(double_key^=1)AfPointExtend(ptr[1]);
+			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
 			break;
 		case BUTTON_LEFT:
 			if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,0);return;}
-			else if(GUIMode==0x11 || GUIMode==0)SetEvaluativeDefault();//Set Evaluative when "Active Meter Mode is Spot"
+			else if(GUIMode==0x11 || GUIMode==0){SetEvaluativeDefault();break;}//Set Evaluative when "Active Meter Mode is Spot"
 			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			if(GUIMode==0x10)if(double_key^=1)AfPointExtend(ptr[1]);
+			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
 			break;
 	}
 	IntercomHandler(r0, ptr);
