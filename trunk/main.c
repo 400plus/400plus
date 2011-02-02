@@ -21,7 +21,7 @@ int* hMyTaskMessQue, *hMyFaceSensorMessQue, *hMyFsTask, *OrgFsMesQueHnd, *hMyAut
 #define MY_MESS5 0x05
 #define AutoISO_switch		(*((char*)0x179B5))
 extern void SpotImage();  extern void AutoAvComp(); extern void AfPointExtend();
-extern void SetDispIso(); extern void SetDispIso1(); extern void SetDispIso2(); void SetDispIso3(); void MyAutoISOTask();
+extern void SetDispIso(); extern void SetDispIso1(); void SetDispIso3(); void MyAutoISOTask();
 void SetAEB();
 //AvComp: 0->0; 3->1/3; 5->2/3; 8->1; 11->1+1/3; 13->1+2/3; 16->2; 18->2+1/3; 20->2+2/3; 23->3; 26->3+1/3; 28->3+2/3; 31->4
 int AvComp3[25]={-31&0xFF,-28&0xFF,-26&0xFF,-23&0xFF,-20&0xFF,-18&0xFF,-16&0xFF,-13&0xFF,-11&0xFF,-8&0xFF,-5&0xFF,-3&0xFF,
@@ -285,41 +285,38 @@ void AutoAvComp()
 {	int dem;
 	// Change AvComp when use Iso 16->80
 	if (*(int*)(0x16B60+0x60)==1) 			// if set Video = NTSC
-	{	currAvC=*(int*)(0x16B60+0x24);  	//get current Avcomp value
+	{	int AvCompCalc3(int x)
+		{	if (x==0x32) return 9;
+			if (x==0x3C) return 7;
+			if (x==0x3D) return 6;
+			if (x==0x3F) return 5;
+			if (x==0x46) return 2;
+			if (x>=0x48) return 0;
+		}
+		int AvCompCalc2(int x)
+		{	if (x==0x32) return 6;
+			if (x==0x3C) return 5;
+			if (x==0x3D) return 4;
+			if (x==0x3F) return 3;
+			if (x==0x46) return 1;
+			if (x>=0x48) return 0;
+		}
+		currAvC=*(int*)(0x16B60+0x24);  	//get current Avcomp value
 		if (*(int*)(0x16B60+0xA8)==0) 		// Av 1/3 stop
 		{	AvC=AvComp3;
-			for(dem=0;dem<=24;dem++) { if(currAvC==AvC[dem])  break; }  
-			if (flag1>=0x32 && flag1<=0x3F) //ISO 16 to 50 
-			{	if (flag1==0x32 && dem>=9) SendToIntercom(0xA,1,AvC[dem-9]);			
-				if (flag1==0x32 && dem< 9) SendToIntercom(0xA,1,AvC[0]);			
-				if (flag1==0x3C && dem==23) SendToIntercom(0xA,1,AvC[dem+1]);			
-				if (flag1==0x3C && dem< 23) SendToIntercom(0xA,1,AvC[dem+2]);			
-				if (flag1!=0x32 && flag1!=0x3C && dem<24) SendToIntercom(0xA,1,AvC[dem+1]);
-			}
-			if (flag1==0x46) //ISO 80
-			{   if (flag>0x46 && dem> 1) SendToIntercom(0xA,1,AvC[dem-2]);  
-				if (flag>0x46 && dem==1) SendToIntercom(0xA,1,AvC[dem-1]);  
-				if (flag<0x46 && dem==23) SendToIntercom(0xA,1,AvC[dem+1]);  
-				if (flag<0x46 && dem==22) SendToIntercom(0xA,1,AvC[dem+2]);  
-				if (flag<0x46 && dem< 22) SendToIntercom(0xA,1,AvC[dem+3]);  
-			}
-			if (flag1==0x48 && dem<23) SendToIntercom(0xA,1,AvC[dem+2]); //Iso 100  
-			if (flag1==0x48 && dem==23) SendToIntercom(0xA,1,AvC[0]); //Iso 100  
-			}  
+			for(dem=0;dem<=24;dem++) { if(currAvC==AvC[dem])  break; }
+			dem = dem + (AvCompCalc3(flag) - AvCompCalc3(flag1));
+			if (dem < 0)dem=0;
+			if (dem > 24)dem=24;
+			SendToIntercom(0xA,1,AvC[dem]);
+		}  
 		else 									//Av 1/2 stop
 		{	AvC=AvComp2;  						
-			for(dem=0;dem<=17;dem++) { if(currAvC==AvC[dem])  break; }  
-			if (flag1>=0x32 && flag1<=0x3F) 	//ISO 16 to 50 
-			{	if (flag1==0x32 && dem>=6) SendToIntercom(0xA,1,AvC[dem-6]);			
-				if (flag1==0x32 && dem< 6) SendToIntercom(0xA,1,AvC[0]);			
-				if (flag1!=0x32 && dem<17) SendToIntercom(0xA,1,AvC[dem+1]);
-			}
-			if (flag1==0x46) 					//ISO 80
-			{	if (flag>0x46 && dem> 0) SendToIntercom(0xA,1,AvC[dem-1]);  
-				if (flag<0x46 && dem< 16) SendToIntercom(0xA,1,AvC[dem+2]);  
-				if (flag<0x46 && dem==16) SendToIntercom(0xA,1,AvC[0]);  
-				}
-			if (flag1==0x48 && dem<17) SendToIntercom(0xA,1,AvC[dem+1]); //Iso 100  
+			for(dem=0;dem<=16;dem++) { if(currAvC==AvC[dem])  break; }
+			dem = dem + (AvCompCalc2(flag) - AvCompCalc2(flag1));
+			if (dem < 0)dem=0;
+			if (dem > 16)dem=16;
+			SendToIntercom(0xA,1,AvC[dem]);
 		}
 	}
 	if (flag1>=0x32 && flag1<=0x3F) {
@@ -414,17 +411,6 @@ void SetDispIso3 ( )
 	eventproc_SetIsoValue(&flag3);    
 	SleepTask(20); 
  	*isoolc=(int)iso;
-} 
-
-int wait2;
-void SetDispIso2 ( )
-{ 	int flag2;
-	if (wait2!=1)
-	{   wait2=1;
-		*isolab1=(int)i100;  *isolab2=(int)i200; *isolab4=(int)i400; *isolab8=(int)i800; *isolab16=(int)i1600; 
-        flag2=0x48; eventproc_SetIsoValue(&flag2);
-        wait2=0;
-	}
 } 
 
 void SetDispIso1 ( )
@@ -628,7 +614,7 @@ void SendMyMessage(int param0, int param1)
 	TryPostMessageQueue(hMyTaskMessQue,pMessage,0);
 }
 
-int test1, test2, test3, test4;
+int test1, test2, test3, test4, test_iso;
 void my_IntercomHandler (int r0, char* ptr)
 {   int thu;
     char s[255]; int i;
@@ -642,10 +628,11 @@ void my_IntercomHandler (int r0, char* ptr)
 
 	//Change ISO value when use default camera feature.  
     test2=*(int*)(0x47E8);  //OlIso Dialog opened
-	if (test2==0 && test1!=0) {test1=0;} 
-	//if (test2==0 && test1==0) // do nothing 
-	//if (test2!=0 && test1!=0)  //do nothing
-	if (test2!=0 && test1==0) {test1=1; SetDispIso2();}
+	//if (test2==0 && test1!=0) {
+	//	test1=0;
+	if (test_iso!=*(int*)(0x16B60+0x28) && test1!=0){SetDispIso1();test1=0;flag=test_iso;flag1=*(int*)(0x16B60+0x28);AutoAvComp();}
+	//} 
+	if (test2!=0 && test1==0) {test1=1;test_iso=*(int*)(0x16B60+0x28);}
 
 	//Set Evaluative when "Active Meter Mode is Spot"   
 	test4=*(int*)(0x47EC) ; //OlMeterMode Dialog opened
