@@ -176,7 +176,6 @@ void MyTask ()
 						SleepTask(20);  
 					} else; {SleepTask(100);}
 				}
-				flag=test_iso;		
 			}else if (*(int*)(0x16B60)==1 || *(int*)(0x16B60)==3) { if(ShootWithoutCard==0)SendToIntercom(0x8,2,test);}
 			break;
 		case INFO_SCREEN:
@@ -386,14 +385,12 @@ void SetDispIso1 ( )
 } 
 
 void SetDispIso2 ( )
-{		flag1=0x48;
+{		if (test_iso>0x68) {*isolab16=(int)i1600;flag1=0x68;}
+		else if (test_iso>0x60) {*isolab8=(int)i800;flag1=0x60;}
+		else if (test_iso>0x58) {*isolab4=(int)i400;flag1=0x58;}
+		else if (test_iso>0x50) {*isolab2=(int)i200;flag1=0x50;}
+		else { *isolab1=(int)i100;flag1=0x48;}
 		eventproc_SetIsoValue(&flag1);
-		if (test_iso>0x68) *isolab16=(int)i1600;
-		else if (test_iso>0x60) *isolab8=(int)i800;
-		else if (test_iso>0x58) *isolab4=(int)i400;
-		else if (test_iso>0x50) *isolab2=(int)i200;
-		else { *isolab1=(int)i100;}
-		flag=test_iso;
 }
 
 extern void MainGUISt()
@@ -407,6 +404,7 @@ void MyFSTask()
 		if (WhiteBalance==8)KImage();
 		if (CurFlashComp>0x10 && CurFlashComp<0xF0)FlashCompIm();
 		do_some_with_dialog(*(int*)(0x47F0));
+		update=1;
 		SuspendTask(hMyFsTask);
 	}
 }
