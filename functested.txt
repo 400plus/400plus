@@ -1,0 +1,29 @@
+//nothing happen
+
+SendToMC_T_0x02
+ClearCardDoorProc
+eventproc_EnterGUIuramode
+SendToMC   // da thu truyen bien nhu nut bam
+eventproc_SetFullPC
+
+
+//Hang
+eventproc_ShutDown1
+
+
+
+// New
+eventproc_EnterDTMode //Direct transfer menu 
+eventproc_ExitDTMode
+
+EnterFactoryMode // display factory menu
+ExitFactoryMode
+
+eventproc_EnterDirectBrMode  // DCP connect displayed 
+
+eventproc_SelfRefresh //Screen refresh. Nhay man hinh, doi khi hien thi khong dung nua tuong treo
+
+pressButton_  send key press to MC, key: 160-192
+
+
+
