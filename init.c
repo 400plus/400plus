@@ -1,9 +1,12 @@
 #include "headers.h"
 
 
-extern void* cache_0xFFB602F0;
+extern void* cache_0x1900;
 
 extern void* addr_0x1900;
+
+
+
 
 void COPY()
 
@@ -31,7 +34,7 @@ void my_romStart(int startType)
 
 {
 
-  unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0>>2);
+  unknown_cache(&cache_0x1900, &addr_0x1900, 0xC6B0>>2);
 
   my_usrInit(startType);
 
@@ -115,6 +118,7 @@ extern void my_taskcreate_Startup();
 
 
 
+
 int my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize)
 
 {
@@ -170,8 +174,7 @@ usrRoot_ok:
 
   iosInit(20,50,"/null");
 
-  ttyDrv();
-
+  //ttyDrv(); //Thai
   usrSerialInit();
 
   hashLibInit();
@@ -184,14 +187,14 @@ usrRoot_ok:
 
   logInit(fdConsole,50);
 
-  stdioInit();
-
+  stdioInit(); 
   fioLibInit();
-
   selTaskDeleteHookAdd();
 
   sub_FFB5F728();
 
+  ttyDrv();
+ //Thai
   my_taskcreate_Startup();
 
   return;
@@ -212,7 +215,6 @@ void my_taskcreate_Startup()
 {
 
   CreateMainHeap(0x200000,0x800000-0x10000); // in end of MainHeap - own code - 64 Kb
- 
   sub_FFB0FF74();
 
   sub_FFB2E108(0x386D4380);
@@ -237,13 +239,13 @@ void my_task_Startup()
 
 {
 
-  DebugManager(1,0x1F,0x180000,0x40000,0x1C0000);
+  //DebugManager(1,0x1F,0x180000,0x40000,0x1C0000);
 
-  dmstart();
-  dmProcInit();
+  //dmstart();
+  //dmProcInit();
 
   
-  CreateMyTask(); // MyTask
+CreateMyTask(); // MyTask. Thai rem
 
 
   sub_FFAFE5BC();
@@ -268,8 +270,7 @@ void my_task_Startup()
 
   RegisterISRs_OCH();
 
-  BlockUntilAfterTimeoutProcInit(50);
-
+  BlockUntilAfterTimeoutProcInit(50);  
   sub_FFB07740(0x10,8,0x1BBC);
   ResourceNameServiceInit();
 
@@ -313,20 +314,18 @@ void my_task_Startup()
   RemDrvInit();
   ActSweepInit();
 
-  LcdInit();
+  LcdInit(); //Org
 
-  DisplayInit1();
+  DisplayInit1(); // Org FFAFD2DC
 
-  DisplayInit2();
-
+  DisplayInit2(); //Org
   PowerSaveProcInit();
 
   sub_FFA03B0C();
 
   sub_FFA05114();
 
-  InitializeImagePlayDriver();
-
+  InitializeImagePlayDriver(); //origin
   LensNameTblInit();
 
   LensPOTblInit();
@@ -356,13 +355,14 @@ void my_task_Startup()
   DigPropInit();
 
   ShootMainInit();
-  //my_OlcInfoInit();
-  OlcInfoInit();
+  my_OlcInfoInit();
+  //OlcInfoInit();
 
   RegisterISR_EMERGENCY_CARDDOOR();
 
   MainCtrlInit();
 
+  
   CaptureSemaphoreInit();
 
   VShadingInit();
@@ -424,13 +424,14 @@ void my_task_Startup()
   AdjRgbGainInit();
   LuckyInit();
 
-/*  DebugManager(1,0x1F,0x180000,0x40000,0x1C0000);
 
-  dmstart();
+  //DebugManager(1,0x1F,0x180000,0x40000,0x1C0000);
 
-  dmProcInit();
-*/
- // moved to begin
+  //dmstart();
+
+  //dmProcInit();
+  // moved to begin
+
 
   SysInfoProcInit();
 
@@ -449,8 +450,7 @@ void my_task_Startup()
 
   CreateMemoryManagerPubInstance();
 
-  //GUIInit();
-  my_GUIInit();
+  GUIInit();
   GUIApiCalls();
 
   InitializeImagePlayer();
@@ -465,7 +465,8 @@ void my_task_Startup()
   BootDiskProcsInit();
 
   DDDInit();
-  TFTInit();
+
+  TFTInit();  
 
   RegisterResourceName(hResourceName, "USR ROOT DEVICE HANDLE", 0x7B);
 
@@ -512,7 +513,9 @@ void my_task_Startup()
   InitializeComCtrl();
 
   FactoryModeInit();
-  DP_Init(0,0x1B,0,0);
+  
+  DP_Init(0,0x1B,0,0);   
+
   return_0();
 
   sub_FF98CF4C();
@@ -526,13 +529,15 @@ void my_task_Startup()
 
   StartConsole();
 
-}
+  }
 
 
 
 
 extern void my_IntercomHandler();
 
+
+extern void* hOlcInfoMessQueue;
 
 
 int my_InitializeIntercom()
@@ -550,300 +555,17 @@ int my_InitializeIntercom()
 }
 
 
-extern void* hOlcInfoMessQueue;
-/*
 
-extern int OlcInfoData[0xC0/4];
 
-extern int OlcInfoChangedFlags[24];
 
-extern int OlcInfoFlags[24];
 
-extern char OlcInfoEmptyStr;
 
-extern void* hOlcInfoSem;
 
-extern void* proc_OlcTftNotifyChange;
 
-extern int OlcNotifyFreeze;
+extern void task_OlcInfo();
 
-extern int OlcNotifyChangeInProgress;
 
-extern int OlcCounterFlag1;
 
-extern int OlcCounterFlag2;
-
-extern int OlcCounterFlag3;
-
-
-#define OLC_CHANGE_OLC_INFO 0
-
-#define OLC_CHANGE_OLC_INFO_DPR 1
-
-#define OLC_FREEZE_NOTIFY 2
-
-#define OLC_UNFREEZE_NOTIFY 3
-
-#define OLC_SET_PROC_TFT_NOTIFY_CHANGE 4
-
-#define OLC_MESSAGE_5 5
-
-#define OLC_MESSAGE_6 6
-#define OLC_DISP_WARNING_DLG 7
-
-
-
-void my_task_OlcInfo()
-
-{
-
-  int* pMessage;
-
-  int OlcInfoDataCopy[0xC0/4];
-
-  int OlcNotifyUpdate;
-
-  int flag;
-
-
-  hOlcInfoSem=(void*)CreateBinarySemaphore2("OlcInfo",1);
-
-
-  OlcInfoSpreadDataInit();
-
-  memset(OlcInfoData,0,sizeof(OlcInfoData));
-
-  memset(OlcInfoChangedFlags,0,sizeof(OlcInfoChangedFlags));
-
-  OlcInfoData[1]=OlcInfoEmptyStr; // field_4
-
-  OlcInfoData[4]=OlcInfoEmptyStr; // Exposure
-
-  OlcInfoData[6]=OlcInfoEmptyStr; // Apperture
-
-  OlcInfoData[8]=OlcInfoEmptyStr; // ISO
-
-
-  while (1)
- {
-
-    ReceiveMessageQueue(hOlcInfoMessQueue,&pMessage,0);
-
-    OlcNotifyUpdate=0;
-    TakeSemaphore(hOlcInfoSem,0);
-
-    memcpy(OlcInfoDataCopy,OlcInfoData,sizeof(OlcInfoData));
-
-    if (pMessage==0) break;
-
-
-    switch (pMessage[0])
-    {
-
-
-      case OLC_CHANGE_OLC_INFO:
-
-        ChangeOlcInfoData(OlcInfoDataCopy,OlcInfoFlags);
-
-        if (IsOlcDataChanged(OlcInfoDataCopy)!=0) OlcNotifyUpdate=1;
-
-        break;
-
-
-      case OLC_CHANGE_OLC_INFO_DPR:
-
-        ChangeOlcInfoDataDpr(OlcInfoDataCopy,pMessage[1]);
-
-        ChangeOlcInfoData(OlcInfoDataCopy,OlcInfoFlags);
-
-        if (IsOlcDataChanged(OlcInfoDataCopy)!=0) OlcNotifyUpdate=1;
-
-        if (pMessage[1]!=0) MainHeapFree(pMessage[1]);
-
-        break;
-
-
-      case OLC_SET_PROC_TFT_NOTIFY_CHANGE:
-        proc_OlcTftNotifyChange=(void*)pMessage[1];
-
-        OlcNotifyUpdate=1;
-
-        break;
-
-
-      case OLC_FREEZE_NOTIFY:
-
-        OlcNotifyFreeze=1;
-
-        break;
-
-
-      case OLC_UNFREEZE_NOTIFY:
-
-        OlcNotifyFreeze=0;
-
-        OlcNotifyUpdate=1;
-
-        break;
-
-*/
-/*  wrong
-
-      case OLC_MESSAGE_5:
-
-        flag=pMessage[1];
-
-
-        OlcCounterFlag2=1;
-
-        OlcInfoDataCopy[42]=flag;
-
-
-        if (OlcCounterFlag1==0)
-	{
-
-          flag=flag<<17;
-
-          flag=flag>>17;
-
-          if (flag>9999) flag=9999;
-
-          OlcInfoDataCopy[39]=( pMessage[1]&8000 ? 1 : 2 );
-
-          sprintf((char*)&OlcInfoDataCopy[40],"%d",flag);
-
-
-          OlcInfoDataCopy[42]=flag;
-
-          if (IsOlcDataChanged(OlcInfoDataCopy)!=0) OlcNotifyUpdate=1;
-
-        }
-
-        
-OlcCounterFlag3=OlcInfoDataCopy[42];
-
-        break;
-
-
-      case OLC_MESSAGE_6:
-
-        flag=pMessage[1];
-
-
-        if (flag&0x8000)
-	{
-
-
-          if (OlcCounterFlag1!=0)
-	  {
-
-            if (OlcCounterFlag2!=0)
-	    {
-
-              SendOLC(OLC_MESSAGE_5,OlcCounterFlag3);
-
-            }
-
-            OlcCounterFlag1=flag;
-
-            OlcInfoDataCopy[39]=flag&0x8000;
-
-          }
-
-
-        }
-	else
-	{
-
-
-          flag=flag<<17;
-
-          flag=flag>>17;
-
-          if (flag>9999) flag=9999;
-
-          OlcCounterFlag1=1;
-
-          OlcInfoDataCopy[39]=1;
-
-          sprintf((char*)&OlcInfoDataCopy[40],"%d",flag);
-
-          OlcInfoDataCopy[43]=flag;
-
-          OlcInfoDataCopy[42]=flag;
-
-
-        }
-
-
-        if (IsOlcDataChanged(OlcInfoDataCopy)!=0) OlcNotifyUpdate=1;
-
-        break;
-
-*/
-
-/*
-      case OLC_DISP_WARNING_DLG:
-
-        flag=pMessage[1];
-
-        ChangeOlcInfoDataDlg(OlcInfoDataCopy,flag>>31,(flag&(~0xC0000000)),flag>>30);
-
-        if (IsOlcDataChanged(OlcInfoDataCopy)!=0) OlcNotifyUpdate=1;
-
-        break;
-
-
-    } //end switch
-
-
-
-    if (OlcNotifyUpdate)
-
-     if (!OlcNotifyFreeze)
-
-      if (!OlcNotifyChangeInProgress)
-
-      {
-
-        OlcNotifyChangeInProgress=1;
-
-        GiveSemaphore(hOlcInfoSem);
-
-
-        if (proc_OlcTftNotifyChange!=0)
-	{
-
-          int (*_proc_OlcTftNotifyChange)()=(void*)proc_OlcTftNotifyChange;
-
-          _proc_OlcTftNotifyChange();
-
-        }
-
-
-        OlcNotifyChange();
-
-        continue;
-
-      }
-
-
-    GiveSemaphore(hOlcInfoSem);
-
-
-  }
- 
-
-  ExitTask();
-
-}
-
-*/
-
-//extern void task_OlcInfo();
-
-
-/*
 void my_OlcInfoInit()
 
 {
@@ -852,4 +574,4 @@ void my_OlcInfoInit()
 
   CreateTask("OlcInfo", 0x17, 0, task_OlcInfo, 0);
 
-} */
+}
