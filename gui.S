@@ -1,6 +1,6 @@
 	.text
 	.org 0
-	.globl my_GUIInit //, UpdateInfoScreen //, my_StartInfoCreativeApp
+	.globl my_GUIInit, UpdateInfoScreen //, my_StartInfoCreativeApp
 	
 	my_GUIInit:
 		var_34          = -0x34
@@ -176,7 +176,7 @@ var_190 	= -0x190
 		CMP R1, R2
 		MOV R4, R3
 		BEQ START_DIRECTTRANSFER_MODE
-		BHI my_loc_FF8292AC
+		BHI loc_FF8292AC
 		LDR R3, =0x10000012
 		CMP R1, R3
 		BEQ START_INCOMPIMAGE_MODE
@@ -195,32 +195,6 @@ var_190 	= -0x190
 		CMP R1, #0x800
 		BEQ GOT_TOP_OF_CONTROL
 		B _default
-		
-my_loc_FF8292AC:
-		LDR R3, =0x10000058
-		CMP R1, R3
-		BEQ START_ISO_MODE
-		BHI loc_FF8293BC
-		LDR R3, =0x10000046
-		CMP R1, R3
-		BEQ DISP_MES_MODE
-		BHI loc_FF82933C
-		LDR R3, =0x1000003D
-		CMP R1, R3
-		BEQ START_BULBCOUNT_MODE
-		BHI loc_FF829310
-		LDR R3, =0x1000003B
-		CMP R1, R3
-		BEQ DISP_BULBCOUNT_MODE
-		BHI my_START_OLC_MODE
-		LDR R3, =0x10000039
-		CMP R1, R3
-		BEQ DISP_OLC_MODE
-		B _default
-		
-my_START_OLC_MODE:
-		BL MainGUISt
-		B START_OLC_MODE
 		
 loc_FF829158:
 		CMP R1, #0x10000007
