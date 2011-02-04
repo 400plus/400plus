@@ -23,23 +23,17 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define INFO_SCREEN 			0x07
 #define SAVE_SETTINGS			0x08
 #define AF_PATTERN				0x09
-#define E_AEB					0x0A
-#define INTERVAL				0x0B
 #define safety_shift			(*((int*)0x16C30))
 #define AEB						(*((int*)0x16B90))
 #define av_half_stop			(*((int*)(0x16B60+0xA8)))
 #define FaceSensor 				(*(int*)(0xCD38))
 #define menu_dialog				(*(int*)(0x4A2C)) //Main menu Dialog opened
 #define MeteringMode			(*(int*)(0x16B60+0x4))
-#define DriveMode				(*(int*)(0x16B60+0x0C))
 #define CurIsoValue				(*(int*)(0x16B60+0x28))
 #define CurFlashComp			(*(int*)(0x16B60+0x08))
 #define WhiteBalance			(*(int*)(0x16B60+0x10))
-#define TvVal					(*(int*)(0x16B60+0x1C))
 #define CfNotEmitFlash			(*(int*)(0x16B60+0xAC))
 #define CurAvComp				(*(int*)(0x16B60+0x24))
-#define CurAvCompCh				(*(char*)(0x16B60+0x24))
-#define ReviewTime				(*(int*)(0x16B60+0x4c))
 #define GUIMode					(*(int*)(0x00001ECC))
 #define hInfoCreative			(*(int*)(0x0000213C))
 //#define ShootWithoutCard		(*(int*)(0x16B60+0x90))
@@ -58,51 +52,26 @@ char i100[5]="100 ", i125[5]="125 ", i160[5]="160 ";
 char i200[5]="200", i250[5]="250 ", i320[5]="320 ", i400[5]="400 ", i500[5]="500 " , i640[5]="640 ", i800[5]="800 ";
 char i1000[5]="1000", i1250[5]="1250", i1600[5]="1600", i2000[5]="2000", i2500[5]="2500",i3200[5]="3200";
 char* iso;
-int AFP_Sel;
+int AFP_Sel;  
 int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
 			 24, 25, 26, 27, 386, 387, 409, 410, 411,  // Top
 			 96, 97, 100, 101, 388, 389, 481, 484, 485,  //Bottom
  			 40, 41, 47, 168, 169, 174, 175,   //Left
 			 80, 81, 87, 336, 337, 342, 343} ;  //Right
 int test, modedial;  int spotmode=3, evalue=0; 
-int flag, flag1, test_iso;  //  int ia=0;
+int flag, flag1, test_iso;    int ia=0;
 int i=0, option_number = 1;
-int  double_key=0, last_option = 13, update=1;
-int flash_exp_val, av_comp_val, aeb_val, color_temp, ir_inst;
+int  double_key=0, last_option = 10, update=1;
+int flash_exp_val, av_comp_val, aeb_val, color_temp;
 
-int eaeb_sub_menu=0, st_1=0, st_2=0;
-int eaeb_frames=3, eaeb_ev=0x08;
-
-//for M mode
-int eaeb_m_min=0x10;
-int eaeb_m_max=0x98;
-
-int interval_time=2;
-int interval_original_ae_mode=0;
-
-char* s_eaeb[2]={"Frames", "EV"};
-char* s_m_eaeb[18]={"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000","1/4000"} ;
-
-
-char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};
-int iso_in_viewfinder, dp_opt=1, eaeb_delay;
-int settingsbuff[30];
-#define settings_def_version 5
+int iso_in_viewfinder, dp_to_change_iso=1;
+int settingsbuff[2];
 void ReadSettings()
 {	int file = FIO_OpenFile("A:/settings", O_RDONLY, 644);
 	if(file!=-1)
 	{	FIO_ReadFile(file, (int *)settingsbuff, sizeof(settingsbuff));
-		if(settingsbuff[0]==settings_def_version)
-		{	iso_in_viewfinder		= settingsbuff[1];
-			dp_opt					= settingsbuff[2];
-			eaeb_frames				= settingsbuff[3];
-			eaeb_ev					= settingsbuff[4];
-			eaeb_delay				= settingsbuff[5];
-			interval_time				= settingsbuff[6];
-			eaeb_m_min				= settingsbuff[7];
-			eaeb_m_max				= settingsbuff[8];
-			ir_inst		= settingsbuff[9];
-		}
+		iso_in_viewfinder=settingsbuff[0];
+		dp_to_change_iso=settingsbuff[1];
 		FIO_CloseFile(file);
 	}
 }
@@ -110,49 +79,20 @@ void ReadSettings()
 void WriteSettings()
 {	int file = FIO_OpenFile("A:/settings", O_CREAT|O_WRONLY , 644);
 	if(file!=-1) {
-		settingsbuff[0]=settings_def_version;
-		settingsbuff[1]= iso_in_viewfinder;
-		settingsbuff[2]= dp_opt;
-		settingsbuff[3]= eaeb_frames;
-		settingsbuff[4]= eaeb_ev;
-		settingsbuff[5]= eaeb_delay;
-		settingsbuff[6]= interval_time;
-		settingsbuff[7]= eaeb_m_min;
-		settingsbuff[8]= eaeb_m_max;
-		settingsbuff[9]= ir_inst;
+		settingsbuff[0]= iso_in_viewfinder;
+		settingsbuff[1]= dp_to_change_iso;
 		FIO_WriteFile(file, settingsbuff, sizeof(settingsbuff));
 		FIO_CloseFile(file);
 	}
 }
 
-void UpdateStVariables()
-{	switch (st_1)
-	{	case 0: st_2=eaeb_frames;	break;
-		case 1:
-			if(av_half_stop)eaeb_ev &= 0xFC;
-			else { if((eaeb_ev&7)!=0 && (eaeb_ev&3)==0)eaeb_ev -= 1;}
-			st_2=eaeb_ev; break;
-		case 2: st_2=eaeb_delay; break;
-		case 3: st_2=eaeb_m_min; break;
-		case 4: st_2=eaeb_m_max; break;
-	}
-}
-
-void RemoteInstantRelease(int ir)
-{	if(ir==1){*(int*)0x229AC=4500;*(int*)0x229B0=5560;}
-	else if(ir==2){*(int*)0x229AC=6160;*(int*)0x229B0=7410;}
-}
-
 void MyTask ()
 {	//MyGlobalStdSet(); //Thai Remarked
 	int* pMessage ;   int dem; int t;
-//	ia=*(int*)0xC300;
+	ia=*(int*)0xC300;
 	int flash_exp_val_temp, av_comp_val_temp;
-	int m;
-	char  av_enc, av_dec, OldAvComp;
 	SleepTask(1000);
 	ReadSettings();
-	RemoteInstantRelease(ir_inst);
 	if(!*(int*)(0x16B60+0xB0))SendToIntercom(0x31, 1, 1);		// enable CFn.8 for ISO H
 	SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
 	while (1)
@@ -181,6 +121,7 @@ void MyTask ()
 			//eventproc_RiseEvent("RequestBuzzer");
 			break;
 		case DP_PRESSED:
+		
 			//Spot metering mode
 			test=*(int*)(0x47EC) ; //OlMeterMode Dialog opened
 			if (test!=0)
@@ -209,7 +150,7 @@ void MyTask ()
 			//extend_iso_hack
 			//sub_FF82B518(9); //ISO mode
 			if (AE_Mode>=6) break;
-			if (dp_opt==1)SetDispIso();
+			if (dp_to_change_iso)SetDispIso();
 			break;
 		case FACE_SENSOR_ISO:
 			if(double_key^=1){
@@ -287,39 +228,7 @@ void MyTask ()
 						case 7:color_temp+=100;if (color_temp>11000)color_temp=1800;break;
 						case 8:SendToIntercom(0x30,1,0);break;
 						case 9:SendToIntercom(0x2E,1,0);break;
-						case 10:if(dp_opt<3){dp_opt++;WriteSettings();}break;
-						case 11:
-							if(eaeb_sub_menu==0)
-							{	if(st_1<4)
-								{	st_1++;
-									UpdateStVariables();
-								}
-							}
-							else
-							{	switch (st_1)
-								{	case 0:
-										if(st_2<9)st_2+=2;
-										break;
-									case 1:
-										if(st_2<0x18)st_2=GetValue(st_2,1);
-										break;
-									case 2:
-										st_2=1;
-										break;
-									case 3:
-									case 4:
-										if(st_2<=0x90)st_2+=8;//98 is maximum
-										break;  
-									  
-									      
-										
-								}
-							}
-							break;
-						case 12:interval_time=interval_time<101?interval_time+1:1; break;
-						case 13:
-							ir_inst=1; RemoteInstantRelease(1); WriteSettings();
-							break;
+						case 10:dp_to_change_iso=1;WriteSettings();break;
 					}
 					update=0;
 					break;
@@ -333,38 +242,7 @@ void MyTask ()
 						case 7:color_temp-=100;if (color_temp<1800)color_temp=11000;break;
 						case 8:SendToIntercom(0x30,1,1);break;
 						case 9:SendToIntercom(0x2E,1,1);break;
-						case 10:if(dp_opt>0){dp_opt--;WriteSettings();}break;
-						case 11:
-							if(eaeb_sub_menu==0)
-							{	if(st_1>0)
-								{	st_1--;
-									UpdateStVariables();
-								}
-							}	
-							else
-							{	switch (st_1)
-								{	case 0:
-										if(st_2>3)st_2-=2;
-										break;
-									case 1:
-										if(st_2>0x04)st_2=GetValue(st_2,0);
-										break;
-									case 2:
-										st_2=0;
-										break;
-									case 3:
-									case 4:
-										if(st_2>=0x18)st_2-=8;//10 is minimum
-										break;  
-										
-										
-								}
-							}
-							break;
-						case 12:interval_time=interval_time>1?interval_time-1:100; break;
-						case 13:
-							ir_inst=0; RemoteInstantRelease(2); WriteSettings();
-							break;
+						case 10:dp_to_change_iso=0;WriteSettings();break;
 					}
 					update=0;
 					break;
@@ -404,110 +282,11 @@ void MyTask ()
 					SendToIntercom(0x10,2,color_temp);
 					if (WhiteBalance!=0x08){SendToIntercom(0x5,1,0x08);}
 					break;
-				case 11:
-					if(eaeb_sub_menu)
-					{	switch (st_1)
-						{	case 0: eaeb_frames=st_2;	break;
-							case 1: eaeb_ev=st_2; break;
-							case 2: eaeb_delay=st_2; break;
-							case 3: eaeb_m_min=st_2; break;
-							case 4: eaeb_m_max=st_2; break;
-						}
-						WriteSettings();
-					}
-					eaeb_sub_menu^=1;
-					break;
-				case 12:
-				    WriteSettings();
-				    break;
 			}
 			break;
 		case AF_PATTERN:
 			AfPointExtend(pMessage[1]);
 			break;
-		case E_AEB:
-			if(st_2)
-			{	eventproc_RiseEvent("RequestBuzzer");
-				SleepTask(2000);
-			}
-			
-			if(AE_Mode==3){
-				int m_end;
-				m=eaeb_m_min;
-				do{
-				  SendToIntercom(0x8,1,m);
-				  SleepTask(5);				
-				  eventproc_Release();
-				  SleepTask(5);
-				  while(*(int*)(0x1CA8)){SleepTask(5);}
-				  //SleepTask(850);	
-				
-				  
-				if(eaeb_m_min==eaeb_m_max){
-				  m_end=m;
-				}else
-				if(eaeb_m_min<eaeb_m_max){
-				  m+=8;
-				  m_end=eaeb_m_max+8;
-				}else{
-				  m-=8;
-				  m_end=eaeb_m_max-8;
-				}
-
-				  
-				}while(	m!=m_end);
-			  
-					
-
-			}else{
-			  if(av_half_stop)eaeb_ev &= 0xFC;
-			  else { if((eaeb_ev&7)!=0 && (eaeb_ev&3)==0)eaeb_ev -= 1;}
-			  OldAvComp=CurAvCompCh;
-			  av_enc=CurAvCompCh;
-			  av_dec=CurAvCompCh;
-			  eventproc_Release();
-			  m=0;
-			  while(m<(eaeb_frames-1)/2)
-			  {	av_dec -= eaeb_ev;
-				  av_enc += eaeb_ev;
-				  if(av_half_stop==0)
-				  {	if((av_dec&0x06)==0x06)av_dec-=1;
-					  else if((av_dec&0x07)==0x02)av_dec+=1;
-					  if((av_enc&0x06)==0x06)av_enc-=1;
-					  else if((av_enc&0x07)==0x02)av_enc+=1;
-				  }
-				  if(av_dec<0xCB)av_dec=0xCB;
-				  if(av_enc>0x30)av_dec=0x30;
-				  m++;
-				  while(*(int*)(0x1CA8)){SleepTask(5);}
-				  SendToIntercom(0xA,1,av_dec);
-				  eventproc_Release();
-				  while(*(int*)(0x1CA8)){SleepTask(5);}
-				  SendToIntercom(0xA,1,av_enc);
-				  eventproc_Release();
-			  }
-			  SleepTask(500);
-			  SendToIntercom(0xA,1,OldAvComp);
-			}
-			
-			eventproc_RiseEvent("RequestBuzzer");
-			SleepTask(500);
-			
-			break;
-		case INTERVAL:
-		    interval_original_ae_mode= AE_Mode;
-		    int i=0;
-		    while(interval_original_ae_mode== AE_Mode){ 
-		      while(*(int*)(0x1CA8)){SleepTask(5);}
-		      eventproc_Release();
-		      for(i=0;i<interval_time;i++){
-			if(interval_original_ae_mode== AE_Mode) SleepTask(1000);
-		      }
-		      
-		    }
-		    eventproc_RiseEvent("RequestBuzzer");
-		    
-		    break;
 		}
 	} 
 }
@@ -545,7 +324,7 @@ void KImage( )
 {	sub_FF8382DC(*(int*)(0x47F0),0xC,207);
 }
 
-void FlashCompIm()
+FlashCompIm()
 {	int flash_exp_val=CurFlashComp;
 	int i=0, s;
 	if (flash_exp_val>0x30)
@@ -673,28 +452,17 @@ void SendMyMessage(int param0, int param1)
 }
 
 int GetValue(int temp, int button)
-{	if (temp==0 && button==0 && option_number!=3 && option_number!=11)i=1;
+{	if (temp==0 && button==0 && option_number!=3)i=1;
 	if(i)button^=1;
 	switch (button)
 	{	case 0:
-			if(av_half_stop==1)
-			{	if((temp&3)!=0){temp &= 0xFC; break;}
-				temp -= 4; break;
-			}
-			else
-			{	if((temp&7)!=0 && (temp&3)==0){temp -= 1; break;}
-				if((temp&5)==5)temp -= 2;
-				else temp -= 3;
-			}
+			if(av_half_stop==1)temp -= 4;
+			else{ if((temp&5)==5)temp -= 2; else temp -= 3;}
 			if(temp<0) temp=0;
 			break;
 		case 1:
-			if(av_half_stop==1){temp = (temp & 0xFC) + 4; break;}
-			else
-			{	if((temp&7)!=0 && (temp&3)==0){temp += 1; break;}
-				if((temp&3)==3)temp += 2;
-				else temp += 3;
-			}
+			if(av_half_stop==1)temp += 4;
+			else{ if((temp&3)==3)temp += 2; else temp += 3;}
 			if(temp>0x30) temp=0x30;
 			break;
 	}
@@ -730,11 +498,11 @@ void HexToStr(int hex)
 }
 
 char buff[17];
-char* my_GUIString()
-{	SleepTask(40);
+char* my_GUIString(){
+	SleepTask(40);
 	char sign[2] = {'+', '-'};
-	switch(option_number)
-	{	case 1:
+	switch(option_number){
+		case 1:
 			if (update)
 			{	av_comp_val=CurAvComp;
 				if (av_comp_val>0x30)
@@ -780,36 +548,8 @@ char* my_GUIString()
 			if (*(int*)(0x16C04))return "AF Assist Beam:       Off";
 			else return "AF Assist Beam:       On";
 		case 10:
-			sprintf(buff,"DP Button:    %s",dp_button_string[dp_opt]);
-			return buff;
-		case 11:
-			if (update)UpdateStVariables();
-			if(st_1==1){HexToStr(st_2); sprintf(buff,"Extended AEB: %u.%u %s", one, two, s_eaeb[st_1]);return buff;}
-			if(st_1==2)
-			{	if(st_2)return "Extended AEB: 2sec. Delay";
-				return "Extended AEB: No Delay";
-			}
-			if(st_1==3)
-			{
-			  sprintf(buff,"Extended AEB: M1 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
-			  return buff;
-			}
-			
-			if(st_1==4)
-			{
-			  sprintf(buff,"Extended AEB: M2 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
-			  return buff;
-			}
-			
-			
-			sprintf(buff,"Extended AEB: %u %s", st_2, s_eaeb[st_1]);
-			return buff;
-		case 12:
-			sprintf(buff,"Interval time: %u",interval_time);
-			return buff;
-		case 13:
-			sprintf(buff,"IR Remote Release: %s",ir_inst==1?"Instant":"2sec.");
-			return buff;
+			if (dp_to_change_iso)return "DP for changing ISO: On";
+			return "DP for changing ISO: Off";
 	}
 }
 
@@ -829,9 +569,11 @@ void my_IntercomHandler (int r0, char* ptr)
 	{   case BUTTON_DP:
 			if(AE_Mode>5){SendToIntercom(0x22,1,*(int*)(0x16B60+0x74)^3);break;} //Switch to RAW or JPG in auto mode
 			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}
-			if(GUIMode==0xF || dp_opt==2){SendMyMessage(E_AEB,0);return;}
-			if(dp_opt==3){SendMyMessage(INTERVAL ,0);return;}
 			if(GUIMode!=6)SendMyMessage(DP_PRESSED,0);break;  // Press Dp to set Iso
+			
+	//	case 0x90:
+	//	case 0x91:
+	//	case 0x92:
 		case 0x93:
 			SendMyMessage(MODE_DIAL,0);//Iso at switch on & roll dial
 			break;
