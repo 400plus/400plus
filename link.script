@@ -1,10 +1,8 @@
 SECTIONS {
-	first 0x7F0000 :
+	first 0x800000 :
 	{
 		entry.o;
 		entry_subs.o;
-		gui.o;
-		init.o;
 		main.o;
 	}
 }

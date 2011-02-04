@@ -1,8 +1,3 @@
-#define LEDRED (*((int*)0xC02200A0))
-#define LEDBLUE (*((int*)0xC0220000))
-#define LEDON   0x46
-#define LEDOFF  0x44
-
 
 typedef long FILE;
 
@@ -42,11 +37,11 @@ extern void deleteHook (void *pTcb);
 extern int taskCreateHookAdd (void *createHook);
 extern int taskDeleteHookAdd (void *deleteHook);
 
+
 extern void* OpenLogFile(char* name);
 extern void  CloseLogFile(void*);
+extern void  ChangeDprData(void*);
+extern void  ioGlobalStdSet(void*);extern void EnableLcdBacklight(void*);
+extern void DisableLcdBacklight(void*);
 
-extern void sprintf(char*, char*, ...);
-
-extern int ReceiveMessageQueue(void* hMessageQueue, void* pMessage, int FOREVER);
-extern int PostMessageQueue(void* hMessageQueue, void* pMessage, int FOREVER);
 
