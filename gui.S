@@ -1,6 +1,6 @@
 	.text
 	.org 0
-	.globl my_GUIInit //, UpdateInfoScreen //, my_StartInfoCreativeApp
+	.globl my_GUIInit
 	
 	my_GUIInit:
 		var_34          = -0x34
@@ -195,32 +195,42 @@ var_190 	= -0x190
 		CMP R1, #0x800
 		BEQ GOT_TOP_OF_CONTROL
 		B _default
-		
+
 my_loc_FF8292AC:
-		LDR R3, =0x10000058
+		LDR R2, =GUIMode
+		LDR R3, [R2]
+		CMP R3, #4
+		BEQ my_INFO_MODE 
+		B loc_FF8292AC
+my_INFO_MODE:	
+		LDR R3, =0x10000043
 		CMP R1, R3
-		BEQ START_ISO_MODE
-		BHI loc_FF8293BC
+		BEQ UP
+		LDR R3, =0x10000044
+		CMP R1, R3
+		BEQ RIGHT
+		LDR R3, =0x10000045
+		CMP R1, R3
+		BEQ DOWN
 		LDR R3, =0x10000046
 		CMP R1, R3
-		BEQ DISP_MES_MODE
-		BHI loc_FF82933C
-		LDR R3, =0x1000003D
-		CMP R1, R3
-		BEQ START_BULBCOUNT_MODE
-		BHI loc_FF829310
-		LDR R3, =0x1000003B
-		CMP R1, R3
-		BEQ DISP_BULBCOUNT_MODE
-		BHI my_START_OLC_MODE
-		LDR R3, =0x10000039
-		CMP R1, R3
-		BEQ DISP_OLC_MODE
-		B _default
+		BEQ LEFT
+		B loc_FF8292AC
+UP:
+		BL Up_Button
+		B UpdateInfoScreen
+RIGHT:
+		BL Right_Button
+		B UpdateInfoScreen
+DOWN:
+		BL Down_Button
+		B UpdateInfoScreen
+LEFT:
+		BL Left_Button
+		B UpdateInfoScreen
 		
-my_START_OLC_MODE:
-		BL MainGUISt
-		B START_OLC_MODE
+UpdateInfoScreen:
+		B START_INFO_MODE
 		
 loc_FF829158:
 		CMP R1, #0x10000007
@@ -270,10 +280,10 @@ var_18C 	= -0x18C
 		CMP R3, #0x10000
 		STRH R0, [R2]
 		BNE _not_creative
-		BL my_StartInfoCreativeApp
+		BL StartInfoCreativeApp
 		B _skip		
 
-my_StartInfoCreativeApp:
+StartInfoCreativeApp:
 
 var_10 	= -0x10
 
@@ -793,8 +803,7 @@ loc_FF840950:
 		BL memcpy
 		ADD R12, SP, #0x1B4+arg_188
 		LDMIA R12, {R0-R3}
-		//BL sub_FF83A640
-		BL my_GUIString
+		BL sub_FF83A640
 		MOV R1, #0x11
 		MOV R2, R0
 		MOV R0, R4
