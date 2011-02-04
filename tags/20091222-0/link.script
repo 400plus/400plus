@@ -1,0 +1,9 @@
+SECTIONS {
+	first 0x7F0000 :
+	{
+		entry.o;
+		entry_subs.o;
+		init.o;
+		main.o;
+	}
+}
