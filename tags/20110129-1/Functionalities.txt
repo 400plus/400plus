@@ -1,0 +1,83 @@
+    Additionnal ISO Values:
+		"DP Button" must be set to "Change ISO" in info screen to turn this option on. 
+        To set ISO: Press ISO button and set ISO to 100, 200 ...1600
+        Then press "Direct Print" button repeatedly to set ISO.
+        If you set ISO 100 and press Direct Print repeatedly, you will get  100->125->160->32->40->50->80->100
+        Others are:   200-> 250-> 320;         400-> 500-> 640;           800->100->1250;          1600->2000->2200->3200
+        Actual ISO Value is show on screen
+
+    Spot Metering:
+
+        To use spot metering,
+        Go to metering selection screen,
+        Then push the print button : Spot Metering is displayed on Screen within the normal Metering icon by a point
+
+    Factory Menu:
+
+        Go to menu,
+        Push print button,
+        Push menu button again twice,
+        "Factory menu" appears
+        There is a specific topic about this Factory Menu in forum : http://chdk.setepontos.com/index.php/topic,4171.0.html
+
+    View Shutter actuation count:
+
+        To view shutter actuation count, which was only viewable by canon themselves,
+        Enter factory menu (see above),
+        Then push print button to enter "debug mode".
+        After a beep, go back and set spot metering
+        You will see the camera writing something to the CF (CF light).
+        Eject CF, insert it into card reader,
+        You will see a file called STDOUT.txt,
+        Search the textfile for "Release" : there you see a number and that is the shutter count.
+
+    Focus Frame pattern:
+
+        How to choose Focus frame pattern:
+        Normal use:  
+        - Press focus frame button to show FP dialog, use main dial or Up/Down/Left/Right button to choose focus point.
+        - Press focus frame button again to close dialog.
+
+        Pattern use:
+        - Fast press focus frame button twice to show FP dialog. if you hear a beep and the dialog showed,
+		use left, right, up, down and set buttons to change pattern 
+		(if you press the focus frame button not fast enough, the dialog not showed).  - Press focus frame again 
+			to return to default canon focus frame mode.  
+        - Note that external AF assist capability (via Speedlite or ST-E2) will not work with pattern AF modes. 
+
+	New menus can be accessed from Info screen:
+		Av comp                    (+-6)
+		Flash exp. comp            (+-6)
+		AEB                        (+-6)
+		Safety Shift               (on,off)
+		Release Count              (display count)
+		Show ISO in Viewfinder     (on,off)
+		Color Temperature          (1800-11000K)
+		Flash                      (on,0ff)
+		AF Assist Beam             (on,off)
+		DP Button                  (Disabled, Change ISO, Extended AEB, Interval)
+		Extended AEB               ((3,5,7,9)Frames, (0.3-3.0)EV)
+		Interval Time              (1 to 100)
+
+		To get to Info screen press menu, then disp. button.
+        Use Up and Down keys to change menu. Left and Right to change settings. 
+		Av+- to change a sign in Av comp and Flash exp comp. Av+- in Color Temperature will set temperature 
+		by preset values: 2200,3200,4000,5200,6000,7000K. Use Set to save (Av,Flash,AEB,ColorTemp.).
+		
+	To change ISO(100,200,400,800,1600,3200) while looking through viewfinder press left or right key. 
+		If Show ISO in Viewfinder is on new ISO will be shown in viewfinder while key is pressed 
+		(only works in Tv and M modes).   
+	To switch quality to RAW or back to JPG in Full Auto and other Auto modes 
+		press  "Direct Print" button from main screen.
+	Extended AEB:
+		Select "Frames" or "EV" with left or right button. 
+		Press set to go in sub menu. Set value with left or right buttons. 
+		Press set to save it.
+		To start Extended AEB go in Drive Mode screen and press dp button. Or if "DP Button" was set to "Extended AEB" 
+			just press dp button. 
+	  Interval shutter:
+		Choose "Interval time" in info screen menu.
+		Set "DP Button" to "Interval".
+		Press dp button to start shooting.
+		Turn the mode dial to exit interval shooting.
+
