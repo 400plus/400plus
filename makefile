@@ -13,7 +13,7 @@ $(name).BIN: $(name).arm.elf
 	$(OBJCOPY) -O binary $(name).arm.elf $(name).BIN
 
 
-$(name).arm.elf:entry.o entry_subs.o gui.o init.o main.o link.script
+$(name).arm.elf:entry.o entry_subs.o init.o main.o link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o$@ $^
 
 entry.o:entry.S
@@ -21,8 +21,6 @@ entry.o:entry.S
 main.o:main.c
 
 init.o:init.c
-
-gui.o:gui.S
 
 entry_subs.o: entry_subs.S
 

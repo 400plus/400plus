@@ -5,6 +5,9 @@ extern void* cache_0xFFB602F0;
 
 extern void* addr_0x1900;
 
+
+
+
 void COPY()
 
 {
@@ -243,7 +246,7 @@ void my_task_Startup()
   dmProcInit();
 
   
-  CreateMyTask(); // MyTask
+CreateMyTask(); // MyTask
 
 
   sub_FFAFE5BC();
@@ -356,8 +359,8 @@ void my_task_Startup()
   DigPropInit();
 
   ShootMainInit();
-  //my_OlcInfoInit();
-  OlcInfoInit();
+  my_OlcInfoInit();
+ //OlcInfoInit();
 
   RegisterISR_EMERGENCY_CARDDOOR();
 
@@ -449,8 +452,7 @@ void my_task_Startup()
 
   CreateMemoryManagerPubInstance();
 
-  //GUIInit();
-  my_GUIInit();
+  GUIInit();
   GUIApiCalls();
 
   InitializeImagePlayer();
@@ -550,8 +552,8 @@ int my_InitializeIntercom()
 }
 
 
-extern void* hOlcInfoMessQueue;
-/*
+
+
 
 extern int OlcInfoData[0xC0/4];
 
@@ -562,6 +564,8 @@ extern int OlcInfoFlags[24];
 extern char OlcInfoEmptyStr;
 
 extern void* hOlcInfoSem;
+
+extern void* hOlcInfoMessQueue;
 
 extern void* proc_OlcTftNotifyChange;
 
@@ -686,7 +690,7 @@ void my_task_OlcInfo()
 
         break;
 
-*/
+
 /*  wrong
 
       case OLC_MESSAGE_5:
@@ -782,7 +786,7 @@ OlcCounterFlag3=OlcInfoDataCopy[42];
 
 */
 
-/*
+
       case OLC_DISP_WARNING_DLG:
 
         flag=pMessage[1];
@@ -838,12 +842,12 @@ OlcCounterFlag3=OlcInfoDataCopy[42];
 
 }
 
-*/
-
-//extern void task_OlcInfo();
 
 
-/*
+extern void task_OlcInfo();
+
+
+
 void my_OlcInfoInit()
 
 {
@@ -852,4 +856,4 @@ void my_OlcInfoInit()
 
   CreateTask("OlcInfo", 0x17, 0, task_OlcInfo, 0);
 
-} */
+}
