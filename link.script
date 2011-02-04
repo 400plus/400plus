@@ -3,7 +3,6 @@ SECTIONS {
 	{
 		entry.o;
 		entry_subs.o;
-		gui.o;
 		init.o;
 		main.o;
 	}
