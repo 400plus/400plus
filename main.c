@@ -65,10 +65,10 @@ int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
  			 40, 41, 47, 168, 169, 174, 175,   //Left
 			 80, 81, 87, 336, 337, 342, 343} ;  //Right
 int test, modedial;  int spotmode=3, evalue=0; 
-int flag, flag1, test_iso;  //  int ia=0;
+int flag, flag1, test_iso;    int ia=0;
 int i=0, option_number = 1;
-int  double_key=0, last_option = 13, update=1;
-int flash_exp_val, av_comp_val, aeb_val, color_temp, ir_inst;
+int  double_key=0, last_option = 12, update=1;
+int flash_exp_val, av_comp_val, aeb_val, color_temp;
 
 int eaeb_sub_menu=0, st_1=0, st_2=0;
 int eaeb_frames=3, eaeb_ev=0x08;
@@ -87,7 +87,7 @@ char* s_m_eaeb[18]={"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "
 char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};
 int iso_in_viewfinder, dp_opt=1, eaeb_delay;
 int settingsbuff[30];
-#define settings_def_version 5
+#define settings_def_version 4
 void ReadSettings()
 {	int file = FIO_OpenFile("A:/settings", O_RDONLY, 644);
 	if(file!=-1)
@@ -101,7 +101,6 @@ void ReadSettings()
 			interval_time				= settingsbuff[6];
 			eaeb_m_min				= settingsbuff[7];
 			eaeb_m_max				= settingsbuff[8];
-			ir_inst		= settingsbuff[9];
 		}
 		FIO_CloseFile(file);
 	}
@@ -119,7 +118,7 @@ void WriteSettings()
 		settingsbuff[6]= interval_time;
 		settingsbuff[7]= eaeb_m_min;
 		settingsbuff[8]= eaeb_m_max;
-		settingsbuff[9]= ir_inst;
+		
 		FIO_WriteFile(file, settingsbuff, sizeof(settingsbuff));
 		FIO_CloseFile(file);
 	}
@@ -128,31 +127,22 @@ void WriteSettings()
 void UpdateStVariables()
 {	switch (st_1)
 	{	case 0: st_2=eaeb_frames;	break;
-		case 1:
-			if(av_half_stop)eaeb_ev &= 0xFC;
-			else { if((eaeb_ev&7)!=0 && (eaeb_ev&3)==0)eaeb_ev -= 1;}
-			st_2=eaeb_ev; break;
+		case 1: st_2=eaeb_ev; break;
 		case 2: st_2=eaeb_delay; break;
 		case 3: st_2=eaeb_m_min; break;
 		case 4: st_2=eaeb_m_max; break;
 	}
 }
 
-void RemoteInstantRelease(int ir)
-{	if(ir==1){*(int*)0x229AC=4500;*(int*)0x229B0=5560;}
-	else if(ir==2){*(int*)0x229AC=6160;*(int*)0x229B0=7410;}
-}
-
 void MyTask ()
 {	//MyGlobalStdSet(); //Thai Remarked
 	int* pMessage ;   int dem; int t;
-//	ia=*(int*)0xC300;
+	ia=*(int*)0xC300;
 	int flash_exp_val_temp, av_comp_val_temp;
 	int m;
 	char  av_enc, av_dec, OldAvComp;
 	SleepTask(1000);
 	ReadSettings();
-	RemoteInstantRelease(ir_inst);
 	if(!*(int*)(0x16B60+0xB0))SendToIntercom(0x31, 1, 1);		// enable CFn.8 for ISO H
 	SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
 	while (1)
@@ -317,9 +307,7 @@ void MyTask ()
 							}
 							break;
 						case 12:interval_time=interval_time<101?interval_time+1:1; break;
-						case 13:
-							ir_inst=1; RemoteInstantRelease(1); WriteSettings();
-							break;
+					; break;
 					}
 					update=0;
 					break;
@@ -362,9 +350,6 @@ void MyTask ()
 							}
 							break;
 						case 12:interval_time=interval_time>1?interval_time-1:100; break;
-						case 13:
-							ir_inst=0; RemoteInstantRelease(2); WriteSettings();
-							break;
 					}
 					update=0;
 					break;
@@ -460,8 +445,7 @@ void MyTask ()
 					
 
 			}else{
-			  if(av_half_stop)eaeb_ev &= 0xFC;
-			  else { if((eaeb_ev&7)!=0 && (eaeb_ev&3)==0)eaeb_ev -= 1;}
+			
 			  OldAvComp=CurAvCompCh;
 			  av_enc=CurAvCompCh;
 			  av_dec=CurAvCompCh;
@@ -677,21 +661,18 @@ int GetValue(int temp, int button)
 	if(i)button^=1;
 	switch (button)
 	{	case 0:
-			if(av_half_stop==1)
-			{	if((temp&3)!=0){temp &= 0xFC; break;}
-				temp -= 4; break;
-			}
+			if(av_half_stop==1)temp = (temp & 0xFC) - 4;
 			else
-			{	if((temp&7)!=0 && (temp&3)==0){temp -= 1; break;}
+			{	if((temp&3)==0)temp &= 0xF8;
 				if((temp&5)==5)temp -= 2;
 				else temp -= 3;
 			}
 			if(temp<0) temp=0;
 			break;
 		case 1:
-			if(av_half_stop==1){temp = (temp & 0xFC) + 4; break;}
+			if(av_half_stop==1)temp = (temp & 0xFC) + 4;
 			else
-			{	if((temp&7)!=0 && (temp&3)==0){temp += 1; break;}
+			{	if((temp&3)==0)temp &= 0xF8;
 				if((temp&3)==3)temp += 2;
 				else temp += 3;
 			}
@@ -791,13 +772,13 @@ char* my_GUIString()
 			}
 			if(st_1==3)
 			{
-			  sprintf(buff,"Extended AEB: M1 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
+			  sprintf(buff,"Extended AEB:M1 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
 			  return buff;
 			}
 			
 			if(st_1==4)
 			{
-			  sprintf(buff,"Extended AEB: M2 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
+			  sprintf(buff,"Extended AEB:M2 %s",  s_m_eaeb[(st_2-(0x10))>>3 ]);
 			  return buff;
 			}
 			
@@ -806,9 +787,6 @@ char* my_GUIString()
 			return buff;
 		case 12:
 			sprintf(buff,"Interval time: %u",interval_time);
-			return buff;
-		case 13:
-			sprintf(buff,"IR Remote Release: %s",ir_inst==1?"Instant":"2sec.");
 			return buff;
 	}
 }
