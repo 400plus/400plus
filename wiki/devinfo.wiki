@@ -77,7 +77,7 @@ And you must also mount/copy sources into folder reachable from chroot.<br>
 
 
 == fedora 14 in virtual machine ==
-_thanks to *eduperez* for this one_<br>
+_thanks to *eperez* for this one_<br>
 his post follows:<br>
 
 As promised:<br><br>
