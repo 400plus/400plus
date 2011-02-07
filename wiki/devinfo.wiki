@@ -50,26 +50,26 @@ mount -o bind /tmp /mnt/gentoo32/tmp
 linux32 chroot /mnt/gentoo32 /bin/bash
 </code>
 Now we are working 32bit chroot..<br>
-{{{
+<code language="sh">
 source /etc/profile
 env-update
-}}}
+</code>
 also I recommend you to follow "Code Listing 3.7: creating a new file in /etc/init.d" from original instructions.<br><br>
 
 Still in chroot using [http://magiclantern.wikia.com/wiki/Build_instructions/550D magic lantern 550d build instructions]<br>
 (you can download exactly the same version of script, I have used..., or follow original instructions)<br>
 you can build toolchain.<br><br>
 
-{{{
+<code language="sh">
 cd /tmp
 wget http://panora.ma/dev/summon-arm-toolchain 
 bash ./summon-arm-toolchain
-}}}
+</code>
 
 Change PATH variable.<br>
-{{{
+<code language="sh">
 PATH=$PATH:/arm-elf-toolchain/bin/
-}}}
+</code>
 And you must also mount/copy sources into folder reachable from chroot.<br>
 ----
 <br>
@@ -95,16 +95,16 @@ Boot the VM, using the ISO downloaded previously, and install it to the (virtual
 Prepare the VM<br>
 <br>
 No special preparation is required here, just update the software:<br>
-{{{
+<code language="sh">
 su -c "yum -y update"
 su -c "yum -y update"
-}}}
+</code>
 <br>
 _Yes: it must be run twice, as the first update will only update the updater itself_<br>
 then reboot (just the VM) and install the required dependencies:
-{{{
+<code language="sh">
 su -c "yum -y install gcc mpfr-devel libmpc-devel"
-}}}
+</code>
 <br>
 Install the cross-compiler
 <br><br>
@@ -114,12 +114,12 @@ http://chdk.wikia.com/wiki/Gcc433 , with some minor variations<br>
 (installed to "/opt/arm-elf", and changed some parameters to avoid a bug in GCC):<br><br>
 
 Create the destination directory:<br>
-{{{
+<code language="sh">
 su -c "mkdir /opt/arm-elf".
-}}}
+</code>
 <br>
 Install binutils:<br>
-{{{
+<code language="sh">
 wget ftp://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2
 tar xvjf binutils-2.21.tar.bz2
 mkdir binutils-2.21-arm-elf
@@ -127,40 +127,40 @@ cd binutils-2.21-arm-elf/
 ../binutils-2.21/configure --srcdir=../binutils-2.21/ --target=arm-elf --prefix=/opt/arm-elf/
 make
 su -c "make install"
-}}}
+</code>
 <br>
 Install gcc:<br>
-{{{
+<code language="sh">
 wget ftp://ftp.gnu.org/gnu/gcc/gcc-4.5.2/gcc-4.5.2.tar.bz2
 tar -xvjf gcc-4.5.2.tar.bz2
-}}}
+</code>
 <br>
 Now edit the file "gcc-4.5.2/gcc/config/arm/t-arm-elf" and uncomment the following lines:<br>
 <br>
-{{{
+<code language="sh">
 MULTILIB_OPTIONS    += mno-thumb-interwork/mthumb-interwork
 MULTILIB_DIRNAMES   += normal interwork
-}}}
+</code>
 <br>
 We can continue the installation:<br>
-{{{
+<code language="sh">
 mkdir gcc-4.5.2-arm-elf
 cd gcc-4.5.2-arm-elf/
 ../gcc-4.5.2/configure --srcdir=../gcc-4.5.2 --target=arm-elf --enable-languages=c \
 --enable-clocale=gnu --disable-libm --disable-libc --disable-threads --disable-nls \
 --disable-libssp --disable-intl --with-dpu=arm9 --with-newlib --prefix=/opt/arm-elf/
 su -c "make install"
-}}}
+</code>
 <br>
 Compile<br>
 <br>
 Finally, we are ready to download the latest "autoexec" source code, and compile it:<br>
-{{{
+<code language="sh">
 export PATH=/opt/arm-elf/bin/:$PATH
 unzip autoexec_2011-01-30.zip
 cd autoexec_2011-01-30
 make
-}}}
+</code>
 <br>
 Go to bed<br>
 <br>
