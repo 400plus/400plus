@@ -1,0 +1,168 @@
+#summary some useful information
+
+
+<wiki:toc max_depth="2" />
+----
+= Introduction =
+useful information collected from the forum mostly.<br>
+this page is WIP and needs to be formated...<br>
+_,,i believe this page should be for developers and not for users, users can read the wiki page on wikia, i'm not sure who is updating the info there -- 0xAF,,_<br>
+<br>
+----
+= links =
+  * [http://chdk.wikia.com/wiki/400D 400d page on wikia] - read here to get started with the installation (there are links to the forum too)<br>
+  * [http://chdk.setepontos.com/index.php?topic=3290.0 CHDK forum thread for 400D/XTI]<br>
+  * [ftp://www.inc.eng.kmutt.ac.th/pornpoj/vxwork/VxWorks_Prog_Guide.pdf VxWorks Programmer's Guide] (thanks to JoeNeptune)<br>
+<br>
+----
+= toolchains =
+== chroot in 64bit gentoo ==
+_thanks to *vatoz* for the howto_<br>
+
+here is how to setup a toolchain in chroot environment under 64bit gentoo<br>
+i guess it will work in other distros/bitness<br>
+
+his post follows:<br>
+
+I have been able to prepare working arm-elf-toolchain in chroot under 64 bit gentoo.<br>
+Using [http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=2 this documentation],
+latest stage3 instead of version mentioned in the guide...<br>
+
+<code language="sh">
+cd /mnt
+mkdir gentoo32
+cd /tmp
+wget "http://mirrors.kernel.org/gentoo/releases/x86/autobuilds/current-stage3/stage3-i686-20110201.tar.bz2"
+cd /mnt/gentoo32/
+tar -xvjpf /tmp/stage3-i686-20110201.tar.bz2 
+cp -L /etc/resolv.conf /mnt/gentoo32/etc/
+cp -L /etc/passwd /mnt/gentoo32/etc/
+nano /mnt/gentoo32/etc/make.conf
+mount -o bind /dev /mnt/gentoo32/dev
+mount -o bind /dev/pts /mnt/gentoo32/dev/pts
+mount -o bind /dev/shm /mnt/gentoo32/dev/shm
+mount -o bind /proc /mnt/gentoo32/proc
+mount -o bind /proc/bus/usb /mnt/gentoo32/proc/bus/usb
+mount -o bind /sys /mnt/gentoo32/sys
+mkdir -p /mnt/gentoo32/usr/portage/
+mount -o bind /usr/portage /mnt/gentoo32/usr/portage/
+mount -o bind /tmp /mnt/gentoo32/tmp
+linux32 chroot /mnt/gentoo32 /bin/bash
+</code>
+Now we are working 32bit chroot..<br>
+{{{
+source /etc/profile
+env-update
+}}}
+also I recommend you to follow "Code Listing 3.7: creating a new file in /etc/init.d" from original instructions.<br><br>
+
+Still in chroot using [http://magiclantern.wikia.com/wiki/Build_instructions/550D magic lantern 550d build instructions]<br>
+(you can download exactly the same version of script, I have used..., or follow original instructions)<br>
+you can build toolchain.<br><br>
+
+{{{
+cd /tmp
+wget http://panora.ma/dev/summon-arm-toolchain 
+bash ./summon-arm-toolchain
+}}}
+
+Change PATH variable.<br>
+{{{
+PATH=$PATH:/arm-elf-toolchain/bin/
+}}}
+And you must also mount/copy sources into folder reachable from chroot.<br>
+----
+<br>
+
+
+
+== fedora 14 in virtual machine ==
+_thanks to *eduperez* for this one_<br>
+his post follows:<br>
+
+As promised:<br><br>
+Create a VM<br><br>
+I used Fedora 13 (64 bits) as the "host" OS, and Fedora 14 (32 bits) as the "guest" OS,<br>
+for no other particular reason that it is what I am used to run;<br>
+I downloaded the [http://fedoraproject.org/en/get-fedora-options Fedora 14 Desktop Edition (32 bit CD ISO)].<br>
+Basically, I followed the [http://fedoraproject.org/wiki/Virtualization_Quick_Start Virtualization Quick Start guide] to create the virtual machine.<br>
+Most relevant parameters for the emulation were: 4GB of disk space, 512 MB of RAM, 1 CPU.<br>
+Select an i686 architecture (should work with a 64b arch, as long as you install a 32b OS)<br>
+and use KVM if your processor supports it (it is way faster than the non-KVM alternative).<br>
+Boot the VM, using the ISO downloaded previously, and install it to the (virtual) disk drive<br>
+(there are no critical parameters here, just follow the installation assistant).<br>
+<br>
+Prepare the VM<br>
+<br>
+No special preparation is required here, just update the software:<br>
+{{{
+su -c "yum -y update"
+su -c "yum -y update"
+}}}
+<br>
+_Yes: it must be run twice, as the first update will only update the updater itself_<br>
+then reboot (just the VM) and install the required dependencies:
+{{{
+su -c "yum -y install gcc mpfr-devel libmpc-devel"
+}}}
+<br>
+Install the cross-compiler
+<br><br>
+I mostly followed the procedure outlined at<br>
+http://chdk.wikia.com/wiki/Compiling_CHDK_under_Linux and<br>
+http://chdk.wikia.com/wiki/Gcc433 , with some minor variations<br>
+(installed to "/opt/arm-elf", and changed some parameters to avoid a bug in GCC):<br><br>
+
+Create the destination directory:<br>
+{{{
+su -c "mkdir /opt/arm-elf".
+}}}
+<br>
+Install binutils:<br>
+{{{
+wget ftp://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2
+tar xvjf binutils-2.21.tar.bz2
+mkdir binutils-2.21-arm-elf
+cd binutils-2.21-arm-elf/
+../binutils-2.21/configure --srcdir=../binutils-2.21/ --target=arm-elf --prefix=/opt/arm-elf/
+make
+su -c "make install"
+}}}
+<br>
+Install gcc:<br>
+{{{
+wget ftp://ftp.gnu.org/gnu/gcc/gcc-4.5.2/gcc-4.5.2.tar.bz2
+tar -xvjf gcc-4.5.2.tar.bz2
+}}}
+<br>
+Now edit the file "gcc-4.5.2/gcc/config/arm/t-arm-elf" and uncomment the following lines:<br>
+<br>
+{{{
+MULTILIB_OPTIONS    += mno-thumb-interwork/mthumb-interwork
+MULTILIB_DIRNAMES   += normal interwork
+}}}
+<br>
+We can continue the installation:<br>
+{{{
+mkdir gcc-4.5.2-arm-elf
+cd gcc-4.5.2-arm-elf/
+../gcc-4.5.2/configure --srcdir=../gcc-4.5.2 --target=arm-elf --enable-languages=c \
+--enable-clocale=gnu --disable-libm --disable-libc --disable-threads --disable-nls \
+--disable-libssp --disable-intl --with-dpu=arm9 --with-newlib --prefix=/opt/arm-elf/
+su -c "make install"
+}}}
+<br>
+Compile<br>
+<br>
+Finally, we are ready to download the latest "autoexec" source code, and compile it:<br>
+{{{
+export PATH=/opt/arm-elf/bin/:$PATH
+unzip autoexec_2011-01-30.zip
+cd autoexec_2011-01-30
+make
+}}}
+<br>
+Go to bed<br>
+<br>
+If everything goes as expected, you will get a new and shiny "AUTOEXEC.BIN" file;<br>
+now I just need to find ~~an idiot~~ a brave man willing to ~~sacrifice his camera~~ test it.
