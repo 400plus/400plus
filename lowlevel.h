@@ -30,7 +30,6 @@ extern long  MemDescArrayCount;
 extern long fdConsole;
 
 extern void usrClock();
-extern void task_Startup();
 extern void AssertPrepare();
 
 #endif /* LOWLEVEL_H_ */
