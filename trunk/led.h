@@ -7,6 +7,7 @@
 #define LED_OFF  0x44
 
 extern long eventproc_EdLedOn(void);
+extern long eventproc_EdLedOff(void);
 extern long eventproc_EdLedBlink(void);
 
 #endif /* LED_H_ */

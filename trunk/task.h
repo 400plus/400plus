@@ -7,6 +7,9 @@ extern int CreateTask(const char *name, int prio, int stack_size, void *entry, l
 extern void SleepTask(long msec);
 extern void ExitTask(void);
 
+extern void SuspendTask(int *task);
+extern void UnSuspendTask(int *task);
+
 extern void createHook (void *pNewTcb);
 extern void deleteHook (void *pTcb);
 

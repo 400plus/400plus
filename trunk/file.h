@@ -25,7 +25,7 @@ extern int FIO_RemoveFile(const char *name);
 extern int FIO_OpenFile(const char *name, int flags, int mode);
 extern int FIO_ReadFile(int fd, void *buffer, long nbytes);
 extern int FIO_WriteFile(int fd, void *buf, long nbytes);
-extern int FIO_FileClose(int fd);
+extern int FIO_CloseFile(int fd);
 
 extern void *OpenLogFile(char *name);
 extern void  CloseLogFile(void *logFile);
