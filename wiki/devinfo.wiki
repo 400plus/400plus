@@ -62,7 +62,7 @@ you can build toolchain.<br><br>
 
 <code language="sh">
 cd /tmp
-wget http://panora.ma/dev/summon-arm-toolchain 
+wget "http://panora.ma/dev/summon-arm-toolchain"
 bash ./summon-arm-toolchain
 </code>
 
@@ -120,7 +120,7 @@ su -c "mkdir /opt/arm-elf".
 <br>
 Install binutils:<br>
 <code language="sh">
-wget ftp://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2
+wget "ftp://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2"
 tar xvjf binutils-2.21.tar.bz2
 mkdir binutils-2.21-arm-elf
 cd binutils-2.21-arm-elf/
@@ -131,7 +131,7 @@ su -c "make install"
 <br>
 Install gcc:<br>
 <code language="sh">
-wget ftp://ftp.gnu.org/gnu/gcc/gcc-4.5.2/gcc-4.5.2.tar.bz2
+wget "ftp://ftp.gnu.org/gnu/gcc/gcc-4.5.2/gcc-4.5.2.tar.bz2"
 tar -xvjf gcc-4.5.2.tar.bz2
 </code>
 <br>
