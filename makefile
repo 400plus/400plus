@@ -26,6 +26,5 @@ gui.o:gui.S
 
 entry_subs.o: entry_subs.S
 
-
 clean:
 	rm *.o; rm $(name).arm.elf
