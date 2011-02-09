@@ -4,6 +4,16 @@
 #include "main.h"
 #include "init.h"
 
+extern void COPY();
+
+void my_romStart(int startType);
+int  my_usrInit(int startType);
+int  my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize);
+
+void my_taskcreate_Startup();
+void my_task_Startup();
+int  my_InitializeIntercom();
+
 void COPY() {
 	int i;
 
