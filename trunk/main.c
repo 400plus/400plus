@@ -834,6 +834,9 @@ void my_IntercomHandler (int r0, char* ptr)
 			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}break;
 		case BUTTON_UP:
 			if(ptr[2]) {
+				if(FaceSensor) {
+					return;
+				}
 				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
 				if(GUIMode==0x11 || GUIMode==0)
 				{	test_iso=CurIsoValue;
@@ -845,6 +848,9 @@ void my_IntercomHandler (int r0, char* ptr)
 			break;
 		case BUTTON_DOWN:
 			if(ptr[2]) {
+				if(FaceSensor) {
+					return;
+				}
 				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
 				if(GUIMode==0x11 || GUIMode==0)if (WhiteBalance==0x08){SendToIntercom(0x5,1,0x00);break;}
 				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
