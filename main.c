@@ -24,6 +24,7 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define AF_PATTERN				0x09
 #define E_AEB					0x0A
 #define INTERVAL				0x0B
+#define FACE_SENSOR_NOISO 		0x0C
 #define safety_shift			(*((int*)0x16C30))
 #define AEB						(*((int*)0x16B90))
 #define av_half_stop			(*((int*)(0x16B60+0xA8)))
@@ -66,7 +67,7 @@ int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
 int test, modedial;  int spotmode=3, evalue=0;
 int flag, flag1, test_iso;  //  int ia=0;
 int i=0, option_number = 1;
-int  double_key=0, last_option = 13, update=1;
+int last_option = 13, update=1;
 int flash_exp_val, av_comp_val, aeb_val, color_temp, ir_inst;
 
 int eaeb_sub_menu=0, st_1=0, st_2=0;
@@ -211,41 +212,42 @@ void MyTask ()
 			if (dp_opt==1)SetDispIso();
 			break;
 		case FACE_SENSOR_ISO:
-			if(double_key^=1){
-				test_iso=CurIsoValue;
-				if(pMessage[1])
-				{	if (test_iso<0x48) flag1 = 0x48;
-					else if (test_iso<0x50) flag1 = 0x50;
-					else if (test_iso<0x58) flag1 = 0x58;
-					else if (test_iso<0x60) flag1 = 0x60;
-					else if (test_iso<0x68) flag1 = 0x68;
-					else{ flag1 = 0x6F;}
-				}
-				else
-				{	if (test_iso>0x68) flag1 = 0x68;
-					else if (test_iso>0x60) flag1 = 0x60;
-					else if (test_iso>0x58) flag1 = 0x58;
-					else if (test_iso>0x50) flag1 = 0x50;
-					else flag1 = 0x48;
-				}
-				if(iso_in_viewfinder)
-				if (AE_Mode==1 || AE_Mode==3)
-				{	if(!CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
-					test=*(char*)(0x27E48);
-					SendToIntercom(0x8,1,flag1+0x25);
-				}
-				for (dem=1; dem<11; dem++)
-				{	if (*(int*)(0x1C88)!=1) //MAIN Gui idle command
-					{	eventproc_SetIsoValue(&flag1);dem=11;
-						SleepTask(20);
-					} else; {SleepTask(100);}
-				}
-			}else if (AE_Mode==1 || AE_Mode==3)
-			{	if(iso_in_viewfinder)SendToIntercom(0x8,1,test);
+			test_iso=CurIsoValue;
+			if(pMessage[1])
+			{	if (test_iso<0x48) flag1 = 0x48;
+				else if (test_iso<0x50) flag1 = 0x50;
+				else if (test_iso<0x58) flag1 = 0x58;
+				else if (test_iso<0x60) flag1 = 0x60;
+				else if (test_iso<0x68) flag1 = 0x68;
+				else{ flag1 = 0x6F;}
+			}
+			else
+			{	if (test_iso>0x68) flag1 = 0x68;
+				else if (test_iso>0x60) flag1 = 0x60;
+				else if (test_iso>0x58) flag1 = 0x58;
+				else if (test_iso>0x50) flag1 = 0x50;
+				else flag1 = 0x48;
+			}
+			if(iso_in_viewfinder)
+			if (AE_Mode==1 || AE_Mode==3)
+			{	if(!CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
+				test=*(char*)(0x27E48);
+				SendToIntercom(0x8,1,flag1+0x25);
+			}
+			for (dem=1; dem<11; dem++)
+			{	if (*(int*)(0x1C88)!=1) //MAIN Gui idle command
+				{	eventproc_SetIsoValue(&flag1);dem=11;
+					SleepTask(20);
+				} else; {SleepTask(100);}
+			}
+			break;
+		case FACE_SENSOR_NOISO:
+			if (AE_Mode==1 || AE_Mode==3){
+				if(iso_in_viewfinder)SendToIntercom(0x8,1,test);
 				if(iso_in_viewfinder==2){SendToIntercom(0x30,1,0); iso_in_viewfinder=1;}
 			}
 			break;
-		repeat:
+repeat:
 		case INFO_SCREEN:
 			switch (pMessage[1])
 			{
@@ -370,23 +372,6 @@ void MyTask ()
 			}
 			sub_FF837FA8(hInfoCreative,0x11,my_GUIString());
 			do_some_with_dialog(hInfoCreative);
-			switch (pMessage[1])
-			{	case BUTTON_UP:
-				case BUTTON_DOWN:
-					for (t=0;t<5; t++){ SleepTask(100); if (!double_key) break;}
-					if (double_key) goto repeat;break;
-				case BUTTON_RIGHT:
-				case BUTTON_LEFT:
-					switch(option_number)
-					{	case 1:
-						case 2:
-						case 3:
-						case 7:
-							for (;t<2; t++){ SleepTask(150); if (!double_key) break;}
-							if (double_key)SleepTask(150);
-							if (double_key) goto repeat;
-					}
-			}
 			break;
 		case SAVE_SETTINGS:
 			switch(option_number)
@@ -839,34 +824,56 @@ void my_IntercomHandler (int r0, char* ptr)
 		case 0xB9: SendMyMessage(MY_MESS2,0);break; //Auto focus point selection dialog on
 		case 0xA7:  //Auto focus point selection dialog off and custom on
 			if(AFP_Sel==1) {/*IntercomHandler(r0, ptr);*/ ptr[1]=0xB9; SendMyMessage(MY_MESS3,0);}break;
-		case BUTTON_AV:if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}break;
+		case BUTTON_AV:
+			if(ptr[2]) {
+				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
+			}
+			break;
 		case BUTTON_SET:
 			if(GUIMode==0x10){SendMyMessage(AF_PATTERN,ptr[1]);return;}
 			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}break;
 		case BUTTON_UP:
-			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			if(GUIMode==0x11 || GUIMode==0)
-			{	test_iso=CurIsoValue;
-				if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
-				{	SetDispIso2();break;}  //Change ISO value when use default camera feature.
+			if(ptr[2]) {
+				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
+				if(GUIMode==0x11 || GUIMode==0)
+				{	test_iso=CurIsoValue;
+					if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
+					{	SetDispIso2();break;}  //Change ISO value when use default camera feature.
+				}
+				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
 			}
-			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
 			break;
 		case BUTTON_DOWN:
-			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			if(GUIMode==0x11 || GUIMode==0)if (WhiteBalance==0x08){SendToIntercom(0x5,1,0x00);break;}
-			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
+			if(ptr[2]) {
+				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
+				if(GUIMode==0x11 || GUIMode==0)if (WhiteBalance==0x08){SendToIntercom(0x5,1,0x00);break;}
+				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
+			}
 			break;
 		case BUTTON_RIGHT:
-			if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,1);return;}
-			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
+			if(ptr[2]) {
+				if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,1);return;}
+				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
+				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
+			} else {
+				if (FaceSensor){
+					SendMyMessage(FACE_SENSOR_NOISO,0);
+					return;
+				}
+			}
 			break;
 		case BUTTON_LEFT:
-			if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,0);return;}
-			else if(GUIMode==0x11 || GUIMode==0){SetEvaluativeDefault();break;}//Set Evaluative when "Active Meter Mode is Spot"
-			if(GUIMode==4)if(double_key^=1){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			if(GUIMode==0x10)if(double_key^=1)SendMyMessage(AF_PATTERN,ptr[1]);
+			if(ptr[2]) {
+				if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,0);return;}
+				else if(GUIMode==0x11 || GUIMode==0){SetEvaluativeDefault();break;}//Set Evaluative when "Active Meter Mode is Spot"
+				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
+				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
+			} else {
+				if (FaceSensor){
+					SendMyMessage(FACE_SENSOR_NOISO,0);
+					return;
+				}
+			}
 			break;
 	}
 	IntercomHandler(r0, ptr);
