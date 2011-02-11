@@ -21,7 +21,6 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define FACE_SENSOR_ISO 		0x06
 #define INFO_SCREEN 			0x07
 #define SAVE_SETTINGS			0x08
-#define AF_PATTERN				0x09
 #define E_AEB					0x0A
 #define INTERVAL				0x0B
 #define FACE_SENSOR_NOISO 		0x0C
@@ -58,12 +57,6 @@ char i100[5]="100 ", i125[5]="125 ", i160[5]="160 ";
 char i200[5]="200", i250[5]="250 ", i320[5]="320 ", i400[5]="400 ", i500[5]="500 " , i640[5]="640 ", i800[5]="800 ";
 char i1000[5]="1000", i1250[5]="1250", i1600[5]="1600", i2000[5]="2000", i2500[5]="2500",i3200[5]="3200";
 char* iso;
-int AFP_Sel;
-int AFP[42]={391, 7, 49, 385, 73, 120, 121, 126, 127, 505, //Center
-			 24, 25, 26, 27, 386, 387, 409, 410, 411,  // Top
-			 96, 97, 100, 101, 388, 389, 481, 484, 485,  //Bottom
- 			 40, 41, 47, 168, 169, 174, 175,   //Left
-			 80, 81, 87, 336, 337, 342, 343} ;  //Right
 int test, modedial;  int spotmode=3, evalue=0;
 int flag, flag1, test_iso;  //  int ia=0;
 int i=0, option_number = 1;
@@ -93,15 +86,15 @@ void ReadSettings()
 	if(file!=-1)
 	{	FIO_ReadFile(file, (int *)settingsbuff, sizeof(settingsbuff));
 		if(settingsbuff[0]==settings_def_version)
-		{	iso_in_viewfinder		= settingsbuff[1];
-			dp_opt					= settingsbuff[2];
-			eaeb_frames				= settingsbuff[3];
-			eaeb_ev					= settingsbuff[4];
-			eaeb_delay				= settingsbuff[5];
-			interval_time				= settingsbuff[6];
-			eaeb_m_min				= settingsbuff[7];
-			eaeb_m_max				= settingsbuff[8];
-			ir_inst		= settingsbuff[9];
+		{	iso_in_viewfinder = settingsbuff[ 1];
+			dp_opt            = settingsbuff[ 2];
+			eaeb_frames       = settingsbuff[ 3];
+			eaeb_ev           = settingsbuff[ 4];
+			eaeb_delay        = settingsbuff[ 5];
+			interval_time     = settingsbuff[ 6];
+			eaeb_m_min        = settingsbuff[ 7];
+			eaeb_m_max        = settingsbuff[ 8];
+			ir_inst           = settingsbuff[ 9];
 		}
 		FIO_CloseFile(file);
 	}
@@ -110,16 +103,17 @@ void ReadSettings()
 void WriteSettings()
 {	int file = FIO_OpenFile("A:/settings", O_CREAT|O_WRONLY , 644);
 	if(file!=-1) {
-		settingsbuff[0]=settings_def_version;
-		settingsbuff[1]= iso_in_viewfinder;
-		settingsbuff[2]= dp_opt;
-		settingsbuff[3]= eaeb_frames;
-		settingsbuff[4]= eaeb_ev;
-		settingsbuff[5]= eaeb_delay;
-		settingsbuff[6]= interval_time;
-		settingsbuff[7]= eaeb_m_min;
-		settingsbuff[8]= eaeb_m_max;
-		settingsbuff[9]= ir_inst;
+		settingsbuff[ 0] = settings_def_version;
+		settingsbuff[ 1] = iso_in_viewfinder;
+		settingsbuff[ 2] = dp_opt;
+		settingsbuff[ 3] = eaeb_frames;
+		settingsbuff[ 4] = eaeb_ev;
+		settingsbuff[ 5] = eaeb_delay;
+		settingsbuff[ 6] = interval_time;
+		settingsbuff[ 7] = eaeb_m_min;
+		settingsbuff[ 8] = eaeb_m_max;
+		settingsbuff[ 9] = ir_inst;
+
 		FIO_WriteFile(file, settingsbuff, sizeof(settingsbuff));
 		FIO_CloseFile(file);
 	}
@@ -168,17 +162,6 @@ void MyTask ()
 			break;
 		case REQUEST_BUZZER:
 			eventproc_RiseEvent("RequestBuzzer");
-			break;
-		case MY_MESS3: //Notify Custom Focus Point Setting enable
-			if (*(int*)(0x16B60+0x38)==1) eventproc_RiseEvent("RequestBuzzer"); // if set Beep on
-			eventproc_EdLedOn(); LED_RED=LED_ON; SleepTask(50); eventproc_EdLedOff(); LED_RED=LED_OFF;
-			//Blueled on,Redled on, sleep, Blueled off,Redled off
-			break;
-		case MY_MESS2: //Check double press AutoFocusPoint button
-			AFP_Sel=1;
-			SleepTask(700);
-			AFP_Sel=0;
-			//eventproc_RiseEvent("RequestBuzzer");
 			break;
 		case DP_PRESSED:
 			//Spot metering mode
@@ -247,7 +230,6 @@ void MyTask ()
 				if(iso_in_viewfinder==2){SendToIntercom(0x30,1,0); iso_in_viewfinder=1;}
 			}
 			break;
-repeat:
 		case INFO_SCREEN:
 			switch (pMessage[1])
 			{
@@ -406,9 +388,6 @@ repeat:
 				    break;
 			}
 			break;
-		case AF_PATTERN:
-			AfPointExtend(pMessage[1]);
-			break;
 		case E_AEB:
 			if(st_2)
 			{	eventproc_RiseEvent("RequestBuzzer");
@@ -557,36 +536,6 @@ void FlashCompIm()
 	if (i)s+=130;
 	else s+=154;
 	sub_FF8382DC(*(int*)(0x47F0),0xB,s);
-}
-
-void AfPointExtend(button)
-{ 	int dem, currAFset;
-	currAFset=*(int*)(0x16B60+0x18);
-	for(dem=0;dem<41;dem++) { if(currAFset==AFP[dem])  break; }
-	switch (button)
-	{	case BUTTON_SET:
-			if (dem>=9)dem=0;
-			else dem++;
-			break;
-		case BUTTON_UP:
-			if (dem<10 || dem>=18)dem=10;
-			else dem++;
-			break;
-		case BUTTON_DOWN:
-			if (dem<19 || dem>=27)dem=19;
-			else dem++;
-			break;
-		case BUTTON_LEFT:
-			if (dem<28 || dem>=34)dem=28;
-			else dem++;
-			break;
-		case BUTTON_RIGHT:
-			if (dem<35 || dem>=41)dem=35;
-			else dem++;
-			break;
-	}
-		SendToIntercom(7,2,AFP[dem]);
-	//SendToIntercom(7,2,ia); ia++; //For test 512 pattern (2 bytes variable ia)
 }
 
 void SetDispIso( )
@@ -819,18 +768,12 @@ void my_IntercomHandler (int r0, char* ptr)
 		case 0x93:
 			SendMyMessage(MODE_DIAL,0);//Iso at switch on & roll dial
 			break;
-		case 0x50:
-			if(*(int*)(0x4804)!=0) {ptr[1]=0x51; IntercomHandler(r0, ptr); ptr[1]=0x50;}break;// AFP pattern
-		case 0xB9: SendMyMessage(MY_MESS2,0);break; //Auto focus point selection dialog on
-		case 0xA7:  //Auto focus point selection dialog off and custom on
-			if(AFP_Sel==1) {/*IntercomHandler(r0, ptr);*/ ptr[1]=0xB9; SendMyMessage(MY_MESS3,0);}break;
 		case BUTTON_AV:
 			if(ptr[2]) {
 				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
 			}
 			break;
 		case BUTTON_SET:
-			if(GUIMode==0x10){SendMyMessage(AF_PATTERN,ptr[1]);return;}
 			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}break;
 		case BUTTON_UP:
 			if(ptr[2]) {
@@ -843,7 +786,6 @@ void my_IntercomHandler (int r0, char* ptr)
 					if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
 					{	SetDispIso2();break;}  //Change ISO value when use default camera feature.
 				}
-				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
 			}
 			break;
 		case BUTTON_DOWN:
@@ -853,14 +795,12 @@ void my_IntercomHandler (int r0, char* ptr)
 				}
 				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
 				if(GUIMode==0x11 || GUIMode==0)if (WhiteBalance==0x08){SendToIntercom(0x5,1,0x00);break;}
-				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
 			}
 			break;
 		case BUTTON_RIGHT:
 			if(ptr[2]) {
 				if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,1);return;}
 				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
 			} else {
 				if (FaceSensor){
 					SendMyMessage(FACE_SENSOR_NOISO,0);
@@ -873,7 +813,6 @@ void my_IntercomHandler (int r0, char* ptr)
 				if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,0);return;}
 				else if(GUIMode==0x11 || GUIMode==0){SetEvaluativeDefault();break;}//Set Evaluative when "Active Meter Mode is Spot"
 				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-				if(GUIMode==0x10)SendMyMessage(AF_PATTERN,ptr[1]);
 			} else {
 				if (FaceSensor){
 					SendMyMessage(FACE_SENSOR_NOISO,0);
