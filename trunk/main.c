@@ -37,6 +37,8 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define AE_Mode					(*(int*)(0x16B60))
 extern void SpotImage(); extern void AfPointExtend(int); extern void MainGUISt();
 extern void SetDispIso(); char* my_GUIString();
+void restore_iso();
+void restore_wb();
 
 char i100[5]="100 ", i125[5]="125 ", i160[5]="160 ";
 char i200[5]="200", i250[5]="250 ", i320[5]="320 ", i400[5]="400 ", i500[5]="500 " , i640[5]="640 ", i800[5]="800 ";
@@ -140,6 +142,14 @@ void MyTask ()
 		t=0;
 		switch (pMessage[0])
 		{
+		case RESTORE_ISO:
+			restore_iso();
+			break;
+
+		case RESTORE_WB:
+			restore_wb();
+			break;
+
 		case SET_EVALUATIVE:
 		 	if ( MeteringMode==3 )  // Spot is actived
 			{ 	eventproc_SetMesMode(&evalue); }
@@ -797,7 +807,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				return;
 			}
 			if (GUIMode == 0x11 || GUIMode == 0) {  //Change ISO value when use default camera feature.
-				restore_iso();
+				SendMyMessage(RESTORE_ISO, 0);
 				break;
 			}
 		}
@@ -812,7 +822,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				return;
 			}
 			if (GUIMode == 0x11 || GUIMode == 0) {
-				restore_wb();
+				SendMyMessage(RESTORE_WB, 0);
 				break;
 			}
 		}

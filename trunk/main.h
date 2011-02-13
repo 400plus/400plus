@@ -28,6 +28,8 @@
 #define FACE_SENSOR_NOISO  0x0C
 #define SET_EVALUATIVE     0x0D
 #define SWITCH_RAW_JPEG    0x0E
+#define RESTORE_ISO        0x0F
+#define RESTORE_WB         0x10
 
 extern void my_IntercomHandler();
 
