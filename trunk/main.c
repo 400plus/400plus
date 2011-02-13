@@ -14,17 +14,7 @@ void MyGlobalStdSet ()
 }
 
 int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
-#define DP_PRESSED 				0x01
-#define MY_MESS2 				0x02
-#define MY_MESS3 				0x03
-#define MODE_DIAL 				0x04
-#define REQUEST_BUZZER 			0x05
-#define FACE_SENSOR_ISO 		0x06
-#define INFO_SCREEN 			0x07
-#define SAVE_SETTINGS			0x08
-#define E_AEB					0x0A
-#define INTERVAL				0x0B
-#define FACE_SENSOR_NOISO 		0x0C
+
 #define safety_shift			(*((int*)0x16C30))
 #define AEB						(*((int*)0x16B90))
 #define av_half_stop			(*((int*)(0x16B60+0xA8)))
@@ -150,6 +140,13 @@ void MyTask ()
 		t=0;
 		switch (pMessage[0])
 		{
+		case SET_EVALUATIVE:
+		 	if ( MeteringMode==3 )  // Spot is actived
+			{ 	eventproc_SetMesMode(&evalue); }
+			break;
+		case SWITCH_RAW_JPEG:
+			SendToIntercom(0x22, 1, *(int*) (0x16B60 + 0x74) ^ 3);
+			break;
 		case MODE_DIAL:   //Test Mode Dial
 			if (AE_Mode<6) //in creative zone
 			{	MainGUISt();
@@ -582,11 +579,6 @@ void MyFSTask()
 	}
 }
 
-void SetEvaluativeDefault()
-{ 	if ( MeteringMode==3 )  // Spot is actived
-	{ 	eventproc_SetMesMode(&evalue); }
-}
-
 void CreateMyTask()
 {
 	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
@@ -741,70 +733,117 @@ char* my_GUIString()
 	}
 }
 
-void my_IntercomHandler (int r0, char* ptr)
-{
-	switch (ptr[1])
-	{   case BUTTON_DP:
-			if(AE_Mode>5){SendToIntercom(0x22,1,*(int*)(0x16B60+0x74)^3);break;} //Switch to RAW or JPG in auto mode
-			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}
-			if(GUIMode==0xF || dp_opt==2){SendMyMessage(E_AEB,0);return;}
-			if(dp_opt==3){SendMyMessage(INTERVAL ,0);return;}
-			if(GUIMode!=6)SendMyMessage(DP_PRESSED,0);break;  // Press Dp to set Iso
-		case 0x93:
-			SendMyMessage(MODE_DIAL,0);//Iso at switch on & roll dial
+void my_IntercomHandler(int r0, char* ptr) {
+	switch (ptr[1]) {
+	case BUTTON_DP:
+		if (AE_Mode > 5) {  //Switch to RAW or JPG in auto mode
+			SendMyMessage(SWITCH_RAW_JPEG, 0);
 			break;
-		case BUTTON_AV:
-			if(ptr[2]) {
-				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
+		}
+		if (GUIMode == 4) {
+			SendMyMessage(SAVE_SETTINGS, 0);
+			return;
+		}
+		if (GUIMode == 0xF || dp_opt == 2) {
+			SendMyMessage(E_AEB, 0);
+			return;
+		}
+		if (dp_opt == 3) {
+			SendMyMessage(INTERVAL, 0);
+			return;
+		}
+		if (GUIMode != 6) // Press Dp to set Iso
+			SendMyMessage(DP_PRESSED, 0);
+		break;
+	case 0x93:
+		SendMyMessage(MODE_DIAL, 0);//Iso at switch on & roll dial
+		break;
+	case BUTTON_AV:
+		if (ptr[2]) {
+			if (GUIMode == 4) {
+				SendMyMessage(INFO_SCREEN, ptr[1]);
+				return;
 			}
-			break;
-		case BUTTON_SET:
-			if(GUIMode==4){SendMyMessage(SAVE_SETTINGS,0);return;}break;
-		case BUTTON_UP:
-			if(ptr[2]) {
-				if(FaceSensor) {
-					return;
-				}
-				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-				if(GUIMode==0x11 || GUIMode==0)
-				{	test_iso=CurIsoValue;
-					if (test_iso!=0x48 && test_iso!=0x50 && test_iso!=0x58 && test_iso!=0x60 && test_iso!=0x68)
-					{	SetDispIso2();break;}  //Change ISO value when use default camera feature.
-				}
+		}
+		break;
+	case BUTTON_SET:
+		if (GUIMode == 4) {
+			SendMyMessage(SAVE_SETTINGS, 0);
+			return;
+		}
+		break;
+	case BUTTON_UP:
+		if (ptr[2]) {
+			if (FaceSensor) {
+				return;
 			}
-			break;
-		case BUTTON_DOWN:
-			if(ptr[2]) {
-				if(FaceSensor) {
-					return;
-				}
-				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-				if(GUIMode==0x11 || GUIMode==0)if (WhiteBalance==0x08){SendToIntercom(0x5,1,0x00);break;}
+			if (GUIMode == 4) {
+				SendMyMessage(INFO_SCREEN, ptr[1]);
+				return;
 			}
-			break;
-		case BUTTON_RIGHT:
-			if(ptr[2]) {
-				if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,1);return;}
-				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			} else {
-				if (FaceSensor){
-					SendMyMessage(FACE_SENSOR_NOISO,0);
-					return;
-				}
-			}
-			break;
-		case BUTTON_LEFT:
-			if(ptr[2]) {
-				if (FaceSensor){SendMyMessage(FACE_SENSOR_ISO,0);return;}
-				else if(GUIMode==0x11 || GUIMode==0){SetEvaluativeDefault();break;}//Set Evaluative when "Active Meter Mode is Spot"
-				if(GUIMode==4){SendMyMessage(INFO_SCREEN,ptr[1]);return;}
-			} else {
-				if (FaceSensor){
-					SendMyMessage(FACE_SENSOR_NOISO,0);
-					return;
+			if (GUIMode == 0x11 || GUIMode == 0) {  //Change ISO value when use default camera feature.
+				test_iso = CurIsoValue;
+				if (test_iso != 0x48 && test_iso != 0x50 && test_iso != 0x58
+						&& test_iso != 0x60 && test_iso != 0x68) {
+					SetDispIso2();
+					break;
 				}
 			}
-			break;
+		}
+		break;
+	case BUTTON_DOWN:
+		if (ptr[2]) {
+			if (FaceSensor) {
+				return;
+			}
+			if (GUIMode == 4) {
+				SendMyMessage(INFO_SCREEN, ptr[1]);
+				return;
+			}
+			if (GUIMode == 0x11 || GUIMode == 0)
+				if (WhiteBalance == 0x08) {
+					SendToIntercom(0x5, 1, 0x00);
+					break;
+				}
+		}
+		break;
+	case BUTTON_RIGHT:
+		if (ptr[2]) {
+			if (FaceSensor) {
+				SendMyMessage(FACE_SENSOR_ISO, 1);
+				return;
+			}
+			if (GUIMode == 4) {
+				SendMyMessage(INFO_SCREEN, ptr[1]);
+				return;
+			}
+		} else {
+			if (FaceSensor) {
+				SendMyMessage(FACE_SENSOR_NOISO, 0);
+				return;
+			}
+		}
+		break;
+	case BUTTON_LEFT:
+		if (ptr[2]) {
+			if (FaceSensor) {
+				SendMyMessage(FACE_SENSOR_ISO, 0);
+				return;
+			} else if (GUIMode == 0x11 || GUIMode == 0) { //Set Evaluative when "Active Meter Mode is Spot"
+				SendMyMessage(SET_EVALUATIVE, 0);
+				break;
+			}
+			if (GUIMode == 4) {
+				SendMyMessage(INFO_SCREEN, ptr[1]);
+				return;
+			}
+		} else {
+			if (FaceSensor) {
+				SendMyMessage(FACE_SENSOR_NOISO, 0);
+				return;
+			}
+		}
+		break;
 	}
 	IntercomHandler(r0, ptr);
 }
