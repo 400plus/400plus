@@ -2,6 +2,7 @@
 #include "led.h"
 #include "file.h"
 #include "task.h"
+#include "event.h"
 #include "message.h"
 
 #include "main.h"
@@ -42,13 +43,7 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define GUIMode					(*(int*)(0x00001ECC))
 #define hInfoCreative			(*(int*)(0x0000213C))
 //#define ShootWithoutCard		(*(int*)(0x16B60+0x90))
-#define	BUTTON_SET				0xA6
-#define	BUTTON_UP				0xB1
-#define	BUTTON_DOWN				0xB2
-#define	BUTTON_RIGHT			0xB3
-#define	BUTTON_LEFT				0xB4
-#define	BUTTON_DP				0xB8
-#define	BUTTON_AV				0xBB
+
 #define AE_Mode					(*(int*)(0x16B60))
 extern void SpotImage(); extern void AfPointExtend(int); extern void MainGUISt();
 extern void SetDispIso(); char* my_GUIString();
@@ -746,18 +741,8 @@ char* my_GUIString()
 	}
 }
 
-int test3, test4;
 void my_IntercomHandler (int r0, char* ptr)
 {
-/*
-	char s[255]; int i;
-	// Write Log
-	s[0]=0;
-    for (i=0;  i<ptr[0];  i++)   {sprintf(s+i*2,"%02X",ptr[i]);}
-    printf_log(8,8,"[!] sz: %02X, code: %2X, hex: %s",ptr[0],ptr[1],s);
-	if(ptr[1]>0x50 && ptr[1]<0x95) {SendMyMessage(REQUEST_BUZZER,0);}  // Test some key
-//*/
-
 	switch (ptr[1])
 	{   case BUTTON_DP:
 			if(AE_Mode>5){SendToIntercom(0x22,1,*(int*)(0x16B60+0x74)^3);break;} //Switch to RAW or JPG in auto mode
@@ -824,18 +809,6 @@ void my_IntercomHandler (int r0, char* ptr)
 	IntercomHandler(r0, ptr);
 }
 
-
-
-//--------------------------------
-//Button Value
-//160 (0xA0) Menu
-//0xA5, A1: Trash, Jump  // not work
-//164 (A4) Play
-//166 (A6)Set butt
-//B9: Disp. ? or Focus Frame
-//BA: Drive Mode
-//0xBB AV +- button
-//0xB3->B4:   L, R;   //0xB1=UP  0xB2=Dn
 //0x90->0x93 Mode Dial Tv Av M aDep
 
 //---------------0x16B60 store value same as 0x25E20---------------------
