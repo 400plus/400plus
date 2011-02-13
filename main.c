@@ -554,15 +554,6 @@ void SetDispIso( )
 	DispIso();
 }
 
-void SetDispIso2 ( )
-{		if (test_iso>0x68) {flag1=0x68;}
-		else if (test_iso>0x60) {flag1=0x60;}
-		else if (test_iso>0x58) {flag1=0x58;}
-		else if (test_iso>0x50) {flag1=0x50;}
-		else {flag1=0x48;}
-		eventproc_SetIsoValue(&flag1);
-}
-
 extern void MainGUISt()
 {	if (AE_Mode<6)if (hMyFsTask!=0) UnSuspendTask(hMyFsTask);
 }
@@ -733,6 +724,30 @@ char* my_GUIString()
 	}
 }
 
+void restore_iso() {
+	test_iso = CurIsoValue;
+
+	if (CurIsoValue > 0x68) {
+		flag1 = 0x68;
+	} else if (CurIsoValue > 0x60) {
+		flag1 = 0x60;
+	} else if (CurIsoValue > 0x58) {
+		flag1 = 0x58;
+	} else if (CurIsoValue > 0x50) {
+		flag1 = 0x50;
+	} else {
+		flag1 = 0x48;
+	}
+
+	eventproc_SetIsoValue(&flag1);
+}
+
+void restore_wb() {
+	if (WhiteBalance == 0x08) {
+		SendToIntercom(0x5, 1, 0x00);
+	}
+}
+
 void my_IntercomHandler(int r0, char* ptr) {
 	switch (ptr[1]) {
 	case BUTTON_DP:
@@ -782,12 +797,8 @@ void my_IntercomHandler(int r0, char* ptr) {
 				return;
 			}
 			if (GUIMode == 0x11 || GUIMode == 0) {  //Change ISO value when use default camera feature.
-				test_iso = CurIsoValue;
-				if (test_iso != 0x48 && test_iso != 0x50 && test_iso != 0x58
-						&& test_iso != 0x60 && test_iso != 0x68) {
-					SetDispIso2();
-					break;
-				}
+				restore_iso();
+				break;
 			}
 		}
 		break;
@@ -800,11 +811,10 @@ void my_IntercomHandler(int r0, char* ptr) {
 				SendMyMessage(INFO_SCREEN, ptr[1]);
 				return;
 			}
-			if (GUIMode == 0x11 || GUIMode == 0)
-				if (WhiteBalance == 0x08) {
-					SendToIntercom(0x5, 1, 0x00);
-					break;
-				}
+			if (GUIMode == 0x11 || GUIMode == 0) {
+				restore_wb();
+				break;
+			}
 		}
 		break;
 	case BUTTON_RIGHT:
