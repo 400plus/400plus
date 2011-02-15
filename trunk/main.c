@@ -136,7 +136,7 @@ void MyTask ()
 			break;
 
 		case SET_EVALUATIVE:
-		 	if (cameraMode.MeteringMode==3 )  // Spot is actived
+		 	if ( cameraMode.MeteringMode==METERING_MODE_SPOT )  // Spot is actived
 			{ 	eventproc_SetMesMode(&evalue); }
 			break;
 		case SWITCH_RAW_JPEG:
@@ -561,7 +561,7 @@ extern void MainGUISt()
 
 void MyFSTask()
 {	while (1)
-	{	if (cameraMode.MeteringMode==3)SpotImage();
+	{	if (cameraMode.MeteringMode==METERING_MODE_SPOT)SpotImage();
 		if (cameraMode.WB==8)KImage();
 		if (cameraMode.FlashExComp>0x10 && cameraMode.FlashExComp<0xF0)FlashCompIm();
 		DispIso();
@@ -875,11 +875,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 
 //0x90->0x93 Mode Dial Tv Av M aDep
 
-//---------------0x16B60 store value same as 0x25E20---------------------
-
-//MesureValue address 0x16B60+4
-	//3 Spot
-	//0 Evaluative
 //Drive mode address 0x16B60+0xC
 	//0 Single shooting
 	//1 Continuous shooting

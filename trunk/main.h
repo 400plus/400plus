@@ -122,6 +122,10 @@ typedef struct {             // [*] Used and tested, others unknown
 #define AEMODE_ADEP 5
 #define AEMODE_AUTO 8
 
+// [2] Values for MeteringMode
+#define METERING_MODE_EVAL 0
+#define METERING_MODE_SPOT 3
+
 extern void my_IntercomHandler();
 
 #endif /* MAIN_H_ */
