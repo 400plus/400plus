@@ -112,7 +112,15 @@ typedef struct {             // [*] Used and tested, others unknown
 	int BusyFlag;            // 0x0128
 } type_CAMERA_MODE;
 
-#define cameraMode (*(type_CAMERA_MODE*)0x00016B60)
+#define cameraMode (*(type_CAMERA_MODE*)0x16B60)
+
+// [1] Values for AEMode
+#define AEMODE_P    0
+#define AEMODE_TV   1
+#define AEMODE_AV   2
+#define AEMODE_M    3
+#define AEMODE_ADEP 5
+#define AEMODE_AUTO 8
 
 extern void my_IntercomHandler();
 
