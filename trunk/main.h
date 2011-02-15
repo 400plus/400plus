@@ -130,6 +130,20 @@ typedef struct {             // [*] Used and tested, others unknown
 #define DRIVE_MODE_SINGLE 0
 #define DRIVE_MODE_BURST  1
 
+// Used flags
+#define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
+#define FLAG_CAMERA_BUSY    (*(int*)(0x00001CA8))
+#define FLAG_GUI_MODE       (*(int*)(0x00001ECC))
+#define FLAG_METMOD_DIALOG  (*(int*)(0x000047EC))
+#define FLAG_FACTORY_DIALOG (*(int*)(0x000049F4))
+#define FLAG_MENU_DIALOG    (*(int*)(0x00004A2C))
+#define FLAG_FACE_SENSOR    (*(int*)(0x0000CD38))
+#define FLAG_RELEASE_COUNT  (*(int*)(0x0000EBFC))
+#define FLAG_FLASH_ACTIVE   (*(int*)(0x00027E48))
+
+// Documented flags
+#define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
+
 extern void my_IntercomHandler();
 
 #endif /* MAIN_H_ */
