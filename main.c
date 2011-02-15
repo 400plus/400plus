@@ -17,7 +17,6 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 
 #define FaceSensor 				(*(int*)(0xCD38))
 #define menu_dialog				(*(int*)(0x4A2C)) //Main menu Dialog opened
-#define CurAvCompCh				(*(char*)(0x16B60+0x24))
 #define GUI_MODE				(*(int*)(0x00001ECC))
 #define hInfoCreative			(*(int*)(0x0000213C))
 
@@ -116,7 +115,7 @@ void MyTask ()
 //	ia=*(int*)0xC300;
 	int flash_exp_val_temp, av_comp_val_temp;
 	int m;
-	char  av_enc, av_dec, OldAvComp;
+	int av_enc, av_dec, OldAvComp;
 	SleepTask(1000);
 	ReadSettings();
 	RemoteInstantRelease(ir_inst);
@@ -200,7 +199,7 @@ void MyTask ()
 				else flag1 = 0x48;
 			}
 			if(iso_in_viewfinder)
-			if (cameraMode.AEMode==1 || cameraMode.AEMode==3)
+			if (cameraMode.AEMode==AEMODE_TV || cameraMode.AEMode==AEMODE_M)
 			{	if(!cameraMode.CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
 				test=*(char*)(0x27E48);
 				SendToIntercom(0x8,1,flag1+0x25);
@@ -213,7 +212,7 @@ void MyTask ()
 			}
 			break;
 		case FACE_SENSOR_NOISO:
-			if (cameraMode.AEMode==1 || cameraMode.AEMode==3){
+			if (cameraMode.AEMode==AEMODE_TV || cameraMode.AEMode==AEMODE_M){
 				if(iso_in_viewfinder)SendToIntercom(0x8,1,test);
 				if(iso_in_viewfinder==2){SendToIntercom(0x30,1,0); iso_in_viewfinder=1;}
 			}
@@ -382,7 +381,7 @@ void MyTask ()
 				SleepTask(2000);
 			}
 
-			if(cameraMode.AEMode==3){
+			if(cameraMode.AEMode==AEMODE_M){
 				int m_end;
 				m=eaeb_m_min;
 				do{
@@ -413,22 +412,28 @@ void MyTask ()
 			}else{
 			  if(cameraMode.CfSettingSteps)eaeb_ev &= 0xFC;
 			  else { if((eaeb_ev&7)!=0 && (eaeb_ev&3)==0)eaeb_ev -= 1;}
-			  OldAvComp=CurAvCompCh;
-			  av_enc=CurAvCompCh;
-			  av_dec=CurAvCompCh;
+			  OldAvComp=cameraMode.AvComp;
+			  av_enc=OldAvComp;
+			  av_dec=OldAvComp;
 			  eventproc_Release();
 			  m=0;
 			  while(m<(eaeb_frames-1)/2)
-			  {	av_dec -= eaeb_ev;
+			  {
+				  av_dec -= eaeb_ev;
 				  av_enc += eaeb_ev;
+
 				  if(cameraMode.CfSettingSteps==0)
-				  {	if((av_dec&0x06)==0x06)av_dec-=1;
-					  else if((av_dec&0x07)==0x02)av_dec+=1;
-					  if((av_enc&0x06)==0x06)av_enc-=1;
-					  else if((av_enc&0x07)==0x02)av_enc+=1;
+				  {
+					  if((av_dec&0x06)==0x06) av_dec-=1;
+					  else if((av_dec&0x07)==0x02) av_dec+=1;
+
+					  if((av_enc&0x06)==0x06) av_enc-=1;
+					  else if((av_enc&0x07)==0x02) av_enc+=1;
 				  }
-				  if(av_dec<0xCB)av_dec=0xCB;
-				  if(av_enc>0x30)av_dec=0x30;
+
+//				  if(av_dec<0xCB)av_dec=0xCB;
+//				  if(av_enc>0x30)av_enc=0x30;
+
 				  m++;
 				  while(*(int*)(0x1CA8)){SleepTask(5);}
 				  SendToIntercom(0xA,1,av_dec);
@@ -748,7 +753,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 	do {
 		// Status-independent events
 		switch(ptr[1]) {
-		case 0x93: // Mode dial
+		case 0x93: // Mode dial A-Dep
 			// Re-apply changes
 			SendMyMessage(MODE_DIAL, 0);
 			continue;
@@ -854,7 +859,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				}
 				break;
 			default:
-				if(GUI_MODE != 0x06) {
+				if(GUI_MODE != 0x06) { // ???
 					switch (ptr[1]) {
 					case BUTTON_DP:
 						SendMyMessage(DP_PRESSED, 0);
@@ -871,22 +876,13 @@ void my_IntercomHandler(int r0, char* ptr) {
 //0x90->0x93 Mode Dial Tv Av M aDep
 
 //---------------0x16B60 store value same as 0x25E20---------------------
-//AeValue address 0x16B60
-	//0: P
-	//1:Tv
-	//2:Av
-	//3:M
-	//4:unknow1
-	//5:A-DEP
-	//8:Full Auto (Green rectangular)
+
 //MesureValue address 0x16B60+4
 	//3 Spot
 	//0 Evaluative
 //Drive mode address 0x16B60+0xC
 	//0 Single shooting
 	//1 Continuous shooting
-//AvComp Value address 0x16B60+0x24
-//IsoValue address 0x16B60+0x28
 
 //-----------------------==SetPropertie
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
