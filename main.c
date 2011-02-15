@@ -15,9 +15,6 @@ void MyGlobalStdSet ()
 
 int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 
-#define FaceSensor 				(*(int*)(0xCD38))
-#define menu_dialog				(*(int*)(0x4A2C)) //Main menu Dialog opened
-#define GUI_MODE				(*(int*)(0x00001ECC))
 #define hInfoCreative			(*(int*)(0x0000213C))
 
 extern void SpotImage(); extern void AfPointExtend(int); extern void MainGUISt();
@@ -152,7 +149,7 @@ void MyTask ()
 			break;
 		case DP_PRESSED:
 			//Spot metering mode
-			test=*(int*)(0x47EC) ; //OlMeterMode Dialog opened
+			test=FLAG_METMOD_DIALOG ; //OlMeterMode Dialog opened
 			if (test!=0)
 			{
 				pressButton_(166);   //"Set" button
@@ -164,14 +161,14 @@ void MyTask ()
 			}
 
 			//Debugmode enable--------- Need placed before FactoryMenu mode check
-			test=*(int*)(0x49F4) ; //Factory main Dialog opened
+			test=FLAG_FACTORY_DIALOG; //Factory main Dialog opened
 			if (test!=0)
 			{ 	MyGlobalStdSet();   eventproc_RiseEvent("RequestBuzzer");
 				break;
 			}
 
 			//Factory menu enable
-			if (menu_dialog!=0)
+			if (FLAG_MENU_DIALOG)
 			{	EnterFactoryMode();  SleepTask(20);  ExitFactoryMode();
 				break;
 			}
@@ -201,11 +198,11 @@ void MyTask ()
 			if(iso_in_viewfinder)
 			if (cameraMode.AEMode==AE_MODE_TV || cameraMode.AEMode==AE_MODE_M)
 			{	if(!cameraMode.CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
-				test=*(char*)(0x27E48);
+				test=FLAG_FLASH_ACTIVE;
 				SendToIntercom(0x8,1,flag1+0x25);
 			}
 			for (dem=1; dem<11; dem++)
-			{	if (*(int*)(0x1C88)!=1) //MAIN Gui idle command
+			{	if (FLAG_MAIN_GUI!=1) //MAIN Gui idle command
 				{	eventproc_SetIsoValue(&flag1);dem=11;
 					SleepTask(20);
 				} else; {SleepTask(100);}
@@ -389,7 +386,7 @@ void MyTask ()
 				  SleepTask(5);
 				  eventproc_Release();
 				  SleepTask(5);
-				  while(*(int*)(0x1CA8)){SleepTask(5);}
+				  while(FLAG_CAMERA_BUSY){SleepTask(5);}
 				  //SleepTask(850);
 
 
@@ -435,10 +432,10 @@ void MyTask ()
 //				  if(av_enc>0x30)av_enc=0x30;
 
 				  m++;
-				  while(*(int*)(0x1CA8)){SleepTask(5);}
+				  while(FLAG_CAMERA_BUSY){SleepTask(5);}
 				  SendToIntercom(0xA,1,av_dec);
 				  eventproc_Release();
-				  while(*(int*)(0x1CA8)){SleepTask(5);}
+				  while(FLAG_CAMERA_BUSY){SleepTask(5);}
 				  SendToIntercom(0xA,1,av_enc);
 				  eventproc_Release();
 			  }
@@ -454,7 +451,7 @@ void MyTask ()
 		    interval_original_ae_mode= cameraMode.AEMode;
 		    int i=0;
 		    while(interval_original_ae_mode== cameraMode.AEMode){
-		      while(*(int*)(0x1CA8)){SleepTask(5);}
+		      while(FLAG_CAMERA_BUSY){SleepTask(5);}
 		      eventproc_Release();
 		      for(i=0;i<interval_time;i++){
 			if(interval_original_ae_mode== cameraMode.AEMode) SleepTask(1000);
@@ -676,7 +673,7 @@ char* my_GUIString()
 			if (cameraMode.CfSafetyShift==0) return "Safety Shift:   Off";
 			else return "Safety Shift:   On"; break;
 		case 5:
-			sprintf(buff,"Release Count: %u",*(int*)(0xEBFC));
+			sprintf(buff,"Release Count: %u",FLAG_RELEASE_COUNT);
 			return buff;
 		case 6:
 			if (iso_in_viewfinder)return "Show ISO in Viewfinder: On";
@@ -759,7 +756,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 			continue;
 		}
 
-		if (FaceSensor) { // User has camera "on the face", display is blank
+		if (FLAG_FACE_SENSOR) { // User has camera "on the face", display is blank
 			switch(ptr[1]) {
 			case BUTTON_UP:
 				if(ptr[2]) { // Button down
@@ -799,7 +796,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				break;
 			}
 		} else {
-			switch (GUI_MODE) {
+			switch (FLAG_GUI_MODE) {
 			case 0x00: // ???
 			case 0x11: // ???
 				switch (ptr[1]) {
@@ -866,7 +863,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				}
 				break;
 			default:
-				if(GUI_MODE != 0x06) { // ???
+				if(FLAG_GUI_MODE != 0x06) { // ???
 					switch (ptr[1]) {
 					case BUTTON_DP:
 						SendMyMessage(DP_PRESSED, 0);
@@ -927,5 +924,3 @@ void my_IntercomHandler(int r0, char* ptr) {
 //1D04: IsoValue
 
 
-//--------------------------
-//6D58:   =1 Display on, =0 disp off
