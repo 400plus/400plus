@@ -115,16 +115,20 @@ typedef struct {             // [*] Used and tested, others unknown
 #define cameraMode (*(type_CAMERA_MODE*)0x16B60)
 
 // [1] Values for AEMode
-#define AEMODE_P    0
-#define AEMODE_TV   1
-#define AEMODE_AV   2
-#define AEMODE_M    3
-#define AEMODE_ADEP 5
-#define AEMODE_AUTO 8
+#define AE_MODE_P    0
+#define AE_MODE_TV   1
+#define AE_MODE_AV   2
+#define AE_MODE_M    3
+#define AE_MODE_ADEP 5
+#define AE_MODE_AUTO 8
 
 // [2] Values for MeteringMode
 #define METERING_MODE_EVAL 0
 #define METERING_MODE_SPOT 3
+
+// [3] Values for DriveMode
+#define DRIVE_MODE_SINGLE 0
+#define DRIVE_MODE_BURST  1
 
 extern void my_IntercomHandler();
 

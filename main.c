@@ -199,7 +199,7 @@ void MyTask ()
 				else flag1 = 0x48;
 			}
 			if(iso_in_viewfinder)
-			if (cameraMode.AEMode==AEMODE_TV || cameraMode.AEMode==AEMODE_M)
+			if (cameraMode.AEMode==AE_MODE_TV || cameraMode.AEMode==AE_MODE_M)
 			{	if(!cameraMode.CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
 				test=*(char*)(0x27E48);
 				SendToIntercom(0x8,1,flag1+0x25);
@@ -212,7 +212,7 @@ void MyTask ()
 			}
 			break;
 		case FACE_SENSOR_NOISO:
-			if (cameraMode.AEMode==AEMODE_TV || cameraMode.AEMode==AEMODE_M){
+			if (cameraMode.AEMode==AE_MODE_TV || cameraMode.AEMode==AE_MODE_M){
 				if(iso_in_viewfinder)SendToIntercom(0x8,1,test);
 				if(iso_in_viewfinder==2){SendToIntercom(0x30,1,0); iso_in_viewfinder=1;}
 			}
@@ -381,7 +381,7 @@ void MyTask ()
 				SleepTask(2000);
 			}
 
-			if(cameraMode.AEMode==AEMODE_M){
+			if(cameraMode.AEMode==AE_MODE_M){
 				int m_end;
 				m=eaeb_m_min;
 				do{
@@ -881,10 +881,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 }
 
 //0x90->0x93 Mode Dial Tv Av M aDep
-
-//Drive mode address 0x16B60+0xC
-	//0 Single shooting
-	//1 Continuous shooting
 
 //-----------------------==SetPropertie
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
