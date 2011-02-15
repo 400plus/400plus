@@ -1,6 +1,9 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#define TRUE  1
+#define FALSE 0
+
 #define	BUTTON_MENU   0xA0
 #define	BUTTON_INFO   0xA1
 #define	BUTTON_PLAY   0xA4

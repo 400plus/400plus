@@ -30,7 +30,7 @@ int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 #define CurAvComp				(*(int*)(0x16B60+0x24))
 #define CurAvCompCh				(*(char*)(0x16B60+0x24))
 #define ReviewTime				(*(int*)(0x16B60+0x4c))
-#define GUIMode					(*(int*)(0x00001ECC))
+#define GUI_MODE				(*(int*)(0x00001ECC))
 #define hInfoCreative			(*(int*)(0x0000213C))
 //#define ShootWithoutCard		(*(int*)(0x16B60+0x90))
 
@@ -759,133 +759,117 @@ void restore_wb() {
 }
 
 void my_IntercomHandler(int r0, char* ptr) {
-	if (FaceSensor) { // User has camera "on the face", display is blank
+	do {
+		// Status-independent events
 		switch(ptr[1]) {
+		case 0x93: // Mode dial
+			// Re-apply changes
+			SendMyMessage(MODE_DIAL, 0);
+			continue;
+		}
+
+		if (FaceSensor) { // User has camera "on the face", display is blank
+			switch(ptr[1]) {
 			case BUTTON_UP:
-					if(ptr[2]) { // Button down
-						// Ignore nose-activated event
-						return;
-					} else {     // Button up
-					}
+				if(ptr[2]) { // Button down
+					// Ignore nose-activated event
+					return;
+				} else {     // Button up
+				}
 				break;
-
 			case BUTTON_DOWN:
-					if(ptr[2]) { // Button down
-						// Ignore nose-activated event
-						return;
-					} else {     // Button up
-					}
+				if(ptr[2]) { // Button down
+					// Ignore nose-activated event
+					return;
+				} else {     // Button up
+				}
 				break;
-
 			case BUTTON_RIGHT:
-					if(ptr[2]) { // Button down
-						// Start ISO display on viewfinder and increase ISO
-						SendMyMessage(FACE_SENSOR_ISO, 1);
-						return;
-					} else {     // Button up
-						// End ISO display on viewfinder
-						SendMyMessage(FACE_SENSOR_NOISO, 0);
-						return;
-					}
+				if(ptr[2]) { // Button down
+					// Start ISO display on viewfinder and increase ISO
+					SendMyMessage(FACE_SENSOR_ISO, 1);
+					return;
+				} else {     // Button up
+					// End ISO display on viewfinder
+					SendMyMessage(FACE_SENSOR_NOISO, 0);
+					return;
+				}
 				break;
-
 			case BUTTON_LEFT:
-					if(ptr[2]) { // Button down
-						// Start ISO display on viewfinder and decrease ISO
-						SendMyMessage(FACE_SENSOR_ISO, 0);
-						return;
-					} else {     // Button up
-						// End ISO display on viewfinder
-						SendMyMessage(FACE_SENSOR_NOISO, 0);
-						return;
+				if(ptr[2]) { // Button down
+					// Start ISO display on viewfinder and decrease ISO
+					SendMyMessage(FACE_SENSOR_ISO, 0);
+					return;
+				} else {     // Button up
+					// End ISO display on viewfinder
+					SendMyMessage(FACE_SENSOR_NOISO, 0);
+					return;
+				}
+				break;
+			}
+		} else {
+			switch (GUI_MODE) {
+			case 0x00: // ???
+			case 0x11: // ???
+				switch (ptr[1]) {
+				case BUTTON_UP:
+					if (ptr[2]) { // Button down
+						 // Change ISO value when use default camera feature.
+						SendMyMessage(RESTORE_ISO, 0);
+					} else {      // Button up
 					}
+					break;
+				case BUTTON_DOWN:
+					if (ptr[2]) { // Button down
+						 // Set Evaluative when "Active Meter Mode is Spot"
+						SendMyMessage(SET_EVALUATIVE, 0);
+					} else {      // Button up
+					}
+					break;
+				case BUTTON_DP:
+					if (AE_Mode > 6) { // Non-creative modes
+						SendMyMessage(SWITCH_RAW_JPEG, 0);
+						return;
+					} else {
+						switch (dp_opt) {
+							case 1: // Set intermediate ISO
+								SendMyMessage(DP_PRESSED, 0);
+								return;
+							case 2: // Start extended AEB script
+								SendMyMessage(E_AEB, 0);
+								return;
+							case 3: // Start interval script
+								SendMyMessage(INTERVAL, 0);
+								return;
+						}
+					}
+					break;
+				}
 				break;
-		}
-	} else {
-	switch (ptr[1]) {
-	case BUTTON_DP:
-		if (AE_Mode > 5) {  //Switch to RAW or JPG in auto mode
-			SendMyMessage(SWITCH_RAW_JPEG, 0);
-			break;
-		}
-		if (GUIMode == 4) {
-			SendMyMessage(SAVE_SETTINGS, 0);
-			return;
-		}
-		if (GUIMode == 0xF || dp_opt == 2) {
-			SendMyMessage(E_AEB, 0);
-			return;
-		}
-		if (dp_opt == 3) {
-			SendMyMessage(INTERVAL, 0);
-			return;
-		}
-		if (GUIMode != 6) // Press Dp to set Iso
-			SendMyMessage(DP_PRESSED, 0);
-		break;
-	case 0x93:
-		SendMyMessage(MODE_DIAL, 0);//Iso at switch on & roll dial
-		break;
-	case BUTTON_AV:
-		if (ptr[2]) {
-			if (GUIMode == 4) {
-				SendMyMessage(INFO_SCREEN, ptr[1]);
-				return;
-			}
-		}
-		break;
-	case BUTTON_SET:
-		if (GUIMode == 4) {
-			SendMyMessage(SAVE_SETTINGS, 0);
-			return;
-		}
-		break;
-	case BUTTON_UP:
-		if (ptr[2]) {
-			if (GUIMode == 4) {
-				SendMyMessage(INFO_SCREEN, ptr[1]);
-				return;
-			}
-			if (GUIMode == 0x11 || GUIMode == 0) {  //Change ISO value when use default camera feature.
-				SendMyMessage(RESTORE_ISO, 0);
-				break;
-			}
-		}
-		break;
-	case BUTTON_DOWN:
-		if (ptr[2]) {
-			if (GUIMode == 4) {
-				SendMyMessage(INFO_SCREEN, ptr[1]);
-				return;
-			}
-			if (GUIMode == 0x11 || GUIMode == 0) {
-				SendMyMessage(RESTORE_WB, 0);
+			case 0x04: // Info screen (and 400plus' menu)
+				switch (ptr[1]) {
+				case BUTTON_DP:
+				case BUTTON_SET:
+					// Save menu settings
+					SendMyMessage(SAVE_SETTINGS, 0);
+					return;
+				case BUTTON_UP:
+				case BUTTON_DOWN:
+				case BUTTON_RIGHT:
+				case BUTTON_LEFT:
+				case BUTTON_AV:
+					if (ptr[2]) { // Button down
+						// Perform menu action
+						SendMyMessage(INFO_SCREEN, ptr[1]);
+						return;
+					} else {      // Button up
+					}
+					break;
+				}
 				break;
 			}
 		}
-		break;
-	case BUTTON_RIGHT:
-		if (ptr[2]) {
-			if (GUIMode == 4) {
-				SendMyMessage(INFO_SCREEN, ptr[1]);
-				return;
-			}
-		}
-		break;
-	case BUTTON_LEFT:
-		if (ptr[2]) {
-			if (GUIMode == 0x11 || GUIMode == 0) { //Set Evaluative when "Active Meter Mode is Spot"
-				SendMyMessage(SET_EVALUATIVE, 0);
-				break;
-			}
-			if (GUIMode == 4) {
-				SendMyMessage(INFO_SCREEN, ptr[1]);
-				return;
-			}
-		}
-		break;
-	}
-	}
+	} while(FALSE);
 
 	IntercomHandler(r0, ptr);
 }
