@@ -805,14 +805,21 @@ void my_IntercomHandler(int r0, char* ptr) {
 				switch (ptr[1]) {
 				case BUTTON_UP:
 					if (ptr[2]) { // Button down
-						 // Change ISO value when use default camera feature.
+						// Restore ISO to nearest standard value
 						SendMyMessage(RESTORE_ISO, 0);
 					} else {      // Button up
 					}
 					break;
 				case BUTTON_DOWN:
 					if (ptr[2]) { // Button down
-						 // Set Evaluative when "Active Meter Mode is Spot"
+						// Restore WB to AWB
+						SendMyMessage(RESTORE_WB, 0);
+					} else {      // Button up
+					}
+					break;
+				case BUTTON_LEFT:
+					if (ptr[2]) { // Button down
+						 // Restore metering mode to EVALUATIVE
 						SendMyMessage(SET_EVALUATIVE, 0);
 					} else {      // Button up
 					}
