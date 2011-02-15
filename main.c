@@ -15,26 +15,12 @@ void MyGlobalStdSet ()
 
 int* hMyTaskMessQue, *hMyFsTask;//, *OrgFsMesQueHnd, *hMyFaceSensorMessQue;
 
-#define safety_shift			(*((int*)0x16C30))
-#define AEB						(*((int*)0x16B90))
-#define av_half_stop			(*((int*)(0x16B60+0xA8)))
 #define FaceSensor 				(*(int*)(0xCD38))
 #define menu_dialog				(*(int*)(0x4A2C)) //Main menu Dialog opened
-#define MeteringMode			(*(int*)(0x16B60+0x4))
-#define DriveMode				(*(int*)(0x16B60+0x0C))
-#define CurIsoValue				(*(int*)(0x16B60+0x28))
-#define CurFlashComp			(*(int*)(0x16B60+0x08))
-#define WhiteBalance			(*(int*)(0x16B60+0x10))
-#define TvVal					(*(int*)(0x16B60+0x1C))
-#define CfNotEmitFlash			(*(int*)(0x16B60+0xAC))
-#define CurAvComp				(*(int*)(0x16B60+0x24))
 #define CurAvCompCh				(*(char*)(0x16B60+0x24))
-#define ReviewTime				(*(int*)(0x16B60+0x4c))
 #define GUI_MODE				(*(int*)(0x00001ECC))
 #define hInfoCreative			(*(int*)(0x0000213C))
-//#define ShootWithoutCard		(*(int*)(0x16B60+0x90))
 
-#define AE_Mode					(*(int*)(0x16B60))
 extern void SpotImage(); extern void AfPointExtend(int); extern void MainGUISt();
 extern void SetDispIso(); char* my_GUIString();
 void restore_iso();
@@ -110,7 +96,7 @@ void UpdateStVariables()
 {	switch (st_1)
 	{	case 0: st_2=eaeb_frames;	break;
 		case 1:
-			if(av_half_stop)eaeb_ev &= 0xFC;
+			if(cameraMode.CfSettingSteps)eaeb_ev &= 0xFC;
 			else { if((eaeb_ev&7)!=0 && (eaeb_ev&3)==0)eaeb_ev -= 1;}
 			st_2=eaeb_ev; break;
 		case 2: st_2=eaeb_delay; break;
@@ -134,7 +120,7 @@ void MyTask ()
 	SleepTask(1000);
 	ReadSettings();
 	RemoteInstantRelease(ir_inst);
-	if(!*(int*)(0x16B60+0xB0))SendToIntercom(0x31, 1, 1);		// enable CFn.8 for ISO H
+	if(!cameraMode.CfExtendIso)SendToIntercom(0x31, 1, 1);		// enable CFn.8 for ISO H
 	SendToIntercom(0xF0,0,0); SendToIntercom(0xF1,0,0);	//Enable realtime ISO change
 	while (1)
 	{	//ChangeDprData(41,1); //this proc enable iso 16-80, 2000-3200
@@ -151,14 +137,14 @@ void MyTask ()
 			break;
 
 		case SET_EVALUATIVE:
-		 	if ( MeteringMode==3 )  // Spot is actived
+		 	if (cameraMode.MeteringMode==3 )  // Spot is actived
 			{ 	eventproc_SetMesMode(&evalue); }
 			break;
 		case SWITCH_RAW_JPEG:
-			SendToIntercom(0x22, 1, *(int*) (0x16B60 + 0x74) ^ 3);
+			SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 3);
 			break;
 		case MODE_DIAL:   //Test Mode Dial
-			if (AE_Mode<6) //in creative zone
+			if (cameraMode.AEMode<6) //in creative zone
 			{	MainGUISt();
 			}
 			break;
@@ -172,7 +158,7 @@ void MyTask ()
 			{
 				pressButton_(166);   //"Set" button
 				eventproc_SetMesMode(&spotmode);  //Spot metering mode
-				if (*(int*)(0x16B60+0x38)==1) eventproc_RiseEvent("RequestBuzzer");  // if set Beep On
+				if (cameraMode.Beep) eventproc_RiseEvent("RequestBuzzer");  // if set Beep On
 				eventproc_PrintICUInfo();
 				SleepTask(30);
 				break;
@@ -193,11 +179,11 @@ void MyTask ()
 
 			//extend_iso_hack
 			//sub_FF82B518(9); //ISO mode
-			if (AE_Mode>=6) break;
+			if (cameraMode.AEMode>=6) break;
 			if (dp_opt==1)SetDispIso();
 			break;
 		case FACE_SENSOR_ISO:
-			test_iso=CurIsoValue;
+			test_iso=cameraMode.ISO;
 			if(pMessage[1])
 			{	if (test_iso<0x48) flag1 = 0x48;
 				else if (test_iso<0x50) flag1 = 0x50;
@@ -214,8 +200,8 @@ void MyTask ()
 				else flag1 = 0x48;
 			}
 			if(iso_in_viewfinder)
-			if (AE_Mode==1 || AE_Mode==3)
-			{	if(!CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
+			if (cameraMode.AEMode==1 || cameraMode.AEMode==3)
+			{	if(!cameraMode.CfNotEmitFlash){SendToIntercom(0x30,1,1); iso_in_viewfinder=2;}
 				test=*(char*)(0x27E48);
 				SendToIntercom(0x8,1,flag1+0x25);
 			}
@@ -227,7 +213,7 @@ void MyTask ()
 			}
 			break;
 		case FACE_SENSOR_NOISO:
-			if (AE_Mode==1 || AE_Mode==3){
+			if (cameraMode.AEMode==1 || cameraMode.AEMode==3){
 				if(iso_in_viewfinder)SendToIntercom(0x8,1,test);
 				if(iso_in_viewfinder==2){SendToIntercom(0x30,1,0); iso_in_viewfinder=1;}
 			}
@@ -267,7 +253,7 @@ void MyTask ()
 					{	case 1:av_comp_val=GetValue(av_comp_val,1);break;
 						case 2:flash_exp_val=GetValue(flash_exp_val,1);break;
 						case 3:aeb_val=GetValue(aeb_val,1); break;
-						case 4:if (safety_shift==0) SendToIntercom(0x39,1,1);break;
+						case 4:if (cameraMode.CfSafetyShift==0) SendToIntercom(0x39,1,1);break;
 						case 6:iso_in_viewfinder=1;WriteSettings();break;
 						case 7:color_temp+=100;if (color_temp>11000)color_temp=1800;break;
 						case 8:SendToIntercom(0x30,1,0);break;
@@ -313,7 +299,7 @@ void MyTask ()
 					{	case 1:av_comp_val=GetValue(av_comp_val,0);break;
 						case 2:flash_exp_val=GetValue(flash_exp_val,0);break;
 						case 3:aeb_val=GetValue(aeb_val,0); break;
-						case 4:if (safety_shift==1) SendToIntercom(0x39,1,0);break;
+						case 4:if (cameraMode.CfSafetyShift==1) SendToIntercom(0x39,1,0);break;
 						case 6:iso_in_viewfinder=0;WriteSettings();break;
 						case 7:color_temp-=100;if (color_temp<1800)color_temp=11000;break;
 						case 8:SendToIntercom(0x30,1,1);break;
@@ -370,7 +356,7 @@ void MyTask ()
 				case 3:SendToIntercom(0xd,1,aeb_val); break;
 				case 7:
 					SendToIntercom(0x10,2,color_temp);
-					if (WhiteBalance!=0x08){SendToIntercom(0x5,1,0x08);}
+					if (cameraMode.WB!=0x08){SendToIntercom(0x5,1,0x08);}
 					break;
 				case 11:
 					if(eaeb_sub_menu)
@@ -396,7 +382,7 @@ void MyTask ()
 				SleepTask(2000);
 			}
 
-			if(AE_Mode==3){
+			if(cameraMode.AEMode==3){
 				int m_end;
 				m=eaeb_m_min;
 				do{
@@ -425,7 +411,7 @@ void MyTask ()
 
 
 			}else{
-			  if(av_half_stop)eaeb_ev &= 0xFC;
+			  if(cameraMode.CfSettingSteps)eaeb_ev &= 0xFC;
 			  else { if((eaeb_ev&7)!=0 && (eaeb_ev&3)==0)eaeb_ev -= 1;}
 			  OldAvComp=CurAvCompCh;
 			  av_enc=CurAvCompCh;
@@ -435,7 +421,7 @@ void MyTask ()
 			  while(m<(eaeb_frames-1)/2)
 			  {	av_dec -= eaeb_ev;
 				  av_enc += eaeb_ev;
-				  if(av_half_stop==0)
+				  if(cameraMode.CfSettingSteps==0)
 				  {	if((av_dec&0x06)==0x06)av_dec-=1;
 					  else if((av_dec&0x07)==0x02)av_dec+=1;
 					  if((av_enc&0x06)==0x06)av_enc-=1;
@@ -460,13 +446,13 @@ void MyTask ()
 
 			break;
 		case INTERVAL:
-		    interval_original_ae_mode= AE_Mode;
+		    interval_original_ae_mode= cameraMode.AEMode;
 		    int i=0;
-		    while(interval_original_ae_mode== AE_Mode){
+		    while(interval_original_ae_mode== cameraMode.AEMode){
 		      while(*(int*)(0x1CA8)){SleepTask(5);}
 		      eventproc_Release();
 		      for(i=0;i<interval_time;i++){
-			if(interval_original_ae_mode== AE_Mode) SleepTask(1000);
+			if(interval_original_ae_mode== cameraMode.AEMode) SleepTask(1000);
 		      }
 
 		    }
@@ -478,8 +464,8 @@ void MyTask ()
 }
 
 void DispIso( )
-{//	if (CurIsoValue!=0x48 && CurIsoValue!=0x50 && CurIsoValue!=0x58 && CurIsoValue!=0x60 && CurIsoValue!=0x68){
-	switch(CurIsoValue) // Set ISO String
+{//	if (cameraMode.ISO!=0x48 && cameraMode.ISO!=0x50 && cameraMode.ISO!=0x58 && cameraMode.ISO!=0x60 && cameraMode.ISO!=0x68){
+	switch(cameraMode.ISO) // Set ISO String
 	{
 		case 0x6F: iso=i3200;break; //3200
 		case 0x6D: iso=i2500;break; //2500
@@ -511,7 +497,7 @@ void KImage( )
 }
 
 void FlashCompIm()
-{	int flash_exp_val=CurFlashComp;
+{	int flash_exp_val=cameraMode.FlashExComp;
 	int i=0, s;
 	if (flash_exp_val>0x30)
 	{	flash_exp_val=0x100-flash_exp_val;
@@ -541,7 +527,7 @@ void FlashCompIm()
 }
 
 void SetDispIso( )
-{	switch(CurIsoValue)
+{	switch(cameraMode.ISO)
 	{	case 0x6F: flag1=0x68; break;// 3200-> 1600
 		case 0x6D: flag1=0x6F; break;// 2500-> 3200
 		case 0x6C: flag1=0x6D; break;// 2000-> 2500
@@ -565,14 +551,14 @@ void SetDispIso( )
 }
 
 extern void MainGUISt()
-{	if (AE_Mode<6)if (hMyFsTask!=0) UnSuspendTask(hMyFsTask);
+{	if (cameraMode.AEMode<6)if (hMyFsTask!=0) UnSuspendTask(hMyFsTask);
 }
 
 void MyFSTask()
 {	while (1)
-	{	if (MeteringMode==3)SpotImage();
-		if (WhiteBalance==8)KImage();
-		if (CurFlashComp>0x10 && CurFlashComp<0xF0)FlashCompIm();
+	{	if (cameraMode.MeteringMode==3)SpotImage();
+		if (cameraMode.WB==8)KImage();
+		if (cameraMode.FlashExComp>0x10 && cameraMode.FlashExComp<0xF0)FlashCompIm();
 		DispIso();
 		do_some_with_dialog(*(int*)(0x47F0));
 		update=1;
@@ -598,7 +584,7 @@ int GetValue(int temp, int button)
 	if(i)button^=1;
 	switch (button)
 	{	case 0:
-			if(av_half_stop==1)
+			if(cameraMode.CfSettingSteps==1)
 			{	if((temp&3)!=0){temp &= 0xFC; break;}
 				temp -= 4; break;
 			}
@@ -610,7 +596,7 @@ int GetValue(int temp, int button)
 			if(temp<0) temp=0;
 			break;
 		case 1:
-			if(av_half_stop==1){temp = (temp & 0xFC) + 4; break;}
+			if(cameraMode.CfSettingSteps==1){temp = (temp & 0xFC) + 4; break;}
 			else
 			{	if((temp&7)!=0 && (temp&3)==0){temp += 1; break;}
 				if((temp&3)==3)temp += 2;
@@ -657,7 +643,7 @@ char* my_GUIString()
 	switch(option_number)
 	{	case 1:
 			if (update)
-			{	av_comp_val=CurAvComp;
+			{	av_comp_val=cameraMode.AvComp;
 				if (av_comp_val>0x30)
 				{	av_comp_val=0x100-av_comp_val;
 					i=1;
@@ -668,7 +654,7 @@ char* my_GUIString()
 			return buff;
 		case 2:
 			if (update)
-			{	flash_exp_val=CurFlashComp;
+			{	flash_exp_val=cameraMode.FlashExComp;
 				if (flash_exp_val>0x30)
 				{	flash_exp_val=0x100-flash_exp_val;
 					i=1;
@@ -678,11 +664,11 @@ char* my_GUIString()
 			sprintf(buff,"Flash exp comp:  %c %u.%u",sign[i],one,two);
 			return buff;
 		case 3:
-			if (update)aeb_val=AEB;i=0;
+			if (update)aeb_val=cameraMode.AEB;i=0;
 			HexToStr(aeb_val);
 			sprintf(buff,"AEB:        +-%u.%u",one,two); return buff; break;
 		case 4:
-			if (safety_shift==0) return "Safety Shift:   Off";
+			if (cameraMode.CfSafetyShift==0) return "Safety Shift:   Off";
 			else return "Safety Shift:   On"; break;
 		case 5:
 			sprintf(buff,"Release Count: %u",*(int*)(0xEBFC));
@@ -691,14 +677,14 @@ char* my_GUIString()
 			if (iso_in_viewfinder)return "Show ISO in Viewfinder: On";
 			return "Show ISO in Viewfinder: Off";
 		case 7:
-			if (update)color_temp=*(int*)(0x16B9C);
+			if (update)color_temp=cameraMode.ColorTemp;
 			sprintf(buff,"Color Temperature: %uK",color_temp);
 			return buff;
 		case 8:
-			if (CfNotEmitFlash)return "Flash:            Off";
+			if (cameraMode.CfNotEmitFlash)return "Flash:            Off";
 			else return "Flash:            On";
 		case 9:
-			if (*(int*)(0x16C04))return "AF Assist Beam:       Off";
+			if (cameraMode.CfAfAssistBeam)return "AF Assist Beam:       Off";
 			else return "AF Assist Beam:       On";
 		case 10:
 			sprintf(buff,"DP Button:    %s",dp_button_string[dp_opt]);
@@ -735,15 +721,15 @@ char* my_GUIString()
 }
 
 void restore_iso() {
-	test_iso = CurIsoValue;
+	test_iso = cameraMode.ISO;
 
-	if (CurIsoValue > 0x68) {
+	if (cameraMode.ISO > 0x68) {
 		flag1 = 0x68;
-	} else if (CurIsoValue > 0x60) {
+	} else if (cameraMode.ISO > 0x60) {
 		flag1 = 0x60;
-	} else if (CurIsoValue > 0x58) {
+	} else if (cameraMode.ISO > 0x58) {
 		flag1 = 0x58;
-	} else if (CurIsoValue > 0x50) {
+	} else if (cameraMode.ISO > 0x50) {
 		flag1 = 0x50;
 	} else {
 		flag1 = 0x48;
@@ -753,7 +739,7 @@ void restore_iso() {
 }
 
 void restore_wb() {
-	if (WhiteBalance == 0x08) {
+	if (cameraMode.WB == 0x08) {
 		SendToIntercom(0x5, 1, 0x00);
 	}
 }
@@ -827,7 +813,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 					}
 					break;
 				case BUTTON_DP:
-					if (AE_Mode > 6) { // Non-creative modes
+					if (cameraMode.AEMode > 6) { // Non-creative modes
 						SendMyMessage(SWITCH_RAW_JPEG, 0);
 						return;
 					} else {
@@ -867,6 +853,14 @@ void my_IntercomHandler(int r0, char* ptr) {
 					break;
 				}
 				break;
+			default:
+				if(GUI_MODE != 0x06) {
+					switch (ptr[1]) {
+					case BUTTON_DP:
+						SendMyMessage(DP_PRESSED, 0);
+						break;
+					}
+				}
 			}
 		}
 	} while(FALSE);
