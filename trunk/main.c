@@ -759,6 +759,49 @@ void restore_wb() {
 }
 
 void my_IntercomHandler(int r0, char* ptr) {
+	if (FaceSensor) { // User has camera "on the face", display is blank
+		switch(ptr[1]) {
+			case BUTTON_UP:
+					if(ptr[2]) { // Button down
+						// Ignore nose-activated event
+						return;
+					} else {     // Button up
+					}
+				break;
+
+			case BUTTON_DOWN:
+					if(ptr[2]) { // Button down
+						// Ignore nose-activated event
+						return;
+					} else {     // Button up
+					}
+				break;
+
+			case BUTTON_RIGHT:
+					if(ptr[2]) { // Button down
+						// Start ISO display on viewfinder and increase ISO
+						SendMyMessage(FACE_SENSOR_ISO, 1);
+						return;
+					} else {     // Button up
+						// End ISO display on viewfinder
+						SendMyMessage(FACE_SENSOR_NOISO, 0);
+						return;
+					}
+				break;
+
+			case BUTTON_LEFT:
+					if(ptr[2]) { // Button down
+						// Start ISO display on viewfinder and decrease ISO
+						SendMyMessage(FACE_SENSOR_ISO, 0);
+						return;
+					} else {     // Button up
+						// End ISO display on viewfinder
+						SendMyMessage(FACE_SENSOR_NOISO, 0);
+						return;
+					}
+				break;
+		}
+	} else {
 	switch (ptr[1]) {
 	case BUTTON_DP:
 		if (AE_Mode > 5) {  //Switch to RAW or JPG in auto mode
@@ -799,9 +842,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 		break;
 	case BUTTON_UP:
 		if (ptr[2]) {
-			if (FaceSensor) {
-				return;
-			}
 			if (GUIMode == 4) {
 				SendMyMessage(INFO_SCREEN, ptr[1]);
 				return;
@@ -814,9 +854,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 		break;
 	case BUTTON_DOWN:
 		if (ptr[2]) {
-			if (FaceSensor) {
-				return;
-			}
 			if (GUIMode == 4) {
 				SendMyMessage(INFO_SCREEN, ptr[1]);
 				return;
@@ -829,27 +866,15 @@ void my_IntercomHandler(int r0, char* ptr) {
 		break;
 	case BUTTON_RIGHT:
 		if (ptr[2]) {
-			if (FaceSensor) {
-				SendMyMessage(FACE_SENSOR_ISO, 1);
-				return;
-			}
 			if (GUIMode == 4) {
 				SendMyMessage(INFO_SCREEN, ptr[1]);
-				return;
-			}
-		} else {
-			if (FaceSensor) {
-				SendMyMessage(FACE_SENSOR_NOISO, 0);
 				return;
 			}
 		}
 		break;
 	case BUTTON_LEFT:
 		if (ptr[2]) {
-			if (FaceSensor) {
-				SendMyMessage(FACE_SENSOR_ISO, 0);
-				return;
-			} else if (GUIMode == 0x11 || GUIMode == 0) { //Set Evaluative when "Active Meter Mode is Spot"
+			if (GUIMode == 0x11 || GUIMode == 0) { //Set Evaluative when "Active Meter Mode is Spot"
 				SendMyMessage(SET_EVALUATIVE, 0);
 				break;
 			}
@@ -857,14 +882,11 @@ void my_IntercomHandler(int r0, char* ptr) {
 				SendMyMessage(INFO_SCREEN, ptr[1]);
 				return;
 			}
-		} else {
-			if (FaceSensor) {
-				SendMyMessage(FACE_SENSOR_NOISO, 0);
-				return;
-			}
 		}
 		break;
 	}
+	}
+
 	IntercomHandler(r0, ptr);
 }
 
