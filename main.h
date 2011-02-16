@@ -23,7 +23,6 @@
 #define DP_PRESSED         0x01
 #define MODE_DIAL          0x04
 #define REQUEST_BUZZER     0x05
-#define FACE_SENSOR_ISO    0x06
 #define INFO_SCREEN        0x07
 #define SAVE_SETTINGS      0x08
 #define E_AEB              0x0A
@@ -33,6 +32,15 @@
 #define SWITCH_RAW_JPEG    0x0E
 #define RESTORE_ISO        0x0F
 #define RESTORE_WB         0x10
+#define VIEWFINDER_ISO_INC 0x11
+#define VIEWFINDER_ISO_DEC 0x12
+#define VIEWFINDER_ISO_END 0x13
+#define MENU_SAVE          0x21
+#define	MENU_UP            0x22
+#define	MENU_DOWN          0x23
+#define	MENU_RIGHT         0x24
+#define	MENU_LEFT          0x25
+#define MENU_SWAP          0x26
 
 typedef struct {             // [*] Used and tested, others unknown
 	int AEMode;              // 0x0000 [*] [1]
@@ -139,11 +147,11 @@ typedef struct {             // [*] Used and tested, others unknown
 #define FLAG_MENU_DIALOG    (*(int*)(0x00004A2C))
 #define FLAG_FACE_SENSOR    (*(int*)(0x0000CD38))
 #define FLAG_RELEASE_COUNT  (*(int*)(0x0000EBFC))
-#define FLAG_FLASH_ACTIVE   (*(int*)(0x00027E48))
 
 // Documented flags
 #define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
 
+extern void CreateMyTask();
 extern void my_IntercomHandler();
 
 #endif /* MAIN_H_ */
