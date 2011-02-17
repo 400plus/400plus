@@ -1,7 +1,7 @@
 	.text
 	.org 0
 	.globl my_GUIInit //, UpdateInfoScreen //, my_StartInfoCreativeApp
-	
+
 	my_GUIInit:
 		var_34          = -0x34
         var_30          = -0x30
@@ -163,7 +163,7 @@
 		BL      sub_FF82B5AC
 		ADD     SP, SP, #0x10
 		LDMFD   SP!, {R4-R11,PC}
- 
+
 
 my_GUI_IDLEHandler:
 var_324 	= -0x324
@@ -195,7 +195,7 @@ var_190 	= -0x190
 		CMP R1, #0x800
 		BEQ GOT_TOP_OF_CONTROL
 		B _default
-		
+
 my_loc_FF8292AC:
 		LDR R3, =0x10000058
 		CMP R1, R3
@@ -217,11 +217,11 @@ my_loc_FF8292AC:
 		CMP R1, R3
 		BEQ DISP_OLC_MODE
 		B _default
-		
+
 my_START_OLC_MODE:
 		BL MainGUISt
 		B START_OLC_MODE
-		
+
 loc_FF829158:
 		CMP R1, #0x10000007
 		BEQ START_MENU_MODE
@@ -248,7 +248,7 @@ START_INFO_MODE:
 		BL GUI_PalleteUnInit
 		BL GUI_ClearImage
 		B _SetTurnDisplayEvent_1_after_2
-		
+
 StartInfoMode:
 
 var_19C 	= -0x19C
@@ -271,7 +271,7 @@ var_18C 	= -0x18C
 		STRH R0, [R2]
 		BNE _not_creative
 		BL my_StartInfoCreativeApp
-		B _skip		
+		B _skip
 
 my_StartInfoCreativeApp:
 
@@ -307,9 +307,9 @@ _zero:
 
 _not_error:
 		BL PaletteChange
-		LDR R1, =sub_FF840834 
+		LDR R1, =sub_FF840834
 		LDR R2, [R4]
-		LDR R0, =sub_FF8406E4 
+		LDR R0, =sub_FF8406E4
 		BL dig_prop_some
 		LDR R0, [R4]
 		BL do_some_with_dialog
@@ -373,7 +373,7 @@ loc_FF840754:
 		ADD R4, SP, #0x1AC+arg_188
 		LDMIA R4, {R0-R3}
 		BL sub_FF83A6F4 // wb
-		MOV R1, #0x10 
+		MOV R1, #0x10
 		MOV R2, R0
 		MOV R0, R5
 		BL sub_FF837FA8
@@ -388,7 +388,7 @@ loc_FF840754:
 		MOV R0, R0,LSL#16
 		MOV R1, #0
 		MOV R0, R0,LSR#16
-		BL sub_FF83E4AC //date/time 
+		BL sub_FF83E4AC //date/time
 		MOV R1, #0xF
 		MOV R2, R0
 		MOV R0, R5
@@ -400,7 +400,7 @@ loc_FF840754:
 		BL memcpy
 		LDMIA R4, {R0-R3}
 		//BL sub_FF83A640 // cf free size
-		BL my_GUIString
+		BL menu_message
 		MOV R1, #0x11
 		MOV R2, R0
 		MOV R0, R5
@@ -414,7 +414,7 @@ loc_FF840754:
 		ADD SP, SP, #0x188
 		LDMFD SP!, {R4-R7,LR}
 		ADD SP, SP, #0x10
-		MOV PC, LR	
+		MOV PC, LR
 
 sub_FF84031C:
 
@@ -432,7 +432,7 @@ var_4 	= -4
 		SUB SP, SP, #0x10
 		STMFD SP!, {R4-R10,LR}
 		SUB SP, SP, #0x1CC
-		ADD R4, SP, #0x1FC+var_10 
+		ADD R4, SP, #0x1FC+var_10
 		STMIA R4, {R0-R3}
 		MOV R0, SP
 		ADD R1, SP, #0x1FC+var_4
@@ -687,8 +687,8 @@ loc_FF8406AC:
 		ADD SP, SP, #0x1CC
 		LDMFD SP!, {R4-R10,LR}
 		ADD SP, SP, #0x10
-		MOV PC, LR	
-		
+		MOV PC, LR
+
 sub_FF840834:
 
 var_10 	= -0x10
@@ -794,7 +794,7 @@ loc_FF840950:
 		ADD R12, SP, #0x1B4+arg_188
 		LDMIA R12, {R0-R3}
 		//BL sub_FF83A640
-		BL my_GUIString
+		BL menu_message
 		MOV R1, #0x11
 		MOV R2, R0
 		MOV R0, R4
@@ -817,6 +817,6 @@ loc_FF8409D0:
 		LDMFD SP!, {R4-R8,LR}
 		ADD SP, SP, #0x10
 		MOV PC, LR
-		
+
 .align 2
 fin:

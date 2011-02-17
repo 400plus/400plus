@@ -151,6 +151,9 @@ typedef struct {             // [*] Used and tested, others unknown
 // Documented flags
 #define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
 
+extern int update, iso_in_viewfinder, dp_opt, st_1, st_2, interval, ir_inst, eaeb_frames, eaeb_ev, eaeb_delay, eaeb_m_min, eaeb_m_max, interval_time;
+extern char *s_eaeb[], *s_m_eaeb[], *dp_button_string[];
+
 extern void CreateMyTask();
 extern void my_IntercomHandler();
 
