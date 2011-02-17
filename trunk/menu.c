@@ -1,4 +1,5 @@
 #include "main.h"
+#include "settings.h"
 
 #include "menu.h"
 
@@ -6,14 +7,18 @@ int option_number = 1;
 int color_temp = 2200;
 int i = 0;
 int last_option = 13;
-int av_comp_val;
-int flash_exp_val;
-int aeb_val;
-int eaeb_sub_menu=0;
-
-char buff[17];
+int av_comp_val = 0;
+int flash_exp_val = 0;
+int aeb_val = 0;
+int eaeb_sub_menu = 0;
+int st_1 = 0, st_2 = 0;
 
 int one = 0, two = 0;
+
+char menu_buffer[17];
+
+void  menu_display();
+char *menu_message();
 
 int  GetValue(int temp, int button);
 void UpdateStVariables();
@@ -37,8 +42,7 @@ void menu_swap() {
 	}
 
 	update = 0;
-	sub_FF837FA8(hInfoCreative, 0x11, menu_message());
-	do_some_with_dialog(hInfoCreative);
+	menu_display();
 }
 
 void menu_up() {
@@ -48,8 +52,7 @@ void menu_up() {
 		option_number -= 1;
 
 	update = 1;
-	sub_FF837FA8(hInfoCreative, 0x11, menu_message());
-	do_some_with_dialog(hInfoCreative);
+	menu_display();
 }
 
 void menu_down() {
@@ -59,8 +62,7 @@ void menu_down() {
 		option_number += 1;
 
 	update = 1;
-	sub_FF837FA8(hInfoCreative, 0x11, menu_message());
-	do_some_with_dialog(hInfoCreative);
+	menu_display();
 }
 
 void menu_right() {
@@ -79,8 +81,8 @@ void menu_right() {
 			SendToIntercom(0x39, 1, 1);
 		break;
 	case 6:
-		iso_in_viewfinder = 1;
-		WriteSettings();
+		settings.iso_in_viewfinder = 1;
+		settings_write();
 		break;
 	case 7:
 		color_temp += 100;
@@ -94,9 +96,9 @@ void menu_right() {
 		SendToIntercom(0x2E, 1, 0);
 		break;
 	case 10:
-		if (dp_opt < 3) {
-			dp_opt++;
-			WriteSettings();
+		if (settings.dp_opt < 3) {
+			settings.dp_opt++;
+			settings_write();
 		}
 		break;
 	case 11:
@@ -127,18 +129,17 @@ void menu_right() {
 		}
 		break;
 	case 12:
-		interval_time = (interval_time < 101) ? (interval_time + 1) : (1);
+		settings.interval_time = (settings.interval_time < 100) ? (settings.interval_time + 1) : (100);
 		break;
 	case 13:
-		ir_inst = 1;
+		settings.ir_inst = 1;
 		RemoteInstantRelease(1);
-		WriteSettings();
+		settings_write();
 		break;
 	}
 
 	update = 0;
-	sub_FF837FA8(hInfoCreative, 0x11, menu_message());
-	do_some_with_dialog(hInfoCreative);
+	menu_display();
 }
 
 void menu_left() {
@@ -157,8 +158,8 @@ void menu_left() {
 			SendToIntercom(0x39, 1, 0);
 		break;
 	case 6:
-		iso_in_viewfinder = 0;
-		WriteSettings();
+		settings.iso_in_viewfinder = 0;
+		settings_write();
 		break;
 	case 7:
 		color_temp -= 100;
@@ -172,9 +173,9 @@ void menu_left() {
 		SendToIntercom(0x2E, 1, 1);
 		break;
 	case 10:
-		if (dp_opt > 0) {
-			dp_opt--;
-			WriteSettings();
+		if (settings.dp_opt > 0) {
+			settings.dp_opt--;
+			settings_write();
 		}
 		break;
 	case 11:
@@ -205,18 +206,17 @@ void menu_left() {
 		}
 		break;
 	case 12:
-		interval_time = (interval_time > 1) ? (interval_time - 1) : (100);
+		settings.interval_time = (settings.interval_time > 1) ? (settings.interval_time - 1) : (1);
 		break;
 	case 13:
-		ir_inst = 0;
+		settings.ir_inst = 0;
 		RemoteInstantRelease(2);
-		WriteSettings();
+		settings_write();
 		break;
 	}
 
 	update = 0;
-	sub_FF837FA8(hInfoCreative, 0x11, menu_message());
-	do_some_with_dialog(hInfoCreative);
+	menu_display();
 }
 
 void menu_save() {
@@ -253,31 +253,36 @@ void menu_save() {
 		if(eaeb_sub_menu) {
 			switch (st_1) {
 			case 0:
-				eaeb_frames = st_2;
+				settings.eaeb_frames = st_2;
 				break;
 			case 1:
-				eaeb_ev = st_2;
+				settings.eaeb_ev = st_2;
 				break;
 			case 2:
-				eaeb_delay = st_2;
+				settings.eaeb_delay = st_2;
 				break;
 			case 3:
-				eaeb_m_min = st_2;
+				settings.eaeb_m_min = st_2;
 				break;
 			case 4:
-				eaeb_m_max = st_2;
+				settings.eaeb_m_max = st_2;
 				break;
 			}
 
-			WriteSettings();
+			settings_write();
 		}
 
 		eaeb_sub_menu ^= 1;
 		break;
 	case 12:
-		 WriteSettings();
+		 settings_write();
 		 break;
 	}
+}
+
+void menu_display() {
+	sub_FF837FA8(hInfoCreative, 0x11, menu_message());
+	do_some_with_dialog(hInfoCreative);
 }
 
 char *menu_message() {
@@ -297,8 +302,8 @@ char *menu_message() {
 		}
 
 		HexToStr(av_comp_val);
-		sprintf(buff, "Av comp:         %c %u.%u", sign[i], one, two);
-		return buff;
+		sprintf(menu_buffer, "Av comp:         %c %u.%u", sign[i], one, two);
+		break;
 	case 2:
 		if (update) {
 			flash_exp_val = cameraMode.FlashExComp;
@@ -310,77 +315,74 @@ char *menu_message() {
 		}
 
 		HexToStr(flash_exp_val);
-		sprintf(buff, "Flash exp comp:  %c %u.%u", sign[i], one, two);
-		return buff;
+		sprintf(menu_buffer, "Flash exp comp:  %c %u.%u", sign[i], one, two);
+		break;
 	case 3:
 		if (update)
 			aeb_val = cameraMode.AEB;
+
 		i = 0;
+
 		HexToStr(aeb_val);
-		sprintf(buff, "AEB:        +-%u.%u", one, two);
-		return buff;
+		sprintf(menu_buffer, "AEB:        +-%u.%u", one, two);
+		break;
 	case 4:
-		if (cameraMode.CfSafetyShift == 0)
-			return "Safety Shift:   Off";
-		return "Safety Shift:   On";
+		sprintf(menu_buffer, "Safety Shift:  %s", cameraMode.CfSafetyShift ? "On" : "Off");
+		break;
 	case 5:
-		sprintf(buff, "Release Count: %u", FLAG_RELEASE_COUNT);
-		return buff;
+		sprintf(menu_buffer, "Release Count: %u", FLAG_RELEASE_COUNT);
+		break;
 	case 6:
-		if (iso_in_viewfinder)
-			return "Show ISO in Viewfinder: On";
-		return "Show ISO in Viewfinder: Off";
+		sprintf(menu_buffer, "Show ISO in Viewfinder: %s", settings.iso_in_viewfinder ? "On" : "Off");
+		break;
 	case 7:
 		if (update)
 			color_temp = cameraMode.ColorTemp;
-		sprintf(buff, "Color Temperature: %uK", color_temp);
-		return buff;
+
+		sprintf(menu_buffer, "Color Temperature: %uK", color_temp);
+		break;
 	case 8:
-		if (cameraMode.CfNotEmitFlash)
-			return "Flash:            Off";
-		return "Flash:            On";
+		sprintf(menu_buffer, "Flash:            %s", cameraMode.CfNotEmitFlash ? "Off" : "On");
+		break;
 	case 9:
-		if (cameraMode.CfAfAssistBeam)
-			return "AF Assist Beam:       Off";
-		return "AF Assist Beam:       On";
+		sprintf(menu_buffer, "AF Assist Beam:       %s", cameraMode.CfAfAssistBeam ? "Off" : "On");
+		break;
 	case 10:
-		sprintf(buff, "DP Button:    %s", dp_button_string[dp_opt]);
-		return buff;
+		sprintf(menu_buffer, "DP Button:    %s", dp_button_string[settings.dp_opt]);
+		break;
 	case 11:
 		if (update)
 			UpdateStVariables();
 
-		if (st_1 == 1) {
+		switch (st_1) {
+		case 1:
 			HexToStr(st_2);
-			sprintf(buff, "Extended AEB: %u.%u %s", one, two, s_eaeb[st_1]);
-			return buff;
+			sprintf(menu_buffer, "Extended AEB: %u.%u %s", one, two, s_eaeb[st_1]);
+			break;
+		case 2:
+			sprintf(menu_buffer, "Extended AEB: %s Delay", st_2 ? "2s" : "No");
+			break;
+		case 3:
+			sprintf(menu_buffer, "Extended AEB: M1 %s", s_m_eaeb[(st_2 - (0x10)) >> 3]);
+			break;
+		case 4:
+			sprintf(menu_buffer, "Extended AEB: M2 %s", s_m_eaeb[(st_2 - (0x10)) >> 3]);
+			break;
+		default:
+			sprintf(menu_buffer, "Extended AEB: %u %s", st_2, s_eaeb[st_1]);
+			break;
 		}
 
-		if (st_1 == 2) {
-			if (st_2)
-				return "Extended AEB: 2sec. Delay";
-			return "Extended AEB: No Delay";
-		}
-
-		if (st_1 == 3) {
-			sprintf(buff, "Extended AEB: M1 %s", s_m_eaeb[(st_2 - (0x10)) >> 3]);
-			return buff;
-		}
-
-		if (st_1 == 4) {
-			sprintf(buff, "Extended AEB: M2 %s", s_m_eaeb[(st_2 - (0x10)) >>3]);
-			return buff;
-		}
-
-		sprintf(buff, "Extended AEB: %u %s", st_2, s_eaeb[st_1]);
-		return buff;
+		break;
 	case 12:
-		sprintf(buff, "Interval time: %u", interval_time);
-		return buff;
+		sprintf(menu_buffer, "Interval time: %u", settings.interval_time);
+		break;
 	case 13:
-		sprintf(buff, "IR Remote Release: %s", (ir_inst == 1) ? ("Instant") : ("2sec."));
-		return buff;
+		sprintf(menu_buffer, "IR Remote Release: %s", (settings.ir_inst == 1) ? ("Instant") : ("2sec."));
+		break;
 	}
+
+	return menu_buffer;
 }
 
 int GetValue(int temp, int button) {
@@ -447,26 +449,26 @@ int GetValue(int temp, int button) {
 void UpdateStVariables() {
 	switch (st_1)	{
 	case 0:
-		st_2=eaeb_frames;
+		st_2 = settings.eaeb_frames;
 		break;
 	case 1:
 		if (cameraMode.CfSettingSteps)
-			eaeb_ev &= 0xFC;
+			settings.eaeb_ev &= 0xFC;
 		else {
-			if ((eaeb_ev & 7) != 0 && (eaeb_ev & 3) == 0)
-				eaeb_ev -= 1;
+			if ((settings.eaeb_ev & 7) != 0 && (settings.eaeb_ev & 3) == 0)
+				settings.eaeb_ev -= 1;
 		}
 
-		st_2=eaeb_ev;
+		st_2 = settings.eaeb_ev;
 		break;
 	case 2:
-		st_2=eaeb_delay;
+		st_2 = settings.eaeb_delay;
 		break;
 	case 3:
-		st_2=eaeb_m_min;
+		st_2 = settings.eaeb_m_min;
 		break;
 	case 4:
-		st_2=eaeb_m_max;
+		st_2 = settings.eaeb_m_max;
 		break;
 	}
 }
