@@ -13,15 +13,16 @@ $(name).BIN: $(name).arm.elf
 	$(OBJCOPY) -O binary $(name).arm.elf $(name).BIN
 
 
-$(name).arm.elf:entry.o entry_subs.o gui.o init.o menu.o main.o link.script
+$(name).arm.elf:entry.o entry_subs.o gui.o init.o menu.o settings.o main.o link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o$@ $^
 
 entry_subs.o: entry_subs.S
 entry.o:      entry.S
 gui.o:        gui.S
 
-init.o:init.c
-menu.o:menu.c
+init.o:     init.c
+menu.o:     menu.c
+settings.o: settings.c
 
 main.o:main.c
 

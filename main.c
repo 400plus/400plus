@@ -4,11 +4,10 @@
 #include "task.h"
 #include "event.h"
 #include "message.h"
+#include "settings.h"
 #include "menu.h"
 
 #include "main.h"
-
-#define settings_def_version  5
 
 int* hMyTaskMessQue, *hMyFsTask;
 
@@ -18,23 +17,13 @@ char i1000[5]="1000", i1250[5]="1250", i1600[5]="1600", i2000[5]="2000", i2500[5
 
 int flag1;
 int update=1;
-int ir_inst;
 
-int st_1=0, st_2=0;
-int eaeb_frames=3, eaeb_ev=0x08;
-
-//for M mode
-int eaeb_m_min=0x10;
-int eaeb_m_max=0x98;
-
-int interval_time=2;
 int interval_original_ae_mode=0;
 
 char* s_eaeb[2]={"Frames", "EV"};
 char* s_m_eaeb[18]={"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000","1/4000"} ;
 
 char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};
-int iso_in_viewfinder, dp_opt=1, eaeb_delay;
 
 void  my_IntercomHandler(int r0, char* ptr);
 
@@ -44,9 +33,6 @@ void  SendMyMessage(int param0, int param1);
 
 void  MyGlobalStdSet();
 
-void  ReadSettings();
-void  WriteSettings();
-
 void  RemoteInstantRelease(int ir);
 void  DispIso();
 void  SpotImage();
@@ -54,7 +40,6 @@ void  KImage();
 void  FlashCompIm();
 void  SetDispIso();
 void  MainGUISt();
-char* my_GUIString();
 void  restore_iso();
 void  restore_wb();
 
@@ -92,7 +77,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				break;
 			case BUTTON_RIGHT:
 				if(ptr[2]) { // Button down
-					if (iso_in_viewfinder) {
+					if (settings.iso_in_viewfinder) {
 						// Start ISO display on viewfinder and increase ISO
 						SendMyMessage(VIEWFINDER_ISO_INC, 0);
 						return;
@@ -105,7 +90,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				break;
 			case BUTTON_LEFT:
 				if(ptr[2]) { // Button down
-					if (iso_in_viewfinder) {
+					if (settings.iso_in_viewfinder) {
 						// Start ISO display on viewfinder and decrease ISO
 						SendMyMessage(VIEWFINDER_ISO_DEC, 0);
 						return;
@@ -148,7 +133,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 						SendMyMessage(SWITCH_RAW_JPEG, 0);
 						return;
 					} else {
-						switch (dp_opt) {
+						switch (settings.dp_opt) {
 							case 1: // Set intermediate ISO
 								SendMyMessage(DP_PRESSED, 0);
 								return;
@@ -238,8 +223,8 @@ void MyTask () {
 	int spotmode = 3, evalue = 0;
 
 	SleepTask(1000);
-	ReadSettings();
-	RemoteInstantRelease(ir_inst);
+	settings_read();
+	RemoteInstantRelease(settings.ir_inst);
 
 	// enable CFn.8 for ISO H
 	if (!cameraMode.CfExtendIso)
@@ -299,7 +284,7 @@ void MyTask () {
 				break;
 			}
 
-			if (cameraMode.AEMode < 6 && dp_opt == 1)
+			if (cameraMode.AEMode < 6 && settings.dp_opt == 1)
 				SetDispIso();
 
 			break;
@@ -363,14 +348,14 @@ void MyTask () {
 			menu_save();
 			break;
 		case E_AEB:
-			if (st_2) {
+			if (settings.eaeb_delay) {
 				eventproc_RiseEvent("RequestBuzzer");
 				SleepTask(2000);
 			}
 
 			if (cameraMode.AEMode == AE_MODE_M) {
 				int m_end;
-				m = eaeb_m_min;
+				m = settings.eaeb_m_min;
 				do {
 					SendToIntercom(0x8, 1, m);
 					SleepTask(5);
@@ -379,21 +364,21 @@ void MyTask () {
 				  while(FLAG_CAMERA_BUSY)
 						SleepTask(5);
 
-					if(eaeb_m_min == eaeb_m_max) {
+					if(settings.eaeb_m_min == settings.eaeb_m_max) {
 						m_end=m;
-					} else if(eaeb_m_min < eaeb_m_max) {
+					} else if(settings.eaeb_m_min < settings.eaeb_m_max) {
 						m += 8;
-						m_end = eaeb_m_max + 8;
+						m_end = settings.eaeb_m_max + 8;
 					} else {
 						m -= 8;
-						m_end = eaeb_m_max - 8;
+						m_end = settings.eaeb_m_max - 8;
 					}
 				} while(m != m_end);
 			} else {
 			  if (cameraMode.CfSettingSteps)
-					eaeb_ev &= 0xFC;
-			  else if((eaeb_ev & 7) != 0 && (eaeb_ev & 3) ==0)
-					eaeb_ev -= 1;
+					settings.eaeb_ev &= 0xFC;
+			  else if((settings.eaeb_ev & 7) != 0 && (settings.eaeb_ev & 3) == 0)
+					settings.eaeb_ev -= 1;
 
 			  OldAvComp = cameraMode.AvComp;
 
@@ -403,9 +388,9 @@ void MyTask () {
 			  eventproc_Release();
 
 			  m = 0;
-			  while (m < (eaeb_frames - 1) / 2) {
-				  av_dec -= eaeb_ev;
-				  av_enc += eaeb_ev;
+			  while (m < (settings.eaeb_frames - 1) / 2) {
+				  av_dec -= settings.eaeb_ev;
+				  av_enc += settings.eaeb_ev;
 
 				  if (cameraMode.CfSettingSteps == 0) {
 					  if ((av_dec & 0x06) == 0x06)
@@ -452,7 +437,7 @@ void MyTask () {
 					SleepTask(5);
 
 				eventproc_Release();
-				for(i = 0; i < interval_time; i++) {
+				for(i = 0; i < settings.interval_time; i++) {
 					if(interval_original_ae_mode == cameraMode.AEMode)
 						SleepTask(1000);
 				}
@@ -495,50 +480,6 @@ void MyGlobalStdSet ()
 { int f1 = -1;
   while (f1==-1)  { f1=FIO_CreateFile("A:/STDOUT.TXT");  if (f1==-1) SleepTask(100); }
   ioGlobalStdSet(1,f1);    //ioGlobalStdSet(2,f1);
-}
-
-void ReadSettings()
-{
-	int settingsbuff[30];
-	int file = FIO_OpenFile("A:/settings", O_RDONLY, 644);
-
-	if(file!=-1)
-	{	FIO_ReadFile(file, (int *)settingsbuff, sizeof(settingsbuff));
-		if(settingsbuff[0]==settings_def_version)
-		{	iso_in_viewfinder = settingsbuff[ 1];
-			dp_opt            = settingsbuff[ 2];
-			eaeb_frames       = settingsbuff[ 3];
-			eaeb_ev           = settingsbuff[ 4];
-			eaeb_delay        = settingsbuff[ 5];
-			interval_time     = settingsbuff[ 6];
-			eaeb_m_min        = settingsbuff[ 7];
-			eaeb_m_max        = settingsbuff[ 8];
-			ir_inst           = settingsbuff[ 9];
-		}
-		FIO_CloseFile(file);
-	}
-}
-
-void WriteSettings()
-{
-	int settingsbuff[30];
-	int file = FIO_OpenFile("A:/settings", O_CREAT|O_WRONLY , 644);
-
-	if(file!=-1) {
-		settingsbuff[ 0] = settings_def_version;
-		settingsbuff[ 1] = iso_in_viewfinder;
-		settingsbuff[ 2] = dp_opt;
-		settingsbuff[ 3] = eaeb_frames;
-		settingsbuff[ 4] = eaeb_ev;
-		settingsbuff[ 5] = eaeb_delay;
-		settingsbuff[ 6] = interval_time;
-		settingsbuff[ 7] = eaeb_m_min;
-		settingsbuff[ 8] = eaeb_m_max;
-		settingsbuff[ 9] = ir_inst;
-
-		FIO_WriteFile(file, settingsbuff, sizeof(settingsbuff));
-		FIO_CloseFile(file);
-	}
 }
 
 void RemoteInstantRelease(int ir)
