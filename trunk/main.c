@@ -147,7 +147,14 @@ void my_IntercomHandler(int r0, char* ptr) {
 					break;
 				}
 				break;
-			case GUI_MODE_MENU:
+			case GUI_MODE_METER:
+				switch (ptr[1]) {
+				case BUTTON_DP:
+					SendMyMessage(DP_PRESSED, 0);
+					return;
+				}
+				break;
+			case GUI_MODE_INFO:
 				switch (ptr[1]) {
 				case BUTTON_DP:
 				case BUTTON_SET:
@@ -251,7 +258,7 @@ void MyTask () {
 			break;
 		case DP_PRESSED:
 			//Spot metering mode
-			if (FLAG_METMOD_DIALOG != 0) { //MeterMode Dialog opened
+			if (FLAG_METMOD_DIALOG) { //MeterMode Dialog opened
 				pressButton_(BUTTON_SET);   //"Set" button
 				eventproc_SetMesMode(&spotmode);  //Spot metering mode
 				if (cameraMode.Beep) // if set Beep On
