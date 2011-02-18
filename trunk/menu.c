@@ -4,12 +4,8 @@
 #include "menu.h"
 
 int option_number = 1;
-int color_temp = 2200;
 int i = 0;
 int last_option = 13;
-int av_comp_val = 0;
-int flash_exp_val = 0;
-int aeb_val = 0;
 int eaeb_sub_menu = 0;
 int st_1 = 0, st_2 = 0;
 
@@ -31,13 +27,13 @@ void menu_swap() {
 		i ^= 1;
 		break;
 	case 7:
-		if      (color_temp < 2200) color_temp =  2200;
-		else if (color_temp < 3200) color_temp =  3200;
-		else if (color_temp < 4000) color_temp =  4000;
-		else if (color_temp < 5200) color_temp =  5200;
-		else if (color_temp < 6000) color_temp =  6000;
-		else if (color_temp < 7000) color_temp =  7000;
-		else                        color_temp = 11000;
+		if      (settings.color_temp < 2200) settings.color_temp =  2200;
+		else if (settings.color_temp < 3200) settings.color_temp =  3200;
+		else if (settings.color_temp < 4000) settings.color_temp =  4000;
+		else if (settings.color_temp < 5200) settings.color_temp =  5200;
+		else if (settings.color_temp < 6000) settings.color_temp =  6000;
+		else if (settings.color_temp < 7000) settings.color_temp =  7000;
+		else                                 settings.color_temp = 11000;
 		break;
 	}
 
@@ -68,13 +64,13 @@ void menu_down() {
 void menu_right() {
 	switch(option_number) {
 	case 1:
-		av_comp_val = GetValue(av_comp_val, 1);
+		settings.av_comp = GetValue(settings.av_comp, 1);
 		break;
 	case 2:
-		flash_exp_val = GetValue(flash_exp_val, 1);
+		settings.flash_comp = GetValue(settings.flash_comp, 1);
 		break;
 	case 3:
-		aeb_val = GetValue(aeb_val, 1);
+		settings.aeb_ev = GetValue(settings.aeb_ev, 1);
 		break;
 	case 4:
 		if (cameraMode.CfSafetyShift == 0)
@@ -85,9 +81,9 @@ void menu_right() {
 		settings_write();
 		break;
 	case 7:
-		color_temp += 100;
-		if (color_temp > 11000)
-			color_temp = 11000;
+		settings.color_temp += 100;
+		if (settings.color_temp > 11000)
+			settings.color_temp = 11000;
 		break;
 	case 8:
 		SendToIntercom(0x30, 1, 0);
@@ -145,13 +141,13 @@ void menu_right() {
 void menu_left() {
 	switch (option_number) {
 	case 1:
-		av_comp_val = GetValue(av_comp_val, 0);
+		settings.av_comp = GetValue(settings.av_comp, 0);
 		break;
 	case 2:
-		flash_exp_val = GetValue(flash_exp_val, 0);
+		settings.flash_comp = GetValue(settings.flash_comp, 0);
 		break;
 	case 3:
-		aeb_val = GetValue(aeb_val, 0);
+		settings.aeb_ev = GetValue(settings.aeb_ev, 0);
 		break;
 	case 4:
 		if (cameraMode.CfSafetyShift == 1)
@@ -162,9 +158,9 @@ void menu_left() {
 		settings_write();
 		break;
 	case 7:
-		color_temp -= 100;
-		if (color_temp < 1800)
-			color_temp = 1800;
+		settings.color_temp -= 100;
+		if (settings.color_temp < 1800)
+			settings.color_temp = 1800;
 		break;
 	case 8:
 		SendToIntercom(0x30, 1, 1);
@@ -225,25 +221,25 @@ void menu_save() {
 	switch (option_number) {
 	case 1:
 		if (i)
-			av_comp_val_temp = 0 - av_comp_val;
+			av_comp_val_temp = 0 - settings.av_comp;
 		else
-			av_comp_val_temp = av_comp_val;
+			av_comp_val_temp = settings.av_comp;
 
 		SendToIntercom(0xA, 1, av_comp_val_temp);
 		break;
 	case 2:
 		if(i)
-			flash_exp_val_temp = 0 - flash_exp_val;
+			flash_exp_val_temp = 0 - settings.flash_comp;
 		else
-			flash_exp_val_temp = flash_exp_val;
+			flash_exp_val_temp = settings.flash_comp;
 
 		SendToIntercom(0x03, 1, flash_exp_val_temp);
 		break;
 	case 3:
-		SendToIntercom(0xd, 1, aeb_val);
+		SendToIntercom(0xd, 1, settings.aeb_ev);
 		break;
 	case 7:
-		SendToIntercom(0x10, 2, color_temp);
+		SendToIntercom(0x10, 2, settings.color_temp);
 
 		if (cameraMode.WB != 0x08)
 			SendToIntercom(0x5, 1, 0x08);
@@ -292,38 +288,38 @@ char *menu_message() {
 	switch (option_number) {
 	case 1:
 		if (update) {
-			av_comp_val = cameraMode.AvComp;
+			settings.av_comp = cameraMode.AvComp;
 
-			if (av_comp_val > 0x30) {
-				av_comp_val = 0x100 - av_comp_val;
+			if (settings.av_comp > 0x30) {
+				settings.av_comp = 0x100 - settings.av_comp;
 				i = 1;
 			} else
 				i = 0;
 		}
 
-		HexToStr(av_comp_val);
+		HexToStr(settings.av_comp);
 		sprintf(menu_buffer, "Av comp:         %c %u.%u", sign[i], one, two);
 		break;
 	case 2:
 		if (update) {
-			flash_exp_val = cameraMode.FlashExComp;
-			if (flash_exp_val > 0x30) {
-				flash_exp_val = 0x100 - flash_exp_val;
+			settings.flash_comp = cameraMode.FlashExComp;
+			if (settings.flash_comp > 0x30) {
+				settings.flash_comp = 0x100 - settings.flash_comp;
 				i = 1;
 			} else
 				i = 0;
 		}
 
-		HexToStr(flash_exp_val);
+		HexToStr(settings.flash_comp);
 		sprintf(menu_buffer, "Flash exp comp:  %c %u.%u", sign[i], one, two);
 		break;
 	case 3:
 		if (update)
-			aeb_val = cameraMode.AEB;
+			settings.aeb_ev = cameraMode.AEB;
 
 		i = 0;
 
-		HexToStr(aeb_val);
+		HexToStr(settings.aeb_ev);
 		sprintf(menu_buffer, "AEB:        +-%u.%u", one, two);
 		break;
 	case 4:
@@ -337,9 +333,9 @@ char *menu_message() {
 		break;
 	case 7:
 		if (update)
-			color_temp = cameraMode.ColorTemp;
+			settings.color_temp = cameraMode.ColorTemp;
 
-		sprintf(menu_buffer, "Color Temperature: %uK", color_temp);
+		sprintf(menu_buffer, "Color Temperature: %uK", settings.color_temp);
 		break;
 	case 8:
 		sprintf(menu_buffer, "Flash:            %s", cameraMode.CfNotEmitFlash ? "Off" : "On");

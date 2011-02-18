@@ -147,13 +147,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 					break;
 				}
 				break;
-			case GUI_MODE_METER:
-				switch (ptr[1]) {
-				case BUTTON_DP:
-					SendMyMessage(DP_PRESSED, 0);
-					return;
-				}
-				break;
 			case GUI_MODE_INFO:
 				switch (ptr[1]) {
 				case BUTTON_DP:
@@ -201,6 +194,13 @@ void my_IntercomHandler(int r0, char* ptr) {
 					} else {      // Button up
 					}
 					break;
+				}
+				break;
+			case GUI_MODE_METER:
+				switch (ptr[1]) {
+				case BUTTON_DP:
+					SendMyMessage(DP_PRESSED, 0);
+					return;
 				}
 				break;
 			}
@@ -452,6 +452,8 @@ void MyFSTask()
 {
 	while (1)
 	{
+		SuspendTask(hMyFsTask);
+
 		if (cameraMode.MeteringMode==METERING_MODE_SPOT)
 			SpotImage();
 
@@ -464,7 +466,6 @@ void MyFSTask()
 		DispIso();
 		do_some_with_dialog(*(int*)(0x47F0));
 		update=1;
-		SuspendTask(hMyFsTask);
 	}
 }
 

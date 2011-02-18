@@ -11,7 +11,11 @@ type_SETTINGS settings = {
 	0x10, // eaeb_m_min
 	0x98, // eaeb_m_max
 	   2, // interval_time
-	   0  // ir_inst
+	   0, // ir_inst
+	5200, // color_temp
+	   0, // av_comp
+	   0, // flash_comp
+	   0  // aeb_ev
 };
 
 void settings_read() {
