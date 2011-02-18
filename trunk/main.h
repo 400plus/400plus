@@ -4,8 +4,11 @@
 #define TRUE  1
 #define FALSE 0
 
+#define EVENT_SETTINGS 0x93
+#define	EVENT_AFSELECT 0xB9
+
 #define	BUTTON_MENU   0xA0
-#define	BUTTON_INFO   0xA1
+#define	BUTTON_DISP   0xA1
 #define	BUTTON_PLAY   0xA4
 #define	BUTTON_TRASH  0xA5
 #define	BUTTON_SET    0xA6
@@ -16,7 +19,6 @@
 #define	BUTTON_RIGHT  0xB3
 #define	BUTTON_LEFT   0xB4
 #define	BUTTON_DP     0xB8
-#define	BUTTON_DISP   0xB9
 #define	BUTTON_DRIVE  0xBA
 #define	BUTTON_AV     0xBB
 
@@ -143,6 +145,7 @@ typedef struct {             // [*] Used and tested, others unknown
 #define FLAG_CAMERA_BUSY    (*(int*)(0x00001CA8))
 #define FLAG_GUI_MODE       (*(int*)(0x00001ECC))
 #define FLAG_METMOD_DIALOG  (*(int*)(0x000047EC))
+#define FLAG_AFSLCT_DIALOG  (*(int*)(0x00004804))
 #define FLAG_FACTORY_DIALOG (*(int*)(0x000049F4))
 #define FLAG_MENU_DIALOG    (*(int*)(0x00004A2C))
 #define FLAG_FACE_SENSOR    (*(int*)(0x0000CD38))
@@ -150,6 +153,19 @@ typedef struct {             // [*] Used and tested, others unknown
 
 // Documented flags
 #define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
+
+// Values for FLAG_GUI_MODE
+#define GUI_OFF          0x00
+#define GUI_MODE_REVIEW  0x01
+#define GUI_MODE_MENU    0x02
+#define GUI_MODE_INFO    0x04
+#define GUI_MODE_ISO     0x09
+#define GUI_MODE_WB      0x0A
+#define GUI_MODE_AF      0x0B
+#define GUI_MODE_DRIVE   0x0F
+#define GUI_MODE_METER   0x0C
+#define GUI_MODE_MAIN    0x11
+#define GUI_MODE_FLASHEV 0x1B
 
 extern int update;
 char *s_eaeb[2], *s_m_eaeb[18], *dp_button_string[4];

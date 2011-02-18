@@ -2,7 +2,6 @@
 #include "led.h"
 #include "file.h"
 #include "task.h"
-#include "event.h"
 #include "message.h"
 #include "settings.h"
 #include "menu.h"
@@ -53,7 +52,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 	do {
 		// Status-independent events
 		switch (ptr[1]) {
-		case 0x93: // Mode dial A-Dep
+		case EVENT_SETTINGS: // Mode dial moved, settings changed
 			// Re-apply changes
 			SendMyMessage(MODE_DIAL, 0);
 			continue;
@@ -104,8 +103,8 @@ void my_IntercomHandler(int r0, char* ptr) {
 			}
 		} else {
 			switch (FLAG_GUI_MODE) {
-			case 0x00: // ???
-			case 0x11: // ???
+			case GUI_OFF:
+			case GUI_MODE_MAIN:
 				switch (ptr[1]) {
 				case BUTTON_UP:
 					if (ptr[2]) { // Button down
@@ -148,7 +147,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 					break;
 				}
 				break;
-			case 0x04: // Info screen (and 400plus' menu)
+			case GUI_MODE_MENU:
 				switch (ptr[1]) {
 				case BUTTON_DP:
 				case BUTTON_SET:
@@ -197,14 +196,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 					break;
 				}
 				break;
-			default:
-				if(FLAG_GUI_MODE != 0x06) { // ???
-					switch (ptr[1]) {
-					case BUTTON_DP:
-						SendMyMessage(DP_PRESSED, 0);
-						break;
-					}
-				}
 			}
 		}
 	} while(FALSE);
@@ -602,10 +593,6 @@ void restore_wb() {
 	}
 }
 
-
-//0x90->0x93 Mode Dial Tv Av M aDep
-
-//-----------------------==SetPropertie
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
 //SendToIntercom(0x2,1,1); //(0x2,1,0);  Meter mode Eval, Center...
 //SendToIntercom(0x3,1,1); //(0x3,1,0);  Flash ex comp
@@ -638,13 +625,3 @@ void restore_wb() {
 //SendToIntercom(0x6C,1,1); // Change Battery dialog
 //SendToIntercom(0x6D,1,1); // Burst counter set
 
-
-//-------------------------Unknown_1CF0
-//1CF0: AeMode
-//1CF2: MesMode
-//1CF6: DriveMode
-//1CFA: AfMode
-//1CFE: TvValue
-//1D00: AvValue
-//1D02: AvCompValue
-//1D04: IsoValue
