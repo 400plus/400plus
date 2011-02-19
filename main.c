@@ -2,17 +2,14 @@
 #include "led.h"
 #include "file.h"
 #include "task.h"
+#include "menu.h"
+#include "display.h"
 #include "message.h"
 #include "settings.h"
-#include "menu.h"
 
 #include "main.h"
 
 int* hMyTaskMessQue, *hMyFsTask;
-
-char i100[5]="100 ", i125[5]="125 ", i160[5]="160 ";
-char i200[5]="200", i250[5]="250 ", i320[5]="320 ", i400[5]="400 ", i500[5]="500 " , i640[5]="640 ", i800[5]="800 ";
-char i1000[5]="1000", i1250[5]="1250", i1600[5]="1600", i2000[5]="2000", i2500[5]="2500",i3200[5]="3200";
 
 int flag1;
 int update=1;
@@ -33,10 +30,6 @@ void  SendMyMessage(int param0, int param1);
 void  MyGlobalStdSet();
 
 void  RemoteInstantRelease(int ir);
-void  DispIso();
-void  SpotImage();
-void  KImage();
-void  FlashCompIm();
 void  SetDispIso();
 void  MainGUISt();
 void  restore_iso();
@@ -453,19 +446,7 @@ void MyFSTask()
 	while (1)
 	{
 		SuspendTask(hMyFsTask);
-
-		if (cameraMode.MeteringMode==METERING_MODE_SPOT)
-			SpotImage();
-
-		if (cameraMode.WB==8)
-			KImage();
-
-		if (cameraMode.FlashExComp>0x10 && cameraMode.FlashExComp<0xF0)
-			FlashCompIm();
-
-		DispIso();
-		do_some_with_dialog(*(int*)(0x47F0));
-		update=1;
+		display_refresh();
 	}
 }
 
@@ -484,71 +465,6 @@ void MyGlobalStdSet ()
 void RemoteInstantRelease(int ir)
 {	if(ir==1){*(int*)0x229AC=4500;*(int*)0x229B0=5560;}
 	else if(ir==2){*(int*)0x229AC=6160;*(int*)0x229B0=7410;}
-}
-
-void DispIso( )
-{
-	char* iso;
-
-	switch(cameraMode.ISO) // Set ISO String
-	{
-		case 0x6F: iso=i3200;break; //3200
-		case 0x6D: iso=i2500;break; //2500
-		case 0x6C: iso=i2000;break; //2000
-		case 0x68: iso=i1600;break; //1600
-		case 0x66: iso=i1250;break; //1250
-		case 0x64: iso=i1000;break; //1000
-		case 0x60: iso=i800;break;  //800
-		case 0x5D: iso=i640;break;  //640
-		case 0x5C: iso=i500;break;  //500
-		case 0x58: iso=i400;break;  //400
-		case 0x56: iso=i320;break;  //320
-		case 0x53: iso=i250;break;  //250
-		case 0x50: iso=i200;break;  //200
-		case 0x4E: iso=i160;break;  //160
-		case 0x4C: iso=i125;break;  //125
-		case 0x48: iso=i100;break;  //100
-	}
-	sub_FF837FA8(*(int*)(0x47F0),0x04,iso );
-	do_some_with_dialog(*(int*)(0x47F0));
-}
-
-void SpotImage( )
-{	sub_FF8382DC(*(int*)(0x47F0),0xD,246);
-}
-
-void KImage( )
-{	sub_FF8382DC(*(int*)(0x47F0),0xC,207);
-}
-
-void FlashCompIm()
-{	int flash_exp_val=cameraMode.FlashExComp;
-	int i=0, s;
-	if (flash_exp_val>0x30)
-	{	flash_exp_val=0x100-flash_exp_val;
-		i=1;
-	}
-	switch (flash_exp_val)
-	{	case 0x13:s=1;break;
-		case 0x14:s=0;break;
-		case 0x15:s=2;break;
-		case 0x18:s=3;break;
-		case 0x1B:s=5;break;
-		case 0x1C:s=4;break;
-		case 0x1D:s=6;break;
-		case 0x20:s=7;break;
-		case 0x23:s=9;break;
-		case 0x24:s=8;break;
-		case 0x25:s=10;break;
-		case 0x28:s=11;break;
-		case 0x2B:s=13;break;
-		case 0x2C:s=12;break;
-		case 0x2D:s=14;break;
-		case 0x30:s=15;break;
-	}
-	if (i)s+=130;
-	else s+=154;
-	sub_FF8382DC(*(int*)(0x47F0),0xB,s);
 }
 
 void SetDispIso( )
@@ -570,13 +486,17 @@ void SetDispIso( )
 		case 0x4C: flag1=0x4E; break;// 125 -> 160
 		case 0x48: flag1=0x4C; break;// 100 -> 125
 	}
+
 	eventproc_SetIsoValue(&flag1);
 	SleepTask(10);
-	DispIso();
+
+	display_refresh();
 }
 
-extern void MainGUISt()
-{	if (cameraMode.AEMode<6)if (hMyFsTask!=0) UnSuspendTask(hMyFsTask);
+extern void MainGUISt() {
+	if (cameraMode.AEMode<6)
+		if (hMyFsTask!=0)
+			UnSuspendTask(hMyFsTask);
 }
 
 void restore_iso() {
@@ -600,6 +520,8 @@ void restore_wb() {
 		SendToIntercom(0x5, 1, 0x00);
 	}
 }
+
+
 
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
 //SendToIntercom(0x2,1,1); //(0x2,1,0);  Meter mode Eval, Center...
