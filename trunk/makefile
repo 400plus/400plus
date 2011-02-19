@@ -1,30 +1,40 @@
-name=AUTOEXEC
-entryadr=0x7F0000
+PROJECT = AUTOEXEC
+ADDRESS = 0x7F0000
 
-CFLAGS=-nostdlib -march=armv5te -fno-builtin
-LDFLAGS=-Wl,-Ttext,$(entryadr)
-CC=arm-elf-gcc
-AS=arm-elf-as
-OBJCOPY=arm-elf-objcopy
+CC     = arm-elf-gcc
+CFLAGS = -nostdlib -march=armv5te -fno-builtin
 
-all: $(name).BIN
+AS      = arm-elf-as
+ASFLAGS = 
 
-$(name).BIN: $(name).arm.elf
-	$(OBJCOPY) -O binary $(name).arm.elf $(name).BIN
+LDFLAGS = -Wl,-Ttext,$(ADDRESS)
+OBJCOPY = arm-elf-objcopy
+
+S_OBJS = entry.o      \
+         entry_subs.o \
+         gui.o
+         
+C_OBJS = init.o     \
+         menu.o     \
+         display.o  \
+         settings.o \
+         main.o
 
 
-$(name).arm.elf:entry.o entry_subs.o gui.o init.o menu.o settings.o main.o link.script
-	$(CC) $(CFLAGS) -Wl,-T,link.script -o$@ $^
+all: $(PROJECT).BIN
 
-entry_subs.o: entry_subs.S
-entry.o:      entry.S
-gui.o:        gui.S
+$(PROJECT).BIN: $(PROJECT).arm.elf
+	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
 
-init.o:     init.c
-menu.o:     menu.c
-settings.o: settings.c
+$(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
+	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^
 
-main.o:main.c
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+%.o: %.S
+	$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
-	rm *.o; rm $(name).arm.elf
+	rm -f *.o; 
+	rm -f $(PROJECT).arm.elf

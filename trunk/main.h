@@ -4,6 +4,9 @@
 #define TRUE  1
 #define FALSE 0
 
+#define MAX(x,y) ((x) > (y) ? (x) : (y))
+#define MIN(x,y) ((x) < (y) ? (x) : (y))
+
 #define EVENT_SETTINGS 0x93
 #define	EVENT_AFSELECT 0xB9
 
@@ -49,7 +52,7 @@ typedef struct {             // [*] Used and tested, others unknown
 	int MeteringMode;        // 0x0004 [*] [2]
 	int FlashExComp;         // 0x0008 [*]
 	int DriveMode;           // 0x000c     [3]
-	int WB;                  // 0x0010 [*]
+	int WB;                  // 0x0010 [*] [4]
 	int AF;                  // 0x0014
 	int AfPoint;             // 0x0018
 	int TvVal;               // 0x001c [*]
@@ -139,6 +142,17 @@ typedef struct {             // [*] Used and tested, others unknown
 // [3] Values for DriveMode
 #define DRIVE_MODE_SINGLE 0
 #define DRIVE_MODE_BURST  1
+
+// [4] Values for WB
+#define WB_MODE_AUTO        0x00
+#define WB_MODE_DAYLIGHT    0x01
+#define WB_MODE_COUDY       0x02
+#define WB_MODE_TUNGSTEN    0x03
+#define WB_MODE_FLUORESCENT 0x04
+#define WB_MODE_FLASH       0x05
+#define WB_MODE_CUSTOM      0x06
+#define WB_MODE_SHADE       0x07
+#define WB_MODE_COLORTEMP   0x08
 
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
