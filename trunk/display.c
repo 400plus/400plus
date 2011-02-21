@@ -71,7 +71,7 @@ void display_refresh_iso( ) {
 	int i;
 	char *text = "----";
 
-	for (i = 0; i < sizeof(iso_code); i++) {
+	for (i = 0; i < LENGTH(iso_code); i++) {
 		if (iso_code[i] == cameraMode.ISO) {
 			text = iso_text[i];
 			break;

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "utils.h"
 #include "settings.h"
 
 #include "menu.h"
@@ -23,6 +24,8 @@ void HexToStr(int hex);
 void menu_swap() {
 	switch(option_number) {
 	case 1:
+		settings.av_comp ^= 0x08;
+		break;
 	case 2:
 		i ^= 1;
 		break;
@@ -64,7 +67,7 @@ void menu_down() {
 void menu_right() {
 	switch(option_number) {
 	case 1:
-		settings.av_comp = GetValue(settings.av_comp, 1);
+		settings.av_comp = ev_inc(settings.av_comp);
 		break;
 	case 2:
 		settings.flash_comp = GetValue(settings.flash_comp, 1);
@@ -141,7 +144,7 @@ void menu_right() {
 void menu_left() {
 	switch (option_number) {
 	case 1:
-		settings.av_comp = GetValue(settings.av_comp, 0);
+		settings.av_comp = ev_dec(settings.av_comp);
 		break;
 	case 2:
 		settings.flash_comp = GetValue(settings.flash_comp, 0);
@@ -216,16 +219,11 @@ void menu_left() {
 }
 
 void menu_save() {
-	int flash_exp_val_temp, av_comp_val_temp;
+	int flash_exp_val_temp;
 
 	switch (option_number) {
 	case 1:
-		if (i)
-			av_comp_val_temp = 0 - settings.av_comp;
-		else
-			av_comp_val_temp = settings.av_comp;
-
-		SendToIntercom(0xA, 1, av_comp_val_temp);
+		SendToIntercom(0xA, 1, settings.av_comp);
 		break;
 	case 2:
 		if(i)
@@ -284,21 +282,15 @@ void menu_display() {
 char *menu_message() {
 	SleepTask(40);
 	char sign[2] = {'+', '-'};
+	char ev_display[] = "      ";
 
 	switch (option_number) {
 	case 1:
-		if (update) {
+		if (update)
 			settings.av_comp = cameraMode.AvComp;
 
-			if (settings.av_comp > 0x30) {
-				settings.av_comp = 0x100 - settings.av_comp;
-				i = 1;
-			} else
-				i = 0;
-		}
-
-		HexToStr(settings.av_comp);
-		sprintf(menu_buffer, "Av comp:         %c %u.%u", sign[i], one, two);
+		ev_print(ev_display, settings.av_comp);
+		sprintf(menu_buffer, "Av comp:         %s", ev_display);
 		break;
 	case 2:
 		if (update) {

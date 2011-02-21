@@ -7,6 +7,8 @@
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 
+#define LENGTH(array) (sizeof(array) / sizeof(array[0]))
+
 #define EVENT_SETTINGS 0x93
 #define	EVENT_AFSELECT 0xB9
 
