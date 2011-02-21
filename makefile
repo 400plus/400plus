@@ -15,6 +15,7 @@ S_OBJS = entry.o      \
          gui.o
          
 C_OBJS = init.o     \
+         utils.o    \
          menu.o     \
          display.o  \
          settings.o \

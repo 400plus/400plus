@@ -352,7 +352,7 @@ void MyTask () {
 					SleepTask(5);
 					eventproc_Release();
 					SleepTask(5);
-				  while(FLAG_CAMERA_BUSY)
+					while(FLAG_CAMERA_BUSY)
 						SleepTask(5);
 
 					if(settings.eaeb_m_min == settings.eaeb_m_max) {
@@ -447,6 +447,7 @@ void MyFSTask()
 	{
 		SuspendTask(hMyFsTask);
 		display_refresh();
+		update = 1;
 	}
 }
 
