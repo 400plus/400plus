@@ -2,20 +2,26 @@
 
 #include "utils.h"
 
+int ev_sgn(int ev) {
+	return 0x100 - ev;
+}
+
 int ev_inc(int ev) {
 	if (cameraMode.CfSettingSteps)
-		return ev_add(ev, 0x04); // +0 1/2
+		ev = ev_add(ev, 0x04); // +0 1/2
 	else
-		return ev_add(ev, 0x03); // +0 1/3
+		ev = ev_add(ev, 0x03); // +0 1/3
 
+	return (ev & 0x80) ? ev : MIN(ev, 0x30);
 }
 
 int ev_dec(int ev) {
 	if (cameraMode.CfSettingSteps)
-		return ev_add(ev, 0xFC); // -0 1/2
+		ev = ev_add(ev, 0xFC); // -0 1/2
 	else
-		return ev_add(ev, 0xFD); // -0 1/3
+		ev = ev_add(ev, 0xFD); // -0 1/3
 
+	return (ev & 0x80) ? MAX(ev, 0xD0) : ev;
 }
 
 int ev_add(int ying, int yang) {
@@ -30,10 +36,7 @@ int ev_add(int ying, int yang) {
 		break;
 	}
 
-	if (ev & 0x80)
-		return MAX(ev, 0xD0);
-	else
-		return MIN(ev, 0x30);
+	return ev;
 }
 
 void ev_print(char *dest, int ev) {
