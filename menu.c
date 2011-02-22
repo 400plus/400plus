@@ -17,9 +17,7 @@ char menu_buffer[17];
 void  menu_display();
 char *menu_message();
 
-int  GetValue(int temp, int button);
 void UpdateStVariables();
-void HexToStr(int hex);
 
 void menu_swap() {
 	switch(option_number) {
@@ -73,7 +71,7 @@ void menu_right() {
 		settings.flash_comp = ev_inc(settings.flash_comp);
 		break;
 	case 3:
-		settings.aeb_ev = GetValue(settings.aeb_ev, 1);
+		settings.aeb_ev = ev_inc(settings.aeb_ev);
 		break;
 	case 4:
 		if (cameraMode.CfSafetyShift == 0)
@@ -114,7 +112,7 @@ void menu_right() {
 				break;
 			case 1:
 				if (st_2 < 0x18)
-					st_2 = GetValue(st_2, 1);
+					st_2 = ev_inc(st_2);
 				break;
 			case 2:
 				st_2 = 1;
@@ -150,7 +148,10 @@ void menu_left() {
 		settings.flash_comp = ev_dec(settings.flash_comp);
 		break;
 	case 3:
-		settings.aeb_ev = GetValue(settings.aeb_ev, 0);
+		if (settings.aeb_ev > 0x04)
+			settings.aeb_ev = ev_dec(settings.aeb_ev);
+		else
+			settings.aeb_ev = 0x00;
 		break;
 	case 4:
 		if (cameraMode.CfSafetyShift == 1)
@@ -191,7 +192,7 @@ void menu_left() {
 				break;
 			case 1:
 				if (st_2 > 0x04)
-					st_2=GetValue(st_2, 0);
+					st_2 = ev_dec(st_2);
 				break;
 			case 2:
 				st_2 = 0;
@@ -296,10 +297,8 @@ char *menu_message() {
 		if (update)
 			settings.aeb_ev = cameraMode.AEB;
 
-		i = 0;
-
-		HexToStr(settings.aeb_ev);
-		sprintf(menu_buffer, "AEB:        +-%u.%u", one, two);
+		ev_print(ev_display, settings.aeb_ev);
+		sprintf(menu_buffer, "AEB:             %s", ev_display);
 		break;
 	case 4:
 		sprintf(menu_buffer, "Safety Shift:  %s", cameraMode.CfSafetyShift ? "On" : "Off");
@@ -331,8 +330,8 @@ char *menu_message() {
 
 		switch (st_1) {
 		case 1:
-			HexToStr(st_2);
-			sprintf(menu_buffer, "Extended AEB: %u.%u %s", one, two, s_eaeb[st_1]);
+			ev_print(ev_display, st_2);
+			sprintf(menu_buffer, "Extended AEB: %s", ev_display);
 			break;
 		case 2:
 			sprintf(menu_buffer, "Extended AEB: %s Delay", st_2 ? "2s" : "No");
@@ -360,67 +359,6 @@ char *menu_message() {
 	return menu_buffer;
 }
 
-int GetValue(int temp, int button) {
-	if (temp == 0 && button == 0 && option_number != 3 && option_number != 11)
-		i=1;
-
-	if (i)
-		button ^= 1;
-
-	switch (button) {
-	case 0:
-		if (cameraMode.CfSettingSteps == 1) {
-			if ((temp & 3) != 0){
-				temp &= 0xFC;
-				break;
-			}
-
-			temp -= 4;
-			break;
-		} else {
-			if ((temp & 7) != 0 && (temp & 3) == 0) {
-				temp -= 1;
-				break;
-			}
-
-			if ((temp & 5) == 5)
-				temp -= 2;
-			else
-				temp -= 3;
-		}
-
-		if (temp < 0)
-			temp=0;
-
-		break;
-	case 1:
-		if (cameraMode.CfSettingSteps == 1) {
-			temp = (temp & 0xFC) + 4;
-			break;
-		} else {
-			if ((temp & 7) != 0 && (temp & 3) == 0) {
-				temp += 1;
-				break;
-			}
-
-			if ((temp &3 ) == 3)
-				temp += 2;
-			else
-				temp += 3;
-		}
-
-		if (temp > 0x30)
-			temp = 0x30;
-
-		break;
-	}
-
-	if (temp == 0 && i == 1)
-		i = 0;
-
-	return temp;
-}
-
 void UpdateStVariables() {
 	switch (st_1)	{
 	case 0:
@@ -445,37 +383,5 @@ void UpdateStVariables() {
 	case 4:
 		st_2 = settings.eaeb_m_max;
 		break;
-	}
-}
-
-void HexToStr(int hex) {
-	one = 0;
-	two = 0;
-
-	switch (hex & 0xf0) {
-	case 0x10:
-		one = 2;
-		break;
-	case 0x20:
-		one = 4;
-		break;
-	case 0x30:
-		one = 6;
-		break;
-	}
-
-	if((hex & 0x08) == 8)
-		one++;
-
-	switch(hex & 0x07) {
-		case 3:
-			two = 3;
-			break;
-		case 4:
-			two = 5;
-			break;
-		case 5:
-			two = 7;
-			break;
 	}
 }
