@@ -5,12 +5,9 @@
 #include "menu.h"
 
 int option_number = 1;
-int i = 0;
 int last_option = 13;
 int eaeb_sub_menu = 0;
 int st_1 = 0, st_2 = 0;
-
-int one = 0, two = 0;
 
 char menu_buffer[17];
 
