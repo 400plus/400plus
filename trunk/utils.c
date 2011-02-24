@@ -1,12 +1,17 @@
 #include "main.h"
+#include "settings.h"
 
 #include "utils.h"
+
+int ev_normalize(int ev);
 
 int ev_sgn(int ev) {
 	return 0x100 - ev;
 }
 
 int ev_inc(int ev) {
+	ev = ev_normalize(ev);
+
 	if (cameraMode.CfSettingSteps)
 		ev = ev_add(ev, 0x04); // +0 1/2
 	else
@@ -16,6 +21,8 @@ int ev_inc(int ev) {
 }
 
 int ev_dec(int ev) {
+	ev = ev_normalize(ev);
+
 	if (cameraMode.CfSettingSteps)
 		ev = ev_add(ev, 0xFC); // -0 1/2
 	else
@@ -72,4 +79,13 @@ void ev_print(char *dest, int ev) {
 	}
 
 	sprintf(dest, "%c%c %s", dsp_sgn, dsp_int, dsp_dec);
+}
+
+int ev_normalize(int ev) {
+	if (cameraMode.CfSettingSteps)
+		ev &= 0xFC;
+	else if ((ev & 0x07) && !(ev & 0x03))
+		ev -= 0x01;
+
+	return ev;
 }
