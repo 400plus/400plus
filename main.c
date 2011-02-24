@@ -11,12 +11,10 @@
 
 int* hMyTaskMessQue, *hMyFsTask;
 
-int flag1;
-int update=1;
+int update = 1, flag1;
 
 int interval_original_ae_mode=0;
 
-char* s_eaeb[2]={"Frames", "EV"};
 char* s_m_eaeb[18]={"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000","1/4000"} ;
 
 char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};

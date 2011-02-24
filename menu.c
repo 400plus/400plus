@@ -7,14 +7,12 @@
 int option_number = 1;
 int last_option = 13;
 int eaeb_sub_menu = 0;
-int st_1 = 0, st_2 = 0;
+int st_1 = 0;
 
 char menu_buffer[17];
 
 void  menu_display();
 char *menu_message();
-
-void UpdateStVariables();
 
 void menu_swap() {
 	switch(option_number) {
@@ -99,25 +97,26 @@ void menu_right() {
 		if (eaeb_sub_menu == 0) {
 			if(st_1 < 4) {
 				st_1++;
-				UpdateStVariables();
 			}
 		} else {
 			switch (st_1) {
 			case 0:
-				if (st_2 < 9)
-					st_2 += 2;
+				if (settings.eaeb_frames < 9)
+					settings.eaeb_frames += 2;
 				break;
 			case 1:
-				if (st_2 < 0x18)
-					st_2 = ev_inc(st_2);
+				settings.eaeb_ev = ev_inc(settings.eaeb_ev);
 				break;
 			case 2:
-				st_2 = 1;
+				settings.eaeb_delay = TRUE;
 				break;
 			case 3:
+				if (settings.eaeb_m_min <= 0x90) //98 is maximum
+					settings.eaeb_m_min += 8;
+				break;
 			case 4:
-				if (st_2 <= 0x90) //98 is maximum
-					st_2+=8;
+				if (settings.eaeb_m_max <= 0x90) //98 is maximum
+					settings.eaeb_m_max += 8;
 				break;
 			}
 		}
@@ -126,7 +125,7 @@ void menu_right() {
 		settings.interval_time = (settings.interval_time < 100) ? (settings.interval_time + 1) : (100);
 		break;
 	case 13:
-		settings.ir_inst = 1;
+		settings.ir_inst = TRUE;
 		RemoteInstantRelease(1);
 		settings_write();
 		break;
@@ -179,25 +178,27 @@ void menu_left() {
 		if (eaeb_sub_menu == 0) {
 			if(st_1 > 0) {
 				st_1--;
-				UpdateStVariables();
 			}
 		} else {
 			switch (st_1) {
 			case 0:
-				if (st_2 > 3)
-					st_2-=2;
+				if (settings.eaeb_frames > 3)
+					settings.eaeb_frames -= 2;
 				break;
 			case 1:
-				if (st_2 > 0x04)
-					st_2 = ev_dec(st_2);
+				if (settings.eaeb_ev > 0x04)
+					settings.eaeb_ev = ev_dec(settings.eaeb_ev);
 				break;
 			case 2:
-				st_2 = 0;
+				settings.eaeb_delay = FALSE;
 				break;
 			case 3:
+				if(settings.eaeb_m_min >= 0x18) //10 is minimum
+					settings.eaeb_m_min -= 8;
+				break;
 			case 4:
-				if(st_2 >= 0x18) //10 is minimum
-					st_2-=8;
+				if(settings.eaeb_m_max >= 0x18) //10 is minimum
+					settings.eaeb_m_max -= 8;
 				break;
 			}
 		}
@@ -206,7 +207,7 @@ void menu_left() {
 		settings.interval_time = (settings.interval_time > 1) ? (settings.interval_time - 1) : (1);
 		break;
 	case 13:
-		settings.ir_inst = 0;
+		settings.ir_inst = FALSE;
 		RemoteInstantRelease(2);
 		settings_write();
 		break;
@@ -235,28 +236,7 @@ void menu_save() {
 
 		break;
 	case 11:
-		if(eaeb_sub_menu) {
-			switch (st_1) {
-			case 0:
-				settings.eaeb_frames = st_2;
-				break;
-			case 1:
-				settings.eaeb_ev = st_2;
-				break;
-			case 2:
-				settings.eaeb_delay = st_2;
-				break;
-			case 3:
-				settings.eaeb_m_min = st_2;
-				break;
-			case 4:
-				settings.eaeb_m_max = st_2;
-				break;
-			}
-
-			settings_write();
-		}
-
+		settings_write();
 		eaeb_sub_menu ^= 1;
 		break;
 	case 12:
@@ -295,7 +275,7 @@ char *menu_message() {
 			settings.aeb_ev = cameraMode.AEB;
 
 		ev_print(ev_display, settings.aeb_ev);
-		sprintf(menu_buffer, "AEB:             %s", ev_display);
+		sprintf(menu_buffer, "AEB:             %s", settings.aeb_ev ? ev_display : "Off");
 		break;
 	case 4:
 		sprintf(menu_buffer, "Safety Shift:  %s", cameraMode.CfSafetyShift ? "On" : "Off");
@@ -322,63 +302,32 @@ char *menu_message() {
 		sprintf(menu_buffer, "DP Button:    %s", dp_button_string[settings.dp_opt]);
 		break;
 	case 11:
-		if (update)
-			UpdateStVariables();
-
 		switch (st_1) {
+		case 0:
+			sprintf(menu_buffer, "Extended AEB: %u frames", settings.eaeb_frames);
+			break;
 		case 1:
-			ev_print(ev_display, st_2);
+			ev_print(ev_display, settings.eaeb_ev);
 			sprintf(menu_buffer, "Extended AEB: %s", ev_display);
 			break;
 		case 2:
-			sprintf(menu_buffer, "Extended AEB: %s Delay", st_2 ? "2s" : "No");
+			sprintf(menu_buffer, "Extended AEB: %s Delay", settings.eaeb_delay ? "2s" : "No");
 			break;
 		case 3:
-			sprintf(menu_buffer, "Extended AEB: M1 %s", s_m_eaeb[(st_2 - (0x10)) >> 3]);
+			sprintf(menu_buffer, "Extended AEB: M1 %s", s_m_eaeb[(settings.eaeb_m_min - (0x10)) >> 3]);
 			break;
 		case 4:
-			sprintf(menu_buffer, "Extended AEB: M2 %s", s_m_eaeb[(st_2 - (0x10)) >> 3]);
-			break;
-		default:
-			sprintf(menu_buffer, "Extended AEB: %u %s", st_2, s_eaeb[st_1]);
+			sprintf(menu_buffer, "Extended AEB: M2 %s", s_m_eaeb[(settings.eaeb_m_max - (0x10)) >> 3]);
 			break;
 		}
-
 		break;
 	case 12:
 		sprintf(menu_buffer, "Interval time: %u", settings.interval_time);
 		break;
 	case 13:
-		sprintf(menu_buffer, "IR Remote Release: %s", (settings.ir_inst == 1) ? ("Instant") : ("2sec."));
+		sprintf(menu_buffer, "IR Remote Release: %s", settings.ir_inst ? "Instant" : "2sec.");
 		break;
 	}
 
 	return menu_buffer;
-}
-
-void UpdateStVariables() {
-	switch (st_1)	{
-	case 0:
-		st_2 = settings.eaeb_frames;
-		break;
-	case 1:
-		if (cameraMode.CfSettingSteps)
-			settings.eaeb_ev &= 0xFC;
-		else {
-			if ((settings.eaeb_ev & 7) != 0 && (settings.eaeb_ev & 3) == 0)
-				settings.eaeb_ev -= 1;
-		}
-
-		st_2 = settings.eaeb_ev;
-		break;
-	case 2:
-		st_2 = settings.eaeb_delay;
-		break;
-	case 3:
-		st_2 = settings.eaeb_m_min;
-		break;
-	case 4:
-		st_2 = settings.eaeb_m_max;
-		break;
-	}
 }
