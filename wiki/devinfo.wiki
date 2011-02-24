@@ -6,10 +6,10 @@
 = Introduction =
 useful information collected from the forum mostly.<br>
 this page is WIP and needs to be formated...<br>
-_,,i believe this page should be for developers and not for users, users can read the wiki page on wikia, i'm not sure who is updating the info there -- 0xAF,,_<br>
 <br>
 ----
 = links =
+  * [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation Hack Installation procedure]
   * [http://chdk.wikia.com/wiki/400D 400d page on wikia] - read here to get started with the installation (there are links to the forum too)<br>
   * [http://chdk.setepontos.com/index.php?topic=3290.0 CHDK forum thread for 400D/XTI]<br>
   * [ftp://www.inc.eng.kmutt.ac.th/pornpoj/vxwork/VxWorks_Prog_Guide.pdf VxWorks Programmer's Guide] (thanks to JoeNeptune)<br>
