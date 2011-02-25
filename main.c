@@ -11,7 +11,7 @@
 
 int* hMyTaskMessQue, *hMyFsTask;
 
-int update = 1, flag1;
+int flag1;
 
 int interval_original_ae_mode=0;
 
@@ -27,7 +27,6 @@ void  SendMyMessage(int param0, int param1);
 
 void  MyGlobalStdSet();
 
-void  RemoteInstantRelease(int ir);
 void  SetDispIso();
 void  MainGUISt();
 void  restore_iso();
@@ -138,12 +137,23 @@ void my_IntercomHandler(int r0, char* ptr) {
 					break;
 				}
 				break;
+			case GUI_MODE_MENU:
+				switch (ptr[1]) {
+				case BUTTON_DISP:
+					// Initialize menu
+					SendMyMessage(MENU_INIT, 0);
+					break;;
+				}
+				break;
 			case GUI_MODE_INFO:
 				switch (ptr[1]) {
-				case BUTTON_DP:
 				case BUTTON_SET:
 					// Save menu settings
-					SendMyMessage(MENU_SAVE, 0);
+					SendMyMessage(MENU_SET, 0);
+					return;
+				case BUTTON_DRIVE:
+					// Cancel menu settings
+					SendMyMessage(MENU_ESC, 0);
 					return;
 				case BUTTON_UP:
 					if (ptr[2]) { // Button down
@@ -213,7 +223,6 @@ void MyTask () {
 
 	SleepTask(1000);
 	settings_read();
-	RemoteInstantRelease(settings.ir_inst);
 
 	// enable CFn.8 for ISO H
 	if (!cameraMode.CfExtendIso)
@@ -318,6 +327,9 @@ void MyTask () {
 				SendToIntercom(0x08, 1, tv_value);
 			}
 			break;
+		case MENU_INIT:
+			menu_initialize();
+			break;
 		case MENU_SWAP:
 			menu_swap();
 			break;
@@ -333,8 +345,11 @@ void MyTask () {
 		case MENU_LEFT:
 			menu_left();
 			break;
-		case MENU_SAVE:
-			menu_save();
+		case MENU_SET:
+			menu_set();
+			break;
+		case MENU_ESC:
+			menu_esc();
 			break;
 		case E_AEB:
 			if (settings.eaeb_delay) {
@@ -445,7 +460,6 @@ void MyFSTask()
 	{
 		SuspendTask(hMyFsTask);
 		display_refresh();
-		update = 1;
 	}
 }
 
@@ -459,11 +473,6 @@ void MyGlobalStdSet ()
 { int f1 = -1;
   while (f1==-1)  { f1=FIO_CreateFile("A:/STDOUT.TXT");  if (f1==-1) SleepTask(100); }
   ioGlobalStdSet(1,f1);    //ioGlobalStdSet(2,f1);
-}
-
-void RemoteInstantRelease(int ir)
-{	if(ir==1){*(int*)0x229AC=4500;*(int*)0x229B0=5560;}
-	else if(ir==2){*(int*)0x229AC=6160;*(int*)0x229B0=7410;}
 }
 
 void SetDispIso( )
