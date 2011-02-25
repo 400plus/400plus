@@ -10,7 +10,7 @@ typedef enum {
 	MENUITEM_SAFETY_SHIFT,
 	MENUITEM_RELEASE_COUNT,
 	MENUITEM_ISO_VIEWFINDER,
-	MENUITEM_COLOR_TEMP,
+	MENUITEM_WHITE_BALANCE,
 	MENUITEM_EMIT_FLASH,
 	MENUITEM_AF_FLASH,
 	MENUITEM_DP_BUTTON,
@@ -36,7 +36,8 @@ extern void menu_up();
 extern void menu_down();
 extern void menu_right();
 extern void menu_left();
-extern void menu_save();
+extern void menu_set();
+extern void menu_esc();
 
 extern char *menu_message();
 

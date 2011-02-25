@@ -42,12 +42,14 @@
 #define VIEWFINDER_ISO_INC 0x11
 #define VIEWFINDER_ISO_DEC 0x12
 #define VIEWFINDER_ISO_END 0x13
-#define MENU_SAVE          0x21
+#define MENU_SET           0x21
 #define	MENU_UP            0x22
 #define	MENU_DOWN          0x23
 #define	MENU_RIGHT         0x24
 #define	MENU_LEFT          0x25
 #define MENU_SWAP          0x26
+#define MENU_ESC           0x27
+#define MENU_INIT          0x28
 
 typedef struct {             // [*] Used and tested, others unknown
 	int AEMode;              // 0x0000 [*] [1]
@@ -183,7 +185,6 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_MAIN    0x11
 #define GUI_MODE_FLASHEV 0x1B
 
-extern int update;
 extern char *s_m_eaeb[18], *dp_button_string[4];
 
 extern void CreateMyTask();

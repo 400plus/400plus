@@ -1,21 +1,27 @@
+#include "main.h"
 #include "file.h"
 
 #include "settings.h"
 
 type_SETTINGS settings = {
-	   0, // iso_in_viewfinder
-	   1, // dp_opt
-	   3, // eaeb_frames
-	   0, // eaeb_delay
-	0x08, // eaeb_ev
-	0x10, // eaeb_m_min
-	0x98, // eaeb_m_max
-	   2, // interval_time
-	   0, // ir_inst
-	5200, // color_temp
-	   0, // av_comp
-	   0, // flash_comp
-	   0  // aeb_ev
+	    0, // iso_in_viewfinder
+	    1, // dp_opt
+	    3, // eaeb_frames
+	FALSE, // eaeb_delay
+	 0x08, // eaeb_ev
+	 0x10, // eaeb_m_min
+	 0x98, // eaeb_m_max
+	    2, // interval_time
+	FALSE, // ir_inst
+	 0x00, // white_balance
+	-5200, // color_temp
+	    0, // av_comp
+	    0, // flash_comp
+	    0, // aeb_ev
+	FALSE, // safety_shift;
+	FALSE, // not_emit_flash;
+	FALSE  // not_af_flash;
+
 };
 
 void settings_read() {
@@ -31,6 +37,8 @@ void settings_read() {
 
 		FIO_CloseFile(file);
 	}
+
+	settings_apply();
 }
 
 void settings_write() {
@@ -41,5 +49,24 @@ void settings_write() {
 		FIO_WriteFile(file, &version, sizeof(version));
 		FIO_WriteFile(file, &settings, sizeof(settings));
 		FIO_CloseFile(file);
+	}
+}
+
+extern void settings_apply() {
+	SendToIntercom(0x0A, 1, settings.av_comp);
+	SendToIntercom(0x03, 1, settings.flash_comp);
+	SendToIntercom(0x0D, 1, settings.aeb_ev);
+	SendToIntercom(0x39, 1, settings.safety_shift);
+	SendToIntercom(0x30, 1, settings.not_emit_flash);
+	SendToIntercom(0x2E, 1, settings.not_af_flash);
+	SendToIntercom(0x05, 1, settings.white_balance);
+	SendToIntercom(0x10, 1, settings.color_temp);
+
+	if(settings.remote_delay){
+		*(int*)0x229AC = 4500;
+		*(int*)0x229B0 = 5560;
+	} else {
+		*(int*)0x229AC = 6160;
+		*(int*)0x229B0 = 7410;
 	}
 }
