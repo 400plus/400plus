@@ -181,8 +181,6 @@ void menu_left() {
 				current_item_eaeb = MENUITEM_EAEB_LAST;
 			else
 				current_item_eaeb--;
-
-			current_item_eaeb = (current_item_eaeb - 1) % MENUITEM_EAEB_COUNT;
 		} else {
 			switch (current_item_eaeb) {
 			case MENUITEM_EAEB_FRAMES:
