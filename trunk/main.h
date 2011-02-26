@@ -35,7 +35,7 @@
 #define E_AEB              0x0A
 #define INTERVAL           0x0B
 #define FACE_SENSOR_NOISO  0x0C
-#define SET_EVALUATIVE     0x0D
+#define RESTORE_METERING   0x0D
 #define SWITCH_RAW_JPEG    0x0E
 #define RESTORE_ISO        0x0F
 #define RESTORE_WB         0x10

@@ -29,8 +29,10 @@ void  MyGlobalStdSet();
 
 void  SetDispIso();
 void  MainGUISt();
+
 void  restore_iso();
 void  restore_wb();
+void  restore_metering();
 
 void CreateMyTask() {
 	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
@@ -113,7 +115,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 				case BUTTON_LEFT:
 					if (ptr[2]) { // Button down
 						 // Restore metering mode to EVALUATIVE
-						SendMyMessage(SET_EVALUATIVE, 0);
+						SendMyMessage(RESTORE_METERING, 0);
 					} else {      // Button up
 					}
 					break;
@@ -242,9 +244,8 @@ void MyTask () {
 		case RESTORE_WB:
 			restore_wb();
 			break;
-		case SET_EVALUATIVE:
-		 	if (cameraMode.MeteringMode == METERING_MODE_SPOT)  // Spot is actived
-				eventproc_SetMesMode(&evalue);
+		case RESTORE_METERING:
+			restore_metering();
 			break;
 		case SWITCH_RAW_JPEG:
 			SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 3);
@@ -529,6 +530,12 @@ void restore_wb() {
 	}
 }
 
+void restore_metering() {
+	int metering_evaluative = 0;
+
+	if (cameraMode.MeteringMode == METERING_MODE_SPOT)
+		eventproc_SetMesMode(&metering_evaluative);
+}
 
 
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
