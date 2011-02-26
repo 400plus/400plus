@@ -219,7 +219,7 @@ my_loc_FF8292AC:
 		B _default
 
 my_START_OLC_MODE:
-		BL MainGUISt
+		BL initialize_display
 		B START_OLC_MODE
 
 loc_FF829158:
