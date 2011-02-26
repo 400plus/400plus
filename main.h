@@ -28,7 +28,7 @@
 #define	BUTTON_AV     0xBB
 
 #define DP_PRESSED         0x01
-#define MODE_DIAL          0x04
+#define RESTORE_DISPLAY    0x04
 #define REQUEST_BUZZER     0x05
 #define INFO_SCREEN        0x07
 #define SAVE_SETTINGS      0x08

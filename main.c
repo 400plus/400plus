@@ -9,7 +9,7 @@
 
 #include "main.h"
 
-int* hMyTaskMessQue, *hMyFsTask;
+int* hMyTaskMessQue;
 
 int flag1;
 
@@ -22,22 +22,22 @@ char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};
 void  my_IntercomHandler(int r0, char* ptr);
 
 void  MyTask();
-void  MyFSTask();
 void  SendMyMessage(int param0, int param1);
 
 void  MyGlobalStdSet();
 
 void  SetDispIso();
-void  MainGUISt();
 
 void  restore_iso();
 void  restore_wb();
 void  restore_metering();
+void  restore_display();
+
+void  initialize_display();
 
 void CreateMyTask() {
 	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
 	CreateTask("MyTask", 0x19, 0x2000, MyTask,0);
-	hMyFsTask=(int*)CreateTask("MyFSTask", 0x1A, 0x2000, MyFSTask,0);
 }
 
 void my_IntercomHandler(int r0, char* ptr) {
@@ -45,8 +45,8 @@ void my_IntercomHandler(int r0, char* ptr) {
 		// Status-independent events
 		switch (ptr[1]) {
 		case EVENT_SETTINGS: // Mode dial moved, settings changed
-			// Re-apply changes
-			SendMyMessage(MODE_DIAL, 0);
+			// Restore display
+			SendMyMessage(RESTORE_DISPLAY, 0);
 			continue;
 		}
 
@@ -250,9 +250,8 @@ void MyTask () {
 		case SWITCH_RAW_JPEG:
 			SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 3);
 			break;
-		case MODE_DIAL:
-			if (cameraMode.AEMode < 6) //in creative zone
-				MainGUISt();
+		case RESTORE_DISPLAY:
+			restore_display();
 			break;
 		case REQUEST_BUZZER:
 			eventproc_RiseEvent("RequestBuzzer");
@@ -455,15 +454,6 @@ void MyTask () {
 	}
 }
 
-void MyFSTask()
-{
-	while (1)
-	{
-		SuspendTask(hMyFsTask);
-		display_refresh();
-	}
-}
-
 void SendMyMessage(int param0, int param1)
 {	int* pMessage=(int*)MainHeapAlloc(8);
 	pMessage[0]=param0;  pMessage[1]=param1;
@@ -502,31 +492,27 @@ void SetDispIso( )
 	display_refresh();
 }
 
-extern void MainGUISt() {
-	if (cameraMode.AEMode<6)
-		if (hMyFsTask!=0)
-			UnSuspendTask(hMyFsTask);
-}
-
 void restore_iso() {
+	int iso;
+
 	if (cameraMode.ISO > 0x68) {
-		flag1 = 0x68;
+		iso = 0x68;
 	} else if (cameraMode.ISO > 0x60) {
-		flag1 = 0x60;
+		iso = 0x60;
 	} else if (cameraMode.ISO > 0x58) {
-		flag1 = 0x58;
+		iso = 0x58;
 	} else if (cameraMode.ISO > 0x50) {
-		flag1 = 0x50;
+		iso = 0x50;
 	} else {
-		flag1 = 0x48;
+		iso = 0x48;
 	}
 
-	eventproc_SetIsoValue(&flag1);
+	eventproc_SetIsoValue(&iso);
 }
 
 void restore_wb() {
-	if (cameraMode.WB == 0x08) {
-		SendToIntercom(0x5, 1, 0x00);
+	if (cameraMode.WB == WB_MODE_COLORTEMP) {
+		SendToIntercom(0x5, 1, WB_MODE_AUTO);
 	}
 }
 
@@ -537,6 +523,16 @@ void restore_metering() {
 		eventproc_SetMesMode(&metering_evaluative);
 }
 
+void restore_display() {
+	SleepTask(100);
+
+	if (cameraMode.AEMode < 6)
+		display_refresh();
+}
+
+void initialize_display() {
+	SendMyMessage(RESTORE_DISPLAY, 0);
+}
 
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
 //SendToIntercom(0x2,1,1); //(0x2,1,0);  Meter mode Eval, Center...
