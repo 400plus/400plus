@@ -89,3 +89,43 @@ int ev_normalize(int ev) {
 
 	return ev;
 }
+
+int iso_next(int iso) {
+	switch(iso) {
+	case 0x6F: return 0x68; // 3200-> 1600
+	case 0x6D: return 0x6F; // 2500-> 3200
+	case 0x6C: return 0x6D; // 2000-> 2500
+	case 0x68: return 0x6C; // 1600-> 2000
+	case 0x66: return 0x60; // 1250->  800
+	case 0x64: return 0x66; // 1000-> 1250
+	case 0x60: return 0x64; //  800-> 1000
+	case 0x5D: return 0x58; //  640->  400
+	case 0x5C: return 0x5D; //  500->  640
+	case 0x58: return 0x5C; //  400->  500
+	case 0x56: return 0x50; //  320->  200
+	case 0x53: return 0x56; //  250->  320
+	case 0x50: return 0x53; //  200->  250
+	case 0x4E: return 0x48; //  160->  100
+	case 0x4C: return 0x4E; //  125->  160
+	case 0x48: return 0x4C; //  100->  125
+	default  : return 0x48; //  100... just in case
+	}
+}
+
+int iso_inc(int iso) {
+	if      (iso < 0x48) return 0x48; //  100
+	else if (iso < 0x50) return 0x50; //  200
+	else if (iso < 0x58) return 0x58; //  400
+	else if (iso < 0x60) return 0x60; //  800
+	else if (iso < 0x68) return 0x68; // 1600
+	else                 return 0x6F; // 3200
+
+}
+
+int iso_dec(int iso) {
+	if      (iso > 0x68) return 0x68; // 1600
+	else if (iso > 0x60) return 0x60; //  800
+	else if (iso > 0x58) return 0x58; //  400
+	else if (iso > 0x50) return 0x50; //  200
+	else                 return 0x48; //  100
+}

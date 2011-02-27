@@ -185,10 +185,7 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_MAIN    0x11
 #define GUI_MODE_FLASHEV 0x1B
 
-extern char *s_m_eaeb[18], *dp_button_string[4];
-
 extern void CreateMyTask();
 extern void my_IntercomHandler();
-
 
 #endif /* MAIN_H_ */

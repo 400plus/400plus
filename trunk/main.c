@@ -11,13 +11,10 @@
 
 int* hMyTaskMessQue;
 
-int flag1;
+// Temporary storage while displaying ISO at viewfinder
+int viewfinder_iso_CfNotEmitFlash, viewfinder_iso_TvVal;
 
 int interval_original_ae_mode=0;
-
-char* s_m_eaeb[18]={"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000","1/4000"} ;
-
-char* dp_button_string[4]={"Disabled", "Change ISO", "Extended AEB","Interval"};
 
 void  my_IntercomHandler(int r0, char* ptr);
 
@@ -26,7 +23,10 @@ void  SendMyMessage(int param0, int param1);
 
 void  MyGlobalStdSet();
 
-void  SetDispIso();
+void  rotate_iso();
+void  viewfinder_iso_inc();
+void  viewfinder_iso_dec();
+void  viewfinder_iso_end();
 
 void  restore_iso();
 void  restore_wb();
@@ -220,7 +220,6 @@ void MyTask () {
 	int m;
 	int av_enc, av_dec, OldAvComp;
 
-	static int tv_value, no_emit_flash;
 	int spotmode = 3, evalue = 0;
 
 	SleepTask(1000);
@@ -283,49 +282,17 @@ void MyTask () {
 			}
 
 			if (cameraMode.AEMode < 6 && settings.dp_opt == 1)
-				SetDispIso();
+				rotate_iso();
 
 			break;
 		case VIEWFINDER_ISO_INC:
-			if      (cameraMode.ISO < 0x48) flag1 = 0x48;
-			else if (cameraMode.ISO < 0x50) flag1 = 0x50;
-			else if (cameraMode.ISO < 0x58) flag1 = 0x58;
-			else if (cameraMode.ISO < 0x60) flag1 = 0x60;
-			else if (cameraMode.ISO < 0x68) flag1 = 0x68;
-			else                            flag1 = 0x6F;
-
-			if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
-				no_emit_flash = cameraMode.CfNotEmitFlash;
-				SendToIntercom(0x30, 1, 1);
-
-				tv_value = cameraMode.TvVal;
-				SendToIntercom(0x08, 1, flag1 + 0x25);
-
-				eventproc_SetIsoValue(&flag1);
-			}
+			viewfinder_iso_inc();
 			break;
 		case VIEWFINDER_ISO_DEC:
-			if      (cameraMode.ISO > 0x68) flag1 = 0x68;
-			else if (cameraMode.ISO > 0x60) flag1 = 0x60;
-			else if (cameraMode.ISO > 0x58) flag1 = 0x58;
-			else if (cameraMode.ISO > 0x50) flag1 = 0x50;
-			else                            flag1 = 0x48;
-
-			if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
-				no_emit_flash = cameraMode.CfNotEmitFlash;
-				SendToIntercom(0x30, 1, 1);
-
-				tv_value = cameraMode.TvVal;
-				SendToIntercom(0x08, 1, flag1 + 0x25);
-
-				eventproc_SetIsoValue(&flag1);
-			}
+			viewfinder_iso_dec();
 			break;
 		case VIEWFINDER_ISO_END:
-			if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
-				SendToIntercom(0x30, 1, no_emit_flash);
-				SendToIntercom(0x08, 1, tv_value);
-			}
+			viewfinder_iso_end();
 			break;
 		case MENU_INIT:
 			menu_initialize();
@@ -466,30 +433,48 @@ void MyGlobalStdSet ()
   ioGlobalStdSet(1,f1);    //ioGlobalStdSet(2,f1);
 }
 
-void SetDispIso( )
-{	switch(cameraMode.ISO)
-	{	case 0x6F: flag1=0x68; break;// 3200-> 1600
-		case 0x6D: flag1=0x6F; break;// 2500-> 3200
-		case 0x6C: flag1=0x6D; break;// 2000-> 2500
-		case 0x68: flag1=0x6C; break;// 1600-> 2000
-		case 0x66: flag1=0x60; break;// 1250-> 800
-		case 0x64: flag1=0x66; break;// 1000-> 1250
-		case 0x60: flag1=0x64; break;// 800 -> 1000
-		case 0x5D: flag1=0x58; break;// 640 -> 400
-		case 0x5C: flag1=0x5D; break;// 500 -> 640
-		case 0x58: flag1=0x5C; break;// 400 -> 500
-		case 0x56: flag1=0x50; break;// 320 -> 200
-		case 0x53: flag1=0x56; break;// 250 -> 320
-		case 0x50: flag1=0x53; break;// 200 -> 250
-		case 0x4E: flag1=0x48; break;// 160 -> 125
-		case 0x4C: flag1=0x4E; break;// 125 -> 160
-		case 0x48: flag1=0x4C; break;// 100 -> 125
+void rotate_iso( ) {
+	int iso = iso_next(cameraMode.ISO);
+
+	eventproc_SetIsoValue(&iso);
+
+	SleepTask(10);
+	display_refresh();
+}
+
+void viewfinder_iso_inc() {
+	int iso = iso_inc(cameraMode.ISO);
+
+	if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
+		viewfinder_iso_CfNotEmitFlash = cameraMode.CfNotEmitFlash;
+		SendToIntercom(0x30, 1, 1);
+
+		viewfinder_iso_TvVal = cameraMode.TvVal;
+		SendToIntercom(0x08, 1, iso + 0x25);
 	}
 
-	eventproc_SetIsoValue(&flag1);
-	SleepTask(10);
+	eventproc_SetIsoValue(&iso);
+}
 
-	display_refresh();
+void viewfinder_iso_dec() {
+	int iso = iso_dec(cameraMode.ISO);
+
+	if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
+		viewfinder_iso_CfNotEmitFlash = cameraMode.CfNotEmitFlash;
+		SendToIntercom(0x30, 1, 1);
+
+		viewfinder_iso_TvVal = cameraMode.TvVal;
+		SendToIntercom(0x08, 1, iso + 0x25);
+	}
+
+	eventproc_SetIsoValue(&iso);
+}
+
+void viewfinder_iso_end() {
+	if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
+		SendToIntercom(0x30, 1, viewfinder_iso_CfNotEmitFlash);
+		SendToIntercom(0x08, 1, viewfinder_iso_TvVal);
+	}
 }
 
 void restore_iso() {

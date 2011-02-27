@@ -8,4 +8,8 @@ int ev_add(int ying, int yang);
 
 void ev_print(char *dest, int ev);
 
+int iso_next(int iso);
+int iso_inc(int iso);
+int iso_dec(int iso);
+
 #endif /* UTILS_H_ */
