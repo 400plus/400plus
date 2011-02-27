@@ -13,6 +13,10 @@ int eaeb_sub_menu = FALSE;
 
 char menu_buffer[17];
 
+char *wb_string[] = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
+char *tv_string[] = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
+char *dp_string[] = {"Disabled", "Change ISO", "Extended AEB", "Interval"};
+
 void  menu_save();
 void  menu_display();
 char *menu_message();
@@ -109,10 +113,8 @@ void menu_right() {
 		menu_settings.not_af_flash = FALSE;
 		break;
 	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_opt < 3) {
+		if (menu_settings.dp_opt < 3)
 			menu_settings.dp_opt++;
-			settings_write();
-		}
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_sub_menu) {
@@ -185,10 +187,8 @@ void menu_left() {
 		menu_settings.not_af_flash = TRUE;
 		break;
 	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_opt > 0) {
+		if (menu_settings.dp_opt > 0)
 			menu_settings.dp_opt--;
-			settings_write();
-		}
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_sub_menu) {
@@ -259,8 +259,7 @@ void menu_display() {
 }
 
 char *menu_message() {
-	char *wb_display;
-	char  ev_display[] = "      ";
+	char ev_display[] = "      ";
 
 	SleepTask(50);
 
@@ -287,37 +286,10 @@ char *menu_message() {
 		sprintf(menu_buffer, "Show ISO in viewfinder: %s", menu_settings.iso_in_viewfinder ? "On" : "Off");
 		break;
 	case MENUITEM_WHITE_BALANCE:
-		if (menu_settings.white_balance == WB_MODE_COLORTEMP) {
+		if (menu_settings.white_balance == WB_MODE_COLORTEMP)
 			sprintf(menu_buffer, "WB: color temp=%uK", menu_settings.color_temp);
-		} else {
-			switch (menu_settings.white_balance) {
-			case WB_MODE_AUTO:
-				wb_display = "Auto";
-				break;
-			case WB_MODE_DAYLIGHT:
-				wb_display = "Daylight";
-				break;
-			case WB_MODE_COUDY:
-				wb_display = "Cloudy";
-				break;
-			case WB_MODE_TUNGSTEN:
-				wb_display = "Tungsten";
-				break;
-			case WB_MODE_FLUORESCENT:
-				wb_display = "Fluorescent";
-				break;
-			case WB_MODE_FLASH:
-				wb_display = "Flash";
-				break;
-			case WB_MODE_CUSTOM:
-				wb_display = "Custom";
-				break;
-			case WB_MODE_SHADE:
-				wb_display = "Shade";
-				break;
-			}
-			sprintf(menu_buffer, "WB: %s", wb_display);
-		}
+		else
+			sprintf(menu_buffer, "WB: %s", wb_string[menu_settings.white_balance]);
 		break;
 	case MENUITEM_EMIT_FLASH:
 		sprintf(menu_buffer, "Flash:            %s", cameraMode.CfNotEmitFlash ? "Off" : "On");
@@ -326,7 +298,7 @@ char *menu_message() {
 		sprintf(menu_buffer, "AF Assist Beam:       %s", cameraMode.CfAfAssistBeam ? "Off" : "On");
 		break;
 	case MENUITEM_DP_BUTTON:
-		sprintf(menu_buffer, "DP Button:    %s", dp_button_string[menu_settings.dp_opt]);
+		sprintf(menu_buffer, "DP Button:    %s", dp_string[menu_settings.dp_opt]);
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_sub_menu) {
@@ -342,10 +314,10 @@ char *menu_message() {
 				sprintf(menu_buffer, "Extended AEB: %s Delay", menu_settings.eaeb_delay ? "2s" : "No");
 				break;
 			case MENUITEM_EAEB_M_MIN:
-				sprintf(menu_buffer, "Extended AEB: M1 %s", s_m_eaeb[(menu_settings.eaeb_m_min - (0x10)) >> 3]);
+				sprintf(menu_buffer, "Extended AEB: M1 %s", tv_string[(menu_settings.eaeb_m_min - (0x10)) >> 3]);
 				break;
 			case MENUITEM_EAEB_M_MAX:
-				sprintf(menu_buffer, "Extended AEB: M2 %s", s_m_eaeb[(menu_settings.eaeb_m_max - (0x10)) >> 3]);
+				sprintf(menu_buffer, "Extended AEB: M2 %s", tv_string[(menu_settings.eaeb_m_max - (0x10)) >> 3]);
 				break;
 			}
 		} else {
