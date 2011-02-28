@@ -96,13 +96,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 				}
 				break;
 			}
-		} else if (FLAG_MENU_DIALOG) {
-				switch (ptr[1]) {
-				case BUTTON_DP:
-					SendMyMessage(SHOW_FACTORY_MENU, 0);
-					return;
-				}
-				break;
 		} else if (FLAG_FACTORY_DIALOG) {
 				switch (ptr[1]) {
 				case BUTTON_DP:
@@ -110,7 +103,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 					return;
 				}
 				break;
-		} else {
+		} else {	
 			switch (FLAG_GUI_MODE) {
 			case GUI_OFF:
 			case GUI_MODE_MAIN:
@@ -162,6 +155,9 @@ void my_IntercomHandler(int r0, char* ptr) {
 					// Initialize menu
 					SendMyMessage(MENU_INIT, 0);
 					break;;
+				case BUTTON_DP:
+					SendMyMessage(SHOW_FACTORY_MENU, 0);
+					return;
 				}
 				break;
 			case GUI_MODE_INFO:
