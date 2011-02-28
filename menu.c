@@ -54,12 +54,12 @@ void menu_swap() {
 void menu_up() {
 	if (eaeb_sub_menu) {
 		if (current_item_eaeb == MENUITEM_EAEB_LAST)
-			current_item_eaeb = 0;
+			current_item_eaeb = MENUITEM_EAEB_FIRST;
 		else
 			current_item_eaeb++;
 	} else {
 		if (current_item == MENUITEM_LAST)
-			current_item = 0;
+			current_item = MENUITEM_FIRST;
 		else
 			current_item++;
 	}
@@ -69,12 +69,12 @@ void menu_up() {
 
 void menu_down() {
 	if (eaeb_sub_menu) {
-		if (current_item_eaeb == 0)
+		if (current_item_eaeb == MENUITEM_EAEB_FIRST)
 			current_item_eaeb = MENUITEM_EAEB_LAST;
 		else
 			current_item_eaeb--;
 	} else {
-		if (current_item == 0)
+		if (current_item == MENUITEM_FIRST)
 			current_item = MENUITEM_LAST;
 		else
 			current_item--;
