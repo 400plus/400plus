@@ -34,6 +34,8 @@ void  restore_display();
 
 void  initialize_display();
 
+void set_metering_spot();
+
 void CreateMyTask() {
 	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
 	CreateTask("MyTask", 0x19, 0x2000, MyTask,0);
@@ -92,6 +94,13 @@ void my_IntercomHandler(int r0, char* ptr) {
 				}
 				break;
 			}
+		} else if (FLAG_METMOD_DIALOG) {
+				switch (ptr[1]) {
+				case BUTTON_DP:
+					SendMyMessage(SET_METERING_SPOT, 0);
+					return;
+				}
+				break;
 		} else {
 			switch (FLAG_GUI_MODE) {
 			case GUI_OFF:
@@ -250,17 +259,6 @@ void MyTask () {
 			eventproc_RiseEvent("RequestBuzzer");
 			break;
 		case DP_PRESSED:
-			//Spot metering mode
-			if (FLAG_METMOD_DIALOG) { //MeterMode Dialog opened
-				pressButton_(BUTTON_SET);   //"Set" button
-				eventproc_SetMesMode(&spotmode);  //Spot metering mode
-				if (cameraMode.Beep) // if set Beep On
-					eventproc_RiseEvent("RequestBuzzer");
-				eventproc_PrintICUInfo();
-				SleepTask(30);
-				break;
-			}
-
 			if (FLAG_FACTORY_DIALOG) {
 				MyGlobalStdSet();
 				eventproc_RiseEvent("RequestBuzzer");
@@ -278,6 +276,9 @@ void MyTask () {
 			if (cameraMode.AEMode < 6 && settings.dp_opt == 1)
 				rotate_iso();
 
+			break;
+		case SET_METERING_SPOT:
+			set_metering_spot();
 			break;
 		case VIEWFINDER_ISO_INC:
 			viewfinder_iso_inc();
@@ -418,6 +419,17 @@ void restore_display() {
 
 void initialize_display() {
 	SendMyMessage(RESTORE_DISPLAY, 0);
+}
+
+void set_metering_spot() {
+	int spot = METERING_MODE_SPOT;
+
+	pressButton_(BUTTON_SET);
+	eventproc_SetMesMode(&spot);
+	eventproc_PrintICUInfo();
+
+	if (cameraMode.Beep)
+		eventproc_RiseEvent("RequestBuzzer");
 }
 
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
