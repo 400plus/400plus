@@ -46,6 +46,10 @@ int ev_add(int ying, int yang) {
 	return ev;
 }
 
+int ev_sub(int ying, int yang) {
+	return ev_add(ying, ev_sgn(yang));
+}
+
 void ev_print(char *dest, int ev) {
 	char dsp_sgn, dsp_int, *dsp_dec;
 
