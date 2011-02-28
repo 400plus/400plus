@@ -20,8 +20,6 @@ void  my_IntercomHandler(int r0, char* ptr);
 void  MyTask();
 void  SendMyMessage(int param0, int param1);
 
-void  MyGlobalStdSet();
-
 void  viewfinder_iso_inc();
 void  viewfinder_iso_dec();
 void  viewfinder_iso_end();
@@ -135,14 +133,17 @@ void my_IntercomHandler(int r0, char* ptr) {
 						SendMyMessage(SWITCH_RAW_JPEG, 0);
 						return;
 					} else {
-						switch (settings.dp_opt) {
-							case 1: // Set intermediate ISO
+						switch (settings.dp_action) {
+							case DP_ACTION_INTERMEDIATE_ISO:
+								// Set intermediate ISO
 								SendMyMessage(SET_INTERMEDIATE_ISO, 0);
 								return;
-							case 2: // Start extended AEB script
+							case DP_ACTION_EXTENDED_AEB:
+								// Start extended AEB script
 								SendMyMessage(E_AEB, 0);
 								return;
-							case 3: // Start interval script
+							case DP_ACTION_INTERVAL:
+								// Start interval script
 								SendMyMessage(INTERVAL, 0);
 								return;
 						}

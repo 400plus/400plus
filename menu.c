@@ -98,8 +98,7 @@ void menu_right() {
 		menu_settings.safety_shift = TRUE;
 		break;
 	case MENUITEM_ISO_VIEWFINDER:
-		menu_settings.iso_in_viewfinder = 1;
-		settings_write();
+		menu_settings.iso_in_viewfinder = TRUE;
 		break;
 	case MENUITEM_WHITE_BALANCE:
 		if (menu_settings.white_balance == WB_MODE_COLORTEMP) {
@@ -115,8 +114,8 @@ void menu_right() {
 		menu_settings.not_af_flash = FALSE;
 		break;
 	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_opt < 3)
-			menu_settings.dp_opt++;
+		if (menu_settings.dp_action < DP_ACTION_LAST)
+			menu_settings.dp_action++;
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_sub_menu) {
@@ -170,10 +169,9 @@ void menu_left() {
 			menu_settings.aeb_ev = 0x00;
 		break;
 	case MENUITEM_SAFETY_SHIFT:
-		menu_settings.safety_shift = TRUE;
+		menu_settings.safety_shift = FALSE;
 	case MENUITEM_ISO_VIEWFINDER:
-		menu_settings.iso_in_viewfinder = 0;
-		settings_write();
+		menu_settings.iso_in_viewfinder = FALSE;
 		break;
 	case MENUITEM_WHITE_BALANCE:
 		if (menu_settings.white_balance == WB_MODE_COLORTEMP) {
@@ -189,8 +187,8 @@ void menu_left() {
 		menu_settings.not_af_flash = TRUE;
 		break;
 	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_opt > 0)
-			menu_settings.dp_opt--;
+		if (menu_settings.dp_action > DP_ACTION_FIRST)
+			menu_settings.dp_action--;
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_sub_menu) {
@@ -279,7 +277,7 @@ char *menu_message() {
 		sprintf(menu_buffer, "AEB:             %s", menu_settings.aeb_ev ? ev_display : "Off");
 		break;
 	case MENUITEM_SAFETY_SHIFT:
-		sprintf(menu_buffer, "Safety shift:  %s", cameraMode.CfSafetyShift ? "On" : "Off");
+		sprintf(menu_buffer, "Safety shift:  %s", menu_settings.safety_shift ? "On" : "Off");
 		break;
 	case MENUITEM_RELEASE_COUNT:
 		sprintf(menu_buffer, "Release count: %u", FLAG_RELEASE_COUNT);
@@ -294,13 +292,13 @@ char *menu_message() {
 			sprintf(menu_buffer, "WB: %s", wb_string[menu_settings.white_balance]);
 		break;
 	case MENUITEM_EMIT_FLASH:
-		sprintf(menu_buffer, "Flash:            %s", cameraMode.CfNotEmitFlash ? "Off" : "On");
+		sprintf(menu_buffer, "Flash:            %s", menu_settings.not_emit_flash ? "Off" : "On");
 		break;
 	case MENUITEM_AF_FLASH:
-		sprintf(menu_buffer, "AF Assist Beam:       %s", cameraMode.CfAfAssistBeam ? "Off" : "On");
+		sprintf(menu_buffer, "AF Assist Beam:       %s", menu_settings.not_af_flash ? "Off" : "On");
 		break;
 	case MENUITEM_DP_BUTTON:
-		sprintf(menu_buffer, "DP Button:    %s", dp_string[menu_settings.dp_opt]);
+		sprintf(menu_buffer, "DP Button:    %s", dp_string[menu_settings.dp_action]);
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_sub_menu) {
