@@ -35,6 +35,7 @@ void  restore_display();
 void  initialize_display();
 
 void set_metering_spot();
+void show_factory_menu();
 
 void CreateMyTask() {
 	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
@@ -98,6 +99,13 @@ void my_IntercomHandler(int r0, char* ptr) {
 				switch (ptr[1]) {
 				case BUTTON_DP:
 					SendMyMessage(SET_METERING_SPOT, 0);
+					return;
+				}
+				break;
+		} else if (FLAG_MENU_DIALOG) {
+				switch (ptr[1]) {
+				case BUTTON_DP:
+					SendMyMessage(SHOW_FACTORY_MENU, 0);
 					return;
 				}
 				break;
@@ -265,17 +273,12 @@ void MyTask () {
 				break;
 			}
 
-			//Factory menu enable
-			if (FLAG_MENU_DIALOG) {
-				EnterFactoryMode();
-				SleepTask(20);
-				ExitFactoryMode();
-				break;
-			}
-
 			if (cameraMode.AEMode < 6 && settings.dp_opt == 1)
 				rotate_iso();
 
+			break;
+		case SHOW_FACTORY_MENU:
+			show_factory_menu();
 			break;
 		case SET_METERING_SPOT:
 			set_metering_spot();
@@ -432,6 +435,11 @@ void set_metering_spot() {
 		eventproc_RiseEvent("RequestBuzzer");
 }
 
+void show_factory_menu() {
+	EnterFactoryMode();
+	SleepTask(25);
+	ExitFactoryMode();
+}
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
 //SendToIntercom(0x2,1,1); //(0x2,1,0);  Meter mode Eval, Center...
 //SendToIntercom(0x3,1,1); //(0x3,1,0);  Flash ex comp
