@@ -50,6 +50,7 @@
 #define MENU_SWAP          0x26
 #define MENU_ESC           0x27
 #define MENU_INIT          0x28
+#define SET_METERING_SPOT  0x29
 
 typedef struct {             // [*] Used and tested, others unknown
 	int AEMode;              // 0x0000 [*] [1]

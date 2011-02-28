@@ -20,7 +20,7 @@ void script_extended_aeb() {
 
 		int tv_start = MIN(settings.eaeb_m_min, settings.eaeb_m_max);
 		int tv_end   = MAX(settings.eaeb_m_min, settings.eaeb_m_max);
-
+		
 		int tv;
 		for (tv = tv_start; tv <= tv_end; tv += 8) {
 			SendToIntercom(0x08, 1, tv);
