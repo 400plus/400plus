@@ -4,8 +4,8 @@
 #include "settings.h"
 
 type_SETTINGS settings = {
-	    0, // iso_in_viewfinder
-	    1, // dp_opt
+	FALSE, // iso_in_viewfinder
+	    0, // dp_action
 	    3, // eaeb_frames
 	FALSE, // eaeb_delay
 	 0x08, // eaeb_ev
@@ -14,14 +14,13 @@ type_SETTINGS settings = {
 	    2, // interval_time
 	FALSE, // ir_inst
 	 0x00, // white_balance
-	-5200, // color_temp
+	 5200, // color_temp
 	    0, // av_comp
 	    0, // flash_comp
 	    0, // aeb_ev
 	FALSE, // safety_shift;
 	FALSE, // not_emit_flash;
 	FALSE  // not_af_flash;
-
 };
 
 void settings_read() {
