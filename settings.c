@@ -37,8 +37,6 @@ void settings_read() {
 
 		FIO_CloseFile(file);
 	}
-
-	settings_apply();
 }
 
 void settings_write() {
