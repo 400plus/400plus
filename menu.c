@@ -30,7 +30,9 @@ void menu_initialize() {
 	menu_settings.not_emit_flash = cameraMode.CfNotEmitFlash;
 	menu_settings.not_af_flash   = cameraMode.CfAfAssistBeam;
 	menu_settings.white_balance  = cameraMode.WB;
-	menu_settings.color_temp     = cameraMode.ColorTemp;
+
+	// We do NOT recover ColorTemp from cameraMode, because the camera fiddles with this value internally.
+	//menu_settings.color_temp     = cameraMode.ColorTemp;
 }
 
 void menu_swap() {
