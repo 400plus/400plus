@@ -22,7 +22,6 @@ void  SendMyMessage(int param0, int param1);
 
 void  MyGlobalStdSet();
 
-void  rotate_iso();
 void  viewfinder_iso_inc();
 void  viewfinder_iso_dec();
 void  viewfinder_iso_end();
@@ -34,9 +33,10 @@ void  restore_display();
 
 void  initialize_display();
 
-void set_metering_spot();
-void show_factory_menu();
-void start_debug_mode();
+void  set_intermediate_iso();
+void  set_metering_spot();
+void  show_factory_menu();
+void  start_debug_mode();
 
 void CreateMyTask() {
 	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
@@ -96,13 +96,6 @@ void my_IntercomHandler(int r0, char* ptr) {
 				}
 				break;
 			}
-		} else if (FLAG_METMOD_DIALOG) {
-				switch (ptr[1]) {
-				case BUTTON_DP:
-					SendMyMessage(SET_METERING_SPOT, 0);
-					return;
-				}
-				break;
 		} else if (FLAG_MENU_DIALOG) {
 				switch (ptr[1]) {
 				case BUTTON_DP:
@@ -150,7 +143,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 					} else {
 						switch (settings.dp_opt) {
 							case 1: // Set intermediate ISO
-								SendMyMessage(DP_PRESSED, 0);
+								SendMyMessage(SET_INTERMEDIATE_ISO, 0);
 								return;
 							case 2: // Start extended AEB script
 								SendMyMessage(E_AEB, 0);
@@ -226,7 +219,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 			case GUI_MODE_METER:
 				switch (ptr[1]) {
 				case BUTTON_DP:
-					SendMyMessage(DP_PRESSED, 0);
+					SendMyMessage(SET_METERING_SPOT, 0);
 					return;
 				}
 				break;
@@ -274,10 +267,8 @@ void MyTask () {
 		case REQUEST_BUZZER:
 			eventproc_RiseEvent("RequestBuzzer");
 			break;
-		case DP_PRESSED:
-			if (cameraMode.AEMode < 6 && settings.dp_opt == 1)
-				rotate_iso();
-
+		case SET_INTERMEDIATE_ISO:
+			set_intermediate_iso();
 			break;
 		case START_DEBUG_MODE:
 			start_debug_mode();
@@ -336,13 +327,15 @@ void SendMyMessage(int param0, int param1)
 	TryPostMessageQueue(hMyTaskMessQue,pMessage,0);
 }
 
-void rotate_iso( ) {
-	int iso = iso_next(cameraMode.ISO);
+void set_intermediate_iso() {
+	if (cameraMode.AEMode < 6) {
+		int iso = iso_next(cameraMode.ISO);
 
-	eventproc_SetIsoValue(&iso);
+		eventproc_SetIsoValue(&iso);
 
-	SleepTask(10);
-	display_refresh();
+		SleepTask(10);
+		display_refresh();
+	}
 }
 
 void viewfinder_iso_inc() {
