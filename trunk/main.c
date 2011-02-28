@@ -35,12 +35,13 @@ void  initialize_display();
 
 void  set_intermediate_iso();
 void  set_metering_spot();
+void  switch_raw_jpeg();
 void  show_factory_menu();
 void  start_debug_mode();
 
 void CreateMyTask() {
-	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
-	CreateTask("MyTask", 0x19, 0x2000, MyTask,0);
+	hMyTaskMessQue = (int*)CreateMessageQueue("MyTaskMessQue", 0x40);
+	CreateTask("MyTask", 0x19, 0x2000, MyTask, 0);
 }
 
 void my_IntercomHandler(int r0, char* ptr) {
@@ -228,19 +229,23 @@ void my_IntercomHandler(int r0, char* ptr) {
 
 void MyTask () {
 	int *pMessage;
-	int spotmode = 3;
 
+	// Wait for camera to settle down
 	SleepTask(1000);
-	settings_read();
 
-	// enable CFn.8 for ISO H
+	// Enable (hidden) CFn.8 for ISO H
 	if (!cameraMode.CfExtendIso)
 		SendToIntercom(0x31, 1, 1);
 
-	//Enable realtime ISO change
+	// Enable realtime ISO change
 	SendToIntercom(0xF0, 0, 0);
 	SendToIntercom(0xF1, 0, 0);
 
+	// Read (and apply) settings from file
+	settings_read();
+	settings_apply();
+
+	// Loop while receiving messages
 	while (TRUE) {
 		ReceiveMessageQueue(hMyTaskMessQue, &pMessage, 0);
 
@@ -255,13 +260,10 @@ void MyTask () {
 			restore_metering();
 			break;
 		case SWITCH_RAW_JPEG:
-			SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 3);
+			switch_raw_jpeg();
 			break;
 		case RESTORE_DISPLAY:
 			restore_display();
-			break;
-		case REQUEST_BUZZER:
-			eventproc_RiseEvent("RequestBuzzer");
 			break;
 		case SET_INTERMEDIATE_ISO:
 			set_intermediate_iso();
@@ -318,9 +320,13 @@ void MyTask () {
 }
 
 void SendMyMessage(int param0, int param1)
-{	int* pMessage=(int*)MainHeapAlloc(8);
-	pMessage[0]=param0;  pMessage[1]=param1;
-	TryPostMessageQueue(hMyTaskMessQue,pMessage,0);
+{
+	int *pMessage = (int*)MainHeapAlloc(8);
+
+	pMessage[0] = param0;
+	pMessage[1] = param1;
+
+	TryPostMessageQueue(hMyTaskMessQue, pMessage, 0);
 }
 
 void set_intermediate_iso() {
@@ -420,6 +426,10 @@ void set_metering_spot() {
 
 	if (cameraMode.Beep)
 		eventproc_RiseEvent("RequestBuzzer");
+}
+
+void switch_raw_jpeg() {
+	SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 0x03);
 }
 
 void show_factory_menu() {

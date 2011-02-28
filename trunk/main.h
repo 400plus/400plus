@@ -28,7 +28,6 @@
 #define	BUTTON_AV     0xBB
 
 #define RESTORE_DISPLAY       0x04
-#define REQUEST_BUZZER        0x05
 #define INFO_SCREEN           0x07
 #define SAVE_SETTINGS         0x08
 #define E_AEB                 0x0A
