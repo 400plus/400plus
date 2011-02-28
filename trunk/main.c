@@ -36,6 +36,7 @@ void  initialize_display();
 
 void set_metering_spot();
 void show_factory_menu();
+void start_debug_mode();
 
 void CreateMyTask() {
 	hMyTaskMessQue=(int*)CreateMessageQueue("MyTaskMessQue",0x40);
@@ -106,6 +107,13 @@ void my_IntercomHandler(int r0, char* ptr) {
 				switch (ptr[1]) {
 				case BUTTON_DP:
 					SendMyMessage(SHOW_FACTORY_MENU, 0);
+					return;
+				}
+				break;
+		} else if (FLAG_FACTORY_DIALOG) {
+				switch (ptr[1]) {
+				case BUTTON_DP:
+					SendMyMessage(START_DEBUG_MODE, 0);
 					return;
 				}
 				break;
@@ -267,16 +275,12 @@ void MyTask () {
 			eventproc_RiseEvent("RequestBuzzer");
 			break;
 		case DP_PRESSED:
-			if (FLAG_FACTORY_DIALOG) {
-				MyGlobalStdSet();
-				eventproc_RiseEvent("RequestBuzzer");
-				break;
-			}
-
 			if (cameraMode.AEMode < 6 && settings.dp_opt == 1)
 				rotate_iso();
 
 			break;
+		case START_DEBUG_MODE:
+			start_debug_mode();
 		case SHOW_FACTORY_MENU:
 			show_factory_menu();
 			break;
@@ -330,12 +334,6 @@ void SendMyMessage(int param0, int param1)
 {	int* pMessage=(int*)MainHeapAlloc(8);
 	pMessage[0]=param0;  pMessage[1]=param1;
 	TryPostMessageQueue(hMyTaskMessQue,pMessage,0);
-}
-
-void MyGlobalStdSet ()
-{ int f1 = -1;
-  while (f1==-1)  { f1=FIO_CreateFile("A:/STDOUT.TXT");  if (f1==-1) SleepTask(100); }
-  ioGlobalStdSet(1,f1);    //ioGlobalStdSet(2,f1);
 }
 
 void rotate_iso( ) {
@@ -440,6 +438,21 @@ void show_factory_menu() {
 	SleepTask(25);
 	ExitFactoryMode();
 }
+
+void start_debug_mode() {
+	int file;
+
+  while ((file = FIO_CreateFile("A:/STDOUT.TXT")) < 0)
+		SleepTask(100);
+
+  ioGlobalStdSet(1, file);
+
+  while ((file = FIO_CreateFile("A:/STDERR.TXT")) < 0)
+		SleepTask(100);
+
+  ioGlobalStdSet(2, file);
+}
+
 //SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
 //SendToIntercom(0x2,1,1); //(0x2,1,0);  Meter mode Eval, Center...
 //SendToIntercom(0x3,1,1); //(0x3,1,0);  Flash ex comp
