@@ -114,7 +114,9 @@ void menu_right() {
 		menu_settings.not_af_flash = FALSE;
 		break;
 	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_action < DP_ACTION_LAST)
+		if (menu_settings.dp_action == DP_ACTION_LAST)
+			menu_settings.dp_action = DP_ACTION_FIRST;
+		else
 			menu_settings.dp_action++;
 		break;
 	case MENUITEM_EAEB:
@@ -187,7 +189,9 @@ void menu_left() {
 		menu_settings.not_af_flash = TRUE;
 		break;
 	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_action > DP_ACTION_FIRST)
+		if (menu_settings.dp_action == DP_ACTION_FIRST)
+			menu_settings.dp_action = DP_ACTION_LAST;
+		else
 			menu_settings.dp_action--;
 		break;
 	case MENUITEM_EAEB:
