@@ -33,6 +33,8 @@ typedef enum {
 	MENUITEM_EAEB_LAST  = MENUITEM_EAEB_COUNT - 1
 } type_MENUITEM_EAEB;
 
+extern void menu_initialize();
+
 extern void menu_swap();
 extern void menu_up();
 extern void menu_down();
