@@ -187,8 +187,10 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_MAIN    0x11
 #define GUI_MODE_FLASHEV 0x1B
 
+// Our own code
 extern void CreateMyTask();
-extern void my_IntercomHandler();
+extern void my_IntercomHandler(int r0, char* ptr);
+extern void initialize_display();
 
 // LED management
 
