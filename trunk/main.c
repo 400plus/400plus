@@ -6,17 +6,17 @@
 
 #include "main.h"
 
-int* hMyTaskMessQue;
+int *message_queue;
 
-void  MyTask();
-void  SendMyMessage(int param0, int param1);
+void task_dispatcher();
+void SendMyMessage(int param0, int param1);
 
-void CreateMyTask() {
-	hMyTaskMessQue = (int*)CreateMessageQueue("MyTaskMessQue", 0x40);
-	CreateTask("MyTask", 0x19, 0x2000, MyTask, 0);
+void initialize() {
+	message_queue = (int*)CreateMessageQueue("message_queue", 0x40);
+	CreateTask("task_dispatcher", 0x19, 0x2000, task_dispatcher, 0);
 }
 
-void my_IntercomHandler(int r0, char* ptr) {
+void message_proxy(int r0, char* ptr) {
 	do {
 		// Status-independent events
 		switch (ptr[1]) {
@@ -202,7 +202,7 @@ void my_IntercomHandler(int r0, char* ptr) {
 	IntercomHandler(r0, ptr);
 }
 
-void MyTask () {
+void task_dispatcher () {
 	int *pMessage;
 
 	// Wait for camera to settle down
@@ -222,7 +222,7 @@ void MyTask () {
 
 	// Loop while receiving messages
 	while (TRUE) {
-		ReceiveMessageQueue(hMyTaskMessQue, &pMessage, 0);
+		ReceiveMessageQueue(message_queue, &pMessage, 0);
 
 		switch (pMessage[0]) {
 		case RESTORE_ISO:
@@ -301,7 +301,7 @@ void SendMyMessage(int param0, int param1)
 	pMessage[0] = param0;
 	pMessage[1] = param1;
 
-	TryPostMessageQueue(hMyTaskMessQue, pMessage, 0);
+	TryPostMessageQueue(message_queue, pMessage, 0);
 }
 
 void initialize_display() {

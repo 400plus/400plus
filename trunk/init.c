@@ -133,7 +133,7 @@ void my_task_Startup() {
 	dmstart();
 	dmProcInit();
 
-	CreateMyTask(); // MyTask
+	initialize(); // task_dispatcher
 
 	sub_FFAFE5BC();
 	SetAssert();
@@ -395,7 +395,7 @@ void my_task_Startup() {
 
 int my_InitializeIntercom() {
 	printf("InitializeIntercom\n");
-	InitIntercomData(my_IntercomHandler);
+	InitIntercomData(message_proxy);
 	CreateIntercomSem();
 
 	return 0;
