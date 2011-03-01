@@ -14,6 +14,8 @@ void SendMyMessage(int param0, int param1);
 void initialize() {
 	message_queue = (int*)CreateMessageQueue("message_queue", 0x40);
 	CreateTask("task_dispatcher", 0x19, 0x2000, task_dispatcher, 0);
+
+	SendMyMessage(START_UP, 0);
 }
 
 void message_proxy(int r0, char* ptr) {
@@ -205,26 +207,14 @@ void message_proxy(int r0, char* ptr) {
 void task_dispatcher () {
 	int *pMessage;
 
-	// Wait for camera to settle down
-	SleepTask(1000);
-
-	// Enable (hidden) CFn.8 for ISO H
-	if (!cameraMode.CfExtendIso)
-		SendToIntercom(0x31, 1, 1);
-
-	// Enable realtime ISO change
-	SendToIntercom(0xF0, 0, 0);
-	SendToIntercom(0xF1, 0, 0);
-
-	// Read (and apply) settings from file
-	settings_read();
-	settings_apply();
-
 	// Loop while receiving messages
 	while (TRUE) {
 		ReceiveMessageQueue(message_queue, &pMessage, 0);
 
 		switch (pMessage[0]) {
+		case START_UP:
+			start_up();
+			break;
 		case RESTORE_ISO:
 			restore_iso();
 			break;
@@ -307,36 +297,3 @@ void SendMyMessage(int param0, int param1)
 void initialize_display() {
 	SendMyMessage(RESTORE_DISPLAY, 0);
 }
-
-//SendToIntercom(0x1,1,1); //(0x0,1,2);  Zonedial mode P TV AV....
-//SendToIntercom(0x2,1,1); //(0x2,1,0);  Meter mode Eval, Center...
-//SendToIntercom(0x3,1,1); //(0x3,1,0);  Flash ex comp
-//SendToIntercom(0x4,1,1); //(0x4,1,0);  drive mode
-//SendToIntercom(0x5,1,1); //(0x5,1,0);  WB chose
-//SendToIntercom(0x6,1,1); //(0x6,1,0);  MF manual focus
-//SendToIntercom(0x7,1,1); // AF point selecttion: can extend some special: 7, 27, 41,47, 49, 73, 81,87, 97, 101, 105,113, 120,121, 116, 127, 135,
-//					139,165,168,169, 175, 185,
-//SendToIntercom(0x8,2,1); //Tv value:
-//SendToIntercom(0xA,1,1); //AV comp ex selecttion: can extend some special
-//SendToIntercom(0xB,1,1); // ISO set
-//SendToIntercom(0xC,1,1); // Red eye
-//SendToIntercom(0xD,1,1); //AEB BRK
-//SendToIntercom(0xE,1,1); //WB BRK
-//SendToIntercom(0xF,1,1); // Beep
-//SendToIntercom(22,1,1); // LCDBrightness
-//SendToIntercom(34,1,1); // RAW only, L+RAW, L only
-//SendToIntercom(35,1,1); // S,M,L. Combine no.34 to M+RAW OK, S+RAW not ok
-//SendToIntercom(36,1,1); // JPG Fine or Medium quality.
-//SendToIntercom(43,1,1); // wb+-
-//SendToIntercom(44~~>49,1,1); // Cf1-->6
-//SendToIntercom(54,1,1); // Cf7
-//SendToIntercom(56,1,1); // Cf8
-//SendToIntercom(0x3C,1,0); //(0x3C,1,1); Cfn10
-//SendToIntercom(0x3B,1,1); //(0x3B,1,0); Cfn11
-//SendToIntercom(0x39,1,1); //(0x39,1,0);  Cfn9
-//SendToIntercom(0x59,1,1); // Clear camera seting
-//SendToIntercom(0x61,1,1); // Start update firmware
-//SendToIntercom(0x6B,1,1); // Full CF viewfinder message
-//SendToIntercom(0x6C,1,1); // Change Battery dialog
-//SendToIntercom(0x6D,1,1); // Burst counter set
-
