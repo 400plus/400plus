@@ -27,33 +27,6 @@
 #define	BUTTON_DRIVE  0xBA
 #define	BUTTON_AV     0xBB
 
-#define RESTORE_DISPLAY       0x04
-#define INFO_SCREEN           0x07
-#define SAVE_SETTINGS         0x08
-#define E_AEB                 0x0A
-#define INTERVAL              0x0B
-#define FACE_SENSOR_NOISO     0x0C
-#define RESTORE_METERING      0x0D
-#define SWITCH_RAW_JPEG       0x0E
-#define RESTORE_ISO           0x0F
-#define RESTORE_WB            0x10
-#define VIEWFINDER_ISO_INC    0x11
-#define VIEWFINDER_ISO_DEC    0x12
-#define VIEWFINDER_ISO_END    0x13
-#define MENU_SET              0x21
-#define	MENU_UP               0x22
-#define	MENU_DOWN             0x23
-#define	MENU_RIGHT            0x24
-#define	MENU_LEFT             0x25
-#define MENU_SWAP             0x26
-#define MENU_ESC              0x27
-#define MENU_INIT             0x28
-#define SET_METERING_SPOT     0x29
-#define SHOW_FACTORY_MENU     0x2A
-#define START_DEBUG_MODE      0x2B
-#define SET_INTERMEDIATE_ISO  0x2C
-#define START_UP              0x2D
-
 typedef struct {             // [*] Used and tested, others unknown
 	int AEMode;              // 0x0000 [*] [1]
 	int MeteringMode;        // 0x0004 [*] [2]
@@ -188,10 +161,13 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_MAIN    0x11
 #define GUI_MODE_FLASHEV 0x1B
 
+// Inline code
+#define ENQUEUE_TASK(task) TryPostMessageQueue(message_queue, (task), 0);
+
 // Our own code
 extern void initialize();
-extern void message_proxy(int r0, char* ptr);
 extern void initialize_display();
+extern void message_proxy(int r0, char* ptr);
 
 // LED management
 

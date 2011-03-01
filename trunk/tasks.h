@@ -3,6 +3,10 @@
 
 extern void start_up();
 
+void viewfinder_iso_inc();
+void viewfinder_iso_dec();
+void viewfinder_iso_end();
+
 extern void set_intermediate_iso();
 extern void set_metering_spot();
 extern void switch_raw_jpeg();
