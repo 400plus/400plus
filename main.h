@@ -51,7 +51,8 @@
 #define SET_METERING_SPOT     0x29
 #define SHOW_FACTORY_MENU     0x2A
 #define START_DEBUG_MODE      0x2B
-#define SET_INTERMEDIATE_ISO  0x2c
+#define SET_INTERMEDIATE_ISO  0x2C
+#define START_UP              0x2D
 
 typedef struct {             // [*] Used and tested, others unknown
 	int AEMode;              // 0x0000 [*] [1]

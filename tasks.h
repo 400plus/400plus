@@ -1,6 +1,8 @@
 #ifndef TASKS_H_
 #define TASKS_H_
 
+extern void start_up();
+
 extern void set_intermediate_iso();
 extern void set_metering_spot();
 extern void switch_raw_jpeg();

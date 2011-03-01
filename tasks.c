@@ -5,6 +5,23 @@
 // Temporary storage while displaying ISO at viewfinder
 int viewfinder_iso_CfNotEmitFlash, viewfinder_iso_TvVal;
 
+void start_up() {
+	// Wait for camera to settle down
+	SleepTask(1000);
+
+	// Enable (hidden) CFn.8 for ISO H
+	if (!cameraMode.CfExtendIso)
+		SendToIntercom(0x31, 1, 1);
+
+	// Enable realtime ISO change
+	SendToIntercom(0xF0, 0, 0);
+	SendToIntercom(0xF1, 0, 0);
+
+	// Read (and apply) settings from file
+	settings_read();
+	settings_apply();
+}
+
 void set_intermediate_iso() {
 	if (cameraMode.AEMode < 6) {
 		int iso = iso_next(cameraMode.ISO);
