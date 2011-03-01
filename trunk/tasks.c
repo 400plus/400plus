@@ -1,9 +1,20 @@
 #include "main.h"
+#include "scripts.h"
+#include "settings.h"
 
 #include "tasks.h"
 
 // Temporary storage while displaying ISO at viewfinder
 int viewfinder_iso_CfNotEmitFlash, viewfinder_iso_TvVal;
+
+void restore_iso();
+void restore_wb();
+void restore_metering();
+
+void switch_raw_jpeg();
+void set_intermediate_iso();
+
+void start_debug_mode();
 
 void start_up() {
 	// Wait for camera to settle down
@@ -22,14 +33,24 @@ void start_up() {
 	settings_apply();
 }
 
-void set_intermediate_iso() {
-	if (cameraMode.AEMode < 6) {
-		int iso = iso_next(cameraMode.ISO);
-
-		eventproc_SetIsoValue(&iso);
-
-		SleepTask(10);
-		display_refresh();
+void dp_action() {
+	if (cameraMode.AEMode > 6) { // Non-creative modes
+		switch_raw_jpeg();
+	} else {
+		switch (settings.dp_action) {
+		case DP_ACTION_INTERMEDIATE_ISO:
+			// Set intermediate ISO
+			set_intermediate_iso();
+			break;
+		case DP_ACTION_EXTENDED_AEB:
+			// Start extended AEB script
+			script_extended_aeb();
+			break;
+		case DP_ACTION_INTERVAL:
+			// Start interval script
+			script_interval();
+			break;
+		}
 	}
 }
 
@@ -83,7 +104,20 @@ void switch_raw_jpeg() {
 	SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 0x03);
 }
 
+void set_intermediate_iso() {
+	if (cameraMode.AEMode < 6) {
+		int iso = iso_next(cameraMode.ISO);
+
+		eventproc_SetIsoValue(&iso);
+
+		SleepTask(10);
+		display_refresh();
+	}
+}
+
 void show_factory_menu() {
+	start_debug_mode();
+
 	EnterFactoryMode();
 	SleepTask(25);
 	ExitFactoryMode();
@@ -92,15 +126,11 @@ void show_factory_menu() {
 void start_debug_mode() {
 	int file;
 
-  while ((file = FIO_CreateFile("A:/STDOUT.TXT")) < 0)
-		SleepTask(100);
+	if((file = FIO_CreateFile("A:/STDOUT.TXT")) > 0)
+		ioGlobalStdSet(1, file);
 
-  ioGlobalStdSet(1, file);
-
-  while ((file = FIO_CreateFile("A:/STDERR.TXT")) < 0)
-		SleepTask(100);
-
-  ioGlobalStdSet(2, file);
+	if((file = FIO_CreateFile("A:/STDERR.TXT")) > 0)
+		ioGlobalStdSet(2, file);
 }
 
 void restore_iso() {

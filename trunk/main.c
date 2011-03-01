@@ -74,14 +74,7 @@ void message_proxy(int handler, char *message) {
 				}
 				break;
 			}
-		} else if (FLAG_FACTORY_DIALOG) {
-				switch (message[1]) {
-				case BUTTON_DP:
-					ENQUEUE_TASK(start_debug_mode);
-					return;
-				}
-				break;
-		} else {
+		} else {	
 			switch (FLAG_GUI_MODE) {
 			case GUI_OFF:
 			case GUI_MODE_MAIN:
@@ -108,26 +101,8 @@ void message_proxy(int handler, char *message) {
 					}
 					break;
 				case BUTTON_DP:
-					if (cameraMode.AEMode > 6) { // Non-creative modes
-						ENQUEUE_TASK(switch_raw_jpeg);
-						return;
-					} else {
-						switch (settings.dp_action) {
-							case DP_ACTION_INTERMEDIATE_ISO:
-								// Set intermediate ISO
-								ENQUEUE_TASK(set_intermediate_iso);
-								return;
-							case DP_ACTION_EXTENDED_AEB:
-								// Start extended AEB script
-								ENQUEUE_TASK(script_extended_aeb);
-								return;
-							case DP_ACTION_INTERVAL:
-								// Start interval script
-								ENQUEUE_TASK(script_interval);
-								return;
-						}
-					}
-					break;
+					ENQUEUE_TASK(dp_action);
+					return;
 				}
 				break;
 			case GUI_MODE_MENU:
