@@ -188,8 +188,8 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_FLASHEV 0x1B
 
 // Our own code
-extern void CreateMyTask();
-extern void my_IntercomHandler(int r0, char* ptr);
+extern void initialize();
+extern void message_proxy(int r0, char* ptr);
 extern void initialize_display();
 
 // LED management
