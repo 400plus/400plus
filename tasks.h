@@ -3,10 +3,6 @@
 
 extern void start_up();
 
-extern void viewfinder_iso_inc();
-extern void viewfinder_iso_dec();
-extern void viewfinder_iso_end();
-
 extern void dp_action();
 
 extern void restore_iso();

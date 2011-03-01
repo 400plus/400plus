@@ -2,6 +2,7 @@
 #include "tasks.h"
 #include "display.h"
 #include "scripts.h"
+#include "viewfinder.h"
 #include "settings.h"
 
 #include "main.h"
@@ -74,7 +75,7 @@ void message_proxy(int handler, char *message) {
 				}
 				break;
 			}
-		} else {	
+		} else {
 			switch (FLAG_GUI_MODE) {
 			case GUI_OFF:
 			case GUI_MODE_MAIN:
