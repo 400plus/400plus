@@ -1,5 +1,7 @@
 #include "main.h"
+#include "utils.h"
 #include "settings.h"
+#include "firmware.h"
 
 #include "viewfinder.h"
 
