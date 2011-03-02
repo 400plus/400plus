@@ -22,7 +22,7 @@ void initialize_display() {
 	ENQUEUE_TASK(restore_display);
 }
 
-void message_proxy(int handler, char *message) {
+void message_proxy(const int handler, const char *message) {
 	do {
 		// Status-independent events
 		switch (message[1]) {

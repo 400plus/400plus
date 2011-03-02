@@ -9,7 +9,6 @@ void release_and_wait();
 void wait_for_camera();
 
 void script_extended_aeb() {
-
 	if (settings.eaeb_delay) {
 		eventproc_RiseEvent("RequestBuzzer");
 		SleepTask(2000);

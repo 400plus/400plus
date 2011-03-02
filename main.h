@@ -167,7 +167,7 @@ typedef struct {             // [*] Used and tested, others unknown
 // Our own code
 extern void initialize();
 extern void initialize_display();
-extern void message_proxy(int r0, char* ptr);
+extern void message_proxy(const int handler, const char* message);
 
 // LED management
 
@@ -177,7 +177,7 @@ extern long eventproc_EdLedBlink(void);
 
 // String management
 
-extern void sprintf(char*, char*, ...);
+extern void sprintf(const char*, char*, ...);
 
 // Queue management
 

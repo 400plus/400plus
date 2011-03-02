@@ -3,13 +3,13 @@
 #include "display.h"
 
 // Translation from ISO codes to text displayed
-char iso_text[][5] = {" 100", " 125", " 160", " 200", " 250", " 320", " 400", " 500", " 640", " 800", "1000", "1250", "1600", "2000", "2500", "3200"};
-int  iso_code[]    = {  0x48,   0x4C,   0x4E,   0x50,   0x53,   0x56,   0x58,   0x5C,   0x5D,   0x60,   0x64,   0x66,   0x68,   0x6C,   0x6D,   0x6F};
+const char iso_text[][5] = {" 100", " 125", " 160", " 200", " 250", " 320", " 400", " 500", " 640", " 800", "1000", "1250", "1600", "2000", "2500", "3200"};
+const int  iso_code[]    = {  0x48,   0x4C,   0x4E,   0x50,   0x53,   0x56,   0x58,   0x5C,   0x5D,   0x60,   0x64,   0x66,   0x68,   0x6C,   0x6D,   0x6F};
 
 void display_refresh_meteringmode();
 void display_refresh_whitebalance();
 void display_refresh_flashcomp();
-void display_refresh_iso( );
+void display_refresh_iso();
 
 void restore_display() {
 	SleepTask(100);
@@ -75,9 +75,9 @@ void display_refresh_flashcomp() {
 }
 
 
-void display_refresh_iso( ) {
+void display_refresh_iso() {
 	int i;
-	char *text = "----";
+	const char *text = "----";
 
 	for (i = 0; i < LENGTH(iso_code); i++) {
 		if (iso_code[i] == cameraMode.ISO) {

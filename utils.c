@@ -50,7 +50,7 @@ int ev_sub(int ying, int yang) {
 	return ev_add(ying, ev_sgn(yang));
 }
 
-void ev_print(char *dest, int ev) {
+void ev_print(const char *dest, int ev) {
 	char dsp_sgn, dsp_int, *dsp_dec;
 
 	if (ev & 0x80) {
