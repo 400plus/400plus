@@ -93,11 +93,9 @@ void message_proxy(const int handler, const char *message) {
 			break;
 		case BUTTON_RIGHT:
 			if(message[2]) { // Button down
-				if (settings.iso_in_viewfinder) {
-					// Start ISO display on viewfinder and increase ISO
-					ENQUEUE_TASK(viewfinder_iso_inc);
-					goto block_message;
-				}
+				// Start ISO display on viewfinder and increase ISO
+				ENQUEUE_TASK(viewfinder_iso_inc);
+				goto block_message;
 			} else {     // Button up
 				// End ISO display on viewfinder
 				ENQUEUE_TASK(viewfinder_iso_end);
@@ -106,11 +104,9 @@ void message_proxy(const int handler, const char *message) {
 			break;
 		case BUTTON_LEFT:
 			if(message[2]) { // Button down
-				if (settings.iso_in_viewfinder) {
-					// Start ISO display on viewfinder and decrease ISO
-					ENQUEUE_TASK(viewfinder_iso_dec);
-					goto block_message;
-				}
+				// Start ISO display on viewfinder and decrease ISO
+				ENQUEUE_TASK(viewfinder_iso_dec);
+				goto block_message;
 			} else {     // Button up
 				// End ISO display on viewfinder
 				ENQUEUE_TASK(viewfinder_iso_end);
