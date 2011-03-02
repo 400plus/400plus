@@ -38,11 +38,11 @@ void settings_read() {
 }
 
 void settings_write() {
-	int version = SETTINGS_VERSION;
+	const int version = SETTINGS_VERSION;
 	int file = FIO_OpenFile(SETTINGS_FILE, O_CREAT | O_WRONLY , 644);
 
 	if (file != -1) {
-		FIO_WriteFile(file, &version, sizeof(version));
+		FIO_WriteFile(file, (void*)&version, sizeof(version));
 		FIO_WriteFile(file, &settings, sizeof(settings));
 		FIO_CloseFile(file);
 	}

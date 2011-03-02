@@ -6,7 +6,7 @@
 int viewfinder_iso_CfNotEmitFlash, viewfinder_iso_TvVal;
 
 void viewfinder_iso_inc() {
-	int iso = iso_inc(cameraMode.ISO);
+	const int iso = iso_inc(cameraMode.ISO);
 
 	if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
 		viewfinder_iso_CfNotEmitFlash = cameraMode.CfNotEmitFlash;
@@ -20,7 +20,7 @@ void viewfinder_iso_inc() {
 }
 
 void viewfinder_iso_dec() {
-	int iso = iso_dec(cameraMode.ISO);
+	const int iso = iso_dec(cameraMode.ISO);
 
 	if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
 		viewfinder_iso_CfNotEmitFlash = cameraMode.CfNotEmitFlash;

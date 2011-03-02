@@ -120,7 +120,7 @@ void restore_wb() {
 }
 
 void restore_metering() {
-	int metering_evaluative = METERING_MODE_EVAL;
+	const int metering_evaluative = METERING_MODE_EVAL;
 
 	if (cameraMode.MeteringMode == METERING_MODE_SPOT)
 		eventproc_SetMesMode(&metering_evaluative);

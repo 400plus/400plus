@@ -13,9 +13,9 @@ int eaeb_sub_menu = FALSE;
 
 char menu_buffer[17];
 
-char *wb_string[] = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
-char *tv_string[] = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
-char *dp_string[] = {"Disabled", "Change ISO", "Extended AEB", "Interval"};
+const char *wb_string[] = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
+const char *tv_string[] = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
+const char *dp_string[] = {"Disabled", "Change ISO", "Extended AEB", "Interval"};
 
 void  menu_save();
 void  menu_display();
