@@ -12,32 +12,32 @@ int *message_queue;
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{BUTTON_UP,    FALSE, restore_iso},
-	{BUTTON_DOWN,  FALSE, restore_wb},
-	{BUTTON_LEFT,  FALSE, restore_metering},
-	{BUTTON_DP,    TRUE,  dp_action},
+	{BUTTON_UP,    TRUE,  FALSE, {restore_iso}},
+	{BUTTON_DOWN,  TRUE,  FALSE, {restore_wb}},
+	{BUTTON_LEFT,  TRUE,  FALSE, {restore_metering}},
+	{BUTTON_DP,    FALSE, TRUE,  {dp_action}},
 	END_OF_LIST
 };
 
 type_ACTION actions_menu[]  = {
-	{BUTTON_DISP,  FALSE, menu_initialize},
-	{BUTTON_DP,    TRUE,  show_factory_menu},
+	{BUTTON_DISP,  FALSE, FALSE, {menu_initialize}},
+	{BUTTON_DP,    FALSE, TRUE,  {show_factory_menu}},
 	END_OF_LIST
 };
 
 type_ACTION actions_info[]  = {
-	{BUTTON_SET,   TRUE, menu_set},
-	{BUTTON_DRIVE, TRUE, menu_esc},
-	{BUTTON_UP,    TRUE, menu_up},
-	{BUTTON_DOWN,  TRUE, menu_down},
-	{BUTTON_RIGHT, TRUE, menu_right},
-	{BUTTON_LEFT,  TRUE, menu_left},
-	{BUTTON_AV,    TRUE, menu_swap},
+	{BUTTON_SET,   FALSE, TRUE,  {menu_set}},
+	{BUTTON_DRIVE, FALSE, TRUE,  {menu_esc}},
+	{BUTTON_UP,    TRUE,  TRUE,  {menu_up}},
+	{BUTTON_DOWN,  TRUE,  TRUE,  {menu_down}},
+	{BUTTON_RIGHT, TRUE,  TRUE,  {menu_right}},
+	{BUTTON_LEFT,  TRUE,  TRUE,  {menu_left}},
+	{BUTTON_AV,    TRUE,  TRUE,  {menu_swap}},
 	END_OF_LIST
 };
 
 type_ACTION actions_meter[] = {
-	{BUTTON_DP,    TRUE, set_metering_spot},
+	{BUTTON_DP,    FALSE, TRUE,  {set_metering_spot}},
 	END_OF_LIST
 };
 
@@ -64,6 +64,7 @@ void initialize_display() {
 }
 
 void message_proxy(const int handler, const char *message) {
+	type_TASK    task;
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
@@ -127,16 +128,20 @@ void message_proxy(const int handler, const char *message) {
 					// Check whether this action corresponds to the event received
 					if (action->event == message[1]) {
 
-						// Only "button pressed" events are considered
-						if (message[0] == 3 || (message[0] == 4 && message[2] == 1)) {
-
-							// Launch the defined task
-							ENQUEUE_TASK(action->task);
-
-							// If this action blocks the event, we do not pass it along
-							if(action->block)
-								goto block_message;
+						// Consider buttons with "button down and "button up" events
+						if (action->check) {
+							task = message[2] ? action->task[0] : action->task[1];
+						} else {
+							task = action->task[0];
 						}
+
+						// Launch the defined task
+						if (task)
+							ENQUEUE_TASK(task);
+
+						// If this action blocks the event, we do not pass it along
+						if(action->block)
+							goto block_message;
 
 						// Once we find a matching action, we look no futher
 						goto pass_message;
