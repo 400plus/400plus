@@ -1,6 +1,7 @@
 #include "main.h"
 #include "utils.h"
 #include "settings.h"
+#include "firmware.h"
 
 #include "menu.h"
 
@@ -45,6 +46,8 @@ void menu_swap() {
 		break;
 	case MENUITEM_WHITE_BALANCE:
 		menu_settings.white_balance = (menu_settings.white_balance + 1) % 9;
+		break;
+	default:
 		break;
 	}
 
@@ -140,6 +143,8 @@ void menu_right() {
 				if (menu_settings.eaeb_m_max <= 0x90) //98 is maximum
 					menu_settings.eaeb_m_max += 8;
 				break;
+			default:
+				break;
 			}
 		} else {
 			eaeb_sub_menu = TRUE;
@@ -150,6 +155,8 @@ void menu_right() {
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.ir_inst = TRUE;
+		break;
+	default:
 		break;
 	}
 
@@ -216,6 +223,8 @@ void menu_left() {
 				if(menu_settings.eaeb_m_max >= 0x18) //10 is minimum
 					menu_settings.eaeb_m_max -= 8;
 				break;
+			default:
+				break;
 			}
 		} else {
 			eaeb_sub_menu = TRUE;
@@ -226,6 +235,8 @@ void menu_left() {
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.ir_inst = FALSE;
+		break;
+	default:
 		break;
 	}
 
@@ -246,6 +257,8 @@ void menu_esc() {
 	case MENUITEM_EAEB:
 		eaeb_sub_menu = FALSE;
 		menu_display();
+		break;
+	default:
 		break;
 	}
 }
@@ -323,6 +336,8 @@ char *menu_message() {
 			case MENUITEM_EAEB_M_MAX:
 				sprintf(menu_buffer, "Extended AEB: M2 %s", tv_string[(menu_settings.eaeb_m_max - (0x10)) >> 3]);
 				break;
+			default:
+				break;
 			}
 		} else {
 			sprintf(menu_buffer, "Extended AEB...");
@@ -333,6 +348,8 @@ char *menu_message() {
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		sprintf(menu_buffer, "IR Remote Release: %s", menu_settings.ir_inst ? "Instant" : "2sec.");
+		break;
+	default:
 		break;
 	}
 

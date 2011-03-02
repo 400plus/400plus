@@ -50,6 +50,8 @@ int my_usrInit(int startType) {
 	workQInit();
 
 	kernelInit(my_usrRoot, 0x4000, &bss_end, sysMemTop(), 0xC00, 0);
+
+	return 0;
 }
 
 int my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize) {
@@ -114,7 +116,7 @@ usrRoot_failed:
 
 	my_taskcreate_Startup();
 
-	return;
+	return 0;
 }
 
 void my_taskcreate_Startup() {

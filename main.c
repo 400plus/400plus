@@ -4,6 +4,7 @@
 #include "scripts.h"
 #include "viewfinder.h"
 #include "settings.h"
+#include "firmware.h"
 
 #include "main.h"
 
