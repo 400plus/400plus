@@ -7,7 +7,48 @@
 
 #include "main.h"
 
+// Main message queue
 int *message_queue;
+
+// Action definitions
+type_ACTION actions_main[]  = {
+	{BUTTON_UP,    FALSE, restore_iso},
+	{BUTTON_DOWN,  FALSE, restore_wb},
+	{BUTTON_LEFT,  FALSE, restore_metering},
+	{BUTTON_DP,    TRUE,  dp_action},
+	END_OF_LIST
+};
+
+type_ACTION actions_menu[]  = {
+	{BUTTON_DISP,  FALSE, menu_initialize},
+	{BUTTON_DP,    TRUE,  show_factory_menu},
+	END_OF_LIST
+};
+
+type_ACTION actions_info[]  = {
+	{BUTTON_SET,   TRUE, menu_set},
+	{BUTTON_DRIVE, TRUE, menu_esc},
+	{BUTTON_UP,    TRUE, menu_up},
+	{BUTTON_DOWN,  TRUE, menu_down},
+	{BUTTON_RIGHT, TRUE, menu_right},
+	{BUTTON_LEFT,  TRUE, menu_left},
+	{BUTTON_AV,    TRUE, menu_swap},
+	END_OF_LIST
+};
+
+type_ACTION actions_meter[] = {
+	{BUTTON_DP,    TRUE, set_metering_spot},
+	END_OF_LIST
+};
+
+type_CHAIN chains[] = {
+	{GUI_MODE_OFF,   actions_main},
+	{GUI_MODE_MAIN,  actions_main},
+	{GUI_MODE_MENU,  actions_menu},
+	{GUI_MODE_INFO,  actions_info},
+	{GUI_MODE_METER, actions_meter},
+	END_OF_LIST
+};
 
 void task_dispatcher();
 
@@ -23,168 +64,104 @@ void initialize_display() {
 }
 
 void message_proxy(const int handler, const char *message) {
-	do {
-		// Status-independent events
-		switch (message[1]) {
-		case EVENT_SETTINGS: // Mode dial moved, settings changed
-			// Restore display
-			ENQUEUE_TASK(restore_display);
-			continue;
-		}
+	type_CHAIN  *chain;
+	type_ACTION *action;
 
-		if (FLAG_FACE_SENSOR) { // User has camera "on the face", display is blank
-			switch(message[1]) {
-			case BUTTON_UP:
-				if(message[2]) { // Button down
-					// Ignore nose-activated event
-					return;
-				} else {     // Button up
-				}
-				break;
-			case BUTTON_DOWN:
-				if(message[2]) { // Button down
-					// Ignore nose-activated event
-					return;
-				} else {     // Button up
-				}
-				break;
-			case BUTTON_RIGHT:
-				if(message[2]) { // Button down
-					if (settings.iso_in_viewfinder) {
-						// Start ISO display on viewfinder and increase ISO
-						ENQUEUE_TASK(viewfinder_iso_inc);
-						return;
-					}
-				} else {     // Button up
-					// End ISO display on viewfinder
-					ENQUEUE_TASK(viewfinder_iso_end);
-					return;
-				}
-				break;
-			case BUTTON_LEFT:
-				if(message[2]) { // Button down
-					if (settings.iso_in_viewfinder) {
-						// Start ISO display on viewfinder and decrease ISO
-						ENQUEUE_TASK(viewfinder_iso_dec);
-						return;
-					}
-				} else {     // Button up
-					// End ISO display on viewfinder
-					ENQUEUE_TASK(viewfinder_iso_end);
-					return;
-				}
-				break;
+	// Status-independent events
+	switch (message[1]) {
+	case EVENT_SETTINGS: // Mode dial moved, settings changed
+		// Restore display
+		ENQUEUE_TASK(restore_display);
+		goto pass_message;
+	}
+
+	if (FLAG_FACE_SENSOR) { // User has camera "on the face", display is blank
+		switch(message[1]) {
+		case BUTTON_UP:
+			if(message[2]) { // Button down
+				// Ignore nose-activated event
+				goto block_message;
+			} else {     // Button up
 			}
-		} else {
-			switch (FLAG_GUI_MODE) {
-			case GUI_OFF:
-			case GUI_MODE_MAIN:
-				switch (message[1]) {
-				case BUTTON_UP:
-					if (message[2]) { // Button down
-						// Restore ISO to nearest standard value
-						ENQUEUE_TASK(restore_iso);
-					} else {      // Button up
-					}
-					break;
-				case BUTTON_DOWN:
-					if (message[2]) { // Button down
-						// Restore WB to AWB
-						ENQUEUE_TASK(restore_wb);
-					} else {      // Button up
-					}
-					break;
-				case BUTTON_LEFT:
-					if (message[2]) { // Button down
-						 // Restore metering mode to EVALUATIVE
-						ENQUEUE_TASK(restore_metering);
-					} else {      // Button up
-					}
-					break;
-				case BUTTON_DP:
-					ENQUEUE_TASK(dp_action);
-					return;
+			break;
+		case BUTTON_DOWN:
+			if(message[2]) { // Button down
+				// Ignore nose-activated event
+				goto block_message;
+			} else {     // Button up
+			}
+			break;
+		case BUTTON_RIGHT:
+			if(message[2]) { // Button down
+				if (settings.iso_in_viewfinder) {
+					// Start ISO display on viewfinder and increase ISO
+					ENQUEUE_TASK(viewfinder_iso_inc);
+					goto block_message;
 				}
-				break;
-			case GUI_MODE_MENU:
-				switch (message[1]) {
-				case BUTTON_DISP:
-					// Initialize menu
-					ENQUEUE_TASK(menu_initialize);
-					break;;
-				case BUTTON_DP:
-					ENQUEUE_TASK(show_factory_menu);
-					return;
+			} else {     // Button up
+				// End ISO display on viewfinder
+				ENQUEUE_TASK(viewfinder_iso_end);
+				goto block_message;
+			}
+			break;
+		case BUTTON_LEFT:
+			if(message[2]) { // Button down
+				if (settings.iso_in_viewfinder) {
+					// Start ISO display on viewfinder and decrease ISO
+					ENQUEUE_TASK(viewfinder_iso_dec);
+					goto block_message;
 				}
-				break;
-			case GUI_MODE_INFO:
-				switch (message[1]) {
-				case BUTTON_SET:
-					// Save menu settings
-					ENQUEUE_TASK(menu_set);
-					return;
-				case BUTTON_DRIVE:
-					// Cancel menu settings
-					ENQUEUE_TASK(menu_esc);
-					return;
-				case BUTTON_UP:
-					if (message[2]) { // Button down
-						// Perform menu action
-						ENQUEUE_TASK(menu_up);
-						return;
-					} else {      // Button up
+			} else {     // Button up
+				// End ISO display on viewfinder
+				ENQUEUE_TASK(viewfinder_iso_end);
+				goto block_message;
+			}
+			break;
+		}
+	} else {
+		// Loop over all the action chains
+		for(chain = chains; ! IS_EOL(chain); chain++) {
+
+			// Chech whether this action chain corresponds to the current GUI mode
+			if (chain->gui_mode == FLAG_GUI_MODE) {
+
+				// Loop over all the actions from this action chain
+				for (action = chain->actions; ! IS_EOL(action); action++) {
+
+					// Check whether this action corresponds to the event received
+					if (action->event == message[1]) {
+
+						// Only "button pressed" events are considered
+						if (message[0] == 3 || (message[0] == 4 && message[2] == 1)) {
+
+							// Launch the defined task
+							ENQUEUE_TASK(action->task);
+
+							// If this action blocks the event, we do not pass it along
+							if(action->block)
+								goto block_message;
+						}
+
+						// Once we find a matching action, we look no futher
+						goto pass_message;
 					}
-					break;
-				case BUTTON_DOWN:
-					if (message[2]) { // Button down
-						// Perform menu action
-						ENQUEUE_TASK(menu_down);
-						return;
-					} else {      // Button up
-					}
-					break;
-				case BUTTON_RIGHT:
-					if (message[2]) { // Button down
-						// Perform menu action
-						ENQUEUE_TASK(menu_right);
-						return;
-					} else {      // Button up
-					}
-					break;
-				case BUTTON_LEFT:
-					if (message[2]) { // Button down
-						// Perform menu action
-						ENQUEUE_TASK(menu_left);
-						return;
-					} else {      // Button up
-					}
-					break;
-				case BUTTON_AV:
-					if (message[2]) { // Button down
-						// Perform menu action
-						ENQUEUE_TASK(menu_swap);
-						return;
-					} else {      // Button up
-					}
-					break;
 				}
-				break;
-			case GUI_MODE_METER:
-				switch (message[1]) {
-				case BUTTON_DP:
-					ENQUEUE_TASK(set_metering_spot);
-					return;
-				}
-				break;
+
+				// Once we find a matching action chain, we look no futher
+				goto pass_message;
 			}
 		}
-	} while(FALSE);
+	}
 
+pass_message:
 	IntercomHandler(handler, message);
+
+block_message:
+	return;
 }
 
 void task_dispatcher () {
-	void(*task)();
+	void (*task)();
 
 	// Loop while receiving messages
 	while (TRUE) {

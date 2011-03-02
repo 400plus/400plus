@@ -149,7 +149,7 @@ typedef struct {             // [*] Used and tested, others unknown
 #define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
 
 // Values for FLAG_GUI_MODE
-#define GUI_OFF          0x00
+#define GUI_MODE_MAIN    0x00
 #define GUI_MODE_REVIEW  0x01
 #define GUI_MODE_MENU    0x02
 #define GUI_MODE_INFO    0x04
@@ -158,8 +158,25 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_AF      0x0B
 #define GUI_MODE_DRIVE   0x0F
 #define GUI_MODE_METER   0x0C
-#define GUI_MODE_MAIN    0x11
+#define GUI_MODE_OFF     0x11
 #define GUI_MODE_FLASHEV 0x1B
+
+// Action definitions
+typedef struct {
+	int  event;
+	int  block;
+	void (*task)();
+	int  _eol_;
+} type_ACTION;
+
+typedef struct {
+	int          gui_mode;
+	type_ACTION *actions;
+	int          _eol_;
+} type_CHAIN;
+
+#define END_OF_LIST {_eol_ : TRUE}
+#define IS_EOL(item) (item->_eol_)
 
 // Inline code
 #define ENQUEUE_TASK(task) TryPostMessageQueue(message_queue, (task), 0);
