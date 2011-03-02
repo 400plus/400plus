@@ -161,6 +161,9 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_OFF     0x11
 #define GUI_MODE_FLASHEV 0x1B
 
+// Fictitious mode to signal "face on sensor"
+#define GUI_MODE_FACE    0xFF
+
 // Action definitions
 typedef void(*type_TASK)();
 

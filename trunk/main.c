@@ -41,12 +41,21 @@ type_ACTION actions_meter[] = {
 	END_OF_LIST
 };
 
+type_ACTION actions_face[] = {
+	{BUTTON_UP,    TRUE,  TRUE,  {}},
+	{BUTTON_DOWN,  TRUE,  TRUE,  {}},
+	{BUTTON_RIGHT, TRUE,  TRUE,  {viewfinder_right, viewfinder_end}},
+	{BUTTON_LEFT,  TRUE,  TRUE,  {viewfinder_left,  viewfinder_end}},
+	END_OF_LIST
+};
+
 type_CHAIN chains[] = {
 	{GUI_MODE_OFF,   actions_main},
 	{GUI_MODE_MAIN,  actions_main},
 	{GUI_MODE_MENU,  actions_menu},
 	{GUI_MODE_INFO,  actions_info},
 	{GUI_MODE_METER, actions_meter},
+	{GUI_MODE_FACE,  actions_face},
 	END_OF_LIST
 };
 
@@ -68,6 +77,9 @@ void message_proxy(const int handler, const char *message) {
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
+	// Use fictitious GUI mode so everything else fits nicely
+	int gui_mode = FLAG_FACE_SENSOR ? GUI_MODE_FACE : FLAG_GUI_MODE;
+
 	// Status-independent events
 	switch (message[1]) {
 	case EVENT_SETTINGS: // Mode dial moved, settings changed
@@ -76,81 +88,40 @@ void message_proxy(const int handler, const char *message) {
 		goto pass_message;
 	}
 
-	if (FLAG_FACE_SENSOR) { // User has camera "on the face", display is blank
-		switch(message[1]) {
-		case BUTTON_UP:
-			if(message[2]) { // Button down
-				// Ignore nose-activated event
-				goto block_message;
-			} else {     // Button up
-			}
-			break;
-		case BUTTON_DOWN:
-			if(message[2]) { // Button down
-				// Ignore nose-activated event
-				goto block_message;
-			} else {     // Button up
-			}
-			break;
-		case BUTTON_RIGHT:
-			if(message[2]) { // Button down
-				// Start ISO display on viewfinder and increase ISO
-				ENQUEUE_TASK(viewfinder_iso_inc);
-				goto block_message;
-			} else {     // Button up
-				// End ISO display on viewfinder
-				ENQUEUE_TASK(viewfinder_iso_end);
-				goto block_message;
-			}
-			break;
-		case BUTTON_LEFT:
-			if(message[2]) { // Button down
-				// Start ISO display on viewfinder and decrease ISO
-				ENQUEUE_TASK(viewfinder_iso_dec);
-				goto block_message;
-			} else {     // Button up
-				// End ISO display on viewfinder
-				ENQUEUE_TASK(viewfinder_iso_end);
-				goto block_message;
-			}
-			break;
-		}
-	} else {
-		// Loop over all the action chains
-		for(chain = chains; ! IS_EOL(chain); chain++) {
+	// Loop over all the action chains
+	for(chain = chains; ! IS_EOL(chain); chain++) {
 
-			// Chech whether this action chain corresponds to the current GUI mode
-			if (chain->gui_mode == FLAG_GUI_MODE) {
+		// Chech whether this action chain corresponds to the current GUI mode
+		if (chain->gui_mode == gui_mode) {
 
-				// Loop over all the actions from this action chain
-				for (action = chain->actions; ! IS_EOL(action); action++) {
+			// Loop over all the actions from this action chain
+			for (action = chain->actions; ! IS_EOL(action); action++) {
 
-					// Check whether this action corresponds to the event received
-					if (action->event == message[1]) {
+				// Check whether this action corresponds to the event received
+				if (action->event == message[1]) {
 
-						// Consider buttons with "button down and "button up" events
-						if (action->check) {
-							task = message[2] ? action->task[0] : action->task[1];
-						} else {
-							task = action->task[0];
-						}
-
-						// Launch the defined task
-						if (task)
-							ENQUEUE_TASK(task);
-
-						// If this action blocks the event, we do not pass it along
-						if(action->block)
-							goto block_message;
-
-						// Once we find a matching action, we look no futher
-						goto pass_message;
+					// Consider buttons with "button down and "button up" events
+					if (action->check) {
+						task = message[2] ? action->task[0] : action->task[1];
+					} else {
+						task = action->task[0];
 					}
-				}
 
-				// Once we find a matching action chain, we look no futher
-				goto pass_message;
+					// Launch the defined task
+					if (task)
+						ENQUEUE_TASK(task);
+
+					// If this action blocks the event, we do not pass it along
+					if(action->block)
+						goto block_message;
+
+					// Once we find a matching action, we look no futher
+					goto pass_message;
+				}
 			}
+
+			// Once we find a matching action chain, we look no futher
+			goto pass_message;
 		}
 	}
 
