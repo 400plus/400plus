@@ -162,11 +162,14 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_FLASHEV 0x1B
 
 // Action definitions
+typedef void(*type_TASK)();
+
 typedef struct {
-	int  event;
-	int  block;
-	void (*task)();
-	int  _eol_;
+	int       event;
+	int       check;
+	int       block;
+	type_TASK task[2];
+	int       _eol_;
 } type_ACTION;
 
 typedef struct {
