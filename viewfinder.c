@@ -6,7 +6,7 @@
 // Temporary storage while displaying ISO at viewfinder
 int viewfinder_iso_CfNotEmitFlash, viewfinder_iso_TvVal;
 
-void viewfinder_iso_inc() {
+void viewfinder_right() {
 	const int iso = iso_inc(cameraMode.ISO);
 
 	if (settings.iso_in_viewfinder) {
@@ -22,7 +22,7 @@ void viewfinder_iso_inc() {
 	}
 }
 
-void viewfinder_iso_dec() {
+void viewfinder_left() {
 	const int iso = iso_dec(cameraMode.ISO);
 
 	if (settings.iso_in_viewfinder) {
@@ -38,7 +38,7 @@ void viewfinder_iso_dec() {
 	}
 }
 
-void viewfinder_iso_end() {
+void viewfinder_end() {
 	if (settings.iso_in_viewfinder) {
 		if (cameraMode.AEMode == AE_MODE_TV || cameraMode.AEMode == AE_MODE_M) {
 			SendToIntercom(0x30, 1, viewfinder_iso_CfNotEmitFlash);
