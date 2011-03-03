@@ -79,6 +79,17 @@ void set_whitebalance_colortemp() {
 		eventproc_RiseEvent("RequestBuzzer");
 }
 
+void set_iso_high() {
+	int iso_high = 0x6F;
+
+	pressButton_(BUTTON_SET);
+	eventproc_SetIsoValue(&iso_high);
+	eventproc_PrintICUInfo();
+
+	if (cameraMode.Beep)
+		eventproc_RiseEvent("RequestBuzzer");
+}
+
 void switch_raw_jpeg() {
 	SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 0x03);
 }

@@ -50,6 +50,11 @@ type_ACTION actions_wb[] = {
 	END_OF_LIST
 };
 
+type_ACTION actions_iso[] = {
+	{BUTTON_DP,    FALSE, TRUE,  {set_iso_high}},
+	END_OF_LIST
+};
+
 type_ACTION actions_face[] = {
 	{BUTTON_UP,    TRUE,  TRUE,  {}},
 	{BUTTON_DOWN,  TRUE,  TRUE,  {}},
@@ -65,6 +70,7 @@ type_CHAIN chains[] = {
 	{GUI_MODE_INFO,  actions_info},
 	{GUI_MODE_METER, actions_meter},
 	{GUI_MODE_WB,    actions_wb},
+	{GUI_MODE_ISO,   actions_iso},
 	{GUI_MODE_FACE,  actions_face},
 	END_OF_LIST
 };
