@@ -5,28 +5,33 @@
 
 #include "scripts.h"
 
-#define WAIT_CAMERA_BUSY 250
-
 void release_and_wait();
 void wait_for_camera();
+void script_delay(int seconds);
 
 void script_extended_aeb() {
 	beep();
 	status.script_running = TRUE;
 
 	if (settings.eaeb_delay)
-		SleepTask(2000);
+		script_delay(2);
+
+	if (!status.script_running)
+		return;
 
 	if (cameraMode.AEMode == AE_MODE_M) {
-		int tv_value = cameraMode.TvVal;
+		int tv;
 
+		int tv_value = cameraMode.TvVal;
 		int tv_start = MIN(settings.eaeb_m_min, settings.eaeb_m_max);
 		int tv_end   = MAX(settings.eaeb_m_min, settings.eaeb_m_max);
 
-		int tv;
 		for (tv = tv_start; tv <= tv_end; tv += 8) {
 			SendToIntercom(0x08, 1, tv);
 			release_and_wait();
+
+			if (!status.script_running)
+				break;
 		};
 
 		SendToIntercom(0x08, 1, tv_value);
@@ -43,9 +48,15 @@ void script_extended_aeb() {
 			SendToIntercom(0x0A, 1, av_inc);
 			release_and_wait();
 
+			if (!status.script_running)
+				break;
+
 			av_dec = ev_sub(av_dec, settings.eaeb_ev);
 			SendToIntercom(0x0A, 1, av_dec);
 			release_and_wait();
+
+			if (!status.script_running)
+				break;
 		}
 
 		SendToIntercom(0x0A, 1, av_comp);
@@ -62,14 +73,10 @@ void script_interval() {
 	beep();
 	status.script_running = TRUE;
 
-	while (ae_mode == cameraMode.AEMode) {
+	while (status.script_running) {
 		wait_for_camera();
 		eventproc_Release();
-
-		for(i = 0; i < settings.interval_time; i++) {
-			if(ae_mode == cameraMode.AEMode)
-				SleepTask(1000);
-		}
+		script_delay(settings.interval_time);
 	}
 
 	beep();
@@ -84,4 +91,11 @@ void release_and_wait() {
 void wait_for_camera() {
 	while(FLAG_CAMERA_BUSY)
 		SleepTask(WAIT_CAMERA_BUSY);
+}
+
+void script_delay(int seconds) {
+	int i = SCRIPT_DELAY_REPEAT * seconds;
+
+	while(--i && status.script_running)
+		SleepTask(SCRIPT_DELAY_TIME);
 }
