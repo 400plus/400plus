@@ -19,7 +19,7 @@ type_ACTION actions_main[]  = {
 	{BUTTON_UP,    TRUE,  FALSE, FALSE, {restore_iso}},
 	{BUTTON_DOWN,  TRUE,  FALSE, FALSE, {restore_wb}},
 	{BUTTON_LEFT,  TRUE,  FALSE, FALSE, {restore_metering}},
-	{BUTTON_DP,    FALSE, TRUE,  FALSE, {dp_action}},
+	{BUTTON_DP,    FALSE, TRUE,  TRUE,  {dp_action}},
 	END_OF_LIST
 };
 
