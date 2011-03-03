@@ -200,5 +200,6 @@ extern void message_proxy(const int handler, const char* message);
 
 // Shared globals
 extern type_STATUS status;
+extern int *message_queue;
 
 #endif /* MAIN_H_ */

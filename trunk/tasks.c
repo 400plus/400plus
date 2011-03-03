@@ -35,20 +35,20 @@ void start_up() {
 
 void dp_action() {
 	if (cameraMode.AEMode > 6) { // Non-creative modes
-		switch_raw_jpeg();
+		ENQUEUE_TASK(switch_raw_jpeg);
 	} else {
 		switch (settings.dp_action) {
 		case DP_ACTION_INTERMEDIATE_ISO:
 			// Set intermediate ISO
-			set_intermediate_iso();
+			ENQUEUE_TASK(set_intermediate_iso);
 			break;
 		case DP_ACTION_EXTENDED_AEB:
 			// Start extended AEB script
-			script_extended_aeb();
+			ENQUEUE_TASK(script_extended_aeb);
 			break;
 		case DP_ACTION_INTERVAL:
 			// Start interval script
-			script_interval();
+			ENQUEUE_TASK(script_interval);
 			break;
 		}
 	}
