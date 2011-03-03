@@ -68,6 +68,8 @@ void menu_repeat(void(*repeateable)()){
 	int delay;
 	int button = status.button_down;
 
+	SleepTask(50);
+
 	repeateable();
 	delay = AUTOREPEAT_DELAY_LONG;
 

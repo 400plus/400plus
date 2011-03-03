@@ -176,6 +176,7 @@ typedef struct {
 	int       event;
 	int       check;
 	int       block;
+	int       immediate;
 	type_TASK task[2];
 	int       _eol_;
 } type_ACTION;
