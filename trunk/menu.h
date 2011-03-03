@@ -3,6 +3,10 @@
 
 #define hInfoCreative (*(int*)(0x0000213C))
 
+#define AUTOREPEAT_DELAY_UNIT   50
+#define AUTOREPEAT_DELAY_LONG   10
+#define AUTOREPEAT_DELAY_SHORT   5
+
 typedef enum {
 	MENUITEM_AV_COMP,
 	MENUITEM_FLASH_COMP,

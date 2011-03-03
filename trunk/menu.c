@@ -18,6 +18,14 @@ const char *wb_string[] = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescen
 const char *tv_string[] = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
 const char *dp_string[] = {"Disabled", "Change ISO", "Extended AEB", "Interval"};
 
+void menu_repeat(void (*repeateable)());
+
+void menu_repeateable_swap();
+void menu_repeateable_up();
+void menu_repeateable_down();
+void menu_repeateable_right();
+void menu_repeateable_left();
+
 void  menu_save();
 void  menu_display();
 char *menu_message();
@@ -37,6 +45,43 @@ void menu_initialize() {
 }
 
 void menu_swap() {
+	menu_repeat(menu_repeateable_swap);
+}
+
+void menu_up() {
+	menu_repeat(menu_repeateable_up);
+}
+
+void menu_down() {
+	menu_repeat(menu_repeateable_down);
+}
+
+void menu_right() {
+	menu_repeat(menu_repeateable_right);
+}
+
+void menu_left() {
+	menu_repeat(menu_repeateable_left);
+}
+
+void menu_repeat(void(*repeateable)()){
+	int delay;
+	int button = status.button_down;
+
+	repeateable();
+	delay = AUTOREPEAT_DELAY_LONG;
+
+	do {
+		SleepTask(AUTOREPEAT_DELAY_UNIT);
+
+		if (--delay == 0) {
+			repeateable();
+			delay = AUTOREPEAT_DELAY_SHORT;
+		}
+	} while (status.button_down && status.button_down == button);
+}
+
+void menu_repeateable_swap() {
 	switch(current_item) {
 	case MENUITEM_AV_COMP:
 		menu_settings.av_comp = ev_sgn(menu_settings.av_comp);
@@ -54,7 +99,7 @@ void menu_swap() {
 	menu_display();
 }
 
-void menu_up() {
+void menu_repeateable_up() {
 	if (eaeb_sub_menu) {
 		if (current_item_eaeb == MENUITEM_EAEB_LAST)
 			current_item_eaeb = MENUITEM_EAEB_FIRST;
@@ -70,7 +115,7 @@ void menu_up() {
 	menu_display();
 }
 
-void menu_down() {
+void menu_repeateable_down() {
 	if (eaeb_sub_menu) {
 		if (current_item_eaeb == MENUITEM_EAEB_FIRST)
 			current_item_eaeb = MENUITEM_EAEB_LAST;
@@ -86,7 +131,7 @@ void menu_down() {
 	menu_display();
 }
 
-void menu_right() {
+void menu_repeateable_right() {
 	switch(current_item) {
 	case MENUITEM_AV_COMP:
 		menu_settings.av_comp = ev_inc(menu_settings.av_comp);
@@ -163,7 +208,7 @@ void menu_right() {
 	menu_display();
 }
 
-void menu_left() {
+void menu_repeateable_left() {
 	switch (current_item) {
 	case MENUITEM_AV_COMP:
 		menu_settings.av_comp = ev_dec(menu_settings.av_comp);

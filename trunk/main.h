@@ -164,6 +164,11 @@ typedef struct {             // [*] Used and tested, others unknown
 // Fictitious mode to signal "face on sensor"
 #define GUI_MODE_FACE    0xFF
 
+// Global status
+typedef struct {
+	int button_down;
+} type_STATUS;
+
 // Action definitions
 typedef void(*type_TASK)();
 
@@ -191,5 +196,8 @@ typedef struct {
 extern void initialize();
 extern void initialize_display();
 extern void message_proxy(const int handler, const char* message);
+
+// Shared globals
+extern type_STATUS status;
 
 #endif /* MAIN_H_ */
