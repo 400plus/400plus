@@ -134,3 +134,8 @@ int iso_dec(int iso) {
 	else if (iso > 0x50) return 0x50; //  200
 	else                 return 0x48; //  100
 }
+
+void beep() {
+	if (cameraMode.Beep)
+		eventproc_RiseEvent("RequestBuzzer");
+}

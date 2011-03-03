@@ -61,8 +61,7 @@ void set_metering_spot() {
 	eventproc_SetMesMode(&metering_spot);
 	eventproc_PrintICUInfo();
 
-	if (cameraMode.Beep)
-		eventproc_RiseEvent("RequestBuzzer");
+	beep();
 }
 
 void set_whitebalance_colortemp() {
@@ -75,8 +74,7 @@ void set_whitebalance_colortemp() {
 
 	eventproc_PrintICUInfo();
 
-	if (cameraMode.Beep)
-		eventproc_RiseEvent("RequestBuzzer");
+	beep();
 }
 
 void set_iso_high() {
@@ -86,8 +84,7 @@ void set_iso_high() {
 	eventproc_SetIsoValue(&iso_high);
 	eventproc_PrintICUInfo();
 
-	if (cameraMode.Beep)
-		eventproc_RiseEvent("RequestBuzzer");
+	beep();
 }
 
 void switch_raw_jpeg() {
