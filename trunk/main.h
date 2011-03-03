@@ -167,6 +167,7 @@ typedef struct {             // [*] Used and tested, others unknown
 // Global status
 typedef struct {
 	int button_down;
+	int script_running;
 } type_STATUS;
 
 // Action definitions
