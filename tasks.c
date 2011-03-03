@@ -65,6 +65,20 @@ void set_metering_spot() {
 		eventproc_RiseEvent("RequestBuzzer");
 }
 
+void set_whitebalance_colortemp() {
+	pressButton_(BUTTON_SET);
+
+	settings.white_balance = WB_MODE_COLORTEMP;
+
+	SendToIntercom(0x05, 1, settings.white_balance);
+	SendToIntercom(0x10, 1, settings.color_temp);
+
+	eventproc_PrintICUInfo();
+
+	if (cameraMode.Beep)
+		eventproc_RiseEvent("RequestBuzzer");
+}
+
 void switch_raw_jpeg() {
 	SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 0x03);
 }

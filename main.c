@@ -45,6 +45,11 @@ type_ACTION actions_meter[] = {
 	END_OF_LIST
 };
 
+type_ACTION actions_wb[] = {
+	{BUTTON_DP,    FALSE, TRUE,  {set_whitebalance_colortemp}},
+	END_OF_LIST
+};
+
 type_ACTION actions_face[] = {
 	{BUTTON_UP,    TRUE,  TRUE,  {}},
 	{BUTTON_DOWN,  TRUE,  TRUE,  {}},
@@ -59,6 +64,7 @@ type_CHAIN chains[] = {
 	{GUI_MODE_MENU,  actions_menu},
 	{GUI_MODE_INFO,  actions_info},
 	{GUI_MODE_METER, actions_meter},
+	{GUI_MODE_WB,    actions_wb},
 	{GUI_MODE_FACE,  actions_face},
 	END_OF_LIST
 };
