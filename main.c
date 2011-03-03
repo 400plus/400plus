@@ -12,7 +12,10 @@
 int *message_queue;
 
 // Global status
-type_STATUS status;
+type_STATUS status = {
+	FALSE,
+	FALSE
+};
 
 // Action definitions
 type_ACTION actions_main[]  = {

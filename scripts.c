@@ -11,10 +11,11 @@ void release_and_wait();
 void wait_for_camera();
 
 void script_extended_aeb() {
-	if (settings.eaeb_delay) {
-		beep();
+	beep();
+	status.script_running = TRUE;
+
+	if (settings.eaeb_delay)
 		SleepTask(2000);
-	}
 
 	if (cameraMode.AEMode == AE_MODE_M) {
 		int tv_value = cameraMode.TvVal;
@@ -51,11 +52,15 @@ void script_extended_aeb() {
 	}
 
 	beep();
+	status.script_running = FALSE;
 }
 
 void script_interval() {
 	int i;
 	int ae_mode = cameraMode.AEMode;
+
+	beep();
+	status.script_running = TRUE;
 
 	while (ae_mode == cameraMode.AEMode) {
 		wait_for_camera();
@@ -68,6 +73,7 @@ void script_interval() {
 	}
 
 	beep();
+	status.script_running = FALSE;
 }
 
 void release_and_wait() {
