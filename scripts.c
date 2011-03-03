@@ -12,7 +12,7 @@ void wait_for_camera();
 
 void script_extended_aeb() {
 	if (settings.eaeb_delay) {
-		eventproc_RiseEvent("RequestBuzzer");
+		beep();
 		SleepTask(2000);
 	}
 
@@ -50,7 +50,7 @@ void script_extended_aeb() {
 		SendToIntercom(0x0A, 1, av_comp);
 	}
 
-	eventproc_RiseEvent("RequestBuzzer");
+	beep();
 }
 
 void script_interval() {
@@ -67,7 +67,7 @@ void script_interval() {
 		}
 	}
 
-	eventproc_RiseEvent("RequestBuzzer");
+	beep();
 }
 
 void release_and_wait() {
