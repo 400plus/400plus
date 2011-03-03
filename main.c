@@ -11,6 +11,9 @@
 // Main message queue
 int *message_queue;
 
+// Global status
+type_STATUS status;
+
 // Action definitions
 type_ACTION actions_main[]  = {
 	{BUTTON_UP,    TRUE,  FALSE, {restore_iso}},
@@ -102,8 +105,16 @@ void message_proxy(const int handler, const char *message) {
 				if (action->event == message[1]) {
 
 					// Consider buttons with "button down and "button up" events
-					if (action->check) {
-						task = message[2] ? action->task[0] : action->task[1];
+					if (action->check && message[0] == 4) {
+						if (message[2]) {
+							// Button down
+							task = action->task[0];
+							status.button_down = message[1];
+						} else {
+							// Button up
+							task = action->task[1];
+							status.button_down = FALSE;
+						}
 					} else {
 						task = action->task[0];
 					}
