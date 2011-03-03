@@ -36,24 +36,21 @@ void start_up() {
 void dp_action() {
 	if (cameraMode.AEMode > 6) {
 		// Non-creative modes: switch between RAW and JPEG
-		ENQUEUE_TASK(switch_raw_jpeg);
-	} else if (settings.dp_action == DP_ACTION_INTERMEDIATE_ISO){
-		// Set intermediate ISO
-		ENQUEUE_TASK(set_intermediate_iso);
+		switch_raw_jpeg();
 	} else {
-		if (status.script_running) {
-			status.script_running = FALSE;
-		} else {
-			switch (settings.dp_action) {
-			case DP_ACTION_EXTENDED_AEB:
-				// Start extended AEB script
-				ENQUEUE_TASK(script_extended_aeb);
-				break;
-			case DP_ACTION_INTERVAL:
-				// Start interval script
-				ENQUEUE_TASK(script_interval);
-				break;
-			}
+		switch (settings.dp_action) {
+		case DP_ACTION_INTERMEDIATE_ISO:
+			// Set intermediate ISO
+			set_intermediate_iso();
+			break;
+		case DP_ACTION_EXTENDED_AEB:
+			// Start extended AEB script
+			script_extended_aeb();
+			break;
+		case DP_ACTION_INTERVAL:
+			// Start interval script
+			script_interval();
+			break;
 		}
 	}
 }
