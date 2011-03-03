@@ -16,50 +16,50 @@ type_STATUS status;
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{BUTTON_UP,    TRUE,  FALSE, {restore_iso}},
-	{BUTTON_DOWN,  TRUE,  FALSE, {restore_wb}},
-	{BUTTON_LEFT,  TRUE,  FALSE, {restore_metering}},
-	{BUTTON_DP,    FALSE, TRUE,  {dp_action}},
+	{BUTTON_UP,    TRUE,  FALSE, FALSE, {restore_iso}},
+	{BUTTON_DOWN,  TRUE,  FALSE, FALSE, {restore_wb}},
+	{BUTTON_LEFT,  TRUE,  FALSE, FALSE, {restore_metering}},
+	{BUTTON_DP,    FALSE, TRUE,  FALSE, {dp_action}},
 	END_OF_LIST
 };
 
 type_ACTION actions_menu[]  = {
-	{BUTTON_DISP,  FALSE, FALSE, {menu_initialize}},
-	{BUTTON_DP,    FALSE, TRUE,  {show_factory_menu}},
+	{BUTTON_DISP,  FALSE, FALSE, FALSE, {menu_initialize}},
+	{BUTTON_DP,    FALSE, TRUE,  FALSE, {show_factory_menu}},
 	END_OF_LIST
 };
 
 type_ACTION actions_info[]  = {
-	{BUTTON_SET,   FALSE, TRUE,  {menu_set}},
-	{BUTTON_DRIVE, FALSE, TRUE,  {menu_esc}},
-	{BUTTON_UP,    TRUE,  TRUE,  {menu_up}},
-	{BUTTON_DOWN,  TRUE,  TRUE,  {menu_down}},
-	{BUTTON_RIGHT, TRUE,  TRUE,  {menu_right}},
-	{BUTTON_LEFT,  TRUE,  TRUE,  {menu_left}},
-	{BUTTON_AV,    TRUE,  TRUE,  {menu_swap}},
+	{BUTTON_SET,   FALSE, TRUE,  FALSE, {menu_set}},
+	{BUTTON_DRIVE, FALSE, TRUE,  FALSE, {menu_esc}},
+	{BUTTON_UP,    TRUE,  TRUE,  FALSE, {menu_up}},
+	{BUTTON_DOWN,  TRUE,  TRUE,  FALSE, {menu_down}},
+	{BUTTON_RIGHT, TRUE,  TRUE,  FALSE, {menu_right}},
+	{BUTTON_LEFT,  TRUE,  TRUE,  FALSE, {menu_left}},
+	{BUTTON_AV,    TRUE,  TRUE,  FALSE, {menu_swap}},
 	END_OF_LIST
 };
 
 type_ACTION actions_meter[] = {
-	{BUTTON_DP,    FALSE, TRUE,  {set_metering_spot}},
+	{BUTTON_DP,    FALSE, TRUE,  FALSE, {set_metering_spot}},
 	END_OF_LIST
 };
 
 type_ACTION actions_wb[] = {
-	{BUTTON_DP,    FALSE, TRUE,  {set_whitebalance_colortemp}},
+	{BUTTON_DP,    FALSE, TRUE,  FALSE, {set_whitebalance_colortemp}},
 	END_OF_LIST
 };
 
 type_ACTION actions_iso[] = {
-	{BUTTON_DP,    FALSE, TRUE,  {set_iso_high}},
+	{BUTTON_DP,    FALSE, TRUE,  FALSE, {set_iso_high}},
 	END_OF_LIST
 };
 
 type_ACTION actions_face[] = {
-	{BUTTON_UP,    TRUE,  TRUE,  {}},
-	{BUTTON_DOWN,  TRUE,  TRUE,  {}},
-	{BUTTON_RIGHT, TRUE,  TRUE,  {viewfinder_right, viewfinder_end}},
-	{BUTTON_LEFT,  TRUE,  TRUE,  {viewfinder_left,  viewfinder_end}},
+	{BUTTON_UP,    TRUE,  TRUE,  FALSE, {}},
+	{BUTTON_DOWN,  TRUE,  TRUE,  FALSE, {}},
+	{BUTTON_RIGHT, TRUE,  TRUE,  FALSE, {viewfinder_right, viewfinder_end}},
+	{BUTTON_LEFT,  TRUE,  TRUE,  FALSE, {viewfinder_left,  viewfinder_end}},
 	END_OF_LIST
 };
 
@@ -132,8 +132,12 @@ void message_proxy(const int handler, const char *message) {
 					}
 
 					// Launch the defined task
-					if (task)
-						ENQUEUE_TASK(task);
+					if (task) {
+						if (action->immediate)
+							task();
+						else
+							ENQUEUE_TASK(task);
+					}
 
 					// If this action blocks the event, we do not pass it along
 					if(action->block)
