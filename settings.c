@@ -11,7 +11,10 @@ type_SETTINGS settings = {
 	 0x08, // eaeb_ev
 	 0x10, // eaeb_m_min
 	 0x98, // eaeb_m_max
+	    0, // interval_dealy
 	    2, // interval_time
+	FALSE, // interval_eaeb
+        0, // interval_shots
 	FALSE, // ir_inst
 	 0x00, // white_balance
 	 5200, // color_temp
