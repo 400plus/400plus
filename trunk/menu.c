@@ -7,10 +7,12 @@
 
 type_SETTINGS menu_settings;
 
-type_MENUITEM      current_item      = 0;
-type_MENUITEM_EAEB current_item_eaeb = 0;
+type_MENUITEM          current_item          = MENUITEM_FIRST;
+type_MENUITEM_EAEB     current_item_eaeb     = MENUITEM_EAEB_FIRST;
+type_MENUITEM_INTERVAL current_item_interval = MENUITEM_INTERVAL_FIRST;
 
-int eaeb_sub_menu = FALSE;
+int eaeb_submenu     = FALSE;
+int interval_submenu = FALSE;
 
 char menu_buffer[17];
 
@@ -102,11 +104,16 @@ void menu_repeateable_swap() {
 }
 
 void menu_repeateable_up() {
-	if (eaeb_sub_menu) {
+	if (eaeb_submenu) {
 		if (current_item_eaeb == MENUITEM_EAEB_LAST)
 			current_item_eaeb = MENUITEM_EAEB_FIRST;
 		else
 			current_item_eaeb++;
+	} else if (interval_submenu) {
+		if (current_item_interval == MENUITEM_INTERVAL_LAST)
+			current_item_interval = MENUITEM_INTERVAL_FIRST;
+		else
+			current_item_interval++;
 	} else {
 		if (current_item == MENUITEM_LAST)
 			current_item = MENUITEM_FIRST;
@@ -118,11 +125,16 @@ void menu_repeateable_up() {
 }
 
 void menu_repeateable_down() {
-	if (eaeb_sub_menu) {
+	if (eaeb_submenu) {
 		if (current_item_eaeb == MENUITEM_EAEB_FIRST)
 			current_item_eaeb = MENUITEM_EAEB_LAST;
 		else
 			current_item_eaeb--;
+	} else if (interval_submenu) {
+		if (current_item_interval == MENUITEM_INTERVAL_FIRST)
+			current_item_interval = MENUITEM_INTERVAL_LAST;
+		else
+			current_item_interval--;
 	} else {
 		if (current_item == MENUITEM_FIRST)
 			current_item = MENUITEM_LAST;
@@ -170,7 +182,7 @@ void menu_repeateable_right() {
 			menu_settings.dp_action++;
 		break;
 	case MENUITEM_EAEB:
-		if (eaeb_sub_menu) {
+		if (eaeb_submenu) {
 			switch (current_item_eaeb) {
 			case MENUITEM_EAEB_FRAMES:
 				if (menu_settings.eaeb_frames < 9)
@@ -194,11 +206,29 @@ void menu_repeateable_right() {
 				break;
 			}
 		} else {
-			eaeb_sub_menu = TRUE;
+			eaeb_submenu = TRUE;
 		}
 		break;
 	case MENUITEM_INTERVAL:
-		menu_settings.interval_time = (menu_settings.interval_time < 100) ? (menu_settings.interval_time + 1) : 100;
+		if (interval_submenu) {
+			switch (current_item_interval) {
+			case MENUITEM_INTERVAL_DELAY:
+				menu_settings.interval_delay = TRUE;
+				break;
+			case MENUITEM_INTERVAL_TIME:
+				menu_settings.interval_time = (menu_settings.interval_time < 100) ? (menu_settings.interval_time + 1) : 100;
+				break;
+			case MENUITEM_INTERVAL_EAEB:
+				menu_settings.interval_eaeb = TRUE;
+			case MENUITEM_INTERVAL_SHOTS:
+				menu_settings.interval_shots = (menu_settings.interval_shots < 100) ? (menu_settings.interval_shots + 1) : 100;
+			default:
+				break;
+			}
+
+		} else {
+			interval_submenu = TRUE;
+		}
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.ir_inst = TRUE;
@@ -249,7 +279,7 @@ void menu_repeateable_left() {
 			menu_settings.dp_action--;
 		break;
 	case MENUITEM_EAEB:
-		if (eaeb_sub_menu) {
+		if (eaeb_submenu) {
 			switch (current_item_eaeb) {
 			case MENUITEM_EAEB_FRAMES:
 				if (menu_settings.eaeb_frames > 3)
@@ -274,11 +304,28 @@ void menu_repeateable_left() {
 				break;
 			}
 		} else {
-			eaeb_sub_menu = TRUE;
+			eaeb_submenu = TRUE;
 		}
 		break;
 	case MENUITEM_INTERVAL:
-		menu_settings.interval_time = (menu_settings.interval_time > 1) ? (menu_settings.interval_time - 1) : 1;
+		if (interval_submenu) {
+			switch (current_item_interval) {
+			case MENUITEM_INTERVAL_DELAY:
+				menu_settings.interval_delay = FALSE;
+				break;
+			case MENUITEM_INTERVAL_TIME:
+				menu_settings.interval_time = (menu_settings.interval_time > 1) ? (menu_settings.interval_time - 1) : 1;
+				break;
+			case MENUITEM_INTERVAL_EAEB:
+				menu_settings.interval_eaeb = FALSE;
+			case MENUITEM_INTERVAL_SHOTS:
+				menu_settings.interval_shots = (menu_settings.interval_shots > 0) ? (menu_settings.interval_shots - 1) : 0;
+			default:
+				break;
+			}
+		} else {
+			interval_submenu = TRUE;
+		}
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.ir_inst = FALSE;
@@ -302,7 +349,11 @@ void menu_set() {
 void menu_esc() {
 	switch (current_item) {
 	case MENUITEM_EAEB:
-		eaeb_sub_menu = FALSE;
+		eaeb_submenu = FALSE;
+		menu_display();
+		break;
+	case MENUITEM_INTERVAL:
+		interval_submenu = FALSE;
 		menu_display();
 		break;
 	default:
@@ -365,7 +416,7 @@ char *menu_message() {
 		sprintf(menu_buffer, "DP Button:    %s", dp_string[menu_settings.dp_action]);
 		break;
 	case MENUITEM_EAEB:
-		if (eaeb_sub_menu) {
+		if (eaeb_submenu) {
 			switch (current_item_eaeb) {
 			case MENUITEM_EAEB_FRAMES:
 				sprintf(menu_buffer, "Extended AEB: %u frames", menu_settings.eaeb_frames);
@@ -375,7 +426,7 @@ char *menu_message() {
 				sprintf(menu_buffer, "Extended AEB: %s", ev_display);
 				break;
 			case MENUITEM_EAEB_DELAY:
-				sprintf(menu_buffer, "Extended AEB: %s Delay", menu_settings.eaeb_delay ? "2s" : "No");
+				sprintf(menu_buffer, "Extended AEB: %s delay", menu_settings.eaeb_delay ? "2s" : "no");
 				break;
 			case MENUITEM_EAEB_M_MIN:
 				sprintf(menu_buffer, "Extended AEB: M1 %s", tv_string[(menu_settings.eaeb_m_min - (0x10)) >> 3]);
@@ -391,7 +442,29 @@ char *menu_message() {
 		}
 		break;
 	case MENUITEM_INTERVAL:
-		sprintf(menu_buffer, "Interval time: %u", menu_settings.interval_time);
+		if (interval_submenu) {
+			switch (current_item_interval) {
+			case MENUITEM_INTERVAL_DELAY:
+				sprintf(menu_buffer, "Interval: %s delay", menu_settings.interval_delay ? "2s" : "no");
+				break;
+			case MENUITEM_INTERVAL_TIME:
+				sprintf(menu_buffer, "Interval: %us time", menu_settings.interval_time);
+				break;
+			case MENUITEM_INTERVAL_EAEB:
+				sprintf(menu_buffer, "Interval: EAEB %s", menu_settings.interval_eaeb ? "yes" : "no");
+				break;
+			case MENUITEM_INTERVAL_SHOTS:
+				if (menu_settings.interval_shots == 0)
+					sprintf(menu_buffer, "Interval: unlimited");
+				else
+					sprintf(menu_buffer, "Interval: %u shots", menu_settings.interval_shots);
+				break;
+			default:
+				break;
+			}
+		} else {
+			sprintf(menu_buffer, "Interval...");
+		}
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		sprintf(menu_buffer, "IR Remote Release: %s", menu_settings.ir_inst ? "Instant" : "2sec.");

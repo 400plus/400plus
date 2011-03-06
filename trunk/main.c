@@ -176,7 +176,7 @@ void task_dispatcher () {
 	void (*task)();
 
 	// Loop while receiving messages
-	while (TRUE) {
+	for (;;) {
 		ReceiveMessageQueue(message_queue, &task, 0);
 		task();
 	}
