@@ -66,15 +66,21 @@ type_ACTION actions_face[] = {
 	END_OF_LIST
 };
 
+type_ACTION actions_factory[] = {
+	{BUTTON_DP,    FALSE, TRUE,  {start_debug_mode}},
+	END_OF_LIST
+};
+
 type_CHAIN chains[] = {
-	{GUI_MODE_OFF,   actions_main},
-	{GUI_MODE_MAIN,  actions_main},
-	{GUI_MODE_MENU,  actions_menu},
-	{GUI_MODE_INFO,  actions_info},
-	{GUI_MODE_METER, actions_meter},
-	{GUI_MODE_WB,    actions_wb},
-	{GUI_MODE_ISO,   actions_iso},
-	{GUI_MODE_FACE,  actions_face},
+	{GUI_MODE_OFF,     actions_main},
+	{GUI_MODE_MAIN,    actions_main},
+	{GUI_MODE_MENU,    actions_menu},
+	{GUI_MODE_INFO,    actions_info},
+	{GUI_MODE_METER,   actions_meter},
+	{GUI_MODE_WB,      actions_wb},
+	{GUI_MODE_ISO,     actions_iso},
+	{GUI_MODE_FACE,    actions_face},
+	{GUI_MODE_FACTORY, actions_factory},
 	END_OF_LIST
 };
 
@@ -92,12 +98,11 @@ void initialize_display() {
 }
 
 void message_proxy(const int handler, const char *message) {
+	int gui_mode;
+
 	type_TASK    task;
 	type_CHAIN  *chain;
 	type_ACTION *action;
-
-	// Use fictitious GUI mode so everything else fits nicely
-	int gui_mode = FLAG_FACE_SENSOR ? GUI_MODE_FACE : FLAG_GUI_MODE;
 
 	// Status-independent events
 	switch (message[1]) {
@@ -106,6 +111,14 @@ void message_proxy(const int handler, const char *message) {
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;
 	}
+
+	// Use fictitious GUI mode so everything else fits nicely
+	if (FLAG_FACE_SENSOR)
+		gui_mode = GUI_MODE_FACE;
+	else if (FLAG_FACTORY_DIALOG)
+		gui_mode = GUI_MODE_FACTORY;
+	else
+		gui_mode = FLAG_GUI_MODE;
 
 	// Loop over all the action chains
 	for(chain = chains; ! IS_EOL(chain); chain++) {

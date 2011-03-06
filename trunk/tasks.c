@@ -14,8 +14,6 @@ void restore_metering();
 void switch_raw_jpeg();
 void set_intermediate_iso();
 
-void start_debug_mode();
-
 void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
@@ -104,8 +102,6 @@ void set_intermediate_iso() {
 }
 
 void show_factory_menu() {
-	start_debug_mode();
-
 	EnterFactoryMode();
 	SleepTask(25);
 	ExitFactoryMode();
