@@ -49,6 +49,10 @@ void dp_action() {
 			// Start interval script
 			script_interval();
 			break;
+		case DP_ACTION_WAVE:
+			// Start interval script
+			script_wave();
+			break;
 		}
 	}
 }

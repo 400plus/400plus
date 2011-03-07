@@ -2,17 +2,27 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x0A
+#define SETTINGS_VERSION  0x0C
 
 typedef enum {
 	DP_ACTION_DISABLED,
 	DP_ACTION_INTERMEDIATE_ISO,
 	DP_ACTION_EXTENDED_AEB,
 	DP_ACTION_INTERVAL,
+	DP_ACTION_WAVE,
 	DP_ACTION_COUNT,
 	DP_ACTION_FIRST = 0,
 	DP_ACTION_LAST  = DP_ACTION_COUNT - 1
 } type_DP_ACTION;
+
+typedef enum {
+	WAVE_ACTION_SHOT,
+	WAVE_ACTION_EAEB,
+	WAVE_ACTION_INTERVAL,
+	WAVE_ACTION_COUNT,
+	WAVE_ACTION_FIRST = 0,
+	WAVE_ACTION_LAST  = WAVE_ACTION_COUNT - 1
+} type_WAVE_ACTION;
 
 typedef struct {
 	int iso_in_viewfinder;
@@ -26,6 +36,8 @@ typedef struct {
 	int interval_time;
 	int interval_eaeb;
 	int interval_shots;
+	int wave_delay;
+    int wave_action;
 	int ir_inst;
 	int white_balance;
 	int color_temp;

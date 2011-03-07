@@ -4,26 +4,28 @@
 #include "settings.h"
 
 type_SETTINGS settings = {
-	FALSE, // iso_in_viewfinder
-	    0, // dp_action
-	    3, // eaeb_frames
-	FALSE, // eaeb_delay
-	 0x08, // eaeb_ev
-	 0x10, // eaeb_m_min
-	 0x98, // eaeb_m_max
-	    0, // interval_dealy
-	    2, // interval_time
-	FALSE, // interval_eaeb
-        0, // interval_shots
-	FALSE, // ir_inst
-	 0x00, // white_balance
-	 5200, // color_temp
-	    0, // av_comp
-	    0, // flash_comp
-	    0, // aeb_ev
-	FALSE, // safety_shift;
-	FALSE, // not_emit_flash;
-	FALSE  // not_af_flash;
+	iso_in_viewfinder: FALSE,
+	dp_action        : DP_ACTION_FIRST,
+	eaeb_frames      : 3,
+	eaeb_delay       : FALSE,
+	eaeb_ev          : 0x08,
+	eaeb_m_min       : 0x10,
+	eaeb_m_max       : 0x98,
+	interval_delay   : FALSE,
+	interval_time    : 2,
+	interval_eaeb    : FALSE,
+	interval_shots   : 0,
+	wave_delay       : FALSE,
+	wave_action      : WAVE_ACTION_FIRST,
+	ir_inst          : FALSE,
+	white_balance    : WB_MODE_AUTO,
+	color_temp       : 5200,
+	av_comp          : 0,
+	flash_comp       : 0,
+	aeb_ev           : 0,
+	safety_shift     : FALSE,
+	not_emit_flash   : FALSE,
+	not_af_flash     : FALSE
 };
 
 void settings_read() {
