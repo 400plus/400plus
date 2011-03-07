@@ -14,7 +14,7 @@ Installation procedure
   #. this step depends on your OS and CF Card, but first insert CF into the camera and format it.<br>_,,you can format it on the PC too,,_
     * Windows: use [http://pel.hu/down/EOScard.exe EOScard] by [http://chdk.setepontos.com/index.php?topic=4214.msg58253#msg58253 pelican], you need to check EOS_DEVELOP and BOOTDISK<br>like shown [http://chdk.wikia.com/wiki/EOScard here]
     * Mac: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
-    * Linux: use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version)
+    * Linux: use the direct method (below)<br>or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version)
     * Direct method for Linux, Mac and windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
       * FAT12/FAT16 (CF Card <= 4GB)
 {{{
