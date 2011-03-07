@@ -1,6 +1,8 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#define NULL (void*)0
+
 #define TRUE  1
 #define FALSE 0
 
