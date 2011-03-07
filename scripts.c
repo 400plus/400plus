@@ -5,6 +5,12 @@
 
 #include "scripts.h"
 
+int *feedback_task = NULL;
+
+void script_start();
+void script_stop();
+void script_feedback();
+
 void sub_extended_aeb();
 void sub_interval();
 
@@ -13,8 +19,7 @@ void wait_for_camera();
 void script_delay(int seconds);
 
 void script_extended_aeb() {
-	beep();
-	status.script_running = TRUE;
+	script_start();
 
 	if (settings.eaeb_delay)
 		script_delay(2);
@@ -22,37 +27,31 @@ void script_extended_aeb() {
 	if (! FLAG_FACE_SENSOR)
 		sub_extended_aeb();
 
-	beep();
-	status.script_running = FALSE;
+	script_stop();
 }
 
 void script_interval() {
-	int i = 0;
-
-	beep();
-	status.script_running = TRUE;
+	script_start();
 
 	if (settings.interval_delay)
 		script_delay(2);
 
 	sub_interval();
 
-	beep();
-	status.script_running = FALSE;
+	script_stop();
 }
 
 void script_wave() {
-	beep();
-	status.script_running = TRUE;
+	script_start();
 
 	while (!FLAG_FACE_SENSOR)
-		SleepTask(SCRIPT_DELAY_TIME);
+		SleepTask(WAIT_USER_ACTION);
 
 	if (settings.wave_delay)
 		SleepTask(2000);
 
 	while (FLAG_FACE_SENSOR)
-		SleepTask(SCRIPT_DELAY_TIME);
+		SleepTask(WAIT_USER_ACTION);
 
 	switch (settings.wave_action) {
 	case WAVE_ACTION_SHOT:
@@ -68,10 +67,36 @@ void script_wave() {
 		break;
 	}
 
-	wait_for_camera();
+	script_stop();
+}
 
+void script_start() {
+	beep();
+	status.script_running = TRUE;
+
+	if (feedback_task != NULL)
+		UnSuspendTask(feedback_task);
+	else
+		feedback_task = (int *)CreateTask("Feedback", 0x1A, 0x2000, script_feedback,0);
+}
+
+void script_stop() {
 	beep();
 	status.script_running = FALSE;
+}
+
+void script_feedback() {
+	for (;;) {
+		while (status.script_running) {
+			eventproc_EdLedOn();
+			SleepTask(FEEDBACK_LENGTH);
+			eventproc_EdLedOff();
+
+			SleepTask(FEEDBACK_INTERVAL);
+		}
+
+		SuspendTask(feedback_task);
+	}
 }
 
 void sub_extended_aeb() {
@@ -138,6 +163,8 @@ void sub_interval() {
 		else
 			break;
 	}
+
+	wait_for_camera();
 }
 
 void release_and_wait() {

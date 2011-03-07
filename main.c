@@ -88,7 +88,7 @@ void task_dispatcher();
 
 void initialize() {
 	message_queue = (int*)CreateMessageQueue("message_queue", 0x40);
-	CreateTask("task_dispatcher", 0x19, 0x2000, task_dispatcher, 0);
+	CreateTask("Task Dispatcher", 0x19, 0x2000, task_dispatcher, 0);
 
 	ENQUEUE_TASK(start_up);
 }
