@@ -10,5 +10,6 @@
 
 void script_extended_aeb();
 void script_interval();
+void script_wave();
 
 #endif /* SCRIPTS_H_ */

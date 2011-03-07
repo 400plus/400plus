@@ -6,6 +6,8 @@
 #include "scripts.h"
 
 void sub_extended_aeb();
+void sub_interval();
+
 void release_and_wait();
 void wait_for_camera();
 void script_delay(int seconds);
@@ -33,22 +35,40 @@ void script_interval() {
 	if (settings.interval_delay)
 		script_delay(2);
 
-	for (;;) {
-		if (FLAG_FACE_SENSOR)
-			break;
+	sub_interval();
 
-		wait_for_camera();
+	beep();
+	status.script_running = FALSE;
+}
 
-		if (settings.interval_eaeb)
-			sub_extended_aeb();
-		else
-			eventproc_Release();
+void script_wave() {
+	beep();
+	status.script_running = TRUE;
 
-		if (++i < settings.interval_shots || settings.interval_shots == 0)
-			script_delay(settings.interval_time);
-		else
-			break;
+	while (!FLAG_FACE_SENSOR)
+		SleepTask(SCRIPT_DELAY_TIME);
+
+	if (settings.wave_delay)
+		SleepTask(2000);
+
+	while (FLAG_FACE_SENSOR)
+		SleepTask(SCRIPT_DELAY_TIME);
+
+	switch (settings.wave_action) {
+	case WAVE_ACTION_SHOT:
+		eventproc_Release();
+		break;
+	case WAVE_ACTION_EAEB:
+		sub_extended_aeb();
+		break;
+	case WAVE_ACTION_INTERVAL:
+		sub_interval();
+		break;
+	default:
+		break;
 	}
+
+	wait_for_camera();
 
 	beep();
 	status.script_running = FALSE;
@@ -96,6 +116,27 @@ void sub_extended_aeb() {
 		}
 
 		SendToIntercom(0x0A, 1, av_comp);
+	}
+}
+
+void sub_interval() {
+	int i = 0;
+
+	for (;;) {
+		if (FLAG_FACE_SENSOR)
+			break;
+
+		wait_for_camera();
+
+		if (settings.interval_eaeb)
+			sub_extended_aeb();
+		else
+			eventproc_Release();
+
+		if (++i < settings.interval_shots || settings.interval_shots == 0)
+			script_delay(settings.interval_time);
+		else
+			break;
 	}
 }
 

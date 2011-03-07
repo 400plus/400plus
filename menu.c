@@ -8,17 +8,20 @@
 type_SETTINGS menu_settings;
 
 type_MENUITEM          current_item          = MENUITEM_FIRST;
+type_MENUITEM_WAVE     current_item_wave     = MENUITEM_WAVE_FIRST;
 type_MENUITEM_EAEB     current_item_eaeb     = MENUITEM_EAEB_FIRST;
 type_MENUITEM_INTERVAL current_item_interval = MENUITEM_INTERVAL_FIRST;
 
+int wave_submenu     = FALSE;
 int eaeb_submenu     = FALSE;
 int interval_submenu = FALSE;
 
 char menu_buffer[17];
 
-const char *wb_string[] = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
-const char *tv_string[] = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
-const char *dp_string[] = {"Disabled", "Change ISO", "Extended AEB", "Interval"};
+const char *wb_string[]   = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
+const char *tv_string[]   = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
+const char *dp_string[]   = {"Disabled", "Change ISO", "Extended AEB", "Interval", "Wave"};
+const char *wave_string[] = {"One shot", "Extended AEB", "Interval"};
 
 void menu_repeat(void (*repeateable)());
 
@@ -104,7 +107,12 @@ void menu_repeateable_swap() {
 }
 
 void menu_repeateable_up() {
-	if (eaeb_submenu) {
+	if (wave_submenu) {
+		if (current_item_wave == MENUITEM_WAVE_LAST)
+			current_item_wave = MENUITEM_WAVE_FIRST;
+		else
+			current_item_wave++;
+	} else 	if (eaeb_submenu) {
 		if (current_item_eaeb == MENUITEM_EAEB_LAST)
 			current_item_eaeb = MENUITEM_EAEB_FIRST;
 		else
@@ -125,7 +133,12 @@ void menu_repeateable_up() {
 }
 
 void menu_repeateable_down() {
-	if (eaeb_submenu) {
+	if (wave_submenu) {
+		if (current_item_wave == MENUITEM_WAVE_FIRST)
+			current_item_wave = MENUITEM_WAVE_LAST;
+		else
+			current_item_wave--;
+	} else 	if (eaeb_submenu) {
 		if (current_item_eaeb == MENUITEM_EAEB_FIRST)
 			current_item_eaeb = MENUITEM_EAEB_LAST;
 		else
@@ -180,6 +193,25 @@ void menu_repeateable_right() {
 			menu_settings.dp_action = DP_ACTION_FIRST;
 		else
 			menu_settings.dp_action++;
+		break;
+	case MENUITEM_WAVE:
+		if (wave_submenu) {
+			switch (current_item_wave) {
+			case MENUITEM_WAVE_DELAY:
+				menu_settings.wave_delay = TRUE;
+				break;
+			case MENUITEM_WAVE_ACTION:
+				if (menu_settings.wave_action == WAVE_ACTION_LAST)
+					menu_settings.wave_action = WAVE_ACTION_FIRST;
+				else
+					menu_settings.wave_action++;
+				break;
+			default:
+				break;
+			}
+		} else {
+			wave_submenu = TRUE;
+		}
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_submenu) {
@@ -278,6 +310,25 @@ void menu_repeateable_left() {
 		else
 			menu_settings.dp_action--;
 		break;
+	case MENUITEM_WAVE:
+		if (wave_submenu) {
+			switch (current_item_wave) {
+			case MENUITEM_WAVE_DELAY:
+				menu_settings.wave_delay = FALSE;
+				break;
+			case MENUITEM_WAVE_ACTION:
+				if (menu_settings.wave_action == WAVE_ACTION_FIRST)
+					menu_settings.wave_action = WAVE_ACTION_LAST;
+				else
+					menu_settings.wave_action--;
+				break;
+			default:
+				break;
+			}
+		} else {
+			wave_submenu = TRUE;
+		}
+		break;
 	case MENUITEM_EAEB:
 		if (eaeb_submenu) {
 			switch (current_item_eaeb) {
@@ -338,16 +389,15 @@ void menu_repeateable_left() {
 }
 
 void menu_set() {
-	switch (current_item) {
-	case MENUITEM_EAEB:
-	default:
-		menu_save();
-		break;
-	}
+	menu_save();
 }
 
 void menu_esc() {
 	switch (current_item) {
+	case MENUITEM_WAVE:
+		wave_submenu = FALSE;
+		menu_display();
+		break;
 	case MENUITEM_EAEB:
 		eaeb_submenu = FALSE;
 		menu_display();
@@ -414,6 +464,22 @@ char *menu_message() {
 		break;
 	case MENUITEM_DP_BUTTON:
 		sprintf(menu_buffer, "DP Button:    %s", dp_string[menu_settings.dp_action]);
+		break;
+	case MENUITEM_WAVE:
+		if (wave_submenu) {
+			switch (current_item_wave) {
+			case MENUITEM_WAVE_DELAY:
+				sprintf(menu_buffer, "Wave: %s delay", menu_settings.wave_delay ? "2s" : "no");
+				break;
+			case MENUITEM_WAVE_ACTION:
+				sprintf(menu_buffer, "Wave: %s", wave_string[menu_settings.wave_action]);
+				break;
+			default:
+				break;
+			}
+		} else {
+			sprintf(menu_buffer, "Wave...");
+		}
 		break;
 	case MENUITEM_EAEB:
 		if (eaeb_submenu) {
