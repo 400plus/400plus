@@ -124,13 +124,13 @@ void start_debug_mode() {
 void restore_iso() {
 	int iso;
 
-	if (cameraMode.ISO > 0x68) {
+	if (cameraMode.ISO >= 0x68) {
 		iso = 0x68;
-	} else if (cameraMode.ISO > 0x60) {
+	} else if (cameraMode.ISO >= 0x60) {
 		iso = 0x60;
-	} else if (cameraMode.ISO > 0x58) {
+	} else if (cameraMode.ISO >= 0x58) {
 		iso = 0x58;
-	} else if (cameraMode.ISO > 0x50) {
+	} else if (cameraMode.ISO >= 0x50) {
 		iso = 0x50;
 	} else {
 		iso = 0x48;
