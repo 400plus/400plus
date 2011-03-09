@@ -377,6 +377,8 @@ void menu_save() {
 
 	settings_apply();
 	settings_write();
+
+	beep();
 }
 
 void menu_display() {

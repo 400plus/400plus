@@ -138,4 +138,8 @@ int iso_dec(int iso) {
 void beep() {
 	if (cameraMode.Beep)
 		eventproc_RiseEvent("RequestBuzzer");
+
+	eventproc_EdLedOn();
+	SleepTask(BEEP_LED_LENGTH);
+	eventproc_EdLedOff();
 }

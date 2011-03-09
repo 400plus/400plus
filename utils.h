@@ -1,6 +1,8 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
+#define BEEP_LED_LENGTH 25
+
 extern int ev_sgn(int ev);
 extern int ev_inc(int ev);
 extern int ev_dec(int ev);
