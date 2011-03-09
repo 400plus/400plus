@@ -58,13 +58,15 @@ typedef enum {
 
 extern void menu_initialize();
 
-extern void menu_swap();
+extern void menu_toggle();
+extern void menu_cycle();
 extern void menu_up();
 extern void menu_down();
 extern void menu_right();
 extern void menu_left();
-extern void menu_set();
-extern void menu_esc();
+
+extern void menu_save();
+
 
 extern char *menu_message();
 

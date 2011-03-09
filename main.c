@@ -35,13 +35,13 @@ type_ACTION actions_menu[]  = {
 };
 
 type_ACTION actions_info[]  = {
-	{BUTTON_SET,   FALSE, TRUE,  {menu_set}},
-	{BUTTON_DRIVE, FALSE, TRUE,  {menu_esc}},
+	{BUTTON_SET,   FALSE, TRUE,  {menu_save}},
+	{BUTTON_DRIVE, FALSE, TRUE,  {menu_toggle}},
 	{BUTTON_UP,    TRUE,  TRUE,  {menu_up}},
 	{BUTTON_DOWN,  TRUE,  TRUE,  {menu_down}},
 	{BUTTON_RIGHT, TRUE,  TRUE,  {menu_right}},
 	{BUTTON_LEFT,  TRUE,  TRUE,  {menu_left}},
-	{BUTTON_AV,    TRUE,  TRUE,  {menu_swap}},
+	{BUTTON_AV,    TRUE,  TRUE,  {menu_cycle}},
 	END_OF_LIST
 };
 
