@@ -11,16 +11,17 @@
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
-#define EVENT_SETTINGS 0x93
-#define	EVENT_AFSELECT 0xB9
+#define EVENT_DIALOGON  0x50
+#define EVENT_DIALOGOFF 0x51
+
+#define EVENT_SETTINGS  0x93
+
+#define	EVENT_AFPDLGON  0xB9
+#define	EVENT_AFPDLGOFF 0xA7
 
 #define	BUTTON_MENU   0xA0
 #define	BUTTON_DISP   0xA1
-#define	BUTTON_PLAY   0xA4
-#define	BUTTON_TRASH  0xA5
 #define	BUTTON_SET    0xA6
-#define	BUTTON_ZI     0xA7
-#define	BUTTON_ZO     0xA8
 #define	BUTTON_UP     0xB1
 #define	BUTTON_DOWN   0xB2
 #define	BUTTON_RIGHT  0xB3
@@ -36,7 +37,7 @@ typedef struct {             // [*] Used and tested, others unknown
 	int DriveMode;           // 0x000c     [3]
 	int WB;                  // 0x0010 [*] [4]
 	int AF;                  // 0x0014
-	int AfPoint;             // 0x0018
+	int AfPoint;             // 0x0018 [*] [5]
 	int TvVal;               // 0x001c [*]
 	int AvVal;               // 0x0020
 	int AvComp;              // 0x0024 [*]
@@ -136,6 +137,17 @@ typedef struct {             // [*] Used and tested, others unknown
 #define WB_MODE_SHADE       0x07
 #define WB_MODE_COLORTEMP   0x08
 
+// [5] Values for AfPoint (can be ORed together to form patterns)
+#define AF_POINT_C  0x0001 // Center
+#define AF_POINT_T  0x0002 // Top
+#define AF_POINT_B  0x0004 // Bottom
+#define AF_POINT_TL 0x0008 // Top-left
+#define AF_POINT_TR 0x0010 // Top-right
+#define AF_POINT_BL 0x0020 // Bottom-left
+#define AF_POINT_BR 0x0040 // Bottom-right
+#define AF_POINT_L  0x0080 // Left
+#define AF_POINT_R  0x0100 // Right
+
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
 #define FLAG_CAMERA_BUSY    (*(int*)(0x00001CA8))
@@ -151,17 +163,18 @@ typedef struct {             // [*] Used and tested, others unknown
 #define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
 
 // Values for FLAG_GUI_MODE
-#define GUI_MODE_MAIN    0x00
-#define GUI_MODE_REVIEW  0x01
-#define GUI_MODE_MENU    0x02
-#define GUI_MODE_INFO    0x04
-#define GUI_MODE_ISO     0x09
-#define GUI_MODE_WB      0x0A
-#define GUI_MODE_AF      0x0B
-#define GUI_MODE_DRIVE   0x0F
-#define GUI_MODE_METER   0x0C
-#define GUI_MODE_OFF     0x11
-#define GUI_MODE_FLASHEV 0x1B
+#define GUI_MODE_MAIN      0x00
+#define GUI_MODE_REVIEW    0x01
+#define GUI_MODE_MENU      0x02
+#define GUI_MODE_INFO      0x04
+#define GUI_MODE_ISO       0x09
+#define GUI_MODE_WB        0x0A
+#define GUI_MODE_AFMODE    0x0B
+#define GUI_MODE_METER     0x0C
+#define GUI_MODE_DRIVE     0x0F
+#define GUI_MODE_AFPATTERN 0x10
+#define GUI_MODE_OFF       0x11
+#define GUI_MODE_FLASHEV   0x1B
 
 // Fictitious modes
 #define GUI_MODE_FACE    0xFF
@@ -171,6 +184,7 @@ typedef struct {             // [*] Used and tested, others unknown
 typedef struct {
 	int button_down;
 	int script_running;
+	int afp_dialog;
 } type_STATUS;
 
 // Action definitions
@@ -199,7 +213,7 @@ typedef struct {
 // Our own code
 extern void initialize();
 extern void initialize_display();
-extern void message_proxy(const int handler, const char* message);
+extern void message_proxy(const int handler, char *message);
 
 // Shared globals
 extern type_STATUS status;

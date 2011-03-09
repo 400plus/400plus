@@ -3,6 +3,7 @@
 #include "display.h"
 #include "scripts.h"
 #include "viewfinder.h"
+#include "af_patterns.h"
 #include "settings.h"
 #include "firmware.h"
 
@@ -13,8 +14,9 @@ int *message_queue;
 
 // Global status
 type_STATUS status = {
-	FALSE,
-	FALSE
+	button_down    : FALSE,
+	script_running : FALSE,
+	afp_dialog     : FALSE
 };
 
 // Action definitions
@@ -71,16 +73,26 @@ type_ACTION actions_factory[] = {
 	END_OF_LIST
 };
 
+type_ACTION actions_af[] = {
+	{BUTTON_SET,   FALSE,  TRUE,  {afp_center}},
+	{BUTTON_UP,    TRUE,   TRUE,  {afp_top}},
+	{BUTTON_DOWN,  TRUE,   TRUE,  {afp_bottom}},
+	{BUTTON_RIGHT, TRUE,   TRUE,  {afp_right}},
+	{BUTTON_LEFT,  TRUE,   TRUE,  {afp_left}},
+	END_OF_LIST
+};
+
 type_CHAIN chains[] = {
-	{GUI_MODE_OFF,     actions_main},
-	{GUI_MODE_MAIN,    actions_main},
-	{GUI_MODE_MENU,    actions_menu},
-	{GUI_MODE_INFO,    actions_info},
-	{GUI_MODE_METER,   actions_meter},
-	{GUI_MODE_WB,      actions_wb},
-	{GUI_MODE_ISO,     actions_iso},
-	{GUI_MODE_FACE,    actions_face},
-	{GUI_MODE_FACTORY, actions_factory},
+	{GUI_MODE_OFF,       actions_main},
+	{GUI_MODE_MAIN,      actions_main},
+	{GUI_MODE_MENU,      actions_menu},
+	{GUI_MODE_INFO,      actions_info},
+	{GUI_MODE_METER,     actions_meter},
+	{GUI_MODE_WB,        actions_wb},
+	{GUI_MODE_ISO,       actions_iso},
+	{GUI_MODE_FACE,      actions_face},
+	{GUI_MODE_FACTORY,   actions_factory},
+	{GUI_MODE_AFPATTERN, actions_af},
 	END_OF_LIST
 };
 
@@ -97,18 +109,29 @@ void initialize_display() {
 	ENQUEUE_TASK(restore_display);
 }
 
-void message_proxy(const int handler, const char *message) {
+void message_proxy(const int handler, char *message) {
 	int gui_mode;
 
 	type_TASK    task;
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
-	// Status-independent events
+	// Status-independent events and special cases
 	switch (message[1]) {
 	case EVENT_SETTINGS: // Mode dial moved, settings changed
 		// Restore display
 		ENQUEUE_TASK(restore_display);
+		goto pass_message;
+	case EVENT_DIALOGON: // Entering a dialog
+		status.afp_dialog = (message[2] == 0x06);
+		goto pass_message;
+	case EVENT_AFPDLGOFF: // Exiting AF-Point selection dialog
+		if (status.afp_dialog) {
+			// Open Extended AF-Point selection dialog
+			message[1] = EVENT_AFPDLGON;
+			status.afp_dialog = FALSE;
+			ENQUEUE_TASK(afp_enter);
+		}
 		goto pass_message;
 	}
 
@@ -181,4 +204,3 @@ void task_dispatcher () {
 		task();
 	}
 }
-
