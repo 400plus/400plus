@@ -19,14 +19,14 @@ const char *tv_string[]   = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8",
 const char *dp_string[]   = {"Disabled", "Change ISO", "Extended AEB", "Interval", "Wave"};
 const char *wave_string[] = {"One shot", "Extended AEB", "Interval"};
 
-void menu_repeat(void (*repeateable)());
+void menu_repeat(void (*repeateable)(int repeating));
 
-void menu_repeateable_toggle();
-void menu_repeateable_cycle();
-void menu_repeateable_up();
-void menu_repeateable_down();
-void menu_repeateable_right();
-void menu_repeateable_left();
+void menu_repeateable_toggle (int repeating);
+void menu_repeateable_cycle  (int repeating);
+void menu_repeateable_up     (int repeating);
+void menu_repeateable_down   (int repeating);
+void menu_repeateable_right  (int repeating);
+void menu_repeateable_left   (int repeating);
 
 void  menu_save();
 void  menu_display();
@@ -76,20 +76,20 @@ void menu_repeat(void(*repeateable)()){
 
 	SleepTask(50);
 
-	repeateable();
+	repeateable(FALSE);
 	delay = AUTOREPEAT_DELAY_LONG;
 
 	do {
 		SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 		if (--delay == 0) {
-			repeateable();
+			repeateable(TRUE);
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
 }
 
-void menu_repeateable_toggle() {
+void menu_repeateable_toggle(int repeating) {
 	switch(current_item) {
 	case MENUITEM_AV_COMP:
 		menu_settings.av_comp = ev_sgn(menu_settings.av_comp);
@@ -119,7 +119,7 @@ void menu_repeateable_toggle() {
 	menu_display();
 }
 
-void menu_repeateable_cycle() {
+void menu_repeateable_cycle(int repeating) {
 	switch(current_item) {
 	case MENUITEM_WHITE_BALANCE:
 		menu_settings.white_balance = (menu_settings.white_balance + 1) % 9;
@@ -149,7 +149,7 @@ void menu_repeateable_cycle() {
 	menu_display();
 }
 
-void menu_repeateable_up() {
+void menu_repeateable_up(int repeating) {
 	if (current_item == MENUITEM_LAST)
 		current_item = MENUITEM_FIRST;
 	else
@@ -158,7 +158,7 @@ void menu_repeateable_up() {
 	menu_display();
 }
 
-void menu_repeateable_down() {
+void menu_repeateable_down(int repeating) {
 	if (current_item == MENUITEM_FIRST)
 		current_item = MENUITEM_LAST;
 	else
@@ -167,7 +167,7 @@ void menu_repeateable_down() {
 	menu_display();
 }
 
-void menu_repeateable_right() {
+void menu_repeateable_right(int repeating) {
 	switch(current_item) {
 	case MENUITEM_AV_COMP:
 		menu_settings.av_comp = ev_inc(menu_settings.av_comp);
@@ -186,9 +186,8 @@ void menu_repeateable_right() {
 		break;
 	case MENUITEM_WHITE_BALANCE:
 		if (menu_settings.white_balance == WB_MODE_COLORTEMP) {
-			menu_settings.color_temp += 100;
-			if (menu_settings.color_temp > 11000)
-				menu_settings.color_temp = 11000;
+			menu_settings.color_temp += repeating ? 500 : 100;
+			menu_settings.color_temp  = MIN(menu_settings.color_temp, 11000);
 		}
 		break;
 	case MENUITEM_EMIT_FLASH:
@@ -248,12 +247,16 @@ void menu_repeateable_right() {
 			menu_settings.interval_delay = TRUE;
 			break;
 		case MENUITEM_INTERVAL_TIME:
-			menu_settings.interval_time = (menu_settings.interval_time < 100) ? (menu_settings.interval_time + 1) : 100;
+			menu_settings.interval_time += repeating ? 10 : 1;
+			menu_settings.interval_time  = MIN(menu_settings.interval_time, 250);
 			break;
 		case MENUITEM_INTERVAL_EAEB:
 			menu_settings.interval_eaeb = TRUE;
+			break;
 		case MENUITEM_INTERVAL_SHOTS:
-			menu_settings.interval_shots = (menu_settings.interval_shots < 100) ? (menu_settings.interval_shots + 1) : 100;
+			menu_settings.interval_shots += repeating ? 10 : 1;
+			menu_settings.interval_shots  = MIN(menu_settings.interval_shots, 250);
+			break;
 		default:
 			break;
 		}
@@ -268,7 +271,7 @@ void menu_repeateable_right() {
 	menu_display();
 }
 
-void menu_repeateable_left() {
+void menu_repeateable_left(int repeating) {
 	switch (current_item) {
 	case MENUITEM_AV_COMP:
 		menu_settings.av_comp = ev_dec(menu_settings.av_comp);
@@ -289,9 +292,8 @@ void menu_repeateable_left() {
 		break;
 	case MENUITEM_WHITE_BALANCE:
 		if (menu_settings.white_balance == WB_MODE_COLORTEMP) {
-			menu_settings.color_temp -= 100;
-			if (menu_settings.color_temp < 1800)
-				menu_settings.color_temp = 1800;
+			menu_settings.color_temp -= repeating ? 500 : 100;
+			menu_settings.color_temp  = MAX (menu_settings.color_temp, 1800);
 		}
 		break;
 	case MENUITEM_EMIT_FLASH:
@@ -352,12 +354,16 @@ void menu_repeateable_left() {
 			menu_settings.interval_delay = FALSE;
 			break;
 		case MENUITEM_INTERVAL_TIME:
-			menu_settings.interval_time = (menu_settings.interval_time > 1) ? (menu_settings.interval_time - 1) : 1;
+			menu_settings.interval_time -= repeating ? 10 : 1;
+			menu_settings.interval_time  = MAX(menu_settings.interval_time, 1);
 			break;
 		case MENUITEM_INTERVAL_EAEB:
 			menu_settings.interval_eaeb = FALSE;
+			break;
 		case MENUITEM_INTERVAL_SHOTS:
-			menu_settings.interval_shots = (menu_settings.interval_shots > 0) ? (menu_settings.interval_shots - 1) : 0;
+			menu_settings.interval_shots -= repeating ? 10 : 1;
+			menu_settings.interval_shots  = MAX(menu_settings.interval_shots, 1);
+			break;
 		default:
 			break;
 		}
