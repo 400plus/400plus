@@ -14,14 +14,15 @@ S_OBJS = entry.o      \
          entry_subs.o \
          gui.o
          
-C_OBJS = init.o       \
-         tasks.o      \
-         utils.o      \
-         menu.o       \
-         display.o    \
-         settings.o   \
-         scripts.o    \
-         viewfinder.o \
+C_OBJS = init.o        \
+         tasks.o       \
+         utils.o       \
+         menu.o        \
+         display.o     \
+         settings.o    \
+         scripts.o     \
+         viewfinder.o  \
+         af_patterns.o \
          main.o
 
 
