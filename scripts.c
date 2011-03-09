@@ -70,14 +70,25 @@ void script_wave() {
 	script_stop();
 }
 
+void script_self_timer() {
+	script_start();
+
+	script_delay(settings.self_timer);
+
+	if (!FLAG_FACE_SENSOR)
+		release_and_wait();
+
+	script_stop();
+}
+
 void script_start() {
 	beep();
 	status.script_running = TRUE;
 
-	if (feedback_task != NULL)
-		UnSuspendTask(feedback_task);
+	if (feedback_task == NULL)
+		feedback_task = (int *)CreateTask("Feedback", 0x1A, 0x2000, script_feedback, 0);
 	else
-		feedback_task = (int *)CreateTask("Feedback", 0x1A, 0x2000, script_feedback,0);
+		UnSuspendTask(feedback_task);
 }
 
 void script_stop() {

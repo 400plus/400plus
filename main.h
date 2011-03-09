@@ -108,7 +108,7 @@ typedef struct {             // [*] Used and tested, others unknown
 	int BusyFlag;            // 0x0128
 } type_CAMERA_MODE;
 
-#define cameraMode (*(type_CAMERA_MODE*)0x16B60)
+#define cameraMode (*(type_CAMERA_MODE*)0x00016B60)
 
 // [1] Values for AEMode
 #define AE_MODE_P    0

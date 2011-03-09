@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x0D
+#define SETTINGS_VERSION  0x0E
 
 typedef enum {
 	DP_ACTION_DISABLED,
@@ -10,6 +10,7 @@ typedef enum {
 	DP_ACTION_EXTENDED_AEB,
 	DP_ACTION_INTERVAL,
 	DP_ACTION_WAVE,
+	DP_ACTION_SELF_TIMER,
 	DP_ACTION_COUNT,
 	DP_ACTION_FIRST = 0,
 	DP_ACTION_LAST  = DP_ACTION_COUNT - 1
@@ -47,6 +48,7 @@ typedef struct {
 	int not_emit_flash;
 	int not_af_flash;
 	int remote_delay;
+	int self_timer;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;

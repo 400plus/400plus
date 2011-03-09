@@ -53,6 +53,10 @@ void dp_action() {
 			// Start interval script
 			script_wave();
 			break;
+		case DP_ACTION_SELF_TIMER:
+			// Start self-timer script
+			script_self_timer();
+			break;
 		}
 	}
 }
