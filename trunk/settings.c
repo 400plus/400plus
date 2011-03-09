@@ -17,7 +17,6 @@ type_SETTINGS settings = {
 	interval_shots   : 0,
 	wave_delay       : FALSE,
 	wave_action      : WAVE_ACTION_FIRST,
-	ir_inst          : FALSE,
 	white_balance    : WB_MODE_AUTO,
 	color_temp       : 5200,
 	av_comp          : 0,
@@ -25,7 +24,8 @@ type_SETTINGS settings = {
 	aeb_ev           : 0,
 	safety_shift     : FALSE,
 	not_emit_flash   : FALSE,
-	not_af_flash     : FALSE
+	not_af_flash     : FALSE,
+	remote_delay     : FALSE
 };
 
 void settings_read() {
