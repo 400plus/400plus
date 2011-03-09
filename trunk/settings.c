@@ -25,7 +25,8 @@ type_SETTINGS settings = {
 	safety_shift     : FALSE,
 	not_emit_flash   : FALSE,
 	not_af_flash     : FALSE,
-	remote_delay     : FALSE
+	remote_delay     : FALSE,
+	self_timer       : 5
 };
 
 void settings_read() {

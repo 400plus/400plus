@@ -15,8 +15,9 @@
 #define SCRIPT_DELAY_REPEAT   4
 #define SCRIPT_DELAY_TIME   250
 
-void script_extended_aeb();
-void script_interval();
-void script_wave();
+extern void script_extended_aeb();
+extern void script_interval();
+extern void script_wave();
+extern void script_self_timer();
 
 #endif /* SCRIPTS_H_ */

@@ -16,7 +16,7 @@ char menu_buffer[17];
 
 const char *wb_string[]   = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
 const char *tv_string[]   = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
-const char *dp_string[]   = {"Disabled", "Change ISO", "Extended AEB", "Interval", "Wave"};
+const char *dp_string[]   = {"Disabled", "Change ISO", "Extended AEB", "Interval", "Wave", "Self timer"};
 const char *wave_string[] = {"One shot", "Extended AEB", "Interval"};
 
 void menu_repeat(void (*repeateable)(int repeating));
@@ -264,6 +264,10 @@ void menu_repeateable_right(int repeating) {
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.remote_delay = TRUE;
 		break;
+	case MENUITEM_SELF_TIMER:
+		menu_settings.self_timer += repeating ? 10 : 1;
+		menu_settings.self_timer  = MIN(menu_settings.self_timer, 250);
+		break;
 	default:
 		break;
 	}
@@ -370,6 +374,10 @@ void menu_repeateable_left(int repeating) {
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.remote_delay = FALSE;
+		break;
+	case MENUITEM_SELF_TIMER:
+		menu_settings.self_timer -= repeating ? 10 : 1;
+		menu_settings.self_timer  = MAX(menu_settings.self_timer, 1);
 		break;
 	default:
 		break;
@@ -491,6 +499,9 @@ char *menu_message() {
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		sprintf(menu_buffer, "IR Remote Release: %s", menu_settings.remote_delay ? "instant" : "2sec.");
+		break;
+	case MENUITEM_SELF_TIMER:
+		sprintf(menu_buffer, "Self timer:     %us", menu_settings.self_timer);
 		break;
 	default:
 		break;
