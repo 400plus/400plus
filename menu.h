@@ -22,7 +22,7 @@ typedef enum {
 	MENUITEM_EAEB,
 	MENUITEM_INTERVAL,
 	MENUITEM_REMOTE_DELAY,
-	MENUITEM_SELF_TIMER,
+	MENUITEM_TIMER,
 	MENUITEM_COUNT,
 	MENUITEM_FIRST = 0,
 	MENUITEM_LAST  = MENUITEM_COUNT - 1
@@ -57,6 +57,14 @@ typedef enum {
 	MENUITEM_INTERVAL_LAST  = MENUITEM_INTERVAL_COUNT - 1
 } type_MENUITEM_INTERVAL;
 
+typedef enum {
+	MENUITEM_TIMER_DELAY,
+	MENUITEM_TIMER_ACTION,
+	MENUITEM_TIMER_COUNT,
+	MENUITEM_TIMER_FIRST = 0,
+	MENUITEM_TIMER_LAST  = MENUITEM_TIMER_COUNT - 1
+} type_MENUITEM_TIMER;
+
 extern void menu_initialize();
 
 extern void menu_toggle();
@@ -67,7 +75,6 @@ extern void menu_right();
 extern void menu_left();
 
 extern void menu_save();
-
 
 extern char *menu_message();
 

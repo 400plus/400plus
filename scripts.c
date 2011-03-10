@@ -12,6 +12,7 @@ void script_start();
 void script_stop();
 void script_feedback();
 
+void script_shot(type_SHOT_ACTION action);
 void sub_extended_aeb();
 void sub_interval();
 
@@ -54,19 +55,7 @@ void script_wave() {
 	while (FLAG_FACE_SENSOR)
 		SleepTask(WAIT_USER_ACTION);
 
-	switch (settings.wave_action) {
-	case WAVE_ACTION_SHOT:
-		eventproc_Release();
-		break;
-	case WAVE_ACTION_EAEB:
-		sub_extended_aeb();
-		break;
-	case WAVE_ACTION_INTERVAL:
-		sub_interval();
-		break;
-	default:
-		break;
-	}
+	script_shot(settings.wave_action);
 
 	script_stop();
 }
@@ -77,7 +66,7 @@ void script_self_timer() {
 	script_delay(settings.self_timer, TRUE);
 
 	if (!FLAG_FACE_SENSOR)
-		release_and_wait();
+		script_shot(settings.timer_action);
 
 	script_stop();
 }
@@ -108,6 +97,22 @@ void script_feedback() {
 		}
 
 		SuspendTask(feedback_task);
+	}
+}
+
+void script_shot(type_SHOT_ACTION action) {
+	switch (action) {
+	case SHOT_ACTION_SHOT:
+		eventproc_Release();
+		break;
+	case SHOT_ACTION_EAEB:
+		sub_extended_aeb();
+		break;
+	case SHOT_ACTION_INTERVAL:
+		sub_interval();
+		break;
+	default:
+		break;
 	}
 }
 

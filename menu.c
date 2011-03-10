@@ -11,13 +11,14 @@ type_MENUITEM          current_item          = MENUITEM_FIRST;
 type_MENUITEM_WAVE     current_item_wave     = MENUITEM_WAVE_FIRST;
 type_MENUITEM_EAEB     current_item_eaeb     = MENUITEM_EAEB_FIRST;
 type_MENUITEM_INTERVAL current_item_interval = MENUITEM_INTERVAL_FIRST;
+type_MENUITEM_TIMER    current_item_timer    = MENUITEM_TIMER_FIRST;
 
-char menu_buffer[27];
+char menu_buffer[64];
 
 const char *wb_string[]   = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
 const char *tv_string[]   = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
 const char *dp_string[]   = {"Disabled", "Change ISO", "Extended AEB", "Interval", "Wave", "Self timer"};
-const char *wave_string[] = {"One shot", "Extended AEB", "Interval"};
+const char *shot_string[] = {"One shot", "Extended AEB", "Interval"};
 
 void menu_repeat(void (*repeateable)(int repeating));
 
@@ -142,6 +143,12 @@ void menu_repeateable_cycle(int repeating) {
 		else
 			current_item_interval++;
 		break;
+	case MENUITEM_TIMER:
+		if (current_item_timer == MENUITEM_TIMER_LAST)
+			current_item_timer = MENUITEM_TIMER_FIRST;
+		else
+			current_item_timer++;
+		break;
 	default:
 		break;
 	}
@@ -208,8 +215,8 @@ void menu_repeateable_right(int repeating) {
 			menu_settings.wave_delay = TRUE;
 			break;
 		case MENUITEM_WAVE_ACTION:
-			if (menu_settings.wave_action == WAVE_ACTION_LAST)
-				menu_settings.wave_action = WAVE_ACTION_FIRST;
+			if (menu_settings.wave_action == SHOT_ACTION_LAST)
+				menu_settings.wave_action = SHOT_ACTION_FIRST;
 			else
 				menu_settings.wave_action++;
 			break;
@@ -264,9 +271,21 @@ void menu_repeateable_right(int repeating) {
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.remote_delay = TRUE;
 		break;
-	case MENUITEM_SELF_TIMER:
-		menu_settings.self_timer += repeating ? 10 : 1;
-		menu_settings.self_timer  = MIN(menu_settings.self_timer, 250);
+	case MENUITEM_TIMER:
+		switch (current_item_timer) {
+		case MENUITEM_TIMER_DELAY:
+			menu_settings.self_timer += repeating ? 10 : 1;
+			menu_settings.self_timer  = MIN(menu_settings.self_timer, 250);
+			break;
+		case MENUITEM_TIMER_ACTION:
+			if (menu_settings.timer_action == SHOT_ACTION_LAST)
+				menu_settings.timer_action = SHOT_ACTION_FIRST;
+			else
+				menu_settings.timer_action++;
+			break;
+		default:
+			break;
+		}
 		break;
 	default:
 		break;
@@ -318,8 +337,8 @@ void menu_repeateable_left(int repeating) {
 			menu_settings.wave_delay = FALSE;
 			break;
 		case MENUITEM_WAVE_ACTION:
-			if (menu_settings.wave_action == WAVE_ACTION_FIRST)
-				menu_settings.wave_action = WAVE_ACTION_LAST;
+			if (menu_settings.wave_action == SHOT_ACTION_FIRST)
+				menu_settings.wave_action = SHOT_ACTION_LAST;
 			else
 				menu_settings.wave_action--;
 			break;
@@ -375,9 +394,21 @@ void menu_repeateable_left(int repeating) {
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.remote_delay = FALSE;
 		break;
-	case MENUITEM_SELF_TIMER:
-		menu_settings.self_timer -= repeating ? 10 : 1;
-		menu_settings.self_timer  = MAX(menu_settings.self_timer, 1);
+	case MENUITEM_TIMER:
+		switch (current_item_timer) {
+		case MENUITEM_TIMER_DELAY:
+			menu_settings.self_timer -= repeating ? 10 : 1;
+			menu_settings.self_timer  = MAX(menu_settings.self_timer, 1);
+			break;
+		case MENUITEM_TIMER_ACTION:
+			if (menu_settings.timer_action == SHOT_ACTION_FIRST)
+				menu_settings.timer_action = SHOT_ACTION_LAST;
+			else
+				menu_settings.timer_action--;
+			break;
+		default:
+			break;
+		}
 		break;
 	default:
 		break;
@@ -448,7 +479,7 @@ char *menu_message() {
 			sprintf(menu_buffer, "Wave:: %s delay", menu_settings.wave_delay ? "2s" : "no");
 			break;
 		case MENUITEM_WAVE_ACTION:
-			sprintf(menu_buffer, "Wave:: %s", wave_string[menu_settings.wave_action]);
+			sprintf(menu_buffer, "Wave:: %s", shot_string[menu_settings.wave_action]);
 			break;
 		default:
 			break;
@@ -500,8 +531,19 @@ char *menu_message() {
 	case MENUITEM_REMOTE_DELAY:
 		sprintf(menu_buffer, "IR Remote Release: %s", menu_settings.remote_delay ? "instant" : "2sec.");
 		break;
-	case MENUITEM_SELF_TIMER:
-		sprintf(menu_buffer, "Self timer:     %us", menu_settings.self_timer);
+	case MENUITEM_TIMER:
+		switch (current_item_timer) {
+		case MENUITEM_TIMER_DELAY:
+			sprintf(menu_buffer, "Self timer:: %us delay", menu_settings.self_timer);
+			break;
+		case MENUITEM_TIMER_ACTION:
+			sprintf(menu_buffer, "Self timer:: %s", shot_string[menu_settings.timer_action]);
+			break;
+		default:
+			break;
+		}
+		break;
+
 		break;
 	default:
 		break;

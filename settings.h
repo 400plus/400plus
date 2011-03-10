@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x0E
+#define SETTINGS_VERSION  0x0F
 
 typedef enum {
 	DP_ACTION_DISABLED,
@@ -17,13 +17,13 @@ typedef enum {
 } type_DP_ACTION;
 
 typedef enum {
-	WAVE_ACTION_SHOT,
-	WAVE_ACTION_EAEB,
-	WAVE_ACTION_INTERVAL,
-	WAVE_ACTION_COUNT,
-	WAVE_ACTION_FIRST = 0,
-	WAVE_ACTION_LAST  = WAVE_ACTION_COUNT - 1
-} type_WAVE_ACTION;
+	SHOT_ACTION_SHOT,
+	SHOT_ACTION_EAEB,
+	SHOT_ACTION_INTERVAL,
+	SHOT_ACTION_COUNT,
+	SHOT_ACTION_FIRST = 0,
+	SHOT_ACTION_LAST  = SHOT_ACTION_COUNT - 1
+} type_SHOT_ACTION;
 
 typedef struct {
 	int iso_in_viewfinder;
@@ -49,6 +49,7 @@ typedef struct {
 	int not_af_flash;
 	int remote_delay;
 	int self_timer;
+	int timer_action;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;
