@@ -4,4 +4,6 @@
 extern void restore_display();
 extern void display_refresh();
 
+extern void display_countdown(int seconds);
+
 #endif /* DISPLAY_H_ */
