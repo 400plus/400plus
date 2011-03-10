@@ -89,3 +89,11 @@ void display_refresh_iso() {
 
 	sub_FF837FA8(*(int*)(0x47F0), 0x04, text);
 }
+
+void display_countdown(int seconds) {
+	char buffer[4];
+
+	sprintf(buffer, "%u", seconds);
+	sub_FF837FA8(*(int*)(0x47F0), 0x26, buffer);
+	do_some_with_dialog(*(int*)(0x47F0));
+}

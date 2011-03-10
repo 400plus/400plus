@@ -1,5 +1,6 @@
 #include "main.h"
 #include "utils.h"
+#include "display.h"
 #include "settings.h"
 #include "firmware.h"
 
@@ -16,13 +17,13 @@ void sub_interval();
 
 void release_and_wait();
 void wait_for_camera();
-void script_delay(int seconds);
+void script_delay(int seconds, int interruptible);
 
 void script_extended_aeb() {
 	script_start();
 
 	if (settings.eaeb_delay)
-		script_delay(2);
+		script_delay(2, TRUE);
 
 	if (! FLAG_FACE_SENSOR)
 		sub_extended_aeb();
@@ -34,7 +35,7 @@ void script_interval() {
 	script_start();
 
 	if (settings.interval_delay)
-		script_delay(2);
+		script_delay(2, TRUE);
 
 	sub_interval();
 
@@ -48,7 +49,7 @@ void script_wave() {
 		SleepTask(WAIT_USER_ACTION);
 
 	if (settings.wave_delay)
-		SleepTask(2000);
+		script_delay(2, FALSE);
 
 	while (FLAG_FACE_SENSOR)
 		SleepTask(WAIT_USER_ACTION);
@@ -73,7 +74,7 @@ void script_wave() {
 void script_self_timer() {
 	script_start();
 
-	script_delay(settings.self_timer);
+	script_delay(settings.self_timer, TRUE);
 
 	if (!FLAG_FACE_SENSOR)
 		release_and_wait();
@@ -170,7 +171,7 @@ void sub_interval() {
 			eventproc_Release();
 
 		if (++i < settings.interval_shots || settings.interval_shots == 0)
-			script_delay(settings.interval_time);
+			script_delay(settings.interval_time, TRUE);
 		else
 			break;
 	}
@@ -188,9 +189,18 @@ void wait_for_camera() {
 		SleepTask(WAIT_CAMERA_BUSY);
 }
 
-void script_delay(int seconds) {
-	int i = SCRIPT_DELAY_REPEAT * seconds;
+void script_delay(int seconds, int interruptible) {
+	int i;
 
-	while(--i && !FLAG_FACE_SENSOR)
-		SleepTask(SCRIPT_DELAY_TIME);
+	while (seconds--) {
+		display_countdown(1 + seconds);
+		for (i = 0; i < SCRIPT_DELAY_REPEAT; i++) {
+			SleepTask(SCRIPT_DELAY_TIME);
+			if (interruptible && FLAG_FACE_SENSOR)
+				return;
+		}
+
+	}
+
+	display_countdown(0);
 }
