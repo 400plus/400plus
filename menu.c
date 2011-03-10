@@ -12,7 +12,7 @@ type_MENUITEM_WAVE     current_item_wave     = MENUITEM_WAVE_FIRST;
 type_MENUITEM_EAEB     current_item_eaeb     = MENUITEM_EAEB_FIRST;
 type_MENUITEM_INTERVAL current_item_interval = MENUITEM_INTERVAL_FIRST;
 
-char menu_buffer[17];
+char menu_buffer[27];
 
 const char *wb_string[]   = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluorescent", "Flash", "Custom", "Shade", "Color temp."};
 const char *tv_string[]   = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
