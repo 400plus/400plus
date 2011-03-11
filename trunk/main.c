@@ -196,7 +196,7 @@ block_message:
 }
 
 void task_dispatcher () {
-	void (*task)();
+	type_TASK task;
 
 	// Loop while receiving messages
 	for (;;) {
