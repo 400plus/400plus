@@ -9,6 +9,7 @@ extern long eventproc_EdLedBlink(void);
 
 // String management
 
+extern int  strlen(const char *);
 extern void sprintf(const char*, char*, ...);
 
 // Queue management

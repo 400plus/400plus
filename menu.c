@@ -32,6 +32,10 @@ void  menu_save();
 void  menu_display();
 char *menu_message();
 
+void menu_print_ev   (char *buffer, char *menu, int   parm);
+void menu_print_int  (char *buffer, char *menu, int   parm);
+void menu_print_char (char *buffer, char *menu, char *parm);
+
 void menu_initialize() {
 	menu_settings = settings;
 
@@ -424,54 +428,52 @@ void menu_display() {
 }
 
 char *menu_message() {
-	char ev_display[] = "      ";
-
 	SleepTask(50);
 
 	switch (current_item) {
+	case MENUITEM_RELEASE_COUNT:
+		menu_print_int(menu_buffer, "Release count", FLAG_RELEASE_COUNT);
+		break;
 	case MENUITEM_AV_COMP:
-		ev_print(ev_display, menu_settings.av_comp);
-		sprintf(menu_buffer, "Av comp:         %s", ev_display);
+		menu_print_ev(menu_buffer, "Av comp", menu_settings.av_comp);
 		break;
 	case MENUITEM_FLASH_COMP:
-		ev_print(ev_display, menu_settings.flash_comp);
-		sprintf(menu_buffer, "Flash comp:      %s", ev_display);
+		menu_print_ev(menu_buffer, "Flash comp", menu_settings.flash_comp);
 		break;
 	case MENUITEM_AEB:
-		ev_print(ev_display, menu_settings.aeb_ev);
-		sprintf(menu_buffer, "AEB:             %s", menu_settings.aeb_ev ? ev_display : "off");
+		if (menu_settings.aeb_ev)
+			menu_print_ev(menu_buffer, "AEB", menu_settings.aeb_ev);
+		else
+			menu_print_char(menu_buffer, "AEB",  "off");
 		break;
 	case MENUITEM_SAFETY_SHIFT:
-		sprintf(menu_buffer, "Safety shift:  %s", menu_settings.safety_shift ? "on" : "off");
-		break;
-	case MENUITEM_RELEASE_COUNT:
-		sprintf(menu_buffer, "Release count: %u", FLAG_RELEASE_COUNT);
+		menu_print_char(menu_buffer, "Safety shift", menu_settings.safety_shift ? "on" : "off");
 		break;
 	case MENUITEM_ISO_VIEWFINDER:
-		sprintf(menu_buffer, "Show ISO in viewfinder: %s", menu_settings.iso_in_viewfinder ? "on" : "off");
+		menu_print_char(menu_buffer, "ISO in viewfinder", menu_settings.iso_in_viewfinder ? "on" : "off");
 		break;
 	case MENUITEM_WHITE_BALANCE:
 		if (menu_settings.white_balance == WB_MODE_COLORTEMP)
-			sprintf(menu_buffer, "WB:: color temp=%uK", menu_settings.color_temp);
+			menu_print_int(menu_buffer, "WB>Color temp. (K)", menu_settings.color_temp);
 		else
-			sprintf(menu_buffer, "WB:: %s", wb_string[menu_settings.white_balance]);
+			menu_print_char(menu_buffer, "WB", (char*)wb_string[menu_settings.white_balance]);
 		break;
 	case MENUITEM_EMIT_FLASH:
-		sprintf(menu_buffer, "Flash:            %s", menu_settings.not_emit_flash ? "off" : "on");
+		menu_print_char(menu_buffer, "Flash", menu_settings.not_emit_flash ? "off" : "on");
 		break;
 	case MENUITEM_AF_FLASH:
-		sprintf(menu_buffer, "AF Assist Beam:       %s", menu_settings.not_af_flash ? "off" : "on");
+		menu_print_char(menu_buffer, "AF assist beam", menu_settings.not_af_flash ? "off" : "on");
 		break;
 	case MENUITEM_DP_BUTTON:
-		sprintf(menu_buffer, "DP Button:    %s", dp_string[menu_settings.dp_action]);
+		menu_print_char(menu_buffer, "DP Button", (char*)dp_string[menu_settings.dp_action]);
 		break;
 	case MENUITEM_WAVE:
 		switch (current_item_wave) {
 		case MENUITEM_WAVE_DELAY:
-			sprintf(menu_buffer, "Wave:: %s delay", menu_settings.wave_delay ? "2s" : "no");
+			menu_print_char(menu_buffer, "Wave>Delay", menu_settings.wave_delay ? "2s" : "no");
 			break;
 		case MENUITEM_WAVE_ACTION:
-			sprintf(menu_buffer, "Wave:: %s", shot_string[menu_settings.wave_action]);
+			menu_print_char(menu_buffer, "Wave>Action", (char*)shot_string[menu_settings.wave_action]);
 			break;
 		default:
 			break;
@@ -480,20 +482,19 @@ char *menu_message() {
 	case MENUITEM_EAEB:
 		switch (current_item_eaeb) {
 		case MENUITEM_EAEB_FRAMES:
-			sprintf(menu_buffer, "Extended AEB:: %u frames", menu_settings.eaeb_frames);
+			menu_print_int(menu_buffer, "Extended AEB>Frames", menu_settings.eaeb_frames);
 			break;
 		case MENUITEM_EAEB_EV:
-			ev_print(ev_display, menu_settings.eaeb_ev);
-			sprintf(menu_buffer, "Extended AEB:: %s", ev_display);
+			menu_print_ev(menu_buffer, "Extended AEB>Step (EV)", menu_settings.eaeb_ev);
 			break;
 		case MENUITEM_EAEB_DELAY:
-			sprintf(menu_buffer, "Extended AEB:: %s delay", menu_settings.eaeb_delay ? "2s" : "no");
+			menu_print_char(menu_buffer, "Extended AEB>Delay", menu_settings.eaeb_delay ? "2s" : "no");
 			break;
 		case MENUITEM_EAEB_M_MIN:
-			sprintf(menu_buffer, "Extended AEB:: M1 %s", tv_string[(menu_settings.eaeb_m_min - (0x10)) >> 3]);
+			menu_print_char(menu_buffer, "Extended AEB>Manual from", (char*)tv_string[(menu_settings.eaeb_m_min - (0x10)) >> 3]);
 			break;
 		case MENUITEM_EAEB_M_MAX:
-			sprintf(menu_buffer, "Extended AEB:: M2 %s", tv_string[(menu_settings.eaeb_m_max - (0x10)) >> 3]);
+			menu_print_char(menu_buffer, "Extended AEB>Manual to", (char*)tv_string[(menu_settings.eaeb_m_max - (0x10)) >> 3]);
 			break;
 		default:
 			break;
@@ -502,19 +503,19 @@ char *menu_message() {
 	case MENUITEM_INTERVAL:
 		switch (current_item_interval) {
 		case MENUITEM_INTERVAL_DELAY:
-			sprintf(menu_buffer, "Interval:: %s delay", menu_settings.interval_delay ? "2s" : "no");
+			menu_print_char(menu_buffer, "Interval>Delay", menu_settings.interval_delay ? "2s" : "no");
 			break;
 		case MENUITEM_INTERVAL_TIME:
-			sprintf(menu_buffer, "Interval:: %us time", menu_settings.interval_time);
+			menu_print_int(menu_buffer, "Interval>Time (s)", menu_settings.interval_time);
 			break;
 		case MENUITEM_INTERVAL_EAEB:
-			sprintf(menu_buffer, "Interval:: EAEB %s", menu_settings.interval_eaeb ? "yes" : "no");
+			menu_print_char(menu_buffer, "Interval>EAEB", menu_settings.interval_eaeb ? "yes" : "no");
 			break;
 		case MENUITEM_INTERVAL_SHOTS:
 			if (menu_settings.interval_shots == 0)
-				sprintf(menu_buffer, "Interval:: unlimited");
+				menu_print_char(menu_buffer, "Interval>Shots", "unlimited");
 			else
-				sprintf(menu_buffer, "Interval:: %u shots", menu_settings.interval_shots);
+				menu_print_int(menu_buffer, "Interval>Shots", menu_settings.interval_shots);
 			break;
 		default:
 			break;
@@ -523,10 +524,10 @@ char *menu_message() {
 	case MENUITEM_TIMER:
 		switch (current_item_timer) {
 		case MENUITEM_TIMER_DELAY:
-			sprintf(menu_buffer, "Self timer:: %us delay", menu_settings.self_timer);
+			menu_print_int(menu_buffer, "Timer>Delay (s)", menu_settings.self_timer);
 			break;
 		case MENUITEM_TIMER_ACTION:
-			sprintf(menu_buffer, "Self timer:: %s", shot_string[menu_settings.timer_action]);
+			menu_print_char(menu_buffer, "Timer>Action", (char*)shot_string[menu_settings.timer_action]);
 			break;
 		default:
 			break;
@@ -535,11 +536,33 @@ char *menu_message() {
 
 		break;
 	case MENUITEM_REMOTE_DELAY:
-		sprintf(menu_buffer, "IR Remote Release: %s", menu_settings.remote_delay ? "instant" : "2sec.");
+		menu_print_char(menu_buffer, "IR Remote Release", menu_settings.remote_delay ? "instant" : "2sec.");
 		break;
 	default:
 		break;
 	}
 
 	return menu_buffer;
+}
+
+void menu_print_ev(char *buffer, char *menu, int parm) {
+	char tmp[32];
+
+	ev_print(tmp, parm);
+	menu_print_char(buffer, menu, tmp);
+
+}
+
+void menu_print_int(char *buffer, char *menu, int parm) {
+	char tmp[32];
+
+	sprintf(tmp, "%u", parm);
+	menu_print_char(buffer, menu, tmp);
+
+}
+
+void menu_print_char(char *buffer, char *menu, char *parm) {
+	int len = 26 - strlen(menu);
+
+	sprintf(buffer, "%s:%*s", menu, len, parm);
 }
