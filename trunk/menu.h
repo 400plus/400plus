@@ -21,8 +21,8 @@ typedef enum {
 	MENUITEM_WAVE,
 	MENUITEM_EAEB,
 	MENUITEM_INTERVAL,
-	MENUITEM_REMOTE_DELAY,
 	MENUITEM_TIMER,
+	MENUITEM_REMOTE_DELAY,
 	MENUITEM_COUNT,
 	MENUITEM_FIRST = 0,
 	MENUITEM_LAST  = MENUITEM_COUNT - 1
@@ -67,7 +67,6 @@ typedef enum {
 
 extern void menu_initialize();
 
-extern void menu_toggle();
 extern void menu_cycle();
 extern void menu_up();
 extern void menu_down();
