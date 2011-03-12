@@ -22,7 +22,6 @@ const char *shot_string[] = {"One shot", "Extended AEB", "Interval"};
 
 void menu_repeat(void (*repeateable)(int repeating));
 
-void menu_repeateable_toggle (int repeating);
 void menu_repeateable_cycle  (int repeating);
 void menu_repeateable_up     (int repeating);
 void menu_repeateable_down   (int repeating);
@@ -45,10 +44,6 @@ void menu_initialize() {
 
 	// We do NOT recover ColorTemp from cameraMode, because the camera fiddles with this value internally.
 	//menu_settings.color_temp     = cameraMode.ColorTemp;
-}
-
-void menu_toggle() {
-	menu_repeat(menu_repeateable_toggle);
 }
 
 void menu_cycle() {
@@ -90,7 +85,7 @@ void menu_repeat(void(*repeateable)()){
 	} while (status.button_down && status.button_down == button);
 }
 
-void menu_repeateable_toggle(int repeating) {
+void menu_repeateable_cycle(int repeating) {
 	switch(current_item) {
 	case MENUITEM_AV_COMP:
 		menu_settings.av_comp = ev_sgn(menu_settings.av_comp);
@@ -104,26 +99,20 @@ void menu_repeateable_toggle(int repeating) {
 	case MENUITEM_ISO_VIEWFINDER:
 		menu_settings.iso_in_viewfinder = ! menu_settings.iso_in_viewfinder;
 		break;
+	case MENUITEM_WHITE_BALANCE:
+		menu_settings.white_balance = (menu_settings.white_balance + 1) % 9;
+		break;
 	case MENUITEM_EMIT_FLASH:
 		menu_settings.not_emit_flash = ! menu_settings.not_emit_flash;
 		break;
 	case MENUITEM_AF_FLASH:
 		menu_settings.not_af_flash = ! menu_settings.not_af_flash;
 		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = ! menu_settings.remote_delay;
-		break;
-	default:
-		break;
-	}
-
-	menu_display();
-}
-
-void menu_repeateable_cycle(int repeating) {
-	switch(current_item) {
-	case MENUITEM_WHITE_BALANCE:
-		menu_settings.white_balance = (menu_settings.white_balance + 1) % 9;
+	case MENUITEM_DP_BUTTON:
+		if (menu_settings.dp_action == DP_ACTION_LAST)
+			menu_settings.dp_action = DP_ACTION_FIRST;
+		else
+			menu_settings.dp_action++;
 		break;
 	case MENUITEM_WAVE:
 		if (current_item_wave == MENUITEM_WAVE_LAST)
@@ -148,6 +137,9 @@ void menu_repeateable_cycle(int repeating) {
 			current_item_timer = MENUITEM_TIMER_FIRST;
 		else
 			current_item_timer++;
+		break;
+	case MENUITEM_REMOTE_DELAY:
+		menu_settings.remote_delay = ! menu_settings.remote_delay;
 		break;
 	default:
 		break;
@@ -268,9 +260,6 @@ void menu_repeateable_right(int repeating) {
 			break;
 		}
 		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = TRUE;
-		break;
 	case MENUITEM_TIMER:
 		switch (current_item_timer) {
 		case MENUITEM_TIMER_DELAY:
@@ -286,6 +275,9 @@ void menu_repeateable_right(int repeating) {
 		default:
 			break;
 		}
+		break;
+	case MENUITEM_REMOTE_DELAY:
+		menu_settings.remote_delay = TRUE;
 		break;
 	default:
 		break;
@@ -391,9 +383,6 @@ void menu_repeateable_left(int repeating) {
 			break;
 		}
 		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = FALSE;
-		break;
 	case MENUITEM_TIMER:
 		switch (current_item_timer) {
 		case MENUITEM_TIMER_DELAY:
@@ -409,6 +398,9 @@ void menu_repeateable_left(int repeating) {
 		default:
 			break;
 		}
+		break;
+	case MENUITEM_REMOTE_DELAY:
+		menu_settings.remote_delay = FALSE;
 		break;
 	default:
 		break;
@@ -528,9 +520,6 @@ char *menu_message() {
 			break;
 		}
 		break;
-	case MENUITEM_REMOTE_DELAY:
-		sprintf(menu_buffer, "IR Remote Release: %s", menu_settings.remote_delay ? "instant" : "2sec.");
-		break;
 	case MENUITEM_TIMER:
 		switch (current_item_timer) {
 		case MENUITEM_TIMER_DELAY:
@@ -544,6 +533,9 @@ char *menu_message() {
 		}
 		break;
 
+		break;
+	case MENUITEM_REMOTE_DELAY:
+		sprintf(menu_buffer, "IR Remote Release: %s", menu_settings.remote_delay ? "instant" : "2sec.");
 		break;
 	default:
 		break;

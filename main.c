@@ -36,7 +36,6 @@ type_ACTION actions_menu[]  = {
 
 type_ACTION actions_info[]  = {
 	{BUTTON_SET,   FALSE, TRUE,  {menu_save}},
-	{BUTTON_DRIVE, FALSE, TRUE,  {menu_toggle}},
 	{BUTTON_UP,    TRUE,  TRUE,  {menu_up}},
 	{BUTTON_DOWN,  TRUE,  TRUE,  {menu_down}},
 	{BUTTON_RIGHT, TRUE,  TRUE,  {menu_right}},
