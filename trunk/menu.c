@@ -48,10 +48,6 @@ void menu_initialize() {
 	//menu_settings.color_temp     = cameraMode.ColorTemp;
 }
 
-void menu_cycle() {
-	menu_repeat(menu_repeateable_cycle);
-}
-
 void menu_up() {
 	menu_repeat(menu_repeateable_up);
 }
@@ -66,6 +62,10 @@ void menu_right() {
 
 void menu_left() {
 	menu_repeat(menu_repeateable_left);
+}
+
+void menu_cycle() {
+	menu_repeat(menu_repeateable_cycle);
 }
 
 void menu_repeat(void(*repeateable)()){
@@ -85,66 +85,6 @@ void menu_repeat(void(*repeateable)()){
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
-}
-
-void menu_repeateable_cycle(int repeating) {
-	switch(current_item) {
-	case MENUITEM_AV_COMP:
-		menu_settings.av_comp = ev_sgn(menu_settings.av_comp);
-		break;
-	case MENUITEM_FLASH_COMP:
-		menu_settings.flash_comp = ev_sgn(menu_settings.flash_comp);
-		break;
-	case MENUITEM_SAFETY_SHIFT:
-		menu_settings.safety_shift = ! menu_settings.safety_shift;
-		break;
-	case MENUITEM_ISO_VIEWFINDER:
-		menu_settings.iso_in_viewfinder = ! menu_settings.iso_in_viewfinder;
-		break;
-	case MENUITEM_EMIT_FLASH:
-		menu_settings.not_emit_flash = ! menu_settings.not_emit_flash;
-		break;
-	case MENUITEM_AF_FLASH:
-		menu_settings.not_af_flash = ! menu_settings.not_af_flash;
-		break;
-	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_action == DP_ACTION_LAST)
-			menu_settings.dp_action = DP_ACTION_FIRST;
-		else
-			menu_settings.dp_action++;
-		break;
-	case MENUITEM_WAVE:
-		if (current_item_wave == MENUITEM_WAVE_LAST)
-			current_item_wave = MENUITEM_WAVE_FIRST;
-		else
-			current_item_wave++;
-		break;
-	case MENUITEM_EAEB:
-		if (current_item_eaeb == MENUITEM_EAEB_LAST)
-			current_item_eaeb = MENUITEM_EAEB_FIRST;
-		else
-			current_item_eaeb++;
-		break;
-	case MENUITEM_INTERVAL:
-		if (current_item_interval == MENUITEM_INTERVAL_LAST)
-			current_item_interval = MENUITEM_INTERVAL_FIRST;
-		else
-			current_item_interval++;
-		break;
-	case MENUITEM_TIMER:
-		if (current_item_timer == MENUITEM_TIMER_LAST)
-			current_item_timer = MENUITEM_TIMER_FIRST;
-		else
-			current_item_timer++;
-		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = ! menu_settings.remote_delay;
-		break;
-	default:
-		break;
-	}
-
-	menu_display();
 }
 
 void menu_repeateable_up(int repeating) {
@@ -396,6 +336,126 @@ void menu_repeateable_left(int repeating) {
 		break;
 	case MENUITEM_REMOTE_DELAY:
 		menu_settings.remote_delay = FALSE;
+		break;
+	default:
+		break;
+	}
+
+	menu_display();
+}
+
+void menu_repeateable_cycle(int repeating) {
+	switch(current_item) {
+	case MENUITEM_AV_COMP:
+		menu_settings.av_comp = ev_sgn(menu_settings.av_comp);
+		break;
+	case MENUITEM_FLASH_COMP:
+		menu_settings.flash_comp = ev_sgn(menu_settings.flash_comp);
+		break;
+	case MENUITEM_SAFETY_SHIFT:
+		menu_settings.safety_shift = ! menu_settings.safety_shift;
+		break;
+	case MENUITEM_ISO_VIEWFINDER:
+		menu_settings.iso_in_viewfinder = ! menu_settings.iso_in_viewfinder;
+		break;
+	case MENUITEM_EMIT_FLASH:
+		menu_settings.not_emit_flash = ! menu_settings.not_emit_flash;
+		break;
+	case MENUITEM_AF_FLASH:
+		menu_settings.not_af_flash = ! menu_settings.not_af_flash;
+		break;
+	case MENUITEM_DP_BUTTON:
+		if (menu_settings.dp_action == DP_ACTION_LAST)
+			menu_settings.dp_action = DP_ACTION_FIRST;
+		else
+			menu_settings.dp_action++;
+		break;
+	case MENUITEM_WAVE:
+		switch (current_item_wave) {
+		case MENUITEM_WAVE_DELAY:
+			menu_settings.wave_delay = ! menu_settings.wave_delay;
+			break;
+		case MENUITEM_WAVE_ACTION:
+			if (menu_settings.wave_action == SHOT_ACTION_LAST)
+				menu_settings.wave_action = SHOT_ACTION_FIRST;
+			else
+				menu_settings.wave_action++;
+			break;
+		default:
+			break;
+		}
+		break;
+		case MENUITEM_EAEB:
+			switch (current_item_eaeb) {
+			case MENUITEM_EAEB_DELAY:
+				menu_settings.eaeb_delay = ! menu_settings.eaeb_delay;
+				break;
+			default:
+				break;
+			}
+			break;
+		case MENUITEM_INTERVAL:
+			switch (current_item_interval) {
+			case MENUITEM_INTERVAL_DELAY:
+				menu_settings.interval_delay = ! menu_settings.interval_delay;
+				break;
+			case MENUITEM_INTERVAL_EAEB:
+				menu_settings.interval_eaeb = ! menu_settings.interval_eaeb;
+				break;
+			default:
+				break;
+			}
+			break;
+		case MENUITEM_TIMER:
+			switch (current_item_timer) {
+			case MENUITEM_TIMER_ACTION:
+				if (menu_settings.timer_action == SHOT_ACTION_LAST)
+					menu_settings.timer_action = SHOT_ACTION_FIRST;
+				else
+					menu_settings.timer_action++;
+				break;
+			default:
+				break;
+			}
+			break;
+	case MENUITEM_REMOTE_DELAY:
+		menu_settings.remote_delay = ! menu_settings.remote_delay;
+		break;
+	default:
+		break;
+	}
+
+	menu_display();
+}
+
+void menu_submenu() {
+	switch(current_item) {
+	case MENUITEM_WAVE:
+		if (current_item_wave == MENUITEM_WAVE_LAST)
+			current_item_wave = MENUITEM_WAVE_FIRST;
+		else
+			current_item_wave++;
+		break;
+	case MENUITEM_EAEB:
+		if (current_item_eaeb == MENUITEM_EAEB_LAST)
+			current_item_eaeb = MENUITEM_EAEB_FIRST;
+		else
+			current_item_eaeb++;
+		break;
+	case MENUITEM_INTERVAL:
+		if (current_item_interval == MENUITEM_INTERVAL_LAST)
+			current_item_interval = MENUITEM_INTERVAL_FIRST;
+		else
+			current_item_interval++;
+		break;
+	case MENUITEM_TIMER:
+		if (current_item_timer == MENUITEM_TIMER_LAST)
+			current_item_timer = MENUITEM_TIMER_FIRST;
+		else
+			current_item_timer++;
+		break;
+	case MENUITEM_REMOTE_DELAY:
+		menu_settings.remote_delay = ! menu_settings.remote_delay;
 		break;
 	default:
 		break;
