@@ -73,12 +73,8 @@ void set_metering_spot() {
 
 void set_whitebalance_colortemp() {
 	pressButton_(BUTTON_SET);
-
-	settings.white_balance = WB_MODE_COLORTEMP;
-
-	SendToIntercom(0x05, 1, settings.white_balance);
+	SendToIntercom(0x05, 1, WB_MODE_COLORTEMP);
 	SendToIntercom(0x10, 1, settings.color_temp);
-
 	eventproc_PrintICUInfo();
 
 	beep();

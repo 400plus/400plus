@@ -15,7 +15,6 @@ type_MENUITEM_TIMER    current_item_timer    = MENUITEM_TIMER_FIRST;
 
 char menu_buffer[64];
 
-const char *wb_string[]   = {"Auto", "Daylight", "Cloudy", "Tungsten", "Fluor.", "Flash", "Custom", "Shade", "Temp. K"};
 const char *tv_string[]   = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
 const char *dp_string[]   = {"Disabled", "Intm ISO", "Ext AEB", "Interval", "Wave", "Timer"};
 const char *shot_string[] = {"One shot", "Ext. AEB", "Interval"};
@@ -44,7 +43,6 @@ void menu_initialize() {
 	menu_settings.aeb_ev         = cameraMode.AEB;
 	menu_settings.not_emit_flash = cameraMode.CfNotEmitFlash;
 	menu_settings.not_af_flash   = cameraMode.CfAfAssistBeam;
-	menu_settings.white_balance  = cameraMode.WB;
 
 	// We do NOT recover ColorTemp from cameraMode, because the camera fiddles with this value internally.
 	//menu_settings.color_temp     = cameraMode.ColorTemp;
@@ -102,9 +100,6 @@ void menu_repeateable_cycle(int repeating) {
 		break;
 	case MENUITEM_ISO_VIEWFINDER:
 		menu_settings.iso_in_viewfinder = ! menu_settings.iso_in_viewfinder;
-		break;
-	case MENUITEM_WHITE_BALANCE:
-		menu_settings.white_balance = (menu_settings.white_balance + 1) % 9;
 		break;
 	case MENUITEM_EMIT_FLASH:
 		menu_settings.not_emit_flash = ! menu_settings.not_emit_flash;
@@ -188,10 +183,8 @@ void menu_repeateable_right(int repeating) {
 		menu_settings.iso_in_viewfinder = TRUE;
 		break;
 	case MENUITEM_WHITE_BALANCE:
-		if (menu_settings.white_balance == WB_MODE_COLORTEMP) {
-			menu_settings.color_temp += repeating ? 500 : 100;
-			menu_settings.color_temp  = MIN(menu_settings.color_temp, 11000);
-		}
+		menu_settings.color_temp += repeating ? 500 : 100;
+		menu_settings.color_temp  = MIN(menu_settings.color_temp, 11000);
 		break;
 	case MENUITEM_EMIT_FLASH:
 		menu_settings.not_emit_flash = FALSE;
@@ -310,10 +303,8 @@ void menu_repeateable_left(int repeating) {
 		menu_settings.iso_in_viewfinder = FALSE;
 		break;
 	case MENUITEM_WHITE_BALANCE:
-		if (menu_settings.white_balance == WB_MODE_COLORTEMP) {
-			menu_settings.color_temp -= repeating ? 500 : 100;
-			menu_settings.color_temp  = MAX (menu_settings.color_temp, 1800);
-		}
+		menu_settings.color_temp -= repeating ? 500 : 100;
+		menu_settings.color_temp  = MAX (menu_settings.color_temp, 1800);
 		break;
 	case MENUITEM_EMIT_FLASH:
 		menu_settings.not_emit_flash = TRUE;
@@ -453,10 +444,7 @@ char *menu_message() {
 		menu_print_char(menu_buffer, "ISO in viewfinder", menu_settings.iso_in_viewfinder ? "on" : "off");
 		break;
 	case MENUITEM_WHITE_BALANCE:
-		if (menu_settings.white_balance == WB_MODE_COLORTEMP)
-			menu_print_int(menu_buffer, "WB>Temp. K", menu_settings.color_temp, 5);
-		else
-			menu_print_char(menu_buffer, "WB", (char*)wb_string[menu_settings.white_balance]);
+		menu_print_int(menu_buffer, "Color Temp. (K)", menu_settings.color_temp, 5);
 		break;
 	case MENUITEM_EMIT_FLASH:
 		menu_print_char(menu_buffer, "Flash", menu_settings.not_emit_flash ? "off" : "on");
