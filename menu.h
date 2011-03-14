@@ -67,11 +67,13 @@ typedef enum {
 
 extern void menu_initialize();
 
-extern void menu_cycle();
 extern void menu_up();
 extern void menu_down();
 extern void menu_right();
 extern void menu_left();
+
+extern void menu_cycle();
+extern void menu_submenu();
 
 extern void menu_save();
 
