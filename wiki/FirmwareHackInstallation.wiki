@@ -2,8 +2,8 @@
 
 = Introduction =
 
-Installation procedure
-
+This document describes the Installation procedure.<br>
+If you need information on using the hack, please read the [http://code.google.com/p/400plus/wiki/UserGuide User Guide].
 
 = Details =
 
@@ -35,8 +35,8 @@ echo BOOTDISK | dd of="$dev" bs=1 seek=92 count=8
 
 <font color="blue">
 _*if the blue print led of the camera briefly lights up when the camera is turned on, the hack is successfully loaded.*_
-</font>
-
+</font><br><br>
+*next you can read [http://code.google.com/p/400plus/wiki/UserGuide how to use the hack].*
 
 = Sources =
   * [http://chdk.setepontos.com/index.php/topic,3290.msg38630.html#msg38630 raingrove]
