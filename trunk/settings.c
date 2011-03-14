@@ -17,7 +17,6 @@ type_SETTINGS settings = {
 	interval_shots   : 0,
 	wave_delay       : FALSE,
 	wave_action      : SHOT_ACTION_FIRST,
-	white_balance    : WB_MODE_AUTO,
 	color_temp       : 5200,
 	av_comp          : 0,
 	flash_comp       : 0,
@@ -63,7 +62,6 @@ extern void settings_apply() {
 	SendToIntercom(0x39, 1, settings.safety_shift);
 	SendToIntercom(0x30, 1, settings.not_emit_flash);
 	SendToIntercom(0x2E, 1, settings.not_af_flash);
-	SendToIntercom(0x05, 1, settings.white_balance);
 	SendToIntercom(0x10, 1, settings.color_temp);
 
 	if(settings.remote_delay){
