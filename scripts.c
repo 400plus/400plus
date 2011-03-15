@@ -124,8 +124,8 @@ void sub_extended_aeb() {
 		int tv_start = MIN(settings.eaeb_m_min, settings.eaeb_m_max);
 		int tv_end   = MAX(settings.eaeb_m_min, settings.eaeb_m_max);
 
-		for (tv = tv_start; tv <= tv_end; tv += 8) {
-			SendToIntercom(0x08, 1, tv);
+		for (tv = tv_start; tv <= tv_end; tv ++) {
+			SendToIntercom(0x08, 1, (tv << 3) + 0x10);
 			release_and_wait();
 
 			if (FLAG_FACE_SENSOR)
