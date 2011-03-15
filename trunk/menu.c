@@ -7,17 +7,61 @@
 
 type_SETTINGS menu_settings;
 
-type_MENUITEM          current_item          = MENUITEM_FIRST;
-type_MENUITEM_WAVE     current_item_wave     = MENUITEM_WAVE_FIRST;
-type_MENUITEM_EAEB     current_item_eaeb     = MENUITEM_EAEB_FIRST;
-type_MENUITEM_INTERVAL current_item_interval = MENUITEM_INTERVAL_FIRST;
-type_MENUITEM_TIMER    current_item_timer    = MENUITEM_TIMER_FIRST;
+char *bool_strings[]   = {"no", "yes"};
+char *delay_strings[]  = {"no", "2s"};
+char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
+char *script_strings[] = {"Disabled", "Intm ISO", "Ext AEB", "Interval", "Wave", "Timer"};
+char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
 
-char menu_buffer[64];
+type_MENUITEM wave_items[] = {
+	MENUITEM_DELAY  ("Delay",  &menu_settings.wave_delay),
+	MENUITEM_ACTION ("Action", &menu_settings.wave_action)
+};
 
-const char *tv_string[]   = {"30", "15", "8", "4", "2", "1", "0.5", "1/4","1/8","1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
-const char *dp_string[]   = {"Disabled", "Intm ISO", "Ext AEB", "Interval", "Wave", "Timer"};
-const char *shot_string[] = {"One shot", "Ext. AEB", "Interval"};
+type_MENUITEM timer_items[] = {
+	MENUITEM_TIMEOUT("Delay",  &menu_settings.self_timer),
+	MENUITEM_ACTION ("Action", &menu_settings.timer_action)
+};
+
+type_MENUITEM eaeb_items[] = {
+	MENUITEM_DELAY  ("Delay",     &menu_settings.eaeb_delay),
+	MENUITEM_BRACKET("Frames",    &menu_settings.eaeb_frames),
+	MENUITEM_EVSEP  ("Step (EV)", &menu_settings.eaeb_ev),
+	MENUITEM_SSPEED ("Manual [",  &menu_settings.eaeb_m_min),
+	MENUITEM_SSPEED ("Manual ]",  &menu_settings.eaeb_m_max)
+};
+
+type_MENUITEM interval_items[] = {
+	MENUITEM_DELAY  ("Delay",    &menu_settings.interval_delay),
+	MENUITEM_TIMEOUT("Time (s)", &menu_settings.interval_time),
+	MENUITEM_BOOLEAN("EAEB",     &menu_settings.interval_eaeb),
+	MENUITEM_COUNTER("Shots",    &menu_settings.interval_shots)
+};
+
+type_MENUITEM main_items[] = {
+	MENUITEM_RELEASE  ("Release count",     &FLAG_RELEASE_COUNT),
+	MENUITEM_EVCOMP   ("AV comp",           &menu_settings.av_comp),
+	MENUITEM_EVCOMP   ("Flash comp",        &menu_settings.flash_comp),
+	MENUITEM_EVSEP    ("AEB",               &menu_settings.aeb_ev),
+	MENUITEM_BOOLEAN  ("ISO in viewfinder", &menu_settings.iso_in_viewfinder),
+	MENUITEM_BOOLEAN  ("Safety Shift",      &menu_settings.safety_shift),
+	MENUITEM_COLORTEMP("Color Temp. (K)",   &menu_settings.color_temp),
+	MENUITEM_BOOLEAN  ("Use flash",         &menu_settings.not_emit_flash),
+	MENUITEM_BOOLEAN  ("AF flash",          &menu_settings.not_af_flash),
+	MENUITEM_SCRIPT   ("DP action",         &menu_settings.dp_action),
+	MENUITEM_SUB      ("Wave",               wave_items),
+	MENUITEM_SUB      ("EAEB",               eaeb_items),
+	MENUITEM_SUB      ("Interval",           interval_items),
+	MENUITEM_SUB      ("Timer",              timer_items),
+	MENUITEM_DELAY    ("IR remote delay",   &menu_settings.remote_delay)
+};
+
+type_MENUITEM_MENU main_menu = {
+	length : LENGTH(main_items),
+	items  : main_items,
+};
+
+char menu_buffer[32];
 
 void menu_repeat(void (*repeateable)(int repeating));
 
@@ -31,9 +75,9 @@ void  menu_save();
 void  menu_display();
 char *menu_message();
 
-void menu_print_ev   (char *buffer, char *menu, int   parm);
-void menu_print_int  (char *buffer, char *menu, int   parm, int len);
-void menu_print_char (char *buffer, char *menu, char *parm);
+void menu_print_ev   (char *buffer, char *name, int   parameter);
+void menu_print_int  (char *buffer, char *name, int   parameter, char *format);
+void menu_print_char (char *buffer, char *name, char *parameter);
 
 void menu_initialize() {
 	menu_settings = settings;
@@ -43,9 +87,6 @@ void menu_initialize() {
 	menu_settings.aeb_ev         = cameraMode.AEB;
 	menu_settings.not_emit_flash = cameraMode.CfNotEmitFlash;
 	menu_settings.not_af_flash   = cameraMode.CfAfAssistBeam;
-
-	// We do NOT recover ColorTemp from cameraMode, because the camera fiddles with this value internally.
-	//menu_settings.color_temp     = cameraMode.ColorTemp;
 }
 
 void menu_up() {
@@ -88,133 +129,45 @@ void menu_repeat(void(*repeateable)()){
 }
 
 void menu_repeateable_up(int repeating) {
-	if (current_item == MENUITEM_LAST)
-		current_item = MENUITEM_FIRST;
+	if (main_menu.current_item == main_menu.length - 1)
+		main_menu.current_item = 0;
 	else
-		current_item++;
+		main_menu.current_item++;
 
 	menu_display();
 }
 
 void menu_repeateable_down(int repeating) {
-	if (current_item == MENUITEM_FIRST)
-		current_item = MENUITEM_LAST;
+	if (main_menu.current_item == 0)
+		main_menu.current_item = main_menu.length - 1;
 	else
-		current_item--;
+		main_menu.current_item--;
 
 	menu_display();
 }
 
 void menu_repeateable_right(int repeating) {
-	switch(current_item) {
-	case MENUITEM_AV_COMP:
-		menu_settings.av_comp = ev_inc(menu_settings.av_comp);
+	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+
+	if (item->type == MENUITEM_TYPE_MENU)
+		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+
+	switch(item->type) {
+	case MENUITEM_TYPE_EV:
+		*item->def.def_ev.value = ev_inc(*item->def.def_ev.value);
 		break;
-	case MENUITEM_FLASH_COMP:
-		menu_settings.flash_comp = ev_inc(menu_settings.flash_comp);
-		break;
-	case MENUITEM_AEB:
-		menu_settings.aeb_ev = ev_inc(menu_settings.aeb_ev);
-		break;
-	case MENUITEM_SAFETY_SHIFT:
-		menu_settings.safety_shift = TRUE;
-		break;
-	case MENUITEM_ISO_VIEWFINDER:
-		menu_settings.iso_in_viewfinder = TRUE;
-		break;
-	case MENUITEM_WHITE_BALANCE:
-		menu_settings.color_temp += repeating ? 500 : 100;
-		menu_settings.color_temp  = MIN(menu_settings.color_temp, 11000);
-		break;
-	case MENUITEM_EMIT_FLASH:
-		menu_settings.not_emit_flash = FALSE;
-		break;
-	case MENUITEM_AF_FLASH:
-		menu_settings.not_af_flash = FALSE;
-		break;
-	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_action == DP_ACTION_LAST)
-			menu_settings.dp_action = DP_ACTION_FIRST;
-		else
-			menu_settings.dp_action++;
-		break;
-	case MENUITEM_WAVE:
-		switch (current_item_wave) {
-		case MENUITEM_WAVE_DELAY:
-			menu_settings.wave_delay = TRUE;
-			break;
-		case MENUITEM_WAVE_ACTION:
-			if (menu_settings.wave_action == SHOT_ACTION_LAST)
-				menu_settings.wave_action = SHOT_ACTION_FIRST;
-			else
-				menu_settings.wave_action++;
-			break;
-		default:
-			break;
+	case MENUITEM_TYPE_INT:
+		if (!item->def.def_int.readonly) {
+			*item->def.def_int.value += repeating ? item->def.def_int.big_step : item->def.def_int.small_step;
+			*item->def.def_int.value  = MIN(*item->def.def_int.value, item->def.def_int.max);
 		}
 		break;
-	case MENUITEM_EAEB:
-		switch (current_item_eaeb) {
-		case MENUITEM_EAEB_FRAMES:
-			if (menu_settings.eaeb_frames < 9)
-				menu_settings.eaeb_frames += 2;
-			break;
-		case MENUITEM_EAEB_EV:
-			menu_settings.eaeb_ev = ev_inc(menu_settings.eaeb_ev);
-			break;
-		case MENUITEM_EAEB_DELAY:
-			menu_settings.eaeb_delay = TRUE;
-			break;
-		case MENUITEM_EAEB_M_MIN:
-			if (menu_settings.eaeb_m_min <= 0x90) //98 is maximum
-				menu_settings.eaeb_m_min += 8;
-			break;
-		case MENUITEM_EAEB_M_MAX:
-			if (menu_settings.eaeb_m_max <= 0x90) //98 is maximum
-				menu_settings.eaeb_m_max += 8;
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_INTERVAL:
-		switch (current_item_interval) {
-		case MENUITEM_INTERVAL_DELAY:
-			menu_settings.interval_delay = TRUE;
-			break;
-		case MENUITEM_INTERVAL_TIME:
-			menu_settings.interval_time += repeating ? 10 : 1;
-			menu_settings.interval_time  = MIN(menu_settings.interval_time, 250);
-			break;
-		case MENUITEM_INTERVAL_EAEB:
-			menu_settings.interval_eaeb = TRUE;
-			break;
-		case MENUITEM_INTERVAL_SHOTS:
-			menu_settings.interval_shots += repeating ? 10 : 1;
-			menu_settings.interval_shots  = MIN(menu_settings.interval_shots, 250);
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_TIMER:
-		switch (current_item_timer) {
-		case MENUITEM_TIMER_DELAY:
-			menu_settings.self_timer += repeating ? 10 : 1;
-			menu_settings.self_timer  = MIN(menu_settings.self_timer, 250);
-			break;
-		case MENUITEM_TIMER_ACTION:
-			if (menu_settings.timer_action == SHOT_ACTION_LAST)
-				menu_settings.timer_action = SHOT_ACTION_FIRST;
-			else
-				menu_settings.timer_action++;
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = TRUE;
+	case MENUITEM_TYPE_ENUM:
+		if (*item->def.def_enum.value == item->def.def_enum.count - 1) {
+			if (item->def.def_enum.cycle)
+				*item->def.def_enum.value = 0;
+		} else
+			(*item->def.def_enum.value)++;
 		break;
 	default:
 		break;
@@ -224,118 +177,30 @@ void menu_repeateable_right(int repeating) {
 }
 
 void menu_repeateable_left(int repeating) {
-	switch (current_item) {
-	case MENUITEM_AV_COMP:
-		menu_settings.av_comp = ev_dec(menu_settings.av_comp);
-		break;
-	case MENUITEM_FLASH_COMP:
-		menu_settings.flash_comp = ev_dec(menu_settings.flash_comp);
-		break;
-	case MENUITEM_AEB:
-		if (menu_settings.aeb_ev > 0x04)
-			menu_settings.aeb_ev = ev_dec(menu_settings.aeb_ev);
+	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+
+	if (item->type == MENUITEM_TYPE_MENU)
+		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+
+	switch(item->type) {
+	case MENUITEM_TYPE_EV:
+		if (item->def.def_ev.zero_means_off && *item->def.def_ev.value < 0x05)
+				*item->def.def_ev.value = 0x00;
 		else
-			menu_settings.aeb_ev = 0x00;
+			*item->def.def_ev.value = ev_dec(*item->def.def_ev.value);
 		break;
-	case MENUITEM_SAFETY_SHIFT:
-		menu_settings.safety_shift = FALSE;
-	case MENUITEM_ISO_VIEWFINDER:
-		menu_settings.iso_in_viewfinder = FALSE;
-		break;
-	case MENUITEM_WHITE_BALANCE:
-		menu_settings.color_temp -= repeating ? 500 : 100;
-		menu_settings.color_temp  = MAX (menu_settings.color_temp, 1800);
-		break;
-	case MENUITEM_EMIT_FLASH:
-		menu_settings.not_emit_flash = TRUE;
-		break;
-	case MENUITEM_AF_FLASH:
-		menu_settings.not_af_flash = TRUE;
-		break;
-	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_action == DP_ACTION_FIRST)
-			menu_settings.dp_action = DP_ACTION_LAST;
-		else
-			menu_settings.dp_action--;
-		break;
-	case MENUITEM_WAVE:
-		switch (current_item_wave) {
-		case MENUITEM_WAVE_DELAY:
-			menu_settings.wave_delay = FALSE;
-			break;
-		case MENUITEM_WAVE_ACTION:
-			if (menu_settings.wave_action == SHOT_ACTION_FIRST)
-				menu_settings.wave_action = SHOT_ACTION_LAST;
-			else
-				menu_settings.wave_action--;
-			break;
-		default:
-			break;
+	case MENUITEM_TYPE_INT:
+		if (!item->def.def_int.readonly) {
+			*item->def.def_int.value -= repeating ? item->def.def_int.big_step : item->def.def_int.small_step;
+			*item->def.def_int.value  = MAX(*item->def.def_int.value, item->def.def_int.min);
 		}
 		break;
-	case MENUITEM_EAEB:
-		switch (current_item_eaeb) {
-		case MENUITEM_EAEB_FRAMES:
-			if (menu_settings.eaeb_frames > 3)
-				menu_settings.eaeb_frames -= 2;
-			break;
-		case MENUITEM_EAEB_EV:
-			if (menu_settings.eaeb_ev > 0x04)
-				menu_settings.eaeb_ev = ev_dec(menu_settings.eaeb_ev);
-			break;
-		case MENUITEM_EAEB_DELAY:
-			menu_settings.eaeb_delay = FALSE;
-			break;
-		case MENUITEM_EAEB_M_MIN:
-			if(menu_settings.eaeb_m_min >= 0x18) //10 is minimum
-				menu_settings.eaeb_m_min -= 8;
-			break;
-		case MENUITEM_EAEB_M_MAX:
-			if(menu_settings.eaeb_m_max >= 0x18) //10 is minimum
-				menu_settings.eaeb_m_max -= 8;
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_INTERVAL:
-		switch (current_item_interval) {
-		case MENUITEM_INTERVAL_DELAY:
-			menu_settings.interval_delay = FALSE;
-			break;
-		case MENUITEM_INTERVAL_TIME:
-			menu_settings.interval_time -= repeating ? 10 : 1;
-			menu_settings.interval_time  = MAX(menu_settings.interval_time, 1);
-			break;
-		case MENUITEM_INTERVAL_EAEB:
-			menu_settings.interval_eaeb = FALSE;
-			break;
-		case MENUITEM_INTERVAL_SHOTS:
-			menu_settings.interval_shots -= repeating ? 10 : 1;
-			menu_settings.interval_shots  = MAX(menu_settings.interval_shots, 1);
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_TIMER:
-		switch (current_item_timer) {
-		case MENUITEM_TIMER_DELAY:
-			menu_settings.self_timer -= repeating ? 10 : 1;
-			menu_settings.self_timer  = MAX(menu_settings.self_timer, 1);
-			break;
-		case MENUITEM_TIMER_ACTION:
-			if (menu_settings.timer_action == SHOT_ACTION_FIRST)
-				menu_settings.timer_action = SHOT_ACTION_LAST;
-			else
-				menu_settings.timer_action--;
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = FALSE;
+	case MENUITEM_TYPE_ENUM:
+		if (*item->def.def_enum.value == 0) {
+			if (item->def.def_enum.cycle)
+				*item->def.def_enum.value = item->def.def_enum.count - 1;
+		} else
+			*item->def.def_enum.value -= 1;
 		break;
 	default:
 		break;
@@ -345,81 +210,25 @@ void menu_repeateable_left(int repeating) {
 }
 
 void menu_repeateable_cycle(int repeating) {
-	switch(current_item) {
-	case MENUITEM_AV_COMP:
-		menu_settings.av_comp = ev_sgn(menu_settings.av_comp);
+	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+
+	if (item->type == MENUITEM_TYPE_MENU)
+		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+
+	switch(item->type) {
+	case MENUITEM_TYPE_EV:
+		if (!item->def.def_ev.zero_means_off)
+			*item->def.def_ev.value = ev_sgn(*item->def.def_ev.value);
 		break;
-	case MENUITEM_FLASH_COMP:
-		menu_settings.flash_comp = ev_sgn(menu_settings.flash_comp);
+	case MENUITEM_TYPE_INT:
+		*item->def.def_int.value += repeating ? item->def.def_int.big_step : item->def.def_int.small_step;
+		*item->def.def_int.value  = MIN(*item->def.def_int.value, item->def.def_int.max);
 		break;
-	case MENUITEM_SAFETY_SHIFT:
-		menu_settings.safety_shift = ! menu_settings.safety_shift;
-		break;
-	case MENUITEM_ISO_VIEWFINDER:
-		menu_settings.iso_in_viewfinder = ! menu_settings.iso_in_viewfinder;
-		break;
-	case MENUITEM_EMIT_FLASH:
-		menu_settings.not_emit_flash = ! menu_settings.not_emit_flash;
-		break;
-	case MENUITEM_AF_FLASH:
-		menu_settings.not_af_flash = ! menu_settings.not_af_flash;
-		break;
-	case MENUITEM_DP_BUTTON:
-		if (menu_settings.dp_action == DP_ACTION_LAST)
-			menu_settings.dp_action = DP_ACTION_FIRST;
+	case MENUITEM_TYPE_ENUM:
+		if (*item->def.def_enum.value == item->def.def_enum.count - 1)
+			*item->def.def_enum.value = 0;
 		else
-			menu_settings.dp_action++;
-		break;
-	case MENUITEM_WAVE:
-		switch (current_item_wave) {
-		case MENUITEM_WAVE_DELAY:
-			menu_settings.wave_delay = ! menu_settings.wave_delay;
-			break;
-		case MENUITEM_WAVE_ACTION:
-			if (menu_settings.wave_action == SHOT_ACTION_LAST)
-				menu_settings.wave_action = SHOT_ACTION_FIRST;
-			else
-				menu_settings.wave_action++;
-			break;
-		default:
-			break;
-		}
-		break;
-		case MENUITEM_EAEB:
-			switch (current_item_eaeb) {
-			case MENUITEM_EAEB_DELAY:
-				menu_settings.eaeb_delay = ! menu_settings.eaeb_delay;
-				break;
-			default:
-				break;
-			}
-			break;
-		case MENUITEM_INTERVAL:
-			switch (current_item_interval) {
-			case MENUITEM_INTERVAL_DELAY:
-				menu_settings.interval_delay = ! menu_settings.interval_delay;
-				break;
-			case MENUITEM_INTERVAL_EAEB:
-				menu_settings.interval_eaeb = ! menu_settings.interval_eaeb;
-				break;
-			default:
-				break;
-			}
-			break;
-		case MENUITEM_TIMER:
-			switch (current_item_timer) {
-			case MENUITEM_TIMER_ACTION:
-				if (menu_settings.timer_action == SHOT_ACTION_LAST)
-					menu_settings.timer_action = SHOT_ACTION_FIRST;
-				else
-					menu_settings.timer_action++;
-				break;
-			default:
-				break;
-			}
-			break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = ! menu_settings.remote_delay;
+			*item->def.def_enum.value += 1;
 		break;
 	default:
 		break;
@@ -429,36 +238,13 @@ void menu_repeateable_cycle(int repeating) {
 }
 
 void menu_submenu() {
-	switch(current_item) {
-	case MENUITEM_WAVE:
-		if (current_item_wave == MENUITEM_WAVE_LAST)
-			current_item_wave = MENUITEM_WAVE_FIRST;
+	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+
+	if (item->type == MENUITEM_TYPE_MENU) {
+		if (item->def.def_menu.current_item == item->def.def_menu.length - 1)
+			item->def.def_menu.current_item = 0;
 		else
-			current_item_wave++;
-		break;
-	case MENUITEM_EAEB:
-		if (current_item_eaeb == MENUITEM_EAEB_LAST)
-			current_item_eaeb = MENUITEM_EAEB_FIRST;
-		else
-			current_item_eaeb++;
-		break;
-	case MENUITEM_INTERVAL:
-		if (current_item_interval == MENUITEM_INTERVAL_LAST)
-			current_item_interval = MENUITEM_INTERVAL_FIRST;
-		else
-			current_item_interval++;
-		break;
-	case MENUITEM_TIMER:
-		if (current_item_timer == MENUITEM_TIMER_LAST)
-			current_item_timer = MENUITEM_TIMER_FIRST;
-		else
-			current_item_timer++;
-		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_settings.remote_delay = ! menu_settings.remote_delay;
-		break;
-	default:
-		break;
+			item->def.def_menu.current_item++;
 	}
 
 	menu_display();
@@ -479,112 +265,34 @@ void menu_display() {
 }
 
 char *menu_message() {
+	char name[32];
+
 	SleepTask(50);
 
-	switch (current_item) {
-	case MENUITEM_RELEASE_COUNT:
-		menu_print_int(menu_buffer, "Release count", FLAG_RELEASE_COUNT, 8);
-		break;
-	case MENUITEM_AV_COMP:
-		menu_print_ev(menu_buffer, "Av comp", menu_settings.av_comp);
-		break;
-	case MENUITEM_FLASH_COMP:
-		menu_print_ev(menu_buffer, "Flash comp", menu_settings.flash_comp);
-		break;
-	case MENUITEM_AEB:
-		if (menu_settings.aeb_ev)
-			menu_print_ev(menu_buffer, "AEB", menu_settings.aeb_ev);
-		else
-			menu_print_char(menu_buffer, "AEB",  "off");
-		break;
-	case MENUITEM_SAFETY_SHIFT:
-		menu_print_char(menu_buffer, "Safety shift", menu_settings.safety_shift ? "on" : "off");
-		break;
-	case MENUITEM_ISO_VIEWFINDER:
-		menu_print_char(menu_buffer, "ISO in viewfinder", menu_settings.iso_in_viewfinder ? "on" : "off");
-		break;
-	case MENUITEM_WHITE_BALANCE:
-		menu_print_int(menu_buffer, "Color Temp. (K)", menu_settings.color_temp, 5);
-		break;
-	case MENUITEM_EMIT_FLASH:
-		menu_print_char(menu_buffer, "Flash", menu_settings.not_emit_flash ? "off" : "on");
-		break;
-	case MENUITEM_AF_FLASH:
-		menu_print_char(menu_buffer, "AF assist beam", menu_settings.not_af_flash ? "off" : "on");
-		break;
-	case MENUITEM_DP_BUTTON:
-		menu_print_char(menu_buffer, "DP Button", (char*)dp_string[menu_settings.dp_action]);
-		break;
-	case MENUITEM_WAVE:
-		switch (current_item_wave) {
-		case MENUITEM_WAVE_DELAY:
-			menu_print_char(menu_buffer, "Wave>Delay", menu_settings.wave_delay ? "2s" : "no");
-			break;
-		case MENUITEM_WAVE_ACTION:
-			menu_print_char(menu_buffer, "Wave>Action", (char*)shot_string[menu_settings.wave_action]);
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_EAEB:
-		switch (current_item_eaeb) {
-		case MENUITEM_EAEB_FRAMES:
-			menu_print_int(menu_buffer, "Ext. AEB>Frames", menu_settings.eaeb_frames, 3);
-			break;
-		case MENUITEM_EAEB_EV:
-			menu_print_ev(menu_buffer, "Ext. AEB>Step (EV)", menu_settings.eaeb_ev);
-			break;
-		case MENUITEM_EAEB_DELAY:
-			menu_print_char(menu_buffer, "Ext. AEB>Delay", menu_settings.eaeb_delay ? "2s" : "no");
-			break;
-		case MENUITEM_EAEB_M_MIN:
-			menu_print_char(menu_buffer, "Ext. AEB>Manual [", (char*)tv_string[(menu_settings.eaeb_m_min - (0x10)) >> 3]);
-			break;
-		case MENUITEM_EAEB_M_MAX:
-			menu_print_char(menu_buffer, "Ext. AEB>Manual ]", (char*)tv_string[(menu_settings.eaeb_m_max - (0x10)) >> 3]);
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_INTERVAL:
-		switch (current_item_interval) {
-		case MENUITEM_INTERVAL_DELAY:
-			menu_print_char(menu_buffer, "Interval>Delay", menu_settings.interval_delay ? "2s" : "no");
-			break;
-		case MENUITEM_INTERVAL_TIME:
-			menu_print_int(menu_buffer, "Interval>Time (s)", menu_settings.interval_time, 3);
-			break;
-		case MENUITEM_INTERVAL_EAEB:
-			menu_print_char(menu_buffer, "Interval>EAEB", menu_settings.interval_eaeb ? "yes" : "no");
-			break;
-		case MENUITEM_INTERVAL_SHOTS:
-			if (menu_settings.interval_shots == 0)
-				menu_print_char(menu_buffer, "Interval>Shots", "no limit");
-			else
-				menu_print_int(menu_buffer, "Interval>Shots", menu_settings.interval_shots, 3);
-			break;
-		default:
-			break;
-		}
-		break;
-	case MENUITEM_TIMER:
-		switch (current_item_timer) {
-		case MENUITEM_TIMER_DELAY:
-			menu_print_int(menu_buffer, "Timer>Delay (s)", menu_settings.self_timer, 3);
-			break;
-		case MENUITEM_TIMER_ACTION:
-			menu_print_char(menu_buffer, "Timer>Action", (char*)shot_string[menu_settings.timer_action]);
-			break;
-		default:
-			break;
-		}
-		break;
+	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
 
+	sprintf(name, "%s", item->name);
+
+	if (item->type == MENUITEM_TYPE_MENU) {
+		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+		sprintf(name + strlen(name), ">%s", item->name);
+	}
+
+	switch(item->type) {
+	case MENUITEM_TYPE_EV:
+		if (item->def.def_ev.zero_means_off && *item->def.def_ev.value == 0)
+			menu_print_char(menu_buffer, name, "off");
+		else
+			menu_print_ev(menu_buffer, name, *item->def.def_ev.value);
 		break;
-	case MENUITEM_REMOTE_DELAY:
-		menu_print_char(menu_buffer, "IR remote delay", menu_settings.remote_delay ? "no" : "2s");
+	case MENUITEM_TYPE_INT:
+		if (item->def.def_int.zero_means_unlimited && *item->def.def_int.value == 0)
+			menu_print_char(menu_buffer, name, "no limit");
+		else
+			menu_print_int(menu_buffer, name, *item->def.def_int.value, item->def.def_int.format);
+		break;
+	case MENUITEM_TYPE_ENUM:
+		menu_print_char(menu_buffer, name, item->def.def_enum.texts[*item->def.def_enum.value]);
 		break;
 	default:
 		break;
@@ -593,22 +301,20 @@ char *menu_message() {
 	return menu_buffer;
 }
 
-void menu_print_ev(char *buffer, char *menu, int parm) {
+void menu_print_ev(char *buffer, char *name, int parameter) {
 	char tmp[32];
 
-	ev_print(tmp, parm);
-	menu_print_char(buffer, menu, tmp);
-
+	ev_print(tmp, parameter);
+	menu_print_char(buffer, name, tmp);
 }
 
-void menu_print_int(char *buffer, char *menu, int parm, int len) {
+void menu_print_int(char *buffer, char *name, int parameter, char *format) {
 	char tmp[32];
 
-	sprintf(tmp, "%*u", len, parm);
-	menu_print_char(buffer, menu, tmp);
-
+	sprintf(tmp, format, parameter);
+	menu_print_char(buffer, name, tmp);
 }
 
-void menu_print_char(char *buffer, char *menu, char *parm) {
-	sprintf(buffer, "%-18s:%s", menu, parm);
+void menu_print_char(char *buffer, char *name, char *parameter) {
+	sprintf(buffer, "%-18s:%s", name, parameter);
 }
