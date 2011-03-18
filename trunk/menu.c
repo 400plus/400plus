@@ -39,7 +39,6 @@ type_MENUITEM interval_items[] = {
 };
 
 type_MENUITEM main_items[] = {
-	MENUITEM_RELEASE  ("Release count",     &FLAG_RELEASE_COUNT),
 	MENUITEM_EVCOMP   ("AV comp",           &menu_settings.av_comp),
 	MENUITEM_EVCOMP   ("Flash comp",        &menu_settings.flash_comp),
 	MENUITEM_EVSEP    ("AEB",               &menu_settings.aeb_ev),
@@ -61,25 +60,28 @@ type_MENUITEM_MENU main_menu = {
 	items  : main_items,
 };
 
+int  menu_dialog  = 0;
+int  current_line = 0;
 char menu_buffer[32];
 
 void menu_repeat(void (*repeateable)(int repeating));
 
 void menu_repeateable_cycle  (int repeating);
-void menu_repeateable_up     (int repeating);
-void menu_repeateable_down   (int repeating);
 void menu_repeateable_right  (int repeating);
 void menu_repeateable_left   (int repeating);
 
 void  menu_save();
+void  menu_create();
 void  menu_display();
-char *menu_message();
+char *menu_message(int item_id);
 
 void menu_print_ev   (char *buffer, char *name, int   parameter);
 void menu_print_int  (char *buffer, char *name, int   parameter, char *format);
 void menu_print_char (char *buffer, char *name, char *parameter);
 
 void menu_initialize() {
+	beep();
+
 	menu_settings = settings;
 
 	menu_settings.av_comp        = cameraMode.AvComp;
@@ -87,14 +89,29 @@ void menu_initialize() {
 	menu_settings.aeb_ev         = cameraMode.AEB;
 	menu_settings.not_emit_flash = cameraMode.CfNotEmitFlash;
 	menu_settings.not_af_flash   = cameraMode.CfAfAssistBeam;
+
+	menu_create();
+	menu_display();
 }
 
 void menu_up() {
-	menu_repeat(menu_repeateable_up);
+	if (main_menu.current_item != 0)
+		main_menu.current_item--;
+
+	if (current_line != 0)
+		current_line--;
+
+	menu_display();
 }
 
 void menu_down() {
-	menu_repeat(menu_repeateable_down);
+	if (main_menu.current_item != main_menu.length - 1)
+		main_menu.current_item++;
+
+	if (current_line != 4)
+		current_line++;
+
+	menu_display();
 }
 
 void menu_right() {
@@ -126,24 +143,6 @@ void menu_repeat(void(*repeateable)()){
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
-}
-
-void menu_repeateable_up(int repeating) {
-	if (main_menu.current_item == main_menu.length - 1)
-		main_menu.current_item = 0;
-	else
-		main_menu.current_item++;
-
-	menu_display();
-}
-
-void menu_repeateable_down(int repeating) {
-	if (main_menu.current_item == 0)
-		main_menu.current_item = main_menu.length - 1;
-	else
-		main_menu.current_item--;
-
-	menu_display();
 }
 
 void menu_repeateable_right(int repeating) {
@@ -259,17 +258,28 @@ void menu_save() {
 	beep();
 }
 
-void menu_display() {
-	sub_FF837FA8(hInfoCreative, 0x11, menu_message());
-	do_some_with_dialog(hInfoCreative);
+void menu_create() {
+	FLAG_GUI_MODE = GUI_MODE_400PLUS;
+
+	menu_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 22);
+	sub_FF837FA8(menu_dialog, 8, "400plus");
 }
 
-char *menu_message() {
+void menu_display() {
+	int i;
+
+	int offset = main_menu.current_item > current_line ? main_menu.current_item - current_line : 0;
+
+	for(i = 0; i < 5; i++)
+		sub_FF837FA8(menu_dialog, i + 1, menu_message(offset + i));
+
+	do_some_with_dialog(menu_dialog);
+}
+
+char *menu_message(int item_id) {
 	char name[32];
 
-	SleepTask(50);
-
-	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+	type_MENUITEM *item = &main_menu.items[item_id];
 
 	sprintf(name, "%s", item->name);
 

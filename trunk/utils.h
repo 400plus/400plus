@@ -17,4 +17,6 @@ extern int iso_dec(int iso);
 
 extern void beep();
 
+extern char *release_count();
+
 #endif /* UTILS_H_ */

@@ -4,6 +4,8 @@
 
 #include "utils.h"
 
+char message[32];
+
 int ev_normalize(int ev);
 
 int ev_sgn(int ev) {
@@ -142,4 +144,12 @@ void beep() {
 	eventproc_EdLedOn();
 	SleepTask(BEEP_LED_LENGTH);
 	eventproc_EdLedOff();
+}
+
+char *release_count() {
+	SleepTask(50);
+
+	sprintf(message, "Release count : %u", FLAG_RELEASE_COUNT);
+
+	return message;
 }
