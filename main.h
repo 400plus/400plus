@@ -179,6 +179,7 @@ typedef struct {             // [*] Used and tested, others unknown
 // Fictitious modes
 #define GUI_MODE_FACE    0xFF
 #define GUI_MODE_FACTORY 0xFE
+#define GUI_MODE_400PLUS 0xFD
 
 // Global status
 typedef struct {
@@ -190,10 +191,16 @@ typedef struct {
 // Action definitions
 typedef void(*type_TASK)();
 
+typedef enum {
+	RESP_BLOCK,
+	RESP_PASS,
+	RESP_RELEASE
+} type_RESP;
+
 typedef struct {
-	int       event;
-	int       check;
-	int       block;
+	int       button;
+	int       holds;
+	type_RESP resp;
 	type_TASK task[2];
 	int       _eol_;
 } type_ACTION;

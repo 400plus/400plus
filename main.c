@@ -21,64 +21,66 @@ type_STATUS status = {
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{BUTTON_UP,    TRUE,  FALSE, {restore_iso}},
-	{BUTTON_DOWN,  TRUE,  FALSE, {restore_wb}},
-	{BUTTON_LEFT,  TRUE,  FALSE, {restore_metering}},
-	{BUTTON_DP,    FALSE, TRUE,  {dp_action}},
+	{BUTTON_UP,    TRUE,  RESP_PASS,  {restore_iso}},
+	{BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
+	{BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {dp_action}},
 	END_OF_LIST
 };
 
 type_ACTION actions_menu[]  = {
-	{BUTTON_DISP,  FALSE, FALSE, {menu_initialize}},
-	{BUTTON_DP,    FALSE, TRUE,  {show_factory_menu}},
+	{BUTTON_DP  ,  FALSE, RESP_BLOCK, {menu_initialize}},
+
 	END_OF_LIST
 };
 
-type_ACTION actions_info[]  = {
-	{BUTTON_SET,   FALSE, TRUE,  {menu_save}},
-	{BUTTON_DRIVE, FALSE, TRUE,  {menu_submenu}},
-	{BUTTON_UP,    TRUE,  TRUE,  {menu_up}},
-	{BUTTON_DOWN,  TRUE,  TRUE,  {menu_down}},
-	{BUTTON_RIGHT, TRUE,  TRUE,  {menu_right}},
-	{BUTTON_LEFT,  TRUE,  TRUE,  {menu_left}},
-	{BUTTON_AV,    TRUE,  TRUE,  {menu_cycle}},
+type_ACTION actions_400plus[]  = {
+	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_save}},
+	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu}},
+//	{BUTTON_DRIVE, FALSE, RESP_BLOCK,   {menu_submenu}},
+	{BUTTON_UP,    TRUE,  RESP_RELEASE, {menu_up}},
+	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {menu_down}},
+	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {menu_right}},
+	{BUTTON_LEFT,  TRUE,  RESP_BLOCK,   {menu_left}},
+	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {menu_cycle}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK,   {show_factory_menu}},
 	END_OF_LIST
 };
 
 type_ACTION actions_meter[] = {
-	{BUTTON_DP,    FALSE, TRUE,  {set_metering_spot}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
 	END_OF_LIST
 };
 
 type_ACTION actions_wb[] = {
-	{BUTTON_DP,    FALSE, TRUE,  {set_whitebalance_colortemp}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_whitebalance_colortemp}},
 	END_OF_LIST
 };
 
 type_ACTION actions_iso[] = {
-	{BUTTON_DP,    FALSE, TRUE,  {set_iso_high}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_iso_high}},
 	END_OF_LIST
 };
 
 type_ACTION actions_face[] = {
-	{BUTTON_UP,    TRUE,  TRUE,  {}},
-	{BUTTON_DOWN,  TRUE,  TRUE,  {}},
-	{BUTTON_RIGHT, TRUE,  TRUE,  {viewfinder_right, viewfinder_end}},
-	{BUTTON_LEFT,  TRUE,  TRUE,  {viewfinder_left,  viewfinder_end}},
+	{BUTTON_UP,    TRUE,  RESP_BLOCK, {}},
+	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {}},
+	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {viewfinder_right, viewfinder_end}},
+	{BUTTON_LEFT,  TRUE,  RESP_BLOCK, {viewfinder_left,  viewfinder_end}},
 	END_OF_LIST
 };
 
 type_ACTION actions_factory[] = {
-	{BUTTON_DP,    FALSE, TRUE,  {start_debug_mode}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {start_debug_mode}},
 	END_OF_LIST
 };
 
 type_ACTION actions_af[] = {
-	{BUTTON_SET,   FALSE,  TRUE,  {afp_center}},
-	{BUTTON_UP,    TRUE,   TRUE,  {afp_top}},
-	{BUTTON_DOWN,  TRUE,   TRUE,  {afp_bottom}},
-	{BUTTON_RIGHT, TRUE,   TRUE,  {afp_right}},
-	{BUTTON_LEFT,  TRUE,   TRUE,  {afp_left}},
+	{BUTTON_SET,   FALSE,  RESP_BLOCK, {afp_center}},
+	{BUTTON_UP,    TRUE,   RESP_BLOCK, {afp_top}},
+	{BUTTON_DOWN,  TRUE,   RESP_BLOCK, {afp_bottom}},
+	{BUTTON_RIGHT, TRUE,   RESP_BLOCK, {afp_right}},
+	{BUTTON_LEFT,  TRUE,   RESP_BLOCK, {afp_left}},
 	END_OF_LIST
 };
 
@@ -86,7 +88,7 @@ type_CHAIN chains[] = {
 	{GUI_MODE_OFF,       actions_main},
 	{GUI_MODE_MAIN,      actions_main},
 	{GUI_MODE_MENU,      actions_menu},
-	{GUI_MODE_INFO,      actions_info},
+	{GUI_MODE_400PLUS,   actions_400plus},
 	{GUI_MODE_METER,     actions_meter},
 	{GUI_MODE_WB,        actions_wb},
 	{GUI_MODE_ISO,       actions_iso},
@@ -153,10 +155,10 @@ void message_proxy(const int handler, char *message) {
 			for (action = chain->actions; ! IS_EOL(action); action++) {
 
 				// Check whether this action corresponds to the event received
-				if (action->event == message[1]) {
+				if (action->button == message[1]) {
 
-					// Consider buttons with "button down and "button up" events
-					if (action->check && message[0] == 4) {
+					// Consider buttons with "button down" and "button up" events
+					if (action->holds && message[0] == 4) {
 						if (message[2]) {
 							// Button down
 							task = action->task[0];
@@ -174,17 +176,21 @@ void message_proxy(const int handler, char *message) {
 					if (task)
 						ENQUEUE_TASK(task);
 
-					// If this action blocks the event, we do not pass it along
-					if(action->block)
+					// Decide how to respond to this button
+					switch(action->resp) {
+					case RESP_RELEASE:
+						IntercomHandler(handler, message);
+						message[2] = FALSE;
+					case RESP_PASS:
+						goto pass_message;
+					case RESP_BLOCK:
 						goto block_message;
-
-					// Once we find a matching action, we look no futher
-					goto pass_message;
+					}
 				}
 			}
 
 			// Once we find a matching action chain, we look no futher
-			goto pass_message;
+			break;
 		}
 	}
 
