@@ -84,11 +84,11 @@ void menu_initialize() {
 
 	menu_settings = settings;
 
-	menu_settings.av_comp        = cameraMode.AvComp;
-	menu_settings.flash_comp     = cameraMode.FlashExComp;
-	menu_settings.aeb_ev         = cameraMode.AEB;
-	menu_settings.not_emit_flash = cameraMode.CfNotEmitFlash;
-	menu_settings.not_af_flash   = cameraMode.CfAfAssistBeam;
+	menu_settings.av_comp        =  cameraMode.AvComp;
+	menu_settings.flash_comp     =  cameraMode.FlashExComp;
+	menu_settings.aeb_ev         =  cameraMode.AEB;
+	menu_settings.not_emit_flash = !cameraMode.CfNotEmitFlash;
+	menu_settings.not_af_flash   = !cameraMode.CfAfAssistBeam;
 
 	current_line           = 0;
 	main_menu.current_item = 0;
