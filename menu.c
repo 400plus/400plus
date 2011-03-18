@@ -90,6 +90,9 @@ void menu_initialize() {
 	menu_settings.not_emit_flash = cameraMode.CfNotEmitFlash;
 	menu_settings.not_af_flash   = cameraMode.CfAfAssistBeam;
 
+	current_line           = 0;
+	main_menu.current_item = 0;
+
 	menu_create();
 	menu_display();
 }
