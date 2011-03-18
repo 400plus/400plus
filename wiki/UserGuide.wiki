@@ -8,29 +8,26 @@ This document contains the user guide for 400plus. It is supposed in this docume
 
 == Accessing the menu ==
 
-To enter the menu, press `MENU` (this will display the camera menu) and then `DISP.` (this will display the "camera settings" screen); on the last row of that screen, where the card capacity should de displayed, is the menu.
+To enter the 400plus menu, press `MENU` (this will display the _standard_ camera menu) and then `DIRECT PRINT` (this will display the new 400plus menu).
 
 == Navigating the menu ==
 
-Initially, the menu will display the number of shots made by this camera ("Release count"). To navigate the menu, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons to move to other item; then use the `LEFT` (`METERING MODE`) and `RIGHT` (`AF MODE`) buttons to change the value of the current item. Press and hold these buttons to move faster.
-
-On some items, the `AV` button can be used to roll the value.
+To navigate the menu, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons to move among items. Then use the `LEFT` (`METERING MODE`) and `RIGHT` (`AF MODE`) buttons to change the value of the current item; press and hold these buttons to change faster. On some items, the `AV` button can be used to roll the value.
 
 Use the `SET` button to save the values and activate the changes; *notice* that all changes will be lost if you exit the menu before pressing the `SET` button.
 
 == Navigating the sub-menus ==
 
-Sub-menus are displayed as "Ext. AEB>Frames", where "Ext. AEB" is the item and "Frames" is the sub-item. Use the `AV` key to roll to the next sub-item, then `LEFT` and `RIGHT` to change the value. `UP` and `DOWN` can be used anytime to move to another item.
+Sub-menus are displayed as "`ITEM>SUBITEM`"; use the `MENU` key to roll to the next subitem, then `LEFT` and `RIGHT` to change the value (press and hold to change faster). Both `UP` and `DOWN` can be used anytime to move to another item.
 
 == The items ==
 
- * _*Release count*_: Displays the total number of shots made by this camera, in its entire lifetime (_this is a read-only value_).
  * _*Av comp*_: Same as the _standard_ "AV compensation", but may go from -6 to +6 EV.
  * _*Flash comp*_: Same as the _standard_ "Flash compensation", but may go from -6 to +6 EV.
  * _*AEB*_: Same as the _standard_ "AEB", but may go from -6 to +6 EV.
  * _*Safety shift*_: When active, and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid a under/over-exposure, if the value is too small/large for the scene.
  * _*ISO in viewfinder*_: When active, and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
- * _*WB*_: Use the `AV` button to roll over the _standard_ values; then move to the "Temp. K" sub-item to set a user-defined color temperature (use `LEFT` / `RIGHT` to change the value).
+ * _*Color Temp. (K)*_: Set a user-defined color temperature (activate it later pressing `DIRECT PRINT` at the white balance selection dialog).
  * _*Flash*_: Force the deactivation of the flash (during the shot), even if it has been raised.
  * _*AF assist beam*_: Force the deactivation of the flash (during the AF phase), even if it has been raised.
  * _*DP Button*_: Select the action to be performed when the `DIRECT PRINT` button is pressed in a _creative mode_:
@@ -107,9 +104,17 @@ In the _creative zone_ the following shortcuts are active:
 
 Other changes to the camera behavior, not described above.
 
+== Release count ==
+
+In the "camera settings" screen (press `INFO` at the _standard_ camera menu), the last line now displays the total number of shots made by this camera, instead of the card capacity.
+
 == The nose affair ==
 
 While looking through the viewfinder, the `ISO` and `WB` buttons are no longer active, to prevent accidental changes with the user's nose.
+
+== Factory menu and debugging ==
+
+From the 400plus menu, press `DIRECT PRINT` and then go back to the _standard_ camera menu; a new `FACTORY MENU` will be accessible now. From within that menu, press `DIRECT PRINT` to activate the debug mode (the camera will store lots of debugging information to the card).
 
 = Notes =
 
