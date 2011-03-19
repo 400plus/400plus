@@ -39,7 +39,6 @@ bash ./summon-arm-toolchain
 next you need to get the [http://code.google.com/p/400plus/downloads/list 400d-hack sources] somewhere in the chroot.<br>
 if you want the current svn sources, you'll need to install subversion<br>
 {{{
-echo 'dev-vcs/subversion -webdav-neon' >> /etc/portage/package.use
 emerge -av subversion
 }}}
 then checkout
