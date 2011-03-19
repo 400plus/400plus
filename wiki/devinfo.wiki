@@ -4,73 +4,49 @@
 <wiki:toc max_depth="2" />
 ----
 = Introduction =
-useful information collected from the forum mostly.<br>
-this page is WIP and needs to be formated...<br>
-<br>
-----
-= links =
-  * [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation Hack Installation procedure]
-  * [http://chdk.wikia.com/wiki/400D 400d page on wikia] - read here to get started with the installation (there are links to the forum too)<br>
-  * [http://chdk.setepontos.com/index.php?topic=3290.0 CHDK forum thread for 400D/XTI]<br>
-  * [ftp://www.inc.eng.kmutt.ac.th/pornpoj/vxwork/VxWorks_Prog_Guide.pdf VxWorks Programmer's Guide] (thanks to JoeNeptune)<br>
+useful information for developers wanting to compile the code.<br>
 <br>
 ----
 = toolchains =
-== chroot in 64bit gentoo ==
-_thanks to *vatoz* for the howto_<br>
-
-here is how to setup a toolchain in chroot environment under 64bit gentoo<br>
-i guess it will work in other distros/bitness<br>
-
-his post follows:<br>
-
-I have been able to prepare working arm-elf-toolchain in chroot under 64 bit gentoo.<br>
-Using [http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=2 this documentation],
-latest stage3 instead of version mentioned in the guide...<br>
-
-<code language="sh">
-cd /mnt
-mkdir gentoo32
+== chroot in gentoo32 from gentoo64 or perhaps any other bitness/distro  ==
+_thanks to *vatoz* for the first version of the howto_<br>
+Read [http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=2 this documentation] for more details.<br>
+follow these steps to create and enter your cross environment.
+{{{
 cd /tmp
-wget "http://mirrors.kernel.org/gentoo/releases/x86/autobuilds/current-stage3/stage3-i686-20110201.tar.bz2"
+url="http://mirrors.kernel.org/gentoo/releases/x86/autobuilds"
+wget $url/`curl $url/latest-stage3-i686.txt | tail -1`
+mkdir /mnt/gentoo32
 cd /mnt/gentoo32/
-tar -xvjpf /tmp/stage3-i686-20110201.tar.bz2 
+tar -xvjpf /tmp/stage3-i686-*.tar.bz2 
 cp -L /etc/resolv.conf /mnt/gentoo32/etc/
-cp -L /etc/passwd /mnt/gentoo32/etc/
-nano /mnt/gentoo32/etc/make.conf
-mount -o bind /dev /mnt/gentoo32/dev
-mount -o bind /dev/pts /mnt/gentoo32/dev/pts
-mount -o bind /dev/shm /mnt/gentoo32/dev/shm
-mount -o bind /proc /mnt/gentoo32/proc
-mount -o bind /proc/bus/usb /mnt/gentoo32/proc/bus/usb
-mount -o bind /sys /mnt/gentoo32/sys
-mkdir -p /mnt/gentoo32/usr/portage/
-mount -o bind /usr/portage /mnt/gentoo32/usr/portage/
-mount -o bind /tmp /mnt/gentoo32/tmp
-linux32 chroot /mnt/gentoo32 /bin/bash
-</code>
-Now we are working 32bit chroot..<br>
-<code language="sh">
-source /etc/profile
-env-update
-</code>
-also I recommend you to follow [http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=2#doc_chap3_pre7 "Code Listing 3.7: creating a new file in /etc/init.d"] from original instructions.<br><br>
+$EDITOR /mnt/gentoo32/etc/make.conf #can be skipped
+wget http://0xAF.org/chroot-gentoo32 -O ~/chroot-gentoo32.sh
+chmod +x ~/chroot-gentoo32.sh
+~/chroot-gentoo32.sh
+}}}
 
-Still in chroot using [http://magiclantern.wikia.com/wiki/Build_instructions/550D magic lantern 550d build instructions]<br>
-(you can download exactly the same version of script, I have used..., or follow original instructions)<br>
-you can build toolchain.<br><br>
+if you can't download chroot-gentoo32 script for some reason, see the end of this document for the source code.
 
-<code language="sh">
+You should be in working 32bit chroot now..<br>
+You can read [http://magiclantern.wikia.com/wiki/Build_instructions/550D magic lantern 550d build instructions] for details on the next steps.<br>
+{{{
 cd /tmp
 wget "http://panora.ma/dev/summon-arm-toolchain"
 bash ./summon-arm-toolchain
-</code>
+}}}
 
-Change PATH variable.<br>
-<code language="sh">
-PATH=$PATH:/arm-elf-toolchain/bin/
-</code>
-And you must also mount/copy sources into folder reachable from chroot.<br>
+next you need to get the [http://code.google.com/p/400plus/downloads/list 400d-hack sources] somewhere in the chroot.<br>
+if you want the current svn sources, you'll need to install subversion<br>
+{{{
+echo 'dev-vcs/subversion -webdav-neon' >> /etc/portage/package.use
+emerge -av subversion
+}}}
+then checkout
+{{{
+cd && svn checkout http://400plus.googlecode.com/svn/trunk/ 400plus-read-only
+}}}
+
 ----
 <br>
 
@@ -166,3 +142,68 @@ Go to bed<br>
 <br>
 If everything goes as expected, you will get a new and shiny "AUTOEXEC.BIN" file;<br>
 now I just need to find ~~an idiot~~ a brave man willing to ~~sacrifice his camera~~ test it.
+<br>
+<br>
+<br>
+----
+= links =
+  * [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation Hack Installation procedure]
+  * [http://chdk.wikia.com/wiki/400D 400d page on wikia] - read here to get started with the installation (there are links to the forum too)<br>
+  * [http://chdk.setepontos.com/index.php?topic=3290.0 CHDK forum thread for 400D/XTI]<br>
+  * [ftp://www.inc.eng.kmutt.ac.th/pornpoj/vxwork/VxWorks_Prog_Guide.pdf VxWorks Programmer's Guide] (thanks to JoeNeptune)<br>
+<br>
+
+----
+= chroot-gentoo32 =
+{{{
+#!/bin/bash
+
+# change to appropriate dir
+CHROOTDIR=/mnt/gentoo32
+
+bind_dirs=(
+	"/dev"
+	"/dev/pts"
+	"/dev/shm"
+	"/proc"
+	"/proc/bus/usb"
+	"/sys"
+	"/tmp"
+	"/usr/portage" # this is only if your host is gentoo
+)
+
+
+# no need to change anything below this line
+
+if [ $UID -ne 0 ]; then
+	echo "need root... executing with su"
+	su -c "$0 $*"
+	exit
+fi
+
+mkdir -p $CHROOTDIR/usr/portage/
+if [ ! -f $CHROOTDIR/root/.bashrc ]; then
+	cp $CHROOTDIR/etc/skel/.bashrc $CHROOTDIR/root/.bashrc
+	echo "source /etc/profile" >> $CHROOTDIR/root/.bashrc
+	echo "env-update" >> $CHROOTDIR/root/.bashrc
+	echo 'export PS1="[chroot] $PS1"' >> $CHROOTDIR/root/.bashrc
+	echo 'export PATH=$PATH:/arm-elf-toolchain/bin/' >> $CHROOTDIR/root/.bashrc
+fi
+
+for (( x=0; x < ${#bind_dirs[@]}; x++ )); do
+	dir="${bind_dirs[$x]}"
+	mount -o bind "$dir" "$CHROOTDIR/$dir"
+done
+
+if [ `arch` == x86_64 ]; then
+	l32=linux32
+fi
+
+$l32 chroot $CHROOTDIR /bin/bash
+
+for (( x=$((${#bind_dirs[@]} - 1)) ; x >= 0; x-- )); do
+	dir="${bind_dirs[$x]}"
+	umount "$CHROOTDIR/$dir"
+done
+
+}}}
