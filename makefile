@@ -43,3 +43,5 @@ $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 clean:
 	rm -f *.o; 
 	rm -f $(PROJECT).arm.elf
+
+
