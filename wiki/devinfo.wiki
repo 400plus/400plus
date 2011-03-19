@@ -54,7 +54,7 @@ Now we are working 32bit chroot..<br>
 source /etc/profile
 env-update
 </code>
-also I recommend you to follow "Code Listing 3.7: creating a new file in /etc/init.d" from original instructions.<br><br>
+also I recommend you to follow [http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=2#doc_chap3_pre7 "Code Listing 3.7: creating a new file in /etc/init.d"] from original instructions.<br><br>
 
 Still in chroot using [http://magiclantern.wikia.com/wiki/Build_instructions/550D magic lantern 550d build instructions]<br>
 (you can download exactly the same version of script, I have used..., or follow original instructions)<br>
