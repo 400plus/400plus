@@ -48,10 +48,10 @@ type_MENUITEM main_items[] = {
 	MENUITEM_BOOLEAN  ("Use flash",         &menu_settings.not_emit_flash),
 	MENUITEM_BOOLEAN  ("AF flash",          &menu_settings.not_af_flash),
 	MENUITEM_SCRIPT   ("DP action",         &menu_settings.dp_action),
-	MENUITEM_SUB      ("Wave",               wave_items),
-	MENUITEM_SUB      ("EAEB",               eaeb_items),
+	MENUITEM_SUB      ("Wave    ",           wave_items),
+	MENUITEM_SUB      ("EAEB    ",           eaeb_items),
 	MENUITEM_SUB      ("Interval",           interval_items),
-	MENUITEM_SUB      ("Timer",              timer_items),
+	MENUITEM_SUB      ("Timer   ",           timer_items),
 	MENUITEM_DELAY    ("IR remote delay",   &menu_settings.remote_delay)
 };
 
