@@ -7,8 +7,8 @@
 
 type_SETTINGS menu_settings;
 
-char *bool_strings[]   = {"no", "yes"};
-char *delay_strings[]  = {"no", "2s"};
+char *bool_strings[]   = {"No", "Yes"};
+char *delay_strings[]  = {"No", "2s"};
 char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
 char *script_strings[] = {"Disabled", "Intm ISO", "Ext AEB", "Interval", "Wave", "Timer"};
 char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
