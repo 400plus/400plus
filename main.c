@@ -135,6 +135,11 @@ void message_proxy(const int handler, char *message) {
 			ENQUEUE_TASK(afp_enter);
 		}
 		goto pass_message;
+	case BUTTON_DP: // DP Button while a script is running
+		if (status.script_running) {
+			status.script_running = FALSE;
+			goto block_message;
+		}
 	}
 
 	// Use fictitious GUI mode so everything else fits nicely
