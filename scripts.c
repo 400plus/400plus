@@ -47,17 +47,19 @@ void script_interval() {
 void script_wave() {
 	script_start();
 
-	while (status.script_running && !FLAG_FACE_SENSOR)
-		SleepTask(WAIT_USER_ACTION);
+	do {
+		while (status.script_running && !FLAG_FACE_SENSOR)
+			SleepTask(WAIT_USER_ACTION);
 
-	if (settings.wave_delay)
-		script_delay(2);
+		if (settings.wave_delay)
+			script_delay(2);
 
-	while (status.script_running && FLAG_FACE_SENSOR)
-		SleepTask(WAIT_USER_ACTION);
+		while (status.script_running && FLAG_FACE_SENSOR)
+			SleepTask(WAIT_USER_ACTION);
 
-	if (status.script_running)
-		script_shot(settings.wave_action);
+		if (status.script_running)
+			script_shot(settings.wave_action);
+	} while (status.script_running && settings.wave_repeat);
 
 	script_stop();
 }

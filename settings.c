@@ -17,6 +17,7 @@ type_SETTINGS settings = {
 	interval_shots   : 0,
 	wave_delay       : FALSE,
 	wave_action      : SHOT_ACTION_FIRST,
+	wave_repeat      : FALSE,
 	color_temp       : 5200,
 	av_comp          : 0,
 	flash_comp       : 0,
@@ -25,7 +26,7 @@ type_SETTINGS settings = {
 	emit_flash       : TRUE,
 	af_flash         : TRUE,
 	remote_delay     : FALSE,
-	self_timer       : 5,
+	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_FIRST
 };
 
