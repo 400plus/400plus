@@ -44,8 +44,8 @@ typedef struct {
 	int flash_comp;
 	int aeb_ev;
 	int safety_shift;
-	int not_emit_flash;
-	int not_af_flash;
+	int emit_flash;
+	int af_flash;
 	int remote_delay;
 	int self_timer;
 	int timer_action;

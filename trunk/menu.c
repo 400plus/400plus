@@ -45,8 +45,8 @@ type_MENUITEM main_items[] = {
 	MENUITEM_BOOLEAN  ("ISO in viewfinder", &menu_settings.iso_in_viewfinder),
 	MENUITEM_BOOLEAN  ("Safety Shift",      &menu_settings.safety_shift),
 	MENUITEM_COLORTEMP("Color Temp. (K)",   &menu_settings.color_temp),
-	MENUITEM_BOOLEAN  ("Use flash",         &menu_settings.not_emit_flash),
-	MENUITEM_BOOLEAN  ("AF flash",          &menu_settings.not_af_flash),
+	MENUITEM_BOOLEAN  ("Use flash",         &menu_settings.emit_flash),
+	MENUITEM_BOOLEAN  ("AF flash",          &menu_settings.af_flash),
 	MENUITEM_SCRIPT   ("DP action",         &menu_settings.dp_action),
 	MENUITEM_SUB      ("Wave    ",           wave_items),
 	MENUITEM_SUB      ("EAEB    ",           eaeb_items),
@@ -87,8 +87,8 @@ void menu_initialize() {
 	menu_settings.av_comp        =  cameraMode.AvComp;
 	menu_settings.flash_comp     =  cameraMode.FlashExComp;
 	menu_settings.aeb_ev         =  cameraMode.AEB;
-	menu_settings.not_emit_flash = !cameraMode.CfNotEmitFlash;
-	menu_settings.not_af_flash   = !cameraMode.CfAfAssistBeam;
+	menu_settings.emit_flash     = !cameraMode.CfNotEmitFlash;
+	menu_settings.af_flash       = !cameraMode.CfAfAssistBeam;
 
 	current_line           = 0;
 	main_menu.current_item = 0;

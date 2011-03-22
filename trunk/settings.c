@@ -22,8 +22,8 @@ type_SETTINGS settings = {
 	flash_comp       : 0,
 	aeb_ev           : 0,
 	safety_shift     : FALSE,
-	not_emit_flash   : FALSE,
-	not_af_flash     : FALSE,
+	emit_flash       : TRUE,
+	af_flash         : TRUE,
 	remote_delay     : FALSE,
 	self_timer       : 5,
 	timer_action     : SHOT_ACTION_FIRST
@@ -60,8 +60,8 @@ extern void settings_apply() {
 	SendToIntercom(0x03, 1,  settings.flash_comp);
 	SendToIntercom(0x0D, 1,  settings.aeb_ev);
 	SendToIntercom(0x39, 1,  settings.safety_shift);
-	SendToIntercom(0x30, 1, !settings.not_emit_flash);
-	SendToIntercom(0x2E, 1, !settings.not_af_flash);
+	SendToIntercom(0x30, 1, !settings.emit_flash);
+	SendToIntercom(0x2E, 1, !settings.af_flash);
 	SendToIntercom(0x10, 1,  settings.color_temp);
 
 	if(settings.remote_delay){
