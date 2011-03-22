@@ -19,7 +19,7 @@ type_MENUITEM wave_items[] = {
 };
 
 type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT("Delay",  &menu_settings.self_timer),
+	MENUITEM_TIMEOUT("Delay",  &menu_settings.timer_timeout),
 	MENUITEM_ACTION ("Action", &menu_settings.timer_action)
 };
 

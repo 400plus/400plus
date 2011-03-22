@@ -65,7 +65,7 @@ void script_wave() {
 void script_self_timer() {
 	script_start();
 
-	script_delay(settings.self_timer);
+	script_delay(settings.timer_timeout);
 
 	if (status.script_running)
 		script_shot(settings.timer_action);
