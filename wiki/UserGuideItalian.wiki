@@ -78,11 +78,11 @@ Questo script aggiunge semplicemente una pausa configurabile prima di far scatta
 = La selezione dell’AF-Pattern =
 Premere il pulsante Zoom In per inserire il menu "selezione punto AF" standard, quindi premere ZOOM IN di nuovo per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i pattern, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
 
-= Le scorciatoie =
+== Le scorciatoie ==
 Sono state aggiunte le seguenti scorciatoie alla fotocamera. 
-== Nella zona di base ==
+=== Nella zona di base ===
 Nella zona di base, solo il pulsante di stampa diretta ha una funzione speciale: serve per commutare tra RAW e JPEG l’output dello scatto.
-== Nella zona creativa ==
+=== Nella zona creativa ===
 Nella zona creativa i collegamenti attivi sono i seguenti: 
  * Nella finestra di dialogo di selezione ISO, premere PRINT DIRECT per impostare ISO 3200 (vedi Note/Extended GSI). 
  * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi Note/modalità di misurazione spot).
