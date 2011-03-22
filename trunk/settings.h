@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x10
+#define SETTINGS_VERSION  0x11
 
 typedef enum {
 	DP_ACTION_DISABLED,
@@ -39,6 +39,7 @@ typedef struct {
 	int interval_shots;
 	int wave_delay;
     int wave_action;
+    int wave_repeat;
 	int color_temp;
 	int av_comp;
 	int flash_comp;

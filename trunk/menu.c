@@ -15,7 +15,8 @@ char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "
 
 type_MENUITEM wave_items[] = {
 	MENUITEM_DELAY  ("Delay",  &menu_settings.wave_delay),
-	MENUITEM_ACTION ("Action", &menu_settings.wave_action)
+	MENUITEM_ACTION ("Action", &menu_settings.wave_action),
+	MENUITEM_BOOLEAN("Repeat", &menu_settings.wave_repeat)
 };
 
 type_MENUITEM timer_items[] = {
