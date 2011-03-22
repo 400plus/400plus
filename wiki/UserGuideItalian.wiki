@@ -1,8 +1,9 @@
 #summary 400plus User Guide in Italian/Manuale Utente 400plus.
 
+= Translation =
+Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63149#msg63149 ataru].
+
 = Manuale Utente 400plus =
-Italian translation of the User Guide.<br>
-Provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63149#msg63149 ataru].
 
 = Introduzione =
 Questo documento contiene il manuale d'uso per 400plus. Si suppone che, prima di leggere questa guida, l'utente abbia installato 400plus e che il software funzioni correttamente. Per informazioni sull'installazione di 400plus, vedere [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
