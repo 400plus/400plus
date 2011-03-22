@@ -47,7 +47,7 @@ typedef struct {
 	int emit_flash;
 	int af_flash;
 	int remote_delay;
-	int self_timer;
+	int timer_timeout;
 	int timer_action;
 } type_SETTINGS;
 
