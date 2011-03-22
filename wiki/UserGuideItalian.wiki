@@ -1,4 +1,4 @@
-#summary 400plus User Guide in Italian/Manuale Utente 400plus.
+#summary 400plus User Guide in Italian / Manuale Utente 400plus.
 
 = Translation =
 Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63149#msg63149 ataru].
