@@ -36,7 +36,7 @@ wget "http://panora.ma/dev/summon-arm-toolchain"
 bash ./summon-arm-toolchain
 }}}
 
-next you need to get the [http://code.google.com/p/400plus/downloads/list 400d-hack sources] somewhere in the chroot.<br>
+next you need to get the [http://code.google.com/p/400plus/downloads/list 400plus sources] somewhere in the chroot.<br>
 if you want the current svn sources, you'll need to install subversion<br>
 {{{
 emerge -av subversion
@@ -52,11 +52,11 @@ cd && svn checkout http://400plus.googlecode.com/svn/trunk/ 400plus-read-only
 
 
 == fedora 14 in virtual machine ==
-_thanks to *eperez* for this one_<br>
+_thanks to *eduardo.perezesteban* (project maintainer) for this one_<br>
 his post follows:<br>
 
 As promised:<br><br>
-Create a VM<br><br>
+=== Create a VM ===
 I used Fedora 13 (64 bits) as the "host" OS, and Fedora 14 (32 bits) as the "guest" OS,<br>
 for no other particular reason that it is what I am used to run;<br>
 I downloaded the [http://fedoraproject.org/en/get-fedora-options Fedora 14 Desktop Edition (32 bit CD ISO)].<br>
@@ -66,35 +66,29 @@ Select an i686 architecture (should work with a 64b arch, as long as you install
 and use KVM if your processor supports it (it is way faster than the non-KVM alternative).<br>
 Boot the VM, using the ISO downloaded previously, and install it to the (virtual) disk drive<br>
 (there are no critical parameters here, just follow the installation assistant).<br>
-<br>
-Prepare the VM<br>
-<br>
-No special preparation is required here, just update the software:<br>
-<code language="sh">
+
+=== Prepare the VM ===
+No special preparation is required here, just update the software:
+{{{
 su -c "yum -y update"
 su -c "yum -y update"
-</code>
-<br>
+}}}
 _Yes: it must be run twice, as the first update will only update the updater itself_<br>
 then reboot (just the VM) and install the required dependencies:
-<code language="sh">
+{{{
 su -c "yum -y install gcc mpfr-devel libmpc-devel"
-</code>
-<br>
-Install the cross-compiler
-<br><br>
+}}}
+=== Install the cross-compiler ===
 I mostly followed the procedure outlined at<br>
 http://chdk.wikia.com/wiki/Compiling_CHDK_under_Linux and<br>
 http://chdk.wikia.com/wiki/Gcc433 , with some minor variations<br>
-(installed to "/opt/arm-elf", and changed some parameters to avoid a bug in GCC):<br><br>
-
-Create the destination directory:<br>
-<code language="sh">
+(installed to "/opt/arm-elf", and changed some parameters to avoid a bug in GCC):<br>
+Create the destination directory:
+{{{
 su -c "mkdir /opt/arm-elf".
-</code>
-<br>
-Install binutils:<br>
-<code language="sh">
+}}}
+=== Install binutils ===
+{{{
 wget "ftp://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2"
 tar xvjf binutils-2.21.tar.bz2
 mkdir binutils-2.21-arm-elf
@@ -102,48 +96,38 @@ cd binutils-2.21-arm-elf/
 ../binutils-2.21/configure --srcdir=../binutils-2.21/ --target=arm-elf --prefix=/opt/arm-elf/
 make
 su -c "make install"
-</code>
-<br>
-Install gcc:<br>
-<code language="sh">
+}}}
+=== Install gcc ===
+{{{
 wget "ftp://ftp.gnu.org/gnu/gcc/gcc-4.5.2/gcc-4.5.2.tar.bz2"
 tar -xvjf gcc-4.5.2.tar.bz2
-</code>
-<br>
-Now edit the file "gcc-4.5.2/gcc/config/arm/t-arm-elf" and uncomment the following lines:<br>
-<br>
-<code language="sh">
+}}}
+Now edit the file "gcc-4.5.2/gcc/config/arm/t-arm-elf" and uncomment the following lines:
+{{{
 MULTILIB_OPTIONS    += mno-thumb-interwork/mthumb-interwork
 MULTILIB_DIRNAMES   += normal interwork
-</code>
-<br>
-We can continue the installation:<br>
-<code language="sh">
+}}}
+We can continue the installation:
+{{{
 mkdir gcc-4.5.2-arm-elf
 cd gcc-4.5.2-arm-elf/
 ../gcc-4.5.2/configure --srcdir=../gcc-4.5.2 --target=arm-elf --enable-languages=c \
 --enable-clocale=gnu --disable-libm --disable-libc --disable-threads --disable-nls \
 --disable-libssp --disable-intl --with-dpu=arm9 --with-newlib --prefix=/opt/arm-elf/
 su -c "make install"
-</code>
-<br>
-Compile<br>
-<br>
-Finally, we are ready to download the latest "autoexec" source code, and compile it:<br>
-<code language="sh">
+}}}
+=== Compile 400plus ===
+you need to download the [http://code.google.com/p/400plus/downloads/list 400plus sources] or checkout the current svn:
+{{{
+cd && svn checkout http://400plus.googlecode.com/svn/trunk/ 400plus-read-only
+}}}
+Finally, we are ready to compile:
+{{{
 export PATH=/opt/arm-elf/bin/:$PATH
-unzip autoexec_2011-01-30.zip
-cd autoexec_2011-01-30
+cd 400plus
 make
-</code>
-<br>
-Go to bed<br>
-<br>
+}}}
 If everything goes as expected, you will get a new and shiny "AUTOEXEC.BIN" file;<br>
-now I just need to find ~~an idiot~~ a brave man willing to ~~sacrifice his camera~~ test it.
-<br>
-<br>
-<br>
 ----
 = links =
   * [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation Hack Installation procedure]
