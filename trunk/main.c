@@ -114,7 +114,6 @@ void initialize_display() {
 void message_proxy(const int handler, char *message) {
 	int gui_mode;
 
-	type_TASK    task;
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
@@ -142,7 +141,26 @@ void message_proxy(const int handler, char *message) {
 		}
 	}
 
-	// Use fictitious GUI mode so everything else fits nicely
+	// Check for button-up events, even if the current GUI mode does not match
+	if (status.button_down && status.button_down == message[1] && !message[2]) {
+		status.button_down = FALSE;
+
+		// Launch the defined task
+		if (status.button_up_task)
+			ENQUEUE_TASK(status.button_up_task);
+
+		// Decide how to respond to this button
+		switch(status.button_up_resp) {
+		case RESP_RELEASE:
+		case RESP_PASS:
+			goto pass_message;
+		case RESP_BLOCK:
+			goto block_message;
+		}
+
+	}
+
+	// Use fictitious GUI modes so everything else fits nicely
 	if (FLAG_FACE_SENSOR)
 		gui_mode = GUI_MODE_FACE;
 	else if (FLAG_FACTORY_DIALOG)
@@ -163,23 +181,16 @@ void message_proxy(const int handler, char *message) {
 				if (action->button == message[1]) {
 
 					// Consider buttons with "button down" and "button up" events
-					if (action->holds && message[0] == 4) {
-						if (message[2]) {
-							// Button down
-							task = action->task[0];
-							status.button_down = message[1];
-						} else {
-							// Button up
-							task = action->task[1];
-							status.button_down = FALSE;
-						}
-					} else {
-						task = action->task[0];
+					// and save "button up" parameters for later use
+					if (action->holds && message[2]) {
+						status.button_down    = message[1];
+						status.button_up_task = action->task[1];
+						status.button_up_resp = action->resp;
 					}
 
 					// Launch the defined task
-					if (task)
-						ENQUEUE_TASK(task);
+					if (action->task[0])
+						ENQUEUE_TASK(action->task[0]);
 
 					// Decide how to respond to this button
 					switch(action->resp) {

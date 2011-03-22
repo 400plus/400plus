@@ -181,13 +181,6 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_FACTORY 0xFE
 #define GUI_MODE_400PLUS 0xFD
 
-// Global status
-typedef struct {
-	int button_down;
-	int script_running;
-	int afp_dialog;
-} type_STATUS;
-
 // Action definitions
 typedef void(*type_TASK)();
 
@@ -211,11 +204,20 @@ typedef struct {
 	int          _eol_;
 } type_CHAIN;
 
-#define END_OF_LIST {_eol_ : TRUE}
-#define IS_EOL(item) (item->_eol_)
+// Global status
+typedef struct {
+	int       button_down;     // A button is down, and which one
+	int       script_running;  // A script is running
+	int       afp_dialog;      // The last active dialog was the AF Point selection dialog
+	type_TASK button_up_task;  // Task that must be executed when the current button is released
+	type_RESP button_up_resp;  // Response when the current button is released
+} type_STATUS;
 
 // Inline code
 #define ENQUEUE_TASK(task) TryPostMessageQueue(message_queue, (task), FALSE);
+
+#define END_OF_LIST  {_eol_ : TRUE}
+#define IS_EOL(item) (item->_eol_)
 
 // Our own code
 extern void initialize();
