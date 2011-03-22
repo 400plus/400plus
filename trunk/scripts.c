@@ -18,15 +18,15 @@ void sub_interval();
 
 void release_and_wait();
 void wait_for_camera();
-void script_delay(int seconds, int interruptible);
+void script_delay(int seconds);
 
 void script_extended_aeb() {
 	script_start();
 
 	if (settings.eaeb_delay)
-		script_delay(2, TRUE);
+		script_delay(2);
 
-	if (! FLAG_FACE_SENSOR)
+	if (status.script_running)
 		sub_extended_aeb();
 
 	script_stop();
@@ -36,9 +36,10 @@ void script_interval() {
 	script_start();
 
 	if (settings.interval_delay)
-		script_delay(2, TRUE);
+		script_delay(2);
 
-	sub_interval();
+	if (status.script_running)
+		sub_interval();
 
 	script_stop();
 }
@@ -46,16 +47,17 @@ void script_interval() {
 void script_wave() {
 	script_start();
 
-	while (!FLAG_FACE_SENSOR)
+	while (status.script_running && !FLAG_FACE_SENSOR)
 		SleepTask(WAIT_USER_ACTION);
 
 	if (settings.wave_delay)
-		script_delay(2, FALSE);
+		script_delay(2);
 
-	while (FLAG_FACE_SENSOR)
+	while (status.script_running && FLAG_FACE_SENSOR)
 		SleepTask(WAIT_USER_ACTION);
 
-	script_shot(settings.wave_action);
+	if (status.script_running)
+		script_shot(settings.wave_action);
 
 	script_stop();
 }
@@ -63,9 +65,9 @@ void script_wave() {
 void script_self_timer() {
 	script_start();
 
-	script_delay(settings.self_timer, TRUE);
+	script_delay(settings.self_timer);
 
-	if (!FLAG_FACE_SENSOR)
+	if (status.script_running)
 		script_shot(settings.timer_action);
 
 	script_stop();
@@ -128,7 +130,7 @@ void sub_extended_aeb() {
 			SendToIntercom(0x08, 1, (tv << 3) + 0x10);
 			release_and_wait();
 
-			if (FLAG_FACE_SENSOR)
+			if (!status.script_running)
 				break;
 		};
 
@@ -146,14 +148,14 @@ void sub_extended_aeb() {
 			SendToIntercom(0x0A, 1, av_inc);
 			release_and_wait();
 
-			if (FLAG_FACE_SENSOR)
+			if (!status.script_running)
 				break;
 
 			av_dec = ev_sub(av_dec, settings.eaeb_ev);
 			SendToIntercom(0x0A, 1, av_dec);
 			release_and_wait();
 
-			if (FLAG_FACE_SENSOR)
+			if (!status.script_running)
 				break;
 		}
 
@@ -165,7 +167,7 @@ void sub_interval() {
 	int i = 0;
 
 	for (;;) {
-		if (FLAG_FACE_SENSOR)
+		if (!status.script_running)
 			break;
 
 		wait_for_camera();
@@ -176,7 +178,7 @@ void sub_interval() {
 			eventproc_Release();
 
 		if (++i < settings.interval_shots || settings.interval_shots == 0)
-			script_delay(settings.interval_time, TRUE);
+			script_delay(settings.interval_time);
 		else
 			break;
 	}
@@ -194,14 +196,14 @@ void wait_for_camera() {
 		SleepTask(WAIT_CAMERA_BUSY);
 }
 
-void script_delay(int seconds, int interruptible) {
+void script_delay(int seconds) {
 	int i;
 
 	while (seconds--) {
 		display_countdown(1 + seconds);
 		for (i = 0; i < SCRIPT_DELAY_REPEAT; i++) {
 			SleepTask(SCRIPT_DELAY_TIME);
-			if (interruptible && FLAG_FACE_SENSOR)
+			if (!status.script_running)
 				return;
 		}
 
