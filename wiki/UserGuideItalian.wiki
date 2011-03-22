@@ -18,7 +18,7 @@ Per navigare all'interno del menu, utilizzare i tasti UP (ISO) e DOWN (WB) per s
 Utilizzare il tasto SET per salvare i valori e attivare i cambiamenti, facendo attenzione che tutte le modifiche andranno perse se si esce dal menu prima di premere il pulsante SET. 
 
 == Navigazione nel sotto-menu ==
-I Sub-menu vengono visualizzati come "ITEM> SubItem"; utilizzare il tasto MENU per scorrere fino alla prossima voce secondaria, poi a sinistra e destra per modificare il valore (premere e tenere premuto per cambiare più velocemente). I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
+I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU per scorrere fino alla prossima voce secondaria, poi a sinistra e destra per modificare il valore (premere e tenere premuto per cambiare più velocemente). I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
 
 == Le voci del menu ==
  * _*Comp Av*_: la stessa funzione della "compensazione AV" standard, ma può andare da -6 a +6 EV. 
