@@ -21,7 +21,7 @@ mkdir /mnt/gentoo32
 cd /mnt/gentoo32/
 tar -xvjpf /tmp/stage3-i686-*.tar.bz2 
 # ### DO THE NEXT LINE ONLY IF YOUR HOST IS _NOT_ GENTOO ### #
-# wget http://distfiles.gentoo.org/snapshots/portage-latest.tar.bz2 && tar xjf  -C usr/ portage-lat*
+# wget http://distfiles.gentoo.org/snapshots/portage-latest.tar.bz2 && tar xjf portage-lat* -C usr/
 cp -L /etc/resolv.conf /mnt/gentoo32/etc/
 $EDITOR /mnt/gentoo32/etc/make.conf #can be skipped
 wget http://0xAF.org/chroot-gentoo32 -O ~/chroot-gentoo32.sh
