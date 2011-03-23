@@ -1,7 +1,7 @@
 #summary 400plus UserGuide in German
 
 = Translation =
-German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 guffster]
+German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
 
 = Einleitung =
 Dieses Dokument enthält die Benutzeranleitung für 400plus. Es wird davon ausgegangen, dass der Benutzer 400plus bereits vor dem Lesen dieses Dokuments installiert hat und dieses ordnungsgemäß funktioniert. Für nähere Informationen über die Installation von 400plus, lesen Sie bitte  [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
