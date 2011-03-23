@@ -40,6 +40,7 @@ Sub-menus are displayed as "`ITEM>SUBITEM`"; use the `MENU` key to roll to the n
  * _*Wave*_: This sub-menu configures the [UserGuide#Hand_Wave Hand Wave] script:
     * Delay: select wether this script should take the shot immediately, or wait for 2 seconds.
     * Action: action to be performed.
+    * Repeat: if selected, the script will restart itself after each shot, so you can wave your hand again to take another shot.
  * _*Ext. AEB*_: This sub-menu configures the [UserGuide#Extended_AEB Extended AEB] script:
     * Frames: number of frames to shot.
     * Step (EV): separation in EV between shots.
@@ -58,7 +59,9 @@ Sub-menus are displayed as "`ITEM>SUBITEM`"; use the `MENU` key to roll to the n
 
 = The scripts =
 
-All scripts are activated with the `DIRECT PRINT` menu, and which one of them is run must be selected at the "DP Button" menu item. When a script starts or stops, a beep will be heard; and while a script is running, the `DIRECT PRINT` button will flash (twice per second, aprox.). To stop a running script, simply put your hand on the back of the camera, over the "display-off sensor": the display will go blank and the script will stop as soon as possible.
+All scripts are activated with the `DIRECT PRINT` menu, and which one of them is run must be selected at the "DP Button" menu item. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (twice per second, aprox.).
+
+To stop a running script, press the `DIRECT PRINT` button again; sometimes the camera may not stop immediately, so press and hold the `DIRECT PRINT` button until you hear a _beep_ that signals the effective end of the script.
 
 == Extended AEB ==
 
@@ -75,7 +78,7 @@ This script will fire the camera as many times as configured (or endlessly), wai
 
 == Hand Wave ==
 
-This script will fire the camera when the "display-off sensor" is triggered; use this script to shot the camera without a remote. Can run the [UserGuide#Extended_AEB Extended AEB] or the [UserGuide#Intervalometer Intervalometer] scripts, if configured at the "Action" sub-item.
+This script will fire the camera when the "display-off sensor" is triggered; use this script to shot the camera without a remote. Can run the [UserGuide#Extended_AEB Extended AEB] or the [UserGuide#Intervalometer Intervalometer] scripts, if configured at the "Action" sub-item. If the "repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots.
 
 == Self Timer ==
 
@@ -114,7 +117,7 @@ While looking through the viewfinder, the `ISO` and `WB` buttons are no longer a
 
 == Factory menu and debugging ==
 
-From the 400plus menu, press `DIRECT PRINT` and then go back to the _standard_ camera menu; a new `FACTORY MENU` will be accessible now. From within that menu, press `DIRECT PRINT` to activate the debug mode (the camera will store lots of debugging information to the card).
+From the 400plus menu, press `DIRECT PRINT` and then go back to the _standard_ camera menu; a new `FACTORY MENU` will be accessible now. From within that menu, press `DIRECT PRINT` to activate the _debug mode_ (the camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`).
 
 = Notes =
 
