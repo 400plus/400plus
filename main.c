@@ -30,20 +30,18 @@ type_ACTION actions_main[]  = {
 
 type_ACTION actions_menu[]  = {
 	{BUTTON_DP  ,  FALSE, RESP_BLOCK, {menu_initialize}},
-
 	END_OF_LIST
 };
 
 type_ACTION actions_400plus[]  = {
 	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_save}},
 	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu}},
-//	{BUTTON_DRIVE, FALSE, RESP_BLOCK,   {menu_submenu}},
 	{BUTTON_UP,    TRUE,  RESP_RELEASE, {menu_up}},
 	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {menu_down}},
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {menu_right}},
 	{BUTTON_LEFT,  TRUE,  RESP_BLOCK,   {menu_left}},
 	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {menu_cycle}},
-	{BUTTON_DP,    FALSE, RESP_BLOCK,   {show_factory_menu}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK,   {factory_or_debug}},
 	END_OF_LIST
 };
 
@@ -70,11 +68,6 @@ type_ACTION actions_face[] = {
 	END_OF_LIST
 };
 
-type_ACTION actions_factory[] = {
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {start_debug_mode}},
-	END_OF_LIST
-};
-
 type_ACTION actions_af[] = {
 	{BUTTON_SET,   FALSE,  RESP_BLOCK, {afp_center}},
 	{BUTTON_UP,    TRUE,   RESP_BLOCK, {afp_top}},
@@ -93,7 +86,6 @@ type_CHAIN chains[] = {
 	{GUI_MODE_WB,        actions_wb},
 	{GUI_MODE_ISO,       actions_iso},
 	{GUI_MODE_FACE,      actions_face},
-	{GUI_MODE_FACTORY,   actions_factory},
 	{GUI_MODE_AFPATTERN, actions_af},
 	END_OF_LIST
 };
@@ -163,8 +155,6 @@ void message_proxy(const int handler, char *message) {
 	// Use fictitious GUI modes so everything else fits nicely
 	if (FLAG_FACE_SENSOR)
 		gui_mode = GUI_MODE_FACE;
-	else if (FLAG_FACTORY_DIALOG)
-		gui_mode = GUI_MODE_FACTORY;
 	else
 		gui_mode = FLAG_GUI_MODE;
 

@@ -14,6 +14,9 @@ void restore_metering();
 void switch_raw_jpeg();
 void set_intermediate_iso();
 
+void show_factory_menu();
+void start_debug_mode();
+
 void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
@@ -105,22 +108,6 @@ void set_intermediate_iso() {
 	}
 }
 
-void show_factory_menu() {
-	EnterFactoryMode();
-	SleepTask(25);
-	ExitFactoryMode();
-}
-
-void start_debug_mode() {
-	int file;
-
-	if((file = FIO_CreateFile("A:/STDOUT.TXT")) > 0)
-		ioGlobalStdSet(1, file);
-
-	if((file = FIO_CreateFile("A:/STDERR.TXT")) > 0)
-		ioGlobalStdSet(2, file);
-}
-
 void restore_iso() {
 	int iso;
 
@@ -151,3 +138,32 @@ void restore_metering() {
 	if (cameraMode.MeteringMode == METERING_MODE_SPOT)
 		eventproc_SetMesMode(&metering_evaluative);
 }
+
+void factory_or_debug() {
+	if (! status.factory_menu) {
+		status.factory_menu = TRUE;
+		show_factory_menu();
+	} else if (! status.debug_mode) {
+		status.debug_mode = TRUE;
+		start_debug_mode();
+	}
+}
+
+void show_factory_menu() {
+	EnterFactoryMode();
+	SleepTask(25);
+	ExitFactoryMode();
+}
+
+void start_debug_mode() {
+	int file;
+
+	if((file = FIO_CreateFile("A:/STDOUT.TXT")) > 0)
+		ioGlobalStdSet(1, file);
+
+	if((file = FIO_CreateFile("A:/STDERR.TXT")) > 0)
+		ioGlobalStdSet(2, file);
+
+	beep();
+}
+
