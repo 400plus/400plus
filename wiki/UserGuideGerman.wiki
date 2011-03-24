@@ -35,6 +35,7 @@ Untermenüs werden angezeigt als "Punkt>Unterpunkt"; benutzen Sie die MENU-Tast
   * _*Wave*_: Dieses Untermenü stellt das Hand Wave-Skript ein:
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
     * Action: Wählen Sie hier die auszuführende Aktion.
+    * Repeat: Wenn ausgewählt, startet das Skript nach jeder Aufnahme neu, so dass auch die nächste Aufnahme durch ein Winken gestartet werden kann.
   * _*Ext. AEB*_: Dieses Untermenü stellt das Extended AEB-Skript ein:
     * Frames: Anzahl der zu schießenden Bilder.
     * Step (EV): EV-Abstand zwischen einzelnen Aufnahmen.
@@ -53,7 +54,8 @@ Untermenüs werden angezeigt als "Punkt>Unterpunkt"; benutzen Sie die MENU-Tast
 
 = Die Skripte =
 Alle Skripte werden über das DIRECT PRINT Menü aktiviert; welches von diesen ausgeführt wird, wird über die Einstellung "DP Button" festgelegt. Wenn ein Skript gestartet oder gestoppt wird erklingt ein Ton; während ein Skript läuft, blinkt die DIRECT PRINT-Taste (circa zweimal pro Sekunde). 
-Um ein laufendes Skript zu beenden halten Sie einfach Ihre Hand auf die Rückseite der Kamera über den "Display-Aus Sensor": das Display wird schwarz werden und das Skript so bald als möglich abgebrochen
+Um ein laufendes Skript zu beenden drücken Sie erneut die DIRECT PRINT-Taste; es kann passieren, dass das Skript sich nicht sofort beendet, von daher sollten Sie die DIRECT PRINT-Taste solange
+halten, bis Sie einen Ton wahrnehmen, welcher die Beendigung des Skripts signalisiert.
 == Extended AEB ==
 Dieses Skript übernimmt die gleiche Aufgabe wie die standardmäßige AEB-Option der Kamera, jedoch mit folgenden Unterschieden
   #. Es können bis zu 9 Aufnahmen festgelegt werden.
@@ -67,7 +69,7 @@ Stellen Sie "EAEB" auf "yes" um das Extended AEB-Skript bei jeder Aufnahme zu be
 == Hand Wave ==
 Dieses Skript wird die Kamera automatisch auslösen wenn der "Display-Aus Sensor" ausgelöst wird; benutzen Sie dieses Skript um die Kamera ohne Fernauslöser zu benutzen. 
 Dieses Skript kann das Extended AEB-  oder das Intervalometer-Skript ausführen, wenn dies in der "Action" Unter-Einstellung festgelegt wird.
-== Self Timer ==
+Falls die „repeat“-Einstellung aktiviert ist, wird das Skript nach Auslösung nicht mehr beendet, sondern wird sich neustarten, um weitere Aufnahmen mit dem Skript machen zu können.== Self Timer ==
 Dieses Skript erlaubt es eine Pause einzustellen, welche abgewartet wird bevor die Kamera auslöst; Dieses Skript kann das Extended AEB-  oder das Intervalometer-Skript ausführen, wenn dies in der "Action" Unter-Einstellung festgelegt wird.
 
 = DIE AF-Felder-Auswahl =
@@ -92,7 +94,7 @@ Im “Kamera-Einstellungen”-Bildschirm (drücken Sie DISP. im Standard-Kame
 == Der Nasendrücker ==
 Während des Schauens durch den Sucher sind nun die ISO und WB-Tasten nicht mehr aktiv um versehentliche Änderungen durch die Berührung mit der Nase des Benutzers auszuschließen.
 == Werksmenü(“Factory menu”) und Debugging ==
-Wenn Sie sich im 400plus-Menü befinden drücken Sie DIRECT PRINT und gehen Sie danach zurück ins Standard-Kameramenü; ein neues FACTORY MENU ist nun zugänglich. Wenn Sie innerhalb dieses Menüs die DIRECT PRINT-Taste drücken aktivieren Sie den Debug-Modus (die Kamera wird sehr viele Debugging-Informationen auf der Speicherkarte sichern).
+Wenn Sie sich im 400plus-Menü befinden drücken Sie DIRECT PRINT und gehen Sie danach zurück ins Standard-Kameramenü; ein neues FACTORY MENU ist nun zugänglich. Wenn Sie innerhalb dieses Menüs die DIRECT PRINT-Taste drücken aktivieren Sie den Debug-Modus (die Kamera wird sehr viele Debugging-Informationen in zwei Dateien namens ‚STDOUT.TXT‘ und ‚STDERR.TXT‘ auf der Speicherkarte sichern).
 
 = Anmerkungen =
 Siehe Anmerkungen und Kommentare.
