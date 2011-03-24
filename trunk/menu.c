@@ -295,13 +295,13 @@ char *menu_message(int item_id) {
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
 		if (item->def.def_ev.zero_means_off && *item->def.def_ev.value == 0)
-			menu_print_char(menu_buffer, name, "off");
+			menu_print_char(menu_buffer, name, "Off");
 		else
 			menu_print_ev(menu_buffer, name, *item->def.def_ev.value);
 		break;
 	case MENUITEM_TYPE_INT:
 		if (item->def.def_int.zero_means_unlimited && *item->def.def_int.value == 0)
-			menu_print_char(menu_buffer, name, "no limit");
+			menu_print_char(menu_buffer, name, "No limit");
 		else
 			menu_print_int(menu_buffer, name, *item->def.def_int.value, item->def.def_int.format);
 		break;
