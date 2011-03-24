@@ -27,7 +27,7 @@ void script_extended_aeb() {
 		script_delay(2);
 
 	if (status.script_running)
-		sub_extended_aeb();
+		script_shot(SHOT_ACTION_EAEB);
 
 	script_stop();
 }
@@ -39,7 +39,7 @@ void script_interval() {
 		script_delay(2);
 
 	if (status.script_running)
-		sub_interval();
+		script_shot(SHOT_ACTION_INTERVAL);
 
 	script_stop();
 }
@@ -105,6 +105,9 @@ void script_feedback() {
 }
 
 void script_shot(type_SHOT_ACTION action) {
+	int aeb = cameraMode.AEB;
+	SendToIntercom(0x0D, 1, 0x00);
+
 	switch (action) {
 	case SHOT_ACTION_SHOT:
 		eventproc_Release();
@@ -118,6 +121,8 @@ void script_shot(type_SHOT_ACTION action) {
 	default:
 		break;
 	}
+
+	SendToIntercom(0x0D, 1, aeb);
 }
 
 void sub_extended_aeb() {
@@ -175,7 +180,7 @@ void sub_interval() {
 		wait_for_camera();
 
 		if (settings.interval_eaeb)
-			sub_extended_aeb();
+			script_shot(SHOT_ACTION_EAEB);
 		else
 			eventproc_Release();
 
