@@ -30,6 +30,7 @@ all: $(PROJECT).BIN
 
 $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
+	rm -f $(PROJECT).arm.elf
 
 $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^
