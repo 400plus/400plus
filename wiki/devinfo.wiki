@@ -181,7 +181,7 @@ for (( x=0; x < ${#bind_dirs[@]}; x++ )); do
 	mount -o bind "$dir" "$CHROOTDIR/$dir"
 done
 
-if [ `arch` == x86_64 ]; then
+if [ `uname -m` == x86_64 ]; then
 	l32=linux32
 fi
 
