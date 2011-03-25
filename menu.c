@@ -10,7 +10,7 @@ type_SETTINGS menu_settings;
 char *bool_strings[]   = {"No", "Yes"};
 char *delay_strings[]  = {"No", "2s"};
 char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
-char *script_strings[] = {"Disabled", "Intm ISO", "Ext AEB", "Interval", "Wave", "Timer"};
+char *script_strings[] = {"Disabled", "Intm ISO", "Ext AEB", "Interval", "Handwave", "Timer"};
 char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
 
 type_MENUITEM wave_items[] = {
@@ -49,7 +49,7 @@ type_MENUITEM main_items[] = {
 	MENUITEM_BOOLEAN  ("Use flash",         &menu_settings.emit_flash),
 	MENUITEM_BOOLEAN  ("AF flash",          &menu_settings.af_flash),
 	MENUITEM_SCRIPT   ("DP action",         &menu_settings.dp_action),
-	MENUITEM_SUB      ("Wave    ",           wave_items),
+	MENUITEM_SUB      ("Handwave",           wave_items),
 	MENUITEM_SUB      ("EAEB    ",           eaeb_items),
 	MENUITEM_SUB      ("Interval",           interval_items),
 	MENUITEM_SUB      ("Timer   ",           timer_items),
