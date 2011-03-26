@@ -75,6 +75,7 @@ void menu_repeateable_left   (int repeating);
 void  menu_save();
 void  menu_create();
 void  menu_display();
+void  menu_refresh();
 char *menu_message(int item_id);
 
 void menu_print_ev   (char *buffer, char *name, int   parameter);
@@ -278,6 +279,11 @@ void menu_display() {
 	for(i = 0; i < 5; i++)
 		sub_FF837FA8(menu_dialog, i + 1, menu_message(offset + i));
 
+	do_some_with_dialog(menu_dialog);
+}
+
+void menu_refresh() {
+	sub_FF837FA8(menu_dialog, current_line, menu_message(main_menu.current_item));
 	do_some_with_dialog(menu_dialog);
 }
 
