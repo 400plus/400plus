@@ -35,32 +35,27 @@ void start_up() {
 }
 
 void dp_action() {
-	if (cameraMode.AEMode > 6) {
-		// Non-creative modes: switch between RAW and JPEG
-		switch_raw_jpeg();
-	} else {
-		switch (settings.dp_action) {
-		case DP_ACTION_INTERMEDIATE_ISO:
-			// Set intermediate ISO
-			set_intermediate_iso();
-			break;
-		case DP_ACTION_EXTENDED_AEB:
-			// Start extended AEB script
-			script_extended_aeb();
-			break;
-		case DP_ACTION_INTERVAL:
-			// Start interval script
-			script_interval();
-			break;
-		case DP_ACTION_WAVE:
-			// Start interval script
-			script_wave();
-			break;
-		case DP_ACTION_SELF_TIMER:
-			// Start self-timer script
-			script_self_timer();
-			break;
-		}
+	switch (settings.dp_action) {
+	case DP_ACTION_INTERMEDIATE_ISO:
+		// Set intermediate ISO
+		set_intermediate_iso();
+		break;
+	case DP_ACTION_EXTENDED_AEB:
+		// Start extended AEB script
+		script_extended_aeb();
+		break;
+	case DP_ACTION_INTERVAL:
+		// Start interval script
+		script_interval();
+		break;
+	case DP_ACTION_WAVE:
+		// Start interval script
+		script_wave();
+		break;
+	case DP_ACTION_SELF_TIMER:
+		// Start self-timer script
+		script_self_timer();
+		break;
 	}
 }
 
@@ -94,7 +89,10 @@ void set_iso_high() {
 }
 
 void switch_raw_jpeg() {
-	SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 0x03);
+	if (cameraMode.AEMode > 6) {
+		// Only for non-creative modes
+		SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 0x03);
+	}
 }
 
 void set_intermediate_iso() {
