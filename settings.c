@@ -18,6 +18,7 @@ type_SETTINGS settings = {
 	wave_delay       : FALSE,
 	wave_action      : SHOT_ACTION_FIRST,
 	wave_repeat      : FALSE,
+	wave_instant     : FALSE,
 	color_temp       : 5200,
 	av_comp          : 0,
 	flash_comp       : 0,
