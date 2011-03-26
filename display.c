@@ -31,15 +31,15 @@ void display_refresh() {
 
 	display_refresh_iso();
 
-	do_some_with_dialog(*(int*)(0x47F0));
+	do_some_with_dialog(MAIN_DIALOG);
 }
 
 void display_refresh_meteringmode() {
-	sub_FF8382DC(*(int*)(0x47F0), 0x0D, 0xF6);
+	sub_FF8382DC(MAIN_DIALOG, 0x0D, 0xF6);
 }
 
 void display_refresh_whitebalance() {
-	sub_FF8382DC(*(int*)(0x47F0), 0x0C, 0xCF);
+	sub_FF8382DC(MAIN_DIALOG, 0x0C, 0xCF);
 }
 
 void display_refresh_flashcomp() {
@@ -72,7 +72,7 @@ void display_refresh_flashcomp() {
 
 	value += negative ? 130 : 154;
 
-	sub_FF8382DC(*(int*)(0x47F0), 0x0B, value);
+	sub_FF8382DC(MAIN_DIALOG, 0x0B, value);
 }
 
 
@@ -87,13 +87,13 @@ void display_refresh_iso() {
 		}
 	}
 
-	sub_FF837FA8(*(int*)(0x47F0), 0x04, text);
+	sub_FF837FA8(MAIN_DIALOG, 0x04, text);
 }
 
 void display_countdown(int seconds) {
 	char buffer[4];
 
 	sprintf(buffer, "%u", seconds);
-	sub_FF837FA8(*(int*)(0x47F0), 0x26, buffer);
-	do_some_with_dialog(*(int*)(0x47F0));
+	sub_FF837FA8(MAIN_DIALOG, 0x26, buffer);
+	do_some_with_dialog(MAIN_DIALOG);
 }
