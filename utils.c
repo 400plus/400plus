@@ -6,6 +6,10 @@
 
 char message[32];
 
+// Translation from ISO codes to text displayed
+const char iso_text[][5] = {" 100", " 125", " 160", " 200", " 250", " 320", " 400", " 500", " 640", " 800", "1000", "1250", "1600", "2000", "2500", "3200"};
+const int  iso_code[]    = {  0x48,   0x4C,   0x4E,   0x50,   0x53,   0x56,   0x58,   0x5C,   0x5D,   0x60,   0x64,   0x66,   0x68,   0x6C,   0x6D,   0x6F};
+
 int ev_normalize(int ev);
 
 int ev_sgn(int ev) {
@@ -135,6 +139,17 @@ int iso_dec(int iso) {
 	else if (iso > 0x58) return 0x58; //  400
 	else if (iso > 0x50) return 0x50; //  200
 	else                 return 0x48; //  100
+}
+
+void iso_display(const char *buffer, int iso) {
+	int i;
+
+	for (i = 0; i < LENGTH(iso_code); i++) {
+		if (iso_code[i] == cameraMode.ISO) {
+			sprintf(buffer, "%s", iso_text[i]);
+			break;
+		}
+	}
 }
 
 void beep() {

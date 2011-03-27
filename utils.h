@@ -15,6 +15,8 @@ extern int iso_next(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
 
+extern void iso_display(const char *buffer, int iso);
+
 extern void beep();
 
 extern char *release_count();

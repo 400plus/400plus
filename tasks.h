@@ -3,8 +3,8 @@
 
 extern void start_up();
 
-extern void dp_action();
 extern void switch_raw_jpeg();
+extern void set_intermediate_iso();
 
 extern void restore_iso();
 extern void restore_wb();

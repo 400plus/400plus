@@ -12,6 +12,7 @@ SECTIONS {
 		display.o;
 		settings.o;
 		scripts.o;
+		shortcuts.o;
 		viewfinder.o;
 		af_patterns.o;
 	}
