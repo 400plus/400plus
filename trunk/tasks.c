@@ -1,7 +1,7 @@
 #include "main.h"
 #include "utils.h"
 #include "display.h"
-#include "scripts.h"
+#include "shortcuts.h"
 #include "settings.h"
 #include "firmware.h"
 
@@ -32,31 +32,6 @@ void start_up() {
 	// Read (and apply) settings from file
 	settings_read();
 	settings_apply();
-}
-
-void dp_action() {
-	switch (settings.dp_action) {
-	case DP_ACTION_INTERMEDIATE_ISO:
-		// Set intermediate ISO
-		set_intermediate_iso();
-		break;
-	case DP_ACTION_EXTENDED_AEB:
-		// Start extended AEB script
-		script_extended_aeb();
-		break;
-	case DP_ACTION_INTERVAL:
-		// Start interval script
-		script_interval();
-		break;
-	case DP_ACTION_WAVE:
-		// Start interval script
-		script_wave();
-		break;
-	case DP_ACTION_SELF_TIMER:
-		// Start self-timer script
-		script_self_timer();
-		break;
-	}
 }
 
 void set_metering_spot() {

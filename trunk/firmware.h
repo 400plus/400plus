@@ -85,10 +85,11 @@ extern int pressButton_(int button);
 // Display
 
 extern int CreateDialogBox(int parm1, int parm2, int *parm3, int template);
-extern int do_some_with_dialog(int handle);
+extern int DeleteDialogBox(int dialog);
+extern int do_some_with_dialog(int dialog);
 
-extern int sub_FF8382DC(int handle, const int code, const int data);
-extern int sub_FF837FA8(int handle, const int code, const char *text);
+extern int sub_FF8382DC(int dialog, const int code, const int data);
+extern int sub_FF837FA8(int dialog, const int code, const char *text);
 
 // Factory mode and debugging
 

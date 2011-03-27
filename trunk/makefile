@@ -22,6 +22,7 @@ C_OBJS = init.o        \
          display.o     \
          settings.o    \
          scripts.o     \
+         shortcuts.o   \
          viewfinder.o  \
          af_patterns.o \
 
@@ -42,7 +43,7 @@ $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 	$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
-	rm -f *.o; 
+	rm -f *.o
 	rm -f $(PROJECT).arm.elf
 
 
