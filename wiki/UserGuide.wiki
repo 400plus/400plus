@@ -30,17 +30,11 @@ Sub-menus are displayed as "`ITEM>SUBITEM`"; use the `MENU` key to roll to the n
  * _*Color Temp. (K)*_: Set a user-defined color temperature (activate it later pressing `DIRECT PRINT` at the white balance selection dialog).
  * _*Flash*_: Force the deactivation of the flash (during the shot), even if it has been raised.
  * _*AF assist beam*_: Force the deactivation of the flash (during the AF phase), even if it has been raised.
- * _*DP Button*_: Select the action to be performed when the `DIRECT PRINT` button is pressed in a _creative mode_:
-    * Disabled: do nothing.
-    * Wave: start the [UserGuide#Hand_Wave Hand Wave] script.
-    * Ext AEB: start the [UserGuide#Extended_AEB Extended AEB] script.
-    * Interval: start the [UserGuide#Intervalometer Intervalometer] script.
-    * Intm ISO: roll to an intermediate ISO (100 => 125 => 160 => 100, for example) (see [UserGuide#Extended_ISOs Notes / Extended ISOs]).
-    * Timer: start the [UserGuide#Self_Timer Self Timer] script.
- * _*Wave*_: This sub-menu configures the [UserGuide#Hand_Wave Hand Wave] script:
+ * _*Handwave*_: This sub-menu configures the [UserGuide#Hand_Waving Hand Waving] script:
     * Delay: select wether this script should take the shot immediately, or wait for 2 seconds.
     * Action: action to be performed.
     * Repeat: if selected, the script will restart itself after each shot, so you can wave your hand again to take another shot.
+    * Instant: if selected, the script shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Ext. AEB*_: This sub-menu configures the [UserGuide#Extended_AEB Extended AEB] script:
     * Frames: number of frames to shot.
     * Step (EV): separation in EV between shots.
@@ -57,9 +51,21 @@ Sub-menus are displayed as "`ITEM>SUBITEM`"; use the `MENU` key to roll to the n
     * Action: action to be performed.
  * _*IR remote delay*_: Select wether the camera should wait 2 seconds when released using an IR remote.
 
+= The shortcuts menu =
+
+To access the shortcuts menu, just press the `DIRECT PRINT` button. Note that this menu cannot be navigated, as each button performs an immediate action, and is only used to display which action is assigned to each button:
+
+ * _*^ Intermediate ISO*_: Press the `UP` button to change to an intermediate ISO.
+ * _*< Extended AEB*_: Press the `LEFT` button to start the [UserGuide#Extended_AEB Extended AEB] script.
+ * _*# Intervalometer*_: Press the `SET` button to start the [UserGuide#Intervalometer Intervalometer] script.
+ * _*> Hand waving*_: Press the `RIGHT` button to start the [UserGuide#Hand_Waving Hand Waving] script.
+ * _*v Self timer*_: Press the `DOWN` button to start the [UserGuide#Self_Timer Self Timer] button.
+
+To exit the shortcuts menu, press the `MENU` button.
+
 = The scripts =
 
-All scripts are activated with the `DIRECT PRINT` menu, and which one of them is run must be selected at the "DP Button" menu item. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (twice per second, aprox.).
+All scripts are activated from the [UserGuide#The_Shortcuts_Menu Shortcuts Menu]. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (twice per second, aprox.).
 
 To stop a running script, press the `DIRECT PRINT` button again; sometimes the camera may not stop immediately, so press and hold the `DIRECT PRINT` button until you hear a _beep_ that signals the effective end of the script.
 
@@ -76,9 +82,9 @@ In `M` mode, this script will shoot the camera as many times as needed, with shu
 
 This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots; use this script to create _stop-motion_ movies, for example. Set "EAEB" to "yes" to run the [UserGuide#Extended_AEB Extended AEB] script on each shot.
 
-== Hand Wave ==
+== Hand Waving ==
 
-This script will fire the camera when the "display-off sensor" is triggered; use this script to shot the camera without a remote. Can run the [UserGuide#Extended_AEB Extended AEB] or the [UserGuide#Intervalometer Intervalometer] scripts, if configured at the "Action" sub-item. If the "repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots.
+This script will fire the camera when the "display-off sensor" at the back of the camera is triggered; use this script to shot the camera without a remote. Can run the [UserGuide#Extended_AEB Extended AEB] or the [UserGuide#Intervalometer Intervalometer] scripts, if configured at the "Action" sub-item. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, the script will wait until a hand blocks the sensor and then is removed; but, when the "Instant" option is active, the script will fire the camera as soon as a hand blocks the sensor.
 
 == Self Timer ==
 
@@ -88,17 +94,17 @@ This script simply adds a configurable pause before shooting the camera; can run
 
 Press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog; then press `ZOOM IN` again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the patterns, then half-press the shutter button to exit the dialog.
 
-= The shortcuts =
+= The goodies =
 
-The following _shortcuts_ have been added to the camera.
+The following _goodies_ have been added to the camera.
 
 == In the basic zone ==
 
-In the _basic zone_, only the `DIRECT PRINT` button has a special use: use it to toggle between `RAW` and `JPEG` output.
+In the _basic zone_, use the `AV` button to toggle between `RAW` and `JPEG` output.
 
 == In the creative zone ==
 
-In the _creative zone_ the following shortcuts are active:
+In the _creative zone_ the following goodies are active:
  * In the ISO selection dialog, press `DIRECT PRINT` to set ISO 3200 (see [UserGuide#Extended_ISOs Notes / Extended ISOs]).
  * In the metering mode selection dialog, press `DIRECT PRINT` to set spot metering (see [UserGuide#Spot_metering_mode Notes / Spot metering mode]).
  * In the white balance selection dialog, press `DIRECT PRINT` to set the user-defined color temperature.
@@ -115,9 +121,9 @@ In the "camera settings" screen (press `INFO` at the _standard_ camera menu), th
 
 While looking through the viewfinder, the `ISO` and `WB` buttons are no longer active, to prevent accidental changes with the user's nose.
 
-== Factory menu and debugging ==
+== Factory menu and debug mode ==
 
-From the 400plus menu, press `DIRECT PRINT` and then go back to the _standard_ camera menu; a new `FACTORY MENU` will be accessible now. From within that menu, press `DIRECT PRINT` to activate the _debug mode_ (the camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`).
+From the 400plus menu, press `DIRECT PRINT` to activate the _factory menu_ (you will hear a _beep_); press `DIRECT PRINT` again to activate the _debug mode_ (another _beep_ should be heard). Go back to the _standard_ camera menu, and a new `FACTORY MENU` will be accessible from now on. When in _debug mode_, the camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`.
 
 = Notes =
 
@@ -125,7 +131,7 @@ Some notes and comments.
 
 == Extended ISOs ==
 
-_Non-standard_ ISO values are software-only, and technically produce zero gain over shooting at the _base_ ISO and later post-processing the image; this include ISO-3200.
+_Non-standard_ ISO values are software-only, and technically produce zero gain over shooting at the _base_ ISO and later post-processing the image; this includes ISO-3200.
 
 == Spot metering mode ==
 
