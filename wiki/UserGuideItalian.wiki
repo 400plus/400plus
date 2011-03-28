@@ -37,9 +37,9 @@ I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU 
   * Intm ISO: scorre i valori ISO intermedi (100 => 125 => 160 => 100, per esempio) (vedi Note/Extended GSI). 
   * Timer: avvia lo script di Autoscatto. 
  * _*Wave*_: questo sottomenu configura lo script Hand Wave: 
-  *Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
-  *Action: azione da eseguire. 
-  *Repeat: se selezionato, lo script ri riavvierà dopo ogni scatto, in modo da poter effettuare un nuovo scatto col movimento della mano.
+  * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
+  * Action: azione da eseguire. 
+  * Repeat: se selezionato, lo script ri riavvierà dopo ogni scatto, in modo da poter effettuare un nuovo scatto col movimento della mano.
  * _*Ext. AEB*_: Questo sottomenu configura lo script Extended AEB: 
   * Frames: numero di fotogrammi da scattare. 
   * Step (EV): la differenza in EV tra gli scatti. 
@@ -57,7 +57,7 @@ I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU 
   * IR remote delay: seleziona se la telecamera debba aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
 
 = Gli script =
-Tutti gli script sono attivati ​​con il menu di stampa diretta, e quello che deve essere eseguito va selezionato con "DP Button" nel menu. Quando si avvia o si ferma uno script, si sentirà un "bip", e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente mettere la mano sul retro della fotocamera, sul sensore "display-off": il display si spegnerà e lo script si ferma appena possibile.
+Tutti gli script sono attivati ​​con il menu di stampa diretta, e quello che deve essere eseguito va selezionato con "DP Button" nel menu. Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente premere nuovamente il pulsante `DIRECT PRINT`; qualche volta la macchina potrebbe non fermarsi immediatamente, in tal caso bisogna premere e tenere premuto il pulsante `DIRECT PRINT` finché non si sentirà un _bip_ che annuncia l'effettiva chiusura dello script.
 
 == Extended AEB ==
 Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, con alcune differenze: 
@@ -70,7 +70,7 @@ In modalità M, questo script farà scattare la fotocamera tutte le volte che se
 Questo script fa scattare la fotocamera il numero di volte configurato (o all'infinito), aspettando il tempo specificato tra uno scatto e l’altro; questo script può essere utilizzato per creare filmati in stop-motion, per esempio. Impostando "EAEB" a "yes" si esegue lo script Extended AEB su ogni scatto.
 
 == Hand Wave ==
-Questo script fa scattare la fotocamera quando il sensore "display-off" è innescato; si può utilizzare questo script per far scattare la fotocamera senza un telecomando. E’ possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
+Questo script fa scattare la fotocamera quando il sensore "display-off" è innescato; si può utilizzare questo script per far scattare la fotocamera senza un telecomando. E’ possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action". Se è attivata l'opzione "repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità.
 
 == Autoscatto ==
 Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera; possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
@@ -96,7 +96,7 @@ Nella schermata delle impostazioni della fotocamera (ci si arriva premendo il ta
 == Il problema "naso" ==
 Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi, per prevenire modifiche accidentali con il naso dell'utente. 
 == Menu Factory e debugging ==
-Dal menu 400plus, premere Direct Print e poi tornare al menu della fotocamera standard; un nuovo FACTORY MENU sarà ora accessibile. Dall'interno di questo nuovo menu, premendo DIRECT PRINT si attiva la modalità debug (la fotocamera memorizza un sacco di informazioni di debug sulla scheda).
+Dal menu 400plus, premere Direct Print e poi tornare al menu della fotocamera standard; un nuovo FACTORY MENU sarà ora accessibile. Dall'interno di questo nuovo menu, premendo DIRECT PRINT si attiva la _modalità debug_ (la fotocamera memorizza un sacco di informazioni di debug sulla scheda, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`).
 
 = Note =
 Alcune note e commenti. 
