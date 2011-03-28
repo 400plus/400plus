@@ -5,7 +5,6 @@
 
 type_SETTINGS settings = {
 	iso_in_viewfinder: FALSE,
-	dp_action        : DP_ACTION_FIRST,
 	eaeb_frames      : 3,
 	eaeb_delay       : FALSE,
 	eaeb_ev          : 0x08,
