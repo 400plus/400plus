@@ -10,11 +10,11 @@
 int  shortcuts_dialog = 0;
 
 type_SHORTCUT shortcuts[5] = {
-	{"^ Intermediate ISO", set_intermediate_iso},
-	{"< Extended AEB",     script_extended_aeb},
-	{"# Intervalometer",   script_interval},
-	{"> Hand waving",      script_wave},
-	{"v Self timer",       script_self_timer}
+	{"^ Intermediate ISO   ", set_intermediate_iso},
+	{"< Extended AEB",        script_extended_aeb},
+	{"# Intervalometer",      script_interval},
+	{"> Hand waving",         script_wave},
+	{"v Self timer",          script_self_timer}
 };
 
 void shortcuts_create();
