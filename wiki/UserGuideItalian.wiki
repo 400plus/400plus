@@ -39,6 +39,7 @@ I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU 
  * _*Wave*_: questo sottomenu configura lo script Hand Wave: 
   *Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
   *Action: azione da eseguire. 
+  *Repeat: se selezionato, lo script ri riavvierà dopo ogni scatto, in modo da poter effettuare un nuovo scatto col movimento della mano.
  * _*Ext. AEB*_: Questo sottomenu configura lo script Extended AEB: 
   * Frames: numero di fotogrammi da scattare. 
   * Step (EV): la differenza in EV tra gli scatti. 
