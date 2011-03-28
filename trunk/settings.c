@@ -64,7 +64,7 @@ extern void settings_apply() {
 	SendToIntercom(0x39, 1,  settings.safety_shift);
 	SendToIntercom(0x30, 1, !settings.emit_flash);
 	SendToIntercom(0x2E, 1, !settings.af_flash);
-	SendToIntercom(0x10, 1,  settings.color_temp);
+	SendToIntercom(0x10, 2,  settings.color_temp);
 
 	if(settings.remote_delay){
 		*(int*)0x229AC = 4500;
