@@ -216,6 +216,9 @@ typedef struct {
 	type_RESP button_up_resp;  // Response when the current button is released
 } type_STATUS;
 
+// Main message queue
+extern int *message_queue;
+
 // Inline code
 #define ENQUEUE_TASK(task) TryPostMessageQueue(message_queue, (task), FALSE);
 
