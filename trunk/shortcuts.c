@@ -98,7 +98,7 @@ void shortcuts_launch(int id) {
 		sub_FF837FA8(shortcuts_dialog, id + 1, buffer);
 		do_some_with_dialog(shortcuts_dialog);
 	} else {
-		shortcuts_close();
 		ENQUEUE_TASK(shortcuts[id].launch);
+		shortcuts_close();
 	}
 }
