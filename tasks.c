@@ -74,6 +74,7 @@ void set_intermediate_iso() {
 	if (cameraMode.AEMode < 6) {
 		int iso = iso_next(cameraMode.ISO);
 		eventproc_SetIsoValue(&iso);
+		SleepTask(50);
 	}
 }
 
