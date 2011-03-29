@@ -53,7 +53,6 @@ type_ACTION actions_shortcuts[]  = {
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {shortcuts_right}},
 	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {shortcuts_down}},
 	{BUTTON_DRIVE, FALSE, RESP_BLOCK, {shortcuts_close}},
-	{BUTTON_MENU,  FALSE, RESP_BLOCK, {shortcuts_close}},
 	END_OF_LIST
 };
 

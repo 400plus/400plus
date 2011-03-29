@@ -24,6 +24,9 @@ void shortcuts_launch(int id);
 void shortcuts_initialize() {
 	beep();
 
+	pressButton_(BUTTON_MENU);
+	SleepTask(100);
+
 	shortcuts_create();
 	shortcuts_display();
 }
@@ -40,8 +43,6 @@ void shortcuts_display() {
 	char iso[8], buffer[64];
 
 	for(i = 0; i < 5; i++) {
-
-
 		if (i == 0) {
 			iso_display(iso, cameraMode.ISO);
 			sprintf(buffer, "%s [%s]", shortcuts[i].text, iso);
@@ -57,9 +58,8 @@ void shortcuts_display() {
 
 void shortcuts_close() {
 	pressButton_(BUTTON_DISP);
-	pressButton_(BUTTON_DISP);
-
 	SleepTask(100);
+
 	display_refresh();
 }
 
