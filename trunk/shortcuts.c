@@ -57,8 +57,10 @@ void shortcuts_display() {
 }
 
 void shortcuts_close() {
+	DeleteDialogBox(shortcuts_dialog);
+
 	pressButton_(BUTTON_DISP);
-	SleepTask(100);
+	SleepTask(250);
 
 	display_refresh();
 }
@@ -87,17 +89,16 @@ void shortcuts_down() {
 void shortcuts_launch(int id) {
 	char iso[8], buffer[64];
 
-	if (id != 0) {
-		shortcuts_close();
-	}
-
-	shortcuts[id].launch();
-
 	if (id == 0) {
+		shortcuts[id].launch();
+
 		iso_display(iso, cameraMode.ISO);
 		sprintf(buffer, "%s [%s]", shortcuts[id].text, iso);
 
 		sub_FF837FA8(shortcuts_dialog, id + 1, buffer);
 		do_some_with_dialog(shortcuts_dialog);
+	} else {
+		shortcuts_close();
+		ENQUEUE_TASK(shortcuts[id].launch);
 	}
 }
