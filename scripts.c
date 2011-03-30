@@ -47,18 +47,26 @@ void script_interval() {
 void script_wave() {
 	script_start();
 
+	// First, wait for the sensor to be free, just in case
+	while (status.script_running && FLAG_FACE_SENSOR)
+		SleepTask(WAIT_USER_ACTION);
+
 	do {
+		// Now, wait until something blocks the sensor
 		while (status.script_running && !FLAG_FACE_SENSOR)
 			SleepTask(WAIT_USER_ACTION);
 
+		// If instant not activated, wait until sensor is free again
 		if (!settings.wave_instant) {
 			while (status.script_running && FLAG_FACE_SENSOR)
 				SleepTask(WAIT_USER_ACTION);
 		}
 
+		// Do the optional delay
 		if (settings.wave_delay)
 			script_delay(2);
 
+		// And finally fire the camera
 		if (status.script_running)
 			script_shot(settings.wave_action);
 	} while (status.script_running && settings.wave_repeat);
@@ -88,6 +96,8 @@ void script_start() {
 }
 
 void script_stop() {
+	wait_for_camera();
+
 	beep();
 	status.script_running = FALSE;
 }
@@ -112,7 +122,7 @@ void script_shot(type_SHOT_ACTION action) {
 
 	switch (action) {
 	case SHOT_ACTION_SHOT:
-		eventproc_Release();
+		release_and_wait();
 		break;
 	case SHOT_ACTION_EAEB:
 		sub_extended_aeb();
