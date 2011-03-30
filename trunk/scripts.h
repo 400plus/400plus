@@ -5,7 +5,7 @@
 #define WAIT_CAMERA_BUSY 250
 
 // Time between tries while waiting for user
-#define WAIT_USER_ACTION 250
+#define WAIT_USER_ACTION 100
 
 // Feedback timing
 #define FEEDBACK_LENGTH    25
