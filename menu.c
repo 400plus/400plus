@@ -176,7 +176,7 @@ void menu_repeateable_right(int repeating) {
 		break;
 	}
 
-	menu_display();
+	menu_refresh();
 }
 
 void menu_repeateable_left(int repeating) {
@@ -209,7 +209,7 @@ void menu_repeateable_left(int repeating) {
 		break;
 	}
 
-	menu_display();
+	menu_refresh();
 }
 
 void menu_repeateable_cycle(int repeating) {
@@ -237,7 +237,7 @@ void menu_repeateable_cycle(int repeating) {
 		break;
 	}
 
-	menu_display();
+	menu_refresh();
 }
 
 void menu_submenu() {
@@ -250,7 +250,7 @@ void menu_submenu() {
 			item->def.def_menu.current_item++;
 	}
 
-	menu_display();
+	menu_refresh();
 }
 
 void menu_save() {
@@ -281,7 +281,7 @@ void menu_display() {
 }
 
 void menu_refresh() {
-	sub_FF837FA8(menu_dialog, current_line, menu_message(main_menu.current_item));
+	sub_FF837FA8(menu_dialog, current_line + 1, menu_message(main_menu.current_item));
 	do_some_with_dialog(menu_dialog);
 }
 
