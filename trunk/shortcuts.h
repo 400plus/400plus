@@ -3,9 +3,18 @@
 
 typedef void(*type_LAUNCH)();
 
+typedef enum {
+	SHORTCUT_TYPE_STATIC,
+	SHORTCUT_TYPE_ISO,
+	SHORTCUT_TYPE_COUNT,
+	SHORTCUT_TYPE_FIRST = 0,
+	SHORTCUT_TYPE_LAST  = SHORTCUT_TYPE_COUNT - 1
+} type_SHORTCUT_TYPE;
+
 typedef struct {
-	char        *text;
-	type_LAUNCH  launch;
+	char               *text;
+	type_SHORTCUT_TYPE  type;
+	type_LAUNCH         launch;
 } type_SHORTCUT;
 
 extern type_SHORTCUT shortcuts[5];

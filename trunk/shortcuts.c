@@ -10,16 +10,18 @@
 int  shortcuts_dialog = 0;
 
 type_SHORTCUT shortcuts[5] = {
-	{"^ Intermediate ISO   ", set_intermediate_iso},
-	{"< Extended AEB",        script_extended_aeb},
-	{"# Intervalometer",      script_interval},
-	{"> Hand waving",         script_wave},
-	{"v Self timer",          script_self_timer}
+	{"^ Intermediate ISO", SHORTCUT_TYPE_ISO,   set_intermediate_iso},
+	{"< Extended AEB",     SHORTCUT_TYPE_STATIC, script_extended_aeb},
+	{"# Intervalometer",   SHORTCUT_TYPE_STATIC, script_interval},
+	{"> Hand waving",      SHORTCUT_TYPE_STATIC, script_wave},
+	{"v Self timer",       SHORTCUT_TYPE_STATIC, script_self_timer}
 };
 
 void shortcuts_create();
 void shortcuts_display();
-void shortcuts_launch(int id);
+void shortcuts_display_line(int line, type_SHORTCUT shortcut);
+
+void shortcuts_launch(int line);
 
 void shortcuts_initialize() {
 	beep();
@@ -40,20 +42,29 @@ void shortcuts_create() {
 
 void shortcuts_display() {
 	int i;
-	char iso[8], buffer[64];
 
-	for(i = 0; i < 5; i++) {
-		if (i == 0) {
-			iso_display(iso, cameraMode.ISO);
-			sprintf(buffer, "%s [%s]", shortcuts[i].text, iso);
-		} else {
-			sprintf(buffer, "%s", shortcuts[i].text);
-		}
-
-		sub_FF837FA8(shortcuts_dialog, i + 1, buffer);
-	}
+	for(i = 0; i < 5; i++)
+		shortcuts_display_line(i, shortcuts[i]);
 
 	do_some_with_dialog(shortcuts_dialog);
+}
+
+void shortcuts_display_line(int line, type_SHORTCUT shortcut) {
+	char iso[8], buffer[64];
+
+	switch (shortcut.type) {
+	case SHORTCUT_TYPE_STATIC:
+		sprintf(buffer, "%s", shortcut.text);
+		break;
+	case SHORTCUT_TYPE_ISO:
+		iso_display(iso, cameraMode.ISO);
+		sprintf(buffer, "%-22s[%s]", shortcut.text, iso);
+		break;
+	default:
+		break;
+	}
+
+	sub_FF837FA8(shortcuts_dialog, line + 1, buffer);
 }
 
 void shortcuts_close() {
@@ -86,19 +97,19 @@ void shortcuts_down() {
 	shortcuts_launch(4);
 }
 
-void shortcuts_launch(int id) {
+void shortcuts_launch(int line) {
 	char iso[8], buffer[64];
 
-	if (id == 0) {
-		shortcuts[id].launch();
-
-		iso_display(iso, cameraMode.ISO);
-		sprintf(buffer, "%s [%s]", shortcuts[id].text, iso);
-
-		sub_FF837FA8(shortcuts_dialog, id + 1, buffer);
-		do_some_with_dialog(shortcuts_dialog);
-	} else {
-		ENQUEUE_TASK(shortcuts[id].launch);
+	switch (shortcuts[line].type) {
+	case SHORTCUT_TYPE_STATIC:
 		shortcuts_close();
+		ENQUEUE_TASK(shortcuts[line].launch);
+		break;
+	default:
+		shortcuts[line].launch();
+		shortcuts_display_line(line, shortcuts[line]);
+
+		do_some_with_dialog(shortcuts_dialog);
+		break;
 	}
 }
