@@ -104,8 +104,8 @@ void menu_up() {
 
 	if (current_line != 0)
 		current_line--;
-
-	menu_display();
+	else
+		menu_display();
 }
 
 void menu_down() {
@@ -114,8 +114,8 @@ void menu_down() {
 
 	if (current_line != 4)
 		current_line++;
-
-	menu_display();
+	else
+		menu_display();
 }
 
 void menu_right() {
