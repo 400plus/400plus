@@ -29,17 +29,11 @@ I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU 
  * _*Color Temp. (K)*_: permette di impostare una temperatura di colore definita dall'utente (attivabile in un secondo momento premendo il tasto Direct Print nella finestra di dialogo per il bilanciamento del bianco). 
  * _*Flash*_: forza la disattivazione del flash (durante lo scatto), anche se l’opzione è selezionata. 
  * _*AF assist beam*_: forza la disattivazione del flash (durante la fase di AF), anche se l’opzione è selezionata.
- * _*DP Button*_: Selezionare l'azione da eseguire quando il pulsante di stampa diretta è premuto in una modalità creativa: 
-  * disable: non fa nulla. 
-  * Wave: avvia lo script di Hand Wave. 
-  * Ext AEB: avvia lo script Extended AEB. 
-  * Interval: avvia lo script intervallometro. 
-  * Intm ISO: scorre i valori ISO intermedi (100 => 125 => 160 => 100, per esempio) (vedi Note/Extended GSI). 
-  * Timer: avvia lo script di Autoscatto. 
- * _*Wave*_: questo sottomenu configura lo script Hand Wave: 
+ * _*Wave*_: questo sottomenu configura lo script [UserGuide#Hand_Waving Hand Waving]: 
   * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
   * Action: azione da eseguire. 
   * Repeat: se selezionato, lo script ri riavvierà dopo ogni scatto, in modo da poter effettuare un nuovo scatto col movimento della mano.
+  * Instant: se selezionato, lo script scatta appena rileva la mano; altrimenti, lo script aspetterà che la mano venga tolta da davanti il sensore.
  * _*Ext. AEB*_: Questo sottomenu configura lo script Extended AEB: 
   * Frames: numero di fotogrammi da scattare. 
   * Step (EV): la differenza in EV tra gli scatti. 
@@ -56,8 +50,19 @@ I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU 
   * Action: azione da eseguire. 
   * IR remote delay: seleziona se la telecamera debba aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
 
+= Menu dei collegamenti rapidi =
+Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DIRECT PRINT`. Questo menu non è navigabile, perché ogni pulsante avvia direttamente un'azione, e questo menu serve solo per mostrare quale azione è associata a ciascun pulsante:
+
+ * _*^ Intermediate ISO*_: Premendo il pulsante `UP` si cambia il valore ISO ad un valore intermedio.
+ * _*< Extended AEB*_: Con la pressione del tasto `LEFT` si avvia lo script [UserGuide#Extended_AEB Extended AEB].
+ * _*# Intervalometer*_: La pressione del pulsante `SET` avvia lo script [UserGuide#Intervalometer Intervalometer].
+ * _*> Hand waving*_: Premendo il pulsante `RIGHT` viene avviato lo script [UserGuide#Hand_Waving Hand Waving].
+ * _*v Self timer*_: La pressione del tasto `DOWN` avvia lo script [UserGuide#Self_Timer Self Timer].
+
+Per uscire dal menu dei collegamenti rapidi, basta premere il pulsante `MENU`.
+
 = Gli script =
-Tutti gli script sono attivati ​​con il menu di stampa diretta, e quello che deve essere eseguito va selezionato con "DP Button" nel menu. Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente premere nuovamente il pulsante `DIRECT PRINT`; qualche volta la macchina potrebbe non fermarsi immediatamente, in tal caso bisogna premere e tenere premuto il pulsante `DIRECT PRINT` finché non si sentirà un _bip_ che annuncia l'effettiva chiusura dello script.
+Tutti gli script vengono attivati dal menu dei [UserGuide#Menu dei collegamenti rapidi collegamenti rapidi]. Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente premere nuovamente il pulsante `DIRECT PRINT`; qualche volta la macchina potrebbe non fermarsi immediatamente, in tal caso bisogna premere e tenere premuto il pulsante `DIRECT PRINT` finché non si sentirà un _bip_ che annuncia l'effettiva chiusura dello script.
 
 == Extended AEB ==
 Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, con alcune differenze: 
@@ -69,8 +74,8 @@ In modalità M, questo script farà scattare la fotocamera tutte le volte che se
 == Intervallometro ==
 Questo script fa scattare la fotocamera il numero di volte configurato (o all'infinito), aspettando il tempo specificato tra uno scatto e l’altro; questo script può essere utilizzato per creare filmati in stop-motion, per esempio. Impostando "EAEB" a "yes" si esegue lo script Extended AEB su ogni scatto.
 
-== Hand Wave ==
-Questo script fa scattare la fotocamera quando il sensore "display-off" è innescato; si può utilizzare questo script per far scattare la fotocamera senza un telecomando. E’ possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action". Se è attivata l'opzione "repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità.
+== Hand Waving ==
+Questo script fa scattare la fotocamera quando viene innescato il sensore "display-off" sul retro della fotocamera; si può utilizzare questo script per far scattare la fotocamera senza un telecomando. E’ possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action". Se è attivata l'opzione "Repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità. Di default, lo script aspetterà che il sensore venga innescato e poi rilasciato (ovvero scatterà appena viene tolta la mano); se, però, è selezionata l'opzione "Instant", lo script scatterà appena il sensore viene coperto.
 
 == Autoscatto ==
 Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera; possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
@@ -79,12 +84,12 @@ Questo script aggiunge semplicemente una pausa configurabile prima di far scatta
 = La selezione dell’AF-Pattern =
 Premere il pulsante Zoom In per inserire il menu "selezione punto AF" standard, quindi premere ZOOM IN di nuovo per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i pattern, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
 
-== Le scorciatoie ==
-Sono state aggiunte le seguenti scorciatoie alla fotocamera. 
+== Le chicche==
+Sono state aggiunte le seguenti _chicche_ alla fotocamera. 
 === Nella zona di base ===
-Nella zona di base, solo il pulsante di stampa diretta ha una funzione speciale: serve per commutare tra RAW e JPEG l’output dello scatto.
+Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’output dello scatto.
 === Nella zona creativa ===
-Nella zona creativa i collegamenti attivi sono i seguenti: 
+Nella zona creativa le _chicche_ attivabili sono i seguenti: 
  * Nella finestra di dialogo di selezione ISO, premere PRINT DIRECT per impostare ISO 3200 (vedi Note/Extended GSI). 
  * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi Note/modalità di misurazione spot).
  * Nella finestra di dialogo di selezione del bilanciamento bianco, premere PRINT DIRECT per impostare la temperatura del colore definito dall'utente. 
@@ -95,8 +100,8 @@ Altre modifiche al comportamento della fotocamera, non descritti in precedenza.
 Nella schermata delle impostazioni della fotocamera (ci si arriva premendo il tasto DISP. Nel menu standard della fotocamera), nell'ultima riga viene ora visualizzato il numero totale di scatti realizzati dalla fotocamera, invece della capacità della scheda.
 == Il problema "naso" ==
 Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi, per prevenire modifiche accidentali con il naso dell'utente. 
-== Menu Factory e debugging ==
-Dal menu 400plus, premere Direct Print e poi tornare al menu della fotocamera standard; un nuovo FACTORY MENU sarà ora accessibile. Dall'interno di questo nuovo menu, premendo DIRECT PRINT si attiva la _modalità debug_ (la fotocamera memorizza un sacco di informazioni di debug sulla scheda, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`).
+== Menu Factory e Modalità Debug ==
+Dal menu 400plus, premere `DIRECT PRINT` per attivare il _Menu Factory_ (si sentirà un _bip_); premendo nuovamente `DIRECT PRINT` si attiverà la _mModalità Debug_ (si dovrebbe sentire nuovamente un _bip_). Tornando ora al menu _standard_ della fotocamera, d'ora in poi un nuovo `FACTORY MENU` sarà accessibile. Quando è in _modalità debug_, la fotocamera memorizza un sacco di informazioni di debug sulla scheda, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`.
 
 = Note =
 Alcune note e commenti. 
