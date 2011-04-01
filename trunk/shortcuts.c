@@ -10,7 +10,7 @@
 int  shortcuts_dialog = 0;
 
 type_SHORTCUT shortcuts[5] = {
-	{"^ Intermediate ISO", SHORTCUT_TYPE_ISO,   set_intermediate_iso},
+	{"^ Intermediate ISO", SHORTCUT_TYPE_ISO,    set_intermediate_iso},
 	{"< Extended AEB",     SHORTCUT_TYPE_STATIC, script_extended_aeb},
 	{"# Intervalometer",   SHORTCUT_TYPE_STATIC, script_interval},
 	{"> Hand waving",      SHORTCUT_TYPE_STATIC, script_wave},

@@ -231,7 +231,7 @@ DEF(aDEVICESPEED, 0xFF810F9C)
 
 DEF(aStartup, 0xFF810F60)
 
-// 
+//
 STUB(FFB5F728)
 STUB(FFB0FF74)
 STUB(FFB2E108)
@@ -252,6 +252,6 @@ STUB(FF98CF4C)
 
 
 // procs
-#include  "funclist.txt"
+#include  "funclist.S"
 .align 2
 fin:
