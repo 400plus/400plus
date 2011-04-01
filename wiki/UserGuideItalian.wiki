@@ -57,7 +57,7 @@ Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `D
  * _*< Extended AEB*_: Con la pressione del tasto `LEFT` si avvia lo script [UserGuideItalian#Extended_AEB Extended AEB].
  * _*# Intervalometer*_: La pressione del pulsante `SET` avvia lo script [UserGuide#Intervalometer Intervalometer].
  * _*> Hand waving*_: Premendo il pulsante `RIGHT` viene avviato lo script [UserGuideItalian#Hand_Waving Hand Waving].
- * _*v Self timer*_: La pressione del tasto `DOWN` avvia lo script [UserGuideItalian#Self_Timer Self Timer].
+ * _*v Self timer*_: La pressione del tasto `DOWN` avvia lo script [UserGuideItalian#Autoscatto Autoscatto].
 
 Per uscire dal menu dei collegamenti rapidi, basta premere il pulsante `MENU`.
 
@@ -91,7 +91,7 @@ Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’outp
 === Nella zona creativa ===
 Nella zona creativa le _chicche_ attivabili sono i seguenti: 
  * Nella finestra di dialogo di selezione ISO, premere PRINT DIRECT per impostare ISO 3200 (vedi [UserGuideItalian#Extended_ISOs Note / Extended ISO]). 
- * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi [UserGuideItalian#Modalita_di_misurazione_spot Note / modalità di misurazione spot]).
+ * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi [UserGuideItalian#Modalità_di_misurazione_spot Note / modalità di misurazione spot]).
  * Nella finestra di dialogo di selezione del bilanciamento bianco, premere PRINT DIRECT per impostare la temperatura del colore definito dall'utente. 
 
 = Altri omaggi =
