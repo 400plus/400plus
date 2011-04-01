@@ -91,7 +91,7 @@ Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’outp
 === Nella zona creativa ===
 Nella zona creativa le _chicche_ attivabili sono i seguenti: 
  * Nella finestra di dialogo di selezione ISO, premere PRINT DIRECT per impostare ISO 3200 (vedi [UserGuideItalian#Extended_ISOs Note / Extended ISO]). 
- * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi [UserGuideItalian#Modalità_di_misurazione_spot Note / modalità di misurazione spot]).
+ * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi [UserGuideItalian#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
  * Nella finestra di dialogo di selezione del bilanciamento bianco, premere PRINT DIRECT per impostare la temperatura del colore definito dall'utente. 
 
 = Altri omaggi =
