@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x13
+#define SETTINGS_VERSION  0x14
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -38,6 +38,7 @@ typedef struct {
 	int remote_delay;
 	int timer_timeout;
 	int timer_action;
+	int shortcuts[5];
 } type_SETTINGS;
 
 extern type_SETTINGS settings;

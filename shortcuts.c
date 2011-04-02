@@ -3,6 +3,7 @@
 #include "tasks.h"
 #include "scripts.h"
 #include "display.h"
+#include "settings.h"
 #include "firmware.h"
 
 #include "shortcuts.h"
@@ -19,8 +20,6 @@ type_SHORTCUT shortcuts[5] = {
 	{"Hand waving",      SHORTCUT_TYPE_STATIC, script_wave},
 	{"Self timer",       SHORTCUT_TYPE_STATIC, script_self_timer}
 };
-
-int selected_shortcuts[5] = {0, 1, 2, 3, 4};
 
 void shortcuts_create();
 void shortcuts_display();
@@ -56,7 +55,7 @@ void shortcuts_display() {
 
 void shortcuts_display_line(int line) {
 	char iso[8], buffer[64];
-	type_SHORTCUT shortcut = shortcuts[selected_shortcuts[line]];
+	type_SHORTCUT shortcut = shortcuts[settings.shortcuts[line]];
 
 	switch (shortcut.type) {
 	case SHORTCUT_TYPE_STATIC:
@@ -74,8 +73,9 @@ void shortcuts_display_line(int line) {
 }
 
 void shortcuts_switch() {
-	beep();
 	FLAG_GUI_MODE = (FLAG_GUI_MODE == GUI_MODE_SHORTCUTS) ? GUI_MODE_SCEDIT : GUI_MODE_SHORTCUTS;
+
+	beep();
 }
 
 void shortcuts_close() {
@@ -110,7 +110,7 @@ void shortcuts_launch_4() {
 
 void shortcuts_launch(int line) {
 	char iso[8], buffer[64];
-	type_SHORTCUT shortcut = shortcuts[selected_shortcuts[line]];
+	type_SHORTCUT shortcut = shortcuts[settings.shortcuts[line]];
 
 	switch (shortcut.type) {
 	case SHORTCUT_TYPE_STATIC:
@@ -132,23 +132,26 @@ void shortcuts_up() {
 }
 
 void shortcuts_left() {
-	if (selected_shortcuts[current_shortcut] > 0)
-		selected_shortcuts[current_shortcut] --;
+	if (settings.shortcuts[current_shortcut] > 0)
+		settings.shortcuts[current_shortcut] --;
 	else
-		selected_shortcuts[current_shortcut] = LENGTH(shortcuts) - 1;
+		settings.shortcuts[current_shortcut] = LENGTH(shortcuts) - 1;
 
 	shortcuts_display_line(current_shortcut);
 	do_some_with_dialog(shortcuts_dialog);
 }
 
 void shortcuts_set() {
+	settings_write();
+
+	beep();
 }
 
 void shortcuts_right() {
-	if (selected_shortcuts[current_shortcut] < LENGTH(shortcuts) - 1)
-		selected_shortcuts[current_shortcut] ++;
+	if (settings.shortcuts[current_shortcut] < LENGTH(shortcuts) - 1)
+		settings.shortcuts[current_shortcut] ++;
 	else
-		selected_shortcuts[current_shortcut] = 0;
+		settings.shortcuts[current_shortcut] = 0;
 
 	shortcuts_display_line(current_shortcut);
 	do_some_with_dialog(shortcuts_dialog);
