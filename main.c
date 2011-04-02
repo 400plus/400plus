@@ -47,12 +47,22 @@ type_ACTION actions_400plus[]  = {
 };
 
 type_ACTION actions_shortcuts[]  = {
-	{BUTTON_UP,    TRUE,  RESP_BLOCK, {shortcuts_up}},
-	{BUTTON_LEFT,  TRUE,  RESP_BLOCK, {shortcuts_left}},
-	{BUTTON_SET,   FALSE, RESP_BLOCK, {shortcuts_set}},
-	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {shortcuts_right}},
-	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {shortcuts_down}},
-	{BUTTON_DRIVE, FALSE, RESP_BLOCK, {shortcuts_close}},
+	{BUTTON_UP,    TRUE,  RESP_BLOCK, {shortcuts_launch_0}},
+	{BUTTON_LEFT,  TRUE,  RESP_BLOCK, {shortcuts_launch_1}},
+	{BUTTON_SET,   FALSE, RESP_BLOCK, {shortcuts_launch_2}},
+	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {shortcuts_launch_3}},
+	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {shortcuts_launch_4}},
+	{BUTTON_AV,    TRUE,  RESP_BLOCK, {shortcuts_switch}},
+	END_OF_LIST
+};
+
+type_ACTION actions_scedit[]  = {
+	{BUTTON_UP,    TRUE,  RESP_RELEASE, {shortcuts_up}},
+	{BUTTON_LEFT,  TRUE,  RESP_BLOCK,   {shortcuts_left}},
+	{BUTTON_SET,   FALSE, RESP_BLOCK,   {shortcuts_set}},
+	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {shortcuts_right}},
+	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {shortcuts_down}},
+	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {shortcuts_switch}},
 	END_OF_LIST
 };
 
@@ -94,6 +104,7 @@ type_CHAIN chains[] = {
 	{GUI_MODE_MENU,      actions_menu},
 	{GUI_MODE_400PLUS,   actions_400plus},
 	{GUI_MODE_SHORTCUTS, actions_shortcuts},
+	{GUI_MODE_SCEDIT,    actions_scedit},
 	{GUI_MODE_METER,     actions_meter},
 	{GUI_MODE_WB,        actions_wb},
 	{GUI_MODE_ISO,       actions_iso},
