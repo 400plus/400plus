@@ -7,19 +7,24 @@
 
 #include "shortcuts.h"
 
-int  shortcuts_dialog = 0;
+int shortcuts_dialog = 0;
+int current_shortcut = 0;
+
+char shortcuts_icons[] = {'^', '<', '#', '>', 'v'};
 
 type_SHORTCUT shortcuts[5] = {
-	{"^ Intermediate ISO", SHORTCUT_TYPE_ISO,    set_intermediate_iso},
-	{"< Extended AEB",     SHORTCUT_TYPE_STATIC, script_extended_aeb},
-	{"# Intervalometer",   SHORTCUT_TYPE_STATIC, script_interval},
-	{"> Hand waving",      SHORTCUT_TYPE_STATIC, script_wave},
-	{"v Self timer",       SHORTCUT_TYPE_STATIC, script_self_timer}
+	{"Intermediate ISO", SHORTCUT_TYPE_ISO,    set_intermediate_iso},
+	{"Extended AEB",     SHORTCUT_TYPE_STATIC, script_extended_aeb},
+	{"Intervalometer",   SHORTCUT_TYPE_STATIC, script_interval},
+	{"Hand waving",      SHORTCUT_TYPE_STATIC, script_wave},
+	{"Self timer",       SHORTCUT_TYPE_STATIC, script_self_timer}
 };
+
+int selected_shortcuts[5] = {0, 1, 2, 3, 4};
 
 void shortcuts_create();
 void shortcuts_display();
-void shortcuts_display_line(int line, type_SHORTCUT shortcut);
+void shortcuts_display_line(int line);
 
 void shortcuts_launch(int line);
 
@@ -44,27 +49,33 @@ void shortcuts_display() {
 	int i;
 
 	for(i = 0; i < 5; i++)
-		shortcuts_display_line(i, shortcuts[i]);
+		shortcuts_display_line(i);
 
 	do_some_with_dialog(shortcuts_dialog);
 }
 
-void shortcuts_display_line(int line, type_SHORTCUT shortcut) {
+void shortcuts_display_line(int line) {
 	char iso[8], buffer[64];
+	type_SHORTCUT shortcut = shortcuts[selected_shortcuts[line]];
 
 	switch (shortcut.type) {
 	case SHORTCUT_TYPE_STATIC:
-		sprintf(buffer, "%s", shortcut.text);
+		sprintf(buffer, "%c %s", shortcuts_icons[line], shortcut.text);
 		break;
 	case SHORTCUT_TYPE_ISO:
 		iso_display(iso, cameraMode.ISO);
-		sprintf(buffer, "%-22s[%s]", shortcut.text, iso);
+		sprintf(buffer, "%c %-20s[%s]", shortcuts_icons[line], shortcut.text, iso);
 		break;
 	default:
 		break;
 	}
 
 	sub_FF837FA8(shortcuts_dialog, line + 1, buffer);
+}
+
+void shortcuts_switch() {
+	beep();
+	FLAG_GUI_MODE = (FLAG_GUI_MODE == GUI_MODE_SHORTCUTS) ? GUI_MODE_SCEDIT : GUI_MODE_SHORTCUTS;
 }
 
 void shortcuts_close() {
@@ -77,39 +88,73 @@ void shortcuts_close() {
 }
 
 
-void shortcuts_up() {
+void shortcuts_launch_0() {
 	shortcuts_launch(0);
 }
 
-void shortcuts_left() {
+void shortcuts_launch_1() {
 	shortcuts_launch(1);
 }
 
-void shortcuts_set() {
+void shortcuts_launch_2() {
 	shortcuts_launch(2);
 }
 
-void shortcuts_right() {
+void shortcuts_launch_3() {
 	shortcuts_launch(3);
 }
 
-void shortcuts_down() {
+void shortcuts_launch_4() {
 	shortcuts_launch(4);
 }
 
 void shortcuts_launch(int line) {
 	char iso[8], buffer[64];
+	type_SHORTCUT shortcut = shortcuts[selected_shortcuts[line]];
 
-	switch (shortcuts[line].type) {
+	switch (shortcut.type) {
 	case SHORTCUT_TYPE_STATIC:
 		shortcuts_close();
-		ENQUEUE_TASK(shortcuts[line].launch);
+		ENQUEUE_TASK(shortcut.launch);
 		break;
 	default:
-		shortcuts[line].launch();
-		shortcuts_display_line(line, shortcuts[line]);
+		shortcut.launch();
+		shortcuts_display_line(line);
 
 		do_some_with_dialog(shortcuts_dialog);
 		break;
 	}
+}
+
+void shortcuts_up() {
+	if (current_shortcut != 0)
+		current_shortcut--;
+}
+
+void shortcuts_left() {
+	if (selected_shortcuts[current_shortcut] > 0)
+		selected_shortcuts[current_shortcut] --;
+	else
+		selected_shortcuts[current_shortcut] = LENGTH(shortcuts) - 1;
+
+	shortcuts_display_line(current_shortcut);
+	do_some_with_dialog(shortcuts_dialog);
+}
+
+void shortcuts_set() {
+}
+
+void shortcuts_right() {
+	if (selected_shortcuts[current_shortcut] < LENGTH(shortcuts) - 1)
+		selected_shortcuts[current_shortcut] ++;
+	else
+		selected_shortcuts[current_shortcut] = 0;
+
+	shortcuts_display_line(current_shortcut);
+	do_some_with_dialog(shortcuts_dialog);
+}
+
+void shortcuts_down() {
+	if (current_shortcut != 4)
+		current_shortcut++;
 }
