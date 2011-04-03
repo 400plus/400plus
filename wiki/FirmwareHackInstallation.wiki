@@ -1,4 +1,5 @@
 #summary Firmware Hack Installation
+#labels Featured
 
 = Introduction =
 
