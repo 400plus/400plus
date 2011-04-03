@@ -53,6 +53,7 @@ type_ACTION actions_shortcuts[]  = {
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {shortcuts_launch_3}},
 	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {shortcuts_launch_4}},
 	{BUTTON_AV,    TRUE,  RESP_BLOCK, {shortcuts_switch}},
+	{BUTTON_MENU,  FALSE, RESP_BLOCK, {shortcuts_close}},
 	END_OF_LIST
 };
 
@@ -63,6 +64,7 @@ type_ACTION actions_scedit[]  = {
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {shortcuts_right}},
 	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {shortcuts_down}},
 	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {shortcuts_switch}},
+	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {shortcuts_close}},
 	END_OF_LIST
 };
 

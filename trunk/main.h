@@ -79,10 +79,10 @@ typedef struct {             // [*] Used and tested, others unknown
 	int CfAebSeq;            // 0x00b4
 	int CfSiIndicate;        // 0x00b8
 	int CfMenuPos;           // 0x00bc
-	int CfMLU;               // 0x00c0
+	int CfMLU;               // 0x00c0 [*]
 	int CfAfpSelection;      // 0x00c4
 	int CfFlashMetering;     // 0x00c8
-	int CfFlashSyncRear;     // 0x00cc
+	int CfFlashSyncRear;     // 0x00cc [*]
 	int CfSafetyShift;       // 0x00d0 [*]
 	int CfLensButton;        // 0x00d4
 	int CfOriginalEval;      // 0x00d8
