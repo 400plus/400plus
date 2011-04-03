@@ -70,11 +70,18 @@ void switch_raw_jpeg() {
 	}
 }
 
+void switch_CfMLU() {
+	SendToIntercom(0x35, 1, cameraMode.CfMLU ^ 0x01);
+}
+
+void switch_CfFlashSyncRear() {
+	SendToIntercom(0x38, 1, cameraMode.CfFlashSyncRear ^ 0x01);
+}
+
 void set_intermediate_iso() {
 	if (cameraMode.AEMode < 6) {
 		int iso = iso_next(cameraMode.ISO);
 		eventproc_SetIsoValue(&iso);
-		SleepTask(50);
 	}
 }
 
