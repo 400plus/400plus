@@ -149,3 +149,12 @@ _Non-standard_ ISO values are software-only, and technically produce zero gain o
 == Spot metering mode ==
 
 The spot metering mode is like the _standard_ "partial metering" mode, but the area included in the metering is smaller.
+
+= Known bugs =
+
+The following relevant bugs have been reported and confirmed:
+
+ * Issue #15: Exposure changes during EAEB.
+ * Issue #17: Number of shots remaining not restored if script interrupted.
+ * Issue #18: Wrong configuration restored.
+ * Issue #26: Scripts produce ERROR 99 when making bursts.
