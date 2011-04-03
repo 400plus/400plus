@@ -1,4 +1,5 @@
 #summary User Guide for 400plus
+#labels Featured
 
 = Introduction =
 
@@ -53,7 +54,7 @@ Sub-menus are displayed as "`ITEM>SUBITEM`"; use the `MENU` key to roll to the n
 
 = The shortcuts menu =
 
-To access the shortcuts menu, just press the `DIRECT PRINT` button. Note that this menu cannot be navigated, as each button performs an immediate action, and is only used to display which action is assigned to each button:
+To access the shortcuts menu, just press the `DIRECT PRINT` button. Note that this menu cannot be navigated, as each button performs an immediate action, and is only used to display which action is assigned to each button. Initially, the following assignments are active:
 
  * _*^ Intermediate ISO*_: Press the `UP` button to change to an intermediate ISO.
  * _*< Extended AEB*_: Press the `LEFT` button to start the [UserGuide#Extended_AEB Extended AEB] script.
@@ -62,6 +63,18 @@ To access the shortcuts menu, just press the `DIRECT PRINT` button. Note that th
  * _*v Self timer*_: Press the `DOWN` button to start the [UserGuide#Self_Timer Self Timer] button.
 
 To exit the shortcuts menu, press the `MENU` button.
+
+== Configuring the shortcuts menu ==
+
+While in the shortcuts menu, pres `AV` to configure the shortcuts menu: press `UP` and `DOWN` to select a shortcut, and `LEFT` or `RIGHT` to change the action assigned to that shortcut.
+
+Press `AV` again to go back to the shortcuts menu; but do not forget to press `SET` to save the new shortcuts menu to the card before leaving.
+
+== The extra shortcuts ==
+
+The following actions are also available, if assigned to a shortcut:
+ * _*Mirror lock-up*_: Enable / disable the mirror lock-up custom function.
+ * _*Rear curtain flash*_: Enable / disable the flash sync to the second curtain custom function.
 
 = The scripts =
 
