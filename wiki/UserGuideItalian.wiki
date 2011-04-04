@@ -1,26 +1,32 @@
 #summary 400plus User Guide in Italian / Manuale Utente 400plus.
 
 = Translation =
+
 Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63149#msg63149 ataru].
 
 = Manuale Utente 400plus =
 
 = Introduzione =
+
 Questo documento contiene il manuale d'uso per 400plus. Si suppone che, prima di leggere questa guida, l'utente abbia installato 400plus e che il software funzioni correttamente. Per informazioni sull'installazione di 400plus, vedere [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
 = Il menù =
 
 == Accesso al menu ==
+
 Per accedere al menu 400plus, premere MENU (verrà visualizzato il menu standard della fotocamera) e poi Direct Print (per visualizzare il nuovo menu 400plus).
 
 == Navigazione nel menu ==
+
 Per navigare all'interno del menu, utilizzare i tasti UP (ISO) e DOWN (WB) per spostarsi tra le voci. Quindi utilizzare il SINISTRA (MISURAZIONE) e RIGHT (AF) per cambiarne il valore; premere e tenere premuto questi tasti per cambiare più velocemente. Su alcune voci del menu, il tasto AV può essere utilizzato per scorrere i valori. 
 Utilizzare il tasto SET per salvare i valori e attivare i cambiamenti, facendo attenzione che tutte le modifiche andranno perse se si esce dal menu prima di premere il pulsante SET. 
 
 == Navigazione nel sotto-menu ==
+
 I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU per scorrere fino alla prossima voce secondaria, poi a sinistra e destra per modificare il valore (premere e tenere premuto per cambiare più velocemente). I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
 
 == Le voci del menu ==
+
  * _*Comp Av*_: la stessa funzione della "compensazione AV" standard, ma può andare da -6 a +6 EV. 
  * _*Comp Flash*_: la stessa funzione della "compensazione Flash" standard, ma può andare da -6 a +6 EV. 
  * _*AEB_*: la stessa funzione della "AEB" standard, ma può andare da -6 a +6 EV. 
@@ -51,7 +57,8 @@ I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU 
   * IR remote delay: seleziona se la telecamera debba aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
 
 = Menu dei collegamenti rapidi =
-Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DIRECT PRINT`. Questo menu non è navigabile, perché ogni pulsante avvia direttamente un'azione, e questo menu serve solo per mostrare quale azione è associata a ciascun pulsante:
+
+Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DIRECT PRINT`. Questo menu non è navigabile, perché ogni pulsante avvia direttamente un'azione, e questo menu serve solo per mostrare quale azione è associata a ciascun pulsante. Allo stato iniziale, queste sono le azioni associate ai pulsanti.
 
  * _*^ Intermediate ISO*_: Premendo il pulsante `UP` si cambia il valore ISO ad un valore intermedio.
  * _*< Extended AEB*_: Con la pressione del tasto `LEFT` si avvia lo script [UserGuideItalian#Extended_AEB Extended AEB].
@@ -61,10 +68,24 @@ Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `D
 
 Per uscire dal menu dei collegamenti rapidi, basta premere il pulsante `MENU`.
 
+== Configurazione del Menu dei collegamenti rapidi ==
+
+All'interno del Menu dei collegamenti rapidi, premere `AV` per configurare i collegamenti: con la pressione di `UP` e `DOWN` si seleziona il collegamento (pulsante), con `LEFT` e `RIGHT` viene cambiata l'azione assegnata al collegamento.
+
+Una nuova pressione del tasto `AV` ci riporta al menu dei collegamenti rapidi; Non dimenticare di premere `SET` per salvare le modifiche nella memoria prima di lasciare il menu.
+
+== Collegamenti aggiuntivi ==
+
+Sono disponibili le seguenti azioni, se associate a un collegamento:
+ * _*Mirror lock-up*_: Abilita / disabilita la funzione personalizzata della camer per il blocco dello specchio.
+ * _*Rear curtain flash*_: Abilita / disabilita la la funzione personalizzata per sincronizzazione del flash in seconda tendina.
+
 = Gli script =
+
 Tutti gli script vengono attivati dal menu dei [UserGuideItalian#Menu_dei_collegamenti_rapidi collegamenti rapidi]. Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente premere nuovamente il pulsante `DIRECT PRINT`; qualche volta la macchina potrebbe non fermarsi immediatamente, in tal caso bisogna premere e tenere premuto il pulsante `DIRECT PRINT` finché non si sentirà un _bip_ che annuncia l'effettiva chiusura dello script.
 
 == Extended AEB ==
+
 Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, con alcune differenze: 
   #. Possono essere effettuati fino a 9 scatti. 
   #. La differenza tra gli scatti può essere configurata fino a +6 EV. 
@@ -72,40 +93,70 @@ Questo script esegue la stessa attività dell'opzione standard AEB dalla macchin
 In modalità M, questo script farà scattare la fotocamera tutte le volte che servono, con tempi di scatto vanno dal valore "Manual [" al valore "Manual ]", e separando ogni scatto in base al valore "Step (EV)".
 
 == Intervallometro ==
+
 Questo script fa scattare la fotocamera il numero di volte configurato (o all'infinito), aspettando il tempo specificato tra uno scatto e l’altro; questo script può essere utilizzato per creare filmati in stop-motion, per esempio. Impostando "EAEB" a "yes" si esegue lo script [UserGuideItalian#Extended_AEB Extended AEB] su ogni scatto.
 
 == Hand Waving ==
+
 Questo script fa scattare la fotocamera quando viene innescato il sensore "display-off" sul retro della fotocamera; si può utilizzare questo script per far scattare la fotocamera senza un telecomando. E’ possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action". Se è attivata l'opzione "Repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità. Di default, lo script aspetterà che il sensore venga innescato e poi rilasciato (ovvero scatterà appena viene tolta la mano); se, però, è selezionata l'opzione "Instant", lo script scatterà appena il sensore viene coperto.
 
 == Autoscatto ==
+
 Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera; possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
 
 
 = La selezione dell’AF-Pattern =
+
 Premere il pulsante Zoom In per inserire il menu "selezione punto AF" standard, quindi premere ZOOM IN di nuovo per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i pattern, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
 
 == Le chicche==
+
 Sono state aggiunte le seguenti _chicche_ alla fotocamera. 
+
 === Nella zona di base ===
+
 Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’output dello scatto.
+
 === Nella zona creativa ===
+
 Nella zona creativa le _chicche_ attivabili sono i seguenti: 
  * Nella finestra di dialogo di selezione ISO, premere PRINT DIRECT per impostare ISO 3200 (vedi [UserGuideItalian#Extended_ISOs Note / Extended ISO]). 
  * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi [UserGuideItalian#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
  * Nella finestra di dialogo di selezione del bilanciamento bianco, premere PRINT DIRECT per impostare la temperatura del colore definito dall'utente. 
 
 = Altri omaggi =
+
 Altre modifiche al comportamento della fotocamera, non descritti in precedenza.
+
 == Release conteggio ==
+
 Nella schermata delle impostazioni della fotocamera (ci si arriva premendo il tasto DISP. Nel menu standard della fotocamera), nell'ultima riga viene ora visualizzato il numero totale di scatti realizzati dalla fotocamera, invece della capacità della scheda.
+
 == Il problema "naso" ==
+
 Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi, per prevenire modifiche accidentali con il naso dell'utente. 
+
 == Menu Factory e Modalità Debug ==
+
 Dal menu 400plus, premere `DIRECT PRINT` per attivare il _Menu Factory_ (si sentirà un _bip_); premendo nuovamente `DIRECT PRINT` si attiverà la _mModalità Debug_ (si dovrebbe sentire nuovamente un _bip_). Tornando ora al menu _standard_ della fotocamera, d'ora in poi un nuovo `FACTORY MENU` sarà accessibile. Quando è in _modalità debug_, la fotocamera memorizza un sacco di informazioni di debug sulla scheda, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`.
 
 = Note =
+
 Alcune note e commenti. 
+
 == Extended ISOs ==
+
 I valori di ISO non standard sono ottenuti solo tramite software, e tecnicamente non producono vantaggi per gli scatti rispetto all’uso delle ISO di base abbinata al post-processing dell'immagine; includono ISO-3200.
+
 == Modalità di misurazione spot ==
+
 Le modalità di misurazione spot è come la modalità standard "misurazione parziale", ma l'area inclusa nel calcolo è più piccola.
+
+= Malfunzionamenti conosciuti =
+
+Sono stati riportati e confermati i seguenti malfunzionamenti di una certa rilevanza:
+
+ * Issue #15: Cambi di esposizione nell'esecuzione dell'EAEB.
+ * Issue #17: Non viene resettato il nuomero di scatti rimasti quando viene interrotto uno script.
+ * Issue #18: Viene ripristinata una errata configurazione.
+ * Issue #26: Gli script restituiscono un ERROR 99 durante gli scatti.
