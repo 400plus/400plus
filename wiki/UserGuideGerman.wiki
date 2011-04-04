@@ -1,4 +1,4 @@
-#summary 400plus UserGuide in German
+#summary 400plus UserGuide in German r245
 
 = Translation =
 German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
@@ -72,15 +72,32 @@ Sowohl `HOCH` als auch `RUNTER` können jederzeit benutzt werden um zu einer an
 
 Um Zugriff auf das Shortcutmenü zu erhalten drücken Sie die `DIRECT PRINT`-Taste.
 Beachten Sie, dass Sie sich in diesem Menü nicht bewegen können, 
-sondern jede Taste eine sofortige Aktion bewirkt. 
-
+sondern jede Taste eine sofortige Aktion bewirkt.
 Das Menü dient somit nur als Anzeige, welche Taste welcher Aktion zugeordnet ist:
+Zunächst sind folgende Zuweisungen aktiv: 
+
  * _*^ Intermediate ISO*_: Drücken Sie die `HOCH`-Taste um auf einen ISO-Zwischenwert zu wechseln.
  * _*< Extended AEB*_: Drücken Sie die `LINKS`-Taste um das [UserGuideGerman#Extended_AEB Extended AEB] Skript zu starten. 
  * _*# Intervalometer*_: Drücken Sie die `SET`-Taste um das [UserGuideGerman#Intervalometer Intervalometer] Skript zu starten.
  * _*> Hand waving*_: Drücken Sie die `RECHTS`-Taste um das [UserGuideGerman#Hand_Waving Hand Waving] Skript zu starten.
  * _*v Self timer*_: Drücken Sie die `RUNTER`-Taste um das [UserGuideGerman#Self_Timer Self Timer] Skript zu starten.
 Um das Shortcutmenü zu verlassen drücken Sie die `MENU`-Taste.
+
+== Das Shortcutmenü einstellen ==
+	
+Drücken Sie im Shortcutmenü die `AV`-Taste umd das Shortcutmenü zu konfigurieren:
+drücken Sie `HOCH` und `RUNTER` um einen Shortcut auszuwählen und `LINKS` und `RECHTS` um 
+dem ausgewählten Shortcut eine andere Aktion zuzuweisen.
+	
+Drücken Sie `AV` erneut um zurück in das Shortcutmenü zu gelangen;
+vergessen Sie jedoch nicht zuvor `SET` zu drücken um das neue Shortcutmenü auf der Speicherkarte zu sichern 
+bevor Sie das Shortcutmenü verlassen. 
+	
+== Die Extrashortcuts ==
+
+Die folgenden Aktionen sind ebenfalls verfügbar, wenn sie einem Shortcut zugewiesen werden:
+ * _*Mirror lock-up*_: De-/aktiviert die Individualfunktion 'Spiegelverriegelung'
+ * _*Rear curtain flash*_: De-/aktiviert die Individualfunktion 'Verschluss-Synchronisation' mit dem 2.Verschlussvorhang 
 
 = Die Skripte =
 
@@ -126,10 +143,10 @@ falls jedoch die „Instant“-Option eingestellt ist, wird die Kamera bereits a
 
 = DIE AF-Felder-Auswahl =
 
-Drücken Sie die ZOOM IN-Taste um den Standard-"AF-Punkt-Auswahl"-Dialog aufzurufen; 
-drücken Sie nun ZOOM IN erneut für den neuen "AF-Feld-Auswahl"-Dialog. 
+Drücken Sie die `ZOOM IN`-Taste um den Standard-"AF-Punkt-Auswahl"-Dialog aufzurufen; 
+drücken Sie nun `ZOOM IN` erneut für den neuen "AF-Feld-Auswahl"-Dialog. 
 
-Benutzen Sie die HOCH, RUNTER, LINKS, RECHTS, und SET-Tasten um durch die möglichen Autokokus-Felder zu navigieren; 
+Benutzen Sie die `HOCH`, `RUNTER`, `LINKS`, `RECHTS`, und `SET`-Tasten um durch die möglichen Autokokus-Felder zu navigieren; 
 danach drücken Sie den Auslöser halb durch um den Dialog zu verlassen.
 
 = Die Extrazugaben =
@@ -143,8 +160,8 @@ Im _Automatikmodus_ können Sie die `AV`-Taste benutzen um zwischen dem `RAW`- u
 == In den Kreativmodi ==
 
 In den `Kreativmodi` sind folgende Extras aktiviert:
-  * Im ISO-Empfindl.-Dialog drücken Sie die  DIRECT PRINT-Taste um ISO 3200 einzustellen (siehe auch Notes / Extended ISOs).
-  * Im Messmethode-Dialog drücken Sie die DIRECT PRINT-Taste um Punktmessung einzustellen (siehe auch Notes / Spot metering mode).
+  * Im ISO-Empfindl.-Dialog drücken Sie die `DIRECT PRINT`-Taste um ISO 3200 einzustellen (siehe auch Notes / Extended ISOs).
+  * Im Messmethode-Dialog drücken Sie die `DIRECT PRINT`-Taste um Punktmessung einzustellen (siehe auch Notes / Spot metering mode).
   * Im Weißabgleich-Dialog drücken Sie die `DIRECT PRINT`-Taste um die benutzerdef. Farbtemperatur einzustellen
 
 = Weitere Beigaben =
@@ -188,3 +205,12 @@ dies schließt ISO-3200 mit ein.
 
 Der Punktmessungs-Modus ist der Standard Selektivmessung. 
 Der Messbereich ist jedoch kleiner.
+
+= Bekannte Fehler =
+
+The following relevant bugs have been reported and confirmed:
+
+ * Problem #15: Belichtung wechselt während EAEB.
+ * Problem #17: Anzahl verbleibender Aufnahmen wird nicht wiederhergestellt, wenn Skript unterbrochen wird.
+ * Problem #18: Falsche Konfiguration wird wiederhergestellt.
+ * Problem #26: Skripte erzeugen ERROR 99 bei Burstaufnahmen.
