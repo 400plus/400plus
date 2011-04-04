@@ -1,4 +1,5 @@
 #summary 400plus User Guide in Italian / Manuale Utente 400plus.
+#labels Featured
 
 = Translation =
 
