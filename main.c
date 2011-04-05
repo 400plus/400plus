@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "info.h"
 #include "tasks.h"
 #include "display.h"
 #include "shortcuts.h"
@@ -30,7 +31,12 @@ type_ACTION actions_main[]  = {
 };
 
 type_ACTION actions_menu[]  = {
-	{BUTTON_DP  ,  FALSE, RESP_BLOCK, {menu_initialize}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {menu_initialize}},
+	END_OF_LIST
+};
+
+type_ACTION actions_info[]  = {
+	{BUTTON_SET,   FALSE, RESP_BLOCK, {info_switch}},
 	END_OF_LIST
 };
 
@@ -104,6 +110,7 @@ type_CHAIN chains[] = {
 	{GUI_MODE_OFF,       actions_main},
 	{GUI_MODE_MAIN,      actions_main},
 	{GUI_MODE_MENU,      actions_menu},
+	{GUI_MODE_INFO,      actions_info},
 	{GUI_MODE_400PLUS,   actions_400plus},
 	{GUI_MODE_SHORTCUTS, actions_shortcuts},
 	{GUI_MODE_SCEDIT,    actions_scedit},

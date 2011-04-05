@@ -118,7 +118,6 @@ void shortcuts_launch_4() {
 }
 
 void shortcuts_launch(int line) {
-	char iso[8], buffer[64];
 	type_SHORTCUT shortcut = shortcuts[settings.shortcuts[line]];
 
 	switch (shortcut.type) {
