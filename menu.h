@@ -11,7 +11,7 @@ typedef enum {
 	MENUITEM_TYPE_EV,
 	MENUITEM_TYPE_INT,
 	MENUITEM_TYPE_ENUM,
-	MENUITEM_TYPE_MENU,
+	MENUITEM_TYPE_SUBMENU,
 	MENUITEM_TYPE_COUNT,
 	MENUITEM_TYPE_FIRST = 0,
 	MENUITEM_TYPE_LAST  = MENUITEM_TYPE_COUNT - 1
@@ -44,32 +44,30 @@ typedef struct {
 	int length;
 	int current_item;
 	type_MENUITEM *items;
-} type_MENUITEM_MENU;
-
-typedef union {
-	type_MENUITEM_EV   def_ev;
-	type_MENUITEM_INT  def_int;
-	type_MENUITEM_ENUM def_enum;
-	type_MENUITEM_MENU def_menu;
-} type_MENUITEM_DEF;
+} type_MENUITEM_SUBMENU;
 
 struct MENUITEM {
 	char               *name;
 	type_MENUITEM_TYPE  type;
-	type_MENUITEM_DEF   def;
+	union {
+		type_MENUITEM_EV      menuitem_ev;
+		type_MENUITEM_INT     menuitem_int;
+		type_MENUITEM_ENUM    menuitem_enum;
+		type_MENUITEM_SUBMENU menuitem_submenu;
+	};
 };
 
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_) \
-	{name:_NAME_, type:MENUITEM_TYPE_EV, def:{def_ev:{value:_VALUE_, zero_means_off:_ZMO_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_EV, {menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}}
 
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_) \
-	{name:_NAME_, type:MENUITEM_TYPE_INT, def:{def_int:{value:_VALUE_, readonly:_RO_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_INT, {menuitem_int:{value:_VALUE_, readonly:_RO_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}}
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_) \
-	{name:_NAME_, type:MENUITEM_TYPE_ENUM, def:{def_enum:{value:_VALUE_, cycle:_CYCLE_, count:LENGTH(_TEXTS_), texts:_TEXTS_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_ENUM, {menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, count:LENGTH(_TEXTS_), texts:_TEXTS_}}}
 
-#define MENUITEM_SUB(_NAME_, _ITEMS_) \
-	{name:_NAME_, type:MENUITEM_TYPE_MENU, def:{def_menu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
+#define MENUITEM_SUBMENU(_NAME_, _ITEMS_) \
+	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, {menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
 
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE)
 #define MENUITEM_EVSEP( _NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE)
