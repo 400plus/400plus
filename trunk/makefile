@@ -19,6 +19,7 @@ C_OBJS = init.o        \
          tasks.o       \
          utils.o       \
          menu.o        \
+         info.o        \
          display.o     \
          settings.o    \
          scripts.o     \
