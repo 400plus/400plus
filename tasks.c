@@ -11,7 +11,7 @@ void restore_iso();
 void restore_wb();
 void restore_metering();
 
-void switch_raw_jpeg();
+void toggle_raw_jpeg();
 void set_intermediate_iso();
 
 void show_factory_menu();
@@ -63,18 +63,18 @@ void set_iso_high() {
 	beep();
 }
 
-void switch_raw_jpeg() {
+void toggle_raw_jpeg() {
 	if (cameraMode.AEMode > 6) {
 		// Only for non-creative modes
 		SendToIntercom(0x22, 1, cameraMode.QualityRaw ^ 0x03);
 	}
 }
 
-void switch_CfMLU() {
+void toggle_CfMLU() {
 	SendToIntercom(0x35, 1, cameraMode.CfMLU ^ 0x01);
 }
 
-void switch_CfFlashSyncRear() {
+void toggle_CfFlashSyncRear() {
 	SendToIntercom(0x38, 1, cameraMode.CfFlashSyncRear ^ 0x01);
 }
 

@@ -25,7 +25,7 @@ type_ACTION actions_main[]  = {
 	{BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
 	{BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
 	{BUTTON_DP,    FALSE, RESP_BLOCK, {shortcuts_initialize}},
-	{BUTTON_AV,    TRUE,  RESP_PASS,  {switch_raw_jpeg}},
+	{BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
 	END_OF_LIST
 };
 
@@ -52,7 +52,7 @@ type_ACTION actions_shortcuts[]  = {
 	{BUTTON_SET,   FALSE, RESP_BLOCK, {shortcuts_launch_2}},
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {shortcuts_launch_3}},
 	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {shortcuts_launch_4}},
-	{BUTTON_AV,    TRUE,  RESP_BLOCK, {shortcuts_switch}},
+	{BUTTON_AV,    TRUE,  RESP_BLOCK, {shortcuts_config_start}},
 	{BUTTON_MENU,  FALSE, RESP_BLOCK, {shortcuts_close}},
 	END_OF_LIST
 };
@@ -63,7 +63,7 @@ type_ACTION actions_scedit[]  = {
 	{BUTTON_SET,   FALSE, RESP_BLOCK,   {shortcuts_set}},
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {shortcuts_right}},
 	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {shortcuts_down}},
-	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {shortcuts_switch}},
+	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {shortcuts_config_end}},
 	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {shortcuts_close}},
 	END_OF_LIST
 };

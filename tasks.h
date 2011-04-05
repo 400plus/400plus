@@ -3,9 +3,9 @@
 
 extern void start_up();
 
-extern void switch_raw_jpeg();
-extern void switch_CfMLU();
-extern void switch_CfFlashSyncRear();
+extern void toggle_raw_jpeg();
+extern void toggle_CfMLU();
+extern void toggle_CfFlashSyncRear();
 extern void set_intermediate_iso();
 
 extern void restore_iso();

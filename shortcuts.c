@@ -19,8 +19,8 @@ type_SHORTCUT shortcuts[] = {
 	{"Intervalometer",     SHORTCUT_TYPE_STATIC, script_interval},
 	{"Hand waving",        SHORTCUT_TYPE_STATIC, script_wave},
 	{"Self timer",         SHORTCUT_TYPE_STATIC, script_self_timer},
-	{"Mirror lock-up",     SHORTCUT_TYPE_BOOL,   switch_CfMLU,           &cameraMode.CfMLU},
-	{"Rear curtain flash", SHORTCUT_TYPE_BOOL,   switch_CfFlashSyncRear, &cameraMode.CfFlashSyncRear}
+	{"Mirror lock-up",     SHORTCUT_TYPE_BOOL,   toggle_CfMLU,           &cameraMode.CfMLU},
+	{"Rear curtain flash", SHORTCUT_TYPE_BOOL,   toggle_CfFlashSyncRear, &cameraMode.CfFlashSyncRear}
 };
 
 void shortcuts_create();
@@ -78,12 +78,6 @@ void shortcuts_display_line(int line) {
 	sub_FF837FA8(shortcuts_dialog, line + 1, buffer);
 }
 
-void shortcuts_switch() {
-	FLAG_GUI_MODE = (FLAG_GUI_MODE == GUI_MODE_SHORTCUTS) ? GUI_MODE_SCEDIT : GUI_MODE_SHORTCUTS;
-
-	beep();
-}
-
 void shortcuts_close() {
 	DeleteDialogBox(shortcuts_dialog);
 
@@ -93,6 +87,15 @@ void shortcuts_close() {
 	display_refresh();
 }
 
+void shortcuts_config_start() {
+	FLAG_GUI_MODE = GUI_MODE_SCEDIT;
+	beep();
+}
+
+void shortcuts_config_end() {
+	FLAG_GUI_MODE = GUI_MODE_SHORTCUTS;
+	beep();
+}
 
 void shortcuts_launch_0() {
 	shortcuts_launch(0);
