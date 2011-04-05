@@ -15,9 +15,10 @@ int *message_queue;
 
 // Global status
 type_STATUS status = {
-	button_down    : FALSE,
-	script_running : FALSE,
-	afp_dialog     : FALSE
+	button_down       : FALSE,
+	script_running    : FALSE,
+	iso_in_viewfinder : FALSE,
+	afp_dialog        : FALSE
 };
 
 // Action definitions

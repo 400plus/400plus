@@ -208,13 +208,14 @@ typedef struct {
 
 // Global status
 typedef struct {
-	int       button_down;     // A button is down, and which one
-	int       script_running;  // A script is running
-	int       afp_dialog;      // The last active dialog was the AF Point selection dialog
-	int       factory_menu;    // The 'factory menu' has been activated
-	int       debug_mode;      // The 'debug mode' has been activated
-	type_TASK button_up_task;  // Task that must be executed when the current button is released
-	type_RESP button_up_resp;  // Response when the current button is released
+	int       button_down;       // A button is down, and which one
+	int       script_running;    // A script is running
+	int       iso_in_viewfinder; // ISO is being displayed in the viewfinder
+	int       afp_dialog;        // The last active dialog was the AF Point selection dialog
+	int       factory_menu;      // The 'factory menu' has been activated
+	int       debug_mode;        // The 'debug mode' has been activated
+	type_TASK button_up_task;    // Task that must be executed when the current button is released
+	type_RESP button_up_resp;    // Response when the current button is released
 } type_STATUS;
 
 // Main message queue
