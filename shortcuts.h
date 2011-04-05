@@ -20,10 +20,8 @@ typedef struct {
 } type_SHORTCUT;
 
 extern void shortcuts_initialize();
+extern void shortcuts_switch();
 extern void shortcuts_close();
-
-extern void shortcuts_config_start();
-extern void shortcuts_config_end();
 
 extern void shortcuts_launch_0();
 extern void shortcuts_launch_1();

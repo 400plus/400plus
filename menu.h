@@ -1,6 +1,8 @@
 #ifndef MENU_H_
 #define MENU_H_
 
+#define hInfoCreative (*(int*)(0x0000213C))
+
 #define AUTOREPEAT_DELAY_UNIT   50
 #define AUTOREPEAT_DELAY_LONG   10
 #define AUTOREPEAT_DELAY_SHORT   4

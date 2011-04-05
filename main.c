@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "info.h"
 #include "tasks.h"
 #include "display.h"
 #include "shortcuts.h"
@@ -26,17 +25,12 @@ type_ACTION actions_main[]  = {
 	{BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
 	{BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
 	{BUTTON_DP,    FALSE, RESP_BLOCK, {shortcuts_initialize}},
-	{BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
+	{BUTTON_AV,    TRUE,  RESP_PASS,  {switch_raw_jpeg}},
 	END_OF_LIST
 };
 
 type_ACTION actions_menu[]  = {
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {menu_initialize}},
-	END_OF_LIST
-};
-
-type_ACTION actions_info[]  = {
-	{BUTTON_SET,   FALSE, RESP_BLOCK, {info_switch}},
+	{BUTTON_DP  ,  FALSE, RESP_BLOCK, {menu_initialize}},
 	END_OF_LIST
 };
 
@@ -58,7 +52,7 @@ type_ACTION actions_shortcuts[]  = {
 	{BUTTON_SET,   FALSE, RESP_BLOCK, {shortcuts_launch_2}},
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {shortcuts_launch_3}},
 	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {shortcuts_launch_4}},
-	{BUTTON_AV,    TRUE,  RESP_BLOCK, {shortcuts_config_start}},
+	{BUTTON_AV,    TRUE,  RESP_BLOCK, {shortcuts_switch}},
 	{BUTTON_MENU,  FALSE, RESP_BLOCK, {shortcuts_close}},
 	END_OF_LIST
 };
@@ -69,7 +63,7 @@ type_ACTION actions_scedit[]  = {
 	{BUTTON_SET,   FALSE, RESP_BLOCK,   {shortcuts_set}},
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {shortcuts_right}},
 	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {shortcuts_down}},
-	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {shortcuts_config_end}},
+	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {shortcuts_switch}},
 	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {shortcuts_close}},
 	END_OF_LIST
 };
@@ -110,7 +104,6 @@ type_CHAIN chains[] = {
 	{GUI_MODE_OFF,       actions_main},
 	{GUI_MODE_MAIN,      actions_main},
 	{GUI_MODE_MENU,      actions_menu},
-	{GUI_MODE_INFO,      actions_info},
 	{GUI_MODE_400PLUS,   actions_400plus},
 	{GUI_MODE_SHORTCUTS, actions_shortcuts},
 	{GUI_MODE_SCEDIT,    actions_scedit},

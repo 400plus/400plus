@@ -6,7 +6,6 @@ SECTIONS {
 		gui.o;
 		init.o;
 		main.o;
-		info.o;
 		tasks.o;
 		utils.o;
 		menu.o;

@@ -19,4 +19,6 @@ extern void iso_display(const char *buffer, int iso);
 
 extern void beep();
 
+extern char *release_count();
+
 #endif /* UTILS_H_ */
