@@ -48,14 +48,14 @@ type_MENUITEM main_items[] = {
 	MENUITEM_COLORTEMP("Color Temp. (K)",   &menu_settings.color_temp),
 	MENUITEM_BOOLEAN  ("Use flash",         &menu_settings.emit_flash),
 	MENUITEM_BOOLEAN  ("AF flash",          &menu_settings.af_flash),
-	MENUITEM_SUB      ("Handwave",           wave_items),
-	MENUITEM_SUB      ("EAEB    ",           eaeb_items),
-	MENUITEM_SUB      ("Interval",           interval_items),
-	MENUITEM_SUB      ("Timer   ",           timer_items),
+	MENUITEM_SUBMENU  ("Handwave",           wave_items),
+	MENUITEM_SUBMENU  ("EAEB    ",           eaeb_items),
+	MENUITEM_SUBMENU  ("Interval",           interval_items),
+	MENUITEM_SUBMENU  ("Timer   ",           timer_items),
 	MENUITEM_DELAY    ("IR remote delay",   &menu_settings.remote_delay)
 };
 
-type_MENUITEM_MENU main_menu = {
+type_MENUITEM_SUBMENU main_menu = {
 	length : LENGTH(main_items),
 	items  : main_items,
 };
@@ -152,25 +152,25 @@ void menu_repeat(void(*repeateable)()){
 void menu_repeateable_right(int repeating) {
 	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
 
-	if (item->type == MENUITEM_TYPE_MENU)
-		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+	if (item->type == MENUITEM_TYPE_SUBMENU)
+		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		*item->def.def_ev.value = ev_inc(*item->def.def_ev.value);
+		*item->menuitem_ev.value = ev_inc(*item->menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->def.def_int.readonly) {
-			*item->def.def_int.value += repeating ? item->def.def_int.big_step : item->def.def_int.small_step;
-			*item->def.def_int.value  = MIN(*item->def.def_int.value, item->def.def_int.max);
+		if (!item->menuitem_int.readonly) {
+			*item->menuitem_int.value += repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
+			*item->menuitem_int.value  = MIN(*item->menuitem_int.value, item->menuitem_int.max);
 		}
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->def.def_enum.value == item->def.def_enum.count - 1) {
-			if (item->def.def_enum.cycle)
-				*item->def.def_enum.value = 0;
+		if (*item->menuitem_enum.value == item->menuitem_enum.count - 1) {
+			if (item->menuitem_enum.cycle)
+				*item->menuitem_enum.value = 0;
 		} else
-			(*item->def.def_enum.value)++;
+			(*item->menuitem_enum.value)++;
 		break;
 	default:
 		break;
@@ -182,28 +182,28 @@ void menu_repeateable_right(int repeating) {
 void menu_repeateable_left(int repeating) {
 	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
 
-	if (item->type == MENUITEM_TYPE_MENU)
-		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+	if (item->type == MENUITEM_TYPE_SUBMENU)
+		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		if (item->def.def_ev.zero_means_off && *item->def.def_ev.value < 0x05)
-				*item->def.def_ev.value = 0x00;
+		if (item->menuitem_ev.zero_means_off && *item->menuitem_ev.value < 0x05)
+				*item->menuitem_ev.value = 0x00;
 		else
-			*item->def.def_ev.value = ev_dec(*item->def.def_ev.value);
+			*item->menuitem_ev.value = ev_dec(*item->menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->def.def_int.readonly) {
-			*item->def.def_int.value -= repeating ? item->def.def_int.big_step : item->def.def_int.small_step;
-			*item->def.def_int.value  = MAX(*item->def.def_int.value, item->def.def_int.min);
+		if (!item->menuitem_int.readonly) {
+			*item->menuitem_int.value -= repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
+			*item->menuitem_int.value  = MAX(*item->menuitem_int.value, item->menuitem_int.min);
 		}
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->def.def_enum.value == 0) {
-			if (item->def.def_enum.cycle)
-				*item->def.def_enum.value = item->def.def_enum.count - 1;
+		if (*item->menuitem_enum.value == 0) {
+			if (item->menuitem_enum.cycle)
+				*item->menuitem_enum.value = item->menuitem_enum.count - 1;
 		} else
-			*item->def.def_enum.value -= 1;
+			*item->menuitem_enum.value -= 1;
 		break;
 	default:
 		break;
@@ -215,23 +215,23 @@ void menu_repeateable_left(int repeating) {
 void menu_repeateable_cycle(int repeating) {
 	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
 
-	if (item->type == MENUITEM_TYPE_MENU)
-		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+	if (item->type == MENUITEM_TYPE_SUBMENU)
+		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		if (!item->def.def_ev.zero_means_off)
-			*item->def.def_ev.value = ev_sgn(*item->def.def_ev.value);
+		if (!item->menuitem_ev.zero_means_off)
+			*item->menuitem_ev.value = ev_sgn(*item->menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		*item->def.def_int.value += repeating ? item->def.def_int.big_step : item->def.def_int.small_step;
-		*item->def.def_int.value  = MIN(*item->def.def_int.value, item->def.def_int.max);
+		*item->menuitem_int.value += repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
+		*item->menuitem_int.value  = MIN(*item->menuitem_int.value, item->menuitem_int.max);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->def.def_enum.value == item->def.def_enum.count - 1)
-			*item->def.def_enum.value = 0;
+		if (*item->menuitem_enum.value == item->menuitem_enum.count - 1)
+			*item->menuitem_enum.value = 0;
 		else
-			*item->def.def_enum.value += 1;
+			*item->menuitem_enum.value += 1;
 		break;
 	default:
 		break;
@@ -243,11 +243,11 @@ void menu_repeateable_cycle(int repeating) {
 void menu_submenu() {
 	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
 
-	if (item->type == MENUITEM_TYPE_MENU) {
-		if (item->def.def_menu.current_item == item->def.def_menu.length - 1)
-			item->def.def_menu.current_item = 0;
+	if (item->type == MENUITEM_TYPE_SUBMENU) {
+		if (item->menuitem_submenu.current_item == item->menuitem_submenu.length - 1)
+			item->menuitem_submenu.current_item = 0;
 		else
-			item->def.def_menu.current_item++;
+			item->menuitem_submenu.current_item++;
 	}
 
 	menu_refresh();
@@ -292,26 +292,26 @@ char *menu_message(int item_id) {
 
 	sprintf(name, "%s", item->name);
 
-	if (item->type == MENUITEM_TYPE_MENU) {
-		item = &item->def.def_menu.items[item->def.def_menu.current_item];
+	if (item->type == MENUITEM_TYPE_SUBMENU) {
+		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
 		sprintf(name + strlen(name), ">%s", item->name);
 	}
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		if (item->def.def_ev.zero_means_off && *item->def.def_ev.value == 0)
+		if (item->menuitem_ev.zero_means_off && *item->menuitem_ev.value == 0)
 			menu_print_char(menu_buffer, name, "Off");
 		else
-			menu_print_ev(menu_buffer, name, *item->def.def_ev.value);
+			menu_print_ev(menu_buffer, name, *item->menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (item->def.def_int.zero_means_unlimited && *item->def.def_int.value == 0)
+		if (item->menuitem_int.zero_means_unlimited && *item->menuitem_int.value == 0)
 			menu_print_char(menu_buffer, name, "No limit");
 		else
-			menu_print_int(menu_buffer, name, *item->def.def_int.value, item->def.def_int.format);
+			menu_print_int(menu_buffer, name, *item->menuitem_int.value, item->menuitem_int.format);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		menu_print_char(menu_buffer, name, item->def.def_enum.texts[*item->def.def_enum.value]);
+		menu_print_char(menu_buffer, name, item->menuitem_enum.texts[*item->menuitem_enum.value]);
 		break;
 	default:
 		break;
