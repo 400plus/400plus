@@ -1,8 +1,9 @@
 PROJECT = AUTOEXEC
 ADDRESS = 0x7F0000
+VERSION = 20110400
 
 CC     = arm-elf-gcc
-CFLAGS = -nostdlib -march=armv5te -fno-builtin
+CFLAGS = -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION)
 
 AS      = arm-elf-as
 ASFLAGS = 
