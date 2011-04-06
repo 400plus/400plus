@@ -12,6 +12,7 @@ extern int ev_sub(int ying, int yang);
 extern void ev_print(const char *dest, int ev);
 
 extern int iso_next(int iso);
+extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
 

@@ -9,6 +9,7 @@ typedef struct MENUITEM type_MENUITEM;
 
 typedef enum {
 	MENUITEM_TYPE_EV,
+	MENUITEM_TYPE_ISO,
 	MENUITEM_TYPE_INT,
 	MENUITEM_TYPE_ENUM,
 	MENUITEM_TYPE_ACTION,
@@ -22,6 +23,10 @@ typedef struct {
 	int  *value;
 	int   zero_means_off;
 } type_MENUITEM_EV;
+
+typedef struct {
+	int  *value;
+} type_MENUITEM_ISO;
 
 typedef struct {
 	int   *value;
@@ -56,6 +61,7 @@ struct MENUITEM {
 	type_MENUITEM_TYPE  type;
 	union {
 		type_MENUITEM_EV      menuitem_ev;
+		type_MENUITEM_ISO     menuitem_iso;
 		type_MENUITEM_INT     menuitem_int;
 		type_MENUITEM_ENUM    menuitem_enum;
 		type_MENUITEM_ACTION  menuitem_action;
@@ -73,6 +79,9 @@ typedef struct {
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_) \
 	{name:_NAME_, type:MENUITEM_TYPE_EV, {menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}}
 
+#define MENUITEM_ISO(_NAME_, _VALUE_) \
+	{name:_NAME_, type:MENUITEM_TYPE_ISO, {menuitem_iso:{value:_VALUE_}}}
+
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_) \
 	{name:_NAME_, type:MENUITEM_TYPE_INT, {menuitem_int:{value:_VALUE_, readonly:_RO_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}}
 
@@ -86,6 +95,7 @@ typedef struct {
 	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, {menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
 
 extern void menu_create(type_MENU menu);
+extern void menu_close();
 
 extern void menu_up();
 extern void menu_down();

@@ -22,11 +22,11 @@ C_OBJS = init.o           \
          menu.o           \
          menu_settings.o  \
          menu_developer.o \
+         menu_shortcuts.o \
          info.o           \
          display.o        \
          settings.o       \
          scripts.o        \
-         shortcuts.o      \
          viewfinder.o     \
          af_patterns.o    \
 

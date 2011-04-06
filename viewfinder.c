@@ -9,7 +9,7 @@
 struct {
 	int TvVal;
 	int CfNotEmitFlash;
-} storage;
+} viewfinder_storage;
 
 void viewfinder_change_iso(const int iso);
 
@@ -25,8 +25,8 @@ void viewfinder_end() {
 	// Only if being displayed
 	if (status.iso_in_viewfinder) {
 		// Restore previous state
-		SendToIntercom(0x30, 1, storage.CfNotEmitFlash);
-		SendToIntercom(0x08, 1, storage.TvVal);
+		SendToIntercom(0x30, 1, viewfinder_storage.CfNotEmitFlash);
+		SendToIntercom(0x08, 1, viewfinder_storage.TvVal);
 
 		// Reset flag, viewfinder restored
 		status.iso_in_viewfinder = FALSE;
@@ -38,8 +38,8 @@ void viewfinder_change_iso(const int iso) {
 	if (settings.iso_in_viewfinder) {
 		if (cameraMode.AEMode == AE_MODE_M || cameraMode.AEMode == AE_MODE_TV) {
 			// Save current state
-			storage.TvVal          = cameraMode.TvVal;
-			storage.CfNotEmitFlash = cameraMode.CfNotEmitFlash;
+			viewfinder_storage.TvVal          = cameraMode.TvVal;
+			viewfinder_storage.CfNotEmitFlash = cameraMode.CfNotEmitFlash;
 
 			// Change to Tv=ISO, no flash
 			SendToIntercom(0x30, 1, 1);

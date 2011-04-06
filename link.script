@@ -12,10 +12,10 @@ SECTIONS {
 		menu.o;
 		menu_settings.o;
 		menu_developer.o;
+		menu_shortcuts.o;
 		display.o;
 		settings.o;
 		scripts.o;
-		shortcuts.o;
 		viewfinder.o;
 		af_patterns.o;
 	}

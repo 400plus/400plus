@@ -1,5 +1,6 @@
 #include "main.h"
 #include "utils.h"
+#include "display.h"
 #include "firmware.h"
 
 #include "menu.h"
@@ -24,6 +25,7 @@ void  menu_refresh();
 char *menu_message(int item_id);
 
 void menu_print_ev   (char *buffer, char *name, int   parameter);
+void menu_print_iso  (char *buffer, char *name, int   parameter);
 void menu_print_int  (char *buffer, char *name, int   parameter, char *format);
 void menu_print_char (char *buffer, char *name, char *parameter);
 
@@ -42,7 +44,6 @@ void menu_create(type_MENU menu) {
 
 void menu_display() {
 	int i;
-
 	int offset = current_item > current_line ? current_item - current_line : 0;
 
 	for(i = 0; i < 5; i++)
@@ -92,13 +93,15 @@ void menu_action() {
 	type_TASK action;
 	type_MENUITEM *item = &current_menu.items[current_item];
 
-	if (item->type == MENUITEM_TYPE_ACTION)
-		action = current_menu.items[current_item].menuitem_action.action;
-	else
-		action = current_menu.action;
-
-	if (action)
-		action();
+	if (item->type == MENUITEM_TYPE_ACTION) {
+		if ((action = current_menu.items[current_item].menuitem_action.action)) {
+			menu_close();
+			ENQUEUE_TASK(action);
+		}
+	} else {
+		if ((action = current_menu.action))
+			action();
+	}
 }
 
 void menu_submenu() {
@@ -143,6 +146,12 @@ void menu_repeateable_right(int repeating) {
 	case MENUITEM_TYPE_EV:
 		*item->menuitem_ev.value = ev_inc(*item->menuitem_ev.value);
 		break;
+	case MENUITEM_TYPE_ISO:
+		if (repeating)
+			*item->menuitem_iso.value = iso_inc(*item->menuitem_iso.value);
+		else
+			*item->menuitem_iso.value = iso_next(*item->menuitem_iso.value);
+		break;
 	case MENUITEM_TYPE_INT:
 		if (!item->menuitem_int.readonly) {
 			*item->menuitem_int.value += repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
@@ -176,6 +185,12 @@ void menu_repeateable_left(int repeating) {
 		else
 			*item->menuitem_ev.value = ev_dec(*item->menuitem_ev.value);
 		break;
+	case MENUITEM_TYPE_ISO:
+		if (repeating)
+			*item->menuitem_iso.value = iso_dec(*item->menuitem_iso.value);
+		else
+			*item->menuitem_iso.value = iso_prev(*item->menuitem_iso.value);
+		break;
 	case MENUITEM_TYPE_INT:
 		if (!item->menuitem_int.readonly) {
 			*item->menuitem_int.value -= repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
@@ -207,6 +222,12 @@ void menu_repeateable_cycle(int repeating) {
 		if (!item->menuitem_ev.zero_means_off)
 			*item->menuitem_ev.value = ev_sgn(*item->menuitem_ev.value);
 		break;
+	case MENUITEM_TYPE_ISO:
+		if (repeating)
+			*item->menuitem_iso.value = iso_inc(*item->menuitem_iso.value);
+		else
+			*item->menuitem_iso.value = iso_next(*item->menuitem_iso.value);
+		break;
 	case MENUITEM_TYPE_INT:
 		*item->menuitem_int.value += repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
 		*item->menuitem_int.value  = MIN(*item->menuitem_int.value, item->menuitem_int.max);
@@ -222,6 +243,15 @@ void menu_repeateable_cycle(int repeating) {
 	}
 
 	menu_refresh();
+}
+
+void menu_close() {
+	DeleteDialogBox(menu_dialog);
+
+	pressButton_(BUTTON_DISP);
+	SleepTask(250);
+
+	display_refresh();
 }
 
 char *menu_message(int item_id) {
@@ -242,6 +272,9 @@ char *menu_message(int item_id) {
 			menu_print_char(menu_buffer, name, "Off");
 		else
 			menu_print_ev(menu_buffer, name, *item->menuitem_ev.value);
+		break;
+	case MENUITEM_TYPE_ISO:
+		menu_print_iso(menu_buffer, name, *item->menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
 		if (item->menuitem_int.zero_means_unlimited && *item->menuitem_int.value == 0)
@@ -266,6 +299,13 @@ void menu_print_ev(char *buffer, char *name, int parameter) {
 	char tmp[32];
 
 	ev_print(tmp, parameter);
+	menu_print_char(buffer, name, tmp);
+}
+
+void menu_print_iso(char *buffer, char *name, int parameter) {
+	char tmp[32];
+
+	iso_display(tmp, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 

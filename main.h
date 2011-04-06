@@ -180,8 +180,6 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_FACE      0xFF
 #define GUI_MODE_FACTORY   0xFE
 #define GUI_MODE_400PLUS   0xFD
-#define GUI_MODE_SHORTCUTS 0xFC
-#define GUI_MODE_SCEDIT    0xFB
 
 // Action definitions
 typedef void(*type_TASK)();
