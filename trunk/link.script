@@ -11,6 +11,7 @@ SECTIONS {
 		utils.o;
 		menu.o;
 		menu_settings.o;
+		menu_developer.o;
 		display.o;
 		settings.o;
 		scripts.o;

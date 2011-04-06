@@ -15,19 +15,20 @@ S_OBJS = entry.o      \
          entry_subs.o \
          gui.o        \
          
-C_OBJS = init.o          \
-         main.o          \
-         tasks.o         \
-         utils.o         \
-         menu.o          \
-         menu_settings.o \
-         info.o          \
-         display.o       \
-         settings.o      \
-         scripts.o       \
-         shortcuts.o     \
-         viewfinder.o    \
-         af_patterns.o   \
+C_OBJS = init.o           \
+         main.o           \
+         tasks.o          \
+         utils.o          \
+         menu.o           \
+         menu_settings.o  \
+         menu_developer.o \
+         info.o           \
+         display.o        \
+         settings.o       \
+         scripts.o        \
+         shortcuts.o      \
+         viewfinder.o     \
+         af_patterns.o    \
 
 all: $(PROJECT).BIN
 

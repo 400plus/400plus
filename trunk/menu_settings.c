@@ -1,5 +1,6 @@
 #include "main.h"
 #include "menu.h"
+#include "menu_developer.h"
 #include "utils.h"
 #include "settings.h"
 #include "firmware.h"
@@ -40,7 +41,7 @@ type_MENUITEM interval_items[] = {
 	MENUITEM_COUNTER("Shots",    &menu_settings.interval_shots)
 };
 
-type_MENUITEM menu_items[] = {
+type_MENUITEM menu_settings_items[] = {
 	MENUITEM_EVCOMP ("AV comp",           &menu_settings.av_comp),
 	MENUITEM_EVCOMP ("Flash comp",        &menu_settings.flash_comp),
 	MENUITEM_EVSEP  ("AEB",               &menu_settings.aeb_ev),
@@ -54,13 +55,13 @@ type_MENUITEM menu_items[] = {
 	MENUITEM_SUBMENU("Interval",           interval_items),
 	MENUITEM_SUBMENU("Timer   ",           timer_items),
 	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay),
-	MENUITEM_ACTION ("Developers menu",    menu_settings_developer)
+	MENUITEM_ACTION ("Developers menu",    menu_developer_start)
 };
 
 type_MENU main_menu = {
 	name   : "Settings",
-	length : LENGTH(menu_items),
-	items  : menu_items,
+	length : LENGTH(menu_settings_items),
+	items  : menu_settings_items,
 	action : menu_settings_save
 };
 
@@ -85,8 +86,4 @@ void menu_settings_save() {
 	settings_write();
 
 	beep();
-}
-
-void menu_settings_developer() {
-	factory_or_debug();
 }

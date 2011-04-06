@@ -19,6 +19,8 @@ extern void iso_display(const char *buffer, int iso);
 
 extern void beep();
 
-extern void factory_or_debug();
+extern void enter_factory_mode();
+extern void exit_factory_mode();
+extern void start_debug_mode();
 
 #endif /* UTILS_H_ */
