@@ -15,14 +15,14 @@ char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "
 
 type_MENUITEM wave_items[] = {
 	MENUITEM_DELAY  ("Delay",   &menu_settings.wave_delay),
-	MENUITEM_ACTION ("Action",  &menu_settings.wave_action),
+	MENUITEM_SCRACT ("Action",  &menu_settings.wave_action),
 	MENUITEM_BOOLEAN("Repeat",  &menu_settings.wave_repeat),
 	MENUITEM_BOOLEAN("Instant", &menu_settings.wave_instant)
 };
 
 type_MENUITEM timer_items[] = {
 	MENUITEM_TIMEOUT("Delay",  &menu_settings.timer_timeout),
-	MENUITEM_ACTION ("Action", &menu_settings.timer_action)
+	MENUITEM_SCRACT ("Action", &menu_settings.timer_action)
 };
 
 type_MENUITEM eaeb_items[] = {
@@ -53,13 +53,15 @@ type_MENUITEM menu_items[] = {
 	MENUITEM_SUBMENU("EAEB    ",           eaeb_items),
 	MENUITEM_SUBMENU("Interval",           interval_items),
 	MENUITEM_SUBMENU("Timer   ",           timer_items),
-	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay)
+	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay),
+	MENUITEM_ACTION ("Developers menu",    menu_settings_developer)
 };
 
 type_MENU main_menu = {
 	name   : "Settings",
 	length : LENGTH(menu_items),
-	items  : menu_items
+	items  : menu_items,
+	action : menu_settings_save
 };
 
 void menu_settings_start() {
@@ -83,4 +85,8 @@ void menu_settings_save() {
 	settings_write();
 
 	beep();
+}
+
+void menu_settings_developer() {
+	factory_or_debug();
 }

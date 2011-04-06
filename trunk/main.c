@@ -1,6 +1,9 @@
+#include "main.h"
+
 #include "menu.h"
 #include "menu_settings.h"
 #include "info.h"
+#include "utils.h"
 #include "tasks.h"
 #include "display.h"
 #include "shortcuts.h"
@@ -8,8 +11,6 @@
 #include "af_patterns.h"
 #include "settings.h"
 #include "firmware.h"
-
-#include "main.h"
 
 // Main message queue
 int *message_queue;
@@ -43,14 +44,13 @@ type_ACTION actions_info[]  = {
 };
 
 type_ACTION actions_400plus[]  = {
-	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_settings_save}},
-	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu}},
 	{BUTTON_UP,    TRUE,  RESP_RELEASE, {menu_up}},
 	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {menu_down}},
 	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {menu_right}},
 	{BUTTON_LEFT,  TRUE,  RESP_BLOCK,   {menu_left}},
 	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {menu_cycle}},
-	{BUTTON_DP,    FALSE, RESP_BLOCK,   {factory_or_debug}},
+	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_action}},
+	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu}},
 	END_OF_LIST
 };
 
