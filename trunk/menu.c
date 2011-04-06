@@ -5,102 +5,61 @@
 
 #include "menu.h"
 
-type_SETTINGS menu_settings;
-
-char *bool_strings[]   = {"No", "Yes"};
-char *delay_strings[]  = {"No", "2s"};
-char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
-char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
-
-type_MENUITEM wave_items[] = {
-	MENUITEM_DELAY  ("Delay",   &menu_settings.wave_delay),
-	MENUITEM_ACTION ("Action",  &menu_settings.wave_action),
-	MENUITEM_BOOLEAN("Repeat",  &menu_settings.wave_repeat),
-	MENUITEM_BOOLEAN("Instant", &menu_settings.wave_instant)
-};
-
-type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT("Delay",  &menu_settings.timer_timeout),
-	MENUITEM_ACTION ("Action", &menu_settings.timer_action)
-};
-
-type_MENUITEM eaeb_items[] = {
-	MENUITEM_DELAY  ("Delay",     &menu_settings.eaeb_delay),
-	MENUITEM_BRACKET("Frames",    &menu_settings.eaeb_frames),
-	MENUITEM_EVSEP  ("Step (EV)", &menu_settings.eaeb_ev),
-	MENUITEM_SSPEED ("Manual [",  &menu_settings.eaeb_m_min),
-	MENUITEM_SSPEED ("Manual ]",  &menu_settings.eaeb_m_max)
-};
-
-type_MENUITEM interval_items[] = {
-	MENUITEM_DELAY  ("Delay",    &menu_settings.interval_delay),
-	MENUITEM_TIMEOUT("Time (s)", &menu_settings.interval_time),
-	MENUITEM_BOOLEAN("EAEB",     &menu_settings.interval_eaeb),
-	MENUITEM_COUNTER("Shots",    &menu_settings.interval_shots)
-};
-
-type_MENUITEM main_items[] = {
-	MENUITEM_EVCOMP   ("AV comp",           &menu_settings.av_comp),
-	MENUITEM_EVCOMP   ("Flash comp",        &menu_settings.flash_comp),
-	MENUITEM_EVSEP    ("AEB",               &menu_settings.aeb_ev),
-	MENUITEM_BOOLEAN  ("ISO in viewfinder", &menu_settings.iso_in_viewfinder),
-	MENUITEM_BOOLEAN  ("Safety Shift",      &menu_settings.safety_shift),
-	MENUITEM_COLORTEMP("Color Temp. (K)",   &menu_settings.color_temp),
-	MENUITEM_BOOLEAN  ("Use flash",         &menu_settings.emit_flash),
-	MENUITEM_BOOLEAN  ("AF flash",          &menu_settings.af_flash),
-	MENUITEM_SUBMENU  ("Handwave",           wave_items),
-	MENUITEM_SUBMENU  ("EAEB    ",           eaeb_items),
-	MENUITEM_SUBMENU  ("Interval",           interval_items),
-	MENUITEM_SUBMENU  ("Timer   ",           timer_items),
-	MENUITEM_DELAY    ("IR remote delay",   &menu_settings.remote_delay)
-};
-
-type_MENUITEM_SUBMENU main_menu = {
-	length : LENGTH(main_items),
-	items  : main_items,
-};
+char menu_buffer[32];
 
 int  menu_dialog  = 0;
 int  current_line = 0;
-char menu_buffer[32];
+int  current_item = 0;
+
+type_MENU current_menu;
 
 void menu_repeat(void (*repeateable)(int repeating));
 
-void menu_repeateable_cycle  (int repeating);
-void menu_repeateable_right  (int repeating);
-void menu_repeateable_left   (int repeating);
+void menu_repeateable_cycle(int repeating);
+void menu_repeateable_right(int repeating);
+void menu_repeateable_left (int repeating);
 
-void  menu_save();
-void  menu_create();
 void  menu_display();
 void  menu_refresh();
+
 char *menu_message(int item_id);
 
 void menu_print_ev   (char *buffer, char *name, int   parameter);
 void menu_print_int  (char *buffer, char *name, int   parameter, char *format);
 void menu_print_char (char *buffer, char *name, char *parameter);
 
-void menu_initialize() {
-	beep();
+void menu_create(type_MENU menu) {
+	FLAG_GUI_MODE = GUI_MODE_400PLUS;
 
-	menu_settings = settings;
+	current_line = 0;
+	current_item = 0;
+	current_menu = menu;
 
-	menu_settings.av_comp        =  cameraMode.AvComp;
-	menu_settings.flash_comp     =  cameraMode.FlashExComp;
-	menu_settings.aeb_ev         =  cameraMode.AEB;
-	menu_settings.emit_flash     = !cameraMode.CfNotEmitFlash;
-	menu_settings.af_flash       = !cameraMode.CfAfAssistBeam;
+	menu_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 22);
+	sub_FF837FA8(menu_dialog, 8, menu.name);
 
-	current_line           = 0;
-	main_menu.current_item = 0;
-
-	menu_create();
 	menu_display();
 }
 
+void menu_display() {
+	int i;
+
+	int offset = current_item > current_line ? current_item - current_line : 0;
+
+	for(i = 0; i < 5; i++)
+		sub_FF837FA8(menu_dialog, i + 1, menu_message(offset + i));
+
+	do_some_with_dialog(menu_dialog);
+}
+
+void menu_refresh() {
+	sub_FF837FA8(menu_dialog, current_line + 1, menu_message(current_item));
+	do_some_with_dialog(menu_dialog);
+}
+
 void menu_up() {
-	if (main_menu.current_item != 0)
-		main_menu.current_item--;
+	if (current_item != 0)
+		current_item--;
 
 	if (current_line != 0)
 		current_line--;
@@ -109,8 +68,8 @@ void menu_up() {
 }
 
 void menu_down() {
-	if (main_menu.current_item != main_menu.length - 1)
-		main_menu.current_item++;
+	if (current_item != current_menu.length - 1)
+		current_item++;
 
 	if (current_line != 4)
 		current_line++;
@@ -128,6 +87,19 @@ void menu_left() {
 
 void menu_cycle() {
 	menu_repeat(menu_repeateable_cycle);
+}
+
+void menu_submenu() {
+	type_MENUITEM *item = &current_menu.items[current_item];
+
+	if (item->type == MENUITEM_TYPE_SUBMENU) {
+		if (item->menuitem_submenu.current_item == item->menuitem_submenu.length - 1)
+			item->menuitem_submenu.current_item = 0;
+		else
+			item->menuitem_submenu.current_item++;
+	}
+
+	menu_refresh();
 }
 
 void menu_repeat(void(*repeateable)()){
@@ -150,7 +122,7 @@ void menu_repeat(void(*repeateable)()){
 }
 
 void menu_repeateable_right(int repeating) {
-	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+	type_MENUITEM *item = &current_menu.items[current_item];
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
 		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
@@ -180,7 +152,7 @@ void menu_repeateable_right(int repeating) {
 }
 
 void menu_repeateable_left(int repeating) {
-	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+	type_MENUITEM *item = &current_menu.items[current_item];
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
 		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
@@ -213,7 +185,7 @@ void menu_repeateable_left(int repeating) {
 }
 
 void menu_repeateable_cycle(int repeating) {
-	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
+	type_MENUITEM *item = &current_menu.items[current_item];
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
 		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
@@ -240,55 +212,10 @@ void menu_repeateable_cycle(int repeating) {
 	menu_refresh();
 }
 
-void menu_submenu() {
-	type_MENUITEM *item = &main_menu.items[main_menu.current_item];
-
-	if (item->type == MENUITEM_TYPE_SUBMENU) {
-		if (item->menuitem_submenu.current_item == item->menuitem_submenu.length - 1)
-			item->menuitem_submenu.current_item = 0;
-		else
-			item->menuitem_submenu.current_item++;
-	}
-
-	menu_refresh();
-}
-
-void menu_save() {
-	settings = menu_settings;
-
-	settings_apply();
-	settings_write();
-
-	beep();
-}
-
-void menu_create() {
-	FLAG_GUI_MODE = GUI_MODE_400PLUS;
-
-	menu_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 22);
-	sub_FF837FA8(menu_dialog, 8, "400plus");
-}
-
-void menu_display() {
-	int i;
-
-	int offset = main_menu.current_item > current_line ? main_menu.current_item - current_line : 0;
-
-	for(i = 0; i < 5; i++)
-		sub_FF837FA8(menu_dialog, i + 1, menu_message(offset + i));
-
-	do_some_with_dialog(menu_dialog);
-}
-
-void menu_refresh() {
-	sub_FF837FA8(menu_dialog, current_line + 1, menu_message(main_menu.current_item));
-	do_some_with_dialog(menu_dialog);
-}
-
 char *menu_message(int item_id) {
 	char name[32];
 
-	type_MENUITEM *item = &main_menu.items[item_id];
+	type_MENUITEM *item = &current_menu.items[item_id];
 
 	sprintf(name, "%s", item->name);
 
