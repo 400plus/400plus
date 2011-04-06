@@ -1,7 +1,6 @@
 #include "main.h"
 #include "utils.h"
 #include "display.h"
-#include "shortcuts.h"
 #include "settings.h"
 #include "firmware.h"
 

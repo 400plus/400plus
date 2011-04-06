@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x14
+#define SETTINGS_VERSION  0x15
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -25,9 +25,9 @@ typedef struct {
 	int interval_eaeb;
 	int interval_shots;
 	int wave_delay;
-    int wave_action;
-    int wave_repeat;
-    int wave_instant;
+	int wave_action;
+	int wave_repeat;
+	int wave_instant;
 	int color_temp;
 	int av_comp;
 	int flash_comp;
@@ -38,7 +38,6 @@ typedef struct {
 	int remote_delay;
 	int timer_timeout;
 	int timer_action;
-	int shortcuts[5];
 } type_SETTINGS;
 
 extern type_SETTINGS settings;

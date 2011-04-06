@@ -2,11 +2,10 @@
 
 #include "menu.h"
 #include "menu_settings.h"
-#include "menu_developer.h"
+#include "menu_shortcuts.h"
 #include "info.h"
 #include "tasks.h"
 #include "display.h"
-#include "shortcuts.h"
 #include "viewfinder.h"
 #include "af_patterns.h"
 #include "settings.h"
@@ -28,7 +27,7 @@ type_ACTION actions_main[]  = {
 	{BUTTON_UP,    TRUE,  RESP_PASS,  {restore_iso}},
 	{BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
 	{BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {shortcuts_initialize}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {menu_shortcuts_start}},
 	{BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
 	END_OF_LIST
 };
@@ -51,28 +50,6 @@ type_ACTION actions_400plus[]  = {
 	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {menu_cycle}},
 	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_action}},
 	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu}},
-	END_OF_LIST
-};
-
-type_ACTION actions_shortcuts[]  = {
-	{BUTTON_UP,    TRUE,  RESP_BLOCK, {shortcuts_launch_0}},
-	{BUTTON_LEFT,  TRUE,  RESP_BLOCK, {shortcuts_launch_1}},
-	{BUTTON_SET,   FALSE, RESP_BLOCK, {shortcuts_launch_2}},
-	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {shortcuts_launch_3}},
-	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {shortcuts_launch_4}},
-	{BUTTON_AV,    TRUE,  RESP_BLOCK, {shortcuts_config_start}},
-	{BUTTON_MENU,  FALSE, RESP_BLOCK, {shortcuts_close}},
-	END_OF_LIST
-};
-
-type_ACTION actions_scedit[]  = {
-	{BUTTON_UP,    TRUE,  RESP_RELEASE, {shortcuts_up}},
-	{BUTTON_LEFT,  TRUE,  RESP_BLOCK,   {shortcuts_left}},
-	{BUTTON_SET,   FALSE, RESP_BLOCK,   {shortcuts_set}},
-	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {shortcuts_right}},
-	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {shortcuts_down}},
-	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {shortcuts_config_end}},
-	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {shortcuts_close}},
 	END_OF_LIST
 };
 
@@ -114,8 +91,6 @@ type_CHAIN chains[] = {
 	{GUI_MODE_MENU,      actions_menu},
 	{GUI_MODE_INFO,      actions_info},
 	{GUI_MODE_400PLUS,   actions_400plus},
-	{GUI_MODE_SHORTCUTS, actions_shortcuts},
-	{GUI_MODE_SCEDIT,    actions_scedit},
 	{GUI_MODE_METER,     actions_meter},
 	{GUI_MODE_WB,        actions_wb},
 	{GUI_MODE_ISO,       actions_iso},

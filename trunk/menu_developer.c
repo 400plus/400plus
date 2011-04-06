@@ -22,5 +22,9 @@ type_MENU menu_developer = {
 
 void menu_developer_start() {
 	beep();
+
+	pressButton_(BUTTON_MENU);
+	SleepTask(100);
+
 	menu_create(menu_developer);
 }
