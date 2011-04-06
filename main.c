@@ -2,8 +2,8 @@
 
 #include "menu.h"
 #include "menu_settings.h"
+#include "menu_developer.h"
 #include "info.h"
-#include "utils.h"
 #include "tasks.h"
 #include "display.h"
 #include "shortcuts.h"

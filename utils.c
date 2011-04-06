@@ -10,9 +10,6 @@ const int  iso_code[]    = {  0x48,   0x4C,   0x4E,   0x50,   0x53,   0x56,   0x
 
 int ev_normalize(int ev);
 
-void show_factory_menu();
-void start_debug_mode();
-
 int ev_sgn(int ev) {
 	return 0x100 - ev;
 }
@@ -162,20 +159,13 @@ void beep() {
 	eventproc_EdLedOff();
 }
 
-void factory_or_debug() {
-	if (! status.factory_menu) {
-		status.factory_menu = TRUE;
-		show_factory_menu();
-	} else if (! status.debug_mode) {
-		status.debug_mode = TRUE;
-		start_debug_mode();
-	}
+void enter_factory_mode() {
+	EnterFactoryMode();
 }
 
-void show_factory_menu() {
-	EnterFactoryMode();
-	SleepTask(25);
+void exit_factory_mode() {
 	ExitFactoryMode();
+	beep();
 }
 
 void start_debug_mode() {

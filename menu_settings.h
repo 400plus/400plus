@@ -18,6 +18,5 @@
 
 extern void menu_settings_start();
 extern void menu_settings_save();
-extern void menu_settings_developer();
 
 #endif /* MENU_SETTINGS_H_ */

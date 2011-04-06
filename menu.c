@@ -1,6 +1,5 @@
 #include "main.h"
 #include "utils.h"
-#include "settings.h"
 #include "firmware.h"
 
 #include "menu.h"
@@ -90,12 +89,16 @@ void menu_cycle() {
 }
 
 void menu_action() {
+	type_TASK action;
 	type_MENUITEM *item = &current_menu.items[current_item];
 
 	if (item->type == MENUITEM_TYPE_ACTION)
-		current_menu.items[current_item].menuitem_action.action();
+		action = current_menu.items[current_item].menuitem_action.action;
 	else
-		current_menu.action();
+		action = current_menu.action;
+
+	if (action)
+		action();
 }
 
 void menu_submenu() {
