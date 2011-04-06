@@ -1,6 +1,6 @@
 PROJECT = AUTOEXEC
 ADDRESS = 0x7F0000
-VERSION = 20110400
+VERSION = 99999999
 
 CC     = arm-elf-gcc
 CFLAGS = -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION)
@@ -15,19 +15,19 @@ S_OBJS = entry.o      \
          entry_subs.o \
          gui.o        \
          
-C_OBJS = init.o        \
-         main.o        \
-         tasks.o       \
-         utils.o       \
-         menu.o        \
-         info.o        \
-         display.o     \
-         settings.o    \
-         scripts.o     \
-         shortcuts.o   \
-         viewfinder.o  \
-         af_patterns.o \
-
+C_OBJS = init.o          \
+         main.o          \
+         tasks.o         \
+         utils.o         \
+         menu.o          \
+         menu_settings.o \
+         info.o          \
+         display.o       \
+         settings.o      \
+         scripts.o       \
+         shortcuts.o     \
+         viewfinder.o    \
+         af_patterns.o   \
 
 all: $(PROJECT).BIN
 
@@ -47,5 +47,3 @@ $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 clean:
 	rm -f *.o
 	rm -f $(PROJECT).arm.elf
-
-

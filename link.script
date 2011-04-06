@@ -10,6 +10,7 @@ SECTIONS {
 		tasks.o;
 		utils.o;
 		menu.o;
+		menu_settings.o;
 		display.o;
 		settings.o;
 		scripts.o;

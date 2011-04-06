@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "menu_settings.h"
 #include "info.h"
 #include "tasks.h"
 #include "display.h"
@@ -32,7 +33,7 @@ type_ACTION actions_main[]  = {
 };
 
 type_ACTION actions_menu[]  = {
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {menu_initialize}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {menu_settings_start}},
 	END_OF_LIST
 };
 
@@ -42,7 +43,7 @@ type_ACTION actions_info[]  = {
 };
 
 type_ACTION actions_400plus[]  = {
-	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_save}},
+	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_settings_save}},
 	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu}},
 	{BUTTON_UP,    TRUE,  RESP_RELEASE, {menu_up}},
 	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {menu_down}},

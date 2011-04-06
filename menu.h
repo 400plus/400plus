@@ -57,6 +57,12 @@ struct MENUITEM {
 	};
 };
 
+typedef struct {
+	char *name;
+	int   length;
+	type_MENUITEM *items;
+} type_MENU;
+
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_) \
 	{name:_NAME_, type:MENUITEM_TYPE_EV, {menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}}
 
@@ -69,22 +75,7 @@ struct MENUITEM {
 #define MENUITEM_SUBMENU(_NAME_, _ITEMS_) \
 	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, {menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
 
-#define MENUITEM_EVCOMP(_NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE)
-#define MENUITEM_EVSEP( _NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE)
-
-#define MENUITEM_BOOLEAN(_NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, bool_strings)
-#define MENUITEM_DELAY(  _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, delay_strings)
-#define MENUITEM_ACTION( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  action_strings)
-#define MENUITEM_SCRIPT( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  script_strings)
-#define MENUITEM_SSPEED( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, sspeed_strings)
-
-#define MENUITEM_RELEASE(  _NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE,     0,     0,   0,   0, FALSE, "%6u")
-#define MENUITEM_COLORTEMP(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE, 1800, 11000, 100, 500, FALSE, "%5u")
-#define MENUITEM_TIMEOUT(  _NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, FALSE, "%3u")
-#define MENUITEM_COUNTER(  _NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u")
-#define MENUITEM_BRACKET(  _NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,     9,   2,   2, FALSE, "%1u")
-
-extern void menu_initialize();
+extern void menu_create(type_MENU menu);
 
 extern void menu_up();
 extern void menu_down();
@@ -93,9 +84,5 @@ extern void menu_left();
 
 extern void menu_cycle();
 extern void menu_submenu();
-
-extern void menu_save();
-
-extern char *menu_message();
 
 #endif /* MENU_H_ */
