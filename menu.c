@@ -89,6 +89,15 @@ void menu_cycle() {
 	menu_repeat(menu_repeateable_cycle);
 }
 
+void menu_action() {
+	type_MENUITEM *item = &current_menu.items[current_item];
+
+	if (item->type == MENUITEM_TYPE_ACTION)
+		current_menu.items[current_item].menuitem_action.action();
+	else
+		current_menu.action();
+}
+
 void menu_submenu() {
 	type_MENUITEM *item = &current_menu.items[current_item];
 
@@ -97,9 +106,9 @@ void menu_submenu() {
 			item->menuitem_submenu.current_item = 0;
 		else
 			item->menuitem_submenu.current_item++;
-	}
 
-	menu_refresh();
+		menu_refresh();
+	}
 }
 
 void menu_repeat(void(*repeateable)()){
@@ -239,6 +248,9 @@ char *menu_message(int item_id) {
 		break;
 	case MENUITEM_TYPE_ENUM:
 		menu_print_char(menu_buffer, name, item->menuitem_enum.texts[*item->menuitem_enum.value]);
+		break;
+	case MENUITEM_TYPE_ACTION:
+		sprintf(menu_buffer, "%s", name);
 		break;
 	default:
 		break;

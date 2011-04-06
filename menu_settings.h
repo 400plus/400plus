@@ -6,7 +6,7 @@
 
 #define MENUITEM_BOOLEAN(_NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, bool_strings)
 #define MENUITEM_DELAY(  _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, delay_strings)
-#define MENUITEM_ACTION( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  action_strings)
+#define MENUITEM_SCRACT( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  action_strings)
 #define MENUITEM_SCRIPT( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  script_strings)
 #define MENUITEM_SSPEED( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, sspeed_strings)
 
@@ -18,5 +18,6 @@
 
 extern void menu_settings_start();
 extern void menu_settings_save();
+extern void menu_settings_developer();
 
 #endif /* MENU_SETTINGS_H_ */

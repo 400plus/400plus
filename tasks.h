@@ -16,6 +16,4 @@ extern void set_metering_spot();
 extern void set_whitebalance_colortemp();
 extern void set_iso_high();
 
-extern void factory_or_debug();
-
 #endif /* TASKS_H_ */
