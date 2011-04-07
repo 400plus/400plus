@@ -47,7 +47,7 @@ typedef struct {
 typedef struct {
 	int       *value;
 	int        cycle;
-	type_LIST  list;
+	type_LIST *list;
 } type_MENUITEM_ENUM;
 
 typedef struct {
@@ -106,10 +106,10 @@ extern type_LIST sspeed_list;
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE)
 #define MENUITEM_EVSEP( _NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE)
 
-#define MENUITEM_BOOLEAN(_NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, bool_list)
-#define MENUITEM_DELAY(  _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, delay_list)
-#define MENUITEM_ACTION( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  action_list)
-#define MENUITEM_SSPEED( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, sspeed_list)
+#define MENUITEM_BOOLEAN(_NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, &bool_list)
+#define MENUITEM_DELAY(  _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, &delay_list)
+#define MENUITEM_ACTION( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  &action_list)
+#define MENUITEM_SSPEED( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, &sspeed_list)
 
 #define MENUITEM_RELEASE(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE,     0,     0,   0,   0, FALSE, "%6u")
 #define MENUITEM_CLRTEMP(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE, 1800, 11000, 100, 500, FALSE, "%5u")
@@ -125,8 +125,9 @@ extern void menu_down();
 extern void menu_right();
 extern void menu_left();
 
-extern void menu_cycle();
 extern void menu_action();
+extern void menu_cycle();
+
 extern void menu_submenu_next();
 extern void menu_submenu_prev();
 
