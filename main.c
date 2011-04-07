@@ -144,6 +144,7 @@ void message_proxy(const int handler, char *message) {
 			status.script_running = FALSE;
 			goto block_message;
 		}
+		break;
 	}
 
 	// Check for button-up events, even if the current GUI mode does not match
@@ -182,18 +183,28 @@ void message_proxy(const int handler, char *message) {
 
 				// Check whether this action corresponds to the event received
 				if (action->button == message[1]) {
+					// check for DIAL direction
+					if (message[1] == BUTTON_DIAL) {
+						if (message[2] <= 255 && message[2] >= 127) { // left
+							if (action->task[0])
+								ENQUEUE_TASK(action->task[0]);
+						} else { // right
+							if (action->task[1])
+								ENQUEUE_TASK(action->task[1]);
+						}
+					} else {
+						// Consider buttons with "button down" and "button up" events
+						// and save "button up" parameters for later use
+						if (action->holds && message[2]) {
+							status.button_down    = message[1];
+							status.button_up_task = action->task[1];
+							status.button_up_resp = action->resp;
+						}
 
-					// Consider buttons with "button down" and "button up" events
-					// and save "button up" parameters for later use
-					if (action->holds && message[2]) {
-						status.button_down    = message[1];
-						status.button_up_task = action->task[1];
-						status.button_up_resp = action->resp;
+						// Launch the defined task
+						if (action->task[0])
+							ENQUEUE_TASK(action->task[0]);
 					}
-
-					// Launch the defined task
-					if (action->task[0])
-						ENQUEUE_TASK(action->task[0]);
 
 					// Decide how to respond to this button
 					switch(action->resp) {
