@@ -54,10 +54,11 @@ type_MENUITEM menu_settings_items[] = {
 };
 
 type_MENU main_menu = {
-	name   : "Settings",
-	length : LENGTH(menu_settings_items),
-	items  : menu_settings_items,
-	action : menu_settings_save
+	name    : "Settings",
+	length  : LENGTH(menu_settings_items),
+	items   : menu_settings_items,
+	action  : menu_settings_save,
+	reorder : FALSE
 };
 
 void menu_settings_start() {
