@@ -12,16 +12,14 @@ struct {
 	int CfFlashSyncRear;
 } shortcuts_storage;
 
-char *yesno_strings[]   = {"No", "Yes"};
-
 type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_ISO    ("ISO",            &shortcuts_storage.ISO),
-	MENUITEM_ACTION ("Extended AEB",   script_extended_aeb),
-	MENUITEM_ACTION ("Intervalometer", script_interval),
-	MENUITEM_ACTION ("Hand waving",    script_wave),
-	MENUITEM_ACTION ("Self timer",     script_self_timer),
-	MENUITEM_YESNO  ("Mirror lock",    &shortcuts_storage.CfMLU),
-	MENUITEM_YESNO  ("Flash 2curt",    &shortcuts_storage.CfFlashSyncRear)
+	MENUITEM_LAUNCH ("Extended AEB",   script_extended_aeb),
+	MENUITEM_LAUNCH ("Intervalometer", script_interval),
+	MENUITEM_LAUNCH ("Hand waving",    script_wave),
+	MENUITEM_LAUNCH ("Self timer",     script_self_timer),
+	MENUITEM_BOOLEAN("Mirror lock",    &shortcuts_storage.CfMLU),
+	MENUITEM_BOOLEAN("Flash 2curt",    &shortcuts_storage.CfFlashSyncRear)
 };
 
 type_MENU menu_shortcuts = {
