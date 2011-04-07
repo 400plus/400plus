@@ -28,7 +28,9 @@
 #define	BUTTON_DISP   0xA1 // 10100001 - 161
 #define BUTTON_PLAY   0xA4 // 10100100 - 164
 #define	BUTTON_SET    0xA6 // 10100110 - 166
-#define	BUTTON_DIAL   0xA9 // 10101001 - 169 - front dial, left calls btn_down_task, right - btn_up_task, sometimes cannot be blocked (e.g. in info display)
+#define	BUTTON_DIAL   0xA9 // 10101001 - 169
+#define BUTTON_DIAL_LEFT  ( 1 << 8 ) | BUTTON_DIAL
+#define BUTTON_DIAL_RIGHT ( 2 << 8 ) | BUTTON_DIAL
 #define	BUTTON_UP     0xB1 // 10110001 - 177
 #define	BUTTON_DOWN   0xB2 // 10110010 - 178
 #define	BUTTON_RIGHT  0xB3 // 10110011 - 179

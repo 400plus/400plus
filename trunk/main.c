@@ -47,14 +47,15 @@ type_ACTION actions_info[]  = {
 };
 
 type_ACTION actions_400plus[]  = {
-	{BUTTON_UP,    TRUE,  RESP_RELEASE, {menu_up}},
-	{BUTTON_DOWN,  TRUE,  RESP_RELEASE, {menu_down}},
-	{BUTTON_RIGHT, TRUE,  RESP_BLOCK,   {menu_right}},
-	{BUTTON_LEFT,  TRUE,  RESP_BLOCK,   {menu_left}},
-	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {menu_cycle}},
-	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_action}},
-	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu_next}},
-	{BUTTON_DIAL,  FALSE, RESP_BLOCK,   {menu_submenu_prev, menu_submenu_next}},
+	{BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
+	{BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
+	{BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
+	{BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
+	{BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
+	{BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
+	{BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_submenu_next}},
+	{BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
+	{BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
 	END_OF_LIST
 };
 
@@ -119,6 +120,8 @@ void initialize_display() {
 
 void message_proxy(const int handler, char *message) {
 	int gui_mode;
+	int button = message[1];
+	int holds = message[0] > 1 ? message[2] : FALSE;
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
@@ -140,6 +143,10 @@ void message_proxy(const int handler, char *message) {
 			ENQUEUE_TASK(afp_enter);
 		}
 		goto pass_message;
+	case BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
+		button = (message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT;
+		holds = FALSE;
+		break;
 	case BUTTON_DP: // DP Button while a script is running
 		if (status.script_running) {
 			status.script_running = FALSE;
@@ -149,7 +156,7 @@ void message_proxy(const int handler, char *message) {
 	}
 
 	// Check for button-up events, even if the current GUI mode does not match
-	if (status.button_down && status.button_down == message[1] && !message[2]) {
+	if (status.button_down && status.button_down == button && !holds) {
 		status.button_down = FALSE;
 
 		// Launch the defined task
@@ -183,29 +190,18 @@ void message_proxy(const int handler, char *message) {
 			for (action = chain->actions; ! IS_EOL(action); action++) {
 
 				// Check whether this action corresponds to the event received
-				if (action->button == message[1]) {
-					// check for DIAL direction
-					if (message[1] == BUTTON_DIAL) {
-						if (message[2] <= 255 && message[2] >= 127) { // left
-							if (action->task[0])
-								ENQUEUE_TASK(action->task[0]);
-						} else { // right
-							if (action->task[1])
-								ENQUEUE_TASK(action->task[1]);
-						}
-					} else {
-						// Consider buttons with "button down" and "button up" events
-						// and save "button up" parameters for later use
-						if (action->holds && message[2]) {
-							status.button_down    = message[1];
-							status.button_up_task = action->task[1];
-							status.button_up_resp = action->resp;
-						}
-
-						// Launch the defined task
-						if (action->task[0])
-							ENQUEUE_TASK(action->task[0]);
+				if (action->button == button) {
+					// Consider buttons with "button down" and "button up" events
+					// and save "button up" parameters for later use
+					if (action->holds && holds) {
+						status.button_down    = button;
+						status.button_up_task = action->task[1];
+						status.button_up_resp = action->resp;
 					}
+
+					// Launch the defined task
+					if (action->task[0])
+						ENQUEUE_TASK(action->task[0]);
 
 					// Decide how to respond to this button
 					switch(action->resp) {
