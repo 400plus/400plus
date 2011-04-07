@@ -22,11 +22,15 @@ type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_BOOLEAN("Flash 2curt",    &shortcuts_storage.CfFlashSyncRear)
 };
 
+int ordering[LENGTH(menu_shortcut_items)] = {0,1,2,3,4,5,6};
+
 type_MENU menu_shortcuts = {
-	name   : "Shortcuts",
-	length : LENGTH(menu_shortcut_items),
-	items  : menu_shortcut_items,
-	action : menu_shortcuts_save
+	name     : "Shortcuts",
+	length   : LENGTH(menu_shortcut_items),
+	items    : menu_shortcut_items,
+	action   : menu_shortcuts_save,
+	reorder  : TRUE,
+	ordering : ordering
 };
 
 void menu_shortcuts_start() {

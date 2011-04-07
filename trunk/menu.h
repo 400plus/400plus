@@ -74,10 +74,12 @@ struct MENUITEM {
 };
 
 typedef struct {
-	char *name;
-	int   length;
+	char          *name;
+	int            length;
 	type_MENUITEM *items;
 	type_TASK      action;
+	int            reorder;
+	int           *ordering;
 } type_MENU;
 
 extern type_LIST bool_list;
@@ -127,6 +129,8 @@ extern void menu_left();
 
 extern void menu_action();
 extern void menu_cycle();
+
+extern void menu_drag_drop();
 
 extern void menu_submenu_next();
 extern void menu_submenu_prev();

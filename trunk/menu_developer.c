@@ -14,10 +14,11 @@ type_MENUITEM menu_developer_items[] = {
 };
 
 type_MENU menu_developer = {
-	name   : "Developer",
-	length : LENGTH(menu_developer_items),
-	items  : menu_developer_items,
-	action : NULL
+	name    : "Developer",
+	length  : LENGTH(menu_developer_items),
+	items   : menu_developer_items,
+	action  : NULL,
+	reorder : FALSE
 };
 
 void menu_developer_start() {
