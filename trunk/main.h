@@ -19,16 +19,23 @@
 #define	EVENT_AFPDLGON  0xB9
 #define	EVENT_AFPDLGOFF 0xA7
 
-#define	BUTTON_MENU   0xA0
-#define	BUTTON_DISP   0xA1
-#define	BUTTON_SET    0xA6
-#define	BUTTON_UP     0xB1
-#define	BUTTON_DOWN   0xB2
-#define	BUTTON_RIGHT  0xB3
-#define	BUTTON_LEFT   0xB4
-#define	BUTTON_DP     0xB8
-#define	BUTTON_DRIVE  0xBA
-#define	BUTTON_AV     0xBB
+
+//#define	SOME_ACTION_AFTER_BTNS  0x8D // 10001101 - 141
+//#define	SOME_OTHER_ACTION       0x74 // 01110100 - 116
+//#define	BUTTON_STAR   0xA8 // 10101000 - 168 - ZOOM OUT - other things generates this
+
+#define	BUTTON_MENU   0xA0 // 10100000 - 160
+#define	BUTTON_DISP   0xA1 // 10100001 - 161
+#define BUTTON_PLAY   0xA4 // 10100100 - 164
+#define	BUTTON_SET    0xA6 // 10100110 - 166
+#define	BUTTON_DIAL   0xA9 // 10101001 - 169 - front dial, left calls btn_down_task, right - btn_up_task, sometimes cannot be blocked (e.g. in info display)
+#define	BUTTON_UP     0xB1 // 10110001 - 177
+#define	BUTTON_DOWN   0xB2 // 10110010 - 178
+#define	BUTTON_RIGHT  0xB3 // 10110011 - 179
+#define	BUTTON_LEFT   0xB4 // 10110100 - 180
+#define	BUTTON_DP     0xB8 // 10111000 - 184
+#define	BUTTON_DRIVE  0xBA // 10111010 - 186
+#define	BUTTON_AV     0xBB // 10111011 - 187
 
 typedef struct {             // [*] Used and tested, others unknown
 	int AEMode;              // 0x0000 [*] [1]
@@ -180,6 +187,9 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_FACE      0xFF
 #define GUI_MODE_FACTORY   0xFE
 #define GUI_MODE_400PLUS   0xFD
+#ifdef _0xAF_
+#define GUI_MODE_0xAF      0xFA
+#endif
 
 // Action definitions
 typedef void(*type_TASK)();
