@@ -104,6 +104,7 @@ extern void menu_left();
 
 extern void menu_cycle();
 extern void menu_action();
-extern void menu_submenu();
+extern void menu_submenu_next();
+extern void menu_submenu_prev();
 
 #endif /* MENU_H_ */

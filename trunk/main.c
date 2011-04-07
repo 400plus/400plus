@@ -53,7 +53,8 @@ type_ACTION actions_400plus[]  = {
 	{BUTTON_LEFT,  TRUE,  RESP_BLOCK,   {menu_left}},
 	{BUTTON_AV,    TRUE,  RESP_BLOCK,   {menu_cycle}},
 	{BUTTON_SET,   FALSE, RESP_BLOCK,   {menu_action}},
-	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu}},
+	{BUTTON_MENU,  FALSE, RESP_BLOCK,   {menu_submenu_next}},
+	{BUTTON_DIAL,  FALSE, RESP_BLOCK,   {menu_submenu_prev, menu_submenu_next}},
 	END_OF_LIST
 };
 
