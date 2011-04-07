@@ -187,9 +187,6 @@ typedef struct {             // [*] Used and tested, others unknown
 #define GUI_MODE_FACE      0xFF
 #define GUI_MODE_FACTORY   0xFE
 #define GUI_MODE_400PLUS   0xFD
-#ifdef _0xAF_
-#define GUI_MODE_0xAF      0xFA
-#endif
 
 // Action definitions
 typedef void(*type_TASK)();

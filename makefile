@@ -30,18 +30,10 @@ C_OBJS = init.o           \
          viewfinder.o     \
          af_patterns.o    \
 
-ifeq ($(_0xAF_),1)
-C_OBJS += 0xAF.o
-CFLAGS += -D_0xAF_
-endif
-
-all: clean $(PROJECT).BIN
+all: $(PROJECT).BIN
 
 release:
 	make VERSION=`date +'%Y%m%d'`
-
-af:
-	make _0xAF_=1
 
 $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
@@ -59,10 +51,4 @@ $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 clean:
 	rm -f *.o
 	rm -f $(PROJECT).arm.elf
-
-install:
-	mount /dev/sdb1 /mnt/floppy/
-	cp AUTOEXEC.BIN /mnt/floppy/
-	sync
-	umount /mnt/floppy
 
