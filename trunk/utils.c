@@ -122,7 +122,7 @@ int iso_prev(int iso) {
 
 int iso_next(int iso) {
 	switch(iso) {
-	case 0x6F: return 0x6F; // 3200-> 3200
+	case 0x6F: return 0x48; // 3200-> 100
 	case 0x6D: return 0x6F; // 2500-> 3200
 	case 0x6C: return 0x6D; // 2000-> 2500
 	case 0x68: return 0x6C; // 1600-> 2000
