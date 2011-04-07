@@ -104,7 +104,7 @@ void menu_action() {
 	}
 }
 
-void menu_submenu() {
+void menu_submenu_next() {
 	type_MENUITEM *item = &current_menu.items[current_item];
 
 	if (item->type == MENUITEM_TYPE_SUBMENU) {
@@ -112,6 +112,19 @@ void menu_submenu() {
 			item->menuitem_submenu.current_item = 0;
 		else
 			item->menuitem_submenu.current_item++;
+
+		menu_refresh();
+	}
+}
+
+void menu_submenu_prev() {
+	type_MENUITEM *item = &current_menu.items[current_item];
+
+	if (item->type == MENUITEM_TYPE_SUBMENU) {
+		if (item->menuitem_submenu.current_item == 0)
+			item->menuitem_submenu.current_item = item->menuitem_submenu.length - 1;
+		else
+			item->menuitem_submenu.current_item--;
 
 		menu_refresh();
 	}
