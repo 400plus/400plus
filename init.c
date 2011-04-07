@@ -77,16 +77,8 @@ int my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize) {
 	if (vmMpuLibInit(0x1000) != 0)
 		goto usrRoot_failed;
 
-	if (vmBaseGlobalMapInit(&MemDescArray, MemDescArrayCount, 1) != 0)
-		goto usrRoot_ok;
-
-usrRoot_failed:
-
-	printExc("usrRoot: MMU configuration failed, errno = %#x", *(long*) (GetErrorNumAddr()), 0, 0, 0, 0);
-
-	reboot(1);
-
-	usrRoot_ok:
+	if (vmBaseGlobalMapInit(&MemDescArray, MemDescArrayCount, 1) == 0)
+		goto usrRoot_failed;
 
 	sysClockConnect(usrClock, 0);
 
@@ -117,6 +109,13 @@ usrRoot_failed:
 	my_taskcreate_Startup();
 
 	return 0;
+
+usrRoot_failed:
+
+	printExc("usrRoot: MMU configuration failed, errno = %#x", *(long*) (GetErrorNumAddr()), 0, 0, 0, 0);
+
+	reboot(1);
+
 }
 
 void my_taskcreate_Startup() {
