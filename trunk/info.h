@@ -12,7 +12,8 @@ typedef enum {
 	INFO_OPTION_LAST  = INFO_OPTION_COUNT - 1
 } type_INFO_OPTION;
 
-extern void  info_switch();
+extern void  info_option_next();
+extern void  info_option_prev();
 extern char *info_display();
 
 #endif /* INFO_H_ */
