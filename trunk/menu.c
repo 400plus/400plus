@@ -182,7 +182,7 @@ void menu_repeateable_right(int repeating) {
 		}
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->menuitem_enum.value == item->menuitem_enum.list.length - 1) {
+		if (*item->menuitem_enum.value == item->menuitem_enum.list->length - 1) {
 			if (item->menuitem_enum.cycle)
 				*item->menuitem_enum.value = 0;
 		} else
@@ -223,7 +223,7 @@ void menu_repeateable_left(int repeating) {
 	case MENUITEM_TYPE_ENUM:
 		if (*item->menuitem_enum.value == 0) {
 			if (item->menuitem_enum.cycle)
-				*item->menuitem_enum.value = item->menuitem_enum.list.length - 1;
+				*item->menuitem_enum.value = item->menuitem_enum.list->length - 1;
 		} else
 			*item->menuitem_enum.value -= 1;
 		break;
@@ -256,7 +256,7 @@ void menu_repeateable_cycle(int repeating) {
 		*item->menuitem_int.value  = MIN(*item->menuitem_int.value, item->menuitem_int.max);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->menuitem_enum.value == item->menuitem_enum.list.length - 1)
+		if (*item->menuitem_enum.value == item->menuitem_enum.list->length - 1)
 			*item->menuitem_enum.value = 0;
 		else
 			*item->menuitem_enum.value += 1;
@@ -306,7 +306,7 @@ char *menu_message(int item_id) {
 			menu_print_int(menu_buffer, name, *item->menuitem_int.value, item->menuitem_int.format);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		menu_print_char(menu_buffer, name, item->menuitem_enum.list.data[*item->menuitem_enum.value]);
+		menu_print_char(menu_buffer, name, item->menuitem_enum.list->data[*item->menuitem_enum.value]);
 		break;
 	case MENUITEM_TYPE_LAUNCH:
 		sprintf(menu_buffer, "%s", name);
