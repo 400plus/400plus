@@ -13,6 +13,16 @@ int  current_item = 0;
 
 type_MENU current_menu;
 
+char *bool_strings[]   = {"No", "Yes"};
+char *delay_strings[]  = {"No", "2s"};
+char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
+char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
+
+type_LIST bool_list   = {length: LENGTH(bool_strings),   data : bool_strings};
+type_LIST delay_list  = {length: LENGTH(delay_strings),  data : delay_strings};
+type_LIST action_list = {length: LENGTH(action_strings), data : action_strings};
+type_LIST sspeed_list = {length: LENGTH(sspeed_strings), data : sspeed_strings};
+
 void menu_repeat(void (*repeateable)(int repeating));
 
 void menu_repeateable_cycle(int repeating);
@@ -93,8 +103,8 @@ void menu_action() {
 	type_TASK action;
 	type_MENUITEM *item = &current_menu.items[current_item];
 
-	if (item->type == MENUITEM_TYPE_ACTION) {
-		if ((action = current_menu.items[current_item].menuitem_action.action)) {
+	if (item->type == MENUITEM_TYPE_LAUNCH) {
+		if ((action = current_menu.items[current_item].menuitem_launch.action)) {
 			menu_close();
 			ENQUEUE_TASK(action);
 		}
@@ -172,7 +182,7 @@ void menu_repeateable_right(int repeating) {
 		}
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->menuitem_enum.value == item->menuitem_enum.count - 1) {
+		if (*item->menuitem_enum.value == item->menuitem_enum.list.length - 1) {
 			if (item->menuitem_enum.cycle)
 				*item->menuitem_enum.value = 0;
 		} else
@@ -213,7 +223,7 @@ void menu_repeateable_left(int repeating) {
 	case MENUITEM_TYPE_ENUM:
 		if (*item->menuitem_enum.value == 0) {
 			if (item->menuitem_enum.cycle)
-				*item->menuitem_enum.value = item->menuitem_enum.count - 1;
+				*item->menuitem_enum.value = item->menuitem_enum.list.length - 1;
 		} else
 			*item->menuitem_enum.value -= 1;
 		break;
@@ -246,7 +256,7 @@ void menu_repeateable_cycle(int repeating) {
 		*item->menuitem_int.value  = MIN(*item->menuitem_int.value, item->menuitem_int.max);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->menuitem_enum.value == item->menuitem_enum.count - 1)
+		if (*item->menuitem_enum.value == item->menuitem_enum.list.length - 1)
 			*item->menuitem_enum.value = 0;
 		else
 			*item->menuitem_enum.value += 1;
@@ -296,9 +306,9 @@ char *menu_message(int item_id) {
 			menu_print_int(menu_buffer, name, *item->menuitem_int.value, item->menuitem_int.format);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		menu_print_char(menu_buffer, name, item->menuitem_enum.texts[*item->menuitem_enum.value]);
+		menu_print_char(menu_buffer, name, item->menuitem_enum.list.data[*item->menuitem_enum.value]);
 		break;
-	case MENUITEM_TYPE_ACTION:
+	case MENUITEM_TYPE_LAUNCH:
 		sprintf(menu_buffer, "%s", name);
 		break;
 	default:

@@ -9,21 +9,16 @@
 
 type_SETTINGS menu_settings;
 
-char *bool_strings[]   = {"No", "Yes"};
-char *delay_strings[]  = {"No", "2s"};
-char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
-char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
-
 type_MENUITEM wave_items[] = {
 	MENUITEM_DELAY  ("Delay",   &menu_settings.wave_delay),
-	MENUITEM_SCRACT ("Action",  &menu_settings.wave_action),
+	MENUITEM_ACTION ("Action",  &menu_settings.wave_action),
 	MENUITEM_BOOLEAN("Repeat",  &menu_settings.wave_repeat),
 	MENUITEM_BOOLEAN("Instant", &menu_settings.wave_instant)
 };
 
 type_MENUITEM timer_items[] = {
 	MENUITEM_TIMEOUT("Delay",  &menu_settings.timer_timeout),
-	MENUITEM_SCRACT ("Action", &menu_settings.timer_action)
+	MENUITEM_ACTION ("Action", &menu_settings.timer_action)
 };
 
 type_MENUITEM eaeb_items[] = {
@@ -55,7 +50,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU("Interval",           interval_items),
 	MENUITEM_SUBMENU("Timer   ",           timer_items),
 	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay),
-	MENUITEM_ACTION ("Developers menu",    menu_developer_start)
+	MENUITEM_LAUNCH ("Developers menu",    menu_developer_start)
 };
 
 type_MENU main_menu = {
