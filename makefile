@@ -1,6 +1,6 @@
 PROJECT = AUTOEXEC
 ADDRESS = 0x7F0000
-VERSION = 99999999
+VERSION = $(shell svn info | grep Revision | cut -d' ' -f2)
 
 CC     = arm-elf-gcc
 CFLAGS = -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION)
@@ -30,7 +30,18 @@ C_OBJS = init.o           \
          viewfinder.o     \
          af_patterns.o    \
 
-all: $(PROJECT).BIN
+ifeq ($(_0xAF_),1)
+C_OBJS += 0xAF.o
+CFLAGS += -D_0xAF_
+endif
+
+all: clean $(PROJECT).BIN
+
+release:
+	make VERSION=`date +'%Y%m%d'`
+
+af:
+	make _0xAF_=1
 
 $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
@@ -48,3 +59,10 @@ $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 clean:
 	rm -f *.o
 	rm -f $(PROJECT).arm.elf
+
+install:
+	mount /dev/sdb1 /mnt/floppy/
+	cp AUTOEXEC.BIN /mnt/floppy/
+	sync
+	umount /mnt/floppy
+

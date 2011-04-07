@@ -38,7 +38,11 @@ type_ACTION actions_menu[]  = {
 };
 
 type_ACTION actions_info[]  = {
-	{BUTTON_SET,   FALSE, RESP_BLOCK, {info_switch}},
+	{BUTTON_SET,   FALSE, RESP_BLOCK, {info_option_next}},
+	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {info_option_next}},
+	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {info_option_next}},
+	{BUTTON_UP,    TRUE,  RESP_BLOCK, {info_option_prev}},
+	{BUTTON_LEFT,  TRUE,  RESP_BLOCK, {info_option_prev}},
 	END_OF_LIST
 };
 
