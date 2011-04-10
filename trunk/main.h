@@ -13,6 +13,28 @@
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
+// Events for SendToIntercom
+#define EVENT_SET_METMODE   0x02
+#define EVENT_SET_FLASHCOMP 0x03
+#define EVENT_SET_WBMODE    0x05
+#define EVENT_SET_AFPOINT   0x07
+#define EVENT_SET_TV        0x08
+#define EVENT_SET_AV        0x09
+#define EVENT_SET_COLORTEMP 0x10
+#define EVENT_SET_EVCOMP    0x0A
+#define EVENT_SET_ISO       0x0B
+#define EVENT_SET_AEB       0x0D
+
+#define EVENT_SET_QUALITY         0x22
+#define EVENT_SET_CFN_AFFLASH     0x2E
+#define EVENT_SET_CFN_NOFLASH     0x30
+#define EVENT_SET_CFN_EXTISO      0x31
+#define EVENT_SET_CFN_MLU         0x35
+#define EVENT_SET_CFN_FLASHSYNCR  0x38
+#define EVENT_SET_CFN_SAFETYSHIFT 0x39
+#define EVENT_SET_REALTIMEISO0    0xF0
+#define EVENT_SET_REALTIMEISO1    0xF1
+
 #define EVENT_DIALOGON  0x50
 #define EVENT_DIALOGOFF 0x51
 
