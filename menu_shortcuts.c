@@ -49,9 +49,9 @@ void menu_shortcuts_start() {
 void menu_shortcuts_save() {
 	beep();
 
-	SendToIntercom(0x0B, 2, shortcuts_storage.ISO);
-	SendToIntercom(0x35, 1, shortcuts_storage.CfMLU);
-	SendToIntercom(0x38, 1, shortcuts_storage.CfFlashSyncRear);
+	SendToIntercom(EVENT_SET_ISO,            2, shortcuts_storage.ISO);
+	SendToIntercom(EVENT_SET_CFN_MLU,        1, shortcuts_storage.CfMLU);
+	SendToIntercom(EVENT_SET_CFN_FLASHSYNCR, 1, shortcuts_storage.CfFlashSyncRear);
 
 	menu_close();
 }
