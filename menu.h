@@ -41,7 +41,7 @@ typedef struct {
 	int    small_step;
 	int    big_step;
 	int    zero_means_unlimited;
-  char  *format;
+	char  *format;
 } type_MENUITEM_INT;
 
 typedef struct {
