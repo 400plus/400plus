@@ -35,10 +35,10 @@ char *info_display() {
 	SleepTask(50);
 
 	switch (info_option) {
-	case INFO_OPTION_CAPACITY:
-		sprintf(message, "<> %s", sub_FF83A640());
-		break;
-		//return sub_FF83A640();
+	// reporting wrong free space, we should find another routine to use here
+	//case INFO_OPTION_CAPACITY:
+	//	sprintf(message, "<> %s", sub_FF83A640());
+	//	break;
 	case INFO_OPTION_RELEASE_COUNT:
 		sprintf(message, "<> Release count: %u", FLAG_RELEASE_COUNT);
 		break;
