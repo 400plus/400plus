@@ -50,7 +50,7 @@ void viewfinder_change_iso(const int iso) {
 		}
 
 		// Set new ISO
-		eventproc_SetIsoValue(&iso);
+		SendToIntercom(0x0B, 2, iso);
 	}
 }
 

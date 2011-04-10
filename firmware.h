@@ -76,8 +76,6 @@ extern int SendToIntercom(int message, int length, int parm);
 
 extern int eventproc_PrintICUInfo();
 extern int eventproc_RiseEvent(const char *event);
-extern int eventproc_SetMesMode(const int *metering);
-extern int eventproc_SetIsoValue(const int *iso);
 extern int eventproc_Release();
 
 extern int pressButton_(int button);

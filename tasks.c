@@ -39,7 +39,7 @@ void set_metering_spot() {
 	int metering_spot = METERING_MODE_SPOT;
 
 	pressButton_(BUTTON_SET);
-	eventproc_SetMesMode(&metering_spot);
+	SendToIntercom(0x02, 1, metering_spot);
 	eventproc_PrintICUInfo();
 
 	beep();
@@ -55,10 +55,8 @@ void set_whitebalance_colortemp() {
 }
 
 void set_iso_high() {
-	int iso_high = 0x6F;
-
 	pressButton_(BUTTON_SET);
-	eventproc_SetIsoValue(&iso_high);
+	SendToIntercom(0x0B, 2, 0x6F);
 	eventproc_PrintICUInfo();
 
 	beep();
@@ -103,7 +101,7 @@ void restore_iso() {
 		iso = 0x48;
 	}
 
-	eventproc_SetIsoValue(&iso);
+	SendToIntercom(0x0B, 2, iso);
 }
 
 void restore_wb() {
@@ -113,8 +111,6 @@ void restore_wb() {
 }
 
 void restore_metering() {
-	const int metering_evaluative = METERING_MODE_EVAL;
-
 	if (cameraMode.MeteringMode == METERING_MODE_SPOT)
-		eventproc_SetMesMode(&metering_evaluative);
+		SendToIntercom(0x02, 1, METERING_MODE_EVAL);
 }
