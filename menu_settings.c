@@ -41,6 +41,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_EVCOMP ("Flash comp",        &menu_settings.flash_comp),
 	MENUITEM_EVSEP  ("AEB",               &menu_settings.aeb_ev),
 	MENUITEM_BOOLEAN("ISO in viewfinder", &menu_settings.iso_in_viewfinder),
+	MENUITEM_BOOLEAN("Shortcuts menu",    &menu_settings.shortcuts_menu),
 	MENUITEM_BOOLEAN("Safety Shift",      &menu_settings.safety_shift),
 	MENUITEM_CLRTEMP("Color Temp. (K)",   &menu_settings.color_temp),
 	MENUITEM_BOOLEAN("Use flash",         &menu_settings.emit_flash),
@@ -50,7 +51,6 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU("Interval",           interval_items),
 	MENUITEM_SUBMENU("Timer   ",           timer_items),
 	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay),
-	MENUITEM_BOOLEAN("Shortcuts menu",    &menu_settings.shortcuts_menu),
 	MENUITEM_LAUNCH ("Developers menu",    menu_developer_start)
 };
 
