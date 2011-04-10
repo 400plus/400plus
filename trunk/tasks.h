@@ -3,10 +3,10 @@
 
 extern void start_up();
 
+extern void dp_action();
 extern void toggle_raw_jpeg();
 extern void toggle_CfMLU();
 extern void toggle_CfFlashSyncRear();
-extern void set_intermediate_iso();
 
 extern void restore_iso();
 extern void restore_wb();

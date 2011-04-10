@@ -27,7 +27,8 @@ type_SETTINGS settings = {
 	af_flash         : TRUE,
 	remote_delay     : FALSE,
 	timer_timeout    : 5,
-	timer_action     : SHOT_ACTION_FIRST
+	timer_action     : SHOT_ACTION_FIRST,
+	shortcuts_menu   : TRUE
 };
 
 void settings_read() {

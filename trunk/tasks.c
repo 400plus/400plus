@@ -2,15 +2,11 @@
 #include "utils.h"
 #include "display.h"
 #include "settings.h"
+#include "menu_shortcuts.h"
 #include "firmware.h"
 
 #include "tasks.h"
 
-void restore_iso();
-void restore_wb();
-void restore_metering();
-
-void toggle_raw_jpeg();
 void set_intermediate_iso();
 
 void start_up() {
@@ -28,6 +24,15 @@ void start_up() {
 	// Read (and apply) settings from file
 	settings_read();
 	settings_apply();
+}
+
+void dp_action() {
+	if (settings.shortcuts_menu || cameraMode.AEMode > 6) {
+		menu_shortcuts_start();
+	} else {
+		set_intermediate_iso();
+		display_refresh();
+	}
 }
 
 void set_metering_spot() {
@@ -76,9 +81,11 @@ void toggle_CfFlashSyncRear() {
 
 void set_intermediate_iso() {
 	if (cameraMode.AEMode < 6) {
-		int iso = iso_next(cameraMode.ISO);
-		eventproc_SetIsoValue(&iso);
+		int iso = iso_roll(cameraMode.ISO);
+		SendToIntercom(0x0B, 2, iso);
 	}
+
+	SleepTask(50);
 }
 
 void restore_iso() {
