@@ -27,7 +27,7 @@ type_ACTION actions_main[]  = {
 	{BUTTON_UP,    TRUE,  RESP_PASS,  {restore_iso}},
 	{BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
 	{BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {menu_shortcuts_start}},
+	{BUTTON_DP,    FALSE, RESP_BLOCK, {dp_action}},
 	{BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
 	END_OF_LIST
 };

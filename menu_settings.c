@@ -50,6 +50,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU("Interval",           interval_items),
 	MENUITEM_SUBMENU("Timer   ",           timer_items),
 	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay),
+	MENUITEM_BOOLEAN("Shortcuts menu",    &menu_settings.shortcuts_menu),
 	MENUITEM_LAUNCH ("Developers menu",    menu_developer_start)
 };
 
