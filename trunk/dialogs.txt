@@ -1,0 +1,189 @@
+# vim: ts=4 sw=4 tw=120
+hope this info helps... i'll try to make experimental menu
+where the dialogs can be seen, but so far we cannot use the
+menu structure to show all dialogs. to switch the dialogs
+i need to get in message_proxy and the code is dirty,
+i cannot add it to the repository ATM.
+
+here are the template ids which are usable:
+
+error screens:
+	usable: 4
+	maybe:
+
+info screens:
+	usable: 24,52,79,94
+	maybe: 14,28,33,46,90
+
+confirmation screens:
+	usable: 21,37,40,53,71,95
+	maybe: 34,39
+
+menus/interactive:
+	usable: 8,9,10,22,25,26,42,47,50,69,70,74
+	maybe: 18,54
+
+on screen dialogs:
+	usable: 5,13,64,98,101,103,108
+	maybe: 6
+
+
+79 can be used for counting the scripts
+
+
+----------------------------------------------------
+more information about the usable templates:
+
+
+template 1 = test screen
+
+template 2 = 3 line info with paper icons
+
+template 3 = 3 sliders dialog
+
+template 4 = error dialog with ok button and red X icon (like stop)
+	line 4,5 = info desc
+	line 1 = button
+
+template 5 = on screen bottom line (could be used for short help with timeout)
+	line 3 = info desc
+
+template 6 = on screen upper right 5 lines info with paper icons
+	line 2..6 = info desc
+
+template 7 = some callibration dialog
+
+template 8,9,10 = 3 tabs menu with additional [MENU] and [SET] buttons
+				can be made to switch with front dial or left,right buttons
+	line 1..5 = menu entries
+	line 9 = menu title
+	line 12 = [menu button] title
+	line 13 = [set button] title
+
+template 13 = on screen menu with 2 buttons
+	line 4,3 = first, second button
+
+template 14 = upper half screen info with 4 lines
+	line 2,3 = 3,4 lines (inverted colors)
+	line 4,5 = 1,2 lines
+
+template 18 = 2 lines info with 2 buttons and black square
+	line 1,2 = buttons
+	line 5,6 = 2 lines info
+
+template 21 = attention dialog with 2 buttons and 1 line info
+	line 5 = info desc
+	line 1,2 = 1,2 buttons
+
+template 22 = standart menu
+	line 1..5 = menu entries
+	line 8 = menu title
+
+template 24 = 3 lines info with 1 button (could be help screen)
+	line 2 = button
+	line 4,5,6 = 3 lines info
+	line 7 = menu title
+
+template 25 = standart menu with left and right section ? (could be used for submenus?)
+	line 6,7,8,9,10 = left side desc
+	line 1,2,3,4,5 = right side desc
+	line 12 = menu title
+
+template 26 = like 25 it is 2 section menu but with 4 lines and one info line
+	line 5,6,7,8 = left side desc
+	line 1,2,3,4 = right side desc
+	line 14 = menu title
+	line XX = info line which gets overriden by current date
+
+template 28 = 2 columns info screen
+
+template 32 = info screen [MENU->DISP] - some texts can be overriden - others not
+
+template 33 = sensor cleaning animation with one info line
+				nice to get attention (no button)
+	line 3 = info line
+
+template 34 = info line with [SET],[MENU] buttons
+	line 4 = set button title
+	line 7 = info line desc
+
+template 37 = nice confirmation dialog with title and 2 buttons
+	line 1,2 = 1,2 buttons
+	line 3 = menu title
+	line 4 = info desc
+
+template 39 = similar to 37 but with progress bar...
+
+template 40 = same as 37
+
+template 42 = like standart menu but with 3 entries
+	line 1,2,3 = menu entries
+	line 4 = menu title
+
+template 46 = 1 line info with 1 button and (empty) status bar
+	line 1 = button
+	line 6 = info desc
+	line 7 = menu title
+
+template 47,50 = 3 entries menu with additional info line and [MENU] icon for back
+	line 1,2,3 = menu entries
+	line 7 = menu title
+	line 8 = info desc
+
+template 52 = info screen with 3 lines and button (BEST INFO/HELP SCREEN)
+	line 1 = button
+	line 2,3,4,5,6 = 3 info lines (overlaping)
+	line 8 = menu description
+
+template 53 = confirmation dialolog with 2 buttons and 2 lines
+	line 1,2 = buttons
+	line 3 = menu title
+	line 4,5 = info desc
+
+template 54 = 16 entries menu - nice for shortcuts
+	line 1..16 = menu entries
+	line 19 = menu title
+	(current date gets displayed at some time)
+
+template 64 = on screen center info w/ 2 lines
+	line 1,2 = info desc
+
+template 69 = menu with 6 entries in 2 columns
+	line 1..6 = menu entries
+	line 8 = menu title
+
+template 70 = menu with 8 entries in 2 columns
+	line 1..8 = menu entries
+	line 10 = menu title
+
+template 71 = same as 53
+	line 1,2 = buttons
+	line 4 = menu title
+	line 5,6 = info desc
+
+template 74 = menu w/ 2 entries and [MENU] icon
+	line 1,2 = menu entries
+
+template 79 = the counting screen in BULB mode (black screen with some text in bottom right)
+	line 1 = info desc
+
+template 90 = image saving info when battery runs out (nice animated icon for doing something)
+	line 2,3 = info desc
+
+template 94 = 1 line info with 1 button with status bar
+	line 2 = button
+	line 4 = info desc
+
+template 95 = confirmation with 1 line info 2 buttons
+	line 1,2 = buttons
+	line 4 = info desc
+
+template 98,101 = on screen central 1 line info
+	line 3 = info desc
+
+template 103 = on screen bottom right [MENU] icon
+
+template 108 = on screen central left 10 chars info
+	line 3 = info desc
+
+
