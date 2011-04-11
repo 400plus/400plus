@@ -8,6 +8,7 @@ void display_refresh_meteringmode();
 void display_refresh_whitebalance();
 void display_refresh_flashcomp();
 void display_refresh_iso();
+static int countdown_dialog = 0;
 
 void restore_display() {
 	SleepTask(100);
@@ -80,10 +81,31 @@ void display_refresh_iso() {
 	sub_FF837FA8(MAIN_DIALOG, 0x04, text);
 }
 
+void display_countdown_dialog_create() {
+	if (countdown_dialog) // if dialog exists for some reason
+		return;
+
+	pressButton_(BUTTON_MENU);
+	SleepTask(100);
+	countdown_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 79);
+}
+
+void display_countdown_dialog_destroy() {
+	DeleteDialogBox(countdown_dialog);
+	//pressButton_(BUTTON_DISP);
+	//SleepTask(250);
+	//display_refresh();
+	countdown_dialog=0;
+}
+
 void display_countdown(int seconds) {
 	char buffer[4];
 
-	sprintf(buffer, "%u", seconds);
-	sub_FF837FA8(MAIN_DIALOG, 0x26, buffer);
-	do_some_with_dialog(MAIN_DIALOG);
+	if (seconds)
+		sprintf(buffer, "%u", seconds);
+	else
+		sprintf(buffer, "RUN");
+
+	sub_FF837FA8(countdown_dialog, 1, buffer);
+	do_some_with_dialog(countdown_dialog);
 }

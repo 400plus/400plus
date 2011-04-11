@@ -221,6 +221,8 @@ void wait_for_camera() {
 void script_delay(int seconds) {
 	int i;
 
+	display_countdown_dialog_create();
+
 	while (seconds--) {
 		display_countdown(1 + seconds);
 		for (i = 0; i < SCRIPT_DELAY_REPEAT; i++) {
@@ -232,4 +234,6 @@ void script_delay(int seconds) {
 	}
 
 	display_countdown(0);
+	SleepTask(SCRIPT_DELAY_TIME);
+	display_countdown_dialog_destroy();
 }
