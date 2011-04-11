@@ -20,10 +20,10 @@
 #define EVENT_SET_AFPOINT   0x07
 #define EVENT_SET_TV        0x08
 #define EVENT_SET_AV        0x09
-#define EVENT_SET_COLORTEMP 0x10
 #define EVENT_SET_EVCOMP    0x0A
 #define EVENT_SET_ISO       0x0B
 #define EVENT_SET_AEB       0x0D
+#define EVENT_SET_COLORTEMP 0x10
 
 #define EVENT_SET_QUALITY         0x22
 #define EVENT_SET_CFN_AFFLASH     0x2E

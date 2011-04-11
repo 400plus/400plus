@@ -121,7 +121,7 @@ void initialize_display() {
 void message_proxy(const int handler, char *message) {
 	int gui_mode;
 	int button = message[1];
-	int holds = message[0] > 1 ? message[2] : FALSE;
+	int holds  = message[0] > 1 ? message[2] : FALSE;
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
@@ -171,7 +171,6 @@ void message_proxy(const int handler, char *message) {
 		case RESP_BLOCK:
 			goto block_message;
 		}
-
 	}
 
 	// Use fictitious GUI modes so everything else fits nicely
