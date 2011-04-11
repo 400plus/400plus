@@ -213,6 +213,9 @@ void release_and_wait() {
 void wait_for_camera() {
 	while(FLAG_CAMERA_BUSY)
 		SleepTask(WAIT_CAMERA_BUSY);
+
+	while(cameraMode.BusyFlag)
+		SleepTask(WAIT_CAMERA_BUSY);
 }
 
 void script_delay(int seconds) {
