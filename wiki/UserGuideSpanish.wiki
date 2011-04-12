@@ -127,7 +127,7 @@ En la zona básica, utiliza el botón AV para alternar entre salida RAW y JPEG.
 === En la zona creativa ===
 
 En la zona creativa están activos: 
- * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver Notas / ISOs Extendidos). (vedi [UserGuideItalian#Extended_ISOs Note / Extended ISO]). 
+ * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver [UserGuideSpanish#Notas / ISOs Extendidos]). 
  * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver Notas / modo de medición puntual).(vedi [UserGuideItalian#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
  * En el cuadro de diálogo de selección de balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
 
