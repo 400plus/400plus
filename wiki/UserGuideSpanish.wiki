@@ -1,0 +1,171 @@
+#summary 400plus User Guide in Spanish / Guía del Usuario 400plus.
+
+= Translation =
+
+Spanish translation provided by Jmtd.
+
+= Guía del Usuario 400plus =
+
+= Introducción =
+
+Este documento contiene las instrucciones de uso para 400plus. Se supone que, antes de leer esta guía, el usuario ha instalado 400plus y funciona correctamente. Para información acerca de la instalación de 400plus, ver [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
+
+= El menú =
+
+== Acceso al menú ==
+
+Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará el nuevo menú 400plus).
+
+== Navegación por el menú ==
+
+Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza el botón de  IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor
+del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor.
+
+Utiliza el botón SET para guardar los valores y activar los cambios; recuerda que todos los cambios se perderán si sales del menú antes de pulsar el botón SET.
+
+== Navegación por los sub-menús ==
+
+Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar al siguiente sub-menú y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro item.
+
+== Los sub-menús ==
+
+ * _*Av Comp*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
+ * _*Flash Comp*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV. 
+ * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV. 
+ * _*Safety Shift*_: Cuando está activo, y si estamos en los modos Tv o Av, la cámara cambia la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
+ * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO
+mientras miras por el visor. 
+ * _*Color Temp. (K)*_: Establece una temperatura de color definido por el usuario (activarlo después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
+ * _*Flash*_: Fuerza la desactivación del flash (durante el disparo), aunque se haya elevado el flash. 
+ * _*AF assist beam*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
+ * _*HandWave*_: Este sub-menú configura el guión de la Toma por Visor (ondeo). [UserGuideItalian#Hand_Waving Hand Waving]: 
+  * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
+  * Acción: la acción a realizar. 
+  * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
+  * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario el guión va a esperar hasta que la mano se retira.
+ * _*Ext. AEB*_: Este sub-menú configura el guión del AEB Extendido. 
+  * Marcos: número de tomas a disparar. 
+  * Paso (EV): separación en EV entre disparos. 
+  * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
+  * Manual [: velocidad mínima del obturador en modo M. 
+  * Manual ]: velocidad máxima del obturador en modo M. 
+ * _*Intervalo*_: Este sub-menú configura la secuencia de comandos Intervalómetro. 
+  * Retardo: selecciona si el guión debe empezar a disparar
+inmediatamente o esperar 2 segundos. 
+  * Tiempo (s): tiempo (en segundos) entre cada disparo.
+  * EAEB: selecciona si AEB Extendido se debe utilizar en cada disparo. 
+  * Disparos: número de disparos a hacer, o selecciona "sin límite" para disparar sin cesar.
+ * _*Temporizador*_: Esto configura el sub-menú la secuencia de comandos del Autodisparador. 
+  * Retardo (s): tiempo (en segundos) que el guión debe esperar antes de disparar. 
+  * Acción: la acción a realizar. 
+ * _*Retardo infrarrojos*: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
+
+= El menú de accesos directos =
+
+Para acceder al menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA. Ten en cuenta que este menú no se puede navegar ya que cada botón realiza una acción inmediata, y sólo se utiliza para mostrar qué acción se le asigna a cada botón. Inicialmente, están activas las siguientes asignaciones:
+
+ * _*^ ISO Intermedio*_: Presiona el botón ARRIBA para cambiar a un ISO intermedio.
+ * _*< AEB Extendido*_: Pulsa el botón IZQUIERDA para iniciar el guión AEB Extendido. [UserGuideItalian#Extended_AEB Extended AEB].
+ * _*# Intervalómetro*_: Presiona el botón SET para iniciar el guión de Intervalómetro. [UserGuide#Intervalometer Intervalometer].
+ * _*> Hand waving*_: Presiona el botón DERECHA para iniciar el guión de la Toma por Visor. [UserGuideItalian#Hand_Waving Hand Waving].
+* _*v Autodisparador*_: Pulsa el botón ABAJO para iniciar el disparador automático. [UserGuideItalian#Autoscatto Autoscatto].
+
+Para salir del menú de accesos directos, pulsa el botón MENU.
+
+== Configurar el menú de accesos directos ==
+
+Estando en el menú de accesos directos, presiona AV para configurar el menú de accesos directos: pulsa ARRIBA y ABAJO para seleccionar un acceso directo, e IZQUIERDA o DERECHA para cambiar la acción asignada a ese acceso directo.
+
+Presiona AV de nuevo para volver al menú de accesos directos, pero no te olvides de presionar SET para guardar el nuevo menú de accesos directos a la tarjeta antes de salir.
+
+
+== Los accesos directos adicionales ==
+
+Las siguientes acciones están también disponibles, si se han asignado a un acceso directo:
+ * _*Bloqueo de espejo*_: activa / desactiva el bloqueo de espejo.
+ * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla.
+
+= Los guiones =
+
+Todos los guiones se activan desde el menú de accesos directos.
+[UserGuideItalian#Menu_dei_collegamenti_rapidi collegamenti rapidi]. Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y al tiempo que el guión se ejecuta, el botón DIRECT PRINT parpadea (dos veces por segundo, aproximadamente).
+
+Para detener una secuencia de comandos en ejecución, presiona el botón DIRECT PRINT de nuevo; a veces la cámara no puede parar de inmediato, por tanto presiona y mantén presionado el botón DIRECT PRINT hasta que oigas el beep que indica el final efectivo del guión.
+
+
+== AEB Extendido ==
+
+Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias: 
+  #. Se pueden especificar hasta 9 tomas. 
+  #. La separación entre las tomas se puede configurar hasta +6 EV. 
+  #. La cámara tomará todas las fotos en una secuencia, de forma automática.
+En el modo M, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde "Manual [" hasta "Manual ]", y separando cada disparo de acuerdo con el valor del "Paso (EV)".
+
+== Intervalómetro ==
+
+Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas; úsalo, por ejemplo, para crear películas de stop-motion. Ajusta "EAEB" a "Sí" para ejecutar el guión de AEB extendido en cada disparo. [UserGuideItalian#Extended_AEB Extended AEB].
+
+== Toma por Visor (ondeo) ==
+
+Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el AEB Extendido o el Intervalómetro, si está configurado en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que la mano bloquee el sensor y luego se retire, pero, cuando esté activada la opción " Instantánea", se activará la cámara tan pronto como esa mano bloquee el sensor.
+
+== Autodisparador ==
+
+Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el AEB Extendido o el Intervalómetro, si está configurado en el sub-menú "Acción".
+
+
+= Selección del patrón AF =
+
+Pulsa el botón de ZOOM para entrar en "Selección del punto AF", a continuación pulsa ZOOM de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los patrones, y pulsa hasta la mitad el botón del obturador para salir del diálogo. 
+
+== Los extras==
+
+Se han agregado a la cámara los siguientes extras: 
+
+=== En la zona básica ===
+
+En la zona básica, utiliza el botón AV para alternar entre salida RAW y JPEG.
+
+=== En la zona creativa ===
+
+En la zona creativa están activos: 
+ * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver Notas / ISOs Extendidos). (vedi [UserGuideItalian#Extended_ISOs Note / Extended ISO]). 
+ * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver Notas / modo de medición puntual).(vedi [UserGuideItalian#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
+ * En el cuadro de diálogo de selección de balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
+
+= Otros regalos =
+
+Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
+
+== Contador de disparos ==
+
+En la pantalla de "ajustes de la cámara" (presionar INFO en el menú estándar de la cámara), la última línea muestra ahora el número total de disparos realizados por la cámara, en lugar de la capacidad de la tarjeta.
+
+== El asunto de la nariz (ojo zurdo) ==
+
+Mientras se mira por el visor, los botones de ISO y WB ya no están activos, para prevenir cambios accidentales con la nariz del usuario. 
+
+== Menú de Fábrica y el modo de depuración ==
+
+Desde el menú 400D+, pulsa el botón de IMPRESIÓN DIRECTA para activar el Menú de Fábrica (oirás  un beep); pulsa otra vez DIRECT PRINT para activar el modo de depuración (oirás otro pitido). Vuelve al menú estándar de la cámara y un nuevo FACTORY MENU será accesible a partir de ahora. Cuando está en modo de depuración, la cámara almacena gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
+
+= Notas =
+
+Algunas notas y comentarios. 
+
+== ISOs Extendidos ==
+
+Los valores ISO no estándar son sólo por software, y técnicamente no producen ganancia sobre los ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200.
+
+== Modo de medición puntual ==
+
+El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña.
+
+= Errores conocidos =
+
+Se han comunicado y confirmado los siguientes errores relevantes:
+
+ * Issue #15: La exposición cambia durante EAEB.
+ * Issue #17: El número de disparos restantes no se restaura si el guión es interrumpido.
+ * Issue #18: Configuración errónea restaurada.
+ * Issue #26: Secuencias de comandos producen ERROR 99 al hacer ráfagas.
