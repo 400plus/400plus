@@ -17,7 +17,7 @@ void sub_extended_aeb();
 void sub_interval();
 
 void release_and_wait();
-void wait_for_camera();
+void wait_for_camera(int strict);
 void script_delay(int seconds);
 
 void script_extended_aeb() {
@@ -88,18 +88,20 @@ void script_self_timer() {
 void script_start() {
 	beep();
 	status.script_running = TRUE;
-
 	if (feedback_task == NULL)
 		feedback_task = (int *)CreateTask("Feedback", 0x1A, 0x2000, script_feedback, 0);
 	else
 		UnSuspendTask(feedback_task);
+
+	wait_for_camera(TRUE);
+
 }
 
 void script_stop() {
-	wait_for_camera();
-
 	beep();
 	status.script_running = FALSE;
+
+	wait_for_camera(TRUE);
 }
 
 void script_feedback() {
@@ -189,7 +191,7 @@ void sub_interval() {
 		if (!status.script_running)
 			break;
 
-		wait_for_camera();
+		wait_for_camera(TRUE);
 
 		if (settings.interval_eaeb)
 			script_shot(SHOT_ACTION_EAEB);
@@ -202,20 +204,21 @@ void sub_interval() {
 			break;
 	}
 
-	wait_for_camera();
+	wait_for_camera(TRUE);
 }
 
 void release_and_wait() {
 	eventproc_Release();
-	wait_for_camera();
+	wait_for_camera(FALSE);
 }
 
-void wait_for_camera() {
+void wait_for_camera(int strict) {
 	while(FLAG_CAMERA_BUSY)
 		SleepTask(WAIT_CAMERA_BUSY);
 
-	while(cameraMode.BusyFlag)
-		SleepTask(WAIT_CAMERA_BUSY);
+	if (strict)
+		while(cameraMode.BusyFlag)
+			SleepTask(WAIT_CAMERA_BUSY);
 }
 
 void script_delay(int seconds) {
