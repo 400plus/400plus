@@ -88,13 +88,13 @@ void script_self_timer() {
 void script_start() {
 	beep();
 	status.script_running = TRUE;
+
 	if (feedback_task == NULL)
-		feedback_task = (int *)CreateTask("Feedback", 0x1A, 0x2000, script_feedback, 0);
+		feedback_task = (int *)CreateTask("Feedback", 0x19, 0x2000, script_feedback, 0);
 	else
 		UnSuspendTask(feedback_task);
 
 	wait_for_camera(TRUE);
-
 }
 
 void script_stop() {
@@ -219,6 +219,8 @@ void wait_for_camera(int strict) {
 	if (strict)
 		while(cameraMode.BusyFlag)
 			SleepTask(WAIT_CAMERA_BUSY);
+	else
+		SleepTask(WAIT_CAMERA_BUSY);
 }
 
 void script_delay(int seconds) {
