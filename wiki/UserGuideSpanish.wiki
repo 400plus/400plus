@@ -100,7 +100,7 @@ Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar d
   #. La cámara tomará todas las fotos en una secuencia, de forma automática.
 En el modo M, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde "Manual [" hasta "Manual ]", y separando cada disparo de acuerdo con el valor del "Paso (EV)".
 
-== Intervalómetro ==
+== Intervalometro ==
 
 Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas; úsalo, por ejemplo, para crear películas de stop-motion. Ajusta "EAEB" a "Sí" para ejecutar el guión de AEB extendido en cada disparo. [UserGuideItalian#Extended_AEB Extended AEB].
 
