@@ -63,10 +63,10 @@ Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar
 Para acceder al menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA. Ten en cuenta que este menú no se puede navegar ya que cada botón realiza una acción inmediata, y sólo se utiliza para mostrar qué acción se le asigna a cada botón. Inicialmente, están activas las siguientes asignaciones:
 
  * _*^ ISO Intermedio*_: Presiona el botón ARRIBA para cambiar a un ISO intermedio.
- * _*< AEB Extendido*_: Pulsa el botón IZQUIERDA para iniciar el guión AEB Extendido. [UserGuideItalian#Extended_AEB Extended AEB].
- * _*# Intervalómetro*_: Presiona el botón SET para iniciar el guión de Intervalómetro. [UserGuide#Intervalometer Intervalometer].
- * _*> Hand waving*_: Presiona el botón DERECHA para iniciar el guión de la Toma por Visor. [UserGuideItalian#Hand_Waving Hand Waving].
-* _*v Autodisparador*_: Pulsa el botón ABAJO para iniciar el disparador automático. [UserGuideItalian#Autoscatto Autoscatto].
+ * _*< AEB Extendido*_: Pulsa el botón IZQUIERDA para iniciar el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
+ * _*# Intervalómetro*_: Presiona el botón SET para iniciar el guión de [UserGuideSpanish#Intervalometro Intervalometro].
+ * _*> Hand waving*_: Presiona el botón DERECHA para iniciar el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
+* _*v Autodisparador*_: Pulsa el botón ABAJO para iniciar el [UserGuideSpanish#Autodisparador Autodisparador].
 
 Para salir del menú de accesos directos, pulsa el botón MENU.
 
