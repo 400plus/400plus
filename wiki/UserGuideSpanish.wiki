@@ -101,15 +101,15 @@ En el modo M, este guión disparará la cámara tantas veces como sea necesario,
 
 == Intervalometro ==
 
-Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas; úsalo, por ejemplo, para crear películas de stop-motion. Ajusta "EAEB" a "Sí" para ejecutar el guión de AEB extendido en cada disparo. [UserGuideItalian#Extended_AEB Extended AEB].
+Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas; úsalo, por ejemplo, para crear películas de stop-motion. Ajusta "EAEB" a "Sí" para ejecutar el guión de [UserGuideSpanish#AEB_Extendido AEB Extendido] en cada disparo.
 
 == Toma por Visor (ondeo) ==
 
-Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el AEB Extendido o el Intervalómetro, si está configurado en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que la mano bloquee el sensor y luego se retire, pero, cuando esté activada la opción " Instantánea", se activará la cámara tan pronto como esa mano bloquee el sensor.
+Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que la mano bloquee el sensor y luego se retire, pero, cuando esté activada la opción " Instantánea", se activará la cámara tan pronto como esa mano bloquee el sensor.
 
 == Autodisparador ==
 
-Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el AEB Extendido o el Intervalómetro, si está configurado en el sub-menú "Acción".
+Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
 
 
 = Selección del patrón AF =
