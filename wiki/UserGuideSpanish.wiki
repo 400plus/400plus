@@ -155,7 +155,7 @@ Algunas notas y comentarios.
 
 Los valores ISO no estándar son sólo por software, y técnicamente no producen ganancia sobre los ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200.
 
-== Modo de medición puntual ==
+== Modo de medicion puntual ==
 
 El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña.
 
