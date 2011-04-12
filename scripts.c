@@ -228,12 +228,14 @@ void script_delay(int seconds) {
 		for (i = 0; i < SCRIPT_DELAY_REPEAT; i++) {
 			SleepTask(SCRIPT_DELAY_TIME);
 			if (!status.script_running)
-				return;
+				goto end;
 		}
 
 	}
 
 	display_countdown(0);
 	SleepTask(SCRIPT_DELAY_TIME);
+
+end:
 	display_countdown_dialog_destroy();
 }
