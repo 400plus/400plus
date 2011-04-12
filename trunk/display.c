@@ -83,19 +83,14 @@ void display_refresh_iso() {
 
 void display_countdown_dialog_create() {
 	if (countdown_dialog) // if dialog exists for some reason
-		return;
-
-	pressButton_(BUTTON_MENU);
-	SleepTask(100);
-	countdown_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 79);
+		do_some_with_dialog(countdown_dialog);
+	else
+		countdown_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 79);
 }
 
 void display_countdown_dialog_destroy() {
 	DeleteDialogBox(countdown_dialog);
-	//pressButton_(BUTTON_DISP);
-	//SleepTask(250);
-	//display_refresh();
-	countdown_dialog=0;
+	countdown_dialog = 0;
 }
 
 void display_countdown(int seconds) {
