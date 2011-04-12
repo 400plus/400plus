@@ -3,82 +3,78 @@
 
 = Introduction =
 
-This document contains the user guide for 400plus. It is supposed in this document that the user has installed 400plus and it is working properly, prior to reading this guide. For information about installing 400plus, please see FirmwareHackInstallation.
+This document contains the user guide for 400plus. It is supposed in this document that the user has installed 400plus and it is working properly, prior to reading this guide. For information about installing 400plus, please see [FirmwareHackInstallation].
 
 = The menu =
 
 == Accessing the menu ==
 
-To enter the 400plus menu, press `MENU` (this will display the _standard_ camera menu) and then `DIRECT PRINT` (this will display the new 400plus menu).
+To enter the 400plus menu, press `MENU` (this will display the _standard_ camera menu) and then `DIRECT PRINT` (this will display the new 400plus menu). To exit the 400plus menu, just half-press the shutter button.
 
 == Navigating the menu ==
 
 To navigate the menu, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons to move among items. Then use the `LEFT` (`METERING MODE`) and `RIGHT` (`AF MODE`) buttons to change the value of the current item; press and hold these buttons to change faster. On some items, the `AV` button can be used to roll the value.
 
-Use the `SET` button to save the values and activate the changes; *notice* that all changes will be lost if you exit the menu before pressing the `SET` button.
+Use the `SET` button to save the values and activate the changes; please, *notice* that all changes will be lost if you exit the menu before pressing the `SET` button.
 
 == Navigating the sub-menus ==
 
-Sub-menus are displayed as "`ITEM>SUBITEM`"; use the `MENU` key to roll to the next subitem, then `LEFT` and `RIGHT` to change the value (press and hold to change faster). Both `UP` and `DOWN` can be used anytime to move to another item.
+Sub-menus are displayed as "`ITEM>SUBITEM`"; use the front dial to roll to the next subitem, then `LEFT` and `RIGHT` to change the value (press and hold to change faster). Both `UP` and `DOWN` can be used anytime to move to another item.
 
 == The items ==
 
  * _*Av comp*_: Same as the _standard_ "AV compensation", but may go from -6 to +6 EV.
  * _*Flash comp*_: Same as the _standard_ "Flash compensation", but may go from -6 to +6 EV.
  * _*AEB*_: Same as the _standard_ "AEB", but may go from -6 to +6 EV.
- * _*Safety shift*_: When active, and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid a under/over-exposure, if the value is too small/large for the scene.
  * _*ISO in viewfinder*_: When active, and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
+ * _*Shortcuts menu*_: When active, the shortcuts menu will be displayed from the main dialog when pressing the `DIRECT PRINT` button; when set to "No", the `DIRECT PRINT` button will change to an intermediate ISO.
+ * _*Safety shift*_: When active, and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid a under/over-exposure, if the value is too small/large for the scene.
  * _*Color Temp. (K)*_: Set a user-defined color temperature (activate it later pressing `DIRECT PRINT` at the white balance selection dialog).
  * _*Flash*_: Force the deactivation of the flash (during the shot), even if it has been raised.
  * _*AF assist beam*_: Force the deactivation of the flash (during the AF phase), even if it has been raised.
  * _*Handwave*_: This sub-menu configures the [UserGuide#Hand_Waving Hand Waving] script:
-    * Delay: select wether this script should take the shot immediately, or wait for 2 seconds.
+    * Delay: select whether this script should take the shot immediately, or wait for 2 seconds.
     * Action: action to be performed.
     * Repeat: if selected, the script will restart itself after each shot, so you can wave your hand again to take another shot.
     * Instant: if selected, the script shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Ext. AEB*_: This sub-menu configures the [UserGuide#Extended_AEB Extended AEB] script:
     * Frames: number of frames to shot.
     * Step (EV): separation in EV between shots.
-    * Delay: select wether this script should start shooting immediately or wait 2 seconds.
+    * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Manual [: minimum shutter speed in `M` mode.
     * Manual ]: maximum shutter speed in `M` mode.
  * _*Interval*_: This sub-menu configures the [UserGuide#Intervalometer Intervalometer] script:
-    * Delay: select wether this script should start shooting immediately, or wait for 2 seconds.
+    * Delay: select whether this script should start shooting immediately, or wait for 2 seconds.
     * Time (s): time (in seconds) between each shot.
-    * EAEB: select wether [UserGuide#Extended_AEB Extended AEB] should be used on each shot.
+    * EAEB: select whether [UserGuide#Extended_AEB Extended AEB] should be used on each shot.
     * Shots: number of sots to make, or select "no limit" to shot endlessly;
  * _*Timer*_: This sub-menu configures the [UserGuide#Self_Timer Self Timer] script:
     * Delay (s): time (in seconds) that the script should wait before shooting.
     * Action: action to be performed.
- * _*IR remote delay*_: Select wether the camera should wait 2 seconds when released using an IR remote.
+ * _*IR remote delay*_: Select whether the camera should wait 2 seconds when released using an IR remote.
+ * _*Developers menu*_: Press `SET` while this entry is highlighted to enter the [UserGuide#Developers_Menu developers menu].
 
 = The shortcuts menu =
 
-To access the shortcuts menu, just press the `DIRECT PRINT` button. Note that this menu cannot be navigated, as each button performs an immediate action, and is only used to display which action is assigned to each button. Initially, the following assignments are active:
+To access the shortcuts menu, just press the `DIRECT PRINT` button from the main dialog (unless the "Shortcuts menu" option is off at the settings menu, obviously); navigate this menu like a normal menu, and press `SET` to apply a change or launch and script:
 
- * _*^ Intermediate ISO*_: Press the `UP` button to change to an intermediate ISO.
- * _*< Extended AEB*_: Press the `LEFT` button to start the [UserGuide#Extended_AEB Extended AEB] script.
- * _*# Intervalometer*_: Press the `SET` button to start the [UserGuide#Intervalometer Intervalometer] script.
- * _*> Hand waving*_: Press the `RIGHT` button to start the [UserGuide#Hand_Waving Hand Waving] script.
- * _*v Self timer*_: Press the `DOWN` button to start the [UserGuide#Self_Timer Self Timer] button.
+ * _*Intermediate ISO*_: Roll through the intermediate ISOs.
+ * _*Extended AEB*_: Start the [UserGuide#Extended_AEB Extended AEB] script.
+ * _*Intervalometer*_: Start the [UserGuide#Intervalometer Intervalometer] script.
+ * _*Hand waving*_: Start the [UserGuide#Hand_Waving Hand Waving] script.
+ * _*Self timer*_: Start the [UserGuide#Self_Timer Self Timer] button.
+ * _*Mirror lock-up*_: Enable / disable the "mirror lock-up" custom function.
+ * _*Rear curtain flash*_: Enable / disable the "sync flash to the second curtain" custom function.
 
-To exit the shortcuts menu, press the `MENU` button.
+To exit the shortcuts menu, half-press the shutter button.
 
 == Configuring the shortcuts menu ==
 
-While in the shortcuts menu, pres `AV` to configure the shortcuts menu: press `UP` and `DOWN` to select a shortcut, and `LEFT` or `RIGHT` to change the action assigned to that shortcut.
-
-Press `AV` again to go back to the shortcuts menu; but do not forget to press `SET` to save the new shortcuts menu to the card before leaving.
-
-== The extra shortcuts ==
-
-The following actions are also available, if assigned to a shortcut:
- * _*Mirror lock-up*_: Enable / disable the mirror lock-up custom function.
- * _*Rear curtain flash*_: Enable / disable the flash sync to the second curtain custom function.
+While in the shortcuts menu, pres `MENU` to "grab" and item (a small ">" will be displayed at the left of the item); then use `UP` / `DOWN` to place it, and press `MENU` again when done. Do not forget to press `SET` to save the new shortcuts order to the card before leaving.
 
 = The scripts =
 
-All scripts are activated from the [UserGuide#The_Shortcuts_Menu Shortcuts Menu]. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (twice per second, aprox.).
+All scripts are activated from the [UserGuide#The_Shortcuts_Menu Shortcuts Menu]. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (twice per second, approx.).
 
 To stop a running script, press the `DIRECT PRINT` button again; sometimes the camera may not stop immediately, so press and hold the `DIRECT PRINT` button until you hear a _beep_ that signals the effective end of the script.
 
@@ -126,9 +122,13 @@ In the _creative zone_ the following goodies are active:
 
 Other changes to the camera behavior, not described above.
 
-== Release count ==
+== Extended info ==
 
-In the "camera settings" screen (press `INFO` at the _standard_ camera menu), the last line now displays the total number of shots made by this camera, instead of the card capacity.
+In the "camera settings" screen (press `INFO` at the _standard_ camera menu), the last line now displays the following information (instead of the card's free space):
+ * The total number of shots made by this camera.
+ * The version number of 400plus currently installed.
+
+Use `SET` and `LEFT` / `RIGHT` to change the value displayed.
 
 == The nose affair ==
 
@@ -136,7 +136,15 @@ While looking through the viewfinder, the `ISO` and `WB` buttons are no longer a
 
 == Factory menu and debug mode ==
 
-From the 400plus menu, press `DIRECT PRINT` to activate the _factory menu_ (you will hear a _beep_); press `DIRECT PRINT` again to activate the _debug mode_ (another _beep_ should be heard). Go back to the _standard_ camera menu, and a new `FACTORY MENU` will be accessible from now on. When in _debug mode_, the camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`.
+From the 400plus menu, go down to the "Developers menu" entry and press `SET`:
+
+ * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
+ * _*Leave factory mode*_: Puts the camera back into "normal mode".
+ * _*Start debug mode*_: The camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`..
+
+*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
+
+*NOTE*:Remember to leave the "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in that mode.
 
 = Notes =
 
@@ -155,6 +163,4 @@ The spot metering mode is like the _standard_ "partial metering" mode, but the a
 The following relevant bugs have been reported and confirmed:
 
  * Issue #15: Exposure changes during EAEB.
- * Issue #17: Number of shots remaining not restored if script interrupted.
  * Issue #18: Wrong configuration restored.
- * Issue #26: Scripts produce ERROR 99 when making bursts.
