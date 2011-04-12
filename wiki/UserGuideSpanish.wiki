@@ -86,7 +86,7 @@ Las siguientes acciones están también disponibles, si se han asignado a un acc
 = Los guiones =
 
 Todos los guiones se activan desde el menú de accesos directos.
-[UserGuideItalian#Menu_dei_collegamenti_rapidi collegamenti rapidi]. Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y al tiempo que el guión se ejecuta, el botón DIRECT PRINT parpadea (dos veces por segundo, aproximadamente).
+[UserGuideSpanish#Configurar_el_menú_de_accesos_directos menú de accesos directos]. Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y al tiempo que el guión se ejecuta, el botón DIRECT PRINT parpadea (dos veces por segundo, aproximadamente).
 
 Para detener una secuencia de comandos en ejecución, presiona el botón DIRECT PRINT de nuevo; a veces la cámara no puede parar de inmediato, por tanto presiona y mantén presionado el botón DIRECT PRINT hasta que oigas el beep que indica el final efectivo del guión.
 
