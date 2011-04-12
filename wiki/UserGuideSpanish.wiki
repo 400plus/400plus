@@ -42,7 +42,7 @@ Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar
   * Acción: la acción a realizar. 
   * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
   * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario el guión va a esperar hasta que la mano se retira.
- * _*Ext. AEB*_: Este sub-menú configura el guión del AEB Extendido. 
+ * _*Ext. AEB*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
   * Marcos: número de tomas a disparar. 
   * Paso (EV): separación en EV entre disparos. 
   * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
