@@ -65,8 +65,8 @@ Para acceder al menú de accesos directos sólo tienes que pulsar el botón de I
  * _*^ ISO Intermedio*_: Presiona el botón ARRIBA para cambiar a un ISO intermedio.
  * _*< AEB Extendido*_: Pulsa el botón IZQUIERDA para iniciar el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
  * _*# Intervalómetro*_: Presiona el botón SET para iniciar el guión de [UserGuideSpanish#Intervalometro Intervalometro].
- * _*> Hand waving*_: Presiona el botón DERECHA para iniciar el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
-* _*v Autodisparador*_: Pulsa el botón ABAJO para iniciar el [UserGuideSpanish#Autodisparador Autodisparador].
+ * _*> Toma por Visor*_: Presiona el botón DERECHA para iniciar el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
+ * _*v Autodisparador*_: Pulsa el botón ABAJO para iniciar el [UserGuideSpanish#Autodisparador Autodisparador].
 
 Para salir del menú de accesos directos, pulsa el botón MENU.
 
