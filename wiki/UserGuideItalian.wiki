@@ -1,167 +1,162 @@
-#summary 400plus User Guide in Spanish / Guía del Usuario 400plus.
+#summary 400plus User Guide in Italian / Manuale Utente 400plus.
 
 = Translation =
 
-Spanish translation provided by Jmtd.
+Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63149#msg63149 ataru].
 
-= Guía del Usuario 400plus =
+= Manuale Utente 400plus =
 
-= Introducción =
+= Introduzione =
 
-Este documento contiene las instrucciones de uso para 400plus. Se supone que, antes de leer esta guía, el usuario ha instalado 400plus y funciona correctamente. Para información acerca de la instalación de 400plus, ver [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
+Questo documento contiene il manuale d'uso per 400plus. Si suppone che, prima di leggere questa guida, l'utente abbia installato 400plus e che il software funzioni correttamente. Per informazioni sull'installazione di 400plus, vedere [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
-= El menú =
+= Il menù =
 
-== Acceso al menú ==
+== Accesso al menu ==
 
-Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará el nuevo menú 400plus).
+Per accedere al menu 400plus, premere MENU (verrà visualizzato il menu standard della fotocamera) e poi Direct Print (per visualizzare il nuovo menu 400plus).
 
-== Navegación por el menú ==
+== Navigazione nel menu ==
 
-Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza el botón de  IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor.
+Per navigare all'interno del menu, utilizzare i tasti UP (ISO) e DOWN (WB) per spostarsi tra le voci. Quindi utilizzare il SINISTRA (MISURAZIONE) e RIGHT (AF) per cambiarne il valore; premere e tenere premuto questi tasti per cambiare più velocemente. Su alcune voci del menu, il tasto AV può essere utilizzato per scorrere i valori. 
+Utilizzare il tasto SET per salvare i valori e attivare i cambiamenti, facendo attenzione che tutte le modifiche andranno perse se si esce dal menu prima di premere il pulsante SET. 
 
-Utiliza el botón SET para guardar los valores y activar los cambios; recuerda que todos los cambios se perderán si sales del menú antes de pulsar el botón SET.
+== Navigazione nel sotto-menu ==
 
-== Navegación por los sub-menús ==
+I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU per scorrere fino alla prossima voce secondaria, poi a sinistra e destra per modificare il valore (premere e tenere premuto per cambiare più velocemente). I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
 
-Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar al siguiente sub-menú y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro item.
+== Le voci del menu ==
 
-== Los sub-menús ==
+ * _*Comp Av*_: la stessa funzione della "compensazione AV" standard, ma può andare da -6 a +6 EV. 
+ * _*Comp Flash*_: la stessa funzione della "compensazione Flash" standard, ma può andare da -6 a +6 EV. 
+ * _*AEB_*: la stessa funzione della "AEB" standard, ma può andare da -6 a +6 EV. 
+ * _*Safety Shift*_: Quando è attivo, e se in Tv (risp. Av), la fotocamera cambierà la velocità dell'otturatore (risp. apertura del diaframma) impostati dall'utente per evitare una sotto/sovraesposizione, se il valore è troppo piccolo/grande per la scena.
+ * _*ISO in viewfinder*_: Quando è attivo, e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino. 
+ * _*Color Temp. (K)*_: permette di impostare una temperatura di colore definita dall'utente (attivabile in un secondo momento premendo il tasto Direct Print nella finestra di dialogo per il bilanciamento del bianco). 
+ * _*Flash*_: forza la disattivazione del flash (durante lo scatto), anche se l’opzione è selezionata. 
+ * _*AF assist beam*_: forza la disattivazione del flash (durante la fase di AF), anche se l’opzione è selezionata.
+ * _*Wave*_: questo sottomenu configura lo script [UserGuideItalian#Hand_Waving Hand Waving]: 
+  * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
+  * Action: azione da eseguire. 
+  * Repeat: se selezionato, lo script ri riavvierà dopo ogni scatto, in modo da poter effettuare un nuovo scatto col movimento della mano.
+  * Instant: se selezionato, lo script scatta appena rileva la mano; altrimenti, lo script aspetterà che la mano venga tolta da davanti il sensore.
+ * _*Ext. AEB*_: Questo sottomenu configura lo script Extended AEB: 
+  * Frames: numero di fotogrammi da scattare. 
+  * Step (EV): la differenza in EV tra gli scatti. 
+  * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
+  * Manual [: velocità minima dell’otturatore in modalità M. 
+  * Manual ]: velocità massima dell'otturatore in modalità M. 
+ * _*Interval*_: Questo sottomenu consente di configurare lo script Intervallometro: 
+  * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
+  * Time (s): tempo (in secondi) tra ogni scatto.
+  * EAEB: seleziona se lo script Extended AEB debba essere utilizzato su ogni scatto. 
+  * Shots: numero di scatti da eseguire, oppure selezionare "no limit" per scattare all'infinito
+ * _*Timer*_: Questo sottomenu configura lo script Autoscatto: 
+  * Delay (s): il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. 
+  * Action: azione da eseguire. 
+  * IR remote delay: seleziona se la telecamera debba aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
 
- * _*Av Comp*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
- * _*Flash Comp*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV. 
- * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV. 
- * _*Safety Shift*_: Cuando está activo, y si estamos en los modos Tv o Av, la cámara cambia la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
- * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor. 
- * _*Color Temp. (K)*_: Establece una temperatura de color definido por el usuario (activarlo después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
- * _*Flash*_: Fuerza la desactivación del flash (durante el disparo), aunque se haya elevado el flash. 
- * _*AF assist beam*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
- * _*HandWave*_: Este sub-menú configura el guión de la Toma por Visor (ondeo). [UserGuideItalian#Hand_Waving Hand Waving]: 
-  * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
-  * Acción: la acción a realizar. 
-  * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
-  * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario el guión va a esperar hasta que la mano se retira.
- * _*Ext. AEB*_: Este sub-menú configura el guión del AEB Extendido. 
-  * Marcos: número de tomas a disparar. 
-  * Paso (EV): separación en EV entre disparos. 
-  * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
-  * Manual [: velocidad mínima del obturador en modo M. 
-  * Manual ]: velocidad máxima del obturador en modo M. 
- * _*Intervalo*_: Este sub-menú configura la secuencia de comandos Intervalómetro. 
-  * Retardo: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
-  * Tiempo (s): tiempo (en segundos) entre cada disparo.
-  * EAEB: selecciona si AEB Extendido se debe utilizar en cada disparo. 
-  * Disparos: número de disparos a hacer, o selecciona "sin límite" para disparar sin cesar.
- * _*Temporizador*_: Esto configura el sub-menú la secuencia de comandos del Autodisparador. 
-  * Retardo (s): tiempo (en segundos) que el guión debe esperar antes de disparar. 
-  * Acción: la acción a realizar. 
- * _*Retardo infrarrojos*: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
+= Menu dei collegamenti rapidi =
 
-= El menú de accesos directos =
+Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DIRECT PRINT`. Questo menu non è navigabile, perché ogni pulsante avvia direttamente un'azione, e questo menu serve solo per mostrare quale azione è associata a ciascun pulsante. Allo stato iniziale, queste sono le azioni associate ai pulsanti.
 
-Para acceder al menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA. Ten en cuenta que este menú no se puede navegar ya que cada botón realiza una acción inmediata, y sólo se utiliza para mostrar qué acción se le asigna a cada botón. Inicialmente, están activas las siguientes asignaciones:
+ * _*^ Intermediate ISO*_: Premendo il pulsante `UP` si cambia il valore ISO ad un valore intermedio.
+ * _*< Extended AEB*_: Con la pressione del tasto `LEFT` si avvia lo script [UserGuideItalian#Extended_AEB Extended AEB].
+ * _*# Intervalometer*_: La pressione del pulsante `SET` avvia lo script [UserGuide#Intervalometer Intervalometer].
+ * _*> Hand waving*_: Premendo il pulsante `RIGHT` viene avviato lo script [UserGuideItalian#Hand_Waving Hand Waving].
+ * _*v Self timer*_: La pressione del tasto `DOWN` avvia lo script [UserGuideItalian#Autoscatto Autoscatto].
 
- * _*^ ISO Intermedio*_: Presiona el botón ARRIBA para cambiar a un ISO intermedio.
- * _*< AEB Extendido*_: Pulsa el botón IZQUIERDA para iniciar el guión AEB Extendido. [UserGuideItalian#Extended_AEB Extended AEB].
- * _*# Intervalómetro*_: Presiona el botón SET para iniciar el guión de Intervalómetro. [UserGuide#Intervalometer Intervalometer].
- * _*> Hand waving*_: Presiona el botón DERECHA para iniciar el guión de la Toma por Visor. [UserGuideItalian#Hand_Waving Hand Waving].
- * _*v Autodisparador*_: Pulsa el botón ABAJO para iniciar el disparador automático. [UserGuideItalian#Autoscatto Autoscatto].
+Per uscire dal menu dei collegamenti rapidi, basta premere il pulsante `MENU`.
 
-Para salir del menú de accesos directos, pulsa el botón MENU.
+== Configurazione del Menu dei collegamenti rapidi ==
 
-== Configurar el menú de accesos directos ==
+All'interno del Menu dei collegamenti rapidi, premere `AV` per configurare i collegamenti: con la pressione di `UP` e `DOWN` si seleziona il collegamento (pulsante), con `LEFT` e `RIGHT` viene cambiata l'azione assegnata al collegamento.
 
-Estando en el menú de accesos directos, presiona AV para configurar el menú de accesos directos: pulsa ARRIBA y ABAJO para seleccionar un acceso directo, e IZQUIERDA o DERECHA para cambiar la acción asignada a ese acceso directo.
+Una nuova pressione del tasto `AV` ci riporta al menu dei collegamenti rapidi; Non dimenticare di premere `SET` per salvare le modifiche nella memoria prima di lasciare il menu.
 
-Presiona AV de nuevo para volver al menú de accesos directos, pero no te olvides de presionar SET para guardar el nuevo menú de accesos directos a la tarjeta antes de salir.
+== Collegamenti aggiuntivi ==
 
+Sono disponibili le seguenti azioni, se associate a un collegamento:
+ * _*Mirror lock-up*_: Abilita / disabilita la funzione personalizzata della camer per il blocco dello specchio.
+ * _*Rear curtain flash*_: Abilita / disabilita la la funzione personalizzata per sincronizzazione del flash in seconda tendina.
 
-== Los accesos directos adicionales ==
+= Gli script =
 
-Las siguientes acciones están también disponibles, si se han asignado a un acceso directo:
- * _*Bloqueo de espejo*_: activa / desactiva el bloqueo de espejo.
- * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla.
+Tutti gli script vengono attivati dal menu dei [UserGuideItalian#Menu_dei_collegamenti_rapidi collegamenti rapidi]. Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente premere nuovamente il pulsante `DIRECT PRINT`; qualche volta la macchina potrebbe non fermarsi immediatamente, in tal caso bisogna premere e tenere premuto il pulsante `DIRECT PRINT` finché non si sentirà un _bip_ che annuncia l'effettiva chiusura dello script.
 
-= Los guiones =
+== Extended AEB ==
 
-Todos los guiones se activan desde el menú de accesos directos. [UserGuideItalian#Menu_dei_collegamenti_rapidi collegamenti rapidi]. Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y al tiempo que el guión se ejecuta, el botón DIRECT PRINT parpadea (dos veces por segundo, aproximadamente).
+Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, con alcune differenze: 
+  #. Possono essere effettuati fino a 9 scatti. 
+  #. La differenza tra gli scatti può essere configurata fino a +6 EV. 
+  #. La fotocamera effettuerà tutti i colpi in sequenza, automaticamente.
+In modalità M, questo script farà scattare la fotocamera tutte le volte che servono, con tempi di scatto vanno dal valore "Manual [" al valore "Manual ]", e separando ogni scatto in base al valore "Step (EV)".
 
-Para detener una secuencia de comandos en ejecución, presiona el botón DIRECT PRINT de nuevo; a veces la cámara no puede parar de inmediato, por tanto presiona y mantén presionado el botón DIRECT PRINT hasta que oigas el beep que indica el final efectivo del guión.
+== Intervallometro ==
 
+Questo script fa scattare la fotocamera il numero di volte configurato (o all'infinito), aspettando il tempo specificato tra uno scatto e l’altro; questo script può essere utilizzato per creare filmati in stop-motion, per esempio. Impostando "EAEB" a "yes" si esegue lo script [UserGuideItalian#Extended_AEB Extended AEB] su ogni scatto.
 
-== AEB Extendido ==
+== Hand Waving ==
 
-Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias: 
-  #. Se pueden especificar hasta 9 tomas. 
-  #. La separación entre las tomas se puede configurar hasta +6 EV. 
-  #. La cámara tomará todas las fotos en una secuencia, de forma automática.
-En el modo M, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde "Manual [" hasta "Manual ]", y separando cada disparo de acuerdo con el valor del "Paso (EV)".
+Questo script fa scattare la fotocamera quando viene innescato il sensore "display-off" sul retro della fotocamera; si può utilizzare questo script per far scattare la fotocamera senza un telecomando. E’ possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action". Se è attivata l'opzione "Repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità. Di default, lo script aspetterà che il sensore venga innescato e poi rilasciato (ovvero scatterà appena viene tolta la mano); se, però, è selezionata l'opzione "Instant", lo script scatterà appena il sensore viene coperto.
 
-== Intervalómetro ==
+== Autoscatto ==
 
-Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas; úsalo, por ejemplo, para crear películas de stop-motion. Ajusta "EAEB" a "Sí" para ejecutar el guión de AEB extendido en cada disparo. [UserGuideItalian#Extended_AEB Extended AEB].
-
-== Toma por Visor (ondeo) ==
-
-Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el AEB Extendido o el Intervalómetro, si está configurado en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que la mano bloquee el sensor y luego se retire, pero, cuando esté activada la opción " Instantánea", se activará la cámara tan pronto como esa mano bloquee el sensor.
-
-== Autodisparador ==
-
-Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el AEB Extendido o el Intervalómetro, si está configurado en el sub-menú "Acción".
+Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera; possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
 
 
-= Selección del patrón AF =
+= La selezione dell’AF-Pattern =
 
-Pulsa el botón de ZOOM para entrar en "Selección del punto AF", a continuación pulsa ZOOM de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los patrones, y pulsa hasta la mitad el botón del obturador para salir del diálogo. 
+Premere il pulsante Zoom In per inserire il menu "selezione punto AF" standard, quindi premere ZOOM IN di nuovo per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i pattern, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
 
-== Los extras==
+== Le chicche==
 
-Se han agregado a la cámara los siguientes extras: 
+Sono state aggiunte le seguenti _chicche_ alla fotocamera. 
 
-=== En la zona básica ===
+=== Nella zona di base ===
 
-En la zona básica, utiliza el botón AV para alternar entre salida RAW y JPEG.
+Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’output dello scatto.
 
-=== En la zona creativa ===
+=== Nella zona creativa ===
 
-En la zona creativa están activos: 
- * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver Notas / ISOs Extendidos). (vedi [UserGuideItalian#Extended_ISOs Note / Extended ISO]). 
- * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver Notas / modo de medición puntual).(vedi [UserGuideItalian#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
- * En el cuadro de diálogo de selección de balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
+Nella zona creativa le _chicche_ attivabili sono i seguenti: 
+ * Nella finestra di dialogo di selezione ISO, premere PRINT DIRECT per impostare ISO 3200 (vedi [UserGuideItalian#Extended_ISOs Note / Extended ISO]). 
+ * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi [UserGuideItalian#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
+ * Nella finestra di dialogo di selezione del bilanciamento bianco, premere PRINT DIRECT per impostare la temperatura del colore definito dall'utente. 
 
-= Otros regalos =
+= Altri omaggi =
 
-Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
+Altre modifiche al comportamento della fotocamera, non descritti in precedenza.
 
-== Contador de disparos ==
+== Release conteggio ==
 
-En la pantalla de "ajustes de la cámara" (presionar INFO en el menú estándar de la cámara), la última línea muestra ahora el número total de disparos realizados por la cámara, en lugar de la capacidad de la tarjeta.
+Nella schermata delle impostazioni della fotocamera (ci si arriva premendo il tasto DISP. Nel menu standard della fotocamera), nell'ultima riga viene ora visualizzato il numero totale di scatti realizzati dalla fotocamera, invece della capacità della scheda.
 
-== El asunto de la nariz (ojo zurdo) ==
+== Il problema "naso" ==
 
-Mientras se mira por el visor, los botones de ISO y WB ya no están activos, para prevenir cambios accidentales con la nariz del usuario. 
+Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi, per prevenire modifiche accidentali con il naso dell'utente. 
 
-== Menú de Fábrica y el modo de depuración ==
+== Menu Factory e Modalità Debug ==
 
-Desde el menú 400D+, pulsa el botón de IMPRESIÓN DIRECTA para activar el Menú de Fábrica (oirás  un beep); pulsa otra vez DIRECT PRINT para activar el modo de depuración (oirás otro pitido). Vuelve al menú estándar de la cámara y un nuevo FACTORY MENU será accesible a partir de ahora. Cuando está en modo de depuración, la cámara almacena gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
+Dal menu 400plus, premere `DIRECT PRINT` per attivare il _Menu Factory_ (si sentirà un _bip_); premendo nuovamente `DIRECT PRINT` si attiverà la _mModalità Debug_ (si dovrebbe sentire nuovamente un _bip_). Tornando ora al menu _standard_ della fotocamera, d'ora in poi un nuovo `FACTORY MENU` sarà accessibile. Quando è in _modalità debug_, la fotocamera memorizza un sacco di informazioni di debug sulla scheda, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`.
 
-= Notas =
+= Note =
 
-Algunas notas y comentarios. 
+Alcune note e commenti. 
 
-== ISOs Extendidos ==
+== Extended ISOs ==
 
-Los valores ISO no estándar son sólo por software, y técnicamente no producen ganancia sobre los ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200.
+I valori di ISO non standard sono ottenuti solo tramite software, e tecnicamente non producono vantaggi per gli scatti rispetto all’uso delle ISO di base abbinata al post-processing dell'immagine; includono ISO-3200.
 
-== Modo de medición puntual ==
+== Modalità di misurazione spot ==
 
-El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña.
+Le modalità di misurazione spot è come la modalità standard "misurazione parziale", ma l'area inclusa nel calcolo è più piccola.
 
-= Errores conocidos =
+= Malfunzionamenti conosciuti =
 
-Se han comunicado y confirmado los siguientes errores relevantes:
+Sono stati riportati e confermati i seguenti malfunzionamenti di una certa rilevanza:
 
- * Issue #15: La exposición cambia durante EAEB.
- * Issue #17: El número de disparos restantes no se restaura si el guión es interrumpido.
- * Issue #18: Configuración errónea restaurada.
- * Issue #26: Secuencias de comandos producen ERROR 99 al hacer ráfagas.
+ * Issue #15: Cambi di esposizione nell'esecuzione dell'EAEB.
+ * Issue #17: Non viene resettato il nuomero di scatti rimasti quando viene interrotto uno script.
+ * Issue #18: Viene ripristinata una errata configurazione.
+ * Issue #26: Gli script restituiscono un ERROR 99 durante gli scatti.
