@@ -37,7 +37,7 @@ Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar
  * _*Color Temp. (K)*_: Establece una temperatura de color definido por el usuario (activarlo después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
  * _*Flash*_: Fuerza la desactivación del flash (durante el disparo), aunque se haya elevado el flash. 
  * _*AF assist beam*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
- * _*HandWave*_: Este sub-menú configura el guión de la Toma por Visor (ondeo). [UserGuideSpanish#Toma por Visor (ondeo)] Hand_Waving Hand Waving 
+ * _*HandWave*_: Este sub-menú configura el guión de la  (ondeo). [UserGuideSpanish#Toma por Visor (ondeo)] Toma por Visor. 
   * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
   * Acción: la acción a realizar. 
   * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
