@@ -128,7 +128,7 @@ En la zona básica, utiliza el botón AV para alternar entre salida RAW y JPEG.
 
 En la zona creativa están activos: 
  * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver [UserGuideSpanish#ISOs_Extendidos Notas / ISOs Extendidos]). 
- * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver [UserGuideSpanish#Modo_de_medición_puntual Notas / Modo de medición puntual]).
+ * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver [UserGuideSpanish#Modo_de_medicion_puntual Notas / Modo de medición puntual]).
  * En el cuadro de diálogo de selección de balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
 
 = Otros regalos =
@@ -155,7 +155,7 @@ Algunas notas y comentarios.
 
 Los valores ISO no estándar son sólo por software, y técnicamente no producen ganancia sobre los ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200.
 
-== Modo de medición puntual ==
+== Modo de medicion puntual ==
 
 El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña.
 
