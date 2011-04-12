@@ -48,7 +48,7 @@ Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar
   * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
   * Manual [: velocidad mínima del obturador en modo M. 
   * Manual ]: velocidad máxima del obturador en modo M. 
- * _*Intervalo*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalómetro Intervalometro]. 
+ * _*Intervalo*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
   * Retardo: selecciona si el guión debe empezar a disparar
 inmediatamente o esperar 2 segundos. 
   * Tiempo (s): tiempo (en segundos) entre cada disparo.
