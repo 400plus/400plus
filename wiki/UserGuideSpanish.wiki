@@ -58,7 +58,7 @@ Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar
   * Acción: la acción a realizar. 
  * _*Retardo infrarrojos*: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
 
-= El menú de accesos directos =
+= El menu de accesos directos =
 
 Para acceder al menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA. Ten en cuenta que este menú no se puede navegar ya que cada botón realiza una acción inmediata, y sólo se utiliza para mostrar qué acción se le asigna a cada botón. Inicialmente, están activas las siguientes asignaciones:
 
@@ -86,7 +86,7 @@ Las siguientes acciones están también disponibles, si se han asignado a un acc
 = Los guiones =
 
 Todos los guiones se activan desde el menú de accesos directos.
-[UserGuideSpanish#El_menú_de_accesos_directos El menú de accesos directos]. Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y al tiempo que el guión se ejecuta, el botón DIRECT PRINT parpadea (dos veces por segundo, aproximadamente).
+[UserGuideSpanish#El_menu_de_accesos_directos El menu de accesos directos]. Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y al tiempo que el guión se ejecuta, el botón DIRECT PRINT parpadea (dos veces por segundo, aproximadamente).
 
 Para detener una secuencia de comandos en ejecución, presiona el botón DIRECT PRINT de nuevo; a veces la cámara no puede parar de inmediato, por tanto presiona y mantén presionado el botón DIRECT PRINT hasta que oigas el beep que indica el final efectivo del guión.
 
