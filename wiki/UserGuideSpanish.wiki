@@ -93,8 +93,7 @@ Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar d
   #. Se pueden especificar hasta 9 tomas. 
   #. La separación entre las tomas se puede configurar hasta +6 EV. 
   #. La cámara tomará todas las fotos en una secuencia, de forma automática.
-En el modo M, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde "Manual [" hasta
- "Manual ]", y separando cada disparo de acuerdo con el valor del "Paso (EV)".
+En el modo M, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde "Manual [" hasta "Manual ]", y separando cada disparo de acuerdo con el valor del "Paso (EV)".
 
 == Intervalometro ==
 
