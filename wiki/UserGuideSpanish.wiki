@@ -101,7 +101,7 @@ Este guión disparará la cámara tantas veces como se haya configurado (o sin f
 
 == Toma por Visor (ondeo) ==
 
-Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que la mano bloquee el sensor y luego se retire, pero, cuando esté activada la opción " Instantánea", se activará la cámara tan pronto como esa mano bloquee el sensor.
+Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que la mano bloquee el sensor y luego se retire, pero, cuando esté activada la opción " Instantánea", se activará la cámara tan pronto como esa mano bloquee el sensor.
 
 == Autodisparador ==
 
@@ -125,15 +125,18 @@ En la zona básica, utiliza el botón AV para alternar entre salida RAW y JPEG.
 En la zona creativa están activos: 
  * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver [UserGuideSpanish#ISOs_Extendidos Notas / ISOs Extendidos]). 
  * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver [UserGuideSpanish#Modo_de_medicion_puntual Notas / Modo de medición puntual]).
- * En el cuadro de diálogo de selección de balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
+ * En el cuadro de diálogo de selección del balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
 
 = Otros regalos =
 
 Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 
-== Contador de disparos ==
+== Información extendida ==
 
-En la pantalla de "ajustes de la cámara" (presionar INFO en el menú estándar de la cámara), la última línea muestra ahora el número total de disparos realizados por la cámara, en lugar de la capacidad de la tarjeta.
+En la pantalla de "ajustes de la cámara" (presionar INFO en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta):
+ * El número total de disparos hechos por la cámara. 
+ * El número de la versión de 400plus actualmente instalada.
+Utiliza SET e IZQUIERDA / DERECHA para cambiar el valor mostrado.
 
 == El asunto de la nariz (ojo zurdo) ==
 
