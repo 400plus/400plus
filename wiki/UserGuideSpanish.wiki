@@ -79,12 +79,6 @@ Para salir del menú de accesos directos, presiona hasta la mitad el botón disp
 Estando en el menú de accesos directos, presiona MENU para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo MENU cuando hayas acabado. No olvides pulsar SET para guardar el nuevo orden de los accesos directos en la tarjeta antes de salir.
 
 
-== Los accesos directos adicionales ==
-
-Las siguientes acciones están también disponibles, si se han asignado a un acceso directo:
-
-
-
 = Los guiones =
 
 Todos los guiones se activan desde el 
