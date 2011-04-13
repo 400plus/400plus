@@ -144,7 +144,11 @@ Mientras se mira por el visor, los botones de ISO y WB ya no están activos, par
 
 == Menú de Fábrica y el modo de depuración ==
 
-Desde el menú 400D+, pulsa el botón de IMPRESIÓN DIRECTA para activar el Menú de Fábrica (oirás  un beep); pulsa otra vez DIRECT PRINT para activar el modo de depuración (oirás otro pitido). Vuelve al menú estándar de la cámara y un nuevo FACTORY MENU será accesible a partir de ahora. Cuando está en modo de depuración, la cámara almacena gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
+Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y pulsa SET:
+ * _* Entrar modo fábrica*_: Pone la cámara en "modo fábrica"; también activa el "menú de fábrica".
+ * _* Dejar modo fábrica*_: Revierte la cámara al "modo normal".
+ * _* Iniciar modo depuración*_: Pone la cámara en "modo fábrica"
+ activar el Menú de Fábrica (oirás  un beep); pulsa otra vez DIRECT PRINT para activar el modo de depuración (oirás otro pitido). Vuelve al menú estándar de la cámara y un nuevo FACTORY MENU será accesible a partir de ahora. Cuando está en modo de depuración, la cámara almacena gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
 
 = Notas =
 
