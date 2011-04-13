@@ -1,6 +1,8 @@
 PROJECT = AUTOEXEC
 ADDRESS = 0x7F0000
-VERSION = $(shell svn info | grep Revision | cut -d' ' -f2)
+VERSION = $(shell [[ -d .svn ]] && svn info | grep Revision | cut -d' ' -f2 || date +'%Y%m%d')
+# make release RELEASE=X    - to change the release number
+RELEASE = 0
 
 CC     = arm-elf-gcc
 CFLAGS = -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION)
@@ -32,8 +34,21 @@ C_OBJS = init.o           \
 
 all: $(PROJECT).BIN
 
-release:
-	make VERSION=`date +'%Y%m%d'`
+CDATE := $(shell date +%Y%m%d)
+RELVER := $(CDATE)-$(RELEASE)
+
+release: clean
+	@mkdir -p 400plus-$(RELVER)/bin
+	@svn export . 400plus-$(RELVER)/src
+	@sed -i "s/^VERSION\s*=.*/VERSION = $(CDATE)/" 400plus-$(RELVER)/src/Makefile
+	@zip -9 -r 400plus-$(RELVER).src.zip 400plus-$(RELVER)
+	@cd 400plus-$(RELVER)/src && make
+	@cp 400plus-$(RELVER)/src/AUTOEXEC.BIN 400plus-$(RELVER)/bin
+	@rm -rf 400plus-$(RELVER)/src
+	@zip -9 -r 400plus-$(RELVER).bin.zip 400plus-$(RELVER)
+	@echo
+	@rm -rf 400plus-$(RELVER)
+	@ls -l 400plus-$(RELVER).src.zip 400plus-$(RELVER).bin.zip
 
 $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
