@@ -14,25 +14,26 @@ Questo documento contiene il manuale d'uso per 400plus. Si suppone che, prima di
 
 == Accesso al menu ==
 
-Per accedere al menu 400plus, premere MENU (verrà visualizzato il menu standard della fotocamera) e poi Direct Print (per visualizzare il nuovo menu 400plus).
+Per accedere al menu 400plus, premere MENU (verrà visualizzato il menu standard della fotocamera) e poi Direct Print (per visualizzare il nuovo menu 400plus). Per uscire dal menu 400plus, basta premere a metà corsa il pulsante di scatto.
 
 == Navigazione nel menu ==
 
-Per navigare all'interno del menu, utilizzare i tasti UP (ISO) e DOWN (WB) per spostarsi tra le voci. Quindi utilizzare il SINISTRA (MISURAZIONE) e RIGHT (AF) per cambiarne il valore; premere e tenere premuto questi tasti per cambiare più velocemente. Su alcune voci del menu, il tasto AV può essere utilizzato per scorrere i valori. 
-Utilizzare il tasto SET per salvare i valori e attivare i cambiamenti, facendo attenzione che tutte le modifiche andranno perse se si esce dal menu prima di premere il pulsante SET. 
+Per navigare all'interno del menu, utilizzare i tasti `SU` (`ISO`) e `GIU'` (`WB`) per spostarsi tra le voci. Quindi utilizzare il `SINISTRA` (`MISURAZIONE`) e `DESTRA` (`AF`) per cambiarne il valore; premere e tenere premuto questi tasti per cambiare più velocemente. Su alcune voci del menu, il tasto `AV` può essere utilizzato per scorrere i valori. 
+Utilizzare il tasto `SET` per salvare i valori e attivare i cambiamenti, facendo attenzione che tutte le modifiche andranno perse se si esce dal menu prima di premere il pulsante `SET`. 
 
 == Navigazione nel sotto-menu ==
 
-I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU per scorrere fino alla prossima voce secondaria, poi a sinistra e destra per modificare il valore (premere e tenere premuto per cambiare più velocemente). I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
+I Sub-menu vengono visualizzati come "`ITEM>SUBITEM`"; utilizzare la rotellina frontale per scorrere fino alla prossima voce secondaria, poi `SINISTRA` E `DESTRA` per modificare il valore (premere e tenere premuto per cambiare più velocemente). I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
 
 == Le voci del menu ==
 
  * _*Comp Av*_: la stessa funzione della "compensazione AV" standard, ma può andare da -6 a +6 EV. 
  * _*Comp Flash*_: la stessa funzione della "compensazione Flash" standard, ma può andare da -6 a +6 EV. 
  * _*AEB_*: la stessa funzione della "AEB" standard, ma può andare da -6 a +6 EV. 
- * _*Safety Shift*_: Quando è attivo, e se in Tv (risp. Av), la fotocamera cambierà la velocità dell'otturatore (risp. apertura del diaframma) impostati dall'utente per evitare una sotto/sovraesposizione, se il valore è troppo piccolo/grande per la scena.
  * _*ISO in viewfinder*_: Quando è attivo, e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino. 
  * _*Color Temp. (K)*_: permette di impostare una temperatura di colore definita dall'utente (attivabile in un secondo momento premendo il tasto Direct Print nella finestra di dialogo per il bilanciamento del bianco). 
+ * _*Shortcuts menu*_: Quando è attivo, la pressione del tasto `DIRECT PRINT` nella finestra principale entrerà nel menu dei collegamenti veloci; se impostato su "No", il pulsante `DIRECT PRINT` cambierà il valore `ISO` tra i valori intermedi.
+ * _*Safety Shift*_: Quando è attivo, e se in Tv (risp. Av), la fotocamera cambierà la velocità dell'otturatore (risp. apertura del diaframma) impostati dall'utente per evitare una sotto/sovraesposizione, se il valore è troppo piccolo/grande per la scena.
  * _*Flash*_: forza la disattivazione del flash (durante lo scatto), anche se l’opzione è selezionata. 
  * _*AF assist beam*_: forza la disattivazione del flash (durante la fase di AF), anche se l’opzione è selezionata.
  * _*Wave*_: questo sottomenu configura lo script [UserGuideItalian#Hand_Waving Hand Waving]: 
@@ -55,30 +56,25 @@ I Sub-menu vengono visualizzati come "`ITEM>SubItem`"; utilizzare il tasto MENU 
   * Delay (s): il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. 
   * Action: azione da eseguire. 
   * IR remote delay: seleziona se la telecamera debba aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
+ * _*Developers menu*_: Con la pressione del tasto `SET` mentre questa voce è evidenziata si entra nel [UserGuide_Italian#Menu_sviluppatori menu sviluppatori].
 
 = Menu dei collegamenti rapidi =
 
-Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DIRECT PRINT`. Questo menu non è navigabile, perché ogni pulsante avvia direttamente un'azione, e questo menu serve solo per mostrare quale azione è associata a ciascun pulsante. Allo stato iniziale, queste sono le azioni associate ai pulsanti.
+Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DIRECT PRINT` dalla schermata principale (ovviamente, a meno che nel menu delle impostazioni non sia impostata su Off la voce "Shortcuts menu"). Navigando normalmente all'interno di questo menu, con la pressione del tasto `SET` vengono cambiate le impostazioni o viene lanciato uno script:
 
- * _*^ Intermediate ISO*_: Premendo il pulsante `UP` si cambia il valore ISO ad un valore intermedio.
- * _*< Extended AEB*_: Con la pressione del tasto `LEFT` si avvia lo script [UserGuideItalian#Extended_AEB Extended AEB].
- * _*# Intervalometer*_: La pressione del pulsante `SET` avvia lo script [UserGuide#Intervalometer Intervalometer].
- * _*> Hand waving*_: Premendo il pulsante `RIGHT` viene avviato lo script [UserGuideItalian#Hand_Waving Hand Waving].
- * _*v Self timer*_: La pressione del tasto `DOWN` avvia lo script [UserGuideItalian#Autoscatto Autoscatto].
+ * _*^ Intermediate ISO*_: Scorre tra i valori ISO intermedi.
+ * _*< Extended AEB*_: Avvia lo script [UserGuideItalian#Extended_AEB Extended AEB].
+ * _*# Intervalometer*_: Avvia lo script [UserGuide#Intervalometer Intervalometer].
+ * _*> Hand waving*_: Avvia lo script [UserGuideItalian#Hand_Waving Hand Waving].
+ * _*v Self timer*_: Avvia lo script [UserGuideItalian#Autoscatto Autoscatto].
+ * _*Mirror lock-up*_: Abilita / Disabilita la funzione personalizzata "mirror lock-up" (blocco dello specchio).
+ * _*Rear curtain flash*_: Abilita / Disabilita la funzione personalizzata "sync flash to the second curtain" (sincronizzazione del flash in seconda tendina).
 
-Per uscire dal menu dei collegamenti rapidi, basta premere il pulsante `MENU`.
+Per uscire dal menu dei collegamenti rapidi, basta premere a metà corsa il pulsante di scatto.
 
 == Configurazione del Menu dei collegamenti rapidi ==
 
-All'interno del Menu dei collegamenti rapidi, premere `AV` per configurare i collegamenti: con la pressione di `UP` e `DOWN` si seleziona il collegamento (pulsante), con `LEFT` e `RIGHT` viene cambiata l'azione assegnata al collegamento.
-
-Una nuova pressione del tasto `AV` ci riporta al menu dei collegamenti rapidi; Non dimenticare di premere `SET` per salvare le modifiche nella memoria prima di lasciare il menu.
-
-== Collegamenti aggiuntivi ==
-
-Sono disponibili le seguenti azioni, se associate a un collegamento:
- * _*Mirror lock-up*_: Abilita / disabilita la funzione personalizzata della camer per il blocco dello specchio.
- * _*Rear curtain flash*_: Abilita / disabilita la la funzione personalizzata per sincronizzazione del flash in seconda tendina.
+All'interno del Menu dei collegamenti rapidi, premere `MENU` per "prendere" un collegamento (una piccola ">" comparirà a destra del collegamento); con la pressione di `SU` e `GIU'` si seleziona la nuova posizione, e con il tasto `MENU` si termina lo spostamento Non dimenticare di premere il tasto `SET` per salvare le nuove impostazioni.
 
 = Gli script =
 
@@ -128,9 +124,11 @@ Nella zona creativa le _chicche_ attivabili sono i seguenti:
 
 Altre modifiche al comportamento della fotocamera, non descritti in precedenza.
 
-== Release conteggio ==
-
-Nella schermata delle impostazioni della fotocamera (ci si arriva premendo il tasto DISP. Nel menu standard della fotocamera), nell'ultima riga viene ora visualizzato il numero totale di scatti realizzati dalla fotocamera, invece della capacità della scheda.
+== Informazioni aggiuntive ==
+Nella schermata delle impostazioni della fotocamera (ci si arriva premendo `INFO` nel menu standard della fotocamera), l'ultima riga mostrerà le seguenti informazioni (al posto dello spazio libero nella scheda di memoria):
+ * Il numero totale di scatti fatti dalla fotocamera.
+ * La versione di 400plus correntemente installata.
+L'uso dei tasti `SET` e poi `SINISTRA` / `DESTRA` cambierà i valori visualizzati.
 
 == Il problema "naso" ==
 
@@ -138,7 +136,14 @@ Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi,
 
 == Menu Factory e Modalità Debug ==
 
-Dal menu 400plus, premere `DIRECT PRINT` per attivare il _Menu Factory_ (si sentirà un _bip_); premendo nuovamente `DIRECT PRINT` si attiverà la _mModalità Debug_ (si dovrebbe sentire nuovamente un _bip_). Tornando ora al menu _standard_ della fotocamera, d'ora in poi un nuovo `FACTORY MENU` sarà accessibile. Quando è in _modalità debug_, la fotocamera memorizza un sacco di informazioni di debug sulla scheda, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`.
+Dal menu 400plus, andando sulla voce "Developers menu" e premendo `SET` si attiverà un nuovo menu:
+ * _*Enter factory mode*_: Fa entrare la fotocamera nel "factory mode"; inoltre attiva il "Menu Factory".
+ * _*Leave factory mode*_: Esce dal "factory mode" e ritorna al "normal mode".
+ * _*Start debug mode*_: La fotocamera scriverà una notevole quantità di informazioni sulla scheda di memoria, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`.
+
+*ATTENZIONE*: Queste opzioni dovrebbero essere utilizzate con molta attenzione, probabilmente c'è molto poco da vedere qui, a meno che tu non stia sviluppando un tuo hack personalizzato.
+
+*NOTA*: Ricordati di uscire dal "factory mode" prima di usare la fotocamera, poiché le fotografie non possono essere scaricate su un computer mentre la fotocamera è in questa modalità.
 
 = Note =
 
@@ -157,6 +162,4 @@ Le modalità di misurazione spot è come la modalità standard "misurazione parz
 Sono stati riportati e confermati i seguenti malfunzionamenti di una certa rilevanza:
 
  * Issue #15: Cambi di esposizione nell'esecuzione dell'EAEB.
- * Issue #17: Non viene resettato il nuomero di scatti rimasti quando viene interrotto uno script.
  * Issue #18: Viene ripristinata una errata configurazione.
- * Issue #26: Gli script restituiscono un ERROR 99 durante gli scatti.
