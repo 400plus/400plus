@@ -146,9 +146,10 @@ Mientras se mira por el visor, los botones de ISO y WB ya no están activos, par
 
 Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y pulsa SET:
  * _* Entrar modo fábrica*_: Pone la cámara en "modo fábrica"; también activa el "menú de fábrica".
- * _* Dejar modo fábrica*_: Revierte la cámara al "modo normal".
- * _* Iniciar modo depuración*_: Pone la cámara en "modo fábrica"
- activar el Menú de Fábrica (oirás  un beep); pulsa otra vez DIRECT PRINT para activar el modo de depuración (oirás otro pitido). Vuelve al menú estándar de la cámara y un nuevo FACTORY MENU será accesible a partir de ahora. Cuando está en modo de depuración, la cámara almacena gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
+ * _* Salir modo fábrica*_: Revierte la cámara al "modo normal".
+ * _* Iniciar modo depuración*_: La cámara almacenará gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
+_*AVISO*_: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
+_*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado que no es posible descargar fotografías al ordenador mientras la cámara se encuentra en ese modo.
 
 = Notas =
 
@@ -156,7 +157,7 @@ Algunas notas y comentarios.
 
 == ISOs Extendidos ==
 
-Los valores ISO no estándar son sólo por software, y técnicamente no producen ganancia sobre los ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200.
+Los valores ISO no estándar son sólo por software, y técnicamente no producen ganancia alguna sobre los ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200.
 
 == Modo de medicion puntual ==
 
@@ -167,6 +168,4 @@ El modo de medición puntual es como el modo de "medición parcial" estándar, p
 Se han comunicado y confirmado los siguientes errores relevantes:
 
  * Issue #15: La exposición cambia durante EAEB.
- * Issue #17: El número de disparos restantes no se restaura si el guión es interrumpido.
  * Issue #18: Configuración errónea restaurada.
- * Issue #26: Secuencias de comandos producen ERROR 99 al hacer ráfagas.
