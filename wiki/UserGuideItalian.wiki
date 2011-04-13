@@ -56,7 +56,7 @@ I Sub-menu vengono visualizzati come "`ITEM>SUBITEM`"; utilizzare la rotellina f
   * Delay (s): il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. 
   * Action: azione da eseguire. 
   * IR remote delay: seleziona se la telecamera debba aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
- * _*Developers menu*_: Con la pressione del tasto `SET` mentre questa voce è evidenziata si entra nel [UserGuide_Italian#Menu_sviluppatori menu sviluppatori].
+ * _*Developers menu*_: Con la pressione del tasto `SET` mentre questa voce è evidenziata si entra nel [UserGuideItalian#Menu_Factory_e_Modalit%C3%A0_Debug Menu Factory e Modalità Debug].
 
 = Menu dei collegamenti rapidi =
 
