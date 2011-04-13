@@ -149,6 +149,7 @@ Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y p
  * _* Salir modo fábrica*_: Revierte la cámara al "modo normal".
  * _* Iniciar modo depuración*_: La cámara almacenará gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
 _*AVISO*_: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
+
 _*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado que no es posible descargar fotografías al ordenador mientras la cámara se encuentra en ese modo.
 
 = Notas =
