@@ -25,7 +25,7 @@ Utiliza el botón SET para guardar los valores y activar los cambios; recuerda q
 
 == Navegación por los sub-menús ==
 
-Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza el dial frontal para pasar al siguiente subitem y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro item.
+Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pasar al siguiente subítem y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). Los botones ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro ítem.
 
 == Los sub-menús ==
 
@@ -62,28 +62,28 @@ Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza el dial frontal para pas
 
 = El menu de accesos directos =
 
-Para acceder al menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA. Ten en cuenta que este menú no se puede navegar ya que cada botón realiza una acción inmediata, y sólo se utiliza para mostrar qué acción se le asigna a cada botón. Inicialmente, están activas las siguientes asignaciones:
+Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA desde la pantalla principal (a menos que, obviamente, la opción de "menú de accesos directos" esté desactivada). Navega por este menú como en un menú normal, y presiona el botón SET para aplicar un cambio o lanzar un guión:
 
- * _*^ ISO Intermedio*_: Presiona el botón ARRIBA para cambiar a un ISO intermedio.
- * _*< AEB Extendido*_: Pulsa el botón IZQUIERDA para iniciar el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
- * _*# Intervalómetro*_: Presiona el botón SET para iniciar el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
- * _*> Toma por Visor*_: Presiona el botón DERECHA para iniciar el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
- * _*v Autodisparador*_: Pulsa el botón ABAJO para iniciar el [UserGuideSpanish#Autodisparador Autodisparador].
+ * _* ISO Intermedio*_: Cambia los ISOs intermedios.
+ * _* AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
+ * _* Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
+ * _* Toma por Visor*_: Inicia el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
+ * _* Autodisparador*_: Inicia el [UserGuideSpanish#Autodisparador Autodisparador].
+ * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo.
+ * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla.
 
-Para salir del menú de accesos directos, pulsa el botón MENU.
+Para salir del menú de accesos directos, presiona hasta la mitad el botón disparador.
 
 == Configurar el menú de accesos directos ==
 
-Estando en el menú de accesos directos, presiona AV para configurar el menú de accesos directos: pulsa ARRIBA y ABAJO para seleccionar un acceso directo, e IZQUIERDA o DERECHA para cambiar la acción asignada a ese acceso directo.
-
-Presiona AV de nuevo para volver al menú de accesos directos, pero no te olvides de presionar SET para guardar el nuevo menú de accesos directos a la tarjeta antes de salir.
+Estando en el menú de accesos directos, presiona MENU para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo MENU cuando hayas acabado. No olvides pulsar SET para guardar el nuevo orden de los accesos directos en la tarjeta antes de salir.
 
 
 == Los accesos directos adicionales ==
 
 Las siguientes acciones están también disponibles, si se han asignado a un acceso directo:
- * _*Bloqueo de espejo*_: activa / desactiva el bloqueo de espejo.
- * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla.
+
+
 
 = Los guiones =
 
