@@ -32,11 +32,12 @@ Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza el dial frontal para pas
  * _*Av Comp*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
  * _*Flash Comp*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV. 
  * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV. 
- * _*Safety Shift*_: Cuando está activo, y si estamos en los modos Tv o Av, la cámara cambia la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
- * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor. 
- * _*Color Temp. (K)*_: Establece una temperatura de color definido por el usuario (activarlo después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
+ * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
+ * _*Menú de accesos directos*_: Cuando está activo, el menú de accesos directos se mostrará en la pantalla principal al presionar el botón de IMPRESIÓN DIRECTA; cuando está fijado en "No", el botón de IMPRESIÓN DIRECTA cambiará a una ISO intermedia.
+ * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv o Av, la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
+ * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario (activarla después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
  * _*Flash*_: Fuerza la desactivación del flash (durante el disparo), aunque se haya elevado el flash. 
- * _*AF assist beam*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
+ * _*Luz ayuda AF*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
  * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
   * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
   * Acción: la acción a realizar. 
