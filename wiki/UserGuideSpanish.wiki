@@ -14,7 +14,7 @@ Este documento contiene las instrucciones de uso para 400plus. Se supone que, an
 
 == Acceso al menú ==
 
-Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará el nuevo menú 400plus).
+Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará el nuevo menú 400plus). Para salir del menú 400plus presiona hasta la mitad el botón disparador.
 
 == Navegación por el menú ==
 
@@ -25,7 +25,7 @@ Utiliza el botón SET para guardar los valores y activar los cambios; recuerda q
 
 == Navegación por los sub-menús ==
 
-Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza la tecla MENU para pasar al siguiente sub-menú y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro item.
+Los sub-menús se muestran como "ITEM>SUBITEM"; utiliza el dial frontal para pasar al siguiente subitem y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro item.
 
 == Los sub-menús ==
 
