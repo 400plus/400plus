@@ -1,5 +1,6 @@
 #include "main.h"
 #include "menu.h"
+#include "menu_custom.h"
 #include "utils.h"
 #include "scripts.h"
 #include "settings.h"
@@ -24,12 +25,13 @@ type_MENUITEM menu_shortcut_items[] = {
 };
 
 type_MENU menu_shortcuts = {
-	name     : "Shortcuts",
-	length   : LENGTH(menu_shortcut_items),
-	items    : menu_shortcut_items,
-	action   : menu_shortcuts_save,
-	reorder  : TRUE,
-	ordering : settings.shortcuts_order
+	name      : "Shortcuts",
+	length    : LENGTH(menu_shortcut_items),
+	items     : menu_shortcut_items,
+	action    : menu_shortcuts_save,
+	dp_action : menu_custom_load_start,
+	reorder   : TRUE,
+	ordering  : settings.shortcuts_order
 };
 
 void menu_shortcuts_start() {

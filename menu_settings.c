@@ -1,5 +1,6 @@
 #include "main.h"
 #include "menu.h"
+#include "menu_custom.h"
 #include "menu_developer.h"
 #include "utils.h"
 #include "settings.h"
@@ -55,11 +56,12 @@ type_MENUITEM menu_settings_items[] = {
 };
 
 type_MENU main_menu = {
-	name    : "Settings",
-	length  : LENGTH(menu_settings_items),
-	items   : menu_settings_items,
-	action  : menu_settings_save,
-	reorder : FALSE
+	name      : "Settings",
+	length    : LENGTH(menu_settings_items),
+	items     : menu_settings_items,
+	action    : menu_settings_save,
+	dp_action : menu_custom_save_start,
+	reorder   : FALSE
 };
 
 void menu_settings_start() {
