@@ -6,11 +6,11 @@
 #include "menu_developer.h"
 
 type_MENUITEM menu_developer_items[] = {
-	MENUITEM_LAUNCH ("Enter factory mode", enter_factory_mode),
-	MENUITEM_LAUNCH ("Exit  factory mode", exit_factory_mode),
-	MENUITEM_LAUNCH ("Start debug   mode", start_debug_mode),
-	MENUITEM_LAUNCH ("",                   NULL),
-	MENUITEM_LAUNCH ("",                   NULL)
+	MENUITEM_TASK ("Enter factory mode", enter_factory_mode),
+	MENUITEM_TASK ("Exit  factory mode", exit_factory_mode),
+	MENUITEM_TASK ("Start debug   mode", start_debug_mode),
+	MENUITEM_TASK ("",                   NULL),
+	MENUITEM_TASK ("",                   NULL)
 };
 
 type_MENU menu_developer = {
@@ -23,9 +23,5 @@ type_MENU menu_developer = {
 
 void menu_developer_start() {
 	beep();
-
-	pressButton_(BUTTON_MENU);
-	SleepTask(100);
-
 	menu_create(menu_developer);
 }
