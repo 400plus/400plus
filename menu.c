@@ -52,6 +52,9 @@ void menu_create(type_MENU menu) {
 
 	current_menu = menu;
 
+	if (menu_dialog != 0)
+		DeleteDialogBox(menu_dialog);
+
 	menu_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 22);
 	sub_FF837FA8(menu_dialog, 8, menu.name);
 
