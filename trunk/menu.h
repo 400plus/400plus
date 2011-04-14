@@ -78,6 +78,7 @@ typedef struct {
 	int            length;
 	type_MENUITEM *items;
 	type_TASK      action;
+	type_TASK      dp_action;
 	int            reorder;
 	int           *ordering;
 } type_MENU;
@@ -128,6 +129,7 @@ extern void menu_right();
 extern void menu_left();
 
 extern void menu_action();
+extern void menu_dp_action();
 extern void menu_cycle();
 
 extern void menu_drag_drop();

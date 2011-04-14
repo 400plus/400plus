@@ -142,6 +142,11 @@ void menu_action() {
 	}
 }
 
+void menu_dp_action() {
+	if (current_menu.dp_action)
+		current_menu.dp_action();
+}
+
 void menu_drag_drop() {
 	if (current_menu.reorder) {
 		item_grabbed = ! item_grabbed;
