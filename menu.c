@@ -128,17 +128,25 @@ void menu_cycle() {
 }
 
 void menu_action() {
+	int close;
 	type_TASK action;
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_LAUNCH) {
-		if ((action = item->menuitem_launch.action)) {
+		close  = item->menuitem_launch.close;
+		action = item->menuitem_launch.action;
+	} else {
+		close  = FALSE;
+		action = current_menu.action;
+	}
+
+	if (action) {
+		if (close) {
 			menu_close();
 			ENQUEUE_TASK(action);
-		}
-	} else {
-		if ((action = current_menu.action))
+		} else {
 			action();
+		}
 	}
 }
 

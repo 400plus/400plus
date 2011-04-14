@@ -15,10 +15,10 @@ struct {
 
 type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_ISO    ("ISO",            &shortcuts_storage.ISO),
-	MENUITEM_LAUNCH ("Extended AEB",   script_extended_aeb),
-	MENUITEM_LAUNCH ("Intervalometer", script_interval),
-	MENUITEM_LAUNCH ("Hand waving",    script_wave),
-	MENUITEM_LAUNCH ("Self timer",     script_self_timer),
+	MENUITEM_SCRIPT ("Extended AEB",   script_extended_aeb),
+	MENUITEM_SCRIPT ("Intervalometer", script_interval),
+	MENUITEM_SCRIPT ("Hand waving",    script_wave),
+	MENUITEM_SCRIPT ("Self timer",     script_self_timer),
 	MENUITEM_BOOLEAN("Mirror lock",    &shortcuts_storage.CfMLU),
 	MENUITEM_BOOLEAN("Flash 2curt",    &shortcuts_storage.CfFlashSyncRear)
 };

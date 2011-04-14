@@ -51,7 +51,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU("Interval",           interval_items),
 	MENUITEM_SUBMENU("Timer   ",           timer_items),
 	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay),
-	MENUITEM_LAUNCH ("Developers menu",    menu_developer_start)
+	MENUITEM_TASK   ("Developers menu",    menu_developer_start)
 };
 
 type_MENU main_menu = {

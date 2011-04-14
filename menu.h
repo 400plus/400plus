@@ -51,6 +51,7 @@ typedef struct {
 } type_MENUITEM_ENUM;
 
 typedef struct {
+	int       close;
 	type_TASK action;
 } type_MENUITEM_LAUNCH;
 
@@ -100,8 +101,8 @@ extern type_LIST sspeed_list;
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_) \
 	{name:_NAME_, type:MENUITEM_TYPE_ENUM, {menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, list:_TEXTS_}}}
 
-#define MENUITEM_LAUNCH(_NAME_, _ACTION_) \
-	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, {menuitem_launch:{action:_ACTION_}}}
+#define MENUITEM_LAUNCH(_NAME_, _CLOSE_, _ACTION_) \
+	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, {menuitem_launch:{close:_CLOSE_, action:_ACTION_}}}
 
 #define MENUITEM_SUBMENU(_NAME_, _ITEMS_) \
 	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, {menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
@@ -119,6 +120,9 @@ extern type_LIST sspeed_list;
 #define MENUITEM_TIMEOUT(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, FALSE, "%3u")
 #define MENUITEM_COUNTER(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u")
 #define MENUITEM_BRACKET(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,     9,   2,   2, FALSE, "%1u")
+
+#define MENUITEM_SCRIPT(_NAME_, _VALUE_) MENUITEM_LAUNCH(_NAME_, TRUE,  _VALUE_)
+#define MENUITEM_TASK(  _NAME_, _VALUE_) MENUITEM_LAUNCH(_NAME_, FALSE, _VALUE_)
 
 extern void menu_create(type_MENU menu);
 extern void menu_close();
