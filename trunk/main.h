@@ -14,6 +14,7 @@
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
 // Events for SendToIntercom
+#define EVENT_SET_AEMODE    0x01
 #define EVENT_SET_METMODE   0x02
 #define EVENT_SET_FLASHCOMP 0x03
 #define EVENT_SET_WBMODE    0x05

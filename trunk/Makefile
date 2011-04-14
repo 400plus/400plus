@@ -22,12 +22,14 @@ C_OBJS = init.o           \
          tasks.o          \
          utils.o          \
          menu.o           \
+         menu_custom.o    \
          menu_settings.o  \
          menu_developer.o \
          menu_shortcuts.o \
          info.o           \
          display.o        \
          settings.o       \
+         custom.o         \
          scripts.o        \
          viewfinder.o     \
          af_patterns.o    \
