@@ -124,7 +124,7 @@ Other changes to the camera behavior, not described above.
 
 == Extended info ==
 
-In the "camera settings" screen (press `INFO` at the _standard_ camera menu), the last line now displays the following information (instead of the card's free space):
+In the "camera settings" screen (press `DISP` at the _standard_ camera menu), the last line now displays the following information (instead of the card's free space):
  * The total number of shots made by this camera.
  * The version number of 400plus currently installed.
 
