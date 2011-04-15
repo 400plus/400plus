@@ -119,7 +119,7 @@ void script_feedback() {
 }
 
 void script_shot(type_SHOT_ACTION action) {
-	int aeb = cameraMode.AEB;
+	int aeb = cameraMode.ae_bkt;
 	SendToIntercom(EVENT_SET_AEB, 1, 0x00);
 
 	switch (action) {
@@ -140,10 +140,10 @@ void script_shot(type_SHOT_ACTION action) {
 }
 
 void sub_extended_aeb() {
-	if (cameraMode.AEMode == AE_MODE_M) {
+	if (cameraMode.ae == AE_MODE_M) {
 		int tv;
 
-		int tv_value = cameraMode.TvVal;
+		int tv_value = cameraMode.tv_val;
 		int tv_start = MIN(settings.eaeb_m_min, settings.eaeb_m_max);
 		int tv_end   = MAX(settings.eaeb_m_min, settings.eaeb_m_max);
 
@@ -157,7 +157,7 @@ void sub_extended_aeb() {
 
 		SendToIntercom(EVENT_SET_TV, 1, tv_value);
 	} else {
-		int av_comp = cameraMode.AvComp;
+		int av_comp = cameraMode.av_comp;
 		int av_inc  = av_comp;
 		int av_dec  = av_comp;
 
@@ -217,7 +217,7 @@ void wait_for_camera(int strict) {
 		SleepTask(WAIT_CAMERA_BUSY);
 
 	if (strict)
-		while(cameraMode.BusyFlag)
+		while(cameraMode.status_busy_flag)
 			SleepTask(WAIT_CAMERA_BUSY);
 	else
 		SleepTask(WAIT_CAMERA_BUSY);

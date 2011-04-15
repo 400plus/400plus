@@ -37,9 +37,9 @@ type_MENU menu_shortcuts = {
 void menu_shortcuts_start() {
 	beep();
 
-	shortcuts_storage.ISO             = cameraMode.ISO;
-	shortcuts_storage.CfMLU           = cameraMode.CfMLU;
-	shortcuts_storage.CfFlashSyncRear = cameraMode.CfFlashSyncRear;
+	shortcuts_storage.ISO             = cameraMode.iso;
+	shortcuts_storage.CfMLU           = cameraMode.cf_mirror_up_lock;
+	shortcuts_storage.CfFlashSyncRear = cameraMode.cf_flash_sync_rear;
 
 	pressButton_(BUTTON_MENU);
 	SleepTask(100);

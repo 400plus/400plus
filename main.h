@@ -64,87 +64,113 @@
 #define	BUTTON_DRIVE  0xBA // 10111010 - 186
 #define	BUTTON_AV     0xBB // 10111011 - 187
 
-typedef struct {             // [*] Used and tested, others unknown
-	int AEMode;              // 0x0000 [*] [1]
-	int MeteringMode;        // 0x0004 [*] [2]
-	int FlashExComp;         // 0x0008 [*]
-	int DriveMode;           // 0x000c     [3]
-	int WB;                  // 0x0010 [*] [4]
-	int AF;                  // 0x0014
-	int AfPoint;             // 0x0018 [*] [5]
-	int TvVal;               // 0x001c [*]
-	int AvVal;               // 0x0020
-	int AvComp;              // 0x0024 [*]
-	int ISO;                 // 0x0028 [*]
-	int RedEyeRed;           // 0x002c
-	int AEB;                 // 0x0030 [*]
-	int WbBracketing;        // 0x0034
-	int Beep;                // 0x0038 [*]
-	int ColorTemp;           // 0x003c [*]
-	int IsoExpand;           // 0x0040
-	int AutoPowerOff;        // 0x0044
-	int ViewType;            // 0x0048
-	int ReviewTime;          // 0x004c
-	int AutoRotate;          // 0x0050
-	int LcdBrightness;       // 0x0054
-	int DateTime;            // 0x0058
-	int FileNumbering;       // 0x005c
-	int Language;            // 0x0060
-	int VideoSystem;         // 0x0064
-	int Communication;       // 0x0068
-	int Parameter;           // 0x006c
-	int ColorSpace;          // 0x0070
-	int QualityRaw;          // 0x0074 [*]
-	int QualitySize;         // 0x0078
-	int QualityFine;         // 0x007c
-	int MenuPosCf;           // 0x0080
-	int MenuPos;             // 0x0084
-	int WBCompGM;            // 0x0088
-	int WBCompAB;            // 0x008c
-	int ShootWithoutCard;    // 0x0090
-	int CfSetButton;         // 0x0094
-	int CfNoiseReduction;    // 0x0098
-	int CfFlashSyncTimeAv;   // 0x009c
-	int CfShutterAeButton;   // 0x00a0
-	int CfAfAssistBeam;      // 0x00a4 [*]
-	int CfSettingSteps;      // 0x00a8 [*]
-	int CfNotEmitFlash;      // 0x00ac [*]
-	int CfExtendIso;         // 0x00b0 [*]
-	int CfAebSeq;            // 0x00b4
-	int CfSiIndicate;        // 0x00b8
-	int CfMenuPos;           // 0x00bc
-	int CfMLU;               // 0x00c0 [*]
-	int CfAfpSelection;      // 0x00c4
-	int CfFlashMetering;     // 0x00c8
-	int CfFlashSyncRear;     // 0x00cc [*]
-	int CfSafetyShift;       // 0x00d0 [*]
-	int CfLensButton;        // 0x00d4
-	int CfOriginalEval;      // 0x00d8
-	int BatteryLevel;        // 0x00dc
-	int BatteryType;         // 0x00e0
-	int PrintUserProperty;   // 0x00e4
-	int PrinterProperty;     // 0x00e8
-	int ClusterSize;         // 0x00ec
-	int RemainCluster;       // 0x00f0
-	int FileID;              // 0x00f4
-	int LensMinAv;           // 0x00f8
-	int LensMaxAv;           // 0x00fc
-	int EfLens;              // 0x0100
-	int AvailShot;           // 0x0104
-	int QrevImgProp;         // 0x0108
-	int PrinterConnectType;  // 0x010c
-	int MWDatRed;            // 0x0110
-	int MWDatGreen1;         // 0x0114
-	int MWDatGreen2;         // 0x0118
-	int MWDatBlue;           // 0x011c
-	int VideoJackConnect;    // 0x0120
-	int IncompImg;           // 0x0124
-	int BusyFlag;            // 0x0128
+typedef struct {                 // [*] Used and tested, others unknown
+	int ae;                      // 0x0000 [*] [1]
+	int metering;                // 0x0004 [*] [2]
+	int efcomp;                  // 0x0008 [*]
+	int drive;                   // 0x000c     [3]
+	int wb;                      // 0x0010 [*] [4]
+	int af;                      // 0x0014
+	int af_point;                // 0x0018 [*] [5]
+	int tv_val;                  // 0x001c [*]
+	int av_val;                  // 0x0020
+	int av_comp;                 // 0x0024 [*]
+	int iso;                     // 0x0028 [*]
+	int red_eye;                 // 0x002c
+	int ae_bkt;                  // 0x0030 [*]
+	int wb_bkt;                  // 0x0034
+	int beep;                    // 0x0038 [*]
+	int color_temp;              // 0x003c [*]
+	int auto_power_off;          // 0x0040
+	int view_type;               // 0x0044
+	int review_time;             // 0x0048
+	int auto_rotate;             // 0x004c
+	int lcd_brightness;          // 0x0050
+	int date_time;               // 0x0054
+	int file_numbering;          // 0x0058
+	int language;                // 0x005c
+	int video_system;            // 0x0060
+	int picture_style_mode;      // 0x0064
+	int histogram;               // 0x0068
+	int disp_afpoint;            // 0x006c
+	int color_space;             // 0x0070
+	int img_format;              // 0x0074 [*]
+	int img_size;                // 0x0078
+	int img_quality;             // 0x007c
+	int cfmenupos;               // 0x0080
+	int menupos;                 // 0x0084
+	int wbcomp_gm;               // 0x0088
+	int wbcomp_ab;               // 0x008c
+	int forbid_rel;              // 0x0090
+	int cf_set_button_func;      // 0x0094
+	int cf_nr_for_long_exposure; // 0x0098
+	int cf_efav_fix_x;           // 0x009c
+	int cf_afael_active_button;  // 0x00a0
+	int cf_emit_aux;             // 0x00a4 [*]
+	int cf_explevel_inc_third;   // 0x00a8 [*]
+	int cf_emit_flash;           // 0x00ac [*]
+	int cf_extend_iso;           // 0x00b0 [*]
+	int cf_aeb_sequence;         // 0x00b4
+	int cf_si_indicate;          // 0x00b8
+	int cf_menu_pos;             // 0x00bc
+	int cf_mirror_up_lock;       // 0x00c0 [*]
+	int cf_fpsel_method;         // 0x00c4
+	int cf_flash_metering;       // 0x00c8
+	int cf_flash_sync_rear;      // 0x00cc [*]
+	int cf_safety_shift;         // 0x00d0 [*]
+	int cf_lens_button;          // 0x00d4
+	int cf_original_eval;        // 0x00d8
+	int cf_qr_magnify;           // 0x00dc
+	int batt_bclevel;            // 0x00e0
+	int batt_type;               // 0x00e4
+	int print_user_property;     // 0x00e8
+	int printer_property;        // 0x00ec
+	int cluster_size;            // 0x00f0
+	int remain_cluster;          // 0x00f4
+	int file_id;                 // 0x00f8
+	int avo;                     // 0x00fc
+	int avmax;                   // 0x0100
+	int ef_lens_exist;           // 0x0104
+	int avail_shot;              // 0x0108
+	int qrev_imgprop;            // 0x010c
+	int printer_connect_type;    // 0x0110
+	int mwbdat_red;              // 0x0114
+	int mwbdat_green1;           // 0x0118
+	int mwbdat_green2;           // 0x011c
+	int mwbdat_blue;             // 0x0120
+	int videojack_connect;       // 0x0124
+	int incomp_image;            // 0x0128
+	int status_busy_flag;        // 0x012c
+	int special_bc_result;       // 0x0130
+	int reset_offtimer;          // 0x0134
+	int printer_device_property; // 0x0138
+	int printer_job_property;    // 0x013c
+	int dpof_setting;            // 0x0140
+	int gui_mode;                // 0x0144
+	int dp_request_return;       // 0x0148
+	int commadp_chg_config;      // 0x014c
+	int play_jump_type;          // 0x0150
+	int capability_setting;      // 0x0154
+	int selected_af_mode;        // 0x0158
+	int disable_ui_lock;         // 0x015c
+	int isd_style_flag;          // 0x0160
+	int ptp;                     // 0x0164
+	int playback_file_id;        // 0x0168
+	int playback_file_id_pos;    // 0x016c
+	int usb_connect_type;        // 0x0170
+	int face_sensor_disable;     // 0x0174
+	int field_178;               // 0x0178
+	int field_17C;               // 0x017c
+	int field_180;               // 0x0180
+	int field_184;               // 0x0184
+	int cf_tft_on_power_on;      // 0x0188
+	int field_18C;               // 0x018c
+	int field_190;               // 0x0190
 } type_CAMERA_MODE;
 
 #define cameraMode (*(type_CAMERA_MODE*)0x00016B60)
 
-// [1] Values for AEMode
+// [1] Values for "ae"
 #define AE_MODE_P    0
 #define AE_MODE_TV   1
 #define AE_MODE_AV   2
@@ -152,15 +178,15 @@ typedef struct {             // [*] Used and tested, others unknown
 #define AE_MODE_ADEP 5
 #define AE_MODE_AUTO 8
 
-// [2] Values for MeteringMode
+// [2] Values for "metering"
 #define METERING_MODE_EVAL 0
 #define METERING_MODE_SPOT 3
 
-// [3] Values for DriveMode
+// [3] Values for "drive"
 #define DRIVE_MODE_SINGLE 0
 #define DRIVE_MODE_BURST  1
 
-// [4] Values for WB
+// [4] Values for "wb"
 #define WB_MODE_AUTO        0x00
 #define WB_MODE_DAYLIGHT    0x01
 #define WB_MODE_COUDY       0x02
@@ -171,7 +197,7 @@ typedef struct {             // [*] Used and tested, others unknown
 #define WB_MODE_SHADE       0x07
 #define WB_MODE_COLORTEMP   0x08
 
-// [5] Values for AfPoint (can be ORed together to form patterns)
+// [5] Values for "af_point" (can be ORed together to form patterns)
 #define AF_POINT_C  0x0001 // Center
 #define AF_POINT_T  0x0002 // Top
 #define AF_POINT_B  0x0004 // Bottom

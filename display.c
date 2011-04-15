@@ -13,18 +13,18 @@ static int countdown_dialog = 0;
 void restore_display() {
 	SleepTask(100);
 
-	if (cameraMode.AEMode < 6)
+	if (cameraMode.ae < 6)
 		display_refresh();
 }
 
 void display_refresh() {
-	if (cameraMode.MeteringMode == METERING_MODE_SPOT)
+	if (cameraMode.metering == METERING_MODE_SPOT)
 		display_refresh_meteringmode();
 
-	if (cameraMode.WB == WB_MODE_COLORTEMP)
+	if (cameraMode.wb == WB_MODE_COLORTEMP)
 		display_refresh_whitebalance();
 
-	if (cameraMode.FlashExComp > 0x10 && cameraMode.FlashExComp < 0xF0)
+	if (cameraMode.efcomp > 0x10 && cameraMode.efcomp < 0xF0)
 		display_refresh_flashcomp();
 
 	display_refresh_iso();
@@ -42,7 +42,7 @@ void display_refresh_whitebalance() {
 
 void display_refresh_flashcomp() {
 	int negative = FALSE, value;
-	int flash_exp_comp = cameraMode.FlashExComp;
+	int flash_exp_comp = cameraMode.efcomp;
 
 	if (flash_exp_comp > 0x30) {
 		flash_exp_comp = 0x100 - flash_exp_comp;
@@ -77,7 +77,7 @@ void display_refresh_flashcomp() {
 void display_refresh_iso() {
 	const char *text = "----";
 
-	iso_display(text, cameraMode.ISO);
+	iso_display(text, cameraMode.iso);
 	sub_FF837FA8(MAIN_DIALOG, 0x04, text);
 }
 
