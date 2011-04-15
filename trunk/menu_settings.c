@@ -69,11 +69,11 @@ void menu_settings_start() {
 
 	menu_settings = settings;
 
-	menu_settings.av_comp        =  cameraMode.AvComp;
-	menu_settings.flash_comp     =  cameraMode.FlashExComp;
-	menu_settings.aeb_ev         =  cameraMode.AEB;
-	menu_settings.emit_flash     = !cameraMode.CfNotEmitFlash;
-	menu_settings.af_flash       = !cameraMode.CfAfAssistBeam;
+	menu_settings.av_comp        =  cameraMode.av_comp;
+	menu_settings.flash_comp     =  cameraMode.efcomp;
+	menu_settings.aeb_ev         =  cameraMode.ae_bkt;
+	menu_settings.emit_flash     = !cameraMode.cf_emit_flash;
+	menu_settings.af_flash       = !cameraMode.cf_emit_aux;
 
 	menu_create(main_menu);
 }

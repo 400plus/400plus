@@ -14,11 +14,11 @@ struct {
 void viewfinder_change_iso(const int iso);
 
 void viewfinder_right() {
-	viewfinder_change_iso(iso_inc(cameraMode.ISO));
+	viewfinder_change_iso(iso_inc(cameraMode.iso));
 }
 
 void viewfinder_left() {
-	viewfinder_change_iso(iso_dec(cameraMode.ISO));
+	viewfinder_change_iso(iso_dec(cameraMode.iso));
 }
 
 void viewfinder_end() {
@@ -36,10 +36,10 @@ void viewfinder_end() {
 void viewfinder_change_iso(const int iso) {
 	// Only if active and mode is P, Tv, Av, M
 	if (settings.iso_in_viewfinder) {
-		if (cameraMode.AEMode == AE_MODE_M || cameraMode.AEMode == AE_MODE_TV) {
+		if (cameraMode.ae == AE_MODE_M || cameraMode.ae == AE_MODE_TV) {
 			// Save current state
-			viewfinder_storage.TvVal          = cameraMode.TvVal;
-			viewfinder_storage.CfNotEmitFlash = cameraMode.CfNotEmitFlash;
+			viewfinder_storage.TvVal          = cameraMode.tv_val;
+			viewfinder_storage.CfNotEmitFlash = cameraMode.cf_emit_flash;
 
 			// Change to Tv=ISO, no flash
 			SendToIntercom(EVENT_SET_CFN_NOFLASH, 1, 1);
