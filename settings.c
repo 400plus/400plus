@@ -59,13 +59,13 @@ void settings_write() {
 }
 
 extern void settings_apply() {
-	SendToIntercom(EVENT_SET_EVCOMP,          1,  settings.av_comp);
-	SendToIntercom(EVENT_SET_FLASHCOMP,       1,  settings.flash_comp);
-	SendToIntercom(EVENT_SET_AEB,             1,  settings.aeb_ev);
-	SendToIntercom(EVENT_SET_CFN_SAFETYSHIFT, 1,  settings.safety_shift);
-	SendToIntercom(EVENT_SET_CFN_NOFLASH,     1, !settings.emit_flash);
-	SendToIntercom(EVENT_SET_CFN_AFFLASH,     1, !settings.af_flash);
-	SendToIntercom(EVENT_SET_COLORTEMP,       2,  settings.color_temp);
+	SendToIntercom(EVENT_SET_AV_COMP,         1,  settings.av_comp);
+	SendToIntercom(EVENT_SET_EFCOMP,          1,  settings.flash_comp);
+	SendToIntercom(EVENT_SET_AE_BKT,          1,  settings.aeb_ev);
+	SendToIntercom(EVENT_SET_CF_SAFETY_SHIFT, 1,  settings.safety_shift);
+	SendToIntercom(EVENT_SET_CF_EMIT_FLASH,   1, !settings.emit_flash);
+	SendToIntercom(EVENT_SET_CF_EMIT_AUX,     1, !settings.af_flash);
+	SendToIntercom(EVENT_SET_COLOR_TEMP,      2,  settings.color_temp);
 
 	if(settings.remote_delay){
 		*(int*)0x229AC = 4500;

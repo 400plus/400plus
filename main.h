@@ -14,27 +14,28 @@
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
 // Events for SendToIntercom
-#define EVENT_SET_AEMODE    0x01
-#define EVENT_SET_METMODE   0x02
-#define EVENT_SET_FLASHCOMP 0x03
-#define EVENT_SET_WBMODE    0x05
-#define EVENT_SET_AFPOINT   0x07
-#define EVENT_SET_TV        0x08
-#define EVENT_SET_AV        0x09
-#define EVENT_SET_EVCOMP    0x0A
-#define EVENT_SET_ISO       0x0B
-#define EVENT_SET_AEB       0x0D
-#define EVENT_SET_COLORTEMP 0x10
+#define EVENT_SET_AE         0x01
+#define EVENT_SET_METERING   0x02
+#define EVENT_SET_EFCOMP     0x03
+#define EVENT_SET_WB         0x05
+#define EVENT_SET_AF_POINT   0x07
+#define EVENT_SET_TV_VAL     0x08
+#define EVENT_SET_AV_VAL     0x09
+#define EVENT_SET_AV_COMP    0x0A
+#define EVENT_SET_ISO        0x0B
+#define EVENT_SET_AE_BKT     0x0D
+#define EVENT_SET_COLOR_TEMP 0x10
 
-#define EVENT_SET_QUALITY         0x22
-#define EVENT_SET_CFN_AFFLASH     0x2E
-#define EVENT_SET_CFN_NOFLASH     0x30
-#define EVENT_SET_CFN_EXTISO      0x31
-#define EVENT_SET_CFN_MLU         0x35
-#define EVENT_SET_CFN_FLASHSYNCR  0x38
-#define EVENT_SET_CFN_SAFETYSHIFT 0x39
-#define EVENT_SET_REALTIMEISO0    0xF0
-#define EVENT_SET_REALTIMEISO1    0xF1
+#define EVENT_SET_IMG_FORMAT         0x22
+#define EVENT_SET_CF_EMIT_AUX        0x2E
+#define EVENT_SET_CF_EMIT_FLASH      0x30
+#define EVENT_SET_CF_EXTEND_ISO      0x31
+#define EVENT_SET_CF_MIRROR_UP_LOCK  0x35
+#define EVENT_SET_CF_FLASH_SYNC_REAR 0x38
+#define EVENT_SET_CF_SAFETY_SHIFT    0x39
+
+#define EVENT_SET_REALTIME_ISO_0    0xF0
+#define EVENT_SET_REALTIME_ISO_1    0xF1
 
 #define EVENT_DIALOGON  0x50
 #define EVENT_DIALOGOFF 0x51
@@ -43,7 +44,6 @@
 
 #define	EVENT_AFPDLGON  0xB9
 #define	EVENT_AFPDLGOFF 0xA7
-
 
 //#define	SOME_ACTION_AFTER_BTNS  0x8D // 10001101 - 141
 //#define	SOME_OTHER_ACTION       0x74 // 01110100 - 116
@@ -140,7 +140,7 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int mwbdat_blue;             // 0x0120
 	int videojack_connect;       // 0x0124
 	int incomp_image;            // 0x0128
-	int status_busy_flag;        // 0x012c
+	int status_busy_flag;        // 0x012c [*]
 	int special_bc_result;       // 0x0130
 	int reset_offtimer;          // 0x0134
 	int printer_device_property; // 0x0138

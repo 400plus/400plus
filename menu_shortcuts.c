@@ -50,9 +50,9 @@ void menu_shortcuts_start() {
 void menu_shortcuts_save() {
 	beep();
 
-	SendToIntercom(EVENT_SET_ISO,            2, shortcuts_storage.ISO);
-	SendToIntercom(EVENT_SET_CFN_MLU,        1, shortcuts_storage.CfMLU);
-	SendToIntercom(EVENT_SET_CFN_FLASHSYNCR, 1, shortcuts_storage.CfFlashSyncRear);
+	SendToIntercom(EVENT_SET_ISO,                2, shortcuts_storage.ISO);
+	SendToIntercom(EVENT_SET_CF_MIRROR_UP_LOCK,  1, shortcuts_storage.CfMLU);
+	SendToIntercom(EVENT_SET_CF_FLASH_SYNC_REAR, 1, shortcuts_storage.CfFlashSyncRear);
 
 	settings_write();
 
