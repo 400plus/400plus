@@ -135,7 +135,7 @@ Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 
 == Información extendida ==
 
-En la pantalla de "ajustes de la cámara" (presionar INFO en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta):
+En la pantalla de "ajustes de la cámara" (presionar DISP en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta):
  * El número total de disparos hechos por la cámara. 
  * El número de la versión de 400plus actualmente instalada.
 Utiliza SET e IZQUIERDA / DERECHA para cambiar el valor mostrado.
