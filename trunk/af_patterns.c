@@ -48,23 +48,23 @@ void afp_enter() {
 }
 
 void afp_center () {
-	SendToIntercom(EVENT_SET_AFPOINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_CENTER));
+	SendToIntercom(EVENT_SET_AF_POINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_CENTER));
 }
 
 void afp_top () {
-	SendToIntercom(EVENT_SET_AFPOINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_UP));
+	SendToIntercom(EVENT_SET_AF_POINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_UP));
 }
 
 void afp_bottom () {
-	SendToIntercom(EVENT_SET_AFPOINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_DOWN));
+	SendToIntercom(EVENT_SET_AF_POINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_DOWN));
 }
 
 void afp_left () {
-	SendToIntercom(EVENT_SET_AFPOINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_LEFT));
+	SendToIntercom(EVENT_SET_AF_POINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_LEFT));
 }
 
 void afp_right () {
-	SendToIntercom(EVENT_SET_AFPOINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_RIGHT));
+	SendToIntercom(EVENT_SET_AF_POINT, 2, afp_transformer(cameraMode.af_point, DIRECTION_RIGHT));
 }
 
 int afp_transformer (int pattern, type_DIRECTION direction) {
