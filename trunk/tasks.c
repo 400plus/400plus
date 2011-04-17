@@ -22,8 +22,8 @@ void start_up() {
 	SendToIntercom(EVENT_SET_REALTIME_ISO_1, 0, 0);
 
 	// Read (and apply) settings from file
-	settings_read();
-	settings_apply();
+	if (settings_read())
+		settings_apply();
 }
 
 void dp_action() {

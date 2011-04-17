@@ -32,8 +32,10 @@ type_SETTINGS settings = {
 	shortcuts_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 };
 
-void settings_read() {
+int settings_read() {
+	int result  = FALSE;
 	int version = 0;
+
 	int file = FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644);
 
 	if (file != -1) {
@@ -41,10 +43,13 @@ void settings_read() {
 
 		if (version == SETTINGS_VERSION) {
 			FIO_ReadFile(file, &settings, sizeof(settings));
+			result = TRUE;
 		}
 
 		FIO_CloseFile(file);
 	}
+
+	return result;
 }
 
 void settings_write() {
