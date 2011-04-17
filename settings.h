@@ -44,7 +44,7 @@ typedef struct {
 
 extern type_SETTINGS settings;
 
-extern void settings_read();
+extern int  settings_read();
 extern void settings_write();
 extern void settings_apply();
 
