@@ -11,8 +11,9 @@ void get_filename(char *filename, int id);
 
 int custom_read(int id) {
 	int  result  = FALSE;
-	int  version = 0;
-	int  file   = -1;
+	int  version =  0;
+	int  file    = -1;
+
 	char filename[16];
 
 	get_filename(filename, id);
