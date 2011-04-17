@@ -17,13 +17,17 @@
 #define EVENT_SET_AE         0x01
 #define EVENT_SET_METERING   0x02
 #define EVENT_SET_EFCOMP     0x03
+#define EVENT_SET_DRIVE      0x04
 #define EVENT_SET_WB         0x05
 #define EVENT_SET_AF_POINT   0x07
 #define EVENT_SET_TV_VAL     0x08
 #define EVENT_SET_AV_VAL     0x09
 #define EVENT_SET_AV_COMP    0x0A
 #define EVENT_SET_ISO        0x0B
+#define EVENT_SET_RED_EYE    0x0C
 #define EVENT_SET_AE_BKT     0x0D
+#define EVENT_SET_WB_BKT     0x0E
+#define EVENT_SET_BEEP       0x0F
 #define EVENT_SET_COLOR_TEMP 0x10
 
 #define EVENT_SET_IMG_FORMAT         0x22
