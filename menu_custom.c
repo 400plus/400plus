@@ -116,8 +116,8 @@ void custom_load_5() {
 void custom_load(int id) {
 	beep();
 
-	custom_read(id);
-	custom_apply();
+	if (custom_read(id))
+		custom_apply();
 
 	menu_close();
 }
