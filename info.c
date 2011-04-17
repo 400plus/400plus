@@ -40,13 +40,16 @@ char *info_display() {
 	//	sprintf(message, "<> %s", sub_FF83A640());
 	//	break;
 	case INFO_OPTION_RELEASE_COUNT:
-		sprintf(message, "<> Release count: %u", FLAG_RELEASE_COUNT);
+		sprintf(message, "<> ReleaseCount: %u", FLAG_RELEASE_COUNT);
+		break;
+	case INFO_OPTION_BODY_ID:
+		sprintf(message, "<> Body ID     : %010lu", BodyID);
 		break;
 	case INFO_OPTION_400PLUS:
 		if (VERSION < 20110101) {
-			sprintf(message, "<> 400plus ver. : svn-%04u", VERSION);
+			sprintf(message, "<> 400plus ver.: svn-%04u", VERSION);
 		} else {
-			sprintf(message, "<> 400plus ver. : %08u", VERSION);
+			sprintf(message, "<> 400plus ver.: %08u", VERSION);
 		}
 		break;
 	default:
