@@ -74,11 +74,25 @@ extern void custom_apply() {
 	SendToIntercom(EVENT_SET_IMG_SIZE,    1, customCameraMode.img_size);
 	SendToIntercom(EVENT_SET_IMG_QUALITY, 1, customCameraMode.img_quality);
 
-	SendToIntercom(EVENT_SET_CF_EMIT_AUX,        1, customCameraMode.cf_emit_aux);
-	SendToIntercom(EVENT_SET_CF_EMIT_FLASH,      1, customCameraMode.cf_emit_flash);
-	SendToIntercom(EVENT_SET_CF_MIRROR_UP_LOCK,  1, customCameraMode.cf_mirror_up_lock);
-	SendToIntercom(EVENT_SET_CF_FLASH_SYNC_REAR, 1, customCameraMode.cf_flash_sync_rear);
-	SendToIntercom(EVENT_SET_CF_SAFETY_SHIFT,    1, customCameraMode.cf_safety_shift);
+	SendToIntercom(EVENT_SET_CF_SET_BUTTON_FUNC,      1, customCameraMode.cf_set_button_func);
+	SendToIntercom(EVENT_SET_CF_NR_FOR_LONG_EXPOSURE, 1, customCameraMode.cf_nr_for_long_exposure);
+	SendToIntercom(EVENT_SET_CF_EFAV_FIX_X,           1, customCameraMode.cf_efav_fix_x);
+	SendToIntercom(EVENT_SET_CF_AFAEL_ACTIVE_BUTTON,  1, customCameraMode.cf_afael_active_button);
+	SendToIntercom(EVENT_SET_CF_EMIT_AUX,             1, customCameraMode.cf_emit_aux);
+	SendToIntercom(EVENT_SET_CF_EXPLEVEL_INC_THIRD,   1, customCameraMode.cf_explevel_inc_third);
+	SendToIntercom(EVENT_SET_CF_EMIT_FLASH,           1, customCameraMode.cf_emit_flash);
+	SendToIntercom(EVENT_SET_CF_EXTEND_ISO,           1, customCameraMode.cf_extend_iso);
+	SendToIntercom(EVENT_SET_CF_AEB_SEQUENCE,         1, customCameraMode.cf_aeb_sequence);
+	SendToIntercom(EVENT_SET_CF_SI_INDICATE,          1, customCameraMode.cf_si_indicate);
+	SendToIntercom(EVENT_SET_CF_MENU_POS,             1, customCameraMode.cf_menu_pos);
+	SendToIntercom(EVENT_SET_CF_MIRROR_UP_LOCK,       1, customCameraMode.cf_mirror_up_lock);
+	SendToIntercom(EVENT_SET_CF_FPSEL_METHOD,         1, customCameraMode.cf_fpsel_method);
+	SendToIntercom(EVENT_SET_CF_FLASH_METERING,       1, customCameraMode.cf_flash_metering);
+	SendToIntercom(EVENT_SET_CF_FLASH_SYNC_REAR,      1, customCameraMode.cf_flash_sync_rear);
+	SendToIntercom(EVENT_SET_CF_SAFETY_SHIFT,         1, customCameraMode.cf_safety_shift);
+	SendToIntercom(EVENT_SET_CF_LENS_BUTTON,          1, customCameraMode.cf_lens_button);
+	SendToIntercom(EVENT_SET_CF_ORIGINAL_EVAL,        1, customCameraMode.cf_original_eval);
+	SendToIntercom(EVENT_SET_CF_QR_MAGNIFY,           1, customCameraMode.cf_qr_magnify);
 
 	display_refresh();
 }
