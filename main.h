@@ -30,7 +30,10 @@
 #define EVENT_SET_BEEP       0x0F
 #define EVENT_SET_COLOR_TEMP 0x10
 
-#define EVENT_SET_IMG_FORMAT         0x22
+#define EVENT_SET_IMG_FORMAT  0x22
+#define EVENT_SET_IMG_SIZE    0x23
+#define EVENT_SET_IMG_QUALITY 0x24
+
 #define EVENT_SET_CF_EMIT_AUX        0x2E
 #define EVENT_SET_CF_EMIT_FLASH      0x30
 #define EVENT_SET_CF_EXTEND_ISO      0x31
