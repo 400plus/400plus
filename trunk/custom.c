@@ -20,7 +20,7 @@ void custom_read(int id) {
 	if (file != -1) {
 		FIO_ReadFile(file, &version, sizeof(version));
 
-		if (version == CUSTOM_VERSION) {
+		if (version == SETTINGS_VERSION) {
 			FIO_ReadFile(file, &settings,         sizeof(settings));
 			FIO_ReadFile(file, &customCameraMode, sizeof(customCameraMode));
 		}
@@ -30,7 +30,7 @@ void custom_read(int id) {
 }
 
 void custom_write(int id) {
-	const int version = CUSTOM_VERSION;
+	const int version = SETTINGS_VERSION;
 
 	int  file;
 	char filename[16];
