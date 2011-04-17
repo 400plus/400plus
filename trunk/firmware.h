@@ -33,8 +33,10 @@ extern int open(const char *name, int flags, int mode);
 extern int read(int fd, void *buffer, long nbytes);
 extern int write(int fd, void *buffer, long nbytes);
 extern int close(int fd);
+extern int printErr(char * fmt, ...); // like printf but prints to stderr
 
-extern FILE* fopen(const char *file, const char *mode);
+extern FILE *fopen(const char *file, const char *mode);
+extern FILE *fdopen(int fd, char * mode);
 extern int   fread(void *buffer, long size, long count, FILE *fp);
 extern int   fwrite(const void *buffer, long size, long count, FILE *fp);
 extern int   fclose(FILE *fp);
@@ -54,7 +56,7 @@ extern void  CloseLogFile(void *logFile);
 
 extern void RiseEvent(char *name);
 
-extern int  CreateTask(const char *name, int prio, int stack_size, void *entry, long parm);
+extern int* CreateTask(const char *name, int prio, int stack_size, void *entry, long parm);
 extern void SleepTask(long msec);
 extern void ExitTask(void);
 
@@ -71,6 +73,7 @@ extern int taskDeleteHookAdd (void *deleteHook);
 
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
+extern int* CreateBinarySemaphore(int prio, SEM_B_STATE);
 
 // Event generation
 
@@ -96,5 +99,8 @@ extern int EnterFactoryMode();
 extern int ExitFactoryMode();
 
 extern int ioGlobalStdSet(int handle, int file);
+
+
+extern long unsigned BodyID;
 
 #endif /* FIRMWARE_H_ */
