@@ -1,6 +1,6 @@
 #include "main.h"
 #include "menu.h"
-#include "menu_custom.h"
+#include "menu_presets.h"
 #include "menu_developer.h"
 #include "utils.h"
 #include "settings.h"
@@ -60,7 +60,7 @@ type_MENU main_menu = {
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
 	action    : menu_settings_save,
-	dp_action : menu_custom_save_start,
+	dp_action : menu_presets_save_start,
 	reorder   : FALSE
 };
 

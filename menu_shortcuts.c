@@ -1,6 +1,6 @@
 #include "main.h"
 #include "menu.h"
-#include "menu_custom.h"
+#include "menu_presets.h"
 #include "utils.h"
 #include "scripts.h"
 #include "settings.h"
@@ -29,7 +29,7 @@ type_MENU menu_shortcuts = {
 	length    : LENGTH(menu_shortcut_items),
 	items     : menu_shortcut_items,
 	action    : menu_shortcuts_save,
-	dp_action : menu_custom_load_start,
+	dp_action : menu_presets_load_start,
 	reorder   : TRUE,
 	ordering  : settings.shortcuts_order
 };
