@@ -3,7 +3,7 @@
 
 #define CUSTOM_FILE     "A:/CUSTOM_%u"
 
-extern void custom_read (int id);
+extern int  custom_read (int id);
 extern void custom_write(int id);
 extern void custom_apply();
 

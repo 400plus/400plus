@@ -9,7 +9,8 @@ type_CAMERA_MODE customCameraMode;
 
 void get_filename(char *filename, int id);
 
-void custom_read(int id) {
+int custom_read(int id) {
+	int  result  = FALSE;
 	int  version = 0;
 	int  file   = -1;
 	char filename[16];
@@ -23,10 +24,13 @@ void custom_read(int id) {
 		if (version == SETTINGS_VERSION) {
 			FIO_ReadFile(file, &settings,         sizeof(settings));
 			FIO_ReadFile(file, &customCameraMode, sizeof(customCameraMode));
+			result = TRUE;
 		}
 
 		FIO_CloseFile(file);
 	}
+
+	return result;
 }
 
 void custom_write(int id) {
