@@ -17,7 +17,7 @@ int custom_read(int id) {
 	char filename[16];
 
 	get_filename(filename, id);
-	FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644);
+	file = FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644);
 
 	if (file != -1) {
 		FIO_ReadFile(file, &version, sizeof(version));
