@@ -70,6 +70,10 @@ extern void custom_apply() {
 	SendToIntercom(EVENT_SET_BEEP,       1, customCameraMode.beep);
 	SendToIntercom(EVENT_SET_COLOR_TEMP, 2, customCameraMode.color_temp);
 
+	SendToIntercom(EVENT_SET_IMG_FORMAT,  1, customCameraMode.img_format);
+	SendToIntercom(EVENT_SET_IMG_SIZE,    1, customCameraMode.img_size);
+	SendToIntercom(EVENT_SET_IMG_QUALITY, 1, customCameraMode.img_quality);
+
 	SendToIntercom(EVENT_SET_CF_EMIT_AUX,        1, customCameraMode.cf_emit_aux);
 	SendToIntercom(EVENT_SET_CF_EMIT_FLASH,      1, customCameraMode.cf_emit_flash);
 	SendToIntercom(EVENT_SET_CF_MIRROR_UP_LOCK,  1, customCameraMode.cf_mirror_up_lock);
