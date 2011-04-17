@@ -57,13 +57,17 @@ extern void custom_apply() {
 	SendToIntercom(EVENT_SET_AE,         1, customCameraMode.ae);
 	SendToIntercom(EVENT_SET_METERING,   1, customCameraMode.metering);
 	SendToIntercom(EVENT_SET_EFCOMP,     1, customCameraMode.efcomp);
+	SendToIntercom(EVENT_SET_METERING,   1, customCameraMode.metering);
 	SendToIntercom(EVENT_SET_WB,         1, customCameraMode.wb);
 	SendToIntercom(EVENT_SET_AF_POINT,   2, customCameraMode.af_point);
 	SendToIntercom(EVENT_SET_TV_VAL,     1, customCameraMode.tv_val);
 	SendToIntercom(EVENT_SET_AV_VAL,     1, customCameraMode.av_val);
 	SendToIntercom(EVENT_SET_AV_COMP,    1, customCameraMode.av_comp);
 	SendToIntercom(EVENT_SET_ISO,        2, customCameraMode.iso);
+	SendToIntercom(EVENT_SET_RED_EYE,    1, customCameraMode.red_eye);
 	SendToIntercom(EVENT_SET_AE_BKT,     1, customCameraMode.ae_bkt);
+	SendToIntercom(EVENT_SET_WB_BKT,     1, customCameraMode.wb_bkt);
+	SendToIntercom(EVENT_SET_BEEP,       1, customCameraMode.beep);
 	SendToIntercom(EVENT_SET_COLOR_TEMP, 2, customCameraMode.color_temp);
 
 	SendToIntercom(EVENT_SET_CF_EMIT_AUX,        1, customCameraMode.cf_emit_aux);
