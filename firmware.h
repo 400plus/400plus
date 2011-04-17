@@ -73,7 +73,7 @@ extern int taskDeleteHookAdd (void *deleteHook);
 
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
-extern int* CreateBinarySemaphore(int prio, SEM_B_STATE);
+//extern int* CreateBinarySemaphore(int prio, SEM_B_STATE);
 
 // Event generation
 
