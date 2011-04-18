@@ -19,6 +19,7 @@
 #define EVENT_SET_EFCOMP     0x03
 #define EVENT_SET_DRIVE      0x04
 #define EVENT_SET_WB         0x05
+#define EVENT_SET_AF         0x06
 #define EVENT_SET_AF_POINT   0x07
 #define EVENT_SET_TV_VAL     0x08
 #define EVENT_SET_AV_VAL     0x09
