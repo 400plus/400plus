@@ -54,26 +54,27 @@ void preset_write(int id) {
 extern void preset_apply() {
 	settings_apply();
 
-//	SendToIntercom(EVENT_SET_AE,         1, preset.ae);
-//	SendToIntercom(EVENT_SET_METERING,   1, preset.metering);
-//	SendToIntercom(EVENT_SET_EFCOMP,     1, preset.efcomp);
-//	SendToIntercom(EVENT_SET_METERING,   1, preset.metering);
-//	SendToIntercom(EVENT_SET_WB,         1, preset.wb);
-//	SendToIntercom(EVENT_SET_AF_POINT,   2, preset.af_point);
-//	SendToIntercom(EVENT_SET_TV_VAL,     1, preset.tv_val);
-//	SendToIntercom(EVENT_SET_AV_VAL,     1, preset.av_val);
-//	SendToIntercom(EVENT_SET_AV_COMP,    1, preset.av_comp);
-//	SendToIntercom(EVENT_SET_ISO,        2, preset.iso);
-//	SendToIntercom(EVENT_SET_RED_EYE,    1, preset.red_eye);
-//	SendToIntercom(EVENT_SET_AE_BKT,     1, preset.ae_bkt);
-//	SendToIntercom(EVENT_SET_WB_BKT,     1, preset.wb_bkt);
-//	SendToIntercom(EVENT_SET_BEEP,       1, preset.beep);
-//	SendToIntercom(EVENT_SET_COLOR_TEMP, 2, preset.color_temp);
-/*
+	SendToIntercom(EVENT_SET_AE,         1, preset.ae);
+	SendToIntercom(EVENT_SET_METERING,   1, preset.metering);
+	SendToIntercom(EVENT_SET_EFCOMP,     1, preset.efcomp);
+	SendToIntercom(EVENT_SET_DRIVE,      1, preset.drive);
+	SendToIntercom(EVENT_SET_WB,         1, preset.wb);
+	SendToIntercom(EVENT_SET_AF,         1, preset.af);
+	SendToIntercom(EVENT_SET_AF_POINT,   2, preset.af_point);
+	SendToIntercom(EVENT_SET_TV_VAL,     1, preset.tv_val);
+	SendToIntercom(EVENT_SET_AV_VAL,     1, preset.av_val);
+	SendToIntercom(EVENT_SET_AV_COMP,    1, preset.av_comp);
+	SendToIntercom(EVENT_SET_ISO,        2, preset.iso);
+	SendToIntercom(EVENT_SET_RED_EYE,    1, preset.red_eye);
+	SendToIntercom(EVENT_SET_AE_BKT,     1, preset.ae_bkt);
+	SendToIntercom(EVENT_SET_WB_BKT,     1, preset.wb_bkt);
+	SendToIntercom(EVENT_SET_BEEP,       1, preset.beep);
+	SendToIntercom(EVENT_SET_COLOR_TEMP, 2, preset.color_temp);
+
 	SendToIntercom(EVENT_SET_IMG_FORMAT,  1, preset.img_format);
 	SendToIntercom(EVENT_SET_IMG_SIZE,    1, preset.img_size);
 	SendToIntercom(EVENT_SET_IMG_QUALITY, 1, preset.img_quality);
-
+/*
 	SendToIntercom(EVENT_SET_CF_SET_BUTTON_FUNC,      1, preset.cf_set_button_func);
 	SendToIntercom(EVENT_SET_CF_NR_FOR_LONG_EXPOSURE, 1, preset.cf_nr_for_long_exposure);
 	SendToIntercom(EVENT_SET_CF_EFAV_FIX_X,           1, preset.cf_efav_fix_x);
