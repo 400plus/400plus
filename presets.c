@@ -54,47 +54,48 @@ void preset_write(int id) {
 extern void preset_apply() {
 	settings_apply();
 
-	SendToIntercom(EVENT_SET_AE,         1, preset.ae);
-	SendToIntercom(EVENT_SET_METERING,   1, preset.metering);
-	SendToIntercom(EVENT_SET_EFCOMP,     1, preset.efcomp);
-	SendToIntercom(EVENT_SET_DRIVE,      1, preset.drive);
-	SendToIntercom(EVENT_SET_WB,         1, preset.wb);
-	SendToIntercom(EVENT_SET_AF,         1, preset.af);
-	SendToIntercom(EVENT_SET_AF_POINT,   2, preset.af_point);
-	SendToIntercom(EVENT_SET_TV_VAL,     1, preset.tv_val);
-	SendToIntercom(EVENT_SET_AV_VAL,     1, preset.av_val);
-	SendToIntercom(EVENT_SET_AV_COMP,    1, preset.av_comp);
-	SendToIntercom(EVENT_SET_ISO,        2, preset.iso);
-	SendToIntercom(EVENT_SET_RED_EYE,    1, preset.red_eye);
-	SendToIntercom(EVENT_SET_AE_BKT,     1, preset.ae_bkt);
-	SendToIntercom(EVENT_SET_WB_BKT,     1, preset.wb_bkt);
-	SendToIntercom(EVENT_SET_BEEP,       1, preset.beep);
-	SendToIntercom(EVENT_SET_COLOR_TEMP, 2, preset.color_temp);
+	SleepTask(10); SendToIntercom(EVENT_SET_AE,         1, preset.ae);
+	SleepTask(10); SendToIntercom(EVENT_SET_METERING,   1, preset.metering);
+	SleepTask(10); SendToIntercom(EVENT_SET_EFCOMP,     1, preset.efcomp);
+	SleepTask(10); SendToIntercom(EVENT_SET_DRIVE,      1, preset.drive);
+	SleepTask(10); SendToIntercom(EVENT_SET_WB,         1, preset.wb);
+	SleepTask(10); SendToIntercom(EVENT_SET_AF,         1, preset.af);
+	SleepTask(10); SendToIntercom(EVENT_SET_AF_POINT,   2, preset.af_point);
+	SleepTask(10); SendToIntercom(EVENT_SET_TV_VAL,     1, preset.tv_val);
+	SleepTask(10); SendToIntercom(EVENT_SET_AV_VAL,     1, preset.av_val);
+	SleepTask(10); SendToIntercom(EVENT_SET_AV_COMP,    1, preset.av_comp);
+	SleepTask(10); SendToIntercom(EVENT_SET_ISO,        2, preset.iso);
+	SleepTask(10); SendToIntercom(EVENT_SET_RED_EYE,    1, preset.red_eye);
+	SleepTask(10); SendToIntercom(EVENT_SET_AE_BKT,     1, preset.ae_bkt);
+	SleepTask(10); SendToIntercom(EVENT_SET_WB_BKT,     1, preset.wb_bkt);
+	SleepTask(10); SendToIntercom(EVENT_SET_BEEP,       1, preset.beep);
+	SleepTask(10); SendToIntercom(EVENT_SET_COLOR_TEMP, 2, preset.color_temp);
 
-	SendToIntercom(EVENT_SET_IMG_FORMAT,  1, preset.img_format);
-	SendToIntercom(EVENT_SET_IMG_SIZE,    1, preset.img_size);
-	SendToIntercom(EVENT_SET_IMG_QUALITY, 1, preset.img_quality);
-/*
-	SendToIntercom(EVENT_SET_CF_SET_BUTTON_FUNC,      1, preset.cf_set_button_func);
-	SendToIntercom(EVENT_SET_CF_NR_FOR_LONG_EXPOSURE, 1, preset.cf_nr_for_long_exposure);
-	SendToIntercom(EVENT_SET_CF_EFAV_FIX_X,           1, preset.cf_efav_fix_x);
-	SendToIntercom(EVENT_SET_CF_AFAEL_ACTIVE_BUTTON,  1, preset.cf_afael_active_button);
-	SendToIntercom(EVENT_SET_CF_EMIT_AUX,             1, preset.cf_emit_aux);
-	SendToIntercom(EVENT_SET_CF_EXPLEVEL_INC_THIRD,   1, preset.cf_explevel_inc_third);
-	SendToIntercom(EVENT_SET_CF_EMIT_FLASH,           1, preset.cf_emit_flash);
-	SendToIntercom(EVENT_SET_CF_EXTEND_ISO,           1, preset.cf_extend_iso);
-	SendToIntercom(EVENT_SET_CF_AEB_SEQUENCE,         1, preset.cf_aeb_sequence);
-	SendToIntercom(EVENT_SET_CF_SI_INDICATE,          1, preset.cf_si_indicate);
-	SendToIntercom(EVENT_SET_CF_MENU_POS,             1, preset.cf_menu_pos);
-	SendToIntercom(EVENT_SET_CF_MIRROR_UP_LOCK,       1, preset.cf_mirror_up_lock);
-	SendToIntercom(EVENT_SET_CF_FPSEL_METHOD,         1, preset.cf_fpsel_method);
-	SendToIntercom(EVENT_SET_CF_FLASH_METERING,       1, preset.cf_flash_metering);
-	SendToIntercom(EVENT_SET_CF_FLASH_SYNC_REAR,      1, preset.cf_flash_sync_rear);
-	SendToIntercom(EVENT_SET_CF_SAFETY_SHIFT,         1, preset.cf_safety_shift);
-	SendToIntercom(EVENT_SET_CF_LENS_BUTTON,          1, preset.cf_lens_button);
-	SendToIntercom(EVENT_SET_CF_ORIGINAL_EVAL,        1, preset.cf_original_eval);
-	SendToIntercom(EVENT_SET_CF_QR_MAGNIFY,           1, preset.cf_qr_magnify);
-*/
+	SleepTask(10); SendToIntercom(EVENT_SET_IMG_FORMAT,  1, preset.img_format);
+	SleepTask(10); SendToIntercom(EVENT_SET_IMG_SIZE,    1, preset.img_size);
+	SleepTask(10); SendToIntercom(EVENT_SET_IMG_QUALITY, 1, preset.img_quality);
+
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_SET_BUTTON_FUNC,      1, preset.cf_set_button_func);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_NR_FOR_LONG_EXPOSURE, 1, preset.cf_nr_for_long_exposure);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_EFAV_FIX_X,           1, preset.cf_efav_fix_x);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_AFAEL_ACTIVE_BUTTON,  1, preset.cf_afael_active_button);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_EMIT_AUX,             1, preset.cf_emit_aux);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_EXPLEVEL_INC_THIRD,   1, preset.cf_explevel_inc_third);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_EMIT_FLASH,           1, preset.cf_emit_flash);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_EXTEND_ISO,           1, preset.cf_extend_iso);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_AEB_SEQUENCE,         1, preset.cf_aeb_sequence);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_SI_INDICATE,          1, preset.cf_si_indicate);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_MENU_POS,             1, preset.cf_menu_pos);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_MIRROR_UP_LOCK,       1, preset.cf_mirror_up_lock);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_FPSEL_METHOD,         1, preset.cf_fpsel_method);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_FLASH_METERING,       1, preset.cf_flash_metering);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_FLASH_SYNC_REAR,      1, preset.cf_flash_sync_rear);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_SAFETY_SHIFT,         1, preset.cf_safety_shift);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_LENS_BUTTON,          1, preset.cf_lens_button);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_ORIGINAL_EVAL,        1, preset.cf_original_eval);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_QR_MAGNIFY,           1, preset.cf_qr_magnify);
+	SleepTask(10); SendToIntercom(EVENT_SET_CF_TFT_ON_POWER_ON,      1, preset.cf_tft_on_power_on);
+
 	display_refresh();
 }
 
