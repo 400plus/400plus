@@ -75,6 +75,8 @@
 #define	BUTTON_DISP   0xA1 // 10100001 - 161
 #define BUTTON_PLAY   0xA4 // 10100100 - 164
 #define	BUTTON_SET    0xA6 // 10100110 - 166
+#define BUTTON_ZI     0xA7 // zoom in - should be tested
+#define BUTTON_ZO     0xA8 // zoom in - should be tested
 #define	BUTTON_DIAL   0xA9 // 10101001 - 169
 #define BUTTON_DIAL_LEFT  ( 1 << 8 ) | BUTTON_DIAL
 #define BUTTON_DIAL_RIGHT ( 2 << 8 ) | BUTTON_DIAL
@@ -190,7 +192,7 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int field_190;               // 0x0190
 } type_CAMERA_MODE;
 
-#define cameraMode (*(type_CAMERA_MODE*)0x00016B60)
+#define cameraMode (*(type_CAMERA_MODE*)&DPData)
 
 // [1] Values for "ae"
 #define AE_MODE_P    0
@@ -232,13 +234,13 @@ typedef struct {                 // [*] Used and tested, others unknown
 
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
-#define FLAG_CAMERA_BUSY    (*(int*)(0x00001CA8))
-#define FLAG_GUI_MODE       (*(int*)(0x00001ECC))
-#define FLAG_METMOD_DIALOG  (*(int*)(0x000047EC))
+#define FLAG_CAMERA_BUSY    hRelSem
+#define FLAG_GUI_MODE       GUIMode
+#define FLAG_METMOD_DIALOG  (*(int*)(0x000047EC)) // ?
 #define FLAG_AFSLCT_DIALOG  (*(int*)(0x00004804))
-#define FLAG_FACTORY_DIALOG (*(int*)(0x000049F4))
-#define FLAG_MENU_DIALOG    (*(int*)(0x00004A2C))
-#define FLAG_FACE_SENSOR    (*(int*)(0x0000CD38))
+#define FLAG_FACTORY_DIALOG hFaMain
+#define FLAG_MENU_DIALOG    hMnBg
+#define FLAG_FACE_SENSOR    FaceStatus
 #define FLAG_RELEASE_COUNT  (*(int*)(0x0000EBFC))
 
 // Documented flags

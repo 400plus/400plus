@@ -27,8 +27,8 @@ void info_option_prev() {
 }
 
 void info_refresh() {
-  sub_FF837FA8(hInfoCreative, 0x11, info_display());
-  do_some_with_dialog(hInfoCreative);
+	sub_FF837FA8(hInfoCreative, 0x11, info_display());
+	do_some_with_dialog(hInfoCreative);
 }
 
 char *info_display() {

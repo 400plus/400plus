@@ -1,6 +1,21 @@
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 
+// Variables, Flags, Pointers, Handlers
+extern unsigned int	BodyID;
+extern unsigned short	ModelID;
+extern int 		BurstCounter; // remaining shots in burst mode (displayed in VF's bottom right corner)
+extern int		hInfoCreative; // dialog handler for info screen
+extern int		FaceStatus; // 0 = no face, 1 = face (disp off)... see #32, this could give some solution
+extern int		GUIMode;
+extern int		hRelSem; // Camera Busy Flag (Release Semaphore ?)
+extern int		hFaMain; // Factory Dialog
+extern int		hMnBg; // Menu Dialog
+extern void *		DPData; // CameraMode
+
+
+extern int logMsg(char *, ...);
+
 // LED management
 
 extern long eventproc_EdLedOn(void);
@@ -99,8 +114,5 @@ extern int EnterFactoryMode();
 extern int ExitFactoryMode();
 
 extern int ioGlobalStdSet(int handle, int file);
-
-
-extern long unsigned BodyID;
 
 #endif /* FIRMWARE_H_ */
