@@ -34,20 +34,30 @@ type_SETTINGS settings = {
 
 int settings_read() {
 	int result  = FALSE;
-	int version = 0;
 
-	int file = FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644);
+	int file    = -1;
+	int version =  0;
 
-	if (file != -1) {
-		FIO_ReadFile(file, &version, sizeof(version));
+	type_SETTINGS buffer;
 
-		if (version == SETTINGS_VERSION) {
-			FIO_ReadFile(file, &settings, sizeof(settings));
-			result = TRUE;
-		}
+	if ((file = FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644)) == -1)
+		goto end;
 
+	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
+		goto end;
+
+	if (version != SETTINGS_VERSION)
+		goto end;
+
+	if (FIO_ReadFile(file, &buffer, sizeof(buffer)) != sizeof(buffer))
+		goto end;
+
+	settings = buffer;
+	result   = TRUE;
+
+end:
+	if (file != -1)
 		FIO_CloseFile(file);
-	}
 
 	return result;
 }
