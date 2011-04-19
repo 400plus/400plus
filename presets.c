@@ -10,26 +10,38 @@ type_CAMERA_MODE preset;
 void get_filename(char *filename, int id);
 
 int preset_read(int id) {
-	int  result  = FALSE;
-	int  version =  0;
-	int  file    = -1;
+	int result  = FALSE;
+
+	int file    = -1;
+	int version =  0;
+
+	type_SETTINGS buffer;
 
 	char filename[16];
 
 	get_filename(filename, id);
-	file = FIO_OpenFile(filename, O_RDONLY, 644);
 
-	if (file != -1) {
-		FIO_ReadFile(file, &version, sizeof(version));
+	if ((file = FIO_OpenFile(filename, O_RDONLY, 644)) == -1)
+		goto end;
 
-		if (version == SETTINGS_VERSION) {
-			FIO_ReadFile(file, &settings, sizeof(settings));
-			FIO_ReadFile(file, &preset,   sizeof(preset));
-			result = TRUE;
-		}
+	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
+		goto end;
 
+	if (version != SETTINGS_VERSION)
+		goto end;
+
+	if (FIO_ReadFile(file, &buffer, sizeof(buffer)) != sizeof(buffer))
+		goto end;
+
+	if (FIO_ReadFile(file, &preset, sizeof(preset)) != sizeof(preset))
+		goto end;
+
+	settings = buffer;
+	result   = TRUE;
+
+end:
+	if (file != -1)
 		FIO_CloseFile(file);
-	}
 
 	return result;
 }
