@@ -1,11 +1,38 @@
 # vim: ts=4 sw=4 tw=120
-hope this info helps... i'll try to make experimental menu
-where the dialogs can be seen, but so far we cannot use the
-menu structure to show all dialogs. to switch the dialogs
-i need to get in message_proxy and the code is dirty,
-i cannot add it to the repository ATM.
 
-here are the template ids which are usable:
+you can download dialogs testing hack from:
+-----------------------------------------------------------------
+http://0xAF.org/400d_dialogs.tar.gz
+THE FIRMWARE ON THE ABOVE URL IS ONLY FOR DEVS WILLING TO SEE THE DIALOGS !!!
+IT'S NOT HARMFUL, BUT IT'S BROKEN BY DESIGN... DO NOT USE IT !!!
+-----------------------------------------------------------------
+if for some reason you can't get the file, drop me a mail on firedust@gmail
+
+buttons in use:
+DP = activate dialogs test (start)
+DIAL LEFT/RIGHT = prev/next dialog
+up/down = param1 inc/dec
+left/right = param2 dec/inc
+
+so far i cannot see any use of the params ...
+
+almost every dialog will have some strings
+the strings are 4 numbers in format "D,L,P1,P2"
+where:
+D = current dialog number (template)
+L = current line  - which is set by sub_FF837FA8()
+P1,P2 = param1,param2 value
+
+
+see start_dialogs_test() in menu_experimental.c
+to see how to create dialog and set the lines.
+
+(a new way of creating dialogs has been suggested by Sergei,
+i should look at it any moment now, so it could be different
+in the future. still you can get the impression of how to use them)
+
+-----------------------------------------------------------------
+here are the template ids which in my opinion are usable:
 
 error screens:
 	usable: 4
@@ -60,7 +87,7 @@ template 8,9,10 = 3 tabs menu with additional [MENU] and [SET] buttons
 	line 12 = [menu button] title
 	line 13 = [set button] title
 
-template 13 = on screen menu with 2 buttons
+template 13 = on screen menu with 2 buttons (can be used for Yes/No prompt)
 	line 4,3 = first, second button
 
 template 14 = upper half screen info with 4 lines
