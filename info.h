@@ -1,8 +1,6 @@
 #ifndef INFO_H_
 #define INFO_H_
 
-#define hInfoCreative (*(int*)(0x0000213C))
-
 typedef enum {
 	//INFO_OPTION_CAPACITY,
 	INFO_OPTION_RELEASE_COUNT,
