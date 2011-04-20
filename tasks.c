@@ -38,7 +38,7 @@ void dp_action() {
 void set_metering_spot() {
 	int metering_spot = METERING_MODE_SPOT;
 
-	pressButton_(BUTTON_SET);
+	press_button(BUTTON_SET);
 	send_to_intercom(EVENT_SET_METERING, 1, metering_spot);
 	print_icu_info();
 
@@ -46,7 +46,7 @@ void set_metering_spot() {
 }
 
 void set_whitebalance_colortemp() {
-	pressButton_(BUTTON_SET);
+	press_button(BUTTON_SET);
 	send_to_intercom(EVENT_SET_WB,         1, WB_MODE_COLORTEMP);
 	send_to_intercom(EVENT_SET_COLOR_TEMP, 2, settings.color_temp);
 	print_icu_info();
@@ -55,7 +55,7 @@ void set_whitebalance_colortemp() {
 }
 
 void set_iso_high() {
-	pressButton_(BUTTON_SET);
+	press_button(BUTTON_SET);
 	send_to_intercom(EVENT_SET_ISO, 2, 0x6F);
 	print_icu_info();
 
