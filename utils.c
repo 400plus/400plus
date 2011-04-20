@@ -224,17 +224,24 @@ void start_debug_mode() {
 }
 
 int send_to_intercom(int message, int length, int parm) {
-	int result;
-
-	result = SendToIntercom(message, length, parm);
+	int result = SendToIntercom(message, length, parm);
 	SleepTask(INTERCOM_WAIT);
 
 	return result;
 }
 
 int shutter_release() {
-	eventproc_Release();
+	int result = eventproc_Release();
 	SleepTask(EVENT_WAIT);
+
+	return result;
+}
+
+int print_icu_info() {
+	int result = eventproc_PrintICUInfo();
+	SleepTask(EVENT_WAIT);
+
+	return result;
 }
 
 void led_flash(int duration) {
