@@ -107,10 +107,7 @@ void script_stop() {
 void script_feedback() {
 	for (;;) {
 		while (status.script_running) {
-			eventproc_EdLedOn();
-			SleepTask(FEEDBACK_LENGTH);
-			eventproc_EdLedOff();
-
+			led_flash(FEEDBACK_LENGTH);
 			SleepTask(FEEDBACK_INTERVAL);
 		}
 

@@ -194,12 +194,12 @@ void iso_display(const char *buffer, int iso) {
 }
 
 void beep() {
-	if (cameraMode.beep)
+	if (cameraMode.beep) {
 		eventproc_RiseEvent("RequestBuzzer");
+		SleepTask(EVENT_WAIT);
+	}
 
-	eventproc_EdLedOn();
-	SleepTask(BEEP_LED_LENGTH);
-	eventproc_EdLedOff();
+	led_flash(BEEP_LED_LENGTH);
 }
 
 void enter_factory_mode() {
@@ -230,4 +230,14 @@ int send_to_intercom(int message, int length, int parm) {
 	SleepTask(INTERCOM_WAIT);
 
 	return result;
+}
+
+void led_flash(int duration) {
+	eventproc_EdLedOn();
+	SleepTask(EVENT_WAIT);
+
+	SleepTask(duration);
+
+	eventproc_EdLedOff();
+	SleepTask(EVENT_WAIT);
 }
