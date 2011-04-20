@@ -120,7 +120,7 @@ void script_feedback() {
 
 void script_shot(type_SHOT_ACTION action) {
 	int aeb = cameraMode.ae_bkt;
-	SendToIntercom(EVENT_SET_AE_BKT, 1, 0x00);
+	send_to_intercom(EVENT_SET_AE_BKT, 1, 0x00);
 
 	switch (action) {
 	case SHOT_ACTION_SHOT:
@@ -136,7 +136,7 @@ void script_shot(type_SHOT_ACTION action) {
 		break;
 	}
 
-	SendToIntercom(EVENT_SET_AE_BKT, 1, aeb);
+	send_to_intercom(EVENT_SET_AE_BKT, 1, aeb);
 }
 
 void sub_extended_aeb() {
@@ -148,14 +148,14 @@ void sub_extended_aeb() {
 		int tv_end   = MAX(settings.eaeb_m_min, settings.eaeb_m_max);
 
 		for (tv = tv_start; tv <= tv_end; tv ++) {
-			SendToIntercom(EVENT_SET_TV_VAL, 1, (tv << 3) + 0x10);
+			send_to_intercom(EVENT_SET_TV_VAL, 1, (tv << 3) + 0x10);
 			release_and_wait();
 
 			if (!status.script_running)
 				break;
 		};
 
-		SendToIntercom(EVENT_SET_TV_VAL, 1, tv_value);
+		send_to_intercom(EVENT_SET_TV_VAL, 1, tv_value);
 	} else {
 		int av_comp = cameraMode.av_comp;
 		int av_inc  = av_comp;
@@ -166,21 +166,21 @@ void sub_extended_aeb() {
 		int i;
 		for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
 			av_inc = ev_add(av_inc, settings.eaeb_ev);
-			SendToIntercom(EVENT_SET_AV_COMP, 1, av_inc);
+			send_to_intercom(EVENT_SET_AV_COMP, 1, av_inc);
 			release_and_wait();
 
 			if (!status.script_running)
 				break;
 
 			av_dec = ev_sub(av_dec, settings.eaeb_ev);
-			SendToIntercom(EVENT_SET_AV_COMP, 1, av_dec);
+			send_to_intercom(EVENT_SET_AV_COMP, 1, av_dec);
 			release_and_wait();
 
 			if (!status.script_running)
 				break;
 		}
 
-		SendToIntercom(EVENT_SET_AV_COMP, 1, av_comp);
+		send_to_intercom(EVENT_SET_AV_COMP, 1, av_comp);
 	}
 }
 

@@ -222,3 +222,12 @@ void start_debug_mode() {
 
 	beep();
 }
+
+int send_to_intercom(int message, int length, int parm) {
+	int result;
+
+	result = SendToIntercom(message, length, parm);
+	SleepTask(INTERCOM_WAIT);
+
+	return result;
+}

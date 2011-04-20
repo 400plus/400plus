@@ -2,6 +2,7 @@
 #define UTILS_H_
 
 #define BEEP_LED_LENGTH 25
+#define INTERCOM_WAIT   10
 
 extern int ev_sgn(int ev);
 extern int ev_inc(int ev);
@@ -24,5 +25,7 @@ extern void beep();
 extern void enter_factory_mode();
 extern void exit_factory_mode();
 extern void start_debug_mode();
+
+extern int send_to_intercom(int message, int length, int parm);
 
 #endif /* UTILS_H_ */
