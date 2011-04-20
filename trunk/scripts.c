@@ -90,7 +90,7 @@ void script_start() {
 	status.script_running = TRUE;
 
 	if (feedback_task == NULL)
-		feedback_task = CreateTask("Feedback", 0x19, 0x2000, script_feedback, 0);
+		feedback_task = CreateTask("Feedback", 5, 0x2000, script_feedback, 0);
 	else
 		UnSuspendTask(feedback_task);
 
