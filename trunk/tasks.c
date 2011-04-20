@@ -15,11 +15,11 @@ void start_up() {
 
 	// Enable (hidden) CFn.8 for ISO H
 	if (!cameraMode.cf_extend_iso)
-		SendToIntercom(EVENT_SET_CF_EXTEND_ISO, 1, 1);
+		send_to_intercom(EVENT_SET_CF_EXTEND_ISO, 1, 1);
 
 	// Enable realtime ISO change
-	SendToIntercom(EVENT_SET_REALTIME_ISO_0, 0, 0);
-	SendToIntercom(EVENT_SET_REALTIME_ISO_1, 0, 0);
+	send_to_intercom(EVENT_SET_REALTIME_ISO_0, 0, 0);
+	send_to_intercom(EVENT_SET_REALTIME_ISO_1, 0, 0);
 
 	// Read (and apply) settings from file
 	if (settings_read())
@@ -39,7 +39,7 @@ void set_metering_spot() {
 	int metering_spot = METERING_MODE_SPOT;
 
 	pressButton_(BUTTON_SET);
-	SendToIntercom(EVENT_SET_METERING, 1, metering_spot);
+	send_to_intercom(EVENT_SET_METERING, 1, metering_spot);
 	eventproc_PrintICUInfo();
 
 	beep();
@@ -47,8 +47,8 @@ void set_metering_spot() {
 
 void set_whitebalance_colortemp() {
 	pressButton_(BUTTON_SET);
-	SendToIntercom(EVENT_SET_WB,         1, WB_MODE_COLORTEMP);
-	SendToIntercom(EVENT_SET_COLOR_TEMP, 2, settings.color_temp);
+	send_to_intercom(EVENT_SET_WB,         1, WB_MODE_COLORTEMP);
+	send_to_intercom(EVENT_SET_COLOR_TEMP, 2, settings.color_temp);
 	eventproc_PrintICUInfo();
 
 	beep();
@@ -56,7 +56,7 @@ void set_whitebalance_colortemp() {
 
 void set_iso_high() {
 	pressButton_(BUTTON_SET);
-	SendToIntercom(EVENT_SET_ISO, 2, 0x6F);
+	send_to_intercom(EVENT_SET_ISO, 2, 0x6F);
 	eventproc_PrintICUInfo();
 
 	beep();
@@ -65,22 +65,22 @@ void set_iso_high() {
 void toggle_raw_jpeg() {
 	if (cameraMode.ae > 6) {
 		// Only for non-creative modes
-		SendToIntercom(EVENT_SET_IMG_FORMAT, 1, cameraMode.img_format ^ 0x03);
+		send_to_intercom(EVENT_SET_IMG_FORMAT, 1, cameraMode.img_format ^ 0x03);
 	}
 }
 
 void toggle_CfMLU() {
-	SendToIntercom(EVENT_SET_CF_MIRROR_UP_LOCK, 1, cameraMode.cf_mirror_up_lock ^ 0x01);
+	send_to_intercom(EVENT_SET_CF_MIRROR_UP_LOCK, 1, cameraMode.cf_mirror_up_lock ^ 0x01);
 }
 
 void toggle_CfFlashSyncRear() {
-	SendToIntercom(EVENT_SET_CF_FLASH_SYNC_REAR, 1, cameraMode.cf_flash_sync_rear ^ 0x01);
+	send_to_intercom(EVENT_SET_CF_FLASH_SYNC_REAR, 1, cameraMode.cf_flash_sync_rear ^ 0x01);
 }
 
 void set_intermediate_iso() {
 	if (cameraMode.ae < 6) {
 		int iso = iso_roll(cameraMode.iso);
-		SendToIntercom(EVENT_SET_ISO, 2, iso);
+		send_to_intercom(EVENT_SET_ISO, 2, iso);
 	}
 
 	SleepTask(50);
@@ -101,16 +101,16 @@ void restore_iso() {
 		iso = 0x48;
 	}
 
-	SendToIntercom(EVENT_SET_ISO, 2, iso);
+	send_to_intercom(EVENT_SET_ISO, 2, iso);
 }
 
 void restore_wb() {
 	if (cameraMode.wb == WB_MODE_COLORTEMP) {
-		SendToIntercom(EVENT_SET_WB, 1, WB_MODE_AUTO);
+		send_to_intercom(EVENT_SET_WB, 1, WB_MODE_AUTO);
 	}
 }
 
 void restore_metering() {
 	if (cameraMode.metering == METERING_MODE_SPOT)
-		SendToIntercom(EVENT_SET_METERING, 1, METERING_MODE_EVAL);
+		send_to_intercom(EVENT_SET_METERING, 1, METERING_MODE_EVAL);
 }

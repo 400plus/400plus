@@ -1,4 +1,5 @@
 #include "main.h"
+#include "utils.h"
 #include "firmware.h"
 
 #include "settings.h"
@@ -74,13 +75,13 @@ void settings_write() {
 }
 
 extern void settings_apply() {
-	SendToIntercom(EVENT_SET_AV_COMP,         1,  settings.av_comp);
-	SendToIntercom(EVENT_SET_EFCOMP,          1,  settings.flash_comp);
-	SendToIntercom(EVENT_SET_AE_BKT,          1,  settings.aeb_ev);
-	SendToIntercom(EVENT_SET_CF_SAFETY_SHIFT, 1,  settings.safety_shift);
-	SendToIntercom(EVENT_SET_CF_EMIT_FLASH,   1, !settings.emit_flash);
-	SendToIntercom(EVENT_SET_CF_EMIT_AUX,     1, !settings.af_flash);
-	SendToIntercom(EVENT_SET_COLOR_TEMP,      2,  settings.color_temp);
+	send_to_intercom(EVENT_SET_AV_COMP,         1,  settings.av_comp);
+	send_to_intercom(EVENT_SET_EFCOMP,          1,  settings.flash_comp);
+	send_to_intercom(EVENT_SET_AE_BKT,          1,  settings.aeb_ev);
+	send_to_intercom(EVENT_SET_CF_SAFETY_SHIFT, 1,  settings.safety_shift);
+	send_to_intercom(EVENT_SET_CF_EMIT_FLASH,   1, !settings.emit_flash);
+	send_to_intercom(EVENT_SET_CF_EMIT_AUX,     1, !settings.af_flash);
+	send_to_intercom(EVENT_SET_COLOR_TEMP,      2,  settings.color_temp);
 
 	if(settings.remote_delay){
 		*(int*)0x229AC = 4500;
