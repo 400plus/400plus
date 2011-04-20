@@ -86,6 +86,7 @@ typedef struct {
 
 extern type_LIST bool_list;
 extern type_LIST delay_list;
+extern type_LIST flash_list;
 extern type_LIST action_list;
 extern type_LIST sspeed_list;
 
@@ -112,6 +113,7 @@ extern type_LIST sspeed_list;
 
 #define MENUITEM_BOOLEAN(_NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, &bool_list)
 #define MENUITEM_DELAY(  _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, &delay_list)
+#define MENUITEM_AFFLASH(_NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  &flash_list)
 #define MENUITEM_ACTION( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  &action_list)
 #define MENUITEM_SSPEED( _NAME_, _VALUE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, &sspeed_list)
 
