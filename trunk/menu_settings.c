@@ -46,7 +46,6 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN("Safety Shift",      &menu_settings.safety_shift),
 	MENUITEM_CLRTEMP("Color Temp. (K)",   &menu_settings.color_temp),
 	MENUITEM_BOOLEAN("Use flash",         &menu_settings.emit_flash),
-	MENUITEM_BOOLEAN("AF flash",          &menu_settings.af_flash),
 	MENUITEM_SUBMENU("Handwave",           wave_items),
 	MENUITEM_SUBMENU("EAEB    ",           eaeb_items),
 	MENUITEM_SUBMENU("Interval",           interval_items),
@@ -73,7 +72,6 @@ void menu_settings_start() {
 	menu_settings.flash_comp     =  cameraMode.efcomp;
 	menu_settings.aeb_ev         =  cameraMode.ae_bkt;
 	menu_settings.emit_flash     = !cameraMode.cf_emit_flash;
-	menu_settings.af_flash       = !cameraMode.cf_emit_aux;
 
 	menu_create(main_menu);
 }

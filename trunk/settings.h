@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x17
+#define SETTINGS_VERSION  0x18
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -34,7 +34,6 @@ typedef struct {
 	int aeb_ev;
 	int safety_shift;
 	int emit_flash;
-	int af_flash;
 	int remote_delay;
 	int timer_timeout;
 	int timer_action;

@@ -16,11 +16,13 @@ type_MENU current_menu;
 
 char *bool_strings[]   = {"No", "Yes"};
 char *delay_strings[]  = {"No", "2s"};
+char *flash_strings[]  = {"Enabled", "Disabled", "Ext only"};
 char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
 char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
 
 type_LIST bool_list   = {length: LENGTH(bool_strings),   data : bool_strings};
 type_LIST delay_list  = {length: LENGTH(delay_strings),  data : delay_strings};
+type_LIST flash_list  = {length: LENGTH(flash_strings),  data : flash_strings};
 type_LIST action_list = {length: LENGTH(action_strings), data : action_strings};
 type_LIST sspeed_list = {length: LENGTH(sspeed_strings), data : sspeed_strings};
 
