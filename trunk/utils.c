@@ -244,6 +244,13 @@ int print_icu_info() {
 	return result;
 }
 
+int press_button(int button) {
+	int result = pressButton_(button);
+	SleepTask(EVENT_WAIT);
+
+	return result;
+}
+
 void led_flash(int duration) {
 	eventproc_EdLedOn();
 	SleepTask(EVENT_WAIT);

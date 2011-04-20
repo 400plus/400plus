@@ -322,7 +322,7 @@ void menu_repeateable_cycle(int repeating) {
 void menu_close() {
 	DeleteDialogBox(menu_dialog);
 
-	pressButton_(BUTTON_DISP);
+	press_button(BUTTON_DISP);
 	SleepTask(250);
 
 	display_refresh();

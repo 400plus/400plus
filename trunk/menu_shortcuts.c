@@ -41,7 +41,7 @@ void menu_shortcuts_start() {
 	shortcuts_storage.CfMLU           = cameraMode.cf_mirror_up_lock;
 	shortcuts_storage.CfFlashSyncRear = cameraMode.cf_flash_sync_rear;
 
-	pressButton_(BUTTON_MENU);
+	press_button(BUTTON_MENU);
 	SleepTask(100);
 
 	menu_create(menu_shortcuts);
