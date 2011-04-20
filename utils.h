@@ -2,8 +2,8 @@
 #define UTILS_H_
 
 #define BEEP_LED_LENGTH 25
-#define INTERCOM_WAIT   10
-#define EVENT_WAIT       5
+#define INTERCOM_WAIT    0
+#define EVENT_WAIT       0
 
 extern int ev_sgn(int ev);
 extern int ev_inc(int ev);
