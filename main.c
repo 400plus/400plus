@@ -175,7 +175,7 @@ void message_proxy(const int handler, char *message) {
 	}
 
 	// Use fictitious GUI modes so everything else fits nicely
-	if (FLAG_FACE_SENSOR)
+	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUI_MODE_MAIN)
 		gui_mode = GUI_MODE_FACE;
 	else
 		gui_mode = FLAG_GUI_MODE;
