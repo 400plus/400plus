@@ -232,6 +232,11 @@ int send_to_intercom(int message, int length, int parm) {
 	return result;
 }
 
+int shutter_release() {
+	eventproc_Release();
+	SleepTask(EVENT_WAIT);
+}
+
 void led_flash(int duration) {
 	eventproc_EdLedOn();
 	SleepTask(EVENT_WAIT);

@@ -193,7 +193,7 @@ void sub_interval() {
 		if (settings.interval_eaeb)
 			script_shot(SHOT_ACTION_EAEB);
 		else
-			eventproc_Release();
+			shutter_release();
 
 		if (++i < settings.interval_shots || settings.interval_shots == 0)
 			script_delay(settings.interval_time);
@@ -205,7 +205,7 @@ void sub_interval() {
 }
 
 void release_and_wait() {
-	eventproc_Release();
+	shutter_release();
 	wait_for_camera(FALSE);
 }
 
