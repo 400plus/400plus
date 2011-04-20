@@ -40,7 +40,7 @@ void set_metering_spot() {
 
 	pressButton_(BUTTON_SET);
 	send_to_intercom(EVENT_SET_METERING, 1, metering_spot);
-	eventproc_PrintICUInfo();
+	print_icu_info();
 
 	beep();
 }
@@ -49,7 +49,7 @@ void set_whitebalance_colortemp() {
 	pressButton_(BUTTON_SET);
 	send_to_intercom(EVENT_SET_WB,         1, WB_MODE_COLORTEMP);
 	send_to_intercom(EVENT_SET_COLOR_TEMP, 2, settings.color_temp);
-	eventproc_PrintICUInfo();
+	print_icu_info();
 
 	beep();
 }
@@ -57,7 +57,7 @@ void set_whitebalance_colortemp() {
 void set_iso_high() {
 	pressButton_(BUTTON_SET);
 	send_to_intercom(EVENT_SET_ISO, 2, 0x6F);
-	eventproc_PrintICUInfo();
+	print_icu_info();
 
 	beep();
 }

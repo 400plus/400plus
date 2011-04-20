@@ -29,6 +29,7 @@ extern void start_debug_mode();
 
 extern int  send_to_intercom(int message, int length, int parm);
 extern int  shutter_release();
+extern int  print_icu_info();
 extern void led_flash(int delay);
 
 #endif /* UTILS_H_ */
