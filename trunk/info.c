@@ -40,7 +40,7 @@ char *info_display() {
 		// im not sure why but calling GetDriveFreeSpace() and then pressing
 		// a button too fast will freeze the camera... perhaps GDFS() gets interrupted
 		// by the btns ISR, perhaps we should cache the result somehow and refresh it
-		// on timed basis or when we take photo.
+		// on timed basis or when we take photo. 
 	        if (!FP_GetDriveFreeSpace("A:", &i)) {
 			SleepTask(150);
 			//sprintf(message, "<> Free Space  :%8u KB", i);
