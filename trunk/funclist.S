@@ -764,6 +764,10 @@ DEF(FIO_SeekFile, 0xFFA9EA78)
 DEF(FIO_SetFileAttributes, 0xFFA9EB3C)
 DEF(FIO_SetFileTime, 0xFFA9EBFC)
 DEF(FIO_WriteFile, 0xFFA9EA84)
+DEF(FIO_something1, 0xFFA9ECB4) // good candidate for FindNext
+DEF(FIO_something1, 0xFFA9ECC0) // good candidate for FindNext
+DEF(FIO_something1, 0xFFA9EF54) // good candidate for FindNext
+DEF(FIO_something2, 0xFFA9EFA8) // good candidate for FindNext
 DEF(FJOB_Cancel, 0xFFA9E97C)
 DEF(FJOB_Create, 0xFFA9E85C)
 DEF(FM_RegisterChangeNotifyCallback, 0xFFA8DB0C)
