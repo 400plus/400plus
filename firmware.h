@@ -59,11 +59,13 @@ extern int   fclose(FILE *fp);
 
 extern int FIO_CreateFile(const char *name);
 extern int FIO_RemoveFile(const char *name);
-
 extern int FIO_OpenFile(const char *name, int flags, int mode);
 extern int FIO_ReadFile(int fd, void *buffer, long nbytes);
 extern int FIO_WriteFile(int fd, void *buf, long nbytes);
 extern int FIO_CloseFile(int fd);
+
+// free space is reported in KB, drvltr is "A:"
+extern int FP_GetDriveFreeSpace(char * drv_letter, int * result);
 
 extern void *OpenLogFile(char *name);
 extern void  CloseLogFile(void *logFile);
