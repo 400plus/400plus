@@ -105,12 +105,17 @@ extern int pressButton_(int button);
 
 extern int CreateDialogBox(int parm1, int parm2, void (*btn_handler), int template);
 extern int DeleteDialogBox(int dialog);
+#define dialog_redraw do_some_with_dialog
 extern int do_some_with_dialog(int dialog);
+#define dialog_set_property_int sub_FF8382DC
+extern int   sub_FF8382DC(int dialog, const int code, const int data);
+#define dialog_set_property_str sub_FF837FA8
+extern int   sub_FF837FA8(int dialog, const int code, const char *text);
+
 extern void InfoCreativeAppProc();
 
-extern char *sub_FF83A640();
-extern int   sub_FF8382DC(int dialog, const int code, const int data);
-extern int   sub_FF837FA8(int dialog, const int code, const char *text);
+extern char *sub_FF83A640(); // cf free space - reports wrong ?
+
 
 // Factory mode and debugging
 
