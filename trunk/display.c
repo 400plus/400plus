@@ -29,15 +29,15 @@ void display_refresh() {
 
 	display_refresh_iso();
 
-	do_some_with_dialog(MAIN_DIALOG);
+	dialog_redraw(MAIN_DIALOG);
 }
 
 void display_refresh_meteringmode() {
-	sub_FF8382DC(MAIN_DIALOG, 0x0D, 0xF6);
+	dialog_set_property_int(MAIN_DIALOG, 0x0D, 0xF6);
 }
 
 void display_refresh_whitebalance() {
-	sub_FF8382DC(MAIN_DIALOG, 0x0C, 0xCF);
+	dialog_set_property_int(MAIN_DIALOG, 0x0C, 0xCF);
 }
 
 void display_refresh_flashcomp() {
@@ -70,7 +70,7 @@ void display_refresh_flashcomp() {
 
 	value += negative ? 130 : 154;
 
-	sub_FF8382DC(MAIN_DIALOG, 0x0B, value);
+	dialog_set_property_int(MAIN_DIALOG, 0x0B, value);
 }
 
 
@@ -78,12 +78,12 @@ void display_refresh_iso() {
 	const char *text = "----";
 
 	iso_display(text, cameraMode.iso);
-	sub_FF837FA8(MAIN_DIALOG, 0x04, text);
+	dialog_set_property_str(MAIN_DIALOG, 0x04, text);
 }
 
 void display_countdown_dialog_create() {
 	if (countdown_dialog) // if dialog exists for some reason
-		do_some_with_dialog(countdown_dialog);
+		dialog_redraw(countdown_dialog);
 	else
 		countdown_dialog = DIALOG(79, InfoCreativeAppProc);
 }
@@ -101,6 +101,6 @@ void display_countdown(int seconds) {
 	else
 		sprintf(buffer, "RUN");
 
-	sub_FF837FA8(countdown_dialog, 1, buffer);
-	do_some_with_dialog(countdown_dialog);
+	dialog_set_property_str(countdown_dialog, 1, buffer);
+	dialog_redraw(countdown_dialog);
 }

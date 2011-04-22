@@ -56,7 +56,7 @@ void menu_create(type_MENU * menu) {
 	menu_destroy(current_menu);
 
 	current_menu->handle = DIALOG(22, menu->btn_handler);
-	sub_FF837FA8(current_menu->handle, 8, current_menu->name);
+	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 
 	menu_display();
 }
@@ -67,14 +67,14 @@ void menu_display() {
 		current_menu->current_item - current_menu->current_line : 0;
 
 	for(i = 0; i < 5; i++)
-		sub_FF837FA8(current_menu->handle, i + 1, menu_message(i + offset));
+		dialog_set_property_str(current_menu->handle, i + 1, menu_message(i + offset));
 
-	do_some_with_dialog(current_menu->handle);
+	dialog_redraw(current_menu->handle);
 }
 
 void menu_refresh() {
-	sub_FF837FA8(current_menu->handle, current_menu->current_line + 1, menu_message(current_menu->current_item));
-	do_some_with_dialog(current_menu->handle);
+	dialog_set_property_str(current_menu->handle, current_menu->current_line + 1, menu_message(current_menu->current_item));
+	dialog_redraw(current_menu->handle);
 }
 
 void menu_up() {

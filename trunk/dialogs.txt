@@ -20,7 +20,7 @@ almost every dialog will have some strings
 the strings are 4 numbers in format "D,L,P1,P2"
 where:
 D = current dialog number (template)
-L = current line  - which is set by sub_FF837FA8()
+L = current line  - which is set by sub_FF837FA8() or dialog_set_property_str()
 P1,P2 = param1,param2 value
 
 
