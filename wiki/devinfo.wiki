@@ -134,8 +134,7 @@ If everything goes as expected, you will get a new and shiny "AUTOEXEC.BIN" file
 ----
 = links =
   * [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation Hack Installation procedure]
-  * [http://chdk.wikia.com/wiki/400D 400d page on wikia] - read here to get started with the installation (there are links to the forum too)<br>
-  * [http://chdk.setepontos.com/index.php?topic=3290.0 CHDK forum thread for 400D/XTI]<br>
+  * [http://chdk.setepontos.com/index.php?topic=3290.0 CHDK forum thread for 400D/XTI development]<br>
   * [http://www.akae.cn/study/ebook/wrs/vx5.5/ VxWorks Programmer's Guide, Drivers API, OS Libraries and more]<br>
 <br>
 
