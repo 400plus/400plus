@@ -13,6 +13,8 @@
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
+#define DIALOG(template, handler) CreateDialogBox(0, 0, handler, template)
+
 // Events for SendToIntercom
 #define EVENT_SET_AE         0x01
 #define EVENT_SET_METERING   0x02
@@ -235,7 +237,6 @@ typedef struct {                 // [*] Used and tested, others unknown
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
 #define FLAG_CAMERA_BUSY    hRelSem
-#define FLAG_GUI_MODE       GUIMode
 #define FLAG_METMOD_DIALOG  (*(int*)(0x000047EC)) // ?
 #define FLAG_AFSLCT_DIALOG  (*(int*)(0x00004804))
 #define FLAG_FACTORY_DIALOG hFaMain
@@ -246,24 +247,50 @@ typedef struct {                 // [*] Used and tested, others unknown
 // Documented flags
 #define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
 
-// Values for FLAG_GUI_MODE
-#define GUI_MODE_MAIN      0x00
-#define GUI_MODE_REVIEW    0x01
-#define GUI_MODE_MENU      0x02
-#define GUI_MODE_INFO      0x04
-#define GUI_MODE_ISO       0x09
-#define GUI_MODE_WB        0x0A
-#define GUI_MODE_AFMODE    0x0B
-#define GUI_MODE_METER     0x0C
-#define GUI_MODE_DRIVE     0x0F
-#define GUI_MODE_AFPATTERN 0x10
-#define GUI_MODE_OFF       0x11
-#define GUI_MODE_FLASHEV   0x1B
+#define FLAG_GUI_MODE       GUIMode
+typedef enum { // GUIModes
+	GUI_MODE_MAIN,		// 0x00 - main screen (white one)
+	GUI_MODE_REVIEW,	// 0x01 - review photos mode (activated with play btn)
+	GUI_MODE_MENU,		// 0x02 - main menu
+	GUI_MODE_RTCSET,	// 0x03 - ?
+	GUI_MODE_INFO,		// 0x04 - info screen (menu -> disp.)
+	GUI_MODE_NOCFWARNING,	// 0x05 - no CF card
+	GUI_MODE_QR,		// 0x06 - review image right after shot
+	GUI_MODE_FULLNOWARNING,	// 0x07 - ?
+	GUI_MODE_PICTURESTYLE,	// 0x08 - Picture Style
+	GUI_MODE_ISO,		// 0x09 - Iso
+	GUI_MODE_WB,		// 0x0A - WB
+	GUI_MODE_AFMODE,	// 0x0B - AF mode choosing screen
+	GUI_MODE_METER,		// 0x0C - Mettering screen ? (Sergei's name: MES_MODE)
+	GUI_MODE_QUAL,		// 0x0D - Quality screen ?
+	GUI_MODE_UNKNOWN_1,	// 0x0E - ?
+	GUI_MODE_DRIVE,		// 0x0F - Drive ?
+	GUI_MODE_AFPATTERN,	// 0x10 - AF zones select
+	GUI_MODE_OFF,		// 0x11 - ? (Sergei's name: OLC_MODE)
+	GUI_MODE_BULBCOUNT,	// 0x12 - Bulb counder screen
+	GUI_MODE_CFFULL,	// 0x13 - CF is full
+	GUI_MODE_ERRCF_ERROR,	// 0x14 - CF Error ?
+	GUI_MODE_ERRCF_FULLNO,	// 0x15 - ?
+	GUI_MODE_ERRCF_PROTECT,	// 0x16 - ?
+	GUI_MODE_UNKNOWN_2,	// 0x17 - ?
+	GUI_MODE_ERRORCODE,	// 0x18 - error code screen
+	GUI_MODE_USBCONNECTTYPE,// 0x19 - ?
+	GUI_MODE_DIRECTTRANSFER,// 0x1A - ?
+	GUI_MODE_FLASHEV,	// 0x1B - Flash EV ?
+	GUI_MODE_INCOMPIMAGE,	// 0x1C - ?
+	GUI_MODE_BATTEMPTY,	// 0x1D - Battery empty
+	GUI_MODE_ACTIVESWEEP,	// 0x1E - Sweeping the mirror ?
+	GUI_MODE_ACTIVESWEEP_OLC,// 0x1F - Sweeping the mirror ?
 
 // Fictitious modes
-#define GUI_MODE_FACE      0xFF
-#define GUI_MODE_FACTORY   0xFE
-#define GUI_MODE_400PLUS   0xFD
+	GUI_MODE_400PLUS = 0x2D,// 400Plus mode
+	GUI_MODE_FACTORY = 0x2E,// Factory menu
+	GUI_MODE_FACE    = 0x2F	// Face mode
+} type_GUI_MODE;
+
+
+// Handler for buttons in dialogs
+typedef void(*type_BTN_HANDLER)(int r0, int r1, int code1, int r3, int r4, int r5, int r6, int code2);
 
 // Action definitions
 typedef void(*type_TASK)();

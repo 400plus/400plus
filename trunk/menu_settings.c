@@ -55,12 +55,14 @@ type_MENUITEM menu_settings_items[] = {
 };
 
 type_MENU main_menu = {
-	name      : "Settings",
-	length    : LENGTH(menu_settings_items),
-	items     : menu_settings_items,
-	action    : menu_settings_save,
-	dp_action : menu_presets_save_start,
-	reorder   : FALSE
+	name        : "Settings",
+	length      : LENGTH(menu_settings_items),
+	items       : menu_settings_items,
+	action      : menu_settings_save,
+	dp_action   : menu_presets_save_start,
+	reorder     : FALSE,
+	gui_mode    : GUI_MODE_400PLUS,
+	btn_handler : InfoCreativeAppProc
 };
 
 void menu_settings_start() {
@@ -73,7 +75,7 @@ void menu_settings_start() {
 	menu_settings.aeb_ev         =  cameraMode.ae_bkt;
 	menu_settings.emit_flash     = !cameraMode.cf_emit_flash;
 
-	menu_create(main_menu);
+	menu_create(&main_menu);
 }
 
 void menu_settings_save() {

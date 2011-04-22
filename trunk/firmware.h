@@ -103,9 +103,10 @@ extern int pressButton_(int button);
 
 // Display
 
-extern int CreateDialogBox(int parm1, int parm2, int *parm3, int template);
+extern int CreateDialogBox(int parm1, int parm2, void (*btn_handler), int template);
 extern int DeleteDialogBox(int dialog);
 extern int do_some_with_dialog(int dialog);
+extern void InfoCreativeAppProc();
 
 extern char *sub_FF83A640();
 extern int   sub_FF8382DC(int dialog, const int code, const int data);
