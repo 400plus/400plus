@@ -85,7 +85,7 @@ void display_countdown_dialog_create() {
 	if (countdown_dialog) // if dialog exists for some reason
 		do_some_with_dialog(countdown_dialog);
 	else
-		countdown_dialog = CreateDialogBox(0, 0, (int*)0xFF840AC4, 79);
+		countdown_dialog = DIALOG(79, InfoCreativeAppProc);
 }
 
 void display_countdown_dialog_destroy() {

@@ -14,14 +14,16 @@ type_MENUITEM menu_developer_items[] = {
 };
 
 type_MENU menu_developer = {
-	name    : "Developer",
-	length  : LENGTH(menu_developer_items),
-	items   : menu_developer_items,
-	action  : NULL,
-	reorder : FALSE
+	name        : "Developer",
+	length      : LENGTH(menu_developer_items),
+	items       : menu_developer_items,
+	action      : NULL,
+	reorder     : FALSE,
+	gui_mode    : GUI_MODE_400PLUS,
+	btn_handler : InfoCreativeAppProc
 };
 
 void menu_developer_start() {
 	beep();
-	menu_create(menu_developer);
+	menu_create(&menu_developer);
 }

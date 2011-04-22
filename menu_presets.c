@@ -42,27 +42,31 @@ type_MENUITEM presets_load_items[] = {
 };
 
 type_MENU menu_presets_save = {
-	name      : "Save presets",
-	length    : LENGTH(presets_save_items),
-	items     : presets_save_items,
-	dp_action : menu_settings_start
+	name        : "Save presets",
+	length      : LENGTH(presets_save_items),
+	items       : presets_save_items,
+	dp_action   : menu_settings_start,
+	gui_mode    : GUI_MODE_400PLUS,
+	btn_handler : InfoCreativeAppProc
 };
 
 type_MENU menu_presets_load = {
-	name      : "Load presets",
-	length    : LENGTH(presets_load_items),
-	items     : presets_load_items,
-	dp_action : menu_shortcuts_start
+	name        : "Load presets",
+	length      : LENGTH(presets_load_items),
+	items       : presets_load_items,
+	dp_action   : menu_shortcuts_start,
+	gui_mode    : GUI_MODE_400PLUS,
+	btn_handler : InfoCreativeAppProc
 };
 
 void menu_presets_save_start() {
 	beep();
-	menu_create(menu_presets_save);
+	menu_create(&menu_presets_save);
 }
 
 void menu_presets_load_start() {
 	beep();
-	menu_create(menu_presets_load);
+	menu_create(&menu_presets_load);
 }
 
 void preset_save_1() {

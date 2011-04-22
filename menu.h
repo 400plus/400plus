@@ -75,13 +75,19 @@ struct MENUITEM {
 };
 
 typedef struct {
-	char          *name;
-	int            length;
-	type_MENUITEM *items;
-	type_TASK      action;
-	type_TASK      dp_action;
-	int            reorder;
-	int           *ordering;
+	char            *name;
+	int              length;
+	type_MENUITEM   *items;
+	type_TASK        action;
+	type_TASK        dp_action;
+	int              reorder;
+	int             *ordering;
+	int              handle;       // dialog handle returned from CreateDialogBox()
+	int              current_line;
+	int              current_item;
+	int              item_grabbed; // for menu reordering
+	type_GUI_MODE    gui_mode;     // the GUIMode this dialog is using
+	type_BTN_HANDLER btn_handler;  // routine to proccess the key presses
 } type_MENU;
 
 extern type_LIST bool_list;
@@ -126,7 +132,7 @@ extern type_LIST sspeed_list;
 #define MENUITEM_SCRIPT(_NAME_, _VALUE_) MENUITEM_LAUNCH(_NAME_, TRUE,  _VALUE_)
 #define MENUITEM_TASK(  _NAME_, _VALUE_) MENUITEM_LAUNCH(_NAME_, FALSE, _VALUE_)
 
-extern void menu_create(type_MENU menu);
+extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
 extern void menu_up();

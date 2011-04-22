@@ -27,13 +27,15 @@ type_MENUITEM menu_shortcut_items[] = {
 };
 
 type_MENU menu_shortcuts = {
-	name      : "Shortcuts",
-	length    : LENGTH(menu_shortcut_items),
-	items     : menu_shortcut_items,
-	action    : menu_shortcuts_save,
-	dp_action : menu_presets_load_start,
-	reorder   : TRUE,
-	ordering  : settings.shortcuts_order
+	name        : "Shortcuts",
+	length      : LENGTH(menu_shortcut_items),
+	items       : menu_shortcut_items,
+	action      : menu_shortcuts_save,
+	dp_action   : menu_presets_load_start,
+	reorder     : TRUE,
+	ordering    : settings.shortcuts_order,
+	gui_mode    : GUI_MODE_400PLUS,
+	btn_handler : InfoCreativeAppProc
 };
 
 void menu_shortcuts_start() {
@@ -47,7 +49,7 @@ void menu_shortcuts_start() {
 	press_button(BUTTON_MENU);
 	SleepTask(100);
 
-	menu_create(menu_shortcuts);
+	menu_create(&menu_shortcuts);
 }
 
 void menu_shortcuts_save() {
@@ -60,5 +62,5 @@ void menu_shortcuts_save() {
 
 	settings_write();
 
-	menu_close();
+	//menu_close();
 }
