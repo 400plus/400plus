@@ -37,7 +37,7 @@ char *info_display() {
 
 	switch (info_option) {
 	case INFO_OPTION_CAPACITY:
-		// im not sure why but calling GetDriveFreeSpace() and then pressing
+		// im not sure why, but calling GetDriveFreeSpace() and then pressing
 		// a button too fast will freeze the camera... perhaps GDFS() gets interrupted
 		// by the btns ISR, perhaps we should cache the result somehow and refresh it
 		// on timed basis or when we take photo.

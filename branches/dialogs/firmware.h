@@ -2,13 +2,14 @@
 #define FIRMWARE_H_
 
 // Variables, Flags, Pointers, Handlers
-extern unsigned int	  BodyID;
-extern unsigned short ModelID;
+extern unsigned int	BodyID;
+extern unsigned short	ModelID;
 
 extern int BurstCounter;  // remaining shots in burst mode (displayed in VF's bottom right corner)
-extern int hInfoCreative; // dialog handler for info screen
+extern type_DIALOG * hInfoCreative; // dialog handle for info screen
+#define hMainDialog (type_DIALOG*)(*(int*)(0x47F0))
 extern int FaceStatus;    // 0 = no face, 1 = face (disp off)... see #32, this could give some solution
-extern int GUIMode;
+extern int GUIMode;       // Current GUI Mode
 extern int hRelSem;       // Camera Busy Flag (Release Semaphore ?)
 extern int hFaMain;       // Factory Dialog
 extern int hMnBg;         // Menu Dialog
@@ -103,16 +104,17 @@ extern int pressButton_(int button);
 
 // Display
 
-extern int CreateDialogBox(int parm1, int parm2, void (*btn_handler), int template);
-extern int DeleteDialogBox(int dialog);
+#define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template)
+extern void * CreateDialogBox(int parm1, int parm2, type_BTN_HANDLER, int template);
+extern int DeleteDialogBox(void * dialog);
 #define dialog_redraw do_some_with_dialog
-extern int do_some_with_dialog(int dialog);
+extern int do_some_with_dialog(void * dialog);
 #define dialog_set_property_int sub_FF8382DC
-extern int   sub_FF8382DC(int dialog, const int code, const int data);
+extern int   sub_FF8382DC(void * dialog, const int code, const int data);
 #define dialog_set_property_str sub_FF837FA8
-extern int   sub_FF837FA8(int dialog, const int code, const char *text);
+extern int   sub_FF837FA8(void * dialog, const int code, const char *text);
 
-extern void InfoCreativeAppProc();
+extern int InfoCreativeAppProc();
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 

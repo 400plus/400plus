@@ -34,8 +34,10 @@ type_MENU menu_shortcuts = {
 	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
-	gui_mode    : GUI_MODE_400PLUS,
-	btn_handler : InfoCreativeAppProc
+	//gui_mode    : GUI_MODE_400PLUS,
+	gui_mode    : GUI_MODE_400PLUS_NEW,
+	//btn_handler : InfoCreativeAppProc
+	btn_handler : menu_buttons_400plus
 };
 
 void menu_shortcuts_start() {
@@ -46,8 +48,8 @@ void menu_shortcuts_start() {
 	shortcuts_storage.cf_mirror_up_lock  = cameraMode.cf_mirror_up_lock;
 	shortcuts_storage.cf_flash_sync_rear = cameraMode.cf_flash_sync_rear;
 
-	press_button(BUTTON_MENU);
-	SleepTask(100);
+	//press_button(BUTTON_MENU);
+	//SleepTask(100);
 
 	menu_create(&menu_shortcuts);
 }

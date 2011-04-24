@@ -82,7 +82,7 @@ typedef struct {
 	type_TASK        dp_action;
 	int              reorder;
 	int             *ordering;
-	int              handle;       // dialog handle returned from CreateDialogBox()
+	type_DIALOG     *handle;       // dialog handle returned from CreateDialogBox()
 	int              current_line;
 	int              current_item;
 	int              item_grabbed; // for menu reordering
@@ -148,5 +148,7 @@ extern void menu_drag_drop();
 
 extern void menu_submenu_next();
 extern void menu_submenu_prev();
+
+int menu_buttons_400plus(type_DIALOG * dialog, int r1, int code1, int r3, int r4, int r5, int r6, int code2);
 
 #endif /* MENU_H_ */

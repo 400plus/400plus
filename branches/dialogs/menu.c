@@ -40,25 +40,83 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
+int menu_buttons_400plus(type_DIALOG * dialog, int r1, int code1, int r3, int r4, int r5, int r6, int button) {
+	type_ACTION *action;
+
+	//printf("AF1: dialog=%p[0x%02X], r1=%02X, code1=%02X, r3=%02X, r4=%02X, r5=%02X, r6=%02X, button=%02X\n",
+	//		dialog,*((int*)dialog+1),r1,code1,r3,r4,r5,r6,button);
+
+	//char str[27];
+	//sprintf(str,"0x%02X, 0x%02X",code1,button);
+	//dialog_set_property_str(current_menu->handle,8,str);
+	//dialog_redraw(current_menu->handle);
+
+	// Loop over all the actions from 400plus
+	//for (action = actions_400plus; ! IS_EOL(action); action++) {
+		// Check whether this action corresponds to the event received
+	//	if (action->button == button) {
+			beep();
+			// Launch the defined task
+			//if (action->task[0])
+			//	ENQUEUE_TASK(action->task[0]);
+
+			//printf("AF: catched\n");
+	//		return 1;
+	//		break;
+	//	}
+	//}
+
+	//dialog_redraw(dialog);
+	return 1;
+}
+
 void menu_destroy(type_MENU * menu) {
+	// GUI_DisplayMode();
+	GUI_Lock();
+	GUI_PalleteInit();
+
 	if (menu->handle != 0)
 		DeleteDialogBox(menu->handle);
 	menu->handle = 0;
 	menu->current_line = 0;
 	menu->current_item = 0;
 	menu->item_grabbed = FALSE;
+
+	GUI_StartMode(GUI_MODE_OLC);
+	CreateDialogBox_OlMain();
+
+	GUI_UnLock();
+	GUI_PalleteUnInit();
 }
 
 void menu_create(type_MENU * menu) {
 	current_menu = menu;
 	FLAG_GUI_MODE = current_menu->gui_mode;
 
-	menu_destroy(current_menu);
+	GUI_Lock();
+	GUI_PalleteInit();
+	GUI_StartMode(current_menu->gui_mode);
+	GUI_ClearImage();
 
-	current_menu->handle = DIALOG(22, menu->btn_handler);
+	{ // do we need this block ?
+		if (menu->handle != 0)
+			DeleteDialogBox(menu->handle);
+		menu->handle = 0;
+		menu->current_line = 0;
+		menu->current_item = 0;
+		menu->item_grabbed = FALSE;
+	}
+
+	current_menu->handle = dialog_create(22, menu->btn_handler);
 	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 
 	menu_display();
+
+	GUI_UnLock();
+	GUI_PalleteUnInit();
+	GUI_ClearImage();
+	SetTurnDisplayEvent_1_after_2(); // ?? Every dialog ends with this. Could be "toggle screen on". Not tested.
+	//SetTurnDisplayEvent_2_after_1(); // will turn screen off
 }
 
 void menu_display() {

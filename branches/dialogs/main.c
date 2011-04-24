@@ -60,6 +60,20 @@ type_ACTION actions_400plus[]  = {
 	END_OF_LIST
 };
 
+type_ACTION actions_400plus_new[]  = {
+	{GUI_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
+	{GUI_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
+	{GUI_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
+	{GUI_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
+	//{GUI_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
+	{GUI_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
+	{GUI_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
+	{GUI_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
+	{GUI_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
+	{GUI_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
+	END_OF_LIST
+};
+
 type_ACTION actions_meter[] = {
 	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
 	END_OF_LIST
@@ -93,11 +107,12 @@ type_ACTION actions_af[] = {
 };
 
 type_CHAIN chains[] = {
-	{GUI_MODE_OFF,       actions_main},
+	{GUI_MODE_OLC,       actions_main},
 	{GUI_MODE_MAIN,      actions_main},
 	{GUI_MODE_MENU,      actions_menu},
 	{GUI_MODE_INFO,      actions_info},
 	{GUI_MODE_400PLUS,   actions_400plus},
+	{GUI_MODE_400PLUS_NEW,   actions_400plus_new},
 	{GUI_MODE_METER,     actions_meter},
 	{GUI_MODE_WB,        actions_wb},
 	{GUI_MODE_ISO,       actions_iso},
@@ -121,14 +136,15 @@ void initialize_display() {
 
 void message_proxy(const int handler, char *message) {
 	int gui_mode;
-	int button = message[1];
-	int holds  = message[0] > 1 ? message[2] : FALSE;
+	int message_len = message[0];
+	int event       = message[1];
+	int holds       = message_len > 1 ? message[2] : FALSE;
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
 	// Status-independent events and special cases
-	switch (message[1]) {
+	switch (event) {
 	case EVENT_SETTINGS: // Mode dial moved, settings changed
 		// Restore display
 		ENQUEUE_TASK(restore_display);
@@ -145,7 +161,7 @@ void message_proxy(const int handler, char *message) {
 		}
 		goto pass_message;
 	case BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
-		button = (message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT;
+		event = (message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT;
 		holds = FALSE;
 		break;
 	case BUTTON_DP: // DP Button while a script is running
@@ -157,7 +173,7 @@ void message_proxy(const int handler, char *message) {
 	}
 
 	// Check for button-up events, even if the current GUI mode does not match
-	if (status.button_down && status.button_down == button && !holds) {
+	if (status.button_down && status.button_down == event && !holds) {
 		status.button_down = FALSE;
 
 		// Launch the defined task
@@ -190,11 +206,12 @@ void message_proxy(const int handler, char *message) {
 			for (action = chain->actions; ! IS_EOL(action); action++) {
 
 				// Check whether this action corresponds to the event received
-				if (action->button == button) {
+				if (action->button == event) {
+
 					// Consider buttons with "button down" and "button up" events
 					// and save "button up" parameters for later use
 					if (action->holds && holds) {
-						status.button_down    = button;
+						status.button_down    = event;
 						status.button_up_task = action->task[1];
 						status.button_up_resp = action->resp;
 					}
