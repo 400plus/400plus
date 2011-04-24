@@ -231,6 +231,24 @@ int send_to_intercom(int message, int length, int parm) {
 }
 
 int shutter_release() {
+
+	extern char * aRelSem;
+
+	if (hRelSem == 0) {
+		hRelSem = CreateBinarySemaphore(aRelSem, 0);
+	}
+
+	SendToIntercom(0x53, 0, 0);
+	SendToIntercom(0x6D, 1, 1);
+
+	TakeSemaphore(hRelSem, 30000);
+	DeleteSemaphore(hRelSem);
+	hRelSem = 0;
+
+	SleepTask(EVENT_WAIT);
+	return 0;
+
+	// old way
 	int result = eventproc_Release();
 	SleepTask(EVENT_WAIT);
 
