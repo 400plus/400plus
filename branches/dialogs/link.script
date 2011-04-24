@@ -1,0 +1,24 @@
+SECTIONS {
+	first 0x7F0000 :
+	{
+		entry.o;
+		entry_subs.o;
+		gui.o;
+		init.o;
+		main.o;
+		info.o;
+		tasks.o;
+		utils.o;
+		menu.o;
+		menu_presets.o;
+		menu_settings.o;
+		menu_developer.o;
+		menu_shortcuts.o;
+		display.o;
+		settings.o;
+		presets.o;
+		scripts.o;
+		viewfinder.o;
+		af_patterns.o;
+	}
+}
