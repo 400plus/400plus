@@ -1,4 +1,4 @@
-#summary 400plus UserGuide in German r327
+#summary 400plus UserGuide in German r357
 
 = Translation =
 German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
@@ -164,10 +164,19 @@ In den `Kreativmodi` sind folgende Extras aktiviert:
 
 Weitere Änderungen des Verhaltens der Kamera, welche oberhalb nicht erklärt wurden.
 
-== Auslösungszähler (“Release count”) ==
+ * The total number of shots made by this camera.
+ * The version number of 400plus currently installed.
+
+Use `SET` and `LEFT` / `RIGHT` to change the value displayed.
+
+
+= Erweiterte Info ==
 
 Im “Kamera-Einstellungen”-Bildschirm (drücken Sie `DISP.` im Standard-Kameramenü) wird nun in der letzten Zeile 
-anstelle der Kapazität der Speicherkarte angezeigt wie oft die Kamera ausgelöst wurde.
+anstelle der Kapazität der Speicherkarte folgendes angezeigt:
+ * Die Gesamtanzahl der Aufnahmen, welche mit der Kamera gemacht wurden.
+ * Die Versionsnummer des aktuell installierten 400plus.
+
 
 == Der Nasendrücker ==
 
