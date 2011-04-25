@@ -155,7 +155,9 @@ From the 400plus menu, go down to the "Developers menu" entry and press `SET`:
  * _*Leave factory mode*_: Puts the camera back into "normal mode".
  * _*Start debug mode*_: The camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`..
 
-*NOTE*:Remember to leave the "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in that mode.
+*NOTE*: After entering the "factory mode", the "factory menu" will remain available until the camera is powered down; exiting the "factory mode" will not disable the "factory menu".
+
+*NOTE*: Remember to leave the "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in that mode.
 
 = Notes =
 
