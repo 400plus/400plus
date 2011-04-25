@@ -31,7 +31,6 @@ Sub-menus are displayed as "`ITEM>SUBITEM`"; use the front dial to roll to the n
  * _*Safety shift*_: When active, and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid a under/over-exposure, if the value is too small/large for the scene.
  * _*Color Temp. (K)*_: Set a user-defined color temperature (activate it later pressing `DIRECT PRINT` at the white balance selection dialog).
  * _*Flash*_: Force the deactivation of the flash (during the shot), even if it has been raised.
- * _*AF assist beam*_: Force the deactivation of the flash (during the AF phase), even if it has been raised.
  * _*Handwave*_: This sub-menu configures the [UserGuide#Hand_Waving Hand Waving] script:
     * Delay: select whether this script should take the shot immediately, or wait for 2 seconds.
     * Action: action to be performed.
@@ -63,6 +62,7 @@ To access the shortcuts menu, just press the `DIRECT PRINT` button from the main
  * _*Intervalometer*_: Start the [UserGuide#Intervalometer Intervalometer] script.
  * _*Hand waving*_: Start the [UserGuide#Hand_Waving Hand Waving] script.
  * _*Self timer*_: Start the [UserGuide#Self_Timer Self Timer] button.
+ * _*AF assist beam*_: Force the deactivation of the flash (during the AF phase), even if it has been raised.
  * _*Mirror lock-up*_: Enable / disable the "mirror lock-up" custom function.
  * _*Rear curtain flash*_: Enable / disable the "sync flash to the second curtain" custom function.
 
@@ -99,6 +99,16 @@ This script will fire the camera when the "display-off sensor" at the back of th
 
 This script simply adds a configurable pause before shooting the camera; can run the [UserGuide#Extended_AEB Extended AEB] or the [UserGuide#Intervalometer Intervalometer] scripts, if configured at the "Action" sub-item.
 
+= The presets =
+
+*WARNING*: This presets feature is still experimental, use with care.
+
+A "preset" is a complete snapshot containing all the settings and configuration parameters from the camera. Presets can be used to preconfigure the camera for a specific shooting situation (like "landscape", "portrait", ...), and later have a quick access to that configuration.
+
+Up to 5 presets can be stored on the card. To store a preset, press `DP` while in [UserGuide#The_menu the 400plus menu]; then select a slot and press `SET` (if a slot has been previously used, its content get overwritten). To recover a preset, press `DP` while in [UserGuide#The_shortcuts_menu the shortcuts menu]; then select a preset and press `SET` (if a slot is empty, nothing happens).
+
+*NOTE*: When a preset is recovered, all camera parameters get changed, even the AE mode; notice that the camera may operate in an AE mode different from the AE mode currently selected in the main dial.
+
 = The AF-Pattern selection =
 
 Press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog; then press `ZOOM IN` again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the patterns, then half-press the shutter button to exit the dialog.
@@ -127,6 +137,7 @@ Other changes to the camera behavior, not described above.
 In the "camera settings" screen (press `DISP` at the _standard_ camera menu), the last line now displays the following information (instead of the card's free space):
  * The total number of shots made by this camera.
  * The version number of 400plus currently installed.
+ * The "BodyID" (an internal number, unique to each camera).
 
 Use `SET` and `LEFT` / `RIGHT` to change the value displayed.
 
@@ -136,13 +147,13 @@ While looking through the viewfinder, the `ISO` and `WB` buttons are no longer a
 
 == Factory menu and debug mode ==
 
+*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
+
 From the 400plus menu, go down to the "Developers menu" entry and press `SET`:
 
  * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
  * _*Leave factory mode*_: Puts the camera back into "normal mode".
  * _*Start debug mode*_: The camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`..
-
-*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
 *NOTE*:Remember to leave the "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in that mode.
 
@@ -163,4 +174,4 @@ The spot metering mode is like the _standard_ "partial metering" mode, but the a
 The following relevant bugs have been reported and confirmed:
 
  * Issue #15: Exposure changes during EAEB.
- * Issue #18: Wrong configuration restored.
+ * Issue #38: Presets: Wrong AE mode restored during power-up.
