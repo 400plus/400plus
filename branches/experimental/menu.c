@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "display.h"
 #include "firmware.h"
+#include "languages.h"
 
 #include "menu.h"
 
@@ -9,10 +10,10 @@ char menu_buffer[32];
 
 type_MENU * current_menu;
 
-char *bool_strings[]   = {"No", "Yes"};
-char *delay_strings[]  = {"No", "2s"};
-char *flash_strings[]  = {"Enabled", "Disabled", "Ext only"};
-char *action_strings[] = {"One shot", "Ext. AEB", "Interval"};
+char *bool_strings[]   = {LP_WORD(L_NO), LP_WORD(L_YES)};
+char *delay_strings[]  = {LP_WORD(L_NO), LP_WORD(L_2S)};
+char *flash_strings[]  = {LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_ONLY)};
+char *action_strings[] = {LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL)};
 char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
 
 type_LIST bool_list   = {length: LENGTH(bool_strings),   data : bool_strings};
@@ -351,7 +352,7 @@ char *menu_message(int item_id) {
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
 		if (item->menuitem_ev.zero_means_off && *item->menuitem_ev.value == 0)
-			menu_print_char(menu_buffer, name, "Off");
+			menu_print_char(menu_buffer, name, LP_WORD(L_OFF));
 		else
 			menu_print_ev(menu_buffer, name, *item->menuitem_ev.value);
 		break;
@@ -360,7 +361,7 @@ char *menu_message(int item_id) {
 		break;
 	case MENUITEM_TYPE_INT:
 		if (item->menuitem_int.zero_means_unlimited && *item->menuitem_int.value == 0)
-			menu_print_char(menu_buffer, name, "No limit");
+			menu_print_char(menu_buffer, name, LP_WORD(L_NO_LIMIT));
 		else
 			menu_print_int(menu_buffer, name, *item->menuitem_int.value, item->menuitem_int.format);
 		break;

@@ -130,6 +130,10 @@ extern int ioGlobalStdSet(int handle, int file);
 
 // shutter stuff
 extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
-char * aRelSem;		// semaphore name
+extern char * aRelSem;	// semaphore name
+
+
+// language
+extern void GetLanguageStr(int lang_id, char * lang_str);
 
 #endif /* FIRMWARE_H_ */
