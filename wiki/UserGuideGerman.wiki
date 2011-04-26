@@ -125,13 +125,13 @@ Standardmäßig wird das Skript warten, bis etwas den Sensor  verdeckt und wiede
 Dieses Skript fügt eine konfigurierbare Pause ein, beor die Kamera ausgelöst wird; dieses Skript kann das [UserGuideGerman#Extended_AEB Extended AEB] oder das [UserGuideGerman#Intervalometer Intervalometer] Skript starten, wenn diese im "Action" Unterpunkt eingestellt wurden.
   
 = Die Presets =
-  
+
 *WARNUNG*: Dieses Feature ist noch experimentell, benutzen Sie es nur mit entsprechender Vorsicht.
-  
+
 Ein "Preset" ist ein komplettes Abbild Ihrer Einstellungen, es enthält ein komplettes Abbild der Kameraeinstellungen. Presets können benutzt werden um die Kamera für bestimmte Aufnahmesituationen vorzukonfigurieren (wie z.B. "Landschaft", "Portrait","Low Light", Vögel im Flug", usw.), und erlauben es Ihnen später schnellen Zugriff auf diese Konfigurationen zu haben.
-  
+
 Presets werden auf der CF-Speicherkarte gesichert.  Bis zu 5 Presets können so gespeichert werden. Um ein Preset zu speichern, drücken Sie die `DP`-Taste, während Sie sich im [UserGuideGerman#Das_Men%FC 400plus Menü] befinden; wählen Sie einen Speicherplatz aus und drücken Sie die `SET`-Taste (falls in dem gewählten Slot bereits ein Preset gesichert ist, wird dieses überschrieben).  Um ein Preset abzurufen, drücken Sie die `DP`-Taste, während Sie sich im [UserGuideGerman#Das_Shortcutmen%FC Shortcutmenü] befinden; wählen Sie nun das gewünschte Preset und drücken Sie die `SET`-Taste (falls der gewählte Speicherplatz leer ist passiert nichts).
- 
+
 *Anmerkung*: Wenn ein Preset abgerufen wird werden alle Kameraeinstellungen geändert, selbst der AE-Modus; beachten Sie also , dass die Kamera sich in einem anderen AE-Modus befinden könnte als dem momentan am Hauptwahlrad eingestellten.
 
 = DIE AF-Felder-Auswahl =
