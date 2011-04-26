@@ -35,9 +35,9 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial to roll to the 
     * Delay: select whether this script should take the shot immediately, or wait for 2 seconds.
     * Action: action to be performed.
     * Repeat: if selected, the script will restart itself after each shot, so you can wave your hand again to take another shot.
-    * Instant: if selected, the script shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
+    * Instant: if selected, the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Ext. AEB*_: This sub-menu configures the [UserGuide#Extended_AEB Extended AEB] script:
-    * Frames: number of frames to shot.
+    * Frames: number of frames to shoot.
     * Step (EV): separation in EV between shots.
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Manual [: minimum shutter speed in `M` mode.
@@ -55,7 +55,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial to roll to the 
 
 = The shortcuts menu =
 
-To access the shortcuts menu, press the `DIRECT PRINT` button from the main dialog (only valid if the "Shortcuts menu" ia activated from the 400plus Settings menu); navigate this menu like a normal menu, and press `SET` to apply a change or launch a script:
+To access the shortcuts menu, press the `DIRECT PRINT` button from the main dialog (only valid if the "Shortcuts menu" is activated from the 400plus Settings menu); navigate this menu like a normal menu, and press `SET` to apply a change or launch a script:
 
  * _*Intermediate ISO*_: Roll through the intermediate ISOs.
  * _*Extended AEB*_: Start the [UserGuide#Extended_AEB Extended AEB] script.
@@ -149,7 +149,7 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 
 *WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
-From the 400plus menu, scroll down to the "Developer menu" selection and press `SET`:
+From the 400plus menu, scroll down to the "Developer's menu" selection and press `SET`:
 
  * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
  * _*Leave factory mode*_: Puts the camera back into "normal mode".
