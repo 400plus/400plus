@@ -230,6 +230,7 @@ int send_to_intercom(int message, int length, int parm) {
 	return result;
 }
 
+#if 0
 int shutter_release_disasm() {
 
 	extern char * aRelSem;
@@ -248,6 +249,7 @@ int shutter_release_disasm() {
 	SleepTask(EVENT_WAIT);
 	return 0;
 }
+#endif
 
 int shutter_release() {
 	int result = eventproc_Release();
