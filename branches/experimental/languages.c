@@ -158,7 +158,7 @@ void LangPlus_lang_packs_init() {
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_HANDWAVE,		"Handwave");
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_TIMER_SPACES,	"Timer   ");
 	//Maybe to long?
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_IR_REMOTE_DELAY,	"IR Fernausl. Verzögerung");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_IR_REMOTE_DELAY,	"IR Fernausl. Verz.");
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DEVELOPERS_MENU,	"Entwicklermenü");
 
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SHORTCUTS,		"Shortcuts");
