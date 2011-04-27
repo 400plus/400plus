@@ -5,57 +5,58 @@
 #include "utils.h"
 #include "settings.h"
 #include "firmware.h"
+#include "languages.h"
 
 #include "menu_settings.h"
 
 type_SETTINGS menu_settings;
 
 type_MENUITEM wave_items[] = {
-	MENUITEM_DELAY  ("Delay",   &menu_settings.wave_delay),
-	MENUITEM_ACTION ("Action",  &menu_settings.wave_action),
-	MENUITEM_BOOLEAN("Repeat",  &menu_settings.wave_repeat),
-	MENUITEM_BOOLEAN("Instant", &menu_settings.wave_instant)
+	MENUITEM_DELAY  (LP_WORD(L_DELAY),   &menu_settings.wave_delay),
+	MENUITEM_ACTION (LP_WORD(L_ACTION),  &menu_settings.wave_action),
+	MENUITEM_BOOLEAN(LP_WORD(L_REPEAT),  &menu_settings.wave_repeat),
+	MENUITEM_BOOLEAN(LP_WORD(L_INSTANT), &menu_settings.wave_instant)
 };
 
 type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT("Delay",  &menu_settings.timer_timeout),
-	MENUITEM_ACTION ("Action", &menu_settings.timer_action)
+	MENUITEM_TIMEOUT(LP_WORD(L_DELAY),  &menu_settings.timer_timeout),
+	MENUITEM_ACTION (LP_WORD(L_ACTION), &menu_settings.timer_action)
 };
 
 type_MENUITEM eaeb_items[] = {
-	MENUITEM_DELAY  ("Delay",     &menu_settings.eaeb_delay),
-	MENUITEM_BRACKET("Frames",    &menu_settings.eaeb_frames),
-	MENUITEM_EVSEP  ("Step (EV)", &menu_settings.eaeb_ev),
-	MENUITEM_SSPEED ("Manual [",  &menu_settings.eaeb_m_min),
-	MENUITEM_SSPEED ("Manual ]",  &menu_settings.eaeb_m_max)
+	MENUITEM_DELAY  (LP_WORD(L_DELAY),     &menu_settings.eaeb_delay),
+	MENUITEM_BRACKET(LP_WORD(L_FRAMES),    &menu_settings.eaeb_frames),
+	MENUITEM_EVSEP  (LP_WORD(L_STEP_EV),   &menu_settings.eaeb_ev),
+	MENUITEM_SSPEED (LP_WORD(L_MANUAL_L),  &menu_settings.eaeb_m_min),
+	MENUITEM_SSPEED (LP_WORD(L_MANUAL_R),  &menu_settings.eaeb_m_max)
 };
 
 type_MENUITEM interval_items[] = {
-	MENUITEM_DELAY  ("Delay",    &menu_settings.interval_delay),
-	MENUITEM_TIMEOUT("Time (s)", &menu_settings.interval_time),
-	MENUITEM_BOOLEAN("EAEB",     &menu_settings.interval_eaeb),
-	MENUITEM_COUNTER("Shots",    &menu_settings.interval_shots)
+	MENUITEM_DELAY  (LP_WORD(L_DELAY),    &menu_settings.interval_delay),
+	MENUITEM_TIMEOUT(LP_WORD(L_TIME_S),   &menu_settings.interval_time),
+	MENUITEM_BOOLEAN(LP_WORD(L_EAEB),     &menu_settings.interval_eaeb),
+	MENUITEM_COUNTER(LP_WORD(L_SHOTS),    &menu_settings.interval_shots)
 };
 
 type_MENUITEM menu_settings_items[] = {
-	MENUITEM_EVCOMP ("AV comp",           &menu_settings.av_comp),
-	MENUITEM_EVCOMP ("Flash comp",        &menu_settings.flash_comp),
-	MENUITEM_EVSEP  ("AEB",               &menu_settings.aeb_ev),
-	MENUITEM_BOOLEAN("ISO in viewfinder", &menu_settings.iso_in_viewfinder),
-	MENUITEM_BOOLEAN("Shortcuts menu",    &menu_settings.shortcuts_menu),
-	MENUITEM_BOOLEAN("Safety Shift",      &menu_settings.safety_shift),
-	MENUITEM_CLRTEMP("Color Temp. (K)",   &menu_settings.color_temp),
-	MENUITEM_BOOLEAN("Use flash",         &menu_settings.emit_flash),
-	MENUITEM_SUBMENU("Handwave",           wave_items),
-	MENUITEM_SUBMENU("EAEB    ",           eaeb_items),
-	MENUITEM_SUBMENU("Interval",           interval_items),
-	MENUITEM_SUBMENU("Timer   ",           timer_items),
-	MENUITEM_DELAY  ("IR remote delay",   &menu_settings.remote_delay),
-	MENUITEM_TASK   ("Developers menu",    menu_developer_start)
+	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),           &menu_settings.av_comp),
+	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),        &menu_settings.flash_comp),
+	MENUITEM_EVSEP  (LP_WORD(L_AEB),               &menu_settings.aeb_ev),
+	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &menu_settings.iso_in_viewfinder),
+	MENUITEM_BOOLEAN(LP_WORD(L_SHORTCUTS_MENU),    &menu_settings.shortcuts_menu),
+	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_settings.safety_shift),
+	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_settings.color_temp),
+	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash),
+	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),           wave_items),
+	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),            eaeb_items),
+	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),           interval_items),
+	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),       timer_items),
+	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay),
+	MENUITEM_TASK   (LP_WORD(L_DEVELOPERS_MENU),    menu_developer_start)
 };
 
 type_MENU main_menu = {
-	name        : "Settings",
+	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
 	action      : menu_settings_save,

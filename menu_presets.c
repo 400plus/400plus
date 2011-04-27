@@ -6,6 +6,7 @@
 #include "menu_settings.h"
 #include "menu_shortcuts.h"
 #include "firmware.h"
+#include "languages.h"
 
 #include "menu_presets.h"
 
@@ -26,23 +27,23 @@ void preset_load_5();
 void preset_load(int id);
 
 type_MENUITEM presets_save_items[] = {
-	MENUITEM_TASK ("Save preset 1", preset_save_1),
-	MENUITEM_TASK ("Save preset 2", preset_save_2),
-	MENUITEM_TASK ("Save preset 3", preset_save_3),
-	MENUITEM_TASK ("Save preset 4", preset_save_4),
-	MENUITEM_TASK ("Save preset 5", preset_save_5)
+	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_1), preset_save_1),
+	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_2), preset_save_2),
+	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_3), preset_save_3),
+	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_4), preset_save_4),
+	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_5), preset_save_5)
 };
 
 type_MENUITEM presets_load_items[] = {
-	MENUITEM_TASK ("Load preset 1", preset_load_1),
-	MENUITEM_TASK ("Load preset 2", preset_load_2),
-	MENUITEM_TASK ("Load preset 3", preset_load_3),
-	MENUITEM_TASK ("Load preset 4", preset_load_4),
-	MENUITEM_TASK ("Load preset 5", preset_load_5)
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_1),
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_2),
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_3),
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_4),
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_5)
 };
 
 type_MENU menu_presets_save = {
-	name        : "Save presets",
+	name        : LP_WORD(L_SAVE_PRESETS),
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
 	dp_action   : menu_settings_start,
@@ -51,7 +52,7 @@ type_MENU menu_presets_save = {
 };
 
 type_MENU menu_presets_load = {
-	name        : "Load presets",
+	name        : LP_WORD(L_LOAD_PRESETS),
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
 	dp_action   : menu_shortcuts_start,

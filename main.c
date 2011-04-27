@@ -10,9 +10,20 @@
 #include "af_patterns.h"
 #include "settings.h"
 #include "firmware.h"
+#include "languages.h"
 
 // Main message queue
 int *message_queue;
+
+void aftest() {
+	char lang[32];
+	int i;
+
+	GetLanguageStr(cameraMode.language, lang);
+	printf_log(8,8,"AF: CameraMode.language=%d - %s\n", cameraMode.language, lang);
+	//printf_log(8,8,"AF: L_HELLO = %s\n", LP_WORD(L_HELLO));
+
+}
 
 // Global status
 type_STATUS status = {
@@ -28,6 +39,7 @@ type_ACTION actions_main[]  = {
 	{BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
 	{BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
 	{BUTTON_DP,    FALSE, RESP_BLOCK, {dp_action}},
+	//{BUTTON_DISP,  FALSE, RESP_BLOCK, {aftest}},
 	{BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
 	END_OF_LIST
 };
@@ -119,6 +131,10 @@ void initialize_display() {
 	ENQUEUE_TASK(restore_display);
 }
 
+void change_lang_pack() {
+	LangPlus_set_lang(cameraMode.language);
+}
+
 void message_proxy(const int handler, char *message) {
 	int gui_mode;
 	int button = message[1];
@@ -126,6 +142,14 @@ void message_proxy(const int handler, char *message) {
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
+
+	// set current language pack if lang was changed
+	// do this here until we find an event for changing
+	// the system language
+	if (cameraMode.language != LangPlus_last_langid) {
+		ENQUEUE_TASK(change_lang_pack);
+	}
+
 
 	// Status-independent events and special cases
 	switch (message[1]) {

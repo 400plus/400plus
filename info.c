@@ -1,5 +1,6 @@
 #include "main.h"
 #include "firmware.h"
+#include "languages.h"
 
 #include "info.h"
 
@@ -44,14 +45,15 @@ char *info_display() {
 		// on timed basis or when we take photo.
 		if (!FP_GetDriveFreeSpace("A:", &free_space)) {
 			SleepTask(150);
-			sprintf(message, "<> Free Space  :%5u.%2u MB", free_space/1024, (free_space%1024)/10);
+			sprintf(message, "<> %-12s:%5u.%2u MB", LP_WORD(L_FREE_SPACE), free_space/1024, (free_space%1024)/10);
+			//sprintf(message, "<> Free Space  :%8u KB", i);
 		} else {
 			sprintf(message, "<> Can't get FreeSpace (A:)");
 		}
 		break;
 */
 	case INFO_OPTION_RELEASE_COUNT:
-		sprintf(message, "<> ReleaseCount: %u", FLAG_RELEASE_COUNT);
+		sprintf(message, "<> %-12s: %u", LP_WORD(L_RELEASE_COUNT), FLAG_RELEASE_COUNT);
 		break;
 	case INFO_OPTION_400PLUS:
 		if (VERSION < 20110101) {

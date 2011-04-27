@@ -339,6 +339,8 @@ extern void initialize();
 extern void initialize_display();
 extern void message_proxy(const int handler, char *message);
 
+void change_lang_pack();
+
 // Shared globals
 extern type_STATUS status;
 
