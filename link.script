@@ -8,6 +8,7 @@ SECTIONS {
 		main.o;
 		info.o;
 		tasks.o;
+		languages.o;
 		utils.o;
 		menu.o;
 		menu_presets.o;

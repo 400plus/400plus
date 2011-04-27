@@ -20,7 +20,7 @@ S_OBJS = entry.o      \
 C_OBJS = init.o           \
          main.o           \
          tasks.o          \
-	 languages.o      \
+         languages.o      \
          utils.o          \
          menu.o           \
          menu_presets.o   \
