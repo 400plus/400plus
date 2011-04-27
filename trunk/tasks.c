@@ -14,8 +14,6 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
-	start_debug_mode();
-
 	LangPlus_lang_packs_init(); // initialize lang pack strings
 	change_lang_pack();
 
@@ -29,7 +27,6 @@ void start_up() {
 
 	// Read settings from file
 	settings_read();
-
 }
 
 void dp_action() {
