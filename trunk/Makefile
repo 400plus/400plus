@@ -35,6 +35,9 @@ C_OBJS = init.o           \
          viewfinder.o     \
          af_patterns.o    \
 
+OBJS   = $(S_OBJS) $(C_OBJS)
+DEPS   = $(C_OBJS:.o=.d)
+
 all: $(PROJECT).BIN
 
 CDATE := $(shell date +%Y%m%d)
@@ -57,9 +60,12 @@ $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
 	rm -f $(PROJECT).arm.elf
 
-$(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
+$(PROJECT).arm.elf: $(OBJS) link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^
 
+%.d: %.c
+	$(CC) $(CFLAGS) -MM -MT $@ $*.c -o $*.d
+	
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
@@ -67,6 +73,7 @@ $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 	$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS) $(DEPS)
 	rm -f $(PROJECT).arm.elf
 
+-include $(DEPS)
