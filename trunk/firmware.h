@@ -1,6 +1,8 @@
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 
+#include "vxworks.h"
+
 // Variables, Flags, Pointers, Handlers
 extern unsigned int	  BodyID;
 extern unsigned short ModelID;
@@ -9,7 +11,6 @@ extern int BurstCounter;  // remaining shots in burst mode (displayed in VF's bo
 extern int hInfoCreative; // dialog handler for info screen
 extern int FaceStatus;    // 0 = no face, 1 = face (disp off)... see #32, this could give some solution
 extern int GUIMode;
-extern int hRelSem;       // Camera Busy Flag (Release Semaphore ?)
 extern int hFaMain;       // Factory Dialog
 extern int hMnBg;         // Menu Dialog
 
@@ -91,7 +92,9 @@ extern int taskDeleteHookAdd (void *deleteHook);
 
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
-//extern int* CreateBinarySemaphore(int prio, SEM_B_STATE);
+extern int* CreateBinarySemaphore(char * name, SEM_B_STATE);
+extern int TakeSemaphore(int* sem, int time);
+extern int DeleteSemaphore(int* sem);
 
 // Event generation
 
@@ -123,5 +126,14 @@ extern int EnterFactoryMode();
 extern int ExitFactoryMode();
 
 extern int ioGlobalStdSet(int handle, int file);
+
+
+// shutter stuff
+extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
+extern char * aRelSem;	// semaphore name
+
+
+// language
+extern void GetLanguageStr(int lang_id, char * lang_str);
 
 #endif /* FIRMWARE_H_ */

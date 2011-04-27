@@ -5,6 +5,7 @@
 #include "scripts.h"
 #include "settings.h"
 #include "firmware.h"
+#include "languages.h"
 
 #include "menu_shortcuts.h"
 
@@ -16,18 +17,18 @@ struct {
 } shortcuts_storage;
 
 type_MENUITEM menu_shortcut_items[] = {
-	MENUITEM_ISO    ("ISO",            &shortcuts_storage.iso),
-	MENUITEM_SCRIPT ("Extended AEB",   script_extended_aeb),
-	MENUITEM_SCRIPT ("Intervalometer", script_interval),
-	MENUITEM_SCRIPT ("Hand waving",    script_wave),
-	MENUITEM_SCRIPT ("Self timer",     script_self_timer),
-	MENUITEM_AFFLASH("AF flash",       &shortcuts_storage.cf_emit_aux),
-	MENUITEM_BOOLEAN("Mirror lock",    &shortcuts_storage.cf_mirror_up_lock),
-	MENUITEM_BOOLEAN("Flash 2curt",    &shortcuts_storage.cf_flash_sync_rear)
+	MENUITEM_ISO    (LP_WORD(L_ISO),           &shortcuts_storage.iso),
+	MENUITEM_SCRIPT (LP_WORD(L_EXTENDED_AEB),   script_extended_aeb),
+	MENUITEM_SCRIPT (LP_WORD(L_INTERVALOMETER), script_interval),
+	MENUITEM_SCRIPT (LP_WORD(L_HAND_WAVING),    script_wave),
+	MENUITEM_SCRIPT (LP_WORD(L_SELF_TIMER),     script_self_timer),
+	MENUITEM_AFFLASH(LP_WORD(L_AF_FLASH),      &shortcuts_storage.cf_emit_aux),
+	MENUITEM_BOOLEAN(LP_WORD(L_MIRROR_LOCKUP), &shortcuts_storage.cf_mirror_up_lock),
+	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&shortcuts_storage.cf_flash_sync_rear)
 };
 
 type_MENU menu_shortcuts = {
-	name        : "Shortcuts",
+	name        : LP_WORD(L_SHORTCUTS),
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
 	action      : menu_shortcuts_save,
