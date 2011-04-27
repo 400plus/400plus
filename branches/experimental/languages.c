@@ -29,7 +29,7 @@ enum LanguageID {
 
 void LangPlus_lang_packs_init() {
 	// set English first, it will set the defaults for every language
-	// English Translations
+	// English Translations {{{
 	debug_log("LangPack init(English) and all defaults");
 	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_FREE_SPACE,		"Free Space");
 	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_RELEASE_COUNT,	"ReleaseCount");
@@ -97,22 +97,82 @@ void LangPlus_lang_packs_init() {
 	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_AF_FLASH,		"AF Flash");
 	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_MIRROR_LOCKUP,	"Mirror Lockup");
 	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_FLASH_2ND_CURT,	"Flash 2curt");
+	// }}}
 
-
-
-	// German Translations
-	// AF - from google translate... please someone speaking german - fix the translations
+	// German Translations {{{
+	//Semanticly correct, will tune it a little bit soon. <- M.Perenz
 	debug_log("LangPlus init(German)");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FREE_SPACE,		"Frei Raum");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_RELEASE_COUNT,	"ReleaseCount");
+
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FREE_SPACE,		"CF-Card frei");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_RELEASE_COUNT,	"Anz. d. Aufn.");
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_OFF,			"Aus");
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_YES,			"Ja");
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_NO,			"Nein");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_2S,			"2s");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ENABLED,		"Aktiviert");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DISABLED,		"Deaktiviert");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXT_ONLY,		"Nur Ext.");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXT_AEB,		"Ext. AEB");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ONE_SHOT,		"Einzelaufnahme");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_INTERVAL,		"Intervall");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_NO_LIMIT,		"Unbegrenzt");
+
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_LOAD_PRESETS,	"Presets laden");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_LOAD_PRESET_1,	"Preset 1 laden");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_LOAD_PRESET_2,	"Preset 2 laden");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_LOAD_PRESET_3,	"Preset 3 laden");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_LOAD_PRESET_4,	"Preset 4 laden");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_LOAD_PRESET_5,	"Preset 5 laden");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAVE_PRESETS,	"Presets speichern");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAVE_PRESET_1,	"Preset 1 speichern");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAVE_PRESET_2,	"Preset 2 speichern");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAVE_PRESET_3,	"Preset 3 speichern");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAVE_PRESET_4,	"Preset 4 speichern");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAVE_PRESET_5,	"Preset 5 speichern");
 
 	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DEVELOPER,		"Entwickler");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ENTER_FACTORY_MODE,	"Geben factory Mode");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXIT_FACTORY_MODE,	"Exit  factory Mode");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_START_DEBUG_MODE,	"Starten debug Mode");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ENTER_FACTORY_MODE,	"Betrete Werksmenü");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXIT_FACTORY_MODE,	"Verlasse Werksmenü");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_START_DEBUG_MODE,	"Debugmodus starten");
+
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SETTINGS,		"Einstellungen");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DELAY,		"Verzögerung");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ACTION,		"Aktion");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_REPEAT,		"Wiederholen");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_INSTANT,		"Dauerhaft");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FRAMES,		"Bilder");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_STEP_EV,		"Schritt (EV)");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_MANUAL_L,		"Manuell [");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_MANUAL_R,		"Manuell ]");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_TIME_S,		"Zeit (s)");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EAEB,		"EAEB");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SHOTS,		"Aufnahmen");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_AV_COMP,		"AV Komp.");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FLASH_COMP,		"Blitz Komp.");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_AEB,			"AEB");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ISO_IN_VF,		"ISO in Sucher");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SHORTCUTS_MENU,	"Shortcutsmenü");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAFETY_SHIFT,	"Safety Shift");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_COLOR_TEMP_K,	"Farbtemp. (K)");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_USE_FLASH,		"Blitz benutzen");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_HANDWAVE,		"Handwave");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_TIMER_SPACES,	"Timer   ");
+	//Maybe to long?
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_IR_REMOTE_DELAY,	"IR Fernausl. Verzögerung");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DEVELOPERS_MENU,	"Entwicklermenü");
+
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SHORTCUTS,		"Shortcuts");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ISO,			"ISO");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXTENDED_AEB,	"Erweitertes AEB");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_INTERVALOMETER,	"Intervalometer");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_HAND_WAVING,		"Hand Waving");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SELF_TIMER,		"Self Timer");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_AF_FLASH,		"AF Blitz");
+	//Maybe to long)
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_MIRROR_LOCKUP,	"Spiegelverriegelung");
+	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FLASH_2ND_CURT,	"Blitz 2. Vorhang");
+	// }}}
+
 }
 
 char * LangPlus_lang_pack_set_word(int langid, int wordid, char* word) {
@@ -151,4 +211,8 @@ void LangPlus_set_lang(int lang) {
 		LangPlus_current[word][ch] = 0;
 	}
 }
+
+
+
+// vim: foldenable foldmethod=marker
 
