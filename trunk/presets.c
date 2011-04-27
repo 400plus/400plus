@@ -57,9 +57,9 @@ void preset_write(int id) {
 	file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644);
 
 	if (file != -1) {
-		FIO_WriteFile(file, (void*)&version, sizeof(version));
-		FIO_WriteFile(file, &settings,   sizeof(settings));
-		FIO_WriteFile(file, &cameraMode, sizeof(cameraMode));
+		FIO_WriteFile(file, (void*)&version,    sizeof(version));
+		FIO_WriteFile(file, (void*)&settings,   sizeof(settings));
+		FIO_WriteFile(file, (void*)&cameraMode, sizeof(cameraMode));
 		FIO_CloseFile(file);
 	}
 }
@@ -108,6 +108,16 @@ extern void preset_apply() {
 	send_to_intercom(EVENT_SET_CF_ORIGINAL_EVAL,        1, preset.cf_original_eval);
 	send_to_intercom(EVENT_SET_CF_QR_MAGNIFY,           1, preset.cf_qr_magnify);
 	send_to_intercom(EVENT_SET_CF_TFT_ON_POWER_ON,      1, preset.cf_tft_on_power_on);
+
+	preset_write(0);
+
+	display_refresh();
+}
+
+extern void preset_recall() {
+	settings_apply();
+
+	send_to_intercom(EVENT_SET_AE, 1, preset.ae);
 
 	display_refresh();
 }
