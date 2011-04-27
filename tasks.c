@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "display.h"
 #include "settings.h"
+#include "presets.h"
 #include "menu_shortcuts.h"
 #include "firmware.h"
 #include "languages.h"
@@ -14,7 +15,8 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
-	LangPlus_lang_packs_init(); // initialize lang pack strings
+	// Initialize lang pack strings
+	LangPlus_lang_packs_init();
 	change_lang_pack();
 
 	// Enable (hidden) CFn.8 for ISO H
@@ -27,6 +29,10 @@ void start_up() {
 
 	// Read settings from file
 	settings_read();
+
+	if (cameraMode.ae == AE_MODE_ADEP)
+		if (preset_read(0))
+			preset_recall();
 }
 
 void dp_action() {
