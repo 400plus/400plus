@@ -36,10 +36,10 @@ type_MENUITEM presets_save_items[] = {
 
 type_MENUITEM presets_load_items[] = {
 	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_1),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_2),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_3),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_4),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_5)
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_2), preset_load_2),
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_3), preset_load_3),
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_4), preset_load_4),
+	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_5), preset_load_5)
 };
 
 type_MENU menu_presets_save = {
