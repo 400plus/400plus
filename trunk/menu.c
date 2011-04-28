@@ -10,17 +10,11 @@ char menu_buffer[32];
 
 type_MENU * current_menu;
 
-char *bool_strings[]   = {LP_WORD(L_NO), LP_WORD(L_YES)};
-char *delay_strings[]  = {LP_WORD(L_NO), LP_WORD(L_2S)};
-char *flash_strings[]  = {LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_ONLY)};
-char *action_strings[] = {LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL)};
-char *sspeed_strings[] = {"30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000"} ;
-
-type_LIST bool_list   = {length: LENGTH(bool_strings),   data : bool_strings};
-type_LIST delay_list  = {length: LENGTH(delay_strings),  data : delay_strings};
-type_LIST flash_list  = {length: LENGTH(flash_strings),  data : flash_strings};
-type_LIST action_list = {length: LENGTH(action_strings), data : action_strings};
-type_LIST sspeed_list = {length: LENGTH(sspeed_strings), data : sspeed_strings};
+OPTIONLIST_DEF(bool,    LP_WORD(L_NO), LP_WORD(L_YES))
+OPTIONLIST_DEF(delay,   LP_WORD(L_NO), LP_WORD(L_2S))
+OPTIONLIST_DEF(flash,   LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_ONLY))
+OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
+OPTIONLIST_DEF(shutter, "30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 
 void menu_repeat(void (*repeateable)(int repeating));
 

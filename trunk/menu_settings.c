@@ -27,8 +27,8 @@ type_MENUITEM eaeb_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_DELAY),     &menu_settings.eaeb_delay),
 	MENUITEM_BRACKET(LP_WORD(L_FRAMES),    &menu_settings.eaeb_frames),
 	MENUITEM_EVSEP  (LP_WORD(L_STEP_EV),   &menu_settings.eaeb_ev),
-	MENUITEM_SSPEED (LP_WORD(L_MANUAL_L),  &menu_settings.eaeb_m_min),
-	MENUITEM_SSPEED (LP_WORD(L_MANUAL_R),  &menu_settings.eaeb_m_max)
+	MENUITEM_SHUTTER(LP_WORD(L_MANUAL_L),  &menu_settings.eaeb_m_min),
+	MENUITEM_SHUTTER(LP_WORD(L_MANUAL_R),  &menu_settings.eaeb_m_max)
 };
 
 type_MENUITEM interval_items[] = {
