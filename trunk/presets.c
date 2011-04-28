@@ -117,14 +117,18 @@ extern void preset_apply() {
 	status.main_dial_ae = ae;
 }
 
-extern void preset_recall() {
+void preset_recall() {
 	int ae = status.main_dial_ae;
-	settings_apply();
 
-	send_to_intercom(EVENT_SET_AE, 1, preset.ae);
+	if (preset_read(0)) {
+		settings_apply();
 
-	display_refresh();
-	status.main_dial_ae = ae;
+		if (preset.ae != AE_MODE_ADEP)
+			send_to_intercom(EVENT_SET_AE, 1, preset.ae);
+
+		display_refresh();
+		status.main_dial_ae = ae;
+	}
 }
 
 void get_filename(char *filename, int id) {

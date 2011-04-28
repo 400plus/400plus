@@ -5,12 +5,13 @@
 #include "menu_shortcuts.h"
 #include "info.h"
 #include "tasks.h"
+#include "presets.h"
 #include "display.h"
 #include "viewfinder.h"
 #include "af_patterns.h"
 #include "settings.h"
-#include "firmware.h"
 #include "languages.h"
+#include "firmware.h"
 
 // Main message queue
 int *message_queue;
@@ -143,6 +144,8 @@ void message_proxy(const int handler, char *message) {
 	switch (message[1]) {
 	case EVENT_MAIN_DIAL: // Mode dial moved
 		status.main_dial_ae = message[2];
+		if (status.main_dial_ae == AE_MODE_ADEP)
+			ENQUEUE_TASK(preset_recall);
 		goto pass_message;
 	case EVENT_SETTINGS: // Settings changed
 		// Restore display
