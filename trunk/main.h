@@ -64,6 +64,7 @@
 #define EVENT_DIALOGON  0x50
 #define EVENT_DIALOGOFF 0x51
 
+#define EVENT_MAIN_DIAL 0x90
 #define EVENT_SETTINGS  0x93
 
 #define	EVENT_AFPDLGON  0xB9
@@ -321,6 +322,7 @@ typedef struct {
 	int       script_running;    // A script is running
 	int       iso_in_viewfinder; // ISO is being displayed in the viewfinder
 	int       afp_dialog;        // The last active dialog was the AF Point selection dialog
+	int       main_dial_ae;      // AE mode selected in the main dial
 	type_TASK button_up_task;    // Task that must be executed when the current button is released
 	type_RESP button_up_resp;    // Response when the current button is released
 } type_STATUS;
