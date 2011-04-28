@@ -139,10 +139,12 @@ void message_proxy(const int handler, char *message) {
 		ENQUEUE_TASK(change_lang_pack);
 	}
 
-
 	// Status-independent events and special cases
 	switch (message[1]) {
-	case EVENT_SETTINGS: // Mode dial moved, settings changed
+	case EVENT_MAIN_DIAL: // Mode dial moved
+		status.main_dial_ae = message[2];
+		goto pass_message;
+	case EVENT_SETTINGS: // Settings changed
 		// Restore display
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;

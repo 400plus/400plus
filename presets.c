@@ -65,6 +65,8 @@ void preset_write(int id) {
 }
 
 extern void preset_apply() {
+	int ae = status.main_dial_ae;
+
 	settings_apply();
 
 	send_to_intercom(EVENT_SET_AE,         1, preset.ae);
@@ -112,14 +114,17 @@ extern void preset_apply() {
 	preset_write(0);
 
 	display_refresh();
+	status.main_dial_ae = ae;
 }
 
 extern void preset_recall() {
+	int ae = status.main_dial_ae;
 	settings_apply();
 
 	send_to_intercom(EVENT_SET_AE, 1, preset.ae);
 
 	display_refresh();
+	status.main_dial_ae = ae;
 }
 
 void get_filename(char *filename, int id) {
