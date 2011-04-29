@@ -26,8 +26,9 @@ extern long eventproc_EdLedBlink(void);
 
 // String management
 
-extern int  strlen(const char *);
-extern void sprintf(const char*, char*, ...);
+extern int   strlen(const char *);
+extern char *strncpy(char *destination, const char *source, int length);
+extern void  sprintf(const char*, char*, ...);
 
 // Queue management
 
@@ -93,7 +94,8 @@ extern int taskDeleteHookAdd (void *deleteHook);
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
 
-// semaphores
+// Semaphores
+
 extern SEM_ID CreateBinarySemaphore(char * name, SEM_B_STATE state); // SEM_EMPTY (0), SEM_FULL (1)
 extern int TakeSemaphore(SEM_ID sem, int time);
 extern int GiveSemaphore(SEM_ID sem);
@@ -122,7 +124,6 @@ extern void InfoCreativeAppProc();
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 
-
 // Factory mode and debugging
 
 extern int EnterFactoryMode();
@@ -130,13 +131,13 @@ extern int ExitFactoryMode();
 
 extern int ioGlobalStdSet(int handle, int file);
 
+// Shutter stuff
 
-// shutter stuff
 extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
 extern char * aRelSem;	// semaphore name
 
+// Language
 
-// language
 extern void GetLanguageStr(int lang_id, char * lang_str);
 
 #endif /* FIRMWARE_H_ */

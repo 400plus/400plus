@@ -29,6 +29,9 @@ void start_up() {
 
 	// Read settings from file
 	settings_read();
+
+	// Read presets from file
+	presets_read();
 }
 
 void dp_action() {

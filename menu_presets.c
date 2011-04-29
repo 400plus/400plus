@@ -27,19 +27,19 @@ void preset_load_5();
 void preset_load(int id);
 
 type_MENUITEM presets_save_items[] = {
-	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_1), preset_save_1),
-	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_2), preset_save_2),
-	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_3), preset_save_3),
-	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_4), preset_save_4),
-	MENUITEM_TASK (LP_WORD(L_SAVE_PRESET_5), preset_save_5)
+	MENUITEM_TASK (presets_config.names[0], preset_save_1),
+	MENUITEM_TASK (presets_config.names[1], preset_save_2),
+	MENUITEM_TASK (presets_config.names[2], preset_save_3),
+	MENUITEM_TASK (presets_config.names[3], preset_save_4),
+	MENUITEM_TASK (presets_config.names[4], preset_save_5)
 };
 
 type_MENUITEM presets_load_items[] = {
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_1), preset_load_1),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_2), preset_load_2),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_3), preset_load_3),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_4), preset_load_4),
-	MENUITEM_TASK (LP_WORD(L_LOAD_PRESET_5), preset_load_5)
+	MENUITEM_TASK (presets_config.names[0], preset_load_1),
+	MENUITEM_TASK (presets_config.names[1], preset_load_2),
+	MENUITEM_TASK (presets_config.names[2], preset_load_3),
+	MENUITEM_TASK (presets_config.names[3], preset_load_4),
+	MENUITEM_TASK (presets_config.names[4], preset_load_5)
 };
 
 type_MENU menu_presets_save = {

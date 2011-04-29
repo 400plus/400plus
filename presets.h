@@ -10,6 +10,9 @@ typedef struct {
 
 extern type_PRESETS_CONFIG presets_config;
 
+extern void presets_read();
+extern void presets_write();
+
 extern int  preset_read (int id);
 extern void preset_write(int id);
 extern void preset_apply();
