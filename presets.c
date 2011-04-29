@@ -8,6 +8,10 @@
 
 type_CAMERA_MODE preset;
 
+type_PRESETS_CONFIG presets_config = {
+	order : {0, 1, 2, 3, 4}
+};
+
 void get_filename(char *filename, int id);
 
 int preset_read(int id) {
