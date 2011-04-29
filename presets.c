@@ -16,11 +16,11 @@ type_PRESETS_CONFIG presets_config = {
 void get_filename(char *filename, int id);
 
 void presets_read() {
-	strncpy(presets_config.names[0], LP_WORD(L_PRESET_1), 32);
-	strncpy(presets_config.names[1], LP_WORD(L_PRESET_2), 32);
-	strncpy(presets_config.names[2], LP_WORD(L_PRESET_3), 32);
-	strncpy(presets_config.names[3], LP_WORD(L_PRESET_4), 32);
-	strncpy(presets_config.names[4], LP_WORD(L_PRESET_5), 32);
+	sprintf(presets_config.names[0], "%-25s", LP_WORD(L_PRESET_1));
+	sprintf(presets_config.names[1], "%-25s", LP_WORD(L_PRESET_2));
+	sprintf(presets_config.names[2], "%-25s", LP_WORD(L_PRESET_3));
+	sprintf(presets_config.names[3], "%-25s", LP_WORD(L_PRESET_4));
+	sprintf(presets_config.names[4], "%-25s", LP_WORD(L_PRESET_5));
 }
 
 void presets_write() {

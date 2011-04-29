@@ -135,7 +135,7 @@ void menu_action() {
 	type_MENUITEM *item = get_current_item();
 
 	if (current_menu->rename && current_menu->item_grabbed) {
-		rename_create(item->name);
+		rename_create(item->name, current_menu->callback);
 	} else {
 		if (item->type == MENUITEM_TYPE_LAUNCH) {
 			close  = item->menuitem_launch.close;

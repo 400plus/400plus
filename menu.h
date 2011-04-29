@@ -81,6 +81,7 @@ typedef struct {
 	type_TASK        action;
 	type_TASK        dp_action;
 	int              rename;
+	type_TASK        callback;
 	int              reorder;
 	int             *ordering;
 	int              handle;       // dialog handle returned from CreateDialogBox()
