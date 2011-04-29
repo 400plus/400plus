@@ -47,6 +47,8 @@ type_MENU menu_presets_save = {
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
 	dp_action   : menu_settings_start,
+	reorder     : TRUE,
+	ordering    : presets_config.order,
 	gui_mode    : GUI_MODE_400PLUS,
 	btn_handler : InfoCreativeAppProc
 };
@@ -56,6 +58,8 @@ type_MENU menu_presets_load = {
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
 	dp_action   : menu_shortcuts_start,
+	reorder     : TRUE,
+	ordering    : presets_config.order,
 	gui_mode    : GUI_MODE_400PLUS,
 	btn_handler : InfoCreativeAppProc
 };
