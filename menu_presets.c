@@ -69,15 +69,12 @@ type_MENU menu_presets_load = {
 };
 
 void menu_presets_save_start() {
-	beep();
 	menu_create(&menu_presets_save);
 }
 
 void menu_presets_load_start() {
-	if (status.main_dial_ae == AE_MODE_ADEP) {
-		beep();
+	if (status.main_dial_ae == AE_MODE_ADEP)
 		menu_create(&menu_presets_load);
-	}
 }
 
 void preset_save_1() {

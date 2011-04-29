@@ -1,6 +1,6 @@
 #include "main.h"
 #include "menu.h"
-#include "utils.h"
+#include "presets.h"
 #include "firmware.h"
 
 #include "menu_rename.h"
@@ -105,6 +105,7 @@ void rename_action() {
 
 		rename_refresh(4);
 	} else {
+		presets_write();
 		rename_destroy();
 		rename_callback();
 	}
