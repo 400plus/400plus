@@ -1,6 +1,7 @@
 #include "main.h"
 
 #include "menu.h"
+#include "menu_rename.h"
 #include "menu_settings.h"
 #include "menu_shortcuts.h"
 #include "info.h"
@@ -62,6 +63,18 @@ type_ACTION actions_400plus[]  = {
 	END_OF_LIST
 };
 
+type_ACTION actions_rename[]  = {
+	{BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
+	{BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
+	{BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
+	{BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
+	{BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
+	{BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
+	{BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
+	END_OF_LIST
+};
+
 type_ACTION actions_meter[] = {
 	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
 	END_OF_LIST
@@ -100,6 +113,7 @@ type_CHAIN chains[] = {
 	{GUI_MODE_MENU,      actions_menu},
 	{GUI_MODE_INFO,      actions_info},
 	{GUI_MODE_400PLUS,   actions_400plus},
+	{GUI_MODE_RENAME,    actions_rename},
 	{GUI_MODE_METER,     actions_meter},
 	{GUI_MODE_WB,        actions_wb},
 	{GUI_MODE_ISO,       actions_iso},
