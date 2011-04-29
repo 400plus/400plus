@@ -24,17 +24,13 @@ enum LangPlus_id {
 	L_START_DEBUG_MODE,	// 18 chars max
 
 	L_LOAD_PRESETS,
-	L_LOAD_PRESET_1,
-	L_LOAD_PRESET_2,
-	L_LOAD_PRESET_3,
-	L_LOAD_PRESET_4,
-	L_LOAD_PRESET_5,
 	L_SAVE_PRESETS,
-	L_SAVE_PRESET_1,
-	L_SAVE_PRESET_2,
-	L_SAVE_PRESET_3,
-	L_SAVE_PRESET_4,
-	L_SAVE_PRESET_5,
+
+	L_PRESET_1,
+	L_PRESET_2,
+	L_PRESET_3,
+	L_PRESET_4,
+	L_PRESET_5,
 
 	L_SETTINGS,
 	L_DELAY,
@@ -78,6 +74,5 @@ extern char LangPlus_current[L_EOL][MAX_LANG_WORD];
 extern int LangPlus_last_langid;
 
 void LangPlus_lang_packs_init();
-
 
 #endif // LANGUAGES_H_
