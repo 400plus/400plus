@@ -24,6 +24,7 @@ C_OBJS = init.o           \
          utils.o          \
          menu.o           \
          menu_presets.o   \
+         menu_rename.o    \
          menu_settings.o  \
          menu_developer.o \
          menu_shortcuts.o \

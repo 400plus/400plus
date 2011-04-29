@@ -80,6 +80,7 @@ typedef struct {
 	type_MENUITEM   *items;
 	type_TASK        action;
 	type_TASK        dp_action;
+	int              rename;
 	int              reorder;
 	int             *ordering;
 	int              handle;       // dialog handle returned from CreateDialogBox()

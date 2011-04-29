@@ -285,7 +285,7 @@ typedef enum { // GUIModes
 
 // Fictitious modes
 	GUI_MODE_400PLUS = 0x2D,// 400Plus mode
-	GUI_MODE_FACTORY = 0x2E,// Factory menu
+	GUI_MODE_RENAME  = 0x2E,// 400Plus rename
 	GUI_MODE_FACE    = 0x2F	// Face mode
 } type_GUI_MODE;
 

@@ -1,8 +1,9 @@
 #include "main.h"
 #include "utils.h"
 #include "display.h"
-#include "firmware.h"
 #include "languages.h"
+#include "menu_rename.h"
+#include "firmware.h"
 
 #include "menu.h"
 
@@ -133,20 +134,24 @@ void menu_action() {
 	type_TASK action;
 	type_MENUITEM *item = get_current_item();
 
-	if (item->type == MENUITEM_TYPE_LAUNCH) {
-		close  = item->menuitem_launch.close;
-		action = item->menuitem_launch.action;
+	if (current_menu->rename && current_menu->item_grabbed) {
+		rename_create(item->name);
 	} else {
-		close  = FALSE;
-		action = current_menu->action;
-	}
-
-	if (action) {
-		if (close) {
-			menu_close();
-			ENQUEUE_TASK(action);
+		if (item->type == MENUITEM_TYPE_LAUNCH) {
+			close  = item->menuitem_launch.close;
+			action = item->menuitem_launch.action;
 		} else {
-			action();
+			close  = FALSE;
+			action = current_menu->action;
+		}
+
+		if (action) {
+			if (close) {
+				menu_close();
+				ENQUEUE_TASK(action);
+			} else {
+				action();
+			}
 		}
 	}
 }
