@@ -1,7 +1,9 @@
 #ifndef PRESETS_H_
 #define PRESETS_H_
 
-#define PRESET_FILE "A:/PRESET_%u"
+#define PRESETS_VERSION 0x01
+#define PRESETS_CONFIG  "A:/PRESETS"
+#define PRESETS_FILE    "A:/PRESET_%u"
 
 typedef struct {
 	int  order[5];
