@@ -9,8 +9,10 @@ int   x, y, z;
 int   caps;
 int   handle;
 
-char *menu_name;
-char  menu_buffer[32];
+char *rename_filename;
+char  rename_buffer[32];
+
+type_TASK rename_callback;
 
 char letters[2][4][9] = {
 	{
@@ -40,8 +42,10 @@ void rename_destroy();
 
 char *rename_message(int id);
 
-void rename_create(char *name) {
-	menu_name = name;
+void rename_create(char *filename, type_TASK callback) {
+	rename_filename = filename;
+	rename_callback = callback;
+
 	FLAG_GUI_MODE = GUI_MODE_RENAME;
 
 	rename_destroy();
@@ -94,9 +98,15 @@ void rename_cycle() {
 
 void rename_action() {
 	if (x < 4) {
-		menu_name[z] = letters[caps][x][y];
+		rename_filename[z] = letters[caps][x][y];
+
+		if (z != 25)
+			z++;
+
 		rename_refresh(4);
 	} else {
+		rename_destroy();
+		rename_callback();
 	}
 }
 
@@ -162,9 +172,6 @@ void rename_repeateable_cycle(int repeating) {
 	rename_display();
 }
 
-void rename_close() {
-}
-
 void rename_destroy() {
 	if (handle != 0)
 		DeleteDialogBox(handle);
@@ -180,28 +187,28 @@ char *rename_message(int id) {
 	if (id < 4) {
 		for (i = 0; i < 9; i++) {
 			if (id == x && i == y) {
-				menu_buffer[j++] = '[';
-				menu_buffer[j++] = letters[caps][id][i];
-				menu_buffer[j++] = ']';
+				rename_buffer[j++] = '[';
+				rename_buffer[j++] = letters[caps][id][i];
+				rename_buffer[j++] = ']';
 			} else {
-				menu_buffer[j++] = ' ';
-				menu_buffer[j++] = letters[caps][id][i];
-				menu_buffer[j++] = ' ';
+				rename_buffer[j++] = ' ';
+				rename_buffer[j++] = letters[caps][id][i];
+				rename_buffer[j++] = ' ';
 			}
 		}
 	} else {
 		for (i = 0; i < 25; i++) {
 			if (i == z) {
-				menu_buffer[j++] = '<';
-				menu_buffer[j++] = menu_name[i];
-				menu_buffer[j++] = '>';
+				rename_buffer[j++] = '<';
+				rename_buffer[j++] = rename_filename[i];
+				rename_buffer[j++] = '>';
 			} else {
-				menu_buffer[j++] = menu_name[i];
+				rename_buffer[j++] = rename_filename[i];
 			}
 		}
 	}
 
-	menu_buffer[j] = '\0';
+	rename_buffer[j] = '\0';
 
-	return menu_buffer;
+	return rename_buffer;
 }
