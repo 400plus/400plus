@@ -78,7 +78,7 @@ void rename_up() {
 }
 
 void rename_down() {
-	if (x != 5) {
+	if (x != 4) {
 		x++;
 		rename_display();
 	}
