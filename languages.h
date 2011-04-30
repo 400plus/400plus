@@ -1,9 +1,32 @@
 #ifndef LANGUAGES_H_
 #define LANGUAGES_H_
 
-#define MAX_LANG_WORD 32
-#define LP_WORD(word) LangPlus_current[word]
-enum LangPlus_id {
+#define LP_MAX_WORD 32
+#define LP_WORD(word) lang_pack_current[word]
+
+enum LanguageID {
+	LANG_ENGLISH,
+	LANG_GERMAN,
+	LANG_FRENCH,
+	LANG_DUTCH,
+	LANG_DANISH,
+	LANG_FINNISH,
+	LANG_ITALIAN,
+	LANG_NORWEGIAN,
+	LANG_SWEDISH,
+	LANG_SPANISH,
+	LANG_RUSSIAN,
+	LANG_SIMPLIFIED_CHINESE,
+	LANG_TRADITIONAL_CHANISE,
+	LANG_KOREAN,
+	LANG_JAPANESE,
+	LANG_POLISH,
+	LANG_COUNT,
+	LANG_FIRST = 0,
+	LANG_LAST  = LANG_COUNT - 1
+};
+
+enum WordID {
 	L_FREE_SPACE,		// 12 chars max
 	L_RELEASE_COUNT,	// 12 chars max
 	L_YES,
@@ -67,12 +90,14 @@ enum LangPlus_id {
 	L_MIRROR_LOCKUP,
 	L_FLASH_2ND_CURT,
 
-	L_EOL
+	L_COUNT,
+	L_FIRST = 0,
+	L_LAST  = L_COUNT - 1
 };
-extern char * LangPlus_lang_packs[16][L_EOL];
-extern char LangPlus_current[L_EOL][MAX_LANG_WORD];
-extern int LangPlus_last_langid;
 
-void LangPlus_lang_packs_init();
+extern const char *lang_packs[LANG_COUNT][L_COUNT];
+extern       char  lang_pack_current[L_COUNT][LP_MAX_WORD];
+
+extern void lang_pack_config();
 
 #endif // LANGUAGES_H_

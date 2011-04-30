@@ -33,6 +33,8 @@
 #define EVENT_SET_BEEP       0x0F
 #define EVENT_SET_COLOR_TEMP 0x10
 
+#define EVENT_SET_LANGUAGE   0x19
+
 #define EVENT_SET_IMG_FORMAT  0x22
 #define EVENT_SET_IMG_SIZE    0x23
 #define EVENT_SET_IMG_QUALITY 0x24
@@ -341,8 +343,6 @@ extern int *message_queue;
 extern void initialize();
 extern void initialize_display();
 extern void message_proxy(const int handler, char *message);
-
-void change_lang_pack();
 
 // Shared globals
 extern type_STATUS status;
