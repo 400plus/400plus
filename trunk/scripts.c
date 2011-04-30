@@ -154,13 +154,13 @@ void sub_extended_aeb() {
 
 		send_to_intercom(EVENT_SET_TV_VAL, 1, tv_value);
 	} else {
+		int i;
 		int av_comp = cameraMode.av_comp;
 		int av_inc  = av_comp;
 		int av_dec  = av_comp;
 
 		release_and_wait();
 
-		int i;
 		for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
 			av_inc = ev_add(av_inc, settings.eaeb_ev);
 			send_to_intercom(EVENT_SET_AV_COMP, 1, av_inc);
