@@ -51,7 +51,9 @@ extern int open(const char *name, int flags, int mode);
 extern int read(int fd, void *buffer, long nbytes);
 extern int write(int fd, void *buffer, long nbytes);
 extern int close(int fd);
-extern int printErr(char * fmt, ...); // like printf but prints to stderr
+
+extern int printErr(const char *, ...);
+extern int printf_log(int, int, const char *, ...);
 
 extern FILE *fopen(const char *file, const char *mode);
 extern FILE *fdopen(int fd, char * mode);
@@ -76,7 +78,7 @@ extern void  CloseLogFile(void *logFile);
 
 extern void RiseEvent(char *name);
 
-extern int* CreateTask(const char *name, int prio, int stack_size, void *entry, long parm);
+extern int* CreateTask(const char *name, int prio, int stack_size, void (*entry)(), long parm);
 extern void SleepTask(long msec);
 extern void ExitTask(void);
 
@@ -111,7 +113,7 @@ extern int pressButton_(int button);
 
 // Display
 
-extern int CreateDialogBox(int parm1, int parm2, void (*btn_handler), int template);
+extern int CreateDialogBox(int parm1, int parm2, void (*btn_handler)(), int template);
 extern int DeleteDialogBox(int dialog);
 #define dialog_redraw do_some_with_dialog
 extern int do_some_with_dialog(int dialog);
@@ -135,6 +137,7 @@ extern int ioGlobalStdSet(int handle, int file);
 
 extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
 extern char *aRelSem;   // semaphore name
+
 // Remote shutter stuff -- this variables can help us detect any remote (may be)
 extern int RemPulseWidthMin;
 extern int RemPulseWidthMax;
