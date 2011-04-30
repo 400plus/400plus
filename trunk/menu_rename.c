@@ -100,7 +100,7 @@ void rename_action() {
 	if (x < 4) {
 		rename_filename[z] = letters[caps][x][y];
 
-		if (z != 25)
+		if (z != 24)
 			z++;
 
 		rename_refresh(4);
@@ -112,7 +112,7 @@ void rename_action() {
 }
 
 void rename_next() {
-	if (z != 25) {
+	if (z != 24) {
 		z++;
 		rename_refresh(4);
 	}
@@ -146,7 +146,7 @@ void rename_repeat(void(*repeateable)()){
 
 void rename_repeateable_right(int repeating) {
 	if (x < 4) {
-		if (y == 9) {
+		if (y == 8) {
 			y = 0;
 		} else {
 			y++;
@@ -159,7 +159,7 @@ void rename_repeateable_right(int repeating) {
 void rename_repeateable_left(int repeating) {
 	if (x < 4) {
 		if (y == 0) {
-			y = 9;
+			y = 8;
 		} else {
 			y--;
 		}
