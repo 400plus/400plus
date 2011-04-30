@@ -23,6 +23,7 @@ void COPY() {
 	}
 }
 
+// entry routine, entry.S calls this, so we enter here after power up.
 void my_romStart(int startType) {
 	unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0 >> 2);
 	my_usrInit(startType);

@@ -82,10 +82,10 @@ extern void settings_apply() {
 	send_to_intercom(EVENT_SET_COLOR_TEMP,      2,  settings.color_temp);
 
 	if(settings.remote_delay){
-		*(int*)0x229AC = 4500;
-		*(int*)0x229B0 = 5560;
+		RemReleaseSelfMax = 4500;
+		RemReleaseInstMin = 5560;
 	} else {
-		*(int*)0x229AC = 6160;
-		*(int*)0x229B0 = 7410;
+		RemReleaseSelfMax = 6160;
+		RemReleaseInstMin = 7410;
 	}
 }
