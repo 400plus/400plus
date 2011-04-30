@@ -125,7 +125,7 @@ Nella zona creativa le _chicche_ attivabili sono i seguenti:
 Altre modifiche al comportamento della fotocamera, non descritti in precedenza.
 
 == Informazioni aggiuntive ==
-Nella schermata delle impostazioni della fotocamera (ci si arriva premendo `INFO` nel menu standard della fotocamera), l'ultima riga mostrerà le seguenti informazioni (al posto dello spazio libero nella scheda di memoria):
+Nella schermata delle impostazioni della fotocamera (ci si arriva premendo `DISP` nel menu standard della fotocamera), l'ultima riga mostrerà le seguenti informazioni (al posto dello spazio libero nella scheda di memoria):
  * Il numero totale di scatti fatti dalla fotocamera.
  * La versione di 400plus correntemente installata.
 L'uso dei tasti `SET` e poi `SINISTRA` / `DESTRA` cambierà i valori visualizzati.
