@@ -1,5 +1,6 @@
 #include "main.h"
 #include "firmware.h"
+#include "languages.h"
 
 #include "info.h"
 
@@ -32,25 +33,27 @@ void info_refresh() {
 }
 
 char *info_display() {
-	int i;
+//	int free_space;
 	SleepTask(50);
 
 	switch (info_option) {
+/*
 	case INFO_OPTION_CAPACITY:
 		// im not sure why, but calling GetDriveFreeSpace() and then pressing
 		// a button too fast will freeze the camera... perhaps GDFS() gets interrupted
 		// by the btns ISR, perhaps we should cache the result somehow and refresh it
 		// on timed basis or when we take photo.
-		if (!FP_GetDriveFreeSpace("A:", &i)) {
+		if (!FP_GetDriveFreeSpace("A:", &free_space)) {
 			SleepTask(150);
+			sprintf(message, "<> %-12s:%5u.%2u MB", LP_WORD(L_FREE_SPACE), free_space/1024, (free_space%1024)/10);
 			//sprintf(message, "<> Free Space  :%8u KB", i);
-			sprintf(message, "<> Free Space  :%5u.%2u MB", i/1024, (i%1024)/10);
 		} else {
 			sprintf(message, "<> Can't get FreeSpace (A:)");
 		}
 		break;
+*/
 	case INFO_OPTION_RELEASE_COUNT:
-		sprintf(message, "<> ReleaseCount: %u", FLAG_RELEASE_COUNT);
+		sprintf(message, "<> %-12s: %u", LP_WORD(L_RELEASE_COUNT), FLAG_RELEASE_COUNT);
 		break;
 	case INFO_OPTION_400PLUS:
 		if (VERSION < 20110101) {

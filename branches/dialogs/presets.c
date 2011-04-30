@@ -2,13 +2,61 @@
 #include "utils.h"
 #include "settings.h"
 #include "display.h"
+#include "languages.h"
 #include "firmware.h"
 
 #include "presets.h"
 
 type_CAMERA_MODE preset;
 
+type_PRESETS_CONFIG presets_config = {
+	order : {0, 1, 2, 3, 4}
+};
+
 void get_filename(char *filename, int id);
+
+void presets_read() {
+	int file    = -1;
+	int version =  0;
+
+	type_PRESETS_CONFIG buffer;
+
+	sprintf(presets_config.names[0], "%-25s", LP_WORD(L_PRESET_1));
+	sprintf(presets_config.names[1], "%-25s", LP_WORD(L_PRESET_2));
+	sprintf(presets_config.names[2], "%-25s", LP_WORD(L_PRESET_3));
+	sprintf(presets_config.names[3], "%-25s", LP_WORD(L_PRESET_4));
+	sprintf(presets_config.names[4], "%-25s", LP_WORD(L_PRESET_5));
+
+	if ((file = FIO_OpenFile(PRESETS_CONFIG, O_RDONLY, 644)) == -1)
+		goto end;
+
+	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
+		goto end;
+
+	if (version != PRESETS_VERSION)
+		goto end;
+
+	if (FIO_ReadFile(file, &buffer, sizeof(buffer)) != sizeof(buffer))
+		goto end;
+
+	presets_config = buffer;
+
+end:
+	if (file != -1)
+		FIO_CloseFile(file);
+}
+
+void presets_write() {
+	const int version = PRESETS_VERSION;
+
+	int file = FIO_OpenFile(PRESETS_CONFIG, O_CREAT | O_WRONLY , 644);
+
+	if (file != -1) {
+		FIO_WriteFile(file, (void*)&version,        sizeof(version));
+		FIO_WriteFile(file, (void*)&presets_config, sizeof(presets_config));
+		FIO_CloseFile(file);
+	}
+}
 
 int preset_read(int id) {
 	int result  = FALSE;
@@ -57,14 +105,16 @@ void preset_write(int id) {
 	file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644);
 
 	if (file != -1) {
-		FIO_WriteFile(file, (void*)&version, sizeof(version));
-		FIO_WriteFile(file, &settings,   sizeof(settings));
-		FIO_WriteFile(file, &cameraMode, sizeof(cameraMode));
+		FIO_WriteFile(file, (void*)&version,    sizeof(version));
+		FIO_WriteFile(file, (void*)&settings,   sizeof(settings));
+		FIO_WriteFile(file, (void*)&cameraMode, sizeof(cameraMode));
 		FIO_CloseFile(file);
 	}
 }
 
 extern void preset_apply() {
+	int ae = status.main_dial_ae;
+
 	settings_apply();
 
 	send_to_intercom(EVENT_SET_AE,         1, preset.ae);
@@ -109,9 +159,26 @@ extern void preset_apply() {
 	send_to_intercom(EVENT_SET_CF_QR_MAGNIFY,           1, preset.cf_qr_magnify);
 	send_to_intercom(EVENT_SET_CF_TFT_ON_POWER_ON,      1, preset.cf_tft_on_power_on);
 
+	preset_write(0);
+
 	display_refresh();
+	status.main_dial_ae = ae;
+}
+
+void preset_recall() {
+	int ae = status.main_dial_ae;
+
+	if (preset_read(0)) {
+		settings_apply();
+
+		if (preset.ae != AE_MODE_ADEP)
+			send_to_intercom(EVENT_SET_AE, 1, preset.ae);
+
+		display_refresh();
+		status.main_dial_ae = ae;
+	}
 }
 
 void get_filename(char *filename, int id) {
-	sprintf(filename, PRESET_FILE, id);
+	sprintf(filename, PRESETS_FILE, id);
 }

@@ -1,14 +1,17 @@
 #include "main.h"
 
 #include "menu.h"
+#include "menu_rename.h"
 #include "menu_settings.h"
 #include "menu_shortcuts.h"
 #include "info.h"
 #include "tasks.h"
+#include "presets.h"
 #include "display.h"
 #include "viewfinder.h"
 #include "af_patterns.h"
 #include "settings.h"
+#include "languages.h"
 #include "firmware.h"
 
 // Main message queue
@@ -74,6 +77,18 @@ type_ACTION actions_400plus_new[]  = {
 	END_OF_LIST
 };
 
+type_ACTION actions_rename[]  = {
+	{BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
+	{BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
+	{BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
+	{BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
+	{BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
+	{BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
+	{BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
+	END_OF_LIST
+};
+
 type_ACTION actions_meter[] = {
 	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
 	END_OF_LIST
@@ -113,6 +128,7 @@ type_CHAIN chains[] = {
 	{GUI_MODE_INFO,      actions_info},
 	{GUI_MODE_400PLUS,   actions_400plus},
 	{GUI_MODE_400PLUS_NEW,   actions_400plus_new},
+	{GUI_MODE_RENAME,    actions_rename},
 	{GUI_MODE_METER,     actions_meter},
 	{GUI_MODE_WB,        actions_wb},
 	{GUI_MODE_ISO,       actions_iso},
@@ -134,6 +150,10 @@ void initialize_display() {
 	ENQUEUE_TASK(restore_display);
 }
 
+void change_lang_pack() {
+	LangPlus_set_lang(cameraMode.language);
+}
+
 void message_proxy(const int handler, char *message) {
 	int gui_mode;
 	int message_len = message[0];
@@ -143,9 +163,21 @@ void message_proxy(const int handler, char *message) {
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
+	// set current language pack if lang was changed
+	// do this here until we find an event for changing
+	// the system language
+	if (cameraMode.language != LangPlus_last_langid) {
+		ENQUEUE_TASK(change_lang_pack);
+	}
+
 	// Status-independent events and special cases
 	switch (event) {
-	case EVENT_SETTINGS: // Mode dial moved, settings changed
+	case EVENT_MAIN_DIAL: // Mode dial moved
+		status.main_dial_ae = message[2];
+		if (status.main_dial_ae == AE_MODE_ADEP)
+			ENQUEUE_TASK(preset_recall);
+		goto pass_message;
+	case EVENT_SETTINGS: // Settings changed
 		// Restore display
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;

@@ -14,60 +14,83 @@
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
 // Events for SendToIntercom
-#define EVENT_SET_AE         0x01
-#define EVENT_SET_METERING   0x02
-#define EVENT_SET_EFCOMP     0x03
-#define EVENT_SET_DRIVE      0x04
-#define EVENT_SET_WB         0x05
-#define EVENT_SET_AF         0x06
-#define EVENT_SET_AF_POINT   0x07
-#define EVENT_SET_TV_VAL     0x08
-#define EVENT_SET_AV_VAL     0x09
-#define EVENT_SET_AV_COMP    0x0A
-#define EVENT_SET_ISO        0x0B
-#define EVENT_SET_RED_EYE    0x0C
-#define EVENT_SET_AE_BKT     0x0D
-#define EVENT_SET_WB_BKT     0x0E
-#define EVENT_SET_BEEP       0x0F
-#define EVENT_SET_COLOR_TEMP 0x10
+typedef enum {
+        IC_AE_MODE                     = 0x01, // EVENT_SET_AE
+        IC_AF_MES_MODE                 = 0x02, // EVENT_SET_METERING
+        IC_SET_EFCOMP                  = 0x03, // EVENT_SET_EFCOMP
+        IC_DRIVE_MODE                  = 0x04, // EVENT_SET_DRIVE
+        IC_WBMODE                      = 0x05, // EVENT_SET_WB
+        IC_SET_AF                      = 0x06, // EVENT_SET_AF
+        IC_SET_AF_POINT                = 0x07, // EVENT_SET_AF_POINT
+        IC_TV_VALUE                    = 0x08, // EVENT_SET_TV_VAL
+        IC_AV_VALUE                    = 0x09, // EVENT_SET_AV_VAL
+        IC_COMP_VALUE                  = 0x0A, // EVENT_SET_AV_COMP
+        IC_ISO_VALUE                   = 0x0B, // EVENT_SET_ISO
+        IC_SET_RED_EYE                 = 0x0C, // EVENT_SET_RED_EYE
+        IC_SET_AE_BKT                  = 0x0D, // EVENT_SET_AE_BKT
+        IC_SET_WB_BKT                  = 0x0E, // EVENT_SET_WB_BKT
+        IC_SET_BEEP                    = 0x0F, // EVENT_SET_BEEP
+        IC_SET_COLOR_TEMP              = 0x10, // EVENT_SET_COLOR_TEMP
+        IC_COLOR_SPACE                 = 0x21, // EVENT_SET_COLOR_TEMP
+        IC_QUALITY_1                   = 0x22, // EVENT_SET_IMG_FORMAT
+        IC_QUALITY_2                   = 0x23, // EVENT_SET_IMG_SIZE
+        IC_QUALITY_3                   = 0x24, // EVENT_SET_IMG_QUALITY
+        IC_CF_SET_BUTTON_FUNC          = 0x2A, // EVENT_SET_CF_SET_BUTTON_FUNC // C.Fn-01
+        IC_CF_NR_FOR_LONG_EXPOSURE     = 0x2B, // EVENT_SET_CF_NR_FOR_LONG_EXPOSURE // C.Fn-02
+        IC_CF_EFAV_FIX_X               = 0x2C, // EVENT_SET_CF_EFAV_FIX_X // C.Fn-03
+        IC_CF_AFAEL_ACTIVE_BUTTON      = 0x2D, // EVENT_SET_CF_AFAEL_ACTIVE_BUTTON // C.Fn-04
+        IC_SET_CF_EMIT_AUX             = 0x2E, // EVENT_SET_CF_EMIT_AUX // C.Fn-05
+        IC_SET_CF_EXPLEVEL_INC_THIRD   = 0x2F, // EVENT_SET_CF_EXPLEVEL_INC_THIRD   // C.Fn-06
+        IC_SET_CF_EMIT_FLASH           = 0x30, // EVENT_SET_CF_EMIT_FLASH           
+        IC_SET_CF_EXTEND_ISO           = 0x31, // EVENT_SET_CF_EXTEND_ISO           
+        IC_SET_CF_AEB_SEQUENCE         = 0x32, // EVENT_SET_CF_AEB_SEQUENCE         
+        IC_SET_CF_SI_INDICATE          = 0x33, // EVENT_SET_CF_SI_INDICATE          
+        IC_SET_CF_MENU_POS             = 0x34, // EVENT_SET_CF_MENU_POS             
+        IC_SET_CF_MIRROR_UP_LOCK       = 0x35, // C.Fn-07, //EVENT_SET_CF_MIRROR_UP_LOCK       
+        IC_SET_CF_FPSEL_METHOD         = 0x36, // EVENT_SET_CF_FPSEL_METHOD         
+        IC_SET_CF_FLASH_METERING       = 0x37, // C.Fn-08, //EVENT_SET_CF_FLASH_METERING       
+        IC_SET_CF_FLASH_SYNC_REAR      = 0x38, // C.Fn-09, //EVENT_SET_CF_FLASH_SYNC_REAR      
+        IC_SET_CF_SAFETY_SHIFT         = 0x39, // EVENT_SET_CF_SAFETY_SHIFT         
+        IC_SET_CF_LENS_BUTTON          = 0x3A, // EVENT_SET_CF_LENS_BUTTON          
+        IC_SET_CF_ORIGINAL_EVAL        = 0x3D, // EVENT_SET_CF_ORIGINAL_EVAL        
+        IC_SET_CF_QR_MAGNIFY           = 0x3C, // C.Fn-10, //EVENT_SET_CF_QR_MAGNIFY           
+        IC_SET_CF_TFT_ON_POWER_ON      = 0x3B, // C.Fn-11, //EVENT_SET_CF_TFT_ON_POWER_ON      
+        IC_SHUTDOWN                    = 0x52, // 
+        IC_RELEASE                     = 0x53, // 
+        IC_ENTERFACTORYMODE            = 0x5D, // 
+        IC_EXITFACTORYMODE             = 0x5E, // 
+        IC_UILOCK                      = 0x5F, // 
+        IC_GUILOCK                     = 0x60, // 
+        IC_FIRMUP                      = 0x61, // 
+        IC_BAT_TYPE                    = 0x65, // 
+        IC_BC_LEVEL                    = 0x66, // 
+        IC_POWER_FLAG                  = 0x72, // 
+        IC_BUZZER                      = 0x73, // 
+        IC_TEMP                        = 0x74, // 
+        IC_TIMERCOUNTER                = 0x8C, // 
+        IC_MONOPEN                     = 0xC8, // 
+        IC_MONCLOSE                    = 0xC9, // 
+        IC_MONREAD                     = 0xCA, // 
+        IC_MONWRITE                    = 0xCB, // 
+        IC_MONCALL                     = 0xCC, // 
+        IC_SET_REALTIME_ISO_0          = 0xF0, // EVENT_SET_REALTIME_ISO_0    
+        IC_SET_REALTIME_ISO_1          = 0xF1, // EVENT_SET_REALTIME_ISO_1    
+        IC_EXIT_MCELL_TEST             = 0xF4  // 
+} intercom_event_t;
 
-#define EVENT_SET_IMG_FORMAT  0x22
-#define EVENT_SET_IMG_SIZE    0x23
-#define EVENT_SET_IMG_QUALITY 0x24
 
-#define EVENT_SET_CF_SET_BUTTON_FUNC      0x2A // C.Fn-01
-#define EVENT_SET_CF_NR_FOR_LONG_EXPOSURE 0x2B // C.Fn-02
-#define EVENT_SET_CF_EFAV_FIX_X           0x2C // C.Fn-03
-#define EVENT_SET_CF_AFAEL_ACTIVE_BUTTON  0x2D // C.Fn-04
-#define EVENT_SET_CF_EMIT_AUX             0x2E // C.Fn-05
-#define EVENT_SET_CF_EXPLEVEL_INC_THIRD   0x2F // C.Fn-06
-#define EVENT_SET_CF_EMIT_FLASH           0x30
-#define EVENT_SET_CF_EXTEND_ISO           0x31
-#define EVENT_SET_CF_AEB_SEQUENCE         0x32
-#define EVENT_SET_CF_SI_INDICATE          0x33
-#define EVENT_SET_CF_MENU_POS             0x34
-#define EVENT_SET_CF_MIRROR_UP_LOCK       0x35 // C.Fn-07
-#define EVENT_SET_CF_FPSEL_METHOD         0x36
-#define EVENT_SET_CF_FLASH_METERING       0x37 // C.Fn-08
-#define EVENT_SET_CF_FLASH_SYNC_REAR      0x38 // C.Fn-09
-#define EVENT_SET_CF_SAFETY_SHIFT         0x39
-#define EVENT_SET_CF_LENS_BUTTON          0x3A
-#define EVENT_SET_CF_ORIGINAL_EVAL        0x3D
-#define EVENT_SET_CF_QR_MAGNIFY           0x3C // C.Fn-10
-#define EVENT_SET_CF_TFT_ON_POWER_ON      0x3B // C.Fn-11
 
-#define EVENT_SET_REALTIME_ISO_0    0xF0
-#define EVENT_SET_REALTIME_ISO_1    0xF1
 
 #define EVENT_DIALOGON  0x50
 #define EVENT_DIALOGOFF 0x51
 
+#define EVENT_MAIN_DIAL 0x90
 #define EVENT_SETTINGS  0x93
 
 #define	EVENT_AFPDLGON  0xB9
 #define	EVENT_AFPDLGOFF 0xA7
 
-enum {	// code2 on button press:
+typedef enum {	// code2 on button press:
 	GUI_BUTTON_RIGHT		= 0x807,
 	GUI_BUTTON_LEFT			= 0x809,
 	GUI_BUTTON_UP			= 0x80B,
@@ -88,7 +111,7 @@ enum {	// code2 on button press:
 	GUI_BUTTON_FACE			= 0x10000014,
 	GUI_BUTTON_DRIVE		= 0x10000047,
 	//GUI_BUTTON_AV			= 0x1000003E, // this is generated by other events too
-};
+} gui_event_t;
 
 //#define	SOME_ACTION_AFTER_BTNS  0x8D // 10001101 - 141
 //#define	SOME_OTHER_ACTION       0x74 // 01110100 - 116
@@ -304,8 +327,9 @@ typedef enum { // GUIModes
 	GUI_MODE_ACTIVESWEEP_OLC,// 0x1F - Sweeping the mirror ?
 
 // Fictitious modes
-	GUI_MODE_FACE    = 0x2E,// Face mode
-	GUI_MODE_400PLUS = 0x2F,// 400Plus mode
+	GUI_MODE_400PLUS = 0x2D,// 400Plus mode
+	GUI_MODE_RENAME  = 0x2E,// 400Plus rename
+	GUI_MODE_FACE    = 0x2F	// Face mode
 	GUI_MODE_400PLUS_NEW = 0x30,// 400Plus mode new
 } type_GUI_MODE;
 
@@ -350,6 +374,7 @@ typedef struct {
 	int       script_running;    // A script is running
 	int       iso_in_viewfinder; // ISO is being displayed in the viewfinder
 	int       afp_dialog;        // The last active dialog was the AF Point selection dialog
+	int       main_dial_ae;      // AE mode selected in the main dial
 	type_TASK button_up_task;    // Task that must be executed when the current button is released
 	type_RESP button_up_resp;    // Response when the current button is released
 } type_STATUS;
@@ -369,6 +394,8 @@ extern void initialize_display();
 extern void message_proxy(const int handler, char *message);
 
 extern type_ACTION actions_400plus[];
+
+void change_lang_pack();
 
 // Shared globals
 extern type_STATUS status;

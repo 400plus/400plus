@@ -2,8 +2,10 @@
 #include "utils.h"
 #include "display.h"
 #include "settings.h"
+#include "presets.h"
 #include "menu_shortcuts.h"
 #include "firmware.h"
+#include "languages.h"
 
 #include "tasks.h"
 
@@ -13,6 +15,10 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
+	// Initialize lang pack strings
+	LangPlus_lang_packs_init();
+	change_lang_pack();
+
 	// Enable (hidden) CFn.8 for ISO H
 	if (!cameraMode.cf_extend_iso)
 		send_to_intercom(EVENT_SET_CF_EXTEND_ISO, 1, 1);
@@ -21,9 +27,11 @@ void start_up() {
 	send_to_intercom(EVENT_SET_REALTIME_ISO_0, 0, 0);
 	send_to_intercom(EVENT_SET_REALTIME_ISO_1, 0, 0);
 
-	// Read (and apply) settings from file
-	if (settings_read())
-		settings_apply();
+	// Read settings from file
+	settings_read();
+
+	// Read presets from file
+	presets_read();
 }
 
 void dp_action() {

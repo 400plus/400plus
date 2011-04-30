@@ -20,9 +20,11 @@ S_OBJS = entry.o      \
 C_OBJS = init.o           \
          main.o           \
          tasks.o          \
+         languages.o      \
          utils.o          \
          menu.o           \
          menu_presets.o   \
+         menu_rename.o    \
          menu_settings.o  \
          menu_developer.o \
          menu_shortcuts.o \
@@ -33,6 +35,9 @@ C_OBJS = init.o           \
          scripts.o        \
          viewfinder.o     \
          af_patterns.o    \
+
+OBJS   = $(S_OBJS) $(C_OBJS)
+DEPS   = $(C_OBJS:.o=.d)
 
 all: $(PROJECT).BIN
 
@@ -56,9 +61,12 @@ $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
 	rm -f $(PROJECT).arm.elf
 
-$(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
+$(PROJECT).arm.elf: $(OBJS) link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^
 
+%.d: %.c
+	$(CC) $(CFLAGS) -MM -MT $@ $*.c -o $*.d
+	
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
@@ -66,6 +74,7 @@ $(PROJECT).arm.elf: $(S_OBJS) $(C_OBJS) link.script
 	$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS) $(DEPS)
 	rm -f $(PROJECT).arm.elf
 
+-include $(DEPS)

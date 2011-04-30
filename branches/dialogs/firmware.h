@@ -1,6 +1,8 @@
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 
+#include "vxworks.h"
+
 // Variables, Flags, Pointers, Handlers
 extern unsigned int	BodyID;
 extern unsigned short	ModelID;
@@ -10,7 +12,6 @@ extern type_DIALOG * hInfoCreative; // dialog handle for info screen
 #define hMainDialog (type_DIALOG*)(*(int*)(0x47F0))
 extern int FaceStatus;    // 0 = no face, 1 = face (disp off)... see #32, this could give some solution
 extern int GUIMode;       // Current GUI Mode
-extern int hRelSem;       // Camera Busy Flag (Release Semaphore ?)
 extern int hFaMain;       // Factory Dialog
 extern int hMnBg;         // Menu Dialog
 
@@ -26,8 +27,9 @@ extern long eventproc_EdLedBlink(void);
 
 // String management
 
-extern int  strlen(const char *);
-extern void sprintf(const char*, char*, ...);
+extern int   strlen(const char *);
+extern char *strncpy(char *destination, const char *source, int length);
+extern void  sprintf(const char*, char*, ...);
 
 // Queue management
 
@@ -92,7 +94,13 @@ extern int taskDeleteHookAdd (void *deleteHook);
 
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
-//extern int* CreateBinarySemaphore(int prio, SEM_B_STATE);
+
+// Semaphores
+
+extern SEM_ID CreateBinarySemaphore(char * name, SEM_B_STATE state); // SEM_EMPTY (0), SEM_FULL (1)
+extern int TakeSemaphore(SEM_ID sem, int time);
+extern int GiveSemaphore(SEM_ID sem);
+extern int DeleteSemaphore(int* sem);
 
 // Event generation
 
@@ -118,12 +126,20 @@ extern int InfoCreativeAppProc();
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 
-
 // Factory mode and debugging
 
 extern int EnterFactoryMode();
 extern int ExitFactoryMode();
 
 extern int ioGlobalStdSet(int handle, int file);
+
+// Shutter stuff
+
+extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
+extern char * aRelSem;	// semaphore name
+
+// Language
+
+extern void GetLanguageStr(int lang_id, char * lang_str);
 
 #endif /* FIRMWARE_H_ */
