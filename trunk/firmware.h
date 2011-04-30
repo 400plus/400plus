@@ -134,7 +134,16 @@ extern int ioGlobalStdSet(int handle, int file);
 // Shutter stuff
 
 extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
-extern char * aRelSem;	// semaphore name
+extern char *aRelSem;   // semaphore name
+// Remote shutter stuff -- this variables can help us detect any remote (may be)
+extern int RemPulseWidthMin;
+extern int RemPulseWidthMax;
+extern int RemPulseDiffMin;
+extern int RemPulseDiffMax;
+extern int RemReleaseInstMin;
+extern int RemReleaseInstMax;
+extern int RemReleaseSelfMin;
+extern int RemReleaseSelfMax;
 
 // Language
 
