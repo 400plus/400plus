@@ -135,10 +135,6 @@ void initialize_display() {
 	ENQUEUE_TASK(restore_display);
 }
 
-void change_lang_pack() {
-	LangPlus_set_lang(cameraMode.language);
-}
-
 void message_proxy(const int handler, char *message) {
 	int gui_mode;
 	int button = message[1];
@@ -146,13 +142,6 @@ void message_proxy(const int handler, char *message) {
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
-
-	// set current language pack if lang was changed
-	// do this here until we find an event for changing
-	// the system language
-	if (cameraMode.language != LangPlus_last_langid) {
-		ENQUEUE_TASK(change_lang_pack);
-	}
 
 	// Status-independent events and special cases
 	switch (message[1]) {
@@ -175,6 +164,9 @@ void message_proxy(const int handler, char *message) {
 			status.afp_dialog = FALSE;
 			ENQUEUE_TASK(afp_enter);
 		}
+		goto pass_message;
+	case EVENT_SET_LANGUAGE:
+		ENQUEUE_TASK(lang_pack_config);
 		goto pass_message;
 	case BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
 		button = (message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT;
