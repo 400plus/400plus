@@ -151,6 +151,8 @@ void rename_repeateable_right(int repeating) {
 		} else {
 			y++;
 		}
+	} else {
+		rename_next();
 	}
 
 	rename_refresh(x);
@@ -163,6 +165,8 @@ void rename_repeateable_left(int repeating) {
 		} else {
 			y--;
 		}
+	} else {
+		rename_prev();
 	}
 
 	rename_refresh(x);
