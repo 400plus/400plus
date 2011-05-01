@@ -88,7 +88,7 @@ typedef struct {
 	int              current_line;
 	int              current_item;
 	int              item_grabbed; // for menu reordering
-	type_GUI_MODE    gui_mode;     // the GUIMode this dialog is using
+	type_GUIMODE     gui_mode;     // the GUIMode this dialog is using
 	type_BTN_HANDLER btn_handler;  // routine to proccess the key presses
 } type_MENU;
 
@@ -155,6 +155,6 @@ extern void menu_drag_drop();
 extern void menu_submenu_next();
 extern void menu_submenu_prev();
 
-int menu_buttons_400plus(type_DIALOG * dialog, int r1, int code1, int r3, int r4, int r5, int r6, int code2);
+int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 #endif /* MENU_H_ */

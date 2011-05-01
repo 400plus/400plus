@@ -35,10 +35,10 @@ type_MENU menu_shortcuts = {
 	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
-	//gui_mode    : GUI_MODE_400PLUS,
-	gui_mode    : GUI_MODE_400PLUS_NEW,
+	//gui_mode    : GUIMODE_400PLUS,
+	gui_mode    : GUIMODE_400PLUS_NEW,
 	//btn_handler : InfoCreativeAppProc
-	btn_handler : menu_buttons_400plus
+	btn_handler : menu_buttons_handler
 };
 
 void menu_shortcuts_start() {
@@ -58,10 +58,10 @@ void menu_shortcuts_start() {
 void menu_shortcuts_save() {
 	beep();
 
-	send_to_intercom(EVENT_SET_ISO,                2, shortcuts_storage.iso);
-	send_to_intercom(EVENT_SET_CF_EMIT_AUX,        1, shortcuts_storage.cf_emit_aux);
-	send_to_intercom(EVENT_SET_CF_MIRROR_UP_LOCK,  1, shortcuts_storage.cf_mirror_up_lock);
-	send_to_intercom(EVENT_SET_CF_FLASH_SYNC_REAR, 1, shortcuts_storage.cf_flash_sync_rear);
+	send_to_intercom(IC_SET_ISO,                2, shortcuts_storage.iso);
+	send_to_intercom(IC_SET_CF_EMIT_AUX,        1, shortcuts_storage.cf_emit_aux);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,  1, shortcuts_storage.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, shortcuts_storage.cf_flash_sync_rear);
 
 	settings_write();
 

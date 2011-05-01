@@ -266,7 +266,7 @@ int print_icu_info() {
 }
 
 int press_button(int button) {
-	int result = pressButton_(button);
+	int result = IntercomHandlerButton(button);
 	SleepTask(EVENT_WAIT);
 
 	return result;

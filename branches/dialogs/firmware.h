@@ -52,7 +52,9 @@ extern int open(const char *name, int flags, int mode);
 extern int read(int fd, void *buffer, long nbytes);
 extern int write(int fd, void *buffer, long nbytes);
 extern int close(int fd);
-extern int printErr(char * fmt, ...); // like printf but prints to stderr
+
+extern int printErr(const char *, ...);
+extern int printf_log(int, int, const char *, ...);
 
 extern FILE *fopen(const char *file, const char *mode);
 extern FILE *fdopen(int fd, char * mode);
@@ -77,7 +79,7 @@ extern void  CloseLogFile(void *logFile);
 
 extern void RiseEvent(char *name);
 
-extern int* CreateTask(const char *name, int prio, int stack_size, void *entry, long parm);
+extern int* CreateTask(const char *name, int prio, int stack_size, void (*entry)(), long parm);
 extern void SleepTask(long msec);
 extern void ExitTask(void);
 
@@ -94,6 +96,7 @@ extern int taskDeleteHookAdd (void *deleteHook);
 
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
+extern int IntercomHandlerButton(int button);
 
 // Semaphores
 
@@ -108,8 +111,6 @@ extern int eventproc_PrintICUInfo();
 extern int eventproc_RiseEvent(const char *event);
 extern int eventproc_Release();
 
-extern int pressButton_(int button);
-
 // Display
 
 #define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template)
@@ -122,7 +123,7 @@ extern int   sub_FF8382DC(void * dialog, const int code, const int data);
 #define dialog_set_property_str sub_FF837FA8
 extern int   sub_FF837FA8(void * dialog, const int code, const char *text);
 
-extern int InfoCreativeAppProc();
+extern int InfoCreativeAppProc(type_DIALOG *, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 
@@ -136,7 +137,17 @@ extern int ioGlobalStdSet(int handle, int file);
 // Shutter stuff
 
 extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
-extern char * aRelSem;	// semaphore name
+extern char *aRelSem;   // semaphore name
+
+// Remote shutter stuff -- this variables can help us detect any remote (may be)
+extern int RemPulseWidthMin;
+extern int RemPulseWidthMax;
+extern int RemPulseDiffMin;
+extern int RemPulseDiffMax;
+extern int RemReleaseInstMin;
+extern int RemReleaseInstMax;
+extern int RemReleaseSelfMin;
+extern int RemReleaseSelfMax;
 
 // Language
 

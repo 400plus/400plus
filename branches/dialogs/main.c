@@ -27,39 +27,39 @@ type_STATUS status = {
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{BUTTON_UP,    TRUE,  RESP_PASS,  {restore_iso}},
-	{BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
-	{BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {dp_action}},
-	{BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
+	{IC_BUTTON_UP,    TRUE,  RESP_PASS,  {restore_iso}},
+	{IC_BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
+	{IC_BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
+	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {dp_action}},
+	{IC_BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
 	END_OF_LIST
 };
 
 type_ACTION actions_menu[]  = {
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {menu_settings_start}},
+	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {menu_settings_start}},
 	END_OF_LIST
 };
 
 type_ACTION actions_info[]  = {
-	{BUTTON_SET,   FALSE, RESP_BLOCK, {info_option_next}},
-	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {info_option_next}},
-	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {info_option_next}},
-	{BUTTON_UP,    TRUE,  RESP_BLOCK, {info_option_prev}},
-	{BUTTON_LEFT,  TRUE,  RESP_BLOCK, {info_option_prev}},
+	{IC_BUTTON_SET,   FALSE, RESP_BLOCK, {info_option_next}},
+	{IC_BUTTON_DOWN,  TRUE,  RESP_BLOCK, {info_option_next}},
+	{IC_BUTTON_RIGHT, TRUE,  RESP_BLOCK, {info_option_next}},
+	{IC_BUTTON_UP,    TRUE,  RESP_BLOCK, {info_option_prev}},
+	{IC_BUTTON_LEFT,  TRUE,  RESP_BLOCK, {info_option_prev}},
 	END_OF_LIST
 };
 
 type_ACTION actions_400plus[]  = {
-	{BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
-	{BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
-	{BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
-	{BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
-	{BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
-	{BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
-	{BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
-	{BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
-	{BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
-	{BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
+	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
+	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
+	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
+	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
+	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
+	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
+	{IC_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
+	{IC_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
 	END_OF_LIST
 };
 
@@ -78,62 +78,62 @@ type_ACTION actions_400plus_new[]  = {
 };
 
 type_ACTION actions_rename[]  = {
-	{BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
-	{BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
-	{BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
-	{BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
-	{BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
-	{BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
-	{BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
-	{BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
+	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
+	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
+	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
+	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
+	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
+	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
 	END_OF_LIST
 };
 
 type_ACTION actions_meter[] = {
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
+	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
 	END_OF_LIST
 };
 
 type_ACTION actions_wb[] = {
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_whitebalance_colortemp}},
+	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {set_whitebalance_colortemp}},
 	END_OF_LIST
 };
 
 type_ACTION actions_iso[] = {
-	{BUTTON_DP,    FALSE, RESP_BLOCK, {set_iso_high}},
+	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {set_iso_high}},
 	END_OF_LIST
 };
 
 type_ACTION actions_face[] = {
-	{BUTTON_UP,    TRUE,  RESP_BLOCK, {}},
-	{BUTTON_DOWN,  TRUE,  RESP_BLOCK, {}},
-	{BUTTON_RIGHT, TRUE,  RESP_BLOCK, {viewfinder_right, viewfinder_end}},
-	{BUTTON_LEFT,  TRUE,  RESP_BLOCK, {viewfinder_left,  viewfinder_end}},
+	{IC_BUTTON_UP,    TRUE,  RESP_BLOCK, {}},
+	{IC_BUTTON_DOWN,  TRUE,  RESP_BLOCK, {}},
+	{IC_BUTTON_RIGHT, TRUE,  RESP_BLOCK, {viewfinder_right, viewfinder_end}},
+	{IC_BUTTON_LEFT,  TRUE,  RESP_BLOCK, {viewfinder_left,  viewfinder_end}},
 	END_OF_LIST
 };
 
 type_ACTION actions_af[] = {
-	{BUTTON_SET,   FALSE,  RESP_BLOCK, {afp_center}},
-	{BUTTON_UP,    TRUE,   RESP_BLOCK, {afp_top}},
-	{BUTTON_DOWN,  TRUE,   RESP_BLOCK, {afp_bottom}},
-	{BUTTON_RIGHT, TRUE,   RESP_BLOCK, {afp_right}},
-	{BUTTON_LEFT,  TRUE,   RESP_BLOCK, {afp_left}},
+	{IC_BUTTON_SET,   FALSE,  RESP_BLOCK, {afp_center}},
+	{IC_BUTTON_UP,    TRUE,   RESP_BLOCK, {afp_top}},
+	{IC_BUTTON_DOWN,  TRUE,   RESP_BLOCK, {afp_bottom}},
+	{IC_BUTTON_RIGHT, TRUE,   RESP_BLOCK, {afp_right}},
+	{IC_BUTTON_LEFT,  TRUE,   RESP_BLOCK, {afp_left}},
 	END_OF_LIST
 };
 
 type_CHAIN chains[] = {
-	{GUI_MODE_OLC,       actions_main},
-	{GUI_MODE_MAIN,      actions_main},
-	{GUI_MODE_MENU,      actions_menu},
-	{GUI_MODE_INFO,      actions_info},
-	{GUI_MODE_400PLUS,   actions_400plus},
-	{GUI_MODE_400PLUS_NEW,   actions_400plus_new},
-	{GUI_MODE_RENAME,    actions_rename},
-	{GUI_MODE_METER,     actions_meter},
-	{GUI_MODE_WB,        actions_wb},
-	{GUI_MODE_ISO,       actions_iso},
-	{GUI_MODE_FACE,      actions_face},
-	{GUI_MODE_AFPATTERN, actions_af},
+	{GUIMODE_OLC,       actions_main},
+	{GUIMODE_MAIN,      actions_main},
+	{GUIMODE_MENU,      actions_menu},
+	{GUIMODE_INFO,      actions_info},
+	{GUIMODE_400PLUS,   actions_400plus},
+	{GUIMODE_400PLUS_NEW,   actions_400plus_new},
+	{GUIMODE_RENAME,    actions_rename},
+	{GUIMODE_METER,     actions_meter},
+	{GUIMODE_WB,        actions_wb},
+	{GUIMODE_ISO,       actions_iso},
+	{GUIMODE_FACE,      actions_face},
+	{GUIMODE_AFPATTERN, actions_af},
 	END_OF_LIST
 };
 
@@ -154,7 +154,7 @@ void change_lang_pack() {
 	LangPlus_set_lang(cameraMode.language);
 }
 
-void message_proxy(const int handler, char *message) {
+void intercom_proxy(const int handler, char *message) {
 	int gui_mode;
 	int message_len = message[0];
 	int event       = message[1];
@@ -172,31 +172,31 @@ void message_proxy(const int handler, char *message) {
 
 	// Status-independent events and special cases
 	switch (event) {
-	case EVENT_MAIN_DIAL: // Mode dial moved
+	case IC_MAIN_DIAL: // Mode dial moved
 		status.main_dial_ae = message[2];
 		if (status.main_dial_ae == AE_MODE_ADEP)
 			ENQUEUE_TASK(preset_recall);
 		goto pass_message;
-	case EVENT_SETTINGS: // Settings changed
+	case IC_SETTINGS: // Settings changed
 		// Restore display
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;
-	case EVENT_DIALOGON: // Entering a dialog
+	case IC_DIALOGON: // Entering a dialog
 		status.afp_dialog = (message[2] == 0x06);
 		goto pass_message;
-	case EVENT_AFPDLGOFF: // Exiting AF-Point selection dialog
+	case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
 		if (status.afp_dialog) {
 			// Open Extended AF-Point selection dialog
-			message[1] = EVENT_AFPDLGON;
+			message[1] = IC_AFPDLGON;
 			status.afp_dialog = FALSE;
 			ENQUEUE_TASK(afp_enter);
 		}
 		goto pass_message;
-	case BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
-		event = (message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT;
+	case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
+		event = (message[2] & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
 		holds = FALSE;
 		break;
-	case BUTTON_DP: // DP Button while a script is running
+	case IC_BUTTON_DP: // DP Button while a script is running
 		if (status.script_running) {
 			status.script_running = FALSE;
 			goto block_message;
@@ -223,8 +223,8 @@ void message_proxy(const int handler, char *message) {
 	}
 
 	// Use fictitious GUI modes so everything else fits nicely
-	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUI_MODE_MAIN)
-		gui_mode = GUI_MODE_FACE;
+	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUIMODE_MAIN)
+		gui_mode = GUIMODE_FACE;
 	else
 		gui_mode = FLAG_GUI_MODE;
 

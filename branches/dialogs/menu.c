@@ -4,6 +4,7 @@
 #include "languages.h"
 #include "menu_rename.h"
 #include "firmware.h"
+#include "debug.h"
 
 #include "menu.h"
 
@@ -36,74 +37,103 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
-int menu_buttons_400plus(type_DIALOG * dialog, int r1, int code1, int r3, int r4, int r5, int r6, int button) {
+int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	type_ACTION *action;
 
-	//printf("AF1: dialog=%p[0x%02X], r1=%02X, code1=%02X, r3=%02X, r4=%02X, r5=%02X, r6=%02X, button=%02X\n",
-	//		dialog,*((int*)dialog+1),r1,code1,r3,r4,r5,r6,button);
-
-	//char str[27];
-	//sprintf(str,"0x%02X, 0x%02X",code1,button);
-	//dialog_set_property_str(current_menu->handle,8,str);
-	//dialog_redraw(current_menu->handle);
+	// The SET btn comes in "code" and the current line in the menu is in "event"
+	// we switch them for easier parsing
+	if (code == GUI_BUTTON_SET) {
+		code = event;
+		event = GUI_BUTTON_SET;
+	}
 
 	// Loop over all the actions from 400plus
-	//for (action = actions_400plus; ! IS_EOL(action); action++) {
+	for (action = actions_400plus_new; ! IS_EOL(action); action++) {
 		// Check whether this action corresponds to the event received
-	//	if (action->button == button) {
-			beep();
+		if (action->button == event) {
 			// Launch the defined task
-			//if (action->task[0])
-			//	ENQUEUE_TASK(action->task[0]);
+			if (action->task[0])
+				ENQUEUE_TASK(action->task[0]);
 
-			//printf("AF: catched\n");
-	//		return 1;
-	//		break;
-	//	}
-	//}
+			if (event == GUI_BUTTON_UP || event == GUI_BUTTON_DOWN)
+				goto fallback;
 
-	//dialog_redraw(dialog);
+			goto handled;
+		}
+	}
+
+	// if we reach this, block usual keys
+	switch (event) {
+	case GUI_BUTTON_UP:
+	case GUI_BUTTON_DOWN:
+	case GUI_BUTTON_LEFT:
+	case GUI_BUTTON_RIGHT:
+	case GUI_BUTTON_SET:
+	case GUI_BUTTON_PLAY:
+	case GUI_BUTTON_JUMP:
+	case GUI_BUTTON_MENU:
+	case GUI_BUTTON_DISP:
+	case GUI_BUTTON_DP:
+	case GUI_BUTTON_TRASH:
+	case GUI_BUTTON_DRIVE:
+	case GUI_BUTTON_DIAL_LEFT:
+	case GUI_BUTTON_DIAL_RIGHT:
+		goto handled;
+	}
+
+	led_flash(BEEP_LED_LENGTH);
+	printf("400PLUS MENU: Unhandled event\n"
+		"dialog=%p, r1=%02X, event=%02X, r3=%02X, r4=%02X, r5=%02X, r6=%02X, code=%02X\n",
+		dialog,r1,event,r3,r4,r5,r6,code);
+
+fallback:
 	return 1;
+
+handled:
+	return 0;
 }
 
-void menu_destroy(type_MENU * menu) {
+void menu_destroy(type_MENU * menu, int start_olc) {
+
+	if (!menu || menu->handle)
+		goto out;
+
 	// GUI_DisplayMode();
 	GUI_Lock();
 	GUI_PalleteInit();
+	// PalettePop();
+	// with_check_ae_mode();
 
-	if (menu->handle != 0)
-		DeleteDialogBox(menu->handle);
+	DeleteDialogBox(menu->handle);
+
+	if (start_olc) { // do we need this at all ?
+		GUI_StartMode(GUIMODE_OLC);
+		CreateDialogBox_OlMain();
+	}
+
+	GUI_UnLock();
+	GUI_PalleteUnInit();
+
+out:
 	menu->handle = 0;
 	menu->current_line = 0;
 	menu->current_item = 0;
 	menu->item_grabbed = FALSE;
-
-	GUI_StartMode(GUI_MODE_OLC);
-	CreateDialogBox_OlMain();
-
-	GUI_UnLock();
-	GUI_PalleteUnInit();
 }
 
 void menu_create(type_MENU * menu) {
 	current_menu = menu;
 	FLAG_GUI_MODE = current_menu->gui_mode;
 
+	menu_destroy(current_menu,0);
+
 	GUI_Lock();
 	GUI_PalleteInit();
 	GUI_StartMode(current_menu->gui_mode);
 	GUI_ClearImage();
 
-	{ // do we need this block ?
-		if (menu->handle != 0)
-			DeleteDialogBox(menu->handle);
-		menu->handle = 0;
-		menu->current_line = 0;
-		menu->current_item = 0;
-		menu->item_grabbed = FALSE;
-	}
-
-	current_menu->handle = dialog_create(22, menu->btn_handler);
+	current_menu->handle = dialog_create(22, current_menu->btn_handler);
+	// PalettePush();
 	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 
 	menu_display();
@@ -381,9 +411,9 @@ void menu_repeateable_cycle(int repeating) {
 }
 
 void menu_close() {
-	menu_destroy(current_menu);
+	menu_destroy(current_menu,1);
 
-	press_button(BUTTON_DISP);
+	press_button(IC_BUTTON_DISP);
 	SleepTask(250);
 
 	display_refresh();

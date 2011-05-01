@@ -7,7 +7,7 @@
 
 int   x, y, z;
 int   caps;
-int   handle;
+type_DIALOG *handle;
 
 char *rename_filename;
 char  rename_buffer[32];
@@ -46,11 +46,11 @@ void rename_create(char *filename, type_TASK callback) {
 	rename_filename = filename;
 	rename_callback = callback;
 
-	FLAG_GUI_MODE = GUI_MODE_RENAME;
+	FLAG_GUI_MODE = GUIMODE_RENAME;
 
 	rename_destroy();
 
-	handle = DIALOG(22, InfoCreativeAppProc);
+	handle = dialog_create(22, InfoCreativeAppProc);
 	dialog_set_property_str(handle, 8, "Rename");
 
 	rename_display();
@@ -78,7 +78,7 @@ void rename_up() {
 }
 
 void rename_down() {
-	if (x != 5) {
+	if (x != 4) {
 		x++;
 		rename_display();
 	}
@@ -100,7 +100,7 @@ void rename_action() {
 	if (x < 4) {
 		rename_filename[z] = letters[caps][x][y];
 
-		if (z != 25)
+		if (z != 24)
 			z++;
 
 		rename_refresh(4);
@@ -112,7 +112,7 @@ void rename_action() {
 }
 
 void rename_next() {
-	if (z != 25) {
+	if (z != 24) {
 		z++;
 		rename_refresh(4);
 	}
@@ -146,7 +146,7 @@ void rename_repeat(void(*repeateable)()){
 
 void rename_repeateable_right(int repeating) {
 	if (x < 4) {
-		if (y == 9) {
+		if (y == 8) {
 			y = 0;
 		} else {
 			y++;
@@ -159,7 +159,7 @@ void rename_repeateable_right(int repeating) {
 void rename_repeateable_left(int repeating) {
 	if (x < 4) {
 		if (y == 0) {
-			y = 9;
+			y = 8;
 		} else {
 			y--;
 		}

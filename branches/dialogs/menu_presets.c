@@ -51,7 +51,7 @@ type_MENU menu_presets_save = {
 	callback    : menu_presets_save_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
-	gui_mode    : GUI_MODE_400PLUS,
+	gui_mode    : GUIMODE_400PLUS,
 	btn_handler : InfoCreativeAppProc
 };
 
@@ -64,7 +64,7 @@ type_MENU menu_presets_load = {
 	callback    : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
-	gui_mode    : GUI_MODE_400PLUS,
+	gui_mode    : GUIMODE_400PLUS,
 	btn_handler : InfoCreativeAppProc
 };
 
