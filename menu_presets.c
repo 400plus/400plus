@@ -1,6 +1,7 @@
 #include "main.h"
 #include "menu.h"
 #include "utils.h"
+#include "settings.h"
 #include "scripts.h"
 #include "presets.h"
 #include "menu_settings.h"
@@ -73,7 +74,7 @@ void menu_presets_save_start() {
 }
 
 void menu_presets_load_start() {
-	if (status.main_dial_ae == AE_MODE_ADEP)
+	if (!settings.presets_adep || status.main_dial_ae == AE_MODE_ADEP)
 		menu_create(&menu_presets_load);
 }
 
