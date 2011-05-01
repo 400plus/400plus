@@ -148,7 +148,7 @@ void message_proxy(const int handler, char *message) {
 	switch (message[1]) {
 	case EVENT_MAIN_DIAL: // Mode dial moved
 		status.main_dial_ae = message[2];
-		if (status.main_dial_ae == AE_MODE_ADEP)
+		if (settings.presets_adep && status.main_dial_ae == AE_MODE_ADEP)
 			ENQUEUE_TASK(preset_recall);
 		goto pass_message;
 	case EVENT_SETTINGS: // Settings changed

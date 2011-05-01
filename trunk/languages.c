@@ -9,7 +9,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_FREE_SPACE]    = "Free Space",
 		[L_RELEASE_COUNT] = "ReleaseCount",
 		[L_OFF]           = "Off",
-		[L_YES]          = "Yes",
+		[L_YES]           = "Yes",
 		[L_NO]            = "No",
 		[L_2S]            = "2s",
 		[L_ENABLED]       = "Enabled",
@@ -68,6 +68,14 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_AF_FLASH]       = "AF Flash",
 		[L_MIRROR_LOCKUP]  = "Mirror Lockup",
 		[L_FLASH_2ND_CURT] = "Flash 2curt",
+
+		[L_PRESETS_SPACES]   = "Presets ",
+		[L_PRESETS_ADEP]     = "Use A-DEP",
+		[L_PRESETS_CAMERA]   = "Camera",
+		[L_PRESETS_400PLUS]  = "400plus",
+		[L_PRESETS_SETTINGS] = "Settings",
+		[L_PRESETS_IMAGE]    = "Image",
+		[L_PRESETS_CFN]      = "Custom Fn",
 	},
 	[LANG_GERMAN] = {
 		[L_FREE_SPACE]    = "CF-Card frei",
