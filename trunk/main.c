@@ -70,6 +70,7 @@ type_ACTION actions_rename[]  = {
 	{BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
 	{BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
 	{BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{BUTTON_MENU,       FALSE, RESP_BLOCK,   {rename_clear}},
 	{BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
 	{BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
 	END_OF_LIST
