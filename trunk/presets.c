@@ -134,6 +134,18 @@ extern void preset_apply() {
 	send_to_intercom(EVENT_SET_BEEP,       1, preset.beep);
 	send_to_intercom(EVENT_SET_COLOR_TEMP, 2, preset.color_temp);
 
+	send_to_intercom(EVENT_SET_AUTO_POWER_OFF, 2, preset.auto_power_off);
+	send_to_intercom(EVENT_SET_VIEW_TYPE,      1, preset.view_type);
+	send_to_intercom(EVENT_SET_REVIEW_TIME,    1, preset.review_time);
+	send_to_intercom(EVENT_SET_AUTO_ROTATE,    1, preset.auto_rotate);
+	send_to_intercom(EVENT_SET_LCD_BRIGHTNESS, 1, preset.lcd_brightness);
+	send_to_intercom(EVENT_SET_DATE_TIME,      1, preset.date_time);
+	send_to_intercom(EVENT_SET_FILE_NUMBERING, 1, preset.file_numbering);
+	send_to_intercom(EVENT_SET_LANGUAGE,       1, preset.language);
+	send_to_intercom(EVENT_SET_VIDEO_SYSTEM,   1, preset.video_system);
+	send_to_intercom(EVENT_SET_HISTOGRAM,      1, preset.histogram);
+	send_to_intercom(EVENT_SET_COLOR_SPACE,    1, preset.color_space);
+
 	send_to_intercom(EVENT_SET_IMG_FORMAT,  1, preset.img_format);
 	send_to_intercom(EVENT_SET_IMG_SIZE,    1, preset.img_size);
 	send_to_intercom(EVENT_SET_IMG_QUALITY, 1, preset.img_quality);
