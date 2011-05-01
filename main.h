@@ -33,7 +33,17 @@
 #define EVENT_SET_BEEP       0x0F
 #define EVENT_SET_COLOR_TEMP 0x10
 
-#define EVENT_SET_LANGUAGE   0x19
+#define EVENT_SET_AUTO_POWER_OFF 0x12
+#define EVENT_SET_VIEW_TYPE      0x13
+#define EVENT_SET_REVIEW_TIME    0x14
+#define EVENT_SET_AUTO_ROTATE    0x15
+#define EVENT_SET_LCD_BRIGHTNESS 0x16
+#define EVENT_SET_DATE_TIME      0x17
+#define EVENT_SET_FILE_NUMBERING 0x18
+#define EVENT_SET_LANGUAGE       0x19
+#define EVENT_SET_VIDEO_SYSTEM   0x1A
+#define EVENT_SET_HISTOGRAM      0x1D
+#define EVENT_SET_COLOR_SPACE    0x21
 
 #define EVENT_SET_IMG_FORMAT  0x22
 #define EVENT_SET_IMG_SIZE    0x23
@@ -111,22 +121,22 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int wb_bkt;                  // 0x0034
 	int beep;                    // 0x0038 [*]
 	int color_temp;              // 0x003c [*]
-	int auto_power_off;          // 0x0040
+	int auto_power_off;          // 0x0040     [6]
 	int view_type;               // 0x0044
-	int review_time;             // 0x0048
-	int auto_rotate;             // 0x004c
-	int lcd_brightness;          // 0x0050
-	int date_time;               // 0x0054
-	int file_numbering;          // 0x0058
-	int language;                // 0x005c
-	int video_system;            // 0x0060
+	int review_time;             // 0x0048     [7]
+	int auto_rotate;             // 0x004c     [8]
+	int lcd_brightness;          // 0x0050     [9]
+	int date_time;               // 0x0054     [A]
+	int file_numbering;          // 0x0058     [B]
+	int language;                // 0x005c [*]
+	int video_system;            // 0x0060     [C]
 	int picture_style_mode;      // 0x0064
-	int histogram;               // 0x0068
+	int histogram;               // 0x0068     [D]
 	int disp_afpoint;            // 0x006c
-	int color_space;             // 0x0070
-	int img_format;              // 0x0074 [*]
-	int img_size;                // 0x0078
-	int img_quality;             // 0x007c
+	int color_space;             // 0x0070     [E]
+	int img_format;              // 0x0074 [*] 22
+	int img_size;                // 0x0078     23
+	int img_quality;             // 0x007c     24
 	int cfmenupos;               // 0x0080
 	int menupos;                 // 0x0084
 	int wbcomp_gm;               // 0x0088
@@ -238,6 +248,41 @@ typedef struct {                 // [*] Used and tested, others unknown
 #define AF_POINT_L  0x0080 // Left
 #define AF_POINT_R  0x0100 // Right
 
+// [6] Values for "auto_power_off"
+//     Number of seconds to wait, 0x00 for OFF
+
+// [7] Values for "review_time"
+//     Number of seconds to wait, 0x00 for OFF, 0xFF for HOLD
+
+// [8] Values for "auto_rotate"
+#define AUTO_ROTATE_OFF         0x00
+#define AUTO_ROTATE_COMP_CAMERA 0x01
+#define AUTO_ROTATE_COMP        0x02
+
+// [9] Values for "lcd_brightness"
+//     Brightness in range 1 to 7
+
+// [A] Values for "date_time"
+#define DATE_TIME_YYMMDD 0x01
+#define DATE_TIME_DDMMYY 0x02
+#define DATE_TIME_MMDDYY 0x03
+
+// [B] Values for "file_numbering"
+#define FILE_NUMBERING_CONT 0x00
+#define FILE_NUMBERING_AUTO 0x01
+
+// [C] Values for "video_system"
+#define VIDEO_SYSYEM_PAL  0x00
+#define VIDEO_SYSTEM_NTSC 0x01
+
+// [D] Values for "histogram"
+#define HISTOGRAM_BRIGHTNESS 0x00
+#define HISTOGRAM_RGB        0x01
+
+// [E] Values for "color_space"
+#define COLOR_SPACE_SRGB  0x00
+#define COLOR_SPACE_ADOBE 0x01
+
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
 #define FLAG_CAMERA_BUSY    hRelSem
@@ -253,43 +298,43 @@ typedef struct {                 // [*] Used and tested, others unknown
 
 #define FLAG_GUI_MODE       GUIMode
 typedef enum { // GUIModes
-	GUI_MODE_MAIN,		// 0x00 - main screen (white one)
-	GUI_MODE_REVIEW,	// 0x01 - review photos mode (activated with play btn)
-	GUI_MODE_MENU,		// 0x02 - main menu
-	GUI_MODE_RTCSET,	// 0x03 - ?
-	GUI_MODE_INFO,		// 0x04 - info screen (menu -> disp.)
-	GUI_MODE_NOCFWARNING,	// 0x05 - no CF card
-	GUI_MODE_QR,		// 0x06 - review image right after shot
-	GUI_MODE_FULLNOWARNING,	// 0x07 - ?
-	GUI_MODE_PICTURESTYLE,	// 0x08 - Picture Style
-	GUI_MODE_ISO,		// 0x09 - Iso
-	GUI_MODE_WB,		// 0x0A - WB
-	GUI_MODE_AFMODE,	// 0x0B - AF mode choosing screen
-	GUI_MODE_METER,		// 0x0C - Mettering screen ? (Sergei's name: MES_MODE)
-	GUI_MODE_QUAL,		// 0x0D - Quality screen ?
-	GUI_MODE_UNKNOWN_1,	// 0x0E - ?
-	GUI_MODE_DRIVE,		// 0x0F - Drive ?
-	GUI_MODE_AFPATTERN,	// 0x10 - AF zones select
-	GUI_MODE_OFF,		// 0x11 - ? (Sergei's name: OLC_MODE)
-	GUI_MODE_BULBCOUNT,	// 0x12 - Bulb counder screen
-	GUI_MODE_CFFULL,	// 0x13 - CF is full
-	GUI_MODE_ERRCF_ERROR,	// 0x14 - CF Error ?
-	GUI_MODE_ERRCF_FULLNO,	// 0x15 - ?
-	GUI_MODE_ERRCF_PROTECT,	// 0x16 - ?
-	GUI_MODE_UNKNOWN_2,	// 0x17 - ?
-	GUI_MODE_ERRORCODE,	// 0x18 - error code screen
-	GUI_MODE_USBCONNECTTYPE,// 0x19 - ?
-	GUI_MODE_DIRECTTRANSFER,// 0x1A - ?
-	GUI_MODE_FLASHEV,	// 0x1B - Flash EV ?
-	GUI_MODE_INCOMPIMAGE,	// 0x1C - ?
-	GUI_MODE_BATTEMPTY,	// 0x1D - Battery empty
-	GUI_MODE_ACTIVESWEEP,	// 0x1E - Sweeping the mirror ?
-	GUI_MODE_ACTIVESWEEP_OLC,// 0x1F - Sweeping the mirror ?
+	GUI_MODE_MAIN,            // 0x00 - main screen (white one)
+	GUI_MODE_REVIEW,          // 0x01 - review photos mode (activated with play btn)
+	GUI_MODE_MENU,            // 0x02 - main menu
+	GUI_MODE_RTCSET,          // 0x03 - Set internal clock from MENU
+	GUI_MODE_INFO,            // 0x04 - info screen (menu -> disp.)
+	GUI_MODE_NOCFWARNING,     // 0x05 - no CF card
+	GUI_MODE_QR,              // 0x06 - review image right after shot
+	GUI_MODE_FULLNOWARNING,   // 0x07 - ?
+	GUI_MODE_PICTURESTYLE,    // 0x08 - Picture Style
+	GUI_MODE_ISO,             // 0x09 - ISO
+	GUI_MODE_WB,              // 0x0A - WB
+	GUI_MODE_AFMODE,          // 0x0B - AF mode choosing screen
+	GUI_MODE_METER,           // 0x0C - Metering mode screen
+	GUI_MODE_QUAL,            // 0x0D - Quality screen selection from MENU
+	GUI_MODE_UNKNOWN_1,       // 0x0E - ?
+	GUI_MODE_DRIVE,           // 0x0F - Drive mode
+	GUI_MODE_AFPATTERN,       // 0x10 - AF zones select
+	GUI_MODE_OFF,             // 0x11 - Display is off (DISP button)
+	GUI_MODE_BULBCOUNT,       // 0x12 - Bulb counter screen
+	GUI_MODE_CFFULL,          // 0x13 - CF is full
+	GUI_MODE_ERRCF_ERROR,     // 0x14 - CF Error ?
+	GUI_MODE_ERRCF_FULLNO,    // 0x15 - ?
+	GUI_MODE_ERRCF_PROTECT,   // 0x16 - ?
+	GUI_MODE_UNKNOWN_2,       // 0x17 - ?
+	GUI_MODE_ERRORCODE,       // 0x18 - error code screen
+	GUI_MODE_USBCONNECTTYPE,  // 0x19 - ?
+	GUI_MODE_DIRECTTRANSFER,  // 0x1A - ?
+	GUI_MODE_FLASHEV,         // 0x1B - Flash EV (SET from main dialog if configured at C.Fn-01)
+	GUI_MODE_INCOMPIMAGE,     // 0x1C - ?
+	GUI_MODE_BATTEMPTY,       // 0x1D - Battery empty
+	GUI_MODE_ACTIVESWEEP,     // 0x1E - Sweeping the sensor
+	GUI_MODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUI_MODE_400PLUS = 0x2D,// 400Plus mode
-	GUI_MODE_RENAME  = 0x2E,// 400Plus rename
-	GUI_MODE_FACE    = 0x2F	// Face mode
+	GUI_MODE_400PLUS = 0x2D,  // 400Plus mode
+	GUI_MODE_RENAME  = 0x2E,  // 400Plus rename
+	GUI_MODE_FACE    = 0x2F	  // Face mode
 } type_GUI_MODE;
 
 
