@@ -29,7 +29,8 @@ type_SETTINGS settings = {
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_FIRST,
 	shortcuts_menu   : TRUE,
-	shortcuts_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	shortcuts_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	dim_lcd_down     : FALSE
 };
 
 int settings_read() {
