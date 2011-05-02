@@ -8,7 +8,7 @@ void display_refresh_meteringmode();
 void display_refresh_whitebalance();
 void display_refresh_flashcomp();
 void display_refresh_iso();
-static int countdown_dialog = 0;
+static type_DIALOG * countdown_dialog = NULL;
 
 void restore_display() {
 	SleepTask(100);
@@ -29,15 +29,15 @@ void display_refresh() {
 
 	display_refresh_iso();
 
-	dialog_redraw(MAIN_DIALOG);
+	dialog_redraw(hMainDialog);
 }
 
 void display_refresh_meteringmode() {
-	dialog_set_property_int(MAIN_DIALOG, 0x0D, 0xF6);
+	dialog_set_property_int(hMainDialog, 0x0D, 0xF6);
 }
 
 void display_refresh_whitebalance() {
-	dialog_set_property_int(MAIN_DIALOG, 0x0C, 0xCF);
+	dialog_set_property_int(hMainDialog, 0x0C, 0xCF);
 }
 
 void display_refresh_flashcomp() {
@@ -70,7 +70,7 @@ void display_refresh_flashcomp() {
 
 	value += negative ? 130 : 154;
 
-	dialog_set_property_int(MAIN_DIALOG, 0x0B, value);
+	dialog_set_property_int(hMainDialog, 0x0B, value);
 }
 
 
@@ -78,14 +78,14 @@ void display_refresh_iso() {
 	const char *text = "----";
 
 	iso_display(text, cameraMode.iso);
-	dialog_set_property_str(MAIN_DIALOG, 0x04, text);
+	dialog_set_property_str(hMainDialog, 0x04, text);
 }
 
 void display_countdown_dialog_create() {
 	if (countdown_dialog) // if dialog exists for some reason
 		dialog_redraw(countdown_dialog);
 	else
-		countdown_dialog = DIALOG(79, InfoCreativeAppProc);
+		countdown_dialog = dialog_create(79, InfoCreativeAppProc);
 }
 
 void display_countdown_dialog_destroy() {

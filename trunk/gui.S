@@ -4,9 +4,9 @@
 
 	my_GUIInit:
 		var_34          = -0x34
-        var_30          = -0x30
-        var_2C          = -0x2C
-        var_28          = -0x28
+		var_30          = -0x30
+		var_2C          = -0x2C
+		var_28          = -0x28
 
 		STMFD   SP!, {R4-R11,LR}
 		LDR     R12, =m_pSendDisplayModeToMC

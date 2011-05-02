@@ -239,7 +239,7 @@ int shutter_release_disasm() {
 		hRelSem = CreateBinarySemaphore(aRelSem, 0);
 	}
 
-	SendToIntercom(0x53, 0, 0);
+	SendToIntercom(IC_RELEASE, 0, 0);
 	SendToIntercom(0x6D, 1, 1);
 
 	TakeSemaphore(hRelSem, 30000);
@@ -266,7 +266,7 @@ int print_icu_info() {
 }
 
 int press_button(int button) {
-	int result = pressButton_(button);
+	int result = IntercomHandlerButton(button);
 	SleepTask(EVENT_WAIT);
 
 	return result;
