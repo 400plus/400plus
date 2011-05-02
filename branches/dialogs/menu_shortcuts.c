@@ -9,22 +9,17 @@
 
 #include "menu_shortcuts.h"
 
-struct {
-	int iso;
-	int cf_emit_aux;
-	int cf_mirror_up_lock;
-	int cf_flash_sync_rear;
-} shortcuts_storage;
+type_CAMERA_MODE sc_cameraMode;
 
 type_MENUITEM menu_shortcut_items[] = {
-	MENUITEM_ISO    (LP_WORD(L_ISO),           &shortcuts_storage.iso),
+	MENUITEM_ISO    (LP_WORD(L_ISO),           &sc_cameraMode.iso),
 	MENUITEM_SCRIPT (LP_WORD(L_EXTENDED_AEB),   script_extended_aeb),
 	MENUITEM_SCRIPT (LP_WORD(L_INTERVALOMETER), script_interval),
 	MENUITEM_SCRIPT (LP_WORD(L_HAND_WAVING),    script_wave),
 	MENUITEM_SCRIPT (LP_WORD(L_SELF_TIMER),     script_self_timer),
-	MENUITEM_AFFLASH(LP_WORD(L_AF_FLASH),      &shortcuts_storage.cf_emit_aux),
-	MENUITEM_BOOLEAN(LP_WORD(L_MIRROR_LOCKUP), &shortcuts_storage.cf_mirror_up_lock),
-	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&shortcuts_storage.cf_flash_sync_rear)
+	MENUITEM_AFFLASH(LP_WORD(L_AF_FLASH),      &sc_cameraMode.cf_emit_aux),
+	MENUITEM_BOOLEAN(LP_WORD(L_MIRROR_LOCKUP), &sc_cameraMode.cf_mirror_up_lock),
+	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&sc_cameraMode.cf_flash_sync_rear)
 };
 
 type_MENU menu_shortcuts = {
@@ -42,10 +37,7 @@ type_MENU menu_shortcuts = {
 void menu_shortcuts_start() {
 	beep();
 
-	shortcuts_storage.iso                = cameraMode.iso;
-	shortcuts_storage.cf_emit_aux        = cameraMode.cf_emit_aux;
-	shortcuts_storage.cf_mirror_up_lock  = cameraMode.cf_mirror_up_lock;
-	shortcuts_storage.cf_flash_sync_rear = cameraMode.cf_flash_sync_rear;
+	sc_cameraMode = cameraMode;
 
 	//press_button(BUTTON_MENU);
 	//SleepTask(100);
@@ -56,10 +48,10 @@ void menu_shortcuts_start() {
 void menu_shortcuts_save() {
 	beep();
 
-	send_to_intercom(IC_SET_ISO,                2, shortcuts_storage.iso);
-	send_to_intercom(IC_SET_CF_EMIT_AUX,        1, shortcuts_storage.cf_emit_aux);
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,  1, shortcuts_storage.cf_mirror_up_lock);
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, shortcuts_storage.cf_flash_sync_rear);
+	send_to_intercom(IC_SET_ISO,                2, sc_cameraMode.iso);
+	send_to_intercom(IC_SET_CF_EMIT_AUX,        1, sc_cameraMode.cf_emit_aux);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,  1, sc_cameraMode.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, sc_cameraMode.cf_flash_sync_rear);
 
 	settings_write();
 

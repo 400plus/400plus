@@ -8,6 +8,8 @@
 
 int *feedback_task = NULL;
 
+type_CAMERA_MODE st_cameraMode;
+
 void script_start();
 void script_stop();
 void script_feedback();
@@ -89,6 +91,11 @@ void script_start() {
 	beep();
 	status.script_running = TRUE;
 
+	st_cameraMode = cameraMode;
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
+	if (settings.dim_lcd_down)
+		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
+
 	if (feedback_task == NULL)
 		feedback_task = CreateTask("Feedback", 5, 0x2000, script_feedback, 0);
 	else
@@ -100,6 +107,9 @@ void script_start() {
 void script_stop() {
 	beep();
 	status.script_running = FALSE;
+
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
 
 	wait_for_camera(TRUE);
 }

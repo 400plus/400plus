@@ -1,5 +1,6 @@
 #include "main.h"
 #include "menu.h"
+#include "settings.h"
 #include "presets.h"
 #include "firmware.h"
 

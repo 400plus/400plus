@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x19
+#define SETTINGS_VERSION  0x1A
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -39,12 +39,7 @@ typedef struct {
 	int timer_action;
 	int shortcuts_order[10];
 	int shortcuts_menu;
-	int presets_adep;
-	int presets_camera;
-	int presets_400plus;
-	int presets_settings;
-	int presets_image;
-	int presets_cfn;
+	int dim_lcd_down;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;

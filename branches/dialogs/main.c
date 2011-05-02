@@ -6,11 +6,11 @@
 #include "menu_shortcuts.h"
 #include "info.h"
 #include "tasks.h"
+#include "settings.h"
 #include "presets.h"
 #include "display.h"
 #include "viewfinder.h"
 #include "af_patterns.h"
-#include "settings.h"
 #include "languages.h"
 #include "firmware.h"
 
@@ -137,7 +137,7 @@ void intercom_proxy(const int handler, char *message) {
 	switch (event) {
 	case IC_MAIN_DIAL: // Mode dial moved
 		status.main_dial_ae = param;
-		if (settings.presets_adep && status.main_dial_ae == AE_MODE_ADEP)
+		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP)
 			ENQUEUE_TASK(preset_recall);
 		goto pass_message;
 	case IC_SETTINGS: // Settings changed
