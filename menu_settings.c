@@ -4,12 +4,14 @@
 #include "menu_developer.h"
 #include "utils.h"
 #include "settings.h"
+#include "presets.h"
 #include "firmware.h"
 #include "languages.h"
 
 #include "menu_settings.h"
 
-type_SETTINGS menu_settings;
+type_SETTINGS       menu_settings;
+type_PRESETS_CONFIG menu_presets;
 
 type_MENUITEM wave_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_DELAY),   &menu_settings.wave_delay),
@@ -39,12 +41,12 @@ type_MENUITEM interval_items[] = {
 };
 
 type_MENUITEM presets_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_ADEP),     &menu_settings.presets_adep),
-	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CAMERA),   &menu_settings.presets_camera),
-	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_400PLUS),  &menu_settings.presets_400plus),
-	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_SETTINGS), &menu_settings.presets_settings),
-	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_IMAGE),    &menu_settings.presets_image),
-	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CFN),      &menu_settings.presets_cfn)
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_ADEP),     &menu_presets.use_adep),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CAMERA),   &menu_presets.recall_camera),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_400PLUS),  &menu_presets.recall_400plus),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_SETTINGS), &menu_presets.recall_settings),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_IMAGE),    &menu_presets.recall_image),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CFN),      &menu_presets.recall_cfn)
 };
 
 type_MENUITEM menu_settings_items[] = {
@@ -87,6 +89,8 @@ void menu_settings_start() {
 	menu_settings.aeb_ev         =  cameraMode.ae_bkt;
 	menu_settings.emit_flash     = !cameraMode.cf_emit_flash;
 
+	menu_presets = presets_config;
+
 	menu_create(&main_menu);
 }
 
@@ -95,6 +99,10 @@ void menu_settings_save() {
 
 	settings_apply();
 	settings_write();
+
+	presets_config = menu_presets;
+
+	presets_write();
 
 	beep();
 }

@@ -74,7 +74,7 @@ void menu_presets_save_start() {
 }
 
 void menu_presets_load_start() {
-	if (!settings.presets_adep || status.main_dial_ae == AE_MODE_ADEP)
+	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP)
 		menu_create(&menu_presets_load);
 }
 
