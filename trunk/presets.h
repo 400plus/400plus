@@ -6,6 +6,11 @@
 #define PRESETS_FILE    "A:/PRESET_%u"
 
 typedef struct {
+	type_SETTINGS    settings;
+	type_CAMERA_MODE camera_mode;
+} type_PRESET;
+
+typedef struct {
 	int  order[5];
 	char names[5][32];
 } type_PRESETS_CONFIG;
