@@ -29,13 +29,7 @@ type_SETTINGS settings = {
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_FIRST,
 	shortcuts_menu   : TRUE,
-	shortcuts_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	presets_adep     : TRUE,
-	presets_camera   : TRUE,
-	presets_400plus  : TRUE,
-	presets_settings : FALSE,
-	presets_image    : TRUE,
-	presets_cfn      : TRUE
+	shortcuts_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 };
 
 int settings_read() {

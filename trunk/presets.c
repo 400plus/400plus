@@ -10,7 +10,13 @@
 type_PRESET preset;
 
 type_PRESETS_CONFIG presets_config = {
-	order : {0, 1, 2, 3, 4}
+	use_adep        : TRUE,
+	recall_camera   : TRUE,
+	recall_400plus  : TRUE,
+	recall_settings : FALSE,
+	recall_image    : TRUE,
+	recall_cfn      : TRUE,
+	order           : {0, 1, 2, 3, 4}
 };
 
 void get_filename(char *filename, int id);
@@ -115,12 +121,12 @@ void preset_write(int id) {
 extern void preset_apply() {
 	int ae = status.main_dial_ae;
 
-	if (settings.presets_400plus) {
+	if (presets_config.recall_400plus) {
 		settings = preset.settings;
 		settings_apply();
 	}
 
-	if (settings.presets_camera) {
+	if (presets_config.recall_camera) {
 		send_to_intercom(EVENT_SET_AE,         1, preset.camera_mode.ae);
 		send_to_intercom(EVENT_SET_METERING,   1, preset.camera_mode.metering);
 		send_to_intercom(EVENT_SET_EFCOMP,     1, preset.camera_mode.efcomp);
@@ -139,7 +145,7 @@ extern void preset_apply() {
 		send_to_intercom(EVENT_SET_COLOR_TEMP, 2, preset.camera_mode.color_temp);
 	}
 
-	if (settings.presets_settings) {
+	if (presets_config.recall_settings) {
 		send_to_intercom(EVENT_SET_AUTO_POWER_OFF, 2, preset.camera_mode.auto_power_off);
 		send_to_intercom(EVENT_SET_VIEW_TYPE,      1, preset.camera_mode.view_type);
 		send_to_intercom(EVENT_SET_REVIEW_TIME,    1, preset.camera_mode.review_time);
@@ -153,13 +159,13 @@ extern void preset_apply() {
 		send_to_intercom(EVENT_SET_COLOR_SPACE,    1, preset.camera_mode.color_space);
 	}
 
-	if (settings.presets_image) {
+	if (presets_config.recall_image) {
 		send_to_intercom(EVENT_SET_IMG_FORMAT,  1, preset.camera_mode.img_format);
 		send_to_intercom(EVENT_SET_IMG_SIZE,    1, preset.camera_mode.img_size);
 		send_to_intercom(EVENT_SET_IMG_QUALITY, 1, preset.camera_mode.img_quality);
 	}
 
-	if (settings.presets_cfn) {
+	if (presets_config.recall_cfn) {
 		send_to_intercom(EVENT_SET_CF_SET_BUTTON_FUNC,      1, preset.camera_mode.cf_set_button_func);
 		send_to_intercom(EVENT_SET_CF_NR_FOR_LONG_EXPOSURE, 1, preset.camera_mode.cf_nr_for_long_exposure);
 		send_to_intercom(EVENT_SET_CF_EFAV_FIX_X,           1, preset.camera_mode.cf_efav_fix_x);

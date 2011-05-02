@@ -6,11 +6,17 @@
 #define PRESETS_FILE    "A:/PRESET_%u"
 
 typedef struct {
-	type_SETTINGS    settings;
 	type_CAMERA_MODE camera_mode;
+	type_SETTINGS    settings;
 } type_PRESET;
 
 typedef struct {
+	int  use_adep;
+	int  recall_camera;
+	int  recall_400plus;
+	int  recall_settings;
+	int  recall_image;
+	int  recall_cfn;
 	int  order[5];
 	char names[5][32];
 } type_PRESETS_CONFIG;
