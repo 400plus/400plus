@@ -92,9 +92,9 @@ void script_start() {
 	status.script_running = TRUE;
 
 	st_cameraMode = cameraMode;
-	send_to_intercom(EVENT_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
 	if (settings.dim_lcd_down)
-		send_to_intercom(EVENT_SET_LCD_BRIGHTNESS, 1, 1);
+		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
 
 	if (feedback_task == NULL)
 		feedback_task = CreateTask("Feedback", 5, 0x2000, script_feedback, 0);
@@ -108,8 +108,8 @@ void script_stop() {
 	beep();
 	status.script_running = FALSE;
 
-	send_to_intercom(EVENT_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
-	send_to_intercom(EVENT_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
 
 	wait_for_camera(TRUE);
 }
@@ -127,7 +127,7 @@ void script_feedback() {
 
 void script_shot(type_SHOT_ACTION action) {
 	int aeb = cameraMode.ae_bkt;
-	send_to_intercom(EVENT_SET_AE_BKT, 1, 0x00);
+	send_to_intercom(IC_SET_AE_BKT, 1, 0x00);
 
 	switch (action) {
 	case SHOT_ACTION_SHOT:
@@ -143,7 +143,7 @@ void script_shot(type_SHOT_ACTION action) {
 		break;
 	}
 
-	send_to_intercom(EVENT_SET_AE_BKT, 1, aeb);
+	send_to_intercom(IC_SET_AE_BKT, 1, aeb);
 }
 
 void sub_extended_aeb() {
@@ -155,14 +155,14 @@ void sub_extended_aeb() {
 		int tv_end   = MAX(settings.eaeb_m_min, settings.eaeb_m_max);
 
 		for (tv = tv_start; tv <= tv_end; tv ++) {
-			send_to_intercom(EVENT_SET_TV_VAL, 1, (tv << 3) + 0x10);
+			send_to_intercom(IC_SET_TV_VAL, 1, (tv << 3) + 0x10);
 			release_and_wait();
 
 			if (!status.script_running)
 				break;
 		};
 
-		send_to_intercom(EVENT_SET_TV_VAL, 1, tv_value);
+		send_to_intercom(IC_SET_TV_VAL, 1, tv_value);
 	} else {
 		int i;
 		int av_comp = cameraMode.av_comp;
@@ -173,21 +173,21 @@ void sub_extended_aeb() {
 
 		for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
 			av_inc = ev_add(av_inc, settings.eaeb_ev);
-			send_to_intercom(EVENT_SET_AV_COMP, 1, av_inc);
+			send_to_intercom(IC_SET_AV_COMP, 1, av_inc);
 			release_and_wait();
 
 			if (!status.script_running)
 				break;
 
 			av_dec = ev_sub(av_dec, settings.eaeb_ev);
-			send_to_intercom(EVENT_SET_AV_COMP, 1, av_dec);
+			send_to_intercom(IC_SET_AV_COMP, 1, av_dec);
 			release_and_wait();
 
 			if (!status.script_running)
 				break;
 		}
 
-		send_to_intercom(EVENT_SET_AV_COMP, 1, av_comp);
+		send_to_intercom(IC_SET_AV_COMP, 1, av_comp);
 	}
 }
 

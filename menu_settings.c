@@ -76,8 +76,8 @@ type_MENU main_menu = {
 	action      : menu_settings_save,
 	dp_action   : menu_presets_save_start,
 	reorder     : FALSE,
-	gui_mode    : GUI_MODE_400PLUS,
-	btn_handler : InfoCreativeAppProc
+	gui_mode    : GUIMODE_400PLUS,
+	btn_handler : menu_buttons_handler
 };
 
 void menu_settings_start() {

@@ -22,8 +22,8 @@ type_MENU menu_developer = {
 	action      : NULL,
 	reorder     : FALSE,
 	dp_action   : menu_settings_start,
-	gui_mode    : GUI_MODE_400PLUS,
-	btn_handler : InfoCreativeAppProc
+	gui_mode    : GUIMODE_400PLUS,
+	btn_handler : menu_buttons_handler
 };
 
 void menu_developer_start() {

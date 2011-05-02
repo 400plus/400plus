@@ -8,7 +8,7 @@
 
 int   x, y, z;
 int   caps;
-int   handle;
+type_DIALOG *handle;
 
 char *rename_filename;
 char  rename_buffer[32];
@@ -47,14 +47,23 @@ void rename_create(char *filename, type_TASK callback) {
 	rename_filename = filename;
 	rename_callback = callback;
 
-	FLAG_GUI_MODE = GUI_MODE_RENAME;
+	GUI_Lock();
+	GUI_PalleteInit();
 
-	rename_destroy();
+	GUI_StartMode(GUIMODE_RENAME);
+	GUI_ClearImage();
+	GUIMode = GUIMODE_RENAME;
 
-	handle = DIALOG(22, InfoCreativeAppProc);
+	handle = dialog_create(22, menu_buttons_handler);
 	dialog_set_property_str(handle, 8, "Rename");
 
 	rename_display();
+
+	GUI_UnLock();
+	GUI_PalleteUnInit();
+	GUI_ClearImage();
+	SetTurnDisplayEvent_1_after_2(); // turn on the screen
+
 }
 
 void rename_display() {

@@ -47,26 +47,26 @@ type_MENU menu_presets_save = {
 	name        : LP_WORD(L_SAVE_PRESETS),
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
-	dp_action   : menu_settings_start,
+	dp_action   : menu_close,
 	rename      : TRUE,
 	callback    : menu_presets_save_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
-	gui_mode    : GUI_MODE_400PLUS,
-	btn_handler : InfoCreativeAppProc
+	gui_mode    : GUIMODE_400PLUS,
+	btn_handler : menu_buttons_handler
 };
 
 type_MENU menu_presets_load = {
 	name        : LP_WORD(L_LOAD_PRESETS),
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
-	dp_action   : menu_shortcuts_start,
+	dp_action   : menu_close,
 	rename      : TRUE,
 	callback    : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
-	gui_mode    : GUI_MODE_400PLUS,
-	btn_handler : InfoCreativeAppProc
+	gui_mode    : GUIMODE_400PLUS,
+	btn_handler : menu_buttons_handler
 };
 
 void menu_presets_save_start() {
@@ -76,6 +76,8 @@ void menu_presets_save_start() {
 void menu_presets_load_start() {
 	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP)
 		menu_create(&menu_presets_load);
+	else 
+		menu_close();
 }
 
 void preset_save_1() {

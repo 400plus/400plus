@@ -30,8 +30,8 @@ type_MENU menu_shortcuts = {
 	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
-	gui_mode    : GUI_MODE_400PLUS,
-	btn_handler : InfoCreativeAppProc
+	gui_mode    : GUIMODE_400PLUS,
+	btn_handler : menu_buttons_handler
 };
 
 void menu_shortcuts_start() {
@@ -39,8 +39,8 @@ void menu_shortcuts_start() {
 
 	sc_cameraMode = cameraMode;
 
-	press_button(BUTTON_MENU);
-	SleepTask(100);
+	//press_button(BUTTON_MENU);
+	//SleepTask(100);
 
 	menu_create(&menu_shortcuts);
 }
@@ -48,10 +48,10 @@ void menu_shortcuts_start() {
 void menu_shortcuts_save() {
 	beep();
 
-	send_to_intercom(EVENT_SET_ISO,                2, sc_cameraMode.iso);
-	send_to_intercom(EVENT_SET_CF_EMIT_AUX,        1, sc_cameraMode.cf_emit_aux);
-	send_to_intercom(EVENT_SET_CF_MIRROR_UP_LOCK,  1, sc_cameraMode.cf_mirror_up_lock);
-	send_to_intercom(EVENT_SET_CF_FLASH_SYNC_REAR, 1, sc_cameraMode.cf_flash_sync_rear);
+	send_to_intercom(IC_SET_ISO,                2, sc_cameraMode.iso);
+	send_to_intercom(IC_SET_CF_EMIT_AUX,        1, sc_cameraMode.cf_emit_aux);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,  1, sc_cameraMode.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, sc_cameraMode.cf_flash_sync_rear);
 
 	settings_write();
 

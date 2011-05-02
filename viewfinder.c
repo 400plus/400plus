@@ -21,8 +21,8 @@ void viewfinder_end() {
 	// Only if being displayed
 	if (status.iso_in_viewfinder) {
 		// Restore previous state
-		send_to_intercom(EVENT_SET_CF_EMIT_FLASH, 1, vf_cameraMode.cf_emit_aux);
-		send_to_intercom(EVENT_SET_TV_VAL,        1, vf_cameraMode.tv_val);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, vf_cameraMode.cf_emit_aux);
+		send_to_intercom(IC_SET_TV_VAL,        1, vf_cameraMode.tv_val);
 
 		// Reset flag, viewfinder restored
 		status.iso_in_viewfinder = FALSE;
@@ -37,15 +37,15 @@ void viewfinder_change_iso(const int iso) {
 			vf_cameraMode = cameraMode;
 
 			// Change to Tv=ISO, no flash
-			send_to_intercom(EVENT_SET_CF_EMIT_FLASH, 1, 1);
-			send_to_intercom(EVENT_SET_TV_VAL,        1, iso + 0x25);
+			send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, 1);
+			send_to_intercom(IC_SET_TV_VAL,        1, iso + 0x25);
 
 			// Set flag to restore viewfinder later
 			status.iso_in_viewfinder = TRUE;
 		}
 
 		// Set new ISO
-		send_to_intercom(EVENT_SET_ISO, 2, iso);
+		send_to_intercom(IC_SET_ISO, 2, iso);
 	}
 }
 

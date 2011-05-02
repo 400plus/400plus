@@ -4,6 +4,7 @@
 #include "languages.h"
 #include "menu_rename.h"
 #include "firmware.h"
+#include "debug.h"
 
 #include "menu.h"
 
@@ -16,6 +17,48 @@ OPTIONLIST_DEF(delay,   LP_WORD(L_NO), LP_WORD(L_2S))
 OPTIONLIST_DEF(flash,   LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_ONLY))
 OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter, "30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
+
+typedef enum {
+	OLC_NO_START = 0,
+	OLC_START = 1,
+} menu_destroy_olc_t;
+
+// Menu actions
+type_ACTION actions_400plus[]  = {
+	{GUI_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
+	{GUI_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
+	{GUI_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
+	{GUI_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
+	//{GUI_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
+	{GUI_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
+	{GUI_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
+	{GUI_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
+	{GUI_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
+	{GUI_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
+	END_OF_LIST
+};
+
+type_ACTION actions_rename[]  = {
+	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
+	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
+	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
+	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
+	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
+	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
+	END_OF_LIST
+};
+
+type_CHAIN menu_chains[] = {
+	{GUIMODE_400PLUS,   actions_400plus},
+	{GUIMODE_RENAME,    actions_rename},
+	END_OF_LIST
+};
+
+
+
+
 
 void menu_repeat(void (*repeateable)(int repeating));
 
@@ -36,9 +79,130 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
-void menu_destroy(type_MENU * menu) {
-	if (menu->handle != 0)
-		DeleteDialogBox(menu->handle);
+int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+	type_CHAIN  *chain;
+	type_ACTION *action;
+
+	// The SET btn comes in "code" and the current line in the menu is in "event".
+	// Switch them for easier processing.
+	if (code == GUI_BUTTON_SET)
+		INT_SWAP(code, event);
+
+	printf("\nbtn handler: gui=0x%02X@0x%08X, btn=0x%08X, code=0x%08X\n", GUIMode, dialog, event, code);
+
+	// Loop over all the action chains
+	for(chain = menu_chains; ! IS_EOL(chain); chain++) {
+		// Chech whether this action chain corresponds to the current GUI mode
+		if (chain->gui_mode == GUIMode) {
+			// Loop over all the actions from this action chain
+			for (action = chain->actions; ! IS_EOL(action); action++) {
+				// Check whether this action corresponds to the event received
+				if (action->button == event) {
+					// Launch the defined task
+					if (action->task[0])
+						ENQUEUE_TASK(action->task[0]);
+
+					if (event == GUI_BUTTON_UP || event == GUI_BUTTON_DOWN)
+						goto fallback;
+
+					goto handled;
+				}
+			}
+		}
+	}
+
+
+
+// on 100..003E
+// BL      GUI_Lock
+// BL      GUI_PalleteInit
+// BL      sub_FF85F51C
+// BL      GUI_UnLock
+// BL      GUI_PalleteUnInit
+
+
+
+	switch (event) {
+	// we use the DISP button to close the menu
+	case GUI_BUTTON_DISP:
+		printf("\nbtn handler: calling menu_close()\n");
+		menu_close();
+		// when closing with DISP, we need to press it one more time.
+		press_button(IC_BUTTON_DISP);
+		goto handled;
+
+	// someone else will take care of those
+	case GUI_GOT_TOP_OF_CONTROL:
+	case GUI_INITIALIZE_CONTROLLER:
+	case GUI_BLINK_RELATED:
+		goto fallback;
+
+	// those we block, so no one will interfare with our menus
+	case GUI_BUTTON_DP:
+	case GUI_BUTTON_UP:
+	case GUI_BUTTON_DOWN:
+	case GUI_BUTTON_LEFT:
+	case GUI_BUTTON_RIGHT:
+	case GUI_BUTTON_SET:
+	case GUI_BUTTON_PLAY:
+	case GUI_BUTTON_JUMP:
+	case GUI_BUTTON_MENU:
+	case GUI_BUTTON_TRASH:
+	case GUI_BUTTON_DRIVE:
+	case GUI_BUTTON_DIAL_LEFT:
+	case GUI_BUTTON_DIAL_RIGHT:
+		goto handled;
+
+	}
+
+	// flash the blue led and log the event if we do not handle it.
+	led_flash(BEEP_LED_LENGTH);
+	printf("400PLUS MENU: Unhandled event\n"
+		"dialog=%p, r1=%02X, event=%02X, r3=%02X, r4=%02X, r5=%02X, r6=%02X, code=%02X\n",
+		dialog,r1,event,r3,r4,r5,r6,code);
+
+fallback:
+	// reverse them back if we need to pass this event to the next routine().
+	if (event == GUI_BUTTON_SET)
+		INT_SWAP(code, event);
+	printf("\nbtn handler: passing to fallback\n");
+	return 1;
+
+handled:
+	printf("\nbtn handler: handled -> blocking\n");
+	return 0;
+}
+
+void menu_destroy(type_MENU * menu, menu_destroy_olc_t start_olc) {
+
+	if (!menu || !menu->handle) {
+		printf("\ncurrent menu already destroyed\n");
+		goto out;
+	}
+
+	printf("\ndestroying menu [%d]@0x%08X\n", menu->gui_mode, menu->handle);
+
+	// GUI_DisplayMode();
+	GUI_Lock();
+	GUI_PalleteInit();
+	// PalettePop();
+	// with_check_ae_mode();
+
+	DeleteDialogBox(menu->handle);
+
+	if (start_olc) {
+		// start the main screen
+		GUI_StartMode(GUIMODE_OLC);
+		CreateDialogBox_OlMain();
+		GUIMode = GUIMODE_OLC;
+	}
+
+	GUI_UnLock();
+	GUI_PalleteUnInit();
+
+	//SleepTask(1000);
+
+out:
 	menu->handle = 0;
 	menu->current_line = 0;
 	menu->current_item = 0;
@@ -46,15 +210,31 @@ void menu_destroy(type_MENU * menu) {
 }
 
 void menu_create(type_MENU * menu) {
+	GUI_Lock();
+	GUI_PalleteInit();
+
+	// destroy the current menu if there is one
+	// no destroying it = memory leak !
+	DeleteDialogBox(current_menu->handle);
+
 	current_menu = menu;
-	FLAG_GUI_MODE = current_menu->gui_mode;
 
-	menu_destroy(current_menu);
+	GUI_StartMode(current_menu->gui_mode);
+	GUI_ClearImage();
+	GUIMode = current_menu->gui_mode;
 
-	current_menu->handle = DIALOG(22, menu->btn_handler);
+	current_menu->handle = dialog_create(22, current_menu->btn_handler);
+	printf("\nnew menu [0x%02X] created @0x%08X\n", GUIMode, current_menu->handle);
+	//PalettePush();
 	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 
 	menu_display();
+
+	GUI_UnLock();
+	GUI_PalleteUnInit();
+	GUI_ClearImage();
+	SetTurnDisplayEvent_1_after_2(); // turn on the screen
+	//SetTurnDisplayEvent_2_after_1(); // turn off the screen
 }
 
 void menu_display() {
@@ -157,8 +337,10 @@ void menu_action() {
 }
 
 void menu_dp_action() {
-	if (current_menu->dp_action)
+	if (current_menu->dp_action) {
+		printf("\nmenu_dp_action(): calling dp_action\n");
 		current_menu->dp_action();
+	}
 }
 
 void menu_drag_drop() {
@@ -323,12 +505,14 @@ void menu_repeateable_cycle(int repeating) {
 }
 
 void menu_close() {
-	menu_destroy(current_menu);
+	printf("\nclosing current menu and starting OLC\n");
+	menu_destroy(current_menu, OLC_START);
 
-	press_button(BUTTON_DISP);
-	SleepTask(250);
+	//SetTurnDisplayEvent_2_after_1();
+	//press_button(IC_BUTTON_DISP);
+	//SleepTask(250);
 
-	display_refresh();
+	//display_refresh();
 }
 
 char *menu_message(int item_id) {

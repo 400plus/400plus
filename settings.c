@@ -75,12 +75,12 @@ void settings_write() {
 }
 
 extern void settings_apply() {
-	send_to_intercom(EVENT_SET_AV_COMP,         1,  settings.av_comp);
-	send_to_intercom(EVENT_SET_EFCOMP,          1,  settings.flash_comp);
-	send_to_intercom(EVENT_SET_AE_BKT,          1,  settings.aeb_ev);
-	send_to_intercom(EVENT_SET_CF_SAFETY_SHIFT, 1,  settings.safety_shift);
-	send_to_intercom(EVENT_SET_CF_EMIT_FLASH,   1, !settings.emit_flash);
-	send_to_intercom(EVENT_SET_COLOR_TEMP,      2,  settings.color_temp);
+	send_to_intercom(IC_SET_AV_COMP,         1,  settings.av_comp);
+	send_to_intercom(IC_SET_EFCOMP,          1,  settings.flash_comp);
+	send_to_intercom(IC_SET_AE_BKT,          1,  settings.aeb_ev);
+	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1,  settings.safety_shift);
+	send_to_intercom(IC_SET_CF_EMIT_FLASH,   1, !settings.emit_flash);
+	send_to_intercom(IC_SET_COLOR_TEMP,      2,  settings.color_temp);
 
 	if(settings.remote_delay){
 		RemReleaseSelfMax = 4500;

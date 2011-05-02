@@ -13,96 +13,194 @@
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
-#define DIALOG(template, handler) CreateDialogBox(0, 0, handler, template)
-
 // Events for SendToIntercom
-#define EVENT_SET_AE         0x01
-#define EVENT_SET_METERING   0x02
-#define EVENT_SET_EFCOMP     0x03
-#define EVENT_SET_DRIVE      0x04
-#define EVENT_SET_WB         0x05
-#define EVENT_SET_AF         0x06
-#define EVENT_SET_AF_POINT   0x07
-#define EVENT_SET_TV_VAL     0x08
-#define EVENT_SET_AV_VAL     0x09
-#define EVENT_SET_AV_COMP    0x0A
-#define EVENT_SET_ISO        0x0B
-#define EVENT_SET_RED_EYE    0x0C
-#define EVENT_SET_AE_BKT     0x0D
-#define EVENT_SET_WB_BKT     0x0E
-#define EVENT_SET_BEEP       0x0F
-#define EVENT_SET_COLOR_TEMP 0x10
+typedef enum {
+	IC_SET_AE                      = 0x01, //
+	IC_SET_METERING                = 0x02, //
+	IC_SET_EFCOMP                  = 0x03, //
+	IC_SET_DRIVE                   = 0x04, //
+	IC_SET_WB                      = 0x05, //
+	IC_SET_AF                      = 0x06, //
+	IC_SET_AF_POINT                = 0x07, //
+	IC_SET_TV_VAL                  = 0x08, //
+	IC_SET_AV_VAL                  = 0x09, //
+	IC_SET_AV_COMP                 = 0x0A, //
+	IC_SET_ISO                     = 0x0B, //
+	IC_SET_RED_EYE                 = 0x0C, //
+	IC_SET_AE_BKT                  = 0x0D, //
+	IC_SET_WB_BKT                  = 0x0E, //
+	IC_SET_BEEP                    = 0x0F, //
+	IC_SET_COLOR_TEMP              = 0x10, //
+	IC_SET_AUTO_POWER_OFF          = 0x12, //
+	IC_SET_VIEW_TYPE               = 0x13, //
+	IC_SET_REVIEW_TIME             = 0x14, //
+	IC_SET_AUTO_ROTATE             = 0x15, //
+	IC_SET_LCD_BRIGHTNESS          = 0x16, //
+	IC_SET_DATE_TIME               = 0x17, //
+	IC_SET_FILE_NUMBERING          = 0x18, //
+	IC_SET_LANGUAGE                = 0x19, //
+	IC_SET_VIDEO_SYSTEM            = 0x1A, //
+	IC_SET_HISTOGRAM               = 0x1D, //
+	IC_SET_COLOR_SPACE             = 0x21, //
+	IC_SET_IMG_FORMAT              = 0x22, //
+	IC_SET_IMG_SIZE                = 0x23, //
+	IC_SET_IMG_QUALITY             = 0x24, //
+	IC_SET_CF_SET_BUTTON_FUNC      = 0x2A, // C.Fn-01
+	IC_SET_CF_NR_FOR_LONG_EXPOSURE = 0x2B, // C.Fn-02
+	IC_SET_CF_EFAV_FIX_X           = 0x2C, // C.Fn-03
+	IC_SET_CF_AFAEL_ACTIVE_BUTTON  = 0x2D, // C.Fn-04
+	IC_SET_CF_EMIT_AUX             = 0x2E, // C.Fn-05
+	IC_SET_CF_EXPLEVEL_INC_THIRD   = 0x2F, // C.Fn-06
+	IC_SET_CF_EMIT_FLASH           = 0x30, //
+	IC_SET_CF_EXTEND_ISO           = 0x31, //
+	IC_SET_CF_AEB_SEQUENCE         = 0x32, //
+	IC_SET_CF_SI_INDICATE          = 0x33, //
+	IC_SET_CF_MENU_POS             = 0x34, //
+	IC_SET_CF_MIRROR_UP_LOCK       = 0x35, // C.Fn-07
+	IC_SET_CF_FPSEL_METHOD         = 0x36, //
+	IC_SET_CF_FLASH_METERING       = 0x37, // C.Fn-08
+	IC_SET_CF_FLASH_SYNC_REAR      = 0x38, // C.Fn-09
+	IC_SET_CF_SAFETY_SHIFT         = 0x39, //
+	IC_SET_CF_LENS_BUTTON          = 0x3A, //
+	IC_SET_CF_ORIGINAL_EVAL        = 0x3D, //
+	IC_SET_CF_QR_MAGNIFY           = 0x3C, // C.Fn-10
+	IC_SET_CF_TFT_ON_POWER_ON      = 0x3B, // C.Fn-11
+	IC_DIALOGON                    = 0x50, //
+	IC_DIALOGOFF                   = 0x51, //
+	IC_SHUTDOWN                    = 0x52, //
+	IC_RELEASE                     = 0x53, //
+	IC_ENTERFACTORYMODE            = 0x5D, //
+	IC_EXITFACTORYMODE             = 0x5E, //
+	IC_UILOCK                      = 0x5F, //
+	IC_GUILOCK                     = 0x60, //
+	IC_FIRMUP                      = 0x61, //
+	IC_BAT_TYPE                    = 0x65, //
+	IC_BC_LEVEL                    = 0x66, //
+	IC_POWER_FLAG                  = 0x72, //
+	IC_BUZZER                      = 0x73, //
+	IC_TEMP                        = 0x74, //
+	IC_TIMERCOUNTER                = 0x8C, //
+	IC_MAIN_DIAL                   = 0x90, //
+	IC_SETTINGS                    = 0x93, //
+	IC_BUTTON_MENU                 = 0xA0, //
+	IC_BUTTON_DISP                 = 0xA1, //
+	IC_BUTTON_JUMP                 = 0xA2, //
+	IC_BUTTON_PLAY                 = 0xA4, //
+	IC_BUTTON_TRASH                = 0xA5, //
+	IC_BUTTON_SET                  = 0xA6, //
+	IC_AFPDLGOFF                   = 0xA7, //
+	IC_BUTTON_DIAL                 = 0xA9, //
+	IC_BUTTON_DIAL_LEFT            = ( 1 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
+	IC_BUTTON_DIAL_RIGHT           = ( 2 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
+	IC_BUTTON_UNK1                 = 0xAC, //
+	IC_BUTTON_UP                   = 0xB1, //
+	IC_BUTTON_DOWN                 = 0xB2, //
+	IC_BUTTON_RIGHT                = 0xB3, //
+	IC_BUTTON_LEFT                 = 0xB4, //
+	IC_BUTTON_DP                   = 0xB8, //
+	IC_AFPDLGON                    = 0xB9, //
+	IC_BUTTON_DRIVE                = 0xBA, //
+	IC_BUTTON_AV                   = 0xBB, //
+	IC_MONOPEN                     = 0xC8, //
+	IC_MONCLOSE                    = 0xC9, //
+	IC_MONREAD                     = 0xCA, //
+	IC_MONWRITE                    = 0xCB, //
+	IC_MONCALL                     = 0xCC, //
+	IC_SET_REALTIME_ISO_0          = 0xF0, //
+	IC_SET_REALTIME_ISO_1          = 0xF1, //
+	IC_EXIT_MCELL_TEST             = 0xF4  //
+} intercom_event_t;
 
-#define EVENT_SET_AUTO_POWER_OFF 0x12
-#define EVENT_SET_VIEW_TYPE      0x13
-#define EVENT_SET_REVIEW_TIME    0x14
-#define EVENT_SET_AUTO_ROTATE    0x15
-#define EVENT_SET_LCD_BRIGHTNESS 0x16
-#define EVENT_SET_DATE_TIME      0x17
-#define EVENT_SET_FILE_NUMBERING 0x18
-#define EVENT_SET_LANGUAGE       0x19
-#define EVENT_SET_VIDEO_SYSTEM   0x1A
-#define EVENT_SET_HISTOGRAM      0x1D
-#define EVENT_SET_COLOR_SPACE    0x21
-
-#define EVENT_SET_IMG_FORMAT  0x22
-#define EVENT_SET_IMG_SIZE    0x23
-#define EVENT_SET_IMG_QUALITY 0x24
-
-#define EVENT_SET_CF_SET_BUTTON_FUNC      0x2A // C.Fn-01
-#define EVENT_SET_CF_NR_FOR_LONG_EXPOSURE 0x2B // C.Fn-02
-#define EVENT_SET_CF_EFAV_FIX_X           0x2C // C.Fn-03
-#define EVENT_SET_CF_AFAEL_ACTIVE_BUTTON  0x2D // C.Fn-04
-#define EVENT_SET_CF_EMIT_AUX             0x2E // C.Fn-05
-#define EVENT_SET_CF_EXPLEVEL_INC_THIRD   0x2F // C.Fn-06
-#define EVENT_SET_CF_EMIT_FLASH           0x30
-#define EVENT_SET_CF_EXTEND_ISO           0x31
-#define EVENT_SET_CF_AEB_SEQUENCE         0x32
-#define EVENT_SET_CF_SI_INDICATE          0x33
-#define EVENT_SET_CF_MENU_POS             0x34
-#define EVENT_SET_CF_MIRROR_UP_LOCK       0x35 // C.Fn-07
-#define EVENT_SET_CF_FPSEL_METHOD         0x36
-#define EVENT_SET_CF_FLASH_METERING       0x37 // C.Fn-08
-#define EVENT_SET_CF_FLASH_SYNC_REAR      0x38 // C.Fn-09
-#define EVENT_SET_CF_SAFETY_SHIFT         0x39
-#define EVENT_SET_CF_LENS_BUTTON          0x3A
-#define EVENT_SET_CF_ORIGINAL_EVAL        0x3D
-#define EVENT_SET_CF_QR_MAGNIFY           0x3C // C.Fn-10
-#define EVENT_SET_CF_TFT_ON_POWER_ON      0x3B // C.Fn-11
-
-#define EVENT_SET_REALTIME_ISO_0    0xF0
-#define EVENT_SET_REALTIME_ISO_1    0xF1
-
-#define EVENT_DIALOGON  0x50
-#define EVENT_DIALOGOFF 0x51
-
-#define EVENT_MAIN_DIAL 0x90
-#define EVENT_SETTINGS  0x93
-
-#define	EVENT_AFPDLGON  0xB9
-#define	EVENT_AFPDLGOFF 0xA7
-
-//#define	SOME_ACTION_AFTER_BTNS  0x8D // 10001101 - 141
-//#define	SOME_OTHER_ACTION       0x74 // 01110100 - 116
-//#define	BUTTON_STAR   0xA8 // 10101000 - 168 - ZOOM OUT - other things generates this
-
-#define	BUTTON_MENU   0xA0 // 10100000 - 160
-#define	BUTTON_DISP   0xA1 // 10100001 - 161
-#define	BUTTON_JUMP   0xA2 // possibly, but normal menus wont see it
-#define BUTTON_PLAY   0xA4 // 10100100 - 164
-#define	BUTTON_TRASH  0xA5 // possibly, but normal menus wont see it
-#define	BUTTON_SET    0xA6 // 10100110 - 166
-#define	BUTTON_DIAL   0xA9 // 10101001 - 169
-#define BUTTON_DIAL_LEFT  ( 1 << 8 ) | BUTTON_DIAL
-#define BUTTON_DIAL_RIGHT ( 2 << 8 ) | BUTTON_DIAL
-#define BUTTON_UNK1   0xAC // dont know what it is, but it's there
-#define	BUTTON_UP     0xB1 // 10110001 - 177
-#define	BUTTON_DOWN   0xB2 // 10110010 - 178
-#define	BUTTON_RIGHT  0xB3 // 10110011 - 179
-#define	BUTTON_LEFT   0xB4 // 10110100 - 180
-#define	BUTTON_DP     0xB8 // 10111000 - 184
-#define	BUTTON_DRIVE  0xBA // 10111010 - 186
-#define	BUTTON_AV     0xBB // 10111011 - 187
+typedef enum {
+	/*
+	GUI_PRESS_DISP_BUTTON          = 0x10000000,
+	GUI_START_MENU_MODE            = 0x10000007,
+	GUI_START_INFO_MODE            = 0x10000008,
+	GUI_START_PLAY_MODE            = 0x10000009,
+	GUI_START_QR_MODE              = 0x1000000A,
+	GUI_START_NOCFWARNING_MODE     = 0x1000000B,
+	GUI_START_FULLNOWARNING_MODE   = 0x1000000C,
+	GUI_START_FULLCF               = 0x1000000D,
+	GUI_START_ERRCF_ERROR          = 0x1000000E,
+	GUI_START_ERRCF_FULLNO         = 0x1000000F,
+	GUI_START_ERRCF_PROTECT        = 0x10000010,
+	GUI_START_ERRORCODE_MODE       = 0x10000011,
+	GUI_START_INCOMPIMAGE_MODE     = 0x10000012,
+	GUI_START_RTCSET_MODE          = 0x10000013,
+	GUI_START_IDLE_MODE            = 0x10000014,
+	GUI_POST_QR_IMAGE              = 0x10000015,
+	GUI_DISP_RTCSET_MODE           = 0x10000018,
+	GUI_DISP_NOCFWARNING_MODE      = 0x10000029,
+	GUI_DISP_FULLNOWARNING_MODE    = 0x1000002A,
+	GUI_DISP_FULLCF                = 0x1000002B,
+	GUI_DISP_ERRCF_ERROR           = 0x1000002C,
+	GUI_DISP_ERRCF_FULLNO          = 0x1000002D,
+	GUI_DISP_ERRCF_PROTECT         = 0x1000002E,
+	GUI_DISP_ERRORCODE_MODE        = 0x1000002F,
+	GUI_DISP_INCOMPIMAGE_MODE      = 0x10000030,
+	GUI_FINISH_QR_MODE             = 0x10000031,
+	GUI_DISP_USBCONNECTTYPE_MODE   = 0x10000035,
+	GUI_DISP_DIRECTTRANSFER_MODE   = 0x10000036,
+	GUI_START_USBCONNECTTYPE_MODE  = 0x10000037,
+	GUI_START_DIRECTTRANSFER_MODE  = 0x10000038,
+	GUI_DISP_OLC_MODE              = 0x10000039,
+	GUI_DISP_BULBCOUNT_MODE        = 0x1000003B,
+	GUI_START_OLC_MODE             = 0x1000003C,
+	GUI_START_BULBCOUNT_MODE       = 0x1000003D,
+	GUI_DISP_ISO_MODE              = 0x10000043,
+	GUI_DISP_AF_MODE               = 0x10000044,
+	GUI_DISP_WB_MODE               = 0x10000045,
+	GUI_DISP_MES_MODE              = 0x10000046,
+	GUI_DISP_FP_SEL                = 0x10000048,
+	GUI_DISP_QUAL_MODE             = 0x10000049,
+	GUI_DISP_PICTURESTYLE_MODE     = 0x1000004A,
+	GUI_DISP_FECOMP_MODE           = 0x1000004B,
+	GUI_DISP_ACTIVESWEEP           = 0x1000004C,
+	GUI_DISP_ACTIVESWEEP_OLC       = 0x1000004D,
+	GUI_DISP_BATTEMPTY             = 0x1000004E,
+	GUI_START_ISO_MODE             = 0x10000058,
+	GUI_START_AF_MODE              = 0x10000059,
+	GUI_START_WB_MODE              = 0x1000005A,
+	GUI_START_MES_MODE             = 0x1000005B,
+	GUI_START_DRIVE_MODE           = 0x1000005C,
+	GUI_START_FP_SEL               = 0x1000005D,
+	GUI_START_QUAL_MODE            = 0x1000005E,
+	GUI_START_PICTURESTYLE_MODE    = 0x1000005F,
+	GUI_START_FECOMP_MODE          = 0x10000060,
+	GUI_START_ACTIVESWEEP          = 0x10000061,
+	GUI_START_ACTIVESWEEP_OLC      = 0x10000062,
+	GUI_START_BATTEMPTY            = 0x10000063,
+	GUI_FINISH_ACTIVESWEEP         = 0x10000065,
+	GUI_START_COLORBAR_DIALOG      = 0x1000006E,
+	GUI_START_LCDADJUST_DIALOG     = 0x1000006F,
+	GUI_DELETE_COLORBAR_DIALOG     = 0x10000070,
+	GUI_DELETE_LCDADJUST_DIALOG    = 0x10000071,
+	*/
+	GUI_GOT_TOP_OF_CONTROL         = 0x800,
+	// 801 ?
+	GUI_INITIALIZE_CONTROLLER      = 0x802,
+	// 804 ?
+	GUI_BUTTON_RIGHT               = 0x807,
+	GUI_BUTTON_LEFT                = 0x809,
+	GUI_BUTTON_UP                  = 0x80B,
+	GUI_BUTTON_DOWN                = 0x80D,
+	GUI_BUTTON_MENU                = 0x80F,
+	GUI_BUTTON_JUMP                = 0x810,
+	GUI_BUTTON_SET                 = 0x812, //(code1 will be menu line number when set button was pressed)
+	GUI_BUTTON_ZOOM_IN             = 0x819,
+	GUI_BUTTON_ZOOM_IN_RELEASED    = 0x81A, // DISP_RELEASED
+	GUI_BUTTON_ZOOM_OUT            = 0x81B,
+	GUI_BUTTON_ZOOM_OUT_RELEASED   = 0x81C, // DISP_RELEASED
+	// 820 ?
+	GUI_BUTTON_DISP                = 0x829, // GUI_BUTTON_INFO
+	GUI_BUTTON_DIAL_RIGHT          = 0x82B,
+	GUI_BUTTON_DIAL_LEFT           = 0x82C,
+	GUI_BUTTON_PLAY                = 0x10000000,
+	GUI_BUTTON_TRASH               = 0x10000001,
+	GUI_BUTTON_DP                  = 0x10000002,
+	GUI_BUTTON_DRIVE               = 0x10000047,
+	GUI_BLINK_RELATED              = 0x1000003E,
+} gui_event_t;
 
 typedef struct {                 // [*] Used and tested, others unknown
 	int ae;                      // 0x0000 [*] [1]
@@ -298,48 +396,57 @@ typedef struct {                 // [*] Used and tested, others unknown
 
 #define FLAG_GUI_MODE       GUIMode
 typedef enum { // GUIModes
-	GUI_MODE_MAIN,            // 0x00 - main screen (white one)
-	GUI_MODE_REVIEW,          // 0x01 - review photos mode (activated with play btn)
-	GUI_MODE_MENU,            // 0x02 - main menu
-	GUI_MODE_RTCSET,          // 0x03 - Set internal clock from MENU
-	GUI_MODE_INFO,            // 0x04 - info screen (menu -> disp.)
-	GUI_MODE_NOCFWARNING,     // 0x05 - no CF card
-	GUI_MODE_QR,              // 0x06 - review image right after shot
-	GUI_MODE_FULLNOWARNING,   // 0x07 - ?
-	GUI_MODE_PICTURESTYLE,    // 0x08 - Picture Style
-	GUI_MODE_ISO,             // 0x09 - ISO
-	GUI_MODE_WB,              // 0x0A - WB
-	GUI_MODE_AFMODE,          // 0x0B - AF mode choosing screen
-	GUI_MODE_METER,           // 0x0C - Metering mode screen
-	GUI_MODE_QUAL,            // 0x0D - Quality screen selection from MENU
-	GUI_MODE_UNKNOWN_1,       // 0x0E - ?
-	GUI_MODE_DRIVE,           // 0x0F - Drive mode
-	GUI_MODE_AFPATTERN,       // 0x10 - AF zones select
-	GUI_MODE_OFF,             // 0x11 - Display is off (DISP button)
-	GUI_MODE_BULBCOUNT,       // 0x12 - Bulb counter screen
-	GUI_MODE_CFFULL,          // 0x13 - CF is full
-	GUI_MODE_ERRCF_ERROR,     // 0x14 - CF Error ?
-	GUI_MODE_ERRCF_FULLNO,    // 0x15 - ?
-	GUI_MODE_ERRCF_PROTECT,   // 0x16 - ?
-	GUI_MODE_UNKNOWN_2,       // 0x17 - ?
-	GUI_MODE_ERRORCODE,       // 0x18 - error code screen
-	GUI_MODE_USBCONNECTTYPE,  // 0x19 - ?
-	GUI_MODE_DIRECTTRANSFER,  // 0x1A - ?
-	GUI_MODE_FLASHEV,         // 0x1B - Flash EV (SET from main dialog if configured at C.Fn-01)
-	GUI_MODE_INCOMPIMAGE,     // 0x1C - ?
-	GUI_MODE_BATTEMPTY,       // 0x1D - Battery empty
-	GUI_MODE_ACTIVESWEEP,     // 0x1E - Sweeping the sensor
-	GUI_MODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
+	GUIMODE_MAIN,            // 0x00 - main screen (white one)
+	GUIMODE_REVIEW,          // 0x01 - review photos mode (activated with play btn)
+	GUIMODE_MENU,            // 0x02 - main menu
+	GUIMODE_RTCSET,          // 0x03 - Set internal clock from MENU
+	GUIMODE_INFO,            // 0x04 - info screen (menu -> disp.)
+	GUIMODE_NOCFWARNING,     // 0x05 - no CF card
+	GUIMODE_QR,              // 0x06 - review image right after shot
+	GUIMODE_FULLNOWARNING,   // 0x07 - ?
+	GUIMODE_PICTURESTYLE,    // 0x08 - Picture Style
+	GUIMODE_ISO,             // 0x09 - ISO
+	GUIMODE_WB,              // 0x0A - WB
+	GUIMODE_AFMODE,          // 0x0B - AF mode choosing screen
+	GUIMODE_METER,           // 0x0C - Metering mode screen
+	GUIMODE_QUAL,            // 0x0D - Quality screen selection from MENU
+	GUIMODE_UNKNOWN_1,       // 0x0E - ?
+	GUIMODE_DRIVE,           // 0x0F - Drive mode
+	GUIMODE_AFPATTERN,       // 0x10 - AF zones select
+	GUIMODE_OLC,             // 0x11 - Main screen (the white one)
+	GUIMODE_BULBCOUNT,       // 0x12 - Bulb counter screen
+	GUIMODE_CFFULL,          // 0x13 - CF is full
+	GUIMODE_ERRCF_ERROR,     // 0x14 - CF Error ?
+	GUIMODE_ERRCF_FULLNO,    // 0x15 - ?
+	GUIMODE_ERRCF_PROTECT,   // 0x16 - ?
+	GUIMODE_UNKNOWN_2,       // 0x17 - ?
+	GUIMODE_ERRORCODE,       // 0x18 - error code screen
+	GUIMODE_USBCONNECTTYPE,  // 0x19 - ?
+	GUIMODE_DIRECTTRANSFER,  // 0x1A - ?
+	GUIMODE_FLASHEV,         // 0x1B - Flash EV (SET from main dialog if configured at C.Fn-01)
+	GUIMODE_INCOMPIMAGE,     // 0x1C - ?
+	GUIMODE_BATTEMPTY,       // 0x1D - Battery empty
+	GUIMODE_ACTIVESWEEP,     // 0x1E - Sweeping the sensor
+	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUI_MODE_400PLUS = 0x2D,  // 400Plus mode
-	GUI_MODE_RENAME  = 0x2E,  // 400Plus rename
-	GUI_MODE_FACE    = 0x2F	  // Face mode
-} type_GUI_MODE;
+	GUIMODE_400PLUS,           // 0x20 - Our (400plus) menu mode
+	GUIMODE_RENAME,            // 400Plus rename
+	GUIMODE_400PLUS_OLD = 0x2D,// 400Plus old mode for the intercom
+	GUIMODE_FACE        = 0x2F,// Face mode
+} type_GUIMODE;
+
+
+struct struct_DIALOG; // we do not know what is inside, it's just a type name
+typedef struct struct_DIALOG type_DIALOG;
+// this type should be used as a pointer always (e.g. type_DIALOG * dialog)
+// reading from the memory where struct points, the first 4 bytes are pointing
+// to 0xFF914960 ("aDIALOG" from funclist), so i guess the first element of
+// the struct is "char *" with name of the dialog
 
 
 // Handler for buttons in dialogs
-typedef void(*type_BTN_HANDLER)(int r0, int r1, int code1, int r3, int r4, int r5, int r6, int code2);
+typedef int(*type_BTN_HANDLER)(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 // Action definitions
 typedef void(*type_TASK)();
@@ -387,7 +494,7 @@ extern int *message_queue;
 // Our own code
 extern void initialize();
 extern void initialize_display();
-extern void message_proxy(const int handler, char *message);
+extern void intercom_proxy(const int handler, char *message);
 
 // Shared globals
 extern type_STATUS status;
