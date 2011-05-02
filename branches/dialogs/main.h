@@ -177,6 +177,7 @@ typedef enum {
 	GUI_DELETE_LCDADJUST_DIALOG    = 0x10000071,
 	*/
 	GUI_GOT_TOP_OF_CONTROL         = 0x800,
+	// 801 ?
 	GUI_INITIALIZE_CONTROLLER      = 0x802,
 	// 804 ?
 	GUI_BUTTON_RIGHT               = 0x807,
@@ -412,7 +413,7 @@ typedef enum { // GUIModes
 	GUIMODE_UNKNOWN_1,       // 0x0E - ?
 	GUIMODE_DRIVE,           // 0x0F - Drive mode
 	GUIMODE_AFPATTERN,       // 0x10 - AF zones select
-	GUIMODE_OFF,             // 0x11 - Display is off (DISP button)
+	GUIMODE_OLC,             // 0x11 - Main screen (the white one)
 	GUIMODE_BULBCOUNT,       // 0x12 - Bulb counter screen
 	GUIMODE_CFFULL,          // 0x13 - CF is full
 	GUIMODE_ERRCF_ERROR,     // 0x14 - CF Error ?
@@ -429,7 +430,7 @@ typedef enum { // GUIModes
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUIMODE_400PLUS = 0xFF,           // 0x20 - Our (400plus) menu mode
+	GUIMODE_400PLUS,           // 0x20 - Our (400plus) menu mode
 	GUIMODE_400PLUS_OLD = 0x2D,// 400Plus old mode for the intercom
 	GUIMODE_RENAME      = 0x2E,// 400Plus rename
 	GUIMODE_FACE        = 0x2F,// Face mode

@@ -155,7 +155,7 @@ void intercom_proxy(const int handler, char *message) {
 			ENQUEUE_TASK(afp_enter);
 		}
 		goto pass_message;
-	case IC_EVENT_SET_LANGUAGE:
+	case IC_SET_LANGUAGE:
 		ENQUEUE_TASK(lang_pack_config);
 		goto pass_message;
 	case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs

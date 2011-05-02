@@ -88,6 +88,8 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 	if (code == GUI_BUTTON_SET)
 		INT_SWAP(code, event);
 
+	printf("\nbtn handler: gui=0x%02X@0x%08X, btn=0x%08X, code=0x%08X\n", GUIMode, dialog, event, code);
+
 	// Loop over all the action chains
 	for(chain = menu_chains; ! IS_EOL(chain); chain++) {
 		// Chech whether this action chain corresponds to the current GUI mode
@@ -121,6 +123,14 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 
 
 	switch (event) {
+	// we use the DISP button to close the menu
+	case GUI_BUTTON_DISP:
+		printf("\nbtn handler: calling menu_close()\n");
+		menu_close();
+		// when closing with DISP, we need to press it one more time.
+		press_button(IC_BUTTON_DISP);
+		goto handled;
+
 	// someone else will take care of those
 	case GUI_GOT_TOP_OF_CONTROL:
 	case GUI_INITIALIZE_CONTROLLER:
@@ -128,6 +138,7 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 		goto fallback;
 
 	// those we block, so no one will interface with our menus
+	case GUI_BUTTON_DP:
 	case GUI_BUTTON_UP:
 	case GUI_BUTTON_DOWN:
 	case GUI_BUTTON_LEFT:
@@ -136,8 +147,6 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 	case GUI_BUTTON_PLAY:
 	case GUI_BUTTON_JUMP:
 	case GUI_BUTTON_MENU:
-	case GUI_BUTTON_DISP:
-	case GUI_BUTTON_DP:
 	case GUI_BUTTON_TRASH:
 	case GUI_BUTTON_DRIVE:
 	case GUI_BUTTON_DIAL_LEFT:
@@ -156,16 +165,22 @@ fallback:
 	// reverse them back if we need to pass this event to the next routine().
 	if (event == GUI_BUTTON_SET)
 		INT_SWAP(code, event);
+	printf("\nbtn handler: passing to fallback\n");
 	return 1;
 
 handled:
+	printf("\nbtn handler: handled -> blocking\n");
 	return 0;
 }
 
 void menu_destroy(type_MENU * menu, menu_destroy_olc_t start_olc) {
 
-	if (!menu || menu->handle)
+	if (!menu || !menu->handle) {
+		printf("\ncurrent menu already destroyed\n");
 		goto out;
+	}
+
+	printf("\ndestroying menu [%d]@0x%08X\n", menu->gui_mode, menu->handle);
 
 	// GUI_DisplayMode();
 	GUI_Lock();
@@ -175,13 +190,17 @@ void menu_destroy(type_MENU * menu, menu_destroy_olc_t start_olc) {
 
 	DeleteDialogBox(menu->handle);
 
-	if (start_olc) { // do we need this at all ?
+	if (start_olc) {
+		// start the main screen
 		GUI_StartMode(GUIMODE_OLC);
 		CreateDialogBox_OlMain();
+		GUIMode = GUIMODE_OLC;
 	}
 
 	GUI_UnLock();
 	GUI_PalleteUnInit();
+
+	//SleepTask(1000);
 
 out:
 	menu->handle = 0;
@@ -191,18 +210,22 @@ out:
 }
 
 void menu_create(type_MENU * menu) {
-	current_menu = menu;
-	FLAG_GUI_MODE = current_menu->gui_mode;
-
-	menu_destroy(current_menu, OLC_NO_START);
-
 	GUI_Lock();
 	GUI_PalleteInit();
+
+	// destroy the current menu if there is one
+	// no destroying it = memory leak !
+	DeleteDialogBox(current_menu->handle);
+
+	current_menu = menu;
+
 	GUI_StartMode(current_menu->gui_mode);
 	GUI_ClearImage();
+	GUIMode = current_menu->gui_mode;
 
 	current_menu->handle = dialog_create(22, current_menu->btn_handler);
-	// PalettePush();
+	printf("\nnew menu [0x%02X] created @0x%08X\n", GUIMode, current_menu->handle);
+	PalettePush();
 	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 
 	menu_display();
@@ -210,8 +233,8 @@ void menu_create(type_MENU * menu) {
 	GUI_UnLock();
 	GUI_PalleteUnInit();
 	GUI_ClearImage();
-	SetTurnDisplayEvent_1_after_2(); // ?? Every dialog ends with this. Could be "toggle screen on". Not tested.
-	//SetTurnDisplayEvent_2_after_1(); // will turn screen off
+	SetTurnDisplayEvent_1_after_2(); // turn on the screen
+	//SetTurnDisplayEvent_2_after_1(); // turn off the screen
 }
 
 void menu_display() {
@@ -314,8 +337,10 @@ void menu_action() {
 }
 
 void menu_dp_action() {
-	if (current_menu->dp_action)
+	if (current_menu->dp_action) {
+		printf("\nmenu_dp_action(): calling dp_action\n");
 		current_menu->dp_action();
+	}
 }
 
 void menu_drag_drop() {
@@ -480,8 +505,10 @@ void menu_repeateable_cycle(int repeating) {
 }
 
 void menu_close() {
+	printf("\nclosing current menu and starting OLC\n");
 	menu_destroy(current_menu, OLC_START);
 
+	//SetTurnDisplayEvent_2_after_1();
 	//press_button(IC_BUTTON_DISP);
 	//SleepTask(250);
 
