@@ -38,6 +38,15 @@ type_MENUITEM interval_items[] = {
 	MENUITEM_COUNTER(LP_WORD(L_SHOTS),    &menu_settings.interval_shots)
 };
 
+type_MENUITEM presets_items[] = {
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_ADEP),     &menu_settings.presets_adep),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CAMERA),   &menu_settings.presets_camera),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_400PLUS),  &menu_settings.presets_400plus),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_SETTINGS), &menu_settings.presets_settings),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_IMAGE),    &menu_settings.presets_image),
+	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CFN),      &menu_settings.presets_cfn)
+};
+
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),           &menu_settings.av_comp),
 	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),        &menu_settings.flash_comp),
@@ -47,11 +56,13 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_settings.safety_shift),
 	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_settings.color_temp),
 	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash),
+	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay),
 	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),           wave_items),
 	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),            eaeb_items),
 	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),           interval_items),
 	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),       timer_items),
-	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay),
+	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),     presets_items),
+	MENUITEM_TASK   ("---------------------------", NULL),
 	MENUITEM_TASK   (LP_WORD(L_DEVELOPERS_MENU),    menu_developer_start)
 };
 
@@ -63,7 +74,7 @@ type_MENU main_menu = {
 	dp_action   : menu_presets_save_start,
 	reorder     : FALSE,
 	gui_mode    : GUIMODE_400PLUS,
-	btn_handler : InfoCreativeAppProc
+	btn_handler : menu_buttons_handler
 };
 
 void menu_settings_start() {

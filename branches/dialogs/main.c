@@ -49,7 +49,8 @@ type_ACTION actions_info[]  = {
 	END_OF_LIST
 };
 
-type_ACTION actions_400plus[]  = {
+// the old way of handling the menus, in the intercom_proxy()
+type_ACTION actions_400plus_old[]  = {
 	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
 	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
 	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
@@ -60,32 +61,6 @@ type_ACTION actions_400plus[]  = {
 	{IC_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
 	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
 	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
-	END_OF_LIST
-};
-
-type_ACTION actions_400plus_new[]  = {
-	{GUI_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
-	{GUI_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
-	{GUI_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
-	{GUI_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
-	//{GUI_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
-	{GUI_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
-	{GUI_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
-	{GUI_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
-	{GUI_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
-	{GUI_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
-	END_OF_LIST
-};
-
-type_ACTION actions_rename[]  = {
-	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
-	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
-	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
-	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
-	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
-	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
 	END_OF_LIST
 };
 
@@ -121,14 +96,12 @@ type_ACTION actions_af[] = {
 	END_OF_LIST
 };
 
-type_CHAIN chains[] = {
+type_CHAIN intercom_chains[] = {
 	{GUIMODE_OLC,       actions_main},
 	{GUIMODE_MAIN,      actions_main},
 	{GUIMODE_MENU,      actions_menu},
 	{GUIMODE_INFO,      actions_info},
-	{GUIMODE_400PLUS,   actions_400plus},
-	{GUIMODE_400PLUS_NEW,   actions_400plus_new},
-	{GUIMODE_RENAME,    actions_rename},
+	{GUIMODE_400PLUS_OLD,actions_400plus_old},
 	{GUIMODE_METER,     actions_meter},
 	{GUIMODE_WB,        actions_wb},
 	{GUIMODE_ISO,       actions_iso},
@@ -150,31 +123,21 @@ void initialize_display() {
 	ENQUEUE_TASK(restore_display);
 }
 
-void change_lang_pack() {
-	LangPlus_set_lang(cameraMode.language);
-}
-
 void intercom_proxy(const int handler, char *message) {
 	int gui_mode;
 	int message_len = message[0];
 	int event       = message[1];
-	int holds       = message_len > 1 ? message[2] : FALSE;
+	int param       = message_len > 1 ? message[2] : FALSE;
+	int holds       = param;
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
-	// set current language pack if lang was changed
-	// do this here until we find an event for changing
-	// the system language
-	if (cameraMode.language != LangPlus_last_langid) {
-		ENQUEUE_TASK(change_lang_pack);
-	}
-
 	// Status-independent events and special cases
 	switch (event) {
 	case IC_MAIN_DIAL: // Mode dial moved
-		status.main_dial_ae = message[2];
-		if (status.main_dial_ae == AE_MODE_ADEP)
+		status.main_dial_ae = param;
+		if (settings.presets_adep && status.main_dial_ae == AE_MODE_ADEP)
 			ENQUEUE_TASK(preset_recall);
 		goto pass_message;
 	case IC_SETTINGS: // Settings changed
@@ -182,7 +145,7 @@ void intercom_proxy(const int handler, char *message) {
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;
 	case IC_DIALOGON: // Entering a dialog
-		status.afp_dialog = (message[2] == 0x06);
+		status.afp_dialog = (param == 0x06);
 		goto pass_message;
 	case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
 		if (status.afp_dialog) {
@@ -192,8 +155,11 @@ void intercom_proxy(const int handler, char *message) {
 			ENQUEUE_TASK(afp_enter);
 		}
 		goto pass_message;
+	case IC_EVENT_SET_LANGUAGE:
+		ENQUEUE_TASK(lang_pack_config);
+		goto pass_message;
 	case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
-		event = (message[2] & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
+		event = (param & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
 		holds = FALSE;
 		break;
 	case IC_BUTTON_DP: // DP Button while a script is running
@@ -229,7 +195,7 @@ void intercom_proxy(const int handler, char *message) {
 		gui_mode = FLAG_GUI_MODE;
 
 	// Loop over all the action chains
-	for(chain = chains; ! IS_EOL(chain); chain++) {
+	for(chain = intercom_chains; ! IS_EOL(chain); chain++) {
 
 		// Chech whether this action chain corresponds to the current GUI mode
 		if (chain->gui_mode == gui_mode) {

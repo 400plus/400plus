@@ -35,9 +35,7 @@ type_MENU menu_shortcuts = {
 	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
-	//gui_mode    : GUIMODE_400PLUS,
-	gui_mode    : GUIMODE_400PLUS_NEW,
-	//btn_handler : InfoCreativeAppProc
+	gui_mode    : GUIMODE_400PLUS,
 	btn_handler : menu_buttons_handler
 };
 

@@ -31,7 +31,17 @@ typedef enum {
 	IC_SET_WB_BKT                  = 0x0E, //
 	IC_SET_BEEP                    = 0x0F, //
 	IC_SET_COLOR_TEMP              = 0x10, //
-	IC_COLOR_SPACE                 = 0x21, //
+	IC_SET_AUTO_POWER_OFF          = 0x12, //
+	IC_SET_VIEW_TYPE               = 0x13, //
+	IC_SET_REVIEW_TIME             = 0x14, //
+	IC_SET_AUTO_ROTATE             = 0x15, //
+	IC_SET_LCD_BRIGHTNESS          = 0x16, //
+	IC_SET_DATE_TIME               = 0x17, //
+	IC_SET_FILE_NUMBERING          = 0x18, //
+	IC_SET_LANGUAGE                = 0x19, //
+	IC_SET_VIDEO_SYSTEM            = 0x1A, //
+	IC_SET_HISTOGRAM               = 0x1D, //
+	IC_SET_COLOR_SPACE             = 0x21, //
 	IC_SET_IMG_FORMAT              = 0x22, //
 	IC_SET_IMG_SIZE                = 0x23, //
 	IC_SET_IMG_QUALITY             = 0x24, //
@@ -165,9 +175,10 @@ typedef enum {
 	GUI_START_LCDADJUST_DIALOG     = 0x1000006F,
 	GUI_DELETE_COLORBAR_DIALOG     = 0x10000070,
 	GUI_DELETE_LCDADJUST_DIALOG    = 0x10000071,
-*/
+	*/
 	GUI_GOT_TOP_OF_CONTROL         = 0x800,
 	GUI_INITIALIZE_CONTROLLER      = 0x802,
+	// 804 ?
 	GUI_BUTTON_RIGHT               = 0x807,
 	GUI_BUTTON_LEFT                = 0x809,
 	GUI_BUTTON_UP                  = 0x80B,
@@ -179,6 +190,7 @@ typedef enum {
 	GUI_BUTTON_ZOOM_IN_RELEASED    = 0x81A, // DISP_RELEASED
 	GUI_BUTTON_ZOOM_OUT            = 0x81B,
 	GUI_BUTTON_ZOOM_OUT_RELEASED   = 0x81C, // DISP_RELEASED
+	// 820 ?
 	GUI_BUTTON_DISP                = 0x829, // GUI_BUTTON_INFO
 	GUI_BUTTON_DIAL_RIGHT          = 0x82B,
 	GUI_BUTTON_DIAL_LEFT           = 0x82C,
@@ -186,6 +198,7 @@ typedef enum {
 	GUI_BUTTON_TRASH               = 0x10000001,
 	GUI_BUTTON_DP                  = 0x10000002,
 	GUI_BUTTON_DRIVE               = 0x10000047,
+	GUI_BLINK_RELATED              = 0x1000003E,
 } gui_event_t;
 
 typedef struct {                 // [*] Used and tested, others unknown
@@ -205,22 +218,22 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int wb_bkt;                  // 0x0034
 	int beep;                    // 0x0038 [*]
 	int color_temp;              // 0x003c [*]
-	int auto_power_off;          // 0x0040
+	int auto_power_off;          // 0x0040     [6]
 	int view_type;               // 0x0044
-	int review_time;             // 0x0048
-	int auto_rotate;             // 0x004c
-	int lcd_brightness;          // 0x0050
-	int date_time;               // 0x0054
-	int file_numbering;          // 0x0058
-	int language;                // 0x005c
-	int video_system;            // 0x0060
+	int review_time;             // 0x0048     [7]
+	int auto_rotate;             // 0x004c     [8]
+	int lcd_brightness;          // 0x0050     [9]
+	int date_time;               // 0x0054     [A]
+	int file_numbering;          // 0x0058     [B]
+	int language;                // 0x005c [*]
+	int video_system;            // 0x0060     [C]
 	int picture_style_mode;      // 0x0064
-	int histogram;               // 0x0068
+	int histogram;               // 0x0068     [D]
 	int disp_afpoint;            // 0x006c
-	int color_space;             // 0x0070
-	int img_format;              // 0x0074 [*]
-	int img_size;                // 0x0078
-	int img_quality;             // 0x007c
+	int color_space;             // 0x0070     [E]
+	int img_format;              // 0x0074 [*] 22
+	int img_size;                // 0x0078     23
+	int img_quality;             // 0x007c     24
 	int cfmenupos;               // 0x0080
 	int menupos;                 // 0x0084
 	int wbcomp_gm;               // 0x0088
@@ -332,6 +345,41 @@ typedef struct {                 // [*] Used and tested, others unknown
 #define AF_POINT_L  0x0080 // Left
 #define AF_POINT_R  0x0100 // Right
 
+// [6] Values for "auto_power_off"
+//     Number of seconds to wait, 0x00 for OFF
+
+// [7] Values for "review_time"
+//     Number of seconds to wait, 0x00 for OFF, 0xFF for HOLD
+
+// [8] Values for "auto_rotate"
+#define AUTO_ROTATE_OFF         0x00
+#define AUTO_ROTATE_COMP_CAMERA 0x01
+#define AUTO_ROTATE_COMP        0x02
+
+// [9] Values for "lcd_brightness"
+//     Brightness in range 1 to 7
+
+// [A] Values for "date_time"
+#define DATE_TIME_YYMMDD 0x01
+#define DATE_TIME_DDMMYY 0x02
+#define DATE_TIME_MMDDYY 0x03
+
+// [B] Values for "file_numbering"
+#define FILE_NUMBERING_CONT 0x00
+#define FILE_NUMBERING_AUTO 0x01
+
+// [C] Values for "video_system"
+#define VIDEO_SYSYEM_PAL  0x00
+#define VIDEO_SYSTEM_NTSC 0x01
+
+// [D] Values for "histogram"
+#define HISTOGRAM_BRIGHTNESS 0x00
+#define HISTOGRAM_RGB        0x01
+
+// [E] Values for "color_space"
+#define COLOR_SPACE_SRGB  0x00
+#define COLOR_SPACE_ADOBE 0x01
+
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
 #define FLAG_CAMERA_BUSY    hRelSem
@@ -347,45 +395,44 @@ typedef struct {                 // [*] Used and tested, others unknown
 
 #define FLAG_GUI_MODE       GUIMode
 typedef enum { // GUIModes
-	GUIMODE_MAIN,		// 0x00 - main screen (white one)
-	GUIMODE_REVIEW,	// 0x01 - review photos mode (activated with play btn)
-	GUIMODE_MENU,		// 0x02 - main menu
-	GUIMODE_RTCSET,	// 0x03 - ?
-	GUIMODE_INFO,		// 0x04 - info screen (menu -> disp.)
-	GUIMODE_NOCFWARNING,	// 0x05 - no CF card
-	GUIMODE_QR,		// 0x06 - review image right after shot
-	GUIMODE_FULLNOWARNING,	// 0x07 - ?
-	GUIMODE_PICTURESTYLE,	// 0x08 - Picture Style
-	GUIMODE_ISO,		// 0x09 - Iso
-	GUIMODE_WB,		// 0x0A - WB
-	GUIMODE_AFMODE,	// 0x0B - AF mode choosing screen
-	GUIMODE_METER,		// 0x0C - Mettering screen ? (Sergei's name: MES_MODE)
-	GUIMODE_QUAL,		// 0x0D - Quality screen ?
-	GUIMODE_UNKNOWN_1,	// 0x0E - ?
-	GUIMODE_DRIVE,		// 0x0F - Drive ?
-	GUIMODE_AFPATTERN,	// 0x10 - AF zones select
-	GUIMODE_OLC,		// 0x11 - ?
-	GUIMODE_BULBCOUNT,	// 0x12 - Bulb counder screen
-	GUIMODE_CFFULL,	// 0x13 - CF is full
-	GUIMODE_ERRCF_ERROR,	// 0x14 - CF Error ?
-	GUIMODE_ERRCF_FULLNO,	// 0x15 - ?
-	GUIMODE_ERRCF_PROTECT,	// 0x16 - ?
-	GUIMODE_UNKNOWN_2,	// 0x17 - ?
-	GUIMODE_ERRORCODE,	// 0x18 - error code screen
-	GUIMODE_USBCONNECTTYPE,// 0x19 - ?
-	GUIMODE_DIRECTTRANSFER,// 0x1A - ?
-	GUIMODE_FLASHEV,	// 0x1B - Flash EV ?
-	GUIMODE_INCOMPIMAGE,	// 0x1C - ?
-	GUIMODE_BATTEMPTY,	// 0x1D - Battery empty
-	GUIMODE_ACTIVESWEEP,	// 0x1E - Sweeping the mirror ?
-	GUIMODE_ACTIVESWEEP_OLC,// 0x1F - Sweeping the mirror ?
-	GUIMODE_400PLUS_NEW, // AF
+	GUIMODE_MAIN,            // 0x00 - main screen (white one)
+	GUIMODE_REVIEW,          // 0x01 - review photos mode (activated with play btn)
+	GUIMODE_MENU,            // 0x02 - main menu
+	GUIMODE_RTCSET,          // 0x03 - Set internal clock from MENU
+	GUIMODE_INFO,            // 0x04 - info screen (menu -> disp.)
+	GUIMODE_NOCFWARNING,     // 0x05 - no CF card
+	GUIMODE_QR,              // 0x06 - review image right after shot
+	GUIMODE_FULLNOWARNING,   // 0x07 - ?
+	GUIMODE_PICTURESTYLE,    // 0x08 - Picture Style
+	GUIMODE_ISO,             // 0x09 - ISO
+	GUIMODE_WB,              // 0x0A - WB
+	GUIMODE_AFMODE,          // 0x0B - AF mode choosing screen
+	GUIMODE_METER,           // 0x0C - Metering mode screen
+	GUIMODE_QUAL,            // 0x0D - Quality screen selection from MENU
+	GUIMODE_UNKNOWN_1,       // 0x0E - ?
+	GUIMODE_DRIVE,           // 0x0F - Drive mode
+	GUIMODE_AFPATTERN,       // 0x10 - AF zones select
+	GUIMODE_OFF,             // 0x11 - Display is off (DISP button)
+	GUIMODE_BULBCOUNT,       // 0x12 - Bulb counter screen
+	GUIMODE_CFFULL,          // 0x13 - CF is full
+	GUIMODE_ERRCF_ERROR,     // 0x14 - CF Error ?
+	GUIMODE_ERRCF_FULLNO,    // 0x15 - ?
+	GUIMODE_ERRCF_PROTECT,   // 0x16 - ?
+	GUIMODE_UNKNOWN_2,       // 0x17 - ?
+	GUIMODE_ERRORCODE,       // 0x18 - error code screen
+	GUIMODE_USBCONNECTTYPE,  // 0x19 - ?
+	GUIMODE_DIRECTTRANSFER,  // 0x1A - ?
+	GUIMODE_FLASHEV,         // 0x1B - Flash EV (SET from main dialog if configured at C.Fn-01)
+	GUIMODE_INCOMPIMAGE,     // 0x1C - ?
+	GUIMODE_BATTEMPTY,       // 0x1D - Battery empty
+	GUIMODE_ACTIVESWEEP,     // 0x1E - Sweeping the sensor
+	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUIMODE_400PLUS = 0x2D,// 400Plus mode
-	GUIMODE_RENAME  = 0x2E,// 400Plus rename
-	GUIMODE_FACE    = 0x2F,// Face mode
-	//GUI_MODE_400PLUS_NEW = 0x30,// 400Plus mode new
+	GUIMODE_400PLUS = 0xFF,           // 0x20 - Our (400plus) menu mode
+	GUIMODE_400PLUS_OLD = 0x2D,// 400Plus old mode for the intercom
+	GUIMODE_RENAME      = 0x2E,// 400Plus rename
+	GUIMODE_FACE        = 0x2F,// Face mode
 } type_GUIMODE;
 
 
@@ -447,10 +494,6 @@ extern int *message_queue;
 extern void initialize();
 extern void initialize_display();
 extern void intercom_proxy(const int handler, char *message);
-
-extern type_ACTION actions_400plus_new[];
-
-void change_lang_pack();
 
 // Shared globals
 extern type_STATUS status;

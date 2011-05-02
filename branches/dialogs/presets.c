@@ -85,8 +85,10 @@ int preset_read(int id) {
 	if (FIO_ReadFile(file, &preset, sizeof(preset)) != sizeof(preset))
 		goto end;
 
-	settings = buffer;
-	result   = TRUE;
+	if (settings.presets_400plus)
+		settings = buffer;
+
+	result = TRUE;
 
 end:
 	if (file != -1)
@@ -115,49 +117,71 @@ void preset_write(int id) {
 extern void preset_apply() {
 	int ae = status.main_dial_ae;
 
-	settings_apply();
+	if (settings.presets_400plus) {
+		settings_apply();
+	}
 
-	send_to_intercom(IC_SET_AE,         1, preset.ae);
-	send_to_intercom(IC_SET_METERING,   1, preset.metering);
-	send_to_intercom(IC_SET_EFCOMP,     1, preset.efcomp);
-	send_to_intercom(IC_SET_DRIVE,      1, preset.drive);
-	send_to_intercom(IC_SET_WB,         1, preset.wb);
-	send_to_intercom(IC_SET_AF,         1, preset.af);
-	send_to_intercom(IC_SET_AF_POINT,   2, preset.af_point);
-	send_to_intercom(IC_SET_TV_VAL,     1, preset.tv_val);
-	send_to_intercom(IC_SET_AV_VAL,     1, preset.av_val);
-	send_to_intercom(IC_SET_AV_COMP,    1, preset.av_comp);
-	send_to_intercom(IC_SET_ISO,        2, preset.iso);
-	send_to_intercom(IC_SET_RED_EYE,    1, preset.red_eye);
-	send_to_intercom(IC_SET_AE_BKT,     1, preset.ae_bkt);
-	send_to_intercom(IC_SET_WB_BKT,     1, preset.wb_bkt);
-	send_to_intercom(IC_SET_BEEP,       1, preset.beep);
-	send_to_intercom(IC_SET_COLOR_TEMP, 2, preset.color_temp);
+	if (settings.presets_camera) {
+		send_to_intercom(IC_SET_AE,         1, preset.ae);
+		send_to_intercom(IC_SET_METERING,   1, preset.metering);
+		send_to_intercom(IC_SET_EFCOMP,     1, preset.efcomp);
+		send_to_intercom(IC_SET_DRIVE,      1, preset.drive);
+		send_to_intercom(IC_SET_WB,         1, preset.wb);
+		send_to_intercom(IC_SET_AF,         1, preset.af);
+		send_to_intercom(IC_SET_AF_POINT,   2, preset.af_point);
+		send_to_intercom(IC_SET_TV_VAL,     1, preset.tv_val);
+		send_to_intercom(IC_SET_AV_VAL,     1, preset.av_val);
+		send_to_intercom(IC_SET_AV_COMP,    1, preset.av_comp);
+		send_to_intercom(IC_SET_ISO,        2, preset.iso);
+		send_to_intercom(IC_SET_RED_EYE,    1, preset.red_eye);
+		send_to_intercom(IC_SET_AE_BKT,     1, preset.ae_bkt);
+		send_to_intercom(IC_SET_WB_BKT,     1, preset.wb_bkt);
+		send_to_intercom(IC_SET_BEEP,       1, preset.beep);
+		send_to_intercom(IC_SET_COLOR_TEMP, 2, preset.color_temp);
+	}
 
-	send_to_intercom(IC_SET_IMG_FORMAT,  1, preset.img_format);
-	send_to_intercom(IC_SET_IMG_SIZE,    1, preset.img_size);
-	send_to_intercom(IC_SET_IMG_QUALITY, 1, preset.img_quality);
+	if (settings.presets_settings) {
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 2, preset.auto_power_off);
+		send_to_intercom(IC_SET_VIEW_TYPE,      1, preset.view_type);
+		send_to_intercom(IC_SET_REVIEW_TIME,    1, preset.review_time);
+		send_to_intercom(IC_SET_AUTO_ROTATE,    1, preset.auto_rotate);
+		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, preset.lcd_brightness);
+		send_to_intercom(IC_SET_DATE_TIME,      1, preset.date_time);
+		send_to_intercom(IC_SET_FILE_NUMBERING, 1, preset.file_numbering);
+		send_to_intercom(IC_SET_LANGUAGE,       1, preset.language);
+		send_to_intercom(IC_SET_VIDEO_SYSTEM,   1, preset.video_system);
+		send_to_intercom(IC_SET_HISTOGRAM,      1, preset.histogram);
+		send_to_intercom(IC_SET_COLOR_SPACE,    1, preset.color_space);
+	}
 
-	send_to_intercom(IC_SET_CF_SET_BUTTON_FUNC,      1, preset.cf_set_button_func);
-	send_to_intercom(IC_SET_CF_NR_FOR_LONG_EXPOSURE, 1, preset.cf_nr_for_long_exposure);
-	send_to_intercom(IC_SET_CF_EFAV_FIX_X,           1, preset.cf_efav_fix_x);
-	send_to_intercom(IC_SET_CF_AFAEL_ACTIVE_BUTTON,  1, preset.cf_afael_active_button);
-	send_to_intercom(IC_SET_CF_EMIT_AUX,             1, preset.cf_emit_aux);
-	send_to_intercom(IC_SET_CF_EXPLEVEL_INC_THIRD,   1, preset.cf_explevel_inc_third);
-	send_to_intercom(IC_SET_CF_EMIT_FLASH,           1, preset.cf_emit_flash);
-	send_to_intercom(IC_SET_CF_EXTEND_ISO,           1, preset.cf_extend_iso);
-	send_to_intercom(IC_SET_CF_AEB_SEQUENCE,         1, preset.cf_aeb_sequence);
-	send_to_intercom(IC_SET_CF_SI_INDICATE,          1, preset.cf_si_indicate);
-	send_to_intercom(IC_SET_CF_MENU_POS,             1, preset.cf_menu_pos);
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,       1, preset.cf_mirror_up_lock);
-	send_to_intercom(IC_SET_CF_FPSEL_METHOD,         1, preset.cf_fpsel_method);
-	send_to_intercom(IC_SET_CF_FLASH_METERING,       1, preset.cf_flash_metering);
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR,      1, preset.cf_flash_sync_rear);
-	send_to_intercom(IC_SET_CF_SAFETY_SHIFT,         1, preset.cf_safety_shift);
-	send_to_intercom(IC_SET_CF_LENS_BUTTON,          1, preset.cf_lens_button);
-	send_to_intercom(IC_SET_CF_ORIGINAL_EVAL,        1, preset.cf_original_eval);
-	send_to_intercom(IC_SET_CF_QR_MAGNIFY,           1, preset.cf_qr_magnify);
-	send_to_intercom(IC_SET_CF_TFT_ON_POWER_ON,      1, preset.cf_tft_on_power_on);
+	if (settings.presets_image) {
+		send_to_intercom(IC_SET_IMG_FORMAT,  1, preset.img_format);
+		send_to_intercom(IC_SET_IMG_SIZE,    1, preset.img_size);
+		send_to_intercom(IC_SET_IMG_QUALITY, 1, preset.img_quality);
+	}
+
+	if (settings.presets_cfn) {
+		send_to_intercom(EVENT_SET_CF_SET_BUTTON_FUNC,      1, preset.cf_set_button_func);
+		send_to_intercom(EVENT_SET_CF_NR_FOR_LONG_EXPOSURE, 1, preset.cf_nr_for_long_exposure);
+		send_to_intercom(EVENT_SET_CF_EFAV_FIX_X,           1, preset.cf_efav_fix_x);
+		send_to_intercom(EVENT_SET_CF_AFAEL_ACTIVE_BUTTON,  1, preset.cf_afael_active_button);
+		send_to_intercom(EVENT_SET_CF_EMIT_AUX,             1, preset.cf_emit_aux);
+		send_to_intercom(EVENT_SET_CF_EXPLEVEL_INC_THIRD,   1, preset.cf_explevel_inc_third);
+		send_to_intercom(EVENT_SET_CF_EMIT_FLASH,           1, preset.cf_emit_flash);
+		send_to_intercom(EVENT_SET_CF_EXTEND_ISO,           1, preset.cf_extend_iso);
+		send_to_intercom(EVENT_SET_CF_AEB_SEQUENCE,         1, preset.cf_aeb_sequence);
+		send_to_intercom(EVENT_SET_CF_SI_INDICATE,          1, preset.cf_si_indicate);
+		send_to_intercom(EVENT_SET_CF_MENU_POS,             1, preset.cf_menu_pos);
+		send_to_intercom(EVENT_SET_CF_MIRROR_UP_LOCK,       1, preset.cf_mirror_up_lock);
+		send_to_intercom(EVENT_SET_CF_FPSEL_METHOD,         1, preset.cf_fpsel_method);
+		send_to_intercom(EVENT_SET_CF_FLASH_METERING,       1, preset.cf_flash_metering);
+		send_to_intercom(EVENT_SET_CF_FLASH_SYNC_REAR,      1, preset.cf_flash_sync_rear);
+		send_to_intercom(EVENT_SET_CF_SAFETY_SHIFT,         1, preset.cf_safety_shift);
+		send_to_intercom(EVENT_SET_CF_LENS_BUTTON,          1, preset.cf_lens_button);
+		send_to_intercom(EVENT_SET_CF_ORIGINAL_EVAL,        1, preset.cf_original_eval);
+		send_to_intercom(EVENT_SET_CF_QR_MAGNIFY,           1, preset.cf_qr_magnify);
+		send_to_intercom(EVENT_SET_CF_TFT_ON_POWER_ON,      1, preset.cf_tft_on_power_on);
+	}
 
 	preset_write(0);
 

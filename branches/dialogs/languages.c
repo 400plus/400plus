@@ -4,202 +4,162 @@
 
 #include "languages.h"
 
-enum LanguageID {
-	LANG_ENGLISH,
-	LANG_GERMAN,
-	LANG_FRENCH,
-	LANG_DUTCH,
-	LANG_DANISH,
-	LANG_FINNISH,
-	LANG_ITALIAN,
-	LANG_NORWEGIAN,
-	LANG_SWEDISH,
-	LANG_SPANISH,
-	LANG_RUSSIAN,
-	LANG_SIMPLIFIED_CHINESE,
-	LANG_TRADITIONAL_CHANISE,
-	LANG_KOREAN,
-	LANG_JAPANESE,
-	LANG_POLISH
+const char *lang_packs[LANG_COUNT][L_COUNT] = {
+	[LANG_ENGLISH] = {
+		[L_FREE_SPACE]    = "Free Space",
+		[L_RELEASE_COUNT] = "ReleaseCount",
+		[L_OFF]           = "Off",
+		[L_YES]           = "Yes",
+		[L_NO]            = "No",
+		[L_2S]            = "2s",
+		[L_ENABLED]       = "Enabled",
+		[L_DISABLED]      = "Disabled",
+		[L_EXT_ONLY]      = "Ext Only",
+		[L_EXT_AEB]       = "Ext. AEB",
+		[L_ONE_SHOT]      = "One Shot",
+		[L_INTERVAL]      = "Interval",
+		[L_NO_LIMIT]      = "No Limit",
+
+		[L_LOAD_PRESETS]  = "Load presets",
+		[L_SAVE_PRESETS]  = "Save presets",
+
+		[L_PRESET_1]      = "Preset 1",
+		[L_PRESET_2]      = "Preset 2",
+		[L_PRESET_3]      = "Preset 3",
+		[L_PRESET_4]      = "Preset 4",
+		[L_PRESET_5]      = "Preset 5",
+
+		[L_DEVELOPER]          = "Developer",
+		[L_ENTER_FACTORY_MODE] = "Enter factory Mode",
+		[L_EXIT_FACTORY_MODE]  = "Exit  factory Mode",
+		[L_START_DEBUG_MODE]   = "Start debug   Mode",
+
+		[L_SETTINGS]        = "Settings",
+		[L_DELAY]           = "Delay",
+		[L_ACTION]          = "Action",
+		[L_REPEAT]          = "Repeat",
+		[L_INSTANT]         = "Instant",
+		[L_FRAMES]          = "Frames",
+		[L_STEP_EV]         = "Step (EV)",
+		[L_MANUAL_L]        = "Manual [",
+		[L_MANUAL_R]        = "Manual ]",
+		[L_TIME_S]          = "Time (s)",
+		[L_EAEB]            = "EAEB",
+		[L_SHOTS]           = "Shots",
+		[L_AV_COMP]         = "AV comp",
+		[L_FLASH_COMP]      = "Flash comp",
+		[L_AEB]             = "AEB",
+		[L_ISO_IN_VF]       = "ISO in viewfinder",
+		[L_SHORTCUTS_MENU]  = "Shortcuts menu",
+		[L_SAFETY_SHIFT]    = "Safety Shift",
+		[L_COLOR_TEMP_K]    = "Color Temp. (K)",
+		[L_USE_FLASH]       = "Use flash",
+		[L_HANDWAVE]        = "Handwave",
+		[L_TIMER_SPACES]    = "Timer   ",
+		[L_IR_REMOTE_DELAY] = "IR remote delay",
+		[L_DEVELOPERS_MENU] = "Developers Menu",
+
+		[L_SHORTCUTS]      = "Shortcuts",
+		[L_ISO]            = "ISO",
+		[L_EXTENDED_AEB]   = "Extended AEB",
+		[L_INTERVALOMETER] = "Intervalometer",
+		[L_HAND_WAVING]    = "Hand Waving",
+		[L_SELF_TIMER]     = "Self Timer",
+		[L_AF_FLASH]       = "AF Flash",
+		[L_MIRROR_LOCKUP]  = "Mirror Lockup",
+		[L_FLASH_2ND_CURT] = "Flash 2curt",
+
+		[L_PRESETS_SPACES]   = "Presets ",
+		[L_PRESETS_ADEP]     = "Use A-DEP",
+		[L_PRESETS_CAMERA]   = "Camera",
+		[L_PRESETS_400PLUS]  = "400plus",
+		[L_PRESETS_SETTINGS] = "Settings",
+		[L_PRESETS_IMAGE]    = "Image",
+		[L_PRESETS_CFN]      = "Custom Fn",
+	},
+	[LANG_GERMAN] = {
+		[L_FREE_SPACE]    = "CF-Card frei",
+		[L_RELEASE_COUNT] = "Anz. d. Aufn.",
+		[L_OFF]           = "Aus",
+		[L_YES]           = "Ja",
+		[L_NO]            = "Nein",
+		[L_2S]            = "2s",
+		[L_ENABLED]       = "Aktiviert",
+		[L_DISABLED]      = "Deaktiviert",
+		[L_EXT_ONLY]      = "Nur Ext.",
+		[L_EXT_AEB]       = "Ext. AEB",
+		[L_ONE_SHOT]      = "Einzelaufnahme",
+		[L_INTERVAL]      = "Intervall",
+		[L_NO_LIMIT]      = "Unbegrenzt",
+
+		[L_LOAD_PRESETS]  = "Presets laden",
+		[L_SAVE_PRESETS]  = "Presets speichern",
+
+		[L_PRESET_1]      = "Preset 1",
+		[L_PRESET_2]      = "Preset 2",
+		[L_PRESET_3]      = "Preset 3",
+		[L_PRESET_4]      = "Preset 4",
+		[L_PRESET_5]      = "Preset 5",
+
+		[L_DEVELOPER]          = "Entwickler",
+		[L_ENTER_FACTORY_MODE] = "Betrete Werksmenü",
+		[L_EXIT_FACTORY_MODE]  = "Verlasse Werksmenü",
+		[L_START_DEBUG_MODE]   = "Debugmodus starten",
+
+		[L_SETTINGS]        = "Einstellungen",
+		[L_DELAY]           = "Verzögerung",
+		[L_ACTION]          = "Aktion",
+		[L_REPEAT]          = "Wiederholen",
+		[L_INSTANT]         = "Dauerhaft",
+		[L_FRAMES]          = "Bilder",
+		[L_STEP_EV]         = "Schritt (EV)",
+		[L_MANUAL_L]        = "Manuell [",
+		[L_MANUAL_R]        = "Manuell ]",
+		[L_TIME_S]          = "Zeit (s)",
+		[L_EAEB]            = "EAEB",
+		[L_SHOTS]           = "Aufnahmen",
+		[L_AV_COMP]         = "AV Komp.",
+		[L_FLASH_COMP]      = "Blitz Komp.",
+		[L_AEB]             = "AEB",
+		[L_ISO_IN_VF]       = "ISO in Sucher",
+		[L_SHORTCUTS_MENU]  = "Shortcutsmenü",
+		[L_SAFETY_SHIFT]    = "Safety Shift",
+		[L_COLOR_TEMP_K]    = "Farbtemp. (K)",
+		[L_USE_FLASH]       = "Blitz benutzen",
+		[L_HANDWAVE]        = "Handwave",
+		[L_TIMER_SPACES]    = "Timer   ",
+		[L_IR_REMOTE_DELAY] = "IR Fernausl. Verz.",
+		[L_DEVELOPERS_MENU] = "Entwicklermenü",
+
+		[L_SHORTCUTS]      = "Shortcuts",
+		[L_ISO]            = "ISO",
+		[L_EXTENDED_AEB]   = "Erweitertes AEB",
+		[L_INTERVALOMETER] = "Intervalometer",
+		[L_HAND_WAVING]    = "Hand Waving",
+		[L_SELF_TIMER]     = "Self Timer",
+		[L_AF_FLASH]       = "AF Blitz",
+		[L_MIRROR_LOCKUP]  = "Spiegelverriegelung",
+		[L_FLASH_2ND_CURT] = "Blitz 2. Vorhang",
+	},
+	[LANG_SPANISH] = {
+		[L_RELEASE_COUNT] = "Disparos totales"
+	},
 };
 
-char *LangPlus_lang_packs[16][L_EOL];
-char  LangPlus_current[L_EOL][MAX_LANG_WORD];
-int   LangPlus_last_langid = -1;
+char lang_pack_current[L_COUNT][LP_MAX_WORD];
 
-void LangPlus_lang_pack_set_word(int langid, int wordid, char* word);
+void lang_pack_config() {
+	int  i;
+	char lang[32];
 
-void LangPlus_lang_packs_init() {
-	// set English first, it will set the defaults for every language
-	// English Translations {{{
-	debug_log("LangPack init(English) and all defaults");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_FREE_SPACE,	   "Free Space");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_RELEASE_COUNT, "ReleaseCount");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_OFF,           "Off");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_YES,           "Yes");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_NO,            "No");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_2S,            "2s");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_ENABLED,       "Enabled");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_DISABLED,      "Disabled");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_EXT_ONLY,      "Ext Only");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_EXT_AEB,       "Ext. AEB");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_ONE_SHOT,      "One Shot");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_INTERVAL,      "Interval");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_NO_LIMIT,      "No Limit");
+	GetLanguageStr(cameraMode.language, lang);
+	debug_log("Setting language to [%d] - '%s'", cameraMode.language, lang);
 
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_LOAD_PRESETS,  "Load presets");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_SAVE_PRESETS,  "Save presets");
-
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_PRESET_1,      "Preset 1");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_PRESET_2,      "Preset 2");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_PRESET_3,      "Preset 3");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_PRESET_4,      "Preset 4");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_PRESET_5,      "Preset 5");
-
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_DEVELOPER,          "Developer");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_ENTER_FACTORY_MODE, "Enter factory Mode");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_EXIT_FACTORY_MODE,  "Exit  factory Mode");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_START_DEBUG_MODE,   "Start debug   Mode");
-
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_SETTINGS,        "Settings");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_DELAY,           "Delay");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_ACTION,          "Action");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_REPEAT,          "Repeat");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_INSTANT,         "Instant");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_FRAMES,          "Frames");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_STEP_EV,         "Step (EV)");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_MANUAL_L,        "Manual [");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_MANUAL_R,        "Manual ]");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_TIME_S,          "Time (s)");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_EAEB,            "EAEB");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_SHOTS,           "Shots");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_AV_COMP,         "AV comp");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_FLASH_COMP,      "Flash comp");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_AEB,             "AEB");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_ISO_IN_VF,       "ISO in viewfinder");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_SHORTCUTS_MENU,  "Shortcuts menu");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_SAFETY_SHIFT,    "Safety Shift");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_COLOR_TEMP_K,    "Color Temp. (K)");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_USE_FLASH,       "Use flash");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_HANDWAVE,        "Handwave");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_TIMER_SPACES,    "Timer   ");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_IR_REMOTE_DELAY, "IR remote delay");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_DEVELOPERS_MENU, "Developers Menu");
-
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_SHORTCUTS,      "Shortcuts");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_ISO,            "ISO");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_EXTENDED_AEB,   "Extended AEB");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_INTERVALOMETER, "Intervalometer");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_HAND_WAVING,    "Hand Waving");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_SELF_TIMER,     "Self Timer");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_AF_FLASH,       "AF Flash");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_MIRROR_LOCKUP,  "Mirror Lockup");
-	LangPlus_lang_pack_set_word(LANG_ENGLISH, L_FLASH_2ND_CURT, "Flash 2curt");
-	// }}}
-	// German Translations {{{
-	// Semanticly correct, will tune it a little bit soon. <- M.Perenz
-	debug_log("LangPlus init(German)");
-
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FREE_SPACE,    "CF-Card frei");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_RELEASE_COUNT, "Anz. d. Aufn.");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_OFF,           "Aus");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_YES,           "Ja");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_NO,            "Nein");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_2S,            "2s");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ENABLED,       "Aktiviert");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DISABLED,      "Deaktiviert");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXT_ONLY,      "Nur Ext.");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXT_AEB,       "Ext. AEB");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ONE_SHOT,      "Einzelaufnahme");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_INTERVAL,      "Intervall");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_NO_LIMIT,      "Unbegrenzt");
-
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_LOAD_PRESETS,  "Presets laden");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAVE_PRESETS,  "Presets speichern");
-
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_PRESET_1,      "Preset 1");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_PRESET_2,      "Preset 2");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_PRESET_3,      "Preset 3");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_PRESET_4,      "Preset 4");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_PRESET_5,      "Preset 5");
-
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DEVELOPER,          "Entwickler");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ENTER_FACTORY_MODE, "Betrete Werksmenü");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXIT_FACTORY_MODE,  "Verlasse Werksmenü");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_START_DEBUG_MODE,   "Debugmodus starten");
-
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SETTINGS,        "Einstellungen");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DELAY,           "Verzögerung");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ACTION,          "Aktion");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_REPEAT,          "Wiederholen");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_INSTANT,         "Dauerhaft");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FRAMES,          "Bilder");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_STEP_EV,         "Schritt (EV)");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_MANUAL_L,        "Manuell [");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_MANUAL_R,        "Manuell ]");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_TIME_S,          "Zeit (s)");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EAEB,            "EAEB");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SHOTS,           "Aufnahmen");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_AV_COMP,         "AV Komp.");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FLASH_COMP,      "Blitz Komp.");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_AEB,             "AEB");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ISO_IN_VF,       "ISO in Sucher");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SHORTCUTS_MENU,  "Shortcutsmenü");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SAFETY_SHIFT,    "Safety Shift");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_COLOR_TEMP_K,    "Farbtemp. (K)");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_USE_FLASH,       "Blitz benutzen");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_HANDWAVE,        "Handwave");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_TIMER_SPACES,    "Timer   ");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_IR_REMOTE_DELAY, "IR Fernausl. Verz.");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_DEVELOPERS_MENU, "Entwicklermenü");
-
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SHORTCUTS,      "Shortcuts");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_ISO,            "ISO");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_EXTENDED_AEB,   "Erweitertes AEB");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_INTERVALOMETER, "Intervalometer");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_HAND_WAVING,    "Hand Waving");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_SELF_TIMER,     "Self Timer");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_AF_FLASH,       "AF Blitz");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_MIRROR_LOCKUP,  "Spiegelverriegelung");
-	LangPlus_lang_pack_set_word(LANG_GERMAN, L_FLASH_2ND_CURT, "Blitz 2. Vorhang");
-	// }}}
+	for (i = L_FIRST; i < L_COUNT; i++)
+		if(lang_packs[cameraMode.language][i] != NULL)
+			strncpy(lang_pack_current[i], lang_packs[cameraMode.language][i], LP_MAX_WORD);
+		else if(lang_packs[LANG_FIRST][i] != NULL)
+			strncpy(lang_pack_current[i], lang_packs[LANG_FIRST][i], LP_MAX_WORD);
+		else
+			strncpy(lang_pack_current[i], "NULL", LP_MAX_WORD);
 }
-
-void LangPlus_lang_pack_set_word(int langid, int wordid, char* word) {
-	int i;
-
-	if (langid == 0) {
-		for (i=0; i<16; i++) {
-			LangPlus_lang_packs[i][wordid] = word;
-		}
-	} else {
-		LangPlus_lang_packs[langid][wordid] = word;
-	}
-}
-
-void LangPlus_set_lang(int lang) {
-	int word;
-	char l[32];
-
-	if (LangPlus_last_langid == lang)
-		return;
-
-	LangPlus_last_langid = lang;
-
-	GetLanguageStr(lang, l);
-	debug_log("LangPlus set lang to %s [%d]", l, lang);
-
-	for (word=0; word<L_EOL; word++) {
-		int ch = 0;
-		// snprintf
-		while (ch<MAX_LANG_WORD-1 && LangPlus_lang_packs[lang][word][ch] != 0) {
-			// copy char by char
-			LangPlus_current[word][ch] = LangPlus_lang_packs[lang][word][ch];
-			ch++;
-		}
-		// Terminate string
-		LangPlus_current[word][ch] = 0;
-	}
-}
-
-// vim: foldenable foldmethod=marker

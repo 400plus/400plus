@@ -111,6 +111,15 @@ void rename_action() {
 	}
 }
 
+void rename_clear() {
+	int i;
+
+	for (i = z; i < 25; i++)
+		rename_filename[i] = ' ';
+
+	rename_refresh(4);
+}
+
 void rename_next() {
 	if (z != 24) {
 		z++;
@@ -151,6 +160,8 @@ void rename_repeateable_right(int repeating) {
 		} else {
 			y++;
 		}
+	} else {
+		rename_next();
 	}
 
 	rename_refresh(x);
@@ -163,6 +174,8 @@ void rename_repeateable_left(int repeating) {
 		} else {
 			y--;
 		}
+	} else {
+		rename_prev();
 	}
 
 	rename_refresh(x);

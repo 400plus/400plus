@@ -4,8 +4,8 @@
 #include "settings.h"
 #include "presets.h"
 #include "menu_shortcuts.h"
-#include "firmware.h"
 #include "languages.h"
+#include "firmware.h"
 
 #include "tasks.h"
 
@@ -19,9 +19,8 @@ void start_up() {
 	start_debug_mode();
 #endif
 
-	// Initialize lang pack strings
-	LangPlus_lang_packs_init();
-	change_lang_pack();
+	// Set current language
+	lang_pack_config();
 
 	// Enable (hidden) CFn.8 for ISO H
 	if (!cameraMode.cf_extend_iso)

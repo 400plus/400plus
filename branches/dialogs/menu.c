@@ -18,6 +18,48 @@ OPTIONLIST_DEF(flash,   LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_O
 OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter, "30", "15", "8", "4", "2", "1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 
+typedef enum {
+	OLC_NO_START = 0,
+	OLC_START = 1,
+} menu_destroy_olc_t;
+
+// Menu actions
+type_ACTION actions_400plus[]  = {
+	{GUI_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
+	{GUI_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
+	{GUI_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
+	{GUI_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
+	//{GUI_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
+	{GUI_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
+	{GUI_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
+	{GUI_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
+	{GUI_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
+	{GUI_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
+	END_OF_LIST
+};
+
+type_ACTION actions_rename[]  = {
+	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
+	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
+	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
+	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
+	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
+	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
+	END_OF_LIST
+};
+
+type_CHAIN menu_chains[] = {
+	{GUIMODE_400PLUS,   actions_400plus},
+	{GUIMODE_RENAME,    actions_rename},
+	END_OF_LIST
+};
+
+
+
+
+
 void menu_repeat(void (*repeateable)(int repeating));
 
 void menu_repeateable_cycle(int repeating);
@@ -38,32 +80,54 @@ type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
 int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+	type_CHAIN  *chain;
 	type_ACTION *action;
 
-	// The SET btn comes in "code" and the current line in the menu is in "event"
-	// we switch them for easier parsing
-	if (code == GUI_BUTTON_SET) {
-		code = event;
-		event = GUI_BUTTON_SET;
-	}
+	// The SET btn comes in "code" and the current line in the menu is in "event".
+	// Switch them for easier processing.
+	if (code == GUI_BUTTON_SET)
+		INT_SWAP(code, event);
 
-	// Loop over all the actions from 400plus
-	for (action = actions_400plus_new; ! IS_EOL(action); action++) {
-		// Check whether this action corresponds to the event received
-		if (action->button == event) {
-			// Launch the defined task
-			if (action->task[0])
-				ENQUEUE_TASK(action->task[0]);
+	// Loop over all the action chains
+	for(chain = menu_chains; ! IS_EOL(chain); chain++) {
+		// Chech whether this action chain corresponds to the current GUI mode
+		if (chain->gui_mode == GUIMode) {
+			// Loop over all the actions from this action chain
+			for (action = chain->actions; ! IS_EOL(action); action++) {
+				// Check whether this action corresponds to the event received
+				if (action->button == event) {
+					// Launch the defined task
+					if (action->task[0])
+						ENQUEUE_TASK(action->task[0]);
 
-			if (event == GUI_BUTTON_UP || event == GUI_BUTTON_DOWN)
-				goto fallback;
+					if (event == GUI_BUTTON_UP || event == GUI_BUTTON_DOWN)
+						goto fallback;
 
-			goto handled;
+					goto handled;
+				}
+			}
 		}
 	}
 
-	// if we reach this, block usual keys
+
+
+// on 100..003E
+// BL      GUI_Lock
+// BL      GUI_PalleteInit
+// BL      sub_FF85F51C
+// BL      GUI_UnLock
+// BL      GUI_PalleteUnInit
+
+
+
 	switch (event) {
+	// someone else will take care of those
+	case GUI_GOT_TOP_OF_CONTROL:
+	case GUI_INITIALIZE_CONTROLLER:
+	case GUI_BLINK_RELATED:
+		goto fallback;
+
+	// those we block, so no one will interface with our menus
 	case GUI_BUTTON_UP:
 	case GUI_BUTTON_DOWN:
 	case GUI_BUTTON_LEFT:
@@ -79,21 +143,26 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 	case GUI_BUTTON_DIAL_LEFT:
 	case GUI_BUTTON_DIAL_RIGHT:
 		goto handled;
+
 	}
 
+	// flash the blue led and log the event if we do not handle it.
 	led_flash(BEEP_LED_LENGTH);
 	printf("400PLUS MENU: Unhandled event\n"
 		"dialog=%p, r1=%02X, event=%02X, r3=%02X, r4=%02X, r5=%02X, r6=%02X, code=%02X\n",
 		dialog,r1,event,r3,r4,r5,r6,code);
 
 fallback:
+	// reverse them back if we need to pass this event to the next routine().
+	if (event == GUI_BUTTON_SET)
+		INT_SWAP(code, event);
 	return 1;
 
 handled:
 	return 0;
 }
 
-void menu_destroy(type_MENU * menu, int start_olc) {
+void menu_destroy(type_MENU * menu, menu_destroy_olc_t start_olc) {
 
 	if (!menu || menu->handle)
 		goto out;
@@ -125,7 +194,7 @@ void menu_create(type_MENU * menu) {
 	current_menu = menu;
 	FLAG_GUI_MODE = current_menu->gui_mode;
 
-	menu_destroy(current_menu,0);
+	menu_destroy(current_menu, OLC_NO_START);
 
 	GUI_Lock();
 	GUI_PalleteInit();
@@ -411,12 +480,12 @@ void menu_repeateable_cycle(int repeating) {
 }
 
 void menu_close() {
-	menu_destroy(current_menu,1);
+	menu_destroy(current_menu, OLC_START);
 
-	press_button(IC_BUTTON_DISP);
-	SleepTask(250);
+	//press_button(IC_BUTTON_DISP);
+	//SleepTask(250);
 
-	display_refresh();
+	//display_refresh();
 }
 
 char *menu_message(int item_id) {
