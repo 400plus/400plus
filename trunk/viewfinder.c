@@ -5,11 +5,7 @@
 
 #include "viewfinder.h"
 
-// Temporary storage while displaying ISO at viewfinder
-struct {
-	int TvVal;
-	int CfNotEmitFlash;
-} viewfinder_storage;
+type_CAMERA_MODE vf_cameraMode;
 
 void viewfinder_change_iso(const int iso);
 
@@ -25,8 +21,8 @@ void viewfinder_end() {
 	// Only if being displayed
 	if (status.iso_in_viewfinder) {
 		// Restore previous state
-		send_to_intercom(EVENT_SET_CF_EMIT_FLASH, 1, viewfinder_storage.CfNotEmitFlash);
-		send_to_intercom(EVENT_SET_TV_VAL,        1, viewfinder_storage.TvVal);
+		send_to_intercom(EVENT_SET_CF_EMIT_FLASH, 1, vf_cameraMode.cf_emit_aux);
+		send_to_intercom(EVENT_SET_TV_VAL,        1, vf_cameraMode.tv_val);
 
 		// Reset flag, viewfinder restored
 		status.iso_in_viewfinder = FALSE;
@@ -38,8 +34,7 @@ void viewfinder_change_iso(const int iso) {
 	if (settings.iso_in_viewfinder) {
 		if (cameraMode.ae == AE_MODE_M || cameraMode.ae == AE_MODE_TV) {
 			// Save current state
-			viewfinder_storage.TvVal          = cameraMode.tv_val;
-			viewfinder_storage.CfNotEmitFlash = cameraMode.cf_emit_flash;
+			vf_cameraMode = cameraMode;
 
 			// Change to Tv=ISO, no flash
 			send_to_intercom(EVENT_SET_CF_EMIT_FLASH, 1, 1);
