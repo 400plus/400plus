@@ -175,7 +175,10 @@ handled:
 
 // do not call this routine when exiting the menu, use menu_destroy() instead
 void menu_destroy_fast(type_MENU * menu) {
-	if (menu && menu->handle)
+	if (!menu)
+		return;
+
+	if (menu->handle)
 		DeleteDialogBox(menu->handle);
 
 	menu->handle = 0;
