@@ -13,6 +13,11 @@
 type_SETTINGS       menu_settings;
 type_PRESETS_CONFIG menu_presets;
 
+type_MENUITEM scripts_items[] = {
+	MENUITEM_BOOLEAN(LP_WORD(L_DIM_LCD_DOWN),  &menu_settings.dim_lcd_down),
+	MENUITEM_BOOLEAN(LP_WORD(L_KEEP_POWER_ON), &menu_settings.keep_power_on)
+};
+
 type_MENUITEM wave_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_DELAY),   &menu_settings.wave_delay),
 	MENUITEM_ACTION (LP_WORD(L_ACTION),  &menu_settings.wave_action),
@@ -52,15 +57,14 @@ type_MENUITEM presets_items[] = {
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),           &menu_settings.av_comp),
 	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),        &menu_settings.flash_comp),
+	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash),
+	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_settings.color_temp),
 	MENUITEM_EVSEP  (LP_WORD(L_AEB),               &menu_settings.aeb_ev),
+	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_settings.safety_shift),
+	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &menu_settings.iso_in_viewfinder),
 	MENUITEM_BOOLEAN(LP_WORD(L_SHORTCUTS_MENU),    &menu_settings.shortcuts_menu),
-	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_settings.safety_shift),
-	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_settings.color_temp),
-	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash),
-	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay),
-	MENUITEM_BOOLEAN(LP_WORD(L_DIM_LCD_DOWN),      &menu_settings.dim_lcd_down),
-	MENUITEM_BOOLEAN(LP_WORD(L_KEEP_POWER_ON),     &menu_settings.keep_power_on),
+	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),     scripts_items),
 	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),           wave_items),
 	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),            eaeb_items),
 	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),           interval_items),
