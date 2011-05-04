@@ -212,7 +212,7 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int wb;                      // 0x0010 [*] [4]
 	int af;                      // 0x0014
 	int af_point;                // 0x0018 [*] [5]
-	int tv_val;                  // 0x001c [*]
+	int tv_val;                  // 0x001c [*] [F]
 	int av_val;                  // 0x0020
 	int av_comp;                 // 0x0024 [*]
 	int iso;                     // 0x0028 [*]
@@ -234,9 +234,9 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int histogram;               // 0x0068     [D]
 	int disp_afpoint;            // 0x006c
 	int color_space;             // 0x0070     [E]
-	int img_format;              // 0x0074 [*] 22
-	int img_size;                // 0x0078     23
-	int img_quality;             // 0x007c     24
+	int img_format;              // 0x0074 [*]
+	int img_size;                // 0x0078
+	int img_quality;             // 0x007c
 	int cfmenupos;               // 0x0080
 	int menupos;                 // 0x0084
 	int wbcomp_gm;               // 0x0088
@@ -382,6 +382,10 @@ typedef struct {                 // [*] Used and tested, others unknown
 // [E] Values for "color_space"
 #define COLOR_SPACE_SRGB  0x00
 #define COLOR_SPACE_ADOBE 0x01
+
+// [F] Values for "tv_val"
+//     0x10 => 30", 0x18 => 15", ..., 0x90 => 1/4000
+#define TV_VAL_BULB 0x0C
 
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
