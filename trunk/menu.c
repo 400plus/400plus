@@ -113,7 +113,7 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 
 
 
-// on 100..003E
+// on 1000003E
 // BL      GUI_Lock
 // BL      GUI_PalleteInit
 // BL      sub_FF85F51C
@@ -156,13 +156,13 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 	}
 
 	// flash the blue led and log the event if we do not handle it.
-	led_flash(BEEP_LED_LENGTH);
+	// led_flash(BEEP_LED_LENGTH); // used for debugging
 	printf("400PLUS MENU: Unhandled event\n"
 		"dialog=%p, r1=%02X, event=%02X, r3=%02X, r4=%02X, r5=%02X, r6=%02X, code=%02X\n",
 		dialog,r1,event,r3,r4,r5,r6,code);
 
 fallback:
-	// reverse them back if we need to pass this event to the next routine().
+	// reverse them back if we need to pass this event to the next handler().
 	if (event == GUI_BUTTON_SET)
 		INT_SWAP(code, event);
 	printf("\nbtn handler: passing to fallback\n");
@@ -173,22 +173,26 @@ handled:
 	return 0;
 }
 
+// do not call this routine when exiting the menu, use menu_destroy() instead
+void menu_destroy_fast(type_MENU * menu) {
+	if (menu && menu->handle)
+		DeleteDialogBox(menu->handle);
+
+	menu->handle = 0;
+	menu->current_line = 0;
+	menu->current_item = 0;
+	menu->item_grabbed = FALSE;
+}
+
 void menu_destroy(type_MENU * menu, menu_destroy_olc_t start_olc) {
-
-	if (!menu || !menu->handle) {
-		printf("\ncurrent menu already destroyed\n");
-		goto out;
-	}
-
-	printf("\ndestroying menu [%d]@0x%08X\n", menu->gui_mode, menu->handle);
-
 	// GUI_DisplayMode();
 	GUI_Lock();
 	GUI_PalleteInit();
 	// PalettePop();
 	// with_check_ae_mode();
 
-	DeleteDialogBox(menu->handle);
+	printf("\ndestroying menu [0x%02X]@0x%08X\n", menu->gui_mode, menu->handle);
+	menu_destroy_fast(menu);
 
 	if (start_olc) {
 		// start the main screen
@@ -199,14 +203,6 @@ void menu_destroy(type_MENU * menu, menu_destroy_olc_t start_olc) {
 
 	GUI_UnLock();
 	GUI_PalleteUnInit();
-
-	//SleepTask(1000);
-
-out:
-	menu->handle = 0;
-	menu->current_line = 0;
-	menu->current_item = 0;
-	menu->item_grabbed = FALSE;
 }
 
 void menu_create(type_MENU * menu) {
@@ -215,7 +211,7 @@ void menu_create(type_MENU * menu) {
 
 	// destroy the current menu if there is one
 	// no destroying it = memory leak !
-	DeleteDialogBox(current_menu->handle);
+	menu_destroy_fast(current_menu);
 
 	current_menu = menu;
 
