@@ -92,9 +92,14 @@ void script_start() {
 	status.script_running = TRUE;
 
 	st_cameraMode = cameraMode;
+
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
+
 	if (settings.dim_lcd_down)
 		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
+
+	if (settings.keep_power_on)
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
 
 	if (feedback_task == NULL)
 		feedback_task = CreateTask("Feedback", 5, 0x2000, script_feedback, 0);
@@ -108,6 +113,7 @@ void script_stop() {
 	beep();
 	status.script_running = FALSE;
 
+	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_cameraMode.auto_power_off);
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
 	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
 
