@@ -45,6 +45,8 @@ typedef enum {
 	IC_SET_IMG_FORMAT              = 0x22, //
 	IC_SET_IMG_SIZE                = 0x23, //
 	IC_SET_IMG_QUALITY             = 0x24, //
+	IC_SET_WBCOMP_GM               = 0x27, //
+	IC_SET_WBCOMP_AB               = 0x28, //
 	IC_SET_CF_SET_BUTTON_FUNC      = 0x2A, // C.Fn-01
 	IC_SET_CF_NR_FOR_LONG_EXPOSURE = 0x2B, // C.Fn-02
 	IC_SET_CF_EFAV_FIX_X           = 0x2C, // C.Fn-03
