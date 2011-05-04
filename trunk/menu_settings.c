@@ -60,6 +60,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_DIM_LCD_DOWN),      &menu_settings.dim_lcd_down),
+	MENUITEM_BOOLEAN(LP_WORD(L_KEEP_POWER_ON),     &menu_settings.keep_power_on),
 	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),           wave_items),
 	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),            eaeb_items),
 	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),           interval_items),
