@@ -18,8 +18,8 @@ typedef struct {
 	int eaeb_frames;
 	int eaeb_delay;
 	int eaeb_ev;
-	int eaeb_m_min;
-	int eaeb_m_max;
+	int eaeb_tv_min;
+	int eaeb_tv_max;
 	int interval_delay;
 	int interval_time;
 	int interval_eaeb;
