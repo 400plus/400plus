@@ -8,7 +8,7 @@
 
 int   x, y, z;
 int   caps;
-type_DIALOG *handle;
+type_MENU *menu;
 
 char *rename_filename;
 char  rename_buffer[32];
@@ -43,44 +43,34 @@ void rename_destroy();
 
 char *rename_message(int id);
 
-void rename_create(char *filename, type_TASK callback) {
+void rename_create(type_MENU *m, char *filename, type_TASK callback) {
+	printf("\nrename_create()\n");
 	rename_filename = filename;
 	rename_callback = callback;
 
-	GUI_Lock();
-	GUI_PalleteInit();
-
-	GUI_StartMode(GUIMODE_RENAME);
-	GUI_ClearImage();
-	GUIMode = GUIMODE_RENAME;
-
-	handle = dialog_create(22, menu_buttons_handler);
-	dialog_set_property_str(handle, 8, "Rename");
-
+	menu = m;
+	menu->in_rename = 1;
+	dialog_set_property_str(menu->handle, 8, "Rename");
 	rename_display();
-
-	GUI_UnLock();
-	GUI_PalleteUnInit();
-	GUI_ClearImage();
-	SetTurnDisplayEvent_1_after_2(); // turn on the screen
-
 }
 
 void rename_display() {
+	printf("\nrename_display()\n");
 	int i;
 
 	for(i = 0; i < 5; i++)
-		dialog_set_property_str(handle, i + 1, rename_message(i));
+		dialog_set_property_str(menu->handle, i + 1, rename_message(i));
 
-	dialog_redraw(handle);
+	dialog_redraw(menu->handle);
 }
 
 void rename_refresh(int line) {
-	dialog_set_property_str(handle, line + 1, rename_message(line));
-	dialog_redraw(handle);
+	dialog_set_property_str(menu->handle, line + 1, rename_message(line));
+	dialog_redraw(menu->handle);
 }
 
 void rename_up() {
+	printf("\nrename_up()\n");
 	if (x != 0) {
 		x--;
 		rename_display();
@@ -88,6 +78,7 @@ void rename_up() {
 }
 
 void rename_down() {
+	printf("\nrename_down()\n");
 	if (x != 4) {
 		x++;
 		rename_display();
@@ -95,18 +86,22 @@ void rename_down() {
 }
 
 void rename_right() {
+	printf("\nrename_right()\n");
 	rename_repeat(rename_repeateable_right);
 }
 
 void rename_left() {
+	printf("\nrename_left()\n");
 	rename_repeat(rename_repeateable_left);
 }
 
 void rename_cycle() {
+	printf("\nrename_cycle()\n");
 	rename_repeat(rename_repeateable_cycle);
 }
 
 void rename_action() {
+	printf("\nrename_action()\n");
 	if (x < 4) {
 		rename_filename[z] = letters[caps][x][y];
 
@@ -124,6 +119,7 @@ void rename_action() {
 void rename_clear() {
 	int i;
 
+	printf("\nrename_clear()\n");
 	for (i = z; i < 25; i++)
 		rename_filename[i] = ' ';
 
@@ -131,6 +127,7 @@ void rename_clear() {
 }
 
 void rename_next() {
+	printf("\nrename_next()\n");
 	if (z != 24) {
 		z++;
 		rename_refresh(4);
@@ -138,6 +135,7 @@ void rename_next() {
 }
 
 void rename_prev() {
+	printf("\nrename_prev()\n");
 	if (z != 0) {
 		z--;
 		rename_refresh(4);
@@ -148,6 +146,7 @@ void rename_repeat(void(*repeateable)()){
 	int delay;
 	int button = status.button_down;
 
+	printf("\nrename_repeat()\n");
 	SleepTask(50);
 
 	repeateable(FALSE);
@@ -197,10 +196,9 @@ void rename_repeateable_cycle(int repeating) {
 }
 
 void rename_destroy() {
-	if (handle != 0)
-		DeleteDialogBox(handle);
-
-	handle = 0;
+	printf("\nrename_destroy()\n");
+	menu->in_rename = 0;
+	menu = 0;
 	x = y = z = 0;
 	caps = FALSE;
 }
