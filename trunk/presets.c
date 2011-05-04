@@ -143,6 +143,8 @@ extern void preset_apply() {
 		send_to_intercom(IC_SET_WB_BKT,     1, preset.camera_mode.wb_bkt);
 		send_to_intercom(IC_SET_BEEP,       1, preset.camera_mode.beep);
 		send_to_intercom(IC_SET_COLOR_TEMP, 2, preset.camera_mode.color_temp);
+		send_to_intercom(IC_SET_WBCOMP_GM,  1, preset.camera_mode.wbcomp_gm);
+		send_to_intercom(IC_SET_WBCOMP_AB,  1, preset.camera_mode.wbcomp_ab);
 	}
 
 	if (presets_config.recall_settings) {
