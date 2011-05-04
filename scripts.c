@@ -156,11 +156,12 @@ void sub_extended_aeb() {
 	if (cameraMode.ae == AE_MODE_M) {
 		int tv_val;
 
-		int tv_start = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
-		int tv_end   = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
+		int tv_step  = 0x08;
+		int tv_start = (MIN(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
+		int tv_end   = (MAX(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
 
-		for (tv_val = tv_start; tv_val <= tv_end; tv_val ++) {
-			send_to_intercom(IC_SET_TV_VAL, 1, (tv_val << 3) + 0x10);
+		for (tv_val = tv_start; tv_val <= tv_end; tv_val += tv_step) {
+			send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
 			release_and_wait();
 
 			if (!status.script_running)
