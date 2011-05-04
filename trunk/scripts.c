@@ -154,19 +154,44 @@ void script_shot(type_SHOT_ACTION action) {
 
 void sub_extended_aeb() {
 	if (cameraMode.ae == AE_MODE_M) {
-		int tv_val;
+		if (cameraMode.tv_val == TV_VAL_BULB) {
+			int tv_val;
 
-		int tv_step  = 0x08;
-		int tv_start = (MIN(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
-		int tv_end   = (MAX(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
+			int tv_step  = 0x08;
+			int tv_start = (MIN(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
+			int tv_end   = (MAX(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
 
-		for (tv_val = tv_start; tv_val <= tv_end; tv_val += tv_step) {
-			send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
+			for (tv_val = tv_start; tv_val <= tv_end; tv_val += tv_step) {
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
+				release_and_wait();
+
+				if (!status.script_running)
+					break;
+			};
+		} else {
+			int i;
+
+			int tv_inc = cameraMode.tv_val;
+			int tv_dec = cameraMode.tv_val;
+
 			release_and_wait();
 
-			if (!status.script_running)
-				break;
-		};
+			for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
+				tv_inc = ev_add(tv_inc, settings.eaeb_ev);
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_inc);
+				release_and_wait();
+
+				if (!status.script_running)
+					break;
+
+				tv_dec = ev_sub(tv_dec, settings.eaeb_ev);
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
+				release_and_wait();
+
+				if (!status.script_running)
+					break;
+			}
+		}
 
 		send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
 	} else {
