@@ -5,9 +5,9 @@
 start:
 _start:
                 BL      COPY
-                LDR     R0, =0xC0220000
-                LDR     R1, =0x46
-                STR     R1, [R0]
+                LDR     R0, =0xC0220000 // blue led address
+                LDR     R1, =0x46       // led on
+                STR     R1, [R0]        // turn on blue led
 
                 LDR     R0, =0xC0100000
                 LDR     R1, =0x4D3

@@ -88,6 +88,7 @@ typedef struct {
 	int              current_line;
 	int              current_item;
 	int              item_grabbed; // for menu reordering
+	int              in_rename;    // we are in rename dialog, dirty fix until better solution
 	type_GUIMODE     gui_mode;     // the GUIMode this dialog is using
 	type_BTN_HANDLER btn_handler;  // routine to proccess the key presses
 } type_MENU;

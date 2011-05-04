@@ -39,14 +39,14 @@ type_ACTION actions_400plus[]  = {
 };
 
 type_ACTION actions_rename[]  = {
-	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
-	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
-	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
-	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
-	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
-	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
+	{GUI_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
+	{GUI_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
+	{GUI_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
+	{GUI_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
+	//{GUI_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
+	{GUI_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{GUI_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
+	{GUI_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
 	END_OF_LIST
 };
 
@@ -90,17 +90,26 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 
 	printf("\nbtn handler: gui=0x%02X@0x%08X, btn=0x%08X, code=0x%08X\n", GUIMode, dialog, event, code);
 
+	int my_GUIMode = GUIMode; // used for durty fix
+	if (current_menu && current_menu->in_rename) {
+		printf("\nchanging GUIMODE to RENAME\n");
+		beep();
+		my_GUIMode = GUIMODE_RENAME;
+	}
+
 	// Loop over all the action chains
 	for(chain = menu_chains; ! IS_EOL(chain); chain++) {
 		// Chech whether this action chain corresponds to the current GUI mode
-		if (chain->gui_mode == GUIMode) {
+		if (chain->gui_mode == my_GUIMode) {
 			// Loop over all the actions from this action chain
 			for (action = chain->actions; ! IS_EOL(action); action++) {
 				// Check whether this action corresponds to the event received
 				if (action->button == event) {
 					// Launch the defined task
 					if (action->task[0])
-						ENQUEUE_TASK(action->task[0]);
+						ENQUEUE_TASK(action->task[0])
+					else
+						printf("\nno task defined for GUIMODE=0x%02X and btn:0x%08X\n", my_GUIMode, event);
 
 					if (event == GUI_BUTTON_UP || event == GUI_BUTTON_DOWN)
 						goto fallback;
@@ -184,6 +193,7 @@ void menu_destroy_fast(type_MENU * menu) {
 	menu->handle = 0;
 	menu->current_line = 0;
 	menu->current_item = 0;
+	menu->in_rename = 0;
 	menu->item_grabbed = FALSE;
 }
 
@@ -314,7 +324,7 @@ void menu_action() {
 	type_MENUITEM *item = get_current_item();
 
 	if (current_menu->rename && current_menu->item_grabbed) {
-		rename_create(item->name, current_menu->callback);
+		rename_create(current_menu, item->name, current_menu->callback);
 	} else {
 		if (item->type == MENUITEM_TYPE_LAUNCH) {
 			close  = item->menuitem_launch.close;
