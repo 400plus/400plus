@@ -154,26 +154,25 @@ void script_shot(type_SHOT_ACTION action) {
 
 void sub_extended_aeb() {
 	if (cameraMode.ae == AE_MODE_M) {
-		int tv;
+		int tv_val;
 
-		int tv_value = cameraMode.tv_val;
 		int tv_start = MIN(settings.eaeb_m_min, settings.eaeb_m_max);
 		int tv_end   = MAX(settings.eaeb_m_min, settings.eaeb_m_max);
 
-		for (tv = tv_start; tv <= tv_end; tv ++) {
-			send_to_intercom(IC_SET_TV_VAL, 1, (tv << 3) + 0x10);
+		for (tv_val = tv_start; tv_val <= tv_end; tv_val ++) {
+			send_to_intercom(IC_SET_TV_VAL, 1, (tv_val << 3) + 0x10);
 			release_and_wait();
 
 			if (!status.script_running)
 				break;
 		};
 
-		send_to_intercom(IC_SET_TV_VAL, 1, tv_value);
+		send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
 	} else {
 		int i;
-		int av_comp = cameraMode.av_comp;
-		int av_inc  = av_comp;
-		int av_dec  = av_comp;
+
+		int av_inc = cameraMode.av_comp;
+		int av_dec = cameraMode.av_comp;
 
 		release_and_wait();
 
@@ -193,7 +192,7 @@ void sub_extended_aeb() {
 				break;
 		}
 
-		send_to_intercom(IC_SET_AV_COMP, 1, av_comp);
+		send_to_intercom(IC_SET_AV_COMP, 1, st_cameraMode.av_comp);
 	}
 }
 
