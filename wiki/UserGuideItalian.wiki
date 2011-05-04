@@ -10,7 +10,7 @@ Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290
 
 Questo documento contiene il manuale d'uso per 400plus. Si suppone che, prima di leggere questa guida, l'utente abbia installato 400plus e che il software funzioni correttamente. Per informazioni sull'installazione di 400plus, vedere [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
-= Il menù =
+= Il menu =
 
 == Accesso al menu ==
 
@@ -35,7 +35,6 @@ I Sub-menu vengono visualizzati come "`ITEM>SUBITEM`"; utilizzare la rotellina f
  * _*Shortcuts menu*_: Quando è attivo, la pressione del tasto `DIRECT PRINT` nella finestra principale entrerà nel menu dei collegamenti veloci; se impostato su "No", il pulsante `DIRECT PRINT` cambierà il valore `ISO` tra i valori intermedi.
  * _*Safety Shift*_: Quando è attivo, e se in Tv (risp. Av), la fotocamera cambierà la velocità dell'otturatore (risp. apertura del diaframma) impostati dall'utente per evitare una sotto/sovraesposizione, se il valore è troppo piccolo/grande per la scena.
  * _*Flash*_: forza la disattivazione del flash (durante lo scatto), anche se l’opzione è selezionata. 
- * _*AF assist beam*_: forza la disattivazione del flash (durante la fase di AF), anche se l’opzione è selezionata.
  * _*Wave*_: questo sottomenu configura lo script [UserGuideItalian#Hand_Waving Hand Waving]: 
   * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
   * Action: azione da eseguire. 
@@ -67,6 +66,7 @@ Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `D
  * _*# Intervalometer*_: Avvia lo script [UserGuide#Intervalometer Intervalometer].
  * _*> Hand waving*_: Avvia lo script [UserGuideItalian#Hand_Waving Hand Waving].
  * _*v Self timer*_: Avvia lo script [UserGuideItalian#Autoscatto Autoscatto].
+ * _*AF assist beam*_: forza la disattivazione del flash (durante la fase di AF), anche se l’opzione è selezionata.
  * _*Mirror lock-up*_: Abilita / Disabilita la funzione personalizzata "mirror lock-up" (blocco dello specchio).
  * _*Rear curtain flash*_: Abilita / Disabilita la funzione personalizzata "sync flash to the second curtain" (sincronizzazione del flash in seconda tendina).
 
@@ -101,6 +101,18 @@ Questo script fa scattare la fotocamera quando viene innescato il sensore "displ
 Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera; possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
 
 
+= Le Preselezioni =
+
+*ATTENZIONE*: Le funzionalità delle preselezioni sono ancora in fase sperimentale, sono quindi da utilizzare con cautela.
+
+Una "Preselezione" è una immagine completa di tutte le preferenze di scatto e parametri di configurazione della fotocamera. Le preselezioni possono essere usate per preconfigurare la fotocamera in maniera specifica per una determinata situazione di scatto (e.g. "Panorama", "Ritratto", etc.), ed avere in seguito la possibilità di richiamare velocemente tale configurazione.
+
+
+Si possono immagazzinare nella scheda di memoria fino a 5 preselezioni. Per salvare una preselezione, bisogna premere `DP` nel menu [UserGuideItalian#Il_menu menu 400plus]; poi bisogna selezionare una posizione e premere `SET` (se una posizione è già stata usata, il suo contenuto sarà sovrascritto). Per richiamare una preselezione, bisogna premere il tasto `DP` all'interno del [UserGuideItalian#Menu_dei_collegamenti_rapidi menu dei collegamenti rapidi]; poi bisogna selezionare una preselezione e premere il tasto `SET` (se la posizione è vuota, ovviamente, non si avranno effetti).
+
+*NOTA*: Quando viene richiamata una preselezione, vengono modificati tutti i parametri della fotocamera, anche la modalità di scatto (AE mode); bisogna tener conto che la fotocamera potrebbe operare in una modalità di scatto diversa da quella selezionata con la ghiera di selezione.
+
+
 = La selezione dell’AF-Pattern =
 
 Premere il pulsante Zoom In per inserire il menu "selezione punto AF" standard, quindi premere ZOOM IN di nuovo per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i pattern, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
@@ -128,6 +140,7 @@ Altre modifiche al comportamento della fotocamera, non descritti in precedenza.
 Nella schermata delle impostazioni della fotocamera (ci si arriva premendo `DISP` nel menu standard della fotocamera), l'ultima riga mostrerà le seguenti informazioni (al posto dello spazio libero nella scheda di memoria):
  * Il numero totale di scatti fatti dalla fotocamera.
  * La versione di 400plus correntemente installata.
+ * Il "BodyID" (un numero interno, unico per ogni fotocamera).
 L'uso dei tasti `SET` e poi `SINISTRA` / `DESTRA` cambierà i valori visualizzati.
 
 == Il problema "naso" ==
@@ -136,12 +149,12 @@ Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi,
 
 == Menu Factory e Modalità Debug ==
 
+*ATTENZIONE*: Queste opzioni dovrebbero essere utilizzate con molta attenzione, probabilmente c'è molto poco da vedere qui, a meno che tu non stia sviluppando un tuo hack personalizzato.
+
 Dal menu 400plus, andando sulla voce "Developers menu" e premendo `SET` si attiverà un nuovo menu:
  * _*Enter factory mode*_: Fa entrare la fotocamera nel "factory mode"; inoltre attiva il "Menu Factory".
  * _*Leave factory mode*_: Esce dal "factory mode" e ritorna al "normal mode".
  * _*Start debug mode*_: La fotocamera scriverà una notevole quantità di informazioni sulla scheda di memoria, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`.
-
-*ATTENZIONE*: Queste opzioni dovrebbero essere utilizzate con molta attenzione, probabilmente c'è molto poco da vedere qui, a meno che tu non stia sviluppando un tuo hack personalizzato.
 
 *NOTA*: Ricordati di uscire dal "factory mode" prima di usare la fotocamera, poiché le fotografie non possono essere scaricate su un computer mentre la fotocamera è in questa modalità.
 
@@ -162,4 +175,4 @@ Le modalità di misurazione spot è come la modalità standard "misurazione parz
 Sono stati riportati e confermati i seguenti malfunzionamenti di una certa rilevanza:
 
  * Issue #15: Cambi di esposizione nell'esecuzione dell'EAEB.
- * Issue #18: Viene ripristinata una errata configurazione.
+ * Issue #38: Preselezioni: viene ripristinata la modalità di scatto sbagliata in fase di avvio della fotocamera.
