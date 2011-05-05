@@ -90,6 +90,18 @@ void ev_print(const char *dest, int ev) {
 	sprintf(dest, "%c%c %s", dsp_sgn, dsp_int, dsp_dec);
 }
 
+int tv_add(int ying, int yang) {
+	int ev = ev_add(ying, yang);
+
+	return MIN(ev, 0x90);
+}
+
+int tv_sub(int ying, int yang) {
+	int ev = ev_sub(ying, yang);
+
+	return MAX(ev, 0x10);
+}
+
 int ev_normalize(int ev) {
 	if (cameraMode.cf_explevel_inc_third)
 		ev &= 0xFC;
