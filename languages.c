@@ -60,8 +60,8 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPERS_MENU] = "Developers Menu",
 
 		[L_SCRIPTS_SPACES]  = "Scripts ",
-		[L_DIM_LCD_DOWN]    = "Dim LCD",
-		[L_KEEP_POWER_ON]   = "Keep on",
+		[L_DIM_LCD_DOWN]    = "LCD dim",
+		[L_KEEP_POWER_ON]   = "APO dsbl",
 
 		[L_SHORTCUTS]      = "Shortcuts",
 		[L_ISO]            = "ISO",
