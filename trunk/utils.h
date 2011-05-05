@@ -13,6 +13,9 @@ extern int ev_sub(int ying, int yang);
 
 extern void ev_print(const char *dest, int ev);
 
+extern int tv_add(int ying, int yang);
+extern int tv_sub(int ying, int yang);
+
 extern int iso_roll(int iso);
 extern int iso_next(int iso);
 extern int iso_prev(int iso);

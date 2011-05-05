@@ -177,14 +177,14 @@ void sub_extended_aeb() {
 			release_and_wait();
 
 			for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
-				tv_inc = ev_add(tv_inc, settings.eaeb_ev);
+				tv_inc = tv_add(tv_inc, settings.eaeb_ev);
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_inc);
 				release_and_wait();
 
 				if (!status.script_running)
 					break;
 
-				tv_dec = ev_sub(tv_dec, settings.eaeb_ev);
+				tv_dec = tv_sub(tv_dec, settings.eaeb_ev);
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
 				release_and_wait();
 
