@@ -157,13 +157,24 @@ void sub_extended_aeb() {
 		if (cameraMode.tv_val == TV_VAL_BULB) {
 			int tv_val;
 
-			int tv_step  = 0x08;
-			int tv_start = (MIN(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
-			int tv_end   = (MAX(settings.eaeb_tv_min, settings.eaeb_tv_max) << 3) + 0x10;
+			int tv_start = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max) - 5;
+			int tv_end   = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max) - 5;
 
-			for (tv_val = tv_start; tv_val <= tv_end; tv_val += tv_step) {
-				send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
-				release_and_wait();
+			for (tv_val = tv_start; tv_val <= tv_end; tv_val ++) {
+				if (tv_val < 0) {
+					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
+
+					press_button(0xB6);
+					SleepTask((1 << (-1 - tv_val)) * 1000 * 60);
+
+					press_button(0xB6);
+					wait_for_camera(TRUE);
+
+					script_delay(1);
+				} else {
+					send_to_intercom(IC_SET_TV_VAL, 1, (tv_val << 3) + 0x10);
+					release_and_wait();
+				}
 
 				if (!status.script_running)
 					break;
