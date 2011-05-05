@@ -284,13 +284,6 @@ int press_button(int button) {
 	return result;
 }
 
-int send_button_b6() {
-	int result = SendButtonB6();
-	SleepTask(EVENT_WAIT);
-
-	return result;
-}
-
 void led_flash(int duration) {
 	eventproc_EdLedOn();
 	SleepTask(EVENT_WAIT);
