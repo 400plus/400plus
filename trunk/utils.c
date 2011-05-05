@@ -93,7 +93,7 @@ void ev_print(const char *dest, int ev) {
 int tv_add(int ying, int yang) {
 	int ev = ev_add(ying, yang);
 
-	return MIN(ev, 0x90);
+	return MIN(ev, 0xA0);
 }
 
 int tv_sub(int ying, int yang) {
