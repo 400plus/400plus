@@ -197,8 +197,8 @@ void intercom_proxy(const int handler, char *message) {
 	// Loop over all the action chains
 	for(chain = intercom_chains; ! IS_EOL(chain); chain++) {
 
-		// Chech whether this action chain corresponds to the current GUI mode
-		if (chain->gui_mode == gui_mode) {
+		// Check whether this action chain corresponds to the current GUI mode
+		if (chain->type == gui_mode) {
 
 			// Loop over all the actions from this action chain
 			for (action = chain->actions; ! IS_EOL(action); action++) {

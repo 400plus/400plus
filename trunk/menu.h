@@ -74,8 +74,29 @@ struct MENUITEM {
 	};
 };
 
+typedef enum {
+	MENU_NONE,   // not in our menus
+	MENU_400PLUS,// normal menus
+	MENU_RENAME  // rename dialog
+} type_MENU_TYPES;
+
+typedef enum {
+	MENU_COLOR_RED              = 0x00,
+	MENU_COLOR_BLUE             = 0x01,
+	MENU_COLOR_YELLOW           = 0x02,
+	MENU_COLOR_YELLOW_AND_WHITE = 0x06,
+	MENU_COLOR_DARK_BLUE        = 0x09,
+	//MENU_COLOR_SOMETHING_FOR_THE_HELP_SCREEN_MAY_BE = 0x0A, // cannot be used for menus
+	MENU_COLOR_DARK_RED         = 0x0C,
+	MENU_COLOR_YELLOW_AND_GREEN = 0x10, // nice
+	MENU_COLOR_WHITE_ON_BLACK   = 0x12, // dark one
+	MENU_COLOR_ORANGE           = 0x67,
+} type_MENU_COLOR;
+
 typedef struct {
 	char            *name;
+	type_MENU_TYPES  type;
+	type_MENU_COLOR  color;
 	int              length;
 	type_MENUITEM   *items;
 	type_TASK        action;
@@ -88,8 +109,6 @@ typedef struct {
 	int              current_line;
 	int              current_item;
 	int              item_grabbed; // for menu reordering
-	int              in_rename;    // we are in rename dialog, dirty fix until better solution
-	type_GUIMODE     gui_mode;     // the GUIMode this dialog is using
 	type_BTN_HANDLER btn_handler;  // routine to proccess the key presses
 } type_MENU;
 
@@ -141,6 +160,9 @@ OPTIONLIST_DEC(shutter)
 
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
+
+extern void menu_create_last();
+extern type_MENU * menu_get_current();
 
 extern void menu_up();
 extern void menu_down();

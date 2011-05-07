@@ -2,13 +2,14 @@
 #include "menu.h"
 #include "settings.h"
 #include "presets.h"
+#include "languages.h"
 #include "firmware.h"
 
 #include "menu_rename.h"
 
 int   x, y, z;
 int   caps;
-type_MENU *menu;
+type_DIALOG *dialog;
 
 char *rename_filename;
 char  rename_buffer[32];
@@ -30,6 +31,13 @@ char letters[2][4][9] = {
 	}
 };
 
+// we need only the type here, there is no real menu structure
+type_MENU menu_rename = {
+	name        : LP_WORD(L_RENAME),
+	type        : MENU_RENAME,
+};
+
+
 void rename_repeat(void (*repeateable)(int repeating));
 
 void rename_repeateable_cycle(int repeating);
@@ -43,28 +51,42 @@ void rename_destroy();
 
 char *rename_message(int id);
 
-void rename_create(type_MENU *m, char *filename, type_TASK callback) {
+void rename_prepare(char *filename, type_TASK callback) {
+	printf("\nRENAME PREPARED\n");
 	rename_filename = filename;
 	rename_callback = callback;
+}
 
-	menu = m;
-	menu->in_rename = 1;
-	dialog_set_property_str(menu->handle, 8, "Rename");
+void rename_create() {
+	type_MENU *menu;
+
+	printf("\nRENAME CREATING MENU\n");
+	menu_create(&menu_rename); // create rename dialog
+	SleepTask(200);
+	printf("\nRENAME GETTING CURRENT\n");
+	menu = menu_get_current();
+	SleepTask(200);
+	printf("\nRENAME CURRENT:%p\n", menu);
+	dialog = menu->handle;
+	SleepTask(200);
+
+	printf("\nRENAME DISPLAY:%p\n", menu);
 	rename_display();
+	SleepTask(200);
 }
 
 void rename_display() {
 	int i;
 
 	for(i = 0; i < 5; i++)
-		dialog_set_property_str(menu->handle, i + 1, rename_message(i));
+		dialog_set_property_str(dialog, i + 1, rename_message(i));
 
-	dialog_redraw(menu->handle);
+	dialog_redraw(dialog);
 }
 
 void rename_refresh(int line) {
-	dialog_set_property_str(menu->handle, line + 1, rename_message(line));
-	dialog_redraw(menu->handle);
+	dialog_set_property_str(dialog, line + 1, rename_message(line));
+	dialog_redraw(dialog);
 }
 
 void rename_up() {
@@ -184,10 +206,9 @@ void rename_repeateable_cycle(int repeating) {
 }
 
 void rename_destroy() {
-	menu->in_rename = 0;
-	menu = 0;
 	x = y = z = 0;
 	caps = FALSE;
+	menu_create_last();
 }
 
 char *rename_message(int id) {
