@@ -9,7 +9,7 @@
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 
-#define INT_SWAP(x, y) {int _SWAP_; _SWAP_=(x); (x)=(y); (y)=_SWAP_;}
+#define INT_SWAP(x, y) do {int _SWAP_; _SWAP_=(x); (x)=(y); (y)=_SWAP_;} while(0)
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
@@ -181,7 +181,7 @@ typedef enum {
 	GUI_GOT_TOP_OF_CONTROL         = 0x800,
 	// 801 ?
 	GUI_INITIALIZE_CONTROLLER      = 0x802,
-	// 804 ?
+	//GUI_BUTTON_HALF_SHUTTER        = 0x804,
 	GUI_BUTTON_RIGHT               = 0x807,
 	GUI_BUTTON_LEFT                = 0x809,
 	GUI_BUTTON_UP                  = 0x80B,
@@ -472,7 +472,7 @@ typedef struct {
 } type_ACTION;
 
 typedef struct {
-	int          gui_mode;
+	int          type;      // GUIMode for intercom_proxy(), type_MENU_TYPE for menu_buttons_handler()
 	type_ACTION *actions;
 	int          _eol_;
 } type_CHAIN;

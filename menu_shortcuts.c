@@ -24,13 +24,14 @@ type_MENUITEM menu_shortcut_items[] = {
 
 type_MENU menu_shortcuts = {
 	name        : LP_WORD(L_SHORTCUTS),
+	type        : MENU_400PLUS,
+	color       : MENU_COLOR_YELLOW_AND_GREEN,
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
 	action      : menu_shortcuts_save,
 	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
-	gui_mode    : GUIMODE_400PLUS,
 	btn_handler : menu_buttons_handler
 };
 

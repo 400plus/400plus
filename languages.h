@@ -41,6 +41,8 @@ enum WordID {
 	L_INTERVAL,
 	L_NO_LIMIT,
 
+	L_RENAME,
+
 	L_DEVELOPER,
 	L_ENTER_FACTORY_MODE,	// 18 chars max
 	L_EXIT_FACTORY_MODE,	// 18 chars max

@@ -20,6 +20,8 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_INTERVAL]      = "Interval",
 		[L_NO_LIMIT]      = "No Limit",
 
+		[L_RENAME]        = "Rename",
+
 		[L_LOAD_PRESETS]  = "Load presets",
 		[L_SAVE_PRESETS]  = "Save presets",
 
