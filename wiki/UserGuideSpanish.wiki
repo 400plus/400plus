@@ -36,12 +36,11 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
  * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv o Av, la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario (activarla después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
  * _*Flash*_: Fuerza la desactivación del flash (durante el disparo), aunque se haya elevado el flash. 
- * _*Luz ayuda AF*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
- * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
+  * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
   * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
   * Acción: la acción a realizar. 
   * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
-  * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario el guión va a esperar hasta que la mano se retira.
+  * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario, el guión va a esperar hasta que la mano se retira.
  * _*Ext. AEB*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
   * Marcos: número de tomas a disparar. 
   * Paso (EV): separación en EV entre disparos. 
