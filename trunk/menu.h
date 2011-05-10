@@ -94,9 +94,9 @@ typedef enum {
 } type_MENU_COLOR;
 
 typedef struct {
-	char            *name;
-	type_MENU_TYPES  type;
-	type_MENU_COLOR  color;
+	char            *name;         // required
+	type_MENU_TYPES  type;         // required
+	type_MENU_COLOR  color;        // optional
 	int              length;
 	type_MENUITEM   *items;
 	type_TASK        action;

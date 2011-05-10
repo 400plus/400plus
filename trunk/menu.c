@@ -75,6 +75,7 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
+/** Menu buttons handler */
 int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	type_CHAIN  *chain;
 	type_ACTION *action;
@@ -84,41 +85,20 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 	if (code == GUI_BUTTON_SET)
 		INT_SWAP(code, event);
 
-	static char btn_str[64];
-
-	switch (event) {
-	case GUI_GOT_TOP_OF_CONTROL:       sprintf(btn_str, "GUI_GOT_TOP_OF_CONTROL");       break;
-	case GUI_INITIALIZE_CONTROLLER:    sprintf(btn_str, "GUI_INITIALIZE_CONTROLLER");    break;
-	case GUI_BUTTON_RIGHT:             sprintf(btn_str, "GUI_BUTTON_RIGHT");             break;
-	case GUI_BUTTON_LEFT:              sprintf(btn_str, "GUI_BUTTON_LEFT");              break;
-	case GUI_BUTTON_UP:                sprintf(btn_str, "GUI_BUTTON_UP");                break;
-	case GUI_BUTTON_DOWN:              sprintf(btn_str, "GUI_BUTTON_DOWN");              break;
-	case GUI_BUTTON_MENU:              sprintf(btn_str, "GUI_BUTTON_MENU");              break;
-	case GUI_BUTTON_JUMP:              sprintf(btn_str, "GUI_BUTTON_JUMP");              break;
-	case GUI_BUTTON_SET:               sprintf(btn_str, "GUI_BUTTON_SET");               break;
-	case GUI_BUTTON_ZOOM_IN:           sprintf(btn_str, "GUI_BUTTON_ZOOM_IN");           break;
-	case GUI_BUTTON_ZOOM_IN_RELEASED:  sprintf(btn_str, "GUI_BUTTON_ZOOM_IN_RELEASED");  break;
-	case GUI_BUTTON_ZOOM_OUT:          sprintf(btn_str, "GUI_BUTTON_ZOOM_OUT");          break;
-	case GUI_BUTTON_ZOOM_OUT_RELEASED: sprintf(btn_str, "GUI_BUTTON_ZOOM_OUT_RELEASED"); break;
-	case GUI_BUTTON_DISP:              sprintf(btn_str, "GUI_BUTTON_DISP");              break;
-	case GUI_BUTTON_DIAL_RIGHT:        sprintf(btn_str, "GUI_BUTTON_DIAL_RIGHT");        break;
-	case GUI_BUTTON_DIAL_LEFT:         sprintf(btn_str, "GUI_BUTTON_DIAL_LEFT");         break;
-	case GUI_BUTTON_PLAY:              sprintf(btn_str, "GUI_BUTTON_PLAY");              break;
-	case GUI_BUTTON_TRASH:             sprintf(btn_str, "GUI_BUTTON_TRASH");             break;
-	case GUI_BUTTON_DP:                sprintf(btn_str, "GUI_BUTTON_DP");                break;
-	case GUI_BUTTON_DRIVE:             sprintf(btn_str, "GUI_BUTTON_DRIVE");             break;
-	case GUI_BLINK_RELATED:            sprintf(btn_str, "GUI_BLINK_RELATED");            break;
-	default:                           sprintf(btn_str, "GUI UNKNOWN???");               break;
-	}
-	printf("\nbtn handler: dialog=%p, type=%d, btn=0x%08X[%s], code=0x%08X\n", dialog, current_menu->type, event, btn_str, code);
+	static char e_str[64], c_str[64];
+	gui_event_name(e_str, event);
+	gui_event_name(c_str, code);
+	debug_printf("dialog=%p, type=%d, btn=[%s], code=[%s], R[1=%02X,3=%02X,4=%02X,5=%02X,6=%02X]\n",
+			dialog, current_menu->type, e_str, c_str,
+			r1, r3, r4, r5, r6);
 
 	// there are 2 events comming to the handler upon creating the dialog:
 	// 1. event:0x802, code:0x00
 	// 2. event:0x800, code:0x4E20
 	// they will get trapped by the next if, because we do not have current_menu yet.
 	if (!current_menu || current_menu->handle != dialog || current_menu->type < 1) {
-		printf("\n\nmenu_buttons_handler: cm->handle(%p) != dialog(%p) || cm->type < 1\n\n",
-				current_menu ? current_menu->handle : 0, dialog);
+		//debug_printf("\n\nmenu_buttons_handler: cm->handle(%p) != dialog(%p) || cm->type < 1\n\n",
+		//		current_menu ? current_menu->handle : 0, dialog);
 		goto fallback;
 	}
 
@@ -134,8 +114,8 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 					if (action->task[0])
 						ENQUEUE_TASK(action->task[0])
 					else
-						printf("\nno task defined for menu_type=%d and btn:0x%08X\n",
-								current_menu->type, event);
+						debug_printf("no task defined for menu_type=%d and btn:[%s]\n",
+								current_menu->type, e_str);
 
 					if (event == GUI_BUTTON_UP || event == GUI_BUTTON_DOWN)
 						goto fallback;
@@ -146,8 +126,6 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 		}
 	}
 
-
-
 // on 1000003E
 // BL      GUI_Lock
 // BL      GUI_PalleteInit
@@ -155,10 +133,10 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 // BL      GUI_UnLock
 // BL      GUI_PalleteUnInit
 
-
-
 	switch (event) {
-
+	case GUI_BUTTON_CF_CARD:
+		menu_close();
+		break;
 	// we use the DISP button to close the menu
 	case GUI_BUTTON_DISP:
 		menu_close();
@@ -166,16 +144,11 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 		press_button(IC_BUTTON_DISP);
 		goto handled;
 
-	// half shutter should close the menu
-	//case GUI_BUTTON_HALF_SHUTTER:
-		//printf("\nbtn handler: calling menu_close()\n");
-		//menu_close();
-		//goto handled;
-
 	// someone else will take care of those
 	case GUI_GOT_TOP_OF_CONTROL:
+	case GUI_LOST_TOP_OF_CONTROL:
 	case GUI_INITIALIZE_CONTROLLER:
-	case GUI_BLINK_RELATED:
+	case GUI_UNKNOWN0:
 		goto fallback;
 
 	// these we block, so no one will interfare with our menus
@@ -192,26 +165,30 @@ int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3
 	case GUI_BUTTON_DRIVE:
 	case GUI_BUTTON_DIAL_LEFT:
 	case GUI_BUTTON_DIAL_RIGHT:
-		printf("\nnot handled but would block\n");
+	case GUI_BUTTON_ZOOM_IN_PRESS:
+	case GUI_BUTTON_ZOOM_IN_RELEASE:
+	case GUI_BUTTON_ZOOM_OUT_PRESS:
+	case GUI_BUTTON_ZOOM_OUT_RELEASE:
+	case GUI_UNKNOWN1:
+	case GUI_UNKNOWN2:
+		debug_printf("not handled but would block\n");
 		goto handled;
 
 	}
 
 	// flash the blue led and log the event if we do not handle it.
 	led_flash(BEEP_LED_LENGTH); // used for debugging
-	printf("400PLUS MENU: Unhandled event\n"
-		"dialog=%p, r1=%02X, event=%02X, r3=%02X, r4=%02X, r5=%02X, r6=%02X, code=%02X\n",
-		dialog,r1,event,r3,r4,r5,r6,code);
+	debug_printf("!!!!!!!!!! unhandled event !!!!!!!!!!\n");
 
 fallback:
 	// reverse them back if we need to pass this event to the next handler().
 	if (event == GUI_BUTTON_SET)
 		INT_SWAP(code, event);
-	printf("\nbtn handler: passing to fallback\n");
+	debug_printf("passing to fallback\n");
 	return 1;
 
 handled:
-	printf("\nbtn handler: handled -> blocking\n");
+	debug_printf("handled -> blocking\n");
 	return 0;
 }
 
@@ -219,7 +196,7 @@ void menu_destroy_fast(type_MENU * menu) {
 	if (!menu)
 		return;
 
-	printf("\ndestroying_fast menu [type:%d]@0x%08X\n", menu->type, menu->handle);
+	debug_printf("\ndestroying_fast menu [type:%d]@0x%08X\n", menu->type, menu->handle);
 	if (menu->handle)
 		DeleteDialogBox(menu->handle);
 
@@ -237,7 +214,7 @@ void menu_destroy_start_olc(type_MENU * menu) {
 	// PalettePop();
 	// with_check_ae_mode();
 
-	printf("\ndestroying menu [type:%d]@0x%08X and starting OLC\n", menu->type, menu->handle);
+	debug_printf("\ndestroying menu [type:%d]@0x%08X and starting OLC\n", menu->type, menu->handle);
 	menu_destroy_fast(menu);
 
 	// start the main screen
@@ -265,8 +242,11 @@ void menu_create(type_MENU * menu) {
 	GUI_ClearImage();
 	GUIMode = GUIMODE_400PLUS;
 
+	if (!current_menu->btn_handler)
+		current_menu->btn_handler = menu_buttons_handler; // default
 	current_menu->handle = dialog_create(22, current_menu->btn_handler);
-	printf("\nnew menu [%d] created @0x%08X\n", current_menu->type, current_menu->handle);
+	debug_printf("\nnew menu [%d] created @0x%08X\n", current_menu->type, current_menu->handle);
+
 	//PalettePush();
 	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 	PaletteChange(current_menu->color);
@@ -367,15 +347,8 @@ void menu_action() {
 	type_MENUITEM *item = get_current_item();
 
 	if (current_menu->rename && current_menu->item_grabbed) {
-		return;
-		debug_log("\npreparing RENAME\n");
-		SleepTask(200);
 		rename_prepare(item->name, current_menu->callback);
-		SleepTask(200);
-		debug_log("\nstarting RENAME\n");
-		SleepTask(200);
 		rename_create();
-		return;
 	} else {
 		if (item->type == MENUITEM_TYPE_LAUNCH) {
 			close  = item->menuitem_launch.close;
@@ -398,7 +371,6 @@ void menu_action() {
 
 void menu_dp_action() {
 	if (current_menu->dp_action) {
-		printf("\nmenu_dp_action(): calling dp_action\n");
 		current_menu->dp_action();
 	}
 }
@@ -565,7 +537,7 @@ void menu_repeateable_cycle(int repeating) {
 }
 
 void menu_close() {
-	printf("\nclosing current menu and starting OLC\n");
+	debug_printf("\nclosing current menu and starting OLC\n");
 	menu_destroy_start_olc(current_menu);
 
 	//SetTurnDisplayEvent_2_after_1();

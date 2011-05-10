@@ -15,7 +15,7 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
-#ifdef ENABLE_DEBUG_ON_STARTUP
+#ifdef ENABLE_DEBUG
 	start_debug_mode();
 #endif
 

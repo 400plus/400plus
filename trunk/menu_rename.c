@@ -51,8 +51,8 @@ void rename_destroy();
 
 char *rename_message(int id);
 
+/// @todo no need of rename_prepare() anymore, merge it with rename_create()
 void rename_prepare(char *filename, type_TASK callback) {
-	printf("\nRENAME PREPARED\n");
 	rename_filename = filename;
 	rename_callback = callback;
 }
@@ -60,19 +60,11 @@ void rename_prepare(char *filename, type_TASK callback) {
 void rename_create() {
 	type_MENU *menu;
 
-	printf("\nRENAME CREATING MENU\n");
 	menu_create(&menu_rename); // create rename dialog
-	SleepTask(200);
-	printf("\nRENAME GETTING CURRENT\n");
 	menu = menu_get_current();
-	SleepTask(200);
-	printf("\nRENAME CURRENT:%p\n", menu);
 	dialog = menu->handle;
-	SleepTask(200);
 
-	printf("\nRENAME DISPLAY:%p\n", menu);
 	rename_display();
-	SleepTask(200);
 }
 
 void rename_display() {
