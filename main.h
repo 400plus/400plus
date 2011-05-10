@@ -179,9 +179,9 @@ typedef enum {
 	GUI_DELETE_LCDADJUST_DIALOG    = 0x10000071,
 	*/
 	GUI_GOT_TOP_OF_CONTROL         = 0x800,
-	// 801 ?
+	GUI_LOST_TOP_OF_CONTROL        = 0x801,
 	GUI_INITIALIZE_CONTROLLER      = 0x802,
-	//GUI_BUTTON_HALF_SHUTTER        = 0x804,
+	GUI_UNKNOWN0                   = 0x804, // this is somehow related to blink timer
 	GUI_BUTTON_RIGHT               = 0x807,
 	GUI_BUTTON_LEFT                = 0x809,
 	GUI_BUTTON_UP                  = 0x80B,
@@ -189,19 +189,28 @@ typedef enum {
 	GUI_BUTTON_MENU                = 0x80F,
 	GUI_BUTTON_JUMP                = 0x810,
 	GUI_BUTTON_SET                 = 0x812, //(code1 will be menu line number when set button was pressed)
-	GUI_BUTTON_ZOOM_IN             = 0x819,
-	GUI_BUTTON_ZOOM_IN_RELEASED    = 0x81A, // DISP_RELEASED
-	GUI_BUTTON_ZOOM_OUT            = 0x81B,
-	GUI_BUTTON_ZOOM_OUT_RELEASED   = 0x81C, // DISP_RELEASED
+	GUI_BUTTON_ZOOM_IN_PRESS       = 0x819,
+	GUI_BUTTON_ZOOM_IN_RELEASE     = 0x81A, // DISP_RELEASED
+	GUI_BUTTON_ZOOM_OUT_PRESS      = 0x81B,
+	GUI_BUTTON_ZOOM_OUT_RELEASE    = 0x81C, // DISP_RELEASED
 	// 820 ?
 	GUI_BUTTON_DISP                = 0x829, // GUI_BUTTON_INFO
-	GUI_BUTTON_DIAL_RIGHT          = 0x82B,
-	GUI_BUTTON_DIAL_LEFT           = 0x82C,
+	GUI_BUTTON_DIAL_RIGHT          = 0x82B, // on DIAL_[LEFT|RIGHT] the r4 and r5 in btn_handler
+	GUI_BUTTON_DIAL_LEFT           = 0x82C, // are incremental counter for both of them, every dial increments them both
+	// AFAIK (from the asm) DIAL_LEFT is the last with a small number
 	GUI_BUTTON_PLAY                = 0x10000000,
 	GUI_BUTTON_TRASH               = 0x10000001,
 	GUI_BUTTON_DP                  = 0x10000002,
+	// 0x10000014 ?
+	// 0x10000019 ?
+	// 0x10000021 ?
+	GUI_BUTTON_CF_CARD             = 0x10000006, // could be
 	GUI_BUTTON_DRIVE               = 0x10000047,
-	GUI_BLINK_RELATED              = 0x1000003E,
+
+	// 0x10000039 ?
+	GUI_UNKNOWN1                   = 0x1000003A, // related to mettering may be ?
+	// 0x1000003C ?
+	GUI_UNKNOWN2                   = 0x1000003E, // related to btns that repeats (AV, 1/2-SHUT) may be ?
 } gui_event_t;
 
 typedef struct {                 // [*] Used and tested, others unknown
@@ -436,9 +445,7 @@ typedef enum { // GUIModes
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUIMODE_400PLUS,           // 0x20 - Our (400plus) menu mode
-	GUIMODE_RENAME,            // 400Plus rename
-	GUIMODE_400PLUS_OLD = 0x2D,// 400Plus old mode for the intercom
+	GUIMODE_400PLUS,           // 0x20 - Our (400plus) menu mode, do not change it!
 	GUIMODE_FACE        = 0x2F,// Face mode
 } type_GUIMODE;
 
@@ -506,3 +513,71 @@ extern void intercom_proxy(const int handler, char *message);
 extern type_STATUS status;
 
 #endif /* MAIN_H_ */
+
+
+#if 0
+
+ChangeDprData (int what, int value);
+
+  2: red_eye
+  3: beep
+  4: auto_power_off
+  5: view_type
+  6: review_time
+  7: auto_rotate
+  8: lcd_brightness
+  9: file_numbering
+ 10: language
+ 11: video_system
+ 12: ptp
+ 13: picture_style_mode
+ 14: histogram
+ 15: color_space
+ 16: forbid_rel
+ 17: iso
+ 18: metering
+ 19: selected_af_mode
+ 21: face_sensor_disable
+ 23: drive
+ 24: wb
+ 26: color_temp
+ 27: date_time
+ 28: cfmenupos
+ 29: cf_set_button_func
+ 30: cf_nr_for_long_exposure
+ 31: cf_efav_fix_x
+ 32: cf_afael_active_button
+ 33: cf_emit_aux
+ 34: cf_explevel_inc_third
+ 35: cf_mirror_up_lock
+ 36: cf_flash_metering
+ 37: cf_flash_sync_rear
+ 38: cf_qr_magnify
+ 39: field_188
+ 40: cf_emit_flash
+ 41: cf_extend_iso
+ 42: cf_aeb_sequence
+ 43: cf_si_indicate
+ 44: cf_menu_pos
+ 45: cf_fpsel_method
+ 46: cf_safety_shift
+ 47: cf_lens_button
+ 55: efcomp
+ 66: ae_bkt
+ 90: usb_connect_type
+ 91: menupos
+113: play_jump_type
+114: playback_file_id
+115: playback_file_id_pos
+138: field_18C
+156: wb_bkt
+157: wbcomp_gm
+158: wbcomp_ab
+
+
+
+
+
+
+#endif
+
