@@ -36,7 +36,7 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
  * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv o Av, la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario (activarla después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
  * _*Flash*_: Fuerza la desactivación del flash (durante el disparo), aunque se haya elevado el flash. 
-  * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
+ * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
   * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
   * Acción: la acción a realizar. 
   * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
@@ -67,6 +67,7 @@ Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de
  * _* Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
  * _* Toma por Visor*_: Inicia el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
  * _* Autodisparador*_: Inicia el [UserGuideSpanish#Autodisparador Autodisparador].
+ * _* Flash AF*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
  * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo.
  * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla.
 
@@ -74,7 +75,7 @@ Para salir del menú de accesos directos, presiona hasta la mitad el botón disp
 
 == Configurar el menú de accesos directos ==
 
-Estando en el menú de accesos directos, presiona MENU para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo MENU cuando hayas acabado. No olvides pulsar SET para guardar el nuevo orden de los accesos directos en la tarjeta antes de salir.
+Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aplarecen. Presiona MENU para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo MENU cuando hayas acabado. No olvides pulsar SET para guardar el nuevo orden de los accesos directos en la tarjeta antes de salir.
 
 
 = Los guiones =
@@ -98,12 +99,21 @@ Este guión disparará la cámara tantas veces como se haya configurado (o sin f
 
 == Toma por Visor (ondeo) ==
 
-Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que la mano bloquee el sensor y luego se retire, pero, cuando esté activada la opción " Instantánea", se activará la cámara tan pronto como esa mano bloquee el sensor.
+Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (tu mano o tu dedo) bloquee el sensor y luego se retire; pero, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
 
 == Autodisparador ==
 
 Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
 
+
+= Los preajustes =
+
+ADVERTENCIA: Esta capacidad es aún experimental, así que utilízala con cuidado.
+
+Un "preajuste" es una instantánea completa que contiene todos los ajustes de la cámara y los parámetros de configuración. Los preajustes se pueden utilizar para pre-configurar la cámara para una situación específica de disparo (como "paisaje", "retrato", "poca luz", "pájaros en vuelo", etc.), y te permiten tener un acceso rápido a estas configuraciones más adelante.
+Los preajustes son almacenados en la tarjeta CF en sí. Se pueden almacenar hasta 5 preajustes. Para guardar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estás en el menú 400plus; a continuación, selecciona una ranura de preajuste y pulsa SET (si la ranura ha sido utilizada anteriormente, su contenido se sobrescribe). Para recuperar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estés en el menú de accesos directos; a continuación, selecciona el preajuste deseado y pulsa el botón SET (si la posición está vacía, no ocurrirá nada).
+
+NOTA: Cuando se recupera un preajuste, todos los parámetros de la cámara se cambian, incluso el modo AE; ten en cuenta que la cámara puede operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal.
 
 = Selección del patrón AF =
 
@@ -133,19 +143,23 @@ Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 En la pantalla de "ajustes de la cámara" (presionar DISP en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta):
  * El número total de disparos hechos por la cámara. 
  * El número de la versión de 400plus actualmente instalada.
+ * El "BodyID" del cuerpo de la cámara (un número interno, único de cada cámara). 
 Utiliza SET e IZQUIERDA / DERECHA para cambiar el valor mostrado.
 
 == El asunto de la nariz (ojo zurdo) ==
 
-Mientras se mira por el visor, los botones de ISO y WB ya no están activos, para prevenir cambios accidentales con la nariz del usuario. 
+Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar con la nariz o la mejilla del usuario. 
 
 == Menú de Fábrica y el modo de depuración ==
+
+_*AVISO*_: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
 
 Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y pulsa SET:
  * _* Entrar modo fábrica*_: Pone la cámara en "modo fábrica"; también activa el "menú de fábrica".
  * _* Salir modo fábrica*_: Revierte la cámara al "modo normal".
  * _* Iniciar modo depuración*_: La cámara almacenará gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
-_*AVISO*_: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
+
+_*NOTA*_: Tras entrar en el "modo fábrica", el "menú de fábrica" permanecerá disponible hasta que se apague la cámara; salir del "modo de fábrica" no desactivará el "menú de fábrica". 
 
 _*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado que no es posible descargar fotografías al ordenador mientras la cámara se encuentra en ese modo.
 
@@ -155,7 +169,7 @@ Algunas notas y comentarios.
 
 == ISOs Extendidos ==
 
-Los valores ISO no estándar son sólo por software, y técnicamente no producen ganancia alguna sobre los ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200.
+Los valores ISO no estándar son sólo valores calculados por software, y técnicamente ofrecen poca o ninguna ganancia sobre los disparos a ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200, el cual es valorable durante situaciones con muy poca luz, cuando ningunas otras opciones te permitirían lograr el disparo.
 
 == Modo de medicion puntual ==
 
@@ -166,4 +180,4 @@ El modo de medición puntual es como el modo de "medición parcial" estándar, p
 Se han comunicado y confirmado los siguientes errores relevantes:
 
  * Issue #15: La exposición cambia durante EAEB.
- * Issue #18: Configuración errónea restaurada.
+ * Issue #38: Preajustes: Modo AE mal restaurado durante el encendido.
