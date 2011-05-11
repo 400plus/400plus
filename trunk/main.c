@@ -254,3 +254,9 @@ void task_dispatcher () {
 		task();
 	}
 }
+
+
+void my_task_MainCtrl() {
+	*((int*)0xC0220000) = 0x46; // turn on blue led
+	task_MainCtrl();
+}
