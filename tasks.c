@@ -17,7 +17,10 @@ void start_up() {
 
 #ifdef ENABLE_DEBUG
 	start_debug_mode();
+	printf("400Plus STARTING!\n");
 #endif
+	// turn off the blue led after it was lighten by our my_task_MainCtrl()
+	eventproc_EdLedOff();
 
 	// Set current language
 	lang_pack_config();
