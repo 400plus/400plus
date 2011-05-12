@@ -238,7 +238,7 @@ void my_task_Startup() {
 
 	RegisterISR_EMERGENCY_CARDDOOR();
 
-	my_MainCtrlInit();
+	MainCtrlInit();
 
 	CaptureSemaphoreInit();
 
@@ -393,7 +393,6 @@ void my_task_Startup() {
 	MpuMonInit();
 
 	StartConsole();
-
 }
 
 int my_InitializeIntercom() {
