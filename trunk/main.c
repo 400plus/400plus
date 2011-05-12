@@ -49,9 +49,7 @@ type_ACTION actions_info[]  = {
 	END_OF_LIST
 };
 
-// the old way of handling the menus, in the intercom_proxy()
-/*
-type_ACTION actions_400plus_old[]  = {
+type_ACTION actions_400plus[]  = {
 	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
 	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
 	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
@@ -64,7 +62,19 @@ type_ACTION actions_400plus_old[]  = {
 	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
 	END_OF_LIST
 };
-*/
+
+type_ACTION actions_rename[]  = {
+	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
+	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
+	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
+	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
+	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
+	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
+	{IC_BUTTON_MENU,       FALSE, RESP_BLOCK,   {rename_clear}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
+	END_OF_LIST
+};
 
 type_ACTION actions_meter[] = {
 	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
@@ -103,7 +113,8 @@ type_CHAIN intercom_chains[] = {
 	{GUIMODE_MAIN,      actions_main},
 	{GUIMODE_MENU,      actions_menu},
 	{GUIMODE_INFO,      actions_info},
-	//{GUIMODE_400PLUS_OLD,actions_400plus_old},
+	{GUIMODE_400PLUS,   actions_400plus},
+	{GUIMODE_RENAME,    actions_rename},
 	{GUIMODE_METER,     actions_meter},
 	{GUIMODE_WB,        actions_wb},
 	{GUIMODE_ISO,       actions_iso},

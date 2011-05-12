@@ -9,7 +9,8 @@
 
 int   x, y, z;
 int   caps;
-type_DIALOG *dialog;
+
+type_DIALOG *handle = NULL;
 
 char *rename_filename;
 char  rename_buffer[32];
@@ -31,13 +32,6 @@ char letters[2][4][9] = {
 	}
 };
 
-// we need only the type here, there is no real menu structure
-type_MENU menu_rename = {
-	name        : LP_WORD(L_RENAME),
-	type        : MENU_RENAME,
-};
-
-
 void rename_repeat(void (*repeateable)(int repeating));
 
 void rename_repeateable_cycle(int repeating);
@@ -51,18 +45,16 @@ void rename_destroy();
 
 char *rename_message(int id);
 
-/// @todo no need of rename_prepare() anymore, merge it with rename_create()
-void rename_prepare(char *filename, type_TASK callback) {
+void rename_create(char *filename, type_TASK callback) {
 	rename_filename = filename;
 	rename_callback = callback;
-}
 
-void rename_create() {
-	type_MENU *menu;
+	FLAG_GUI_MODE = GUIMODE_RENAME;
 
-	menu_create(&menu_rename); // create rename dialog
-	menu = menu_get_current();
-	dialog = menu->handle;
+	rename_destroy();
+
+	handle = dialog_create(22, InfoCreativeAppProc);
+	dialog_set_property_str(handle, 8, "Rename");
 
 	rename_display();
 }
@@ -71,14 +63,14 @@ void rename_display() {
 	int i;
 
 	for(i = 0; i < 5; i++)
-		dialog_set_property_str(dialog, i + 1, rename_message(i));
+		dialog_set_property_str(handle, i + 1, rename_message(i));
 
-	dialog_redraw(dialog);
+	dialog_redraw(handle);
 }
 
 void rename_refresh(int line) {
-	dialog_set_property_str(dialog, line + 1, rename_message(line));
-	dialog_redraw(dialog);
+	dialog_set_property_str(handle, line + 1, rename_message(line));
+	dialog_redraw(handle);
 }
 
 void rename_up() {
@@ -198,9 +190,12 @@ void rename_repeateable_cycle(int repeating) {
 }
 
 void rename_destroy() {
+	if (handle != NULL)
+		DeleteDialogBox(handle);
+
+	handle = 0;
 	x = y = z = 0;
 	caps = FALSE;
-	menu_create_last();
 }
 
 char *rename_message(int id) {
