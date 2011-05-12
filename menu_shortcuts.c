@@ -24,15 +24,12 @@ type_MENUITEM menu_shortcut_items[] = {
 
 type_MENU menu_shortcuts = {
 	name        : LP_WORD(L_SHORTCUTS),
-	type        : MENU_400PLUS,
-	color       : MENU_COLOR_YELLOW_AND_GREEN,
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
 	action      : menu_shortcuts_save,
 	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
-	ordering    : settings.shortcuts_order,
-	btn_handler : menu_buttons_handler
+	ordering    : settings.shortcuts_order
 };
 
 void menu_shortcuts_start() {
@@ -40,8 +37,8 @@ void menu_shortcuts_start() {
 
 	sc_cameraMode = cameraMode;
 
-	//press_button(BUTTON_MENU);
-	//SleepTask(100);
+	press_button(IC_BUTTON_MENU);
+	SleepTask(100);
 
 	menu_create(&menu_shortcuts);
 }

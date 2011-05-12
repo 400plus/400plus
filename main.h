@@ -445,8 +445,9 @@ typedef enum { // GUIModes
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUIMODE_400PLUS,           // 0x20 - Our (400plus) menu mode, do not change it!
-	GUIMODE_FACE        = 0x2F,// Face mode
+	GUIMODE_400PLUS = 0x2D,  // 400Plus mode
+	GUIMODE_RENAME  = 0x2E,  // 400Plus rename
+	GUIMODE_FACE    = 0x2F	  // Face mode
 } type_GUIMODE;
 
 
@@ -459,7 +460,7 @@ typedef struct struct_DIALOG type_DIALOG;
 
 
 // Handler for buttons in dialogs
-typedef int(*type_BTN_HANDLER)(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+typedef void(*type_BTN_HANDLER)(int r0, int r1, int code1, int r3, int r4, int r5, int r6, int code2);
 
 // Action definitions
 typedef void(*type_TASK)();
@@ -513,71 +514,3 @@ extern void intercom_proxy(const int handler, char *message);
 extern type_STATUS status;
 
 #endif /* MAIN_H_ */
-
-
-#if 0
-
-ChangeDprData (int what, int value);
-
-  2: red_eye
-  3: beep
-  4: auto_power_off
-  5: view_type
-  6: review_time
-  7: auto_rotate
-  8: lcd_brightness
-  9: file_numbering
- 10: language
- 11: video_system
- 12: ptp
- 13: picture_style_mode
- 14: histogram
- 15: color_space
- 16: forbid_rel
- 17: iso
- 18: metering
- 19: selected_af_mode
- 21: face_sensor_disable
- 23: drive
- 24: wb
- 26: color_temp
- 27: date_time
- 28: cfmenupos
- 29: cf_set_button_func
- 30: cf_nr_for_long_exposure
- 31: cf_efav_fix_x
- 32: cf_afael_active_button
- 33: cf_emit_aux
- 34: cf_explevel_inc_third
- 35: cf_mirror_up_lock
- 36: cf_flash_metering
- 37: cf_flash_sync_rear
- 38: cf_qr_magnify
- 39: field_188
- 40: cf_emit_flash
- 41: cf_extend_iso
- 42: cf_aeb_sequence
- 43: cf_si_indicate
- 44: cf_menu_pos
- 45: cf_fpsel_method
- 46: cf_safety_shift
- 47: cf_lens_button
- 55: efcomp
- 66: ae_bkt
- 90: usb_connect_type
- 91: menupos
-113: play_jump_type
-114: playback_file_id
-115: playback_file_id_pos
-138: field_18C
-156: wb_bkt
-157: wbcomp_gm
-158: wbcomp_ab
-
-
-
-
-
-
-#endif
-
