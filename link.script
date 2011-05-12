@@ -4,7 +4,6 @@ SECTIONS {
 		entry.o;
 		entry_subs.o;
 		gui.o;
-		mainctrl.o;
 		init.o;
 		main.o;
 		info.o;
