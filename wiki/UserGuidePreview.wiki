@@ -1,6 +1,8 @@
 #summary User Guide for 400plus
 #labels Preview
 
+*WARNING: This document is a _preview_ and may document features not yet released.*
+
 = Introduction =
 
 This document contains the user guide for 400plus. It is assumed in this document that the user has installed 400plus and it is working properly, prior to reading this guide. For information about installing 400plus, please see [FirmwareHackInstallation].
