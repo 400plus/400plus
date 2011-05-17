@@ -125,7 +125,7 @@ To solve this issue, there is an option at [UserGuide#The_menu the settings menu
  * Presets can only be loaded when the camera is in A-DEP mode.
  * When the camera is powered on in A-DEP mode, the last preset used is automatically recalled.
 
-== Configuring the prests menu ==
+== Configuring the presets menu ==
 
 The presets can be reordered, just like [UserGuide#The_shortcuts_menu the shortcuts menu] (press `MENU` to grab / release, and `UP`/ `DOWN` to move); but they can also be renamed: while a preset is grabbed, press `SET` to enter the rename menu:
  * Use `UP`/ `DOWN` to select a letter.
