@@ -119,9 +119,9 @@ Presets are stored on the CF card itself.  Up to 5 presets can be stored. To sto
 
 == The A-DEP mode ==
 
-Under normal circumstances, when a preset is recovered all camera parameters are changed, even the AE mode (unless otherwise specified in the [#The_menu the settings menu], obviously); take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected on the main dial. But when the camera is powered off and back on, it will revert to the actual AE mode selected on the main dial.
+Under normal circumstances, when a preset is recovered all camera parameters are changed, even the AE mode (unless otherwise specified in the [#The_settings_menu the settings menu], obviously); take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected on the main dial. But when the camera is powered off and back on, it will revert to the actual AE mode selected on the main dial.
 
-To solve this issue, there is an option at [#The_menu the settings menu] to hijack the (mostly unused) A-DEP mode; when that option is active, the following changes will happen:
+To solve this issue, there is an option at [#The_settings_menu the settings menu] to hijack the (mostly unused) A-DEP mode; when that option is active, the following changes will happen:
  * Presets can only be loaded when the camera is in A-DEP mode.
  * When the camera is powered on in A-DEP mode, the last preset used is automatically recalled.
 
