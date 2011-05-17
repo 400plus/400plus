@@ -63,7 +63,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial to roll to the 
     * Settings: when active, loading a preset recalls rarely changed settings (language, video system, ...).
     * Image: when active, loading a preset recalls image related parameters (RAW/JPEG, quality, ...).
     * Custom Fn: when active, loading a preset recalls custom functions (mirror lock-up, long-exposure noise-reduction, ...).
- * _*Developers menu*_: Press `SET` while this entry is highlighted to enter the [#Developers_Menu developers menu].
+ * _*Developers menu*_: Press `SET` while this entry is highlighted to enter [#The_developers_menu the developers menu].
 
 = The shortcuts menu =
 
@@ -86,7 +86,7 @@ While in the shortcuts menu, you have the ability to change the order of the men
 
 = The scripts =
 
-All scripts are activated from the [#The_Shortcuts_Menu Shortcuts Menu]. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (approx. twice per second).
+All scripts are activated from the [#The_shortcuts_menu Shortcuts Menu]. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (approx. twice per second).
 
 To stop a running script, press the `DIRECT PRINT` button again; sometimes the camera may not stop immediately, so press and hold the `DIRECT PRINT` button until you hear a _beep_ that signals the effective end of the script.
 
@@ -115,7 +115,7 @@ This script simply adds a configurable pause before firing the camera; this scri
 
 A "preset" is a complete snapshot containing all of the camera settings and configuration parameters.  Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations later.
 
-Presets are stored on the CF card itself.  Up to 5 presets can be stored. To store a preset, press `DP` while in the [#The_menu the 400plus menu]; then select a preset slot and press `SET` (if the slot has been previously used, its contents will be overwritten).  To recover a preset, press `DP` while in the [#The_shortcuts_menu the shortcuts menu]; then select your desired preset and press the `SET` button (if the slot is empty, nothing happens).
+Presets are stored on the CF card itself.  Up to 5 presets can be stored. To store a preset, press `DP` while in [#The_settings_menu the settings menu]; then select a preset slot and press `SET` (if the slot has been previously used, its contents will be overwritten).  To recover a preset, press `DP` while in the [#The_shortcuts_menu the shortcuts menu]; then select your desired preset and press the `SET` button (if the slot is empty, nothing happens).
 
 == The A-DEP mode ==
 
@@ -170,7 +170,7 @@ Use `SET` and `LEFT` / `RIGHT` to change which item to display.
 
 While looking through the viewfinder, the `ISO` and `WB` buttons become inactive.  This is done to prevent accidental changes to camera settings from pressing your nose (or cheek) up against the camera body.
 
-== Factory menu and debug mode ==
+== The developers menu ==
 
 *WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
