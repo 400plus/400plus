@@ -37,7 +37,7 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
  * _*Retardo infrarrojos*_: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
  * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
  * _*Menú de accesos directos*_: Cuando está activo, el menú de accesos directos se mostrará en la pantalla principal al presionar el botón de IMPRESIÓN DIRECTA; cuando está fijado en "No", el botón de IMPRESIÓN DIRECTA cambiará a una ISO intermedia.
- * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_Guiones Los Guiones]. 
+ * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones]. 
   * LCD bajo: cuando está activado la pantalla se atenúa para preservar la vida de la batería. 
   * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo, la opción de auto-apagado de la cámara está desactivada.
  * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
