@@ -4,16 +4,11 @@
 
 my_MainCtrlInit:
 
-	var_348         = -0x348
-	var_344         = -0x344
-	var_1D0         = -0x1D0
-	var_3C          = -0x3C
-
-	STMFD   SP!, {R4-R8,LR}               // save r4-r8 and lr
+	STMFD   SP!, {R4-R8,LR}               // save r4-r8 and the return address
 	MOV     R1, #0                        // r1 = 0
 	LDR     R0, =aMonoSem_0               // r0 = "Mono Sem"
 	SUB     SP, SP, #0x330                // get stack space
-	BL      CreateBinarySemaphore         // (char* name, int flag)
+	BL      CreateBinarySemaphore         // call CreateBinarySemaphore("MonoSem", 0);
 	LDR     R4, =MC_dword_27BE0           // r4 = MC_dword_27BE0
 	LDR     R12, =MC_dword_2A520          // r12 = MC_dword_2A520
 	LDR     R2, =MC_dword_259C0           // r2 = MC_dword_259C0
@@ -57,7 +52,7 @@ my_MainCtrlInit:
 	// AF: we need to change the task here
 	LDR     R3, =my_task_MainCtrl         // r3 = task_MainCtrl
 	LDR     R0, =aMainCtrl                // r0 = "MainCtrl"
-	STR     R6, [SP,#0x348+var_348]       // zero the stack[0] ??
+	STR     R6, [SP,#0]                   // zero the stack[0] ?? zero_var
 	BL      CreateTask                    // call CreateTask(/*name*/"MainCtrl", /*prio*/0x15, /*stack_size*/0x4000, /*routine*/task_MainCtrl)
 	BL      DebugProcsInit                // call DebugProcsInit()
 	BL      CreateInterComQueue           // call CreateInterComQueue()
@@ -70,20 +65,29 @@ my_MainCtrlInit:
 	BL      SetDprPrinterProperty         // call SetDprPrinterProperty()
 	BL      MC_RegisterEventProcedures    // call MC_RegisterEventProcedures()
 	BL      GetMainPreserveData.field_1C_LSR30 // (unsigned)r0 = GetMainPreserveData.field_1C() div 0x20000000
-	CMP     R0, R6                        // if (r0 == 0) ... 
+	CMP     R0, R6                        // ? (r0 == 0) ... 
 	MOV     R0, R6                        // r0 = 0
 	BEQ     loc_FF81BD8C                  // ... if (r0 == 0) goto loc_FF81BD8C;
 	BL      some_with_FixFacePos_0        // call some_with_FixFacePos_0
 	MOV     R2, #0x198                    // r2 = 0x198
-	ADD     R4, SP, R2                    // r4 = localvar
+	ADD     R4, SP, R2                    // r4 = localvar[0x198]
 	MOV     R1, R6                        // r1 = 0
 	MOV     R0, R4                        // r0 = localvar
 	BL      memset                        // memset (localvar, 0, 0x198);
-	MOV     R0, R4                        // r0 = localvar
-	ADD     R1, SP, #0x348+var_344        // r1 = localvar2
-	STR     R7, [SP,#0x348+var_3C]        // localvar2.0x3C = 1  ???
-	STR     R7, [SP,#0x348+var_1D0]       // localvar2.0x1D0 = 1 ???
-	BL      SendMessageDprRequestChangeData // call SendMessageDprRequestChangeData(data_0x198, data_0x194); ???
+	MOV     R0, R4                        // r0 = localvar[0x198]
+	ADD     R1, SP, #4                    // r1 = localvar2[0x194]
+	STR     R7, [SP,#0x30C]               // localvar.0x174 = 1 ???
+	STR     R7, [SP,#0x178]               // localvar2.0x174 = 1 ???
+	BL      SendMessageDprRequestChangeData // call SendMessageDprRequestChangeData(localvar, localvar2);
+	
+	// stack size 0x330
+	//
+	//    4      0x194             0x198
+	// SP|-|---------------|-------------------|
+	// 0=^ ^  [localvar2]  ^     [localvar]
+	//     |               |
+	//     |               |
+	//     +- localvar2    +- localvar
 
 loc_FF81BD8C:                                 // CODE XREF: MainCtrlInit+F8j
 	BL      sub_FF823F34                  // r0 = sub_FF823F34()
@@ -93,7 +97,7 @@ loc_FF81BD8C:                                 // CODE XREF: MainCtrlInit+F8j
 	LDR     R0, [R8]                      // r0 = hMainCtrlMonoSem
 	BL      TakeSemaphore                 // call TakeSemaphore(hMainCtrlMonoSem, 0);
 	LDR     R3, =dword_1C78               // r3 = dword_1C78
-	STR     R7, [R3]                      // dword_1C78 = 1
+	STR     R7, [R3]                      // *dword_1C78 = 1
 	BL      get_0x1CCC                    // r0 = get_0x1CCC()
 	CMP     R0, #0                        // ? (r0 == 0)
 	BEQ     givesem                       // if (r0 == 0) goto givesem
@@ -108,7 +112,7 @@ givesem:                                      // CODE XREF: MainCtrlInit+150j
 	BL      GiveSemaphore                 // call GiveSemaphore(hMainCtrlMonoSem);
 
 return:                                       // CODE XREF: MainCtrlInit+130j
-	ADD     SP, SP, #0x330                // Rd = Op1 + Op2
+	ADD     SP, SP, #0x330                // release the stack
 	LDMFD   SP!, {R4-R8,PC}               // Load Block from Memory
 
 .align 2
