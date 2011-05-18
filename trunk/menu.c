@@ -36,9 +36,23 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
+int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+	switch (event) {
+	case GUI_BUTTON_ZOOM_IN_PRESS:
+		menu_submenu_next();
+		return FALSE;
+	case GUI_BUTTON_ZOOM_OUT_PRESS:
+		menu_submenu_prev();
+		return FALSE;
+	default:
+		return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+	}
+}
+
 void menu_destroy(type_MENU * menu) {
 	if (menu->handle != 0)
 		DeleteDialogBox(menu->handle);
+
 	menu->handle = 0;
 	menu->current_line = 0;
 	menu->current_item = 0;
@@ -51,7 +65,7 @@ void menu_create(type_MENU * menu) {
 
 	menu_destroy(current_menu);
 
-	current_menu->handle = dialog_create(22, InfoCreativeAppProc);
+	current_menu->handle = dialog_create(22, button_handler);
 	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 
 	menu_display();
