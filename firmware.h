@@ -113,21 +113,25 @@ extern int eventproc_Release();
 
 // Display
 
-#define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template)
-extern type_DIALOG *CreateDialogBox(int parm1, int parm2, int (*btn_handler)(), int template);
+// Handler for buttons in dialogs
+typedef int(*type_BTN_HANDLER)(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
+extern type_DIALOG *CreateDialogBox(int parm1, int parm2, type_BTN_HANDLER, int template);
 extern int DeleteDialogBox(type_DIALOG *dialog);
 
-#define dialog_redraw do_some_with_dialog
 extern int do_some_with_dialog(type_DIALOG *dialog);
 
+extern int sub_FF8382DC(type_DIALOG *dialog, const int code, const int   data);
+extern int sub_FF837FA8(type_DIALOG *dialog, const int code, const char *text);
+
+#define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template)
+
+#define dialog_redraw do_some_with_dialog
+
 #define dialog_set_property_int sub_FF8382DC
-extern int   sub_FF8382DC(type_DIALOG *dialog, const int code, const int data);
-
 #define dialog_set_property_str sub_FF837FA8
-extern int   sub_FF837FA8(type_DIALOG *dialog, const int code, const char *text);
 
-extern int InfoCreativeAppProc();
+extern int InfoCreativeAppProc(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 

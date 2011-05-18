@@ -459,9 +459,6 @@ typedef struct struct_DIALOG type_DIALOG;
 // the struct is "char *" with name of the dialog
 
 
-// Handler for buttons in dialogs
-typedef void(*type_BTN_HANDLER)(int r0, int r1, int code1, int r3, int r4, int r5, int r6, int code2);
-
 // Action definitions
 typedef void(*type_TASK)();
 
