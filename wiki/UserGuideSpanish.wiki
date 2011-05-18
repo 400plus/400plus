@@ -128,18 +128,18 @@ Bajo circunstancias normales, cuando se recupera un preajuste todos los parámet
 
 Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado); cuando esa opción está activa, ocurrirán los cambios siguientes:
 
- * _* Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. 
- * _* Cuando la cámara se enciende en el modo A-DEP, el último preset utilizado es automáticamente reclamado.
+ * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. 
+ * Cuando la cámara se enciende en el modo A-DEP, el último preset utilizado es automáticamente reclamado.
   
 == Configurar el menú presets ==
 
 Podemos reorganizar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos] (presiona MENU para seleccionar / soltar, y ARRIBA / ABAJO para mover); pero además los podemos renombrar: mientras un preset está seleccionado, presiona SET para entrar en el menú para cambio de nombre.
 
- * _* Utiliza ARRIBA / ABAJO para seleccionar una letra.
- * _* Utiliza el botón AV para alternar entre minúsculas / números y mayúsculas / símbolos. 
- * _* Utiliza SET para usar una letra en el nombre y avanza el cursor.
- * _* Utiliza el dial frontal para mover el cursor.
- * _* Muévete a la línea inferior y presiona SET allí para volver al menú presets.   
+ * Utiliza ARRIBA / ABAJO para seleccionar una letra.
+ * Utiliza el botón AV para alternar entre minúsculas / números y mayúsculas / símbolos. 
+ * Utiliza SET para usar una letra en el nombre y avanza el cursor.
+ * Utiliza el dial frontal para mover el cursor.
+ * Muévete a la línea inferior y presiona SET allí para volver al menú presets.   
 
 = Selección del patrón AF =
 
