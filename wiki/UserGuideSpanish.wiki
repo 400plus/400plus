@@ -10,15 +10,15 @@ Spanish translation provided by Jmtd.
 
 Este documento contiene las instrucciones de uso para 400plus. Se supone que, antes de leer esta guía, el usuario ha instalado 400plus y funciona correctamente. Para información acerca de la instalación de 400plus, ver [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
-= El menú =
+= El menu de ajustes =
 
-== Acceso al menú ==
+== Acceso al menú de ajustes ==
 
 Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará el nuevo menú 400plus). Para salir del menú 400plus presiona hasta la mitad el botón disparador.
 
 == Navegación por el menú ==
 
-Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza el botón de  IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor.
+Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor.
 
 Utiliza el botón SET para guardar los valores y activar los cambios; recuerda que todos los cambios se perderán si sales del menú antes de pulsar el botón SET.
 
@@ -29,24 +29,28 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
 == Los sub-menús ==
 
  * _*Av Comp*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
- * _*Flash Comp*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV. 
- * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV. 
+ * _*Flash Comp*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
+ * _*Usa Flash*_: Fuerza la desactivación del flash durante el disparo, aunque se haya elevado el flash.
+ * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario (activarla después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección del balance de  blancos). 
+ * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV.
+ * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
+ * _*Retardo infrarrojos*_: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
  * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
  * _*Menú de accesos directos*_: Cuando está activo, el menú de accesos directos se mostrará en la pantalla principal al presionar el botón de IMPRESIÓN DIRECTA; cuando está fijado en "No", el botón de IMPRESIÓN DIRECTA cambiará a una ISO intermedia.
- * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv o Av, la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
- * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario (activarla después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de balance de  blancos). 
- * _*Flash*_: Fuerza la desactivación del flash (durante el disparo), aunque se haya elevado el flash. 
+ * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_Guiones Los Guiones]. 
+  * LCD bajo: cuando está activado la pantalla se atenúa para preservar la vida de la batería. 
+  * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo, la opción de auto-apagado de la cámara está desactivada.
  * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
   * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
   * Acción: la acción a realizar. 
   * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
   * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario, el guión va a esperar hasta que la mano se retira.
  * _*Ext. AEB*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
+  * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
   * Marcos: número de tomas a disparar. 
   * Paso (EV): separación en EV entre disparos. 
-  * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
-  * Manual [: velocidad mínima del obturador en modo M. 
-  * Manual ]: velocidad máxima del obturador en modo M. 
+  * Manual [: velocidad mínima del obturador en modo M (puede ir desde 16 minutos a 1/4000 segundo). 
+  * Manual ]: velocidad máxima del obturador en modo M (puede ir desde 16 minutos a 1/4000 segundo). 
  * _*Intervalo*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
   * Retardo: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
   * Tiempo (s): tiempo (en segundos) entre cada disparo.
@@ -55,7 +59,13 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
  * _*Temporizador*_: Este sub-menú configura la secuencia de comandos del [UserGuideSpanish#Autodisparador Autodisparador]. 
   * Retardo (s): tiempo (en segundos) que el guión debe esperar antes de disparar. 
   * Acción: la acción a realizar. 
- * _*Retardo infrarrojos*_: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
+ * _*Preajustes (Presets)*_: Este menú configura el comportamiento de [UserGuideSpanish#los_preajustes_(presets) Los Preajustes].
+  * Usa A-DEP: cuando está activo, el modo A-DEP es "secuestrado" por los presets; por favor, lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
+  * Cámara: cuando está activo, la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
+  * 400plus: cuando está activo, la carga de un preset reclama los propios ajustes 400plus (guiones,...).
+  * Ajustes: cuando está activo, la carga de un preset reclama los ajustes rara vez cambiados (lenguaje, sistema de video,...).
+  * Imagen: cuando está activo, la carga de un preset reclama los parámetros relativos a la imagen (RAW/JPEG, calidad,...).
+  * Funciones personalizadas: cuando está activo, la carga de un preset reclama las funciones personalizadas (bloqueo de espejo, reducción de ruido a larga exposición,...).
  * _*Menú de desarrolladores*_: Presiona el botón SET mientras está resaltada esta opción para entrar en el menú de desarrolladores.
 
 = El menu de accesos directos =
@@ -75,7 +85,7 @@ Para salir del menú de accesos directos, presiona hasta la mitad el botón disp
 
 == Configurar el menú de accesos directos ==
 
-Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aplarecen. Presiona MENU para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo MENU cuando hayas acabado. No olvides pulsar SET para guardar el nuevo orden de los accesos directos en la tarjeta antes de salir.
+Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aplarecen. Presiona MENU para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo MENU cuando hayas acabado. No olvides pulsar SET para guardar el nuevo orden de los accesos directos en la tarjeta CF antes de salir.
 
 
 = Los guiones =
@@ -88,10 +98,10 @@ Para detener una secuencia de comandos en ejecución, presiona el botón de IMPR
 == AEB Extendido ==
 
 Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias: 
-  #. Se pueden especificar hasta 9 tomas. 
-  #. La separación entre las tomas se puede configurar hasta +6 EV. 
-  #. La cámara tomará todas las fotos en una secuencia, de forma automática.
-En el modo M, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde "Manual [" hasta "Manual ]", separando cada disparo de acuerdo con el valor del "Paso (EV)". 
+ * _* Se pueden especificar hasta 9 tomas. 
+ * _* La separación entre las tomas se puede configurar hasta +6 EV. 
+ * _* La cámara tomará todas las fotos en una secuencia, de forma automática.
+En el modo BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Manual [" hasta el valor "Manual ]", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
 
 == Intervalometro ==
 
@@ -99,21 +109,36 @@ Este guión disparará la cámara tantas veces como se haya configurado (o sin f
 
 == Toma por Visor (ondeo) ==
 
-Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (tu mano o tu dedo) bloquee el sensor y luego se retire; pero, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
+Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (como tu mano o tu dedo) bloquee el sensor y luego se retire; sin embargo, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
 
 == Autodisparador ==
 
 Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
 
 
-= Los preajustes =
+= Los preajustes (presets) =
 
-ADVERTENCIA: Esta capacidad es aún experimental, así que utilízala con cuidado.
+Un "preset" (preajuste) es una instantánea completa que contiene todos los ajustes de la cámara y los parámetros de configuración. Los presets se pueden utilizar para pre-configurar la cámara para una situación específica de disparo (como "paisaje", "retrato", "poca luz", "pájaros en vuelo", etc.), y te permiten tener un acceso rápido a estas configuraciones más adelante.
+Los preajustes son almacenados en la tarjeta CF en sí. Se pueden almacenar hasta 5 preajustes. Para guardar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estás en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]; a continuación, selecciona una ranura de preajuste y pulsa SET (si la ranura ha sido utilizada anteriormente, su contenido se sobrescribe). Para recuperar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estés en [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]; a continuación, selecciona el preajuste deseado y pulsa el botón SET (si la posición está vacía, no ocurrirá nada).
 
-Un "preajuste" es una instantánea completa que contiene todos los ajustes de la cámara y los parámetros de configuración. Los preajustes se pueden utilizar para pre-configurar la cámara para una situación específica de disparo (como "paisaje", "retrato", "poca luz", "pájaros en vuelo", etc.), y te permiten tener un acceso rápido a estas configuraciones más adelante.
-Los preajustes son almacenados en la tarjeta CF en sí. Se pueden almacenar hasta 5 preajustes. Para guardar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estás en el menú 400plus; a continuación, selecciona una ranura de preajuste y pulsa SET (si la ranura ha sido utilizada anteriormente, su contenido se sobrescribe). Para recuperar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estés en el menú de accesos directos; a continuación, selecciona el preajuste deseado y pulsa el botón SET (si la posición está vacía, no ocurrirá nada).
+== El modo A-DEP ==
 
-NOTA: Cuando se recupera un preajuste, todos los parámetros de la cámara se cambian, incluso el modo AE; ten en cuenta que la cámara puede operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal.
+Bajo circunstancias normales, cuando se recupera un preajuste todos los parámetros de la cámara se cambian, incluso el modo AE (a menos que, obviamente, se haya especificado lo contrario en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]; ten en cuenta que la cámara puede operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal. Pero si se apaga la cámara y se vuelve a encender, se volverá al modo de AE real seleccionado en el dial principal.
+
+Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado); cuando esa opción está activa, ocurrirán los cambios siguientes:
+
+ * _* Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. 
+ * _* Cuando la cámara se enciende en el modo A-DEP, el último preset utilizado es automáticamente reclamado.
+  
+== Configurar el menú presets ==
+
+Podemos reorganizar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos] (presiona MENU para seleccionar / soltar, y ARRIBA / ABAJO para mover); pero además los podemos renombrar: mientras un preset está seleccionado, presiona SET para entrar en el menú para cambio de nombre.
+
+ * _* Utiliza ARRIBA / ABAJO para seleccionar una letra.
+ * _* Utiliza el botón AV para alternar entre minúsculas / números y mayúsculas / símbolos. 
+ * _* Utiliza SET para usar una letra en el nombre y avanza el cursor.
+ * _* Utiliza el dial frontal para mover el cursor.
+ * _* Muévete a la línea inferior y presiona SET allí para volver al menú presets.   
 
 = Selección del patrón AF =
 
@@ -125,11 +150,11 @@ Se han agregado a la cámara los siguientes extras:
 
 === En la zona básica ===
 
-En la zona básica, utiliza el botón AV para alternar entre salida RAW y JPEG.
+En la _zona básica_, utiliza el botón AV para alternar entre calidad de imagen RAW y JPEG.
 
 === En la zona creativa ===
 
-En la zona creativa están activos: 
+En la _zona creativa_ están disponibles: 
  * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver [UserGuideSpanish#ISOs_Extendidos Notas / ISOs Extendidos]). 
  * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver [UserGuideSpanish#Modo_de_medicion_puntual Notas / Modo de medición puntual]).
  * En el cuadro de diálogo de selección del balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
@@ -140,19 +165,19 @@ Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 
 == Información extendida ==
 
-En la pantalla de "ajustes de la cámara" (presionar DISP en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta):
+En la pantalla de "ajustes de la cámara" (presionar DISP en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta CF):
  * El número total de disparos hechos por la cámara. 
  * El número de la versión de 400plus actualmente instalada.
  * El "BodyID" del cuerpo de la cámara (un número interno, único de cada cámara). 
-Utiliza SET e IZQUIERDA / DERECHA para cambiar el valor mostrado.
+Utiliza SET e IZQUIERDA / DERECHA para cambiar el ítem a mostrar.
 
 == El asunto de la nariz (ojo zurdo) ==
 
 Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar con la nariz o la mejilla del usuario. 
 
-== Menú de Fábrica y el modo de depuración ==
+== El menú de desarrolladores ==
 
-_*AVISO*_: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
+*AVISO*: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
 
 Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y pulsa SET:
  * _* Entrar modo fábrica*_: Pone la cámara en "modo fábrica"; también activa el "menú de fábrica".
@@ -179,5 +204,4 @@ El modo de medición puntual es como el modo de "medición parcial" estándar, p
 
 Se han comunicado y confirmado los siguientes errores relevantes:
 
- * Issue #15: La exposición cambia durante EAEB.
- * Issue #38: Preajustes: Modo AE mal restaurado durante el encendido.
+ * Issue #15: La exposición cambia durante EAEB. 
