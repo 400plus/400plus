@@ -59,7 +59,7 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
  * _*Temporizador*_: Este sub-menú configura la secuencia de comandos del [UserGuideSpanish#Autodisparador Autodisparador]. 
   * Retardo (s): tiempo (en segundos) que el guión debe esperar antes de disparar. 
   * Acción: la acción a realizar. 
- * _*Preajustes (Presets)*_: Este menú configura el comportamiento de [UserGuideSpanish#los_preajustes_(presets) Los Preajustes].
+ * _*Preajustes (Presets)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
   * Usa A-DEP: cuando está activo, el modo A-DEP es "secuestrado" por los presets; por favor, lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo, la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
   * 400plus: cuando está activo, la carga de un preset reclama los propios ajustes 400plus (guiones,...).
