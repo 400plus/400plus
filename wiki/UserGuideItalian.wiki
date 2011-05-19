@@ -59,7 +59,7 @@ I Sub-menu vengono visualizzati come "`ITEM>SUBITEM`"; utilizzare la rotellina f
   * Delay (s): il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. 
   * Action: azione da eseguire. 
  * _*Presets*_: Questo sottomenu configura il comportamento delle [#Le_preselezioni preselezioni]:
-  * Use A-DEP: se attivo, viene utilizzata la modalità `A-DEP` solo per le [#Le_preselezioni preselezioni]; consultare la sezione [#La_Modalit%C3%A0_A-DEP Modalità A-DEP] per maggiori informazioni.
+  * Use A-DEP: se attivo, viene utilizzata la modalità `A-DEP` solo per le [#Le_preselezioni preselezioni]; consultare la sezione [#La_modalit%C3%A0_A-DEP Modalità A-DEP] per maggiori informazioni.
   * Camera: se attivo, richiamando una preselezione verranno richiamati i parametri di scatto della fotocamera (velocità di scatto, apertura, ISO, ...).
   * 400plus: se attivato, richiamando una preselezione verranno richiamati i parametri di configurazione di 400plus (script, ...).
   * Settings: se attivo, richiamando una preselezione verranno richiamati i parametri di configurazione che vengono cambiati molto di rado (lingua, sistema video, ...).
@@ -111,7 +111,7 @@ Questo script fa scattare la fotocamera quando viene innescato il sensore "displ
 Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera; possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
 
 
-= Le Preselezioni =
+= Le preselezioni =
 
 Una "Preselezione" è una immagine completa di tutte le preferenze di scatto e parametri di configurazione della fotocamera. Le preselezioni possono essere usate per preconfigurare la fotocamera in maniera specifica per una determinata situazione di scatto (e.g. "Panorama", "Ritratto", etc.), ed avere in seguito la possibilità di richiamare velocemente tale configurazione.
 
