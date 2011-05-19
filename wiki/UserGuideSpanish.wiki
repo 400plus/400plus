@@ -120,6 +120,7 @@ Este guión simplemente añade una pausa configurable antes de disparar la cáma
 = Los preajustes (presets) =
 
 Un "preset" (preajuste) es una instantánea completa que contiene todos los ajustes de la cámara y los parámetros de configuración. Los presets se pueden utilizar para pre-configurar la cámara para una situación específica de disparo (como "paisaje", "retrato", "poca luz", "pájaros en vuelo", etc.), y te permiten tener un acceso rápido a estas configuraciones después.
+
 Los preajustes son almacenados en la tarjeta CF en sí. Se pueden almacenar hasta 5 preajustes. Para guardar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estás en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]; a continuación, selecciona una ranura de preajuste y pulsa SET (si la ranura ha sido utilizada anteriormente, su contenido se sobrescribe). Para recuperar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estés en [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]; a continuación, selecciona el preajuste deseado y pulsa el botón SET (si la posición está vacía, no ocurrirá nada).
 
 == El modo A-DEP ==
