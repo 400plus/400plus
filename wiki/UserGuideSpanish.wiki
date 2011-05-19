@@ -138,7 +138,7 @@ Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos
 
  * Utiliza ARRIBA / ABAJO para seleccionar una letra.
  * Utiliza el botón AV para alternar entre minúsculas / números y mayúsculas / símbolos. 
- * Utiliza SET para usar una letra en el nombre y avanza el cursor.
+ * Utiliza SET para usar una letra en el nombre y avanzar el cursor.
  * Utiliza el dial frontal para mover el cursor.
  * Muévete a la línea inferior y presiona SET allí para volver al menú presets.   
 
