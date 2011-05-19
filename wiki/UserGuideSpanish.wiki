@@ -28,8 +28,8 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
 
 == Los sub-menús ==
 
- * _*Av Comp*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
- * _*Flash Comp*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
+ * _*Comp. Av*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
+ * _*Comp Flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
  * _*Usa Flash*_: Fuerza la desactivación del flash durante el disparo, aunque se haya elevado el flash.
  * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario (activarla después presionando el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección del balance de  blancos). 
  * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV.
@@ -45,12 +45,12 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pa
   * Acción: la acción a realizar. 
   * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
   * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario, el guión va a esperar hasta que la mano se retira.
- * _*Ext. AEB*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
+ * _*AEB Ext.*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
   * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
   * Marcos: número de tomas a disparar. 
   * Paso (EV): separación en EV entre disparos. 
-  * Manual [: velocidad mínima del obturador en modo M (puede ir desde 16 minutos a 1/4000 segundo). 
-  * Manual ]: velocidad máxima del obturador en modo M (puede ir desde 16 minutos a 1/4000 segundo). 
+  * Manual [: velocidad mínima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
+  * Manual ]: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
  * _*Intervalo*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
   * Retardo: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
   * Tiempo (s): tiempo (en segundos) entre cada disparo.
