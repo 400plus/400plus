@@ -188,7 +188,7 @@ Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y p
 
 _*NOTA*_: Tras entrar en el "modo fábrica", el "menú de fábrica" permanecerá disponible hasta que se apague la cámara; salir del "modo de fábrica" no desactivará el "menú de fábrica". 
 
-_*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado que _no es posible descargar fotografías al ordenador mientras la cámara se encuentra en "modo de fábrica"_.
+_*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado que _*no es posible descargar fotografías al ordenador mientras la cámara se encuentra en "modo de fábrica"*_.
 
 = Notas =
 
