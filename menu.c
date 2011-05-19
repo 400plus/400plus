@@ -17,19 +17,6 @@ OPTIONLIST_DEF(flash,   LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_O
 OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter, "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 
-type_ACTION actions_standard[]  = {
-	{GUI_BUTTON_UP,             FALSE, RESP_PASS,  {menu_up}},
-	{GUI_BUTTON_DOWN,           FALSE, RESP_PASS,  {menu_down}},
-	{GUI_BUTTON_DISP,           FALSE, RESP_PASS,  {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {menu_drag_drop}},
-	{GUI_BUTTON_JUMP,           FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_TRASH,          FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, RESP_BLOCK, {menu_submenu_next}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, RESP_BLOCK, {menu_submenu_prev}},
-	END_OF_LIST
-};
-
 void menu_initialize();
 void menu_destroy();
 
@@ -39,6 +26,17 @@ void menu_display();
 void menu_refresh();
 
 void menu_repeat(void (*repeateable)(int repeating));
+
+void menu_up();
+void menu_down();
+void menu_right();
+void menu_left();
+void menu_cycle();
+void menu_action();
+void menu_dp_action();
+void menu_drag_drop();
+void menu_submenu_next();
+void menu_submenu_prev();
 
 void menu_repeateable_cycle(int repeating);
 void menu_repeateable_right(int repeating);
@@ -53,6 +51,60 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
+
+type_ACTION actions_callback[]  = {
+	{GUI_BUTTON_UP,             FALSE, RESP_PASS,  {menu_callback_up}},
+	{GUI_BUTTON_DOWN,           FALSE, RESP_PASS,  {menu_callback_down}},
+	{GUI_BUTTON_DISP,           FALSE, RESP_PASS,  {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {menu_callback_menu}},
+	{GUI_BUTTON_JUMP,           FALSE, RESP_BLOCK, {menu_callback_jump}},
+	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {menu_callback_play}},
+	{GUI_BUTTON_TRASH,          FALSE, RESP_BLOCK, {menu_callback_trash}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, RESP_BLOCK, {menu_callback_zoom_in}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, RESP_BLOCK, {menu_callback_zoom_out}},
+	END_OF_LIST
+};
+
+type_MENU_CALLBACK callbacks[MENUTYPE_COUNT] = {
+	[MENUTYPE_STANDARD] = {
+		dp         : menu_dp_action,
+		av         : menu_cycle,
+		up         : menu_up,
+		down       : menu_down,
+		right      : menu_right,
+		left       : menu_left,
+		set        : menu_action,
+		menu       : NULL,
+		jump       : NULL,
+		play       : menu_drag_drop,
+		trash      : NULL,
+		dial_left  : NULL,
+		dial_right : NULL,
+		zoom_in    : menu_submenu_prev,
+		zoom_out   : menu_submenu_next,
+	},
+	[MENUTYPE_RENAME] = {
+		dp         : NULL,
+		av         : NULL,
+		up         : NULL,
+		down       : NULL,
+		right      : NULL,
+		left       : NULL,
+		set        : NULL,
+		menu       : NULL,
+		jump       : NULL,
+		play       : NULL,
+		trash      : NULL,
+		dial_left  : NULL,
+		dial_right : NULL,
+		zoom_in    : NULL,
+		zoom_out   : NULL,
+	},
+};
+
+/**
+ * Main menu routines
+ */
 
 void menu_create(type_MENU * menu) {
 	current_menu = menu;
@@ -89,11 +141,27 @@ void menu_destroy() {
 		DeleteDialogBox(current_menu->handle);
 }
 
+void menu_display() {
+	int i;
+	int offset = current_menu->current_item > current_menu->current_line ?
+		current_menu->current_item - current_menu->current_line : 0;
+
+	for(i = 0; i < 5; i++)
+		dialog_set_property_str(current_menu->handle, i + 1, menu_message(i + offset));
+
+	dialog_redraw(current_menu->handle);
+}
+
+void menu_refresh() {
+	dialog_set_property_str(current_menu->handle, current_menu->current_line + 1, menu_message(current_menu->current_item));
+	dialog_redraw(current_menu->handle);
+}
+
 int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	type_ACTION *action;
 
 	// Loop over all the actions from this action chain
-	for (action = actions_standard; ! IS_EOL(action); action++) {
+	for (action = actions_callback; ! IS_EOL(action); action++) {
 
 		// Check whether this action corresponds to the event received
 		if (action->button == event) {
@@ -118,21 +186,48 @@ pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
-void menu_display() {
-	int i;
-	int offset = current_menu->current_item > current_menu->current_line ?
-		current_menu->current_item - current_menu->current_line : 0;
+void menu_repeat(void(*repeateable)()){
+	int delay;
+	int button = status.button_down;
 
-	for(i = 0; i < 5; i++)
-		dialog_set_property_str(current_menu->handle, i + 1, menu_message(i + offset));
+	SleepTask(50);
 
-	dialog_redraw(current_menu->handle);
+	repeateable(FALSE);
+	delay = AUTOREPEAT_DELAY_LONG;
+
+	do {
+		SleepTask(AUTOREPEAT_DELAY_UNIT);
+
+		if (--delay == 0) {
+			repeateable(TRUE);
+			delay = AUTOREPEAT_DELAY_SHORT;
+		}
+	} while (status.button_down && status.button_down == button);
 }
 
-void menu_refresh() {
-	dialog_set_property_str(current_menu->handle, current_menu->current_line + 1, menu_message(current_menu->current_item));
-	dialog_redraw(current_menu->handle);
-}
+/**
+ * Menu callback redirects
+ */
+
+void menu_callback_dp()         { callbacks[current_menu->type].dp();}
+void menu_callback_av()         { callbacks[current_menu->type].av();}
+void menu_callback_up()         { callbacks[current_menu->type].up();}
+void menu_callback_down()       { callbacks[current_menu->type].down();}
+void menu_callback_right()      { callbacks[current_menu->type].right();}
+void menu_callback_left()       { callbacks[current_menu->type].left();}
+void menu_callback_set()        { callbacks[current_menu->type].set();}
+void menu_callback_menu()       { callbacks[current_menu->type].menu();}
+void menu_callback_jump()       { callbacks[current_menu->type].jump();}
+void menu_callback_play()       { callbacks[current_menu->type].play();}
+void menu_callback_trash()      { callbacks[current_menu->type].trash();}
+void menu_callback_dial_left()  { callbacks[current_menu->type].dial_left();}
+void menu_callback_dial_right() { callbacks[current_menu->type].dial_right();}
+void menu_callback_zoom_in()    { callbacks[current_menu->type].zoom_in();}
+void menu_callback_zoom_out()   { callbacks[current_menu->type].zoom_out();}
+
+/**
+ * Standard menu routines
+ */
 
 void menu_up() {
 	int display = FALSE;
@@ -253,25 +348,6 @@ void menu_submenu_prev() {
 
 		menu_refresh();
 	}
-}
-
-void menu_repeat(void(*repeateable)()){
-	int delay;
-	int button = status.button_down;
-
-	SleepTask(50);
-
-	repeateable(FALSE);
-	delay = AUTOREPEAT_DELAY_LONG;
-
-	do {
-		SleepTask(AUTOREPEAT_DELAY_UNIT);
-
-		if (--delay == 0) {
-			repeateable(TRUE);
-			delay = AUTOREPEAT_DELAY_SHORT;
-		}
-	} while (status.button_down && status.button_down == button);
 }
 
 void menu_repeateable_right(int repeating) {
