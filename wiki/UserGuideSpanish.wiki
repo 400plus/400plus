@@ -169,8 +169,8 @@ Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 
 En la pantalla de "ajustes de la cámara" (presionar DISP en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta CF):
  * El número total de disparos hechos por la cámara. 
- * El número de la versión de 400plus actualmente instalada.
- * El "BodyID" del cuerpo de la cámara (un número interno, único de cada cámara). 
+ * El número de la versión del software 400plus actualmente instalado.
+ * El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara). 
 Utiliza SET e IZQUIERDA / DERECHA para cambiar el ítem a mostrar.
 
 == El asunto de la nariz (ojo zurdo) ==
