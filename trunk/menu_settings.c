@@ -76,6 +76,7 @@ type_MENUITEM menu_settings_items[] = {
 
 type_MENU main_menu = {
 	name        : LP_WORD(L_SETTINGS),
+	type        : MENUTYPE_STANDARD,
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
 	action      : menu_settings_save,

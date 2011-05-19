@@ -24,6 +24,7 @@ type_MENUITEM menu_shortcut_items[] = {
 
 type_MENU menu_shortcuts = {
 	name        : LP_WORD(L_SHORTCUTS),
+	type        : MENUTYPE_STANDARD,
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
 	action      : menu_shortcuts_save,
