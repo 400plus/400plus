@@ -50,14 +50,11 @@ type_ACTION actions_info[]  = {
 };
 
 type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
-	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
 	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
 	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
 	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
 	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
 	{IC_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
-	{IC_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
 	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
 	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
 	END_OF_LIST

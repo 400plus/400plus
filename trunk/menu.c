@@ -17,6 +17,19 @@ OPTIONLIST_DEF(flash,   LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_O
 OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter, "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 
+type_ACTION actions_standard[]  = {
+	{GUI_BUTTON_UP,             FALSE, RESP_PASS,  {menu_up}},
+	{GUI_BUTTON_DOWN,           FALSE, RESP_PASS,  {menu_down}},
+	{GUI_BUTTON_DISP,           FALSE, RESP_PASS,  {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {menu_drag_drop}},
+	{GUI_BUTTON_JUMP,           FALSE, RESP_BLOCK, {NULL}},
+	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {NULL}},
+	{GUI_BUTTON_TRASH,          FALSE, RESP_BLOCK, {NULL}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, RESP_BLOCK, {menu_submenu_next}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, RESP_BLOCK, {menu_submenu_prev}},
+	END_OF_LIST
+};
+
 void menu_initialize();
 void menu_destroy();
 
@@ -77,16 +90,32 @@ void menu_destroy() {
 }
 
 int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
-	switch (event) {
-	case GUI_BUTTON_ZOOM_IN_PRESS:
-		menu_submenu_next();
-		return FALSE;
-	case GUI_BUTTON_ZOOM_OUT_PRESS:
-		menu_submenu_prev();
-		return FALSE;
-	default:
-		return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+	type_ACTION *action;
+
+	// Loop over all the actions from this action chain
+	for (action = actions_standard; ! IS_EOL(action); action++) {
+
+		// Check whether this action corresponds to the event received
+		if (action->button == event) {
+
+			// Launch the defined task
+			if (action->task[0])
+				action->task[0]();
+
+			// Decide how to respond to this button
+			switch(action->resp) {
+			case RESP_PASS:
+				goto pass_event;
+			case RESP_BLOCK:
+				return FALSE;
+			case RESP_RELEASE:
+				return TRUE;
+			}
+		}
 	}
+
+pass_event:
+	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
 void menu_display() {
