@@ -17,14 +17,19 @@ OPTIONLIST_DEF(flash,   LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_O
 OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter, "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 
+void menu_initialize();
+void menu_destroy();
+
+int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+
+void menu_display();
+void menu_refresh();
+
 void menu_repeat(void (*repeateable)(int repeating));
 
 void menu_repeateable_cycle(int repeating);
 void menu_repeateable_right(int repeating);
 void menu_repeateable_left (int repeating);
-
-void menu_display();
-void menu_refresh();
 
 char *menu_message(int item_id);
 
@@ -35,6 +40,41 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
+
+void menu_create(type_MENU * menu) {
+	current_menu = menu;
+	FLAG_GUI_MODE = GUIMODE_400PLUS;
+
+	menu_initialize();
+
+	current_menu->handle = dialog_create(22, button_handler);
+	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
+
+	menu_display();
+}
+
+void menu_close() {
+	menu_destroy();
+
+	press_button(IC_BUTTON_DISP);
+	SleepTask(250);
+
+	display_refresh();
+}
+
+void menu_initialize() {
+	menu_destroy();
+
+	current_menu->handle = 0;
+	current_menu->current_line = 0;
+	current_menu->current_item = 0;
+	current_menu->item_grabbed = FALSE;
+}
+
+void menu_destroy() {
+	if (current_menu->handle != 0)
+		DeleteDialogBox(current_menu->handle);
+}
 
 int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	switch (event) {
@@ -47,28 +87,6 @@ int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int 
 	default:
 		return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 	}
-}
-
-void menu_destroy(type_MENU * menu) {
-	if (menu->handle != 0)
-		DeleteDialogBox(menu->handle);
-
-	menu->handle = 0;
-	menu->current_line = 0;
-	menu->current_item = 0;
-	menu->item_grabbed = FALSE;
-}
-
-void menu_create(type_MENU * menu) {
-	current_menu = menu;
-	FLAG_GUI_MODE = GUIMODE_400PLUS;
-
-	menu_destroy(current_menu);
-
-	current_menu->handle = dialog_create(22, button_handler);
-	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
-
-	menu_display();
 }
 
 void menu_display() {
@@ -334,15 +352,6 @@ void menu_repeateable_cycle(int repeating) {
 	}
 
 	menu_refresh();
-}
-
-void menu_close() {
-	menu_destroy(current_menu);
-
-	press_button(IC_BUTTON_DISP);
-	SleepTask(250);
-
-	display_refresh();
 }
 
 char *menu_message(int item_id) {
