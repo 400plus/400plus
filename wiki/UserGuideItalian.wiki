@@ -59,13 +59,13 @@ I Sub-menu vengono visualizzati come "`ITEM>SUBITEM`"; utilizzare la rotellina f
   * Delay (s): il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. 
   * Action: azione da eseguire. 
  * _*Presets*_: Questo sottomenu configura il comportamento delle [#Le_preselezioni preselezioni]:
-  * Use A-DEP: se attivo, viene utilizzata la modalità `A-DEP` solo per le [#Le_preselezioni preselezioni]; consultare la sezione [#Modalit%C3%A0_A-DEP Mo0dalità A-DEP] per maggiori informazioni.
+  * Use A-DEP: se attivo, viene utilizzata la modalità `A-DEP` solo per le [#Le_preselezioni preselezioni]; consultare la sezione [#La_Modalit%C3%A0_A-DEP Modalità A-DEP] per maggiori informazioni.
   * Camera: se attivo, richiamando una preselezione verranno richiamati i parametri di scatto della fotocamera (velocità di scatto, apertura, ISO, ...).
   * 400plus: se attivato, richiamando una preselezione verranno richiamati i parametri di configurazione di 400plus (script, ...).
   * Settings: se attivo, richiamando una preselezione verranno richiamati i parametri di configurazione che vengono cambiati molto di rado (lingua, sistema video, ...).
   * Image: se attio, richiamando una preselezione verranno richiamati i parametri relativi all'immagine(RAW/JPEG, qualità, ...).
   * Custom Fn: se attivato, richiamando una preselezione verranno richiamate le funzioni personalizzate (blocco specchio, riduzione rumore per le esposizioni lunghe, ...).
- * _*Developers menu*_: Con la pressione del tasto `SET` mentre questa voce è evidenziata si entra nel [#Menu_degli_sviluppatori Menu degli sviluppatori].
+ * _*Developers menu*_: Con la pressione del tasto `SET` mentre questa voce è evidenziata si entra nel [#Il_menu_degli_sviluppatori Menu degli sviluppatori].
 
 = Menu dei collegamenti rapidi =
 
