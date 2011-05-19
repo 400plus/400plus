@@ -134,7 +134,7 @@ Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_aju
   
 == Configurar el menú presets ==
 
-Podemos reorganizar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos] (presiona MENU para seleccionar / soltar, y ARRIBA / ABAJO para mover); pero además los podemos renombrar: mientras un preset está seleccionado, presiona SET para entrar en el menú para cambio de nombre.
+Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos] (presiona MENU para seleccionar / soltar, y ARRIBA / ABAJO para mover); pero además los podemos renombrar: mientras un preset está seleccionado, presiona SET para entrar en el menú para cambio de nombre.
 
  * Utiliza ARRIBA / ABAJO para seleccionar una letra.
  * Utiliza el botón AV para alternar entre minúsculas / números y mayúsculas / símbolos. 
