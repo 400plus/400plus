@@ -74,17 +74,8 @@ struct MENUITEM {
 	};
 };
 
-typedef enum {
-	MENUTYPE_STANDARD,
-	MENUTYPE_RENAME,
-	MENUTYPE_COUNT,
-	MENUTYPE_FIRST = 0,
-	MENUTYPE_LAST  = MENUTYPE_COUNT - 1
-} type_MENUTYPE;
-
 typedef struct {
 	char            *name;
-	type_MENUTYPE    type;
 	int              length;
 	type_MENUITEM   *items;
 	type_TASK        action;
@@ -98,24 +89,6 @@ typedef struct {
 	int              current_item;
 	int              item_grabbed; // for menu reordering
 } type_MENU;
-
-typedef struct {
-	type_TASK dp;
-	type_TASK av;
-	type_TASK up;
-	type_TASK down;
-	type_TASK right;
-	type_TASK left;
-	type_TASK set;
-	type_TASK menu;
-	type_TASK jump;
-	type_TASK play;
-	type_TASK trash;
-	type_TASK dial_left;
-	type_TASK dial_right;
-	type_TASK zoom_in;
-	type_TASK zoom_out;
-} type_MENU_CALLBACK;
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
 #define OPTIONLIST_REF(NAME)      (&_##NAME##_LIST_)
@@ -166,20 +139,18 @@ OPTIONLIST_DEC(shutter)
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
-extern void menu_callback_dp();
-extern void menu_callback_av();
-extern void menu_callback_up();
-extern void menu_callback_down();
-extern void menu_callback_right();
-extern void menu_callback_left();
-extern void menu_callback_set();
-extern void menu_callback_menu();
-extern void menu_callback_jump();
-extern void menu_callback_play();
-extern void menu_callback_trash();
-extern void menu_callback_dial_left();
-extern void menu_callback_dial_right();
-extern void menu_callback_zoom_in();
-extern void menu_callback_zoom_out();
+extern void menu_up();
+extern void menu_down();
+extern void menu_right();
+extern void menu_left();
+
+extern void menu_action();
+extern void menu_dp_action();
+extern void menu_cycle();
+
+extern void menu_drag_drop();
+
+extern void menu_submenu_next();
+extern void menu_submenu_prev();
 
 #endif /* MENU_H_ */

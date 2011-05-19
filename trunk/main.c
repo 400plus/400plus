@@ -50,13 +50,13 @@ type_ACTION actions_info[]  = {
 };
 
 type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_callback_dp}},
-	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_callback_av}},
-	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_callback_right}},
-	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_callback_left}},
-	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_callback_set}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_callback_dial_left}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_callback_dial_right}},
+	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
+	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
+	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
+	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
+	{IC_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
 	END_OF_LIST
 };
 
