@@ -125,7 +125,7 @@ Los preajustes son almacenados en la tarjeta CF en sí. Se pueden almacenar hast
 
 == El modo A-DEP ==
 
-Bajo circunstancias normales, cuando se recupera un preajuste todos los parámetros de la cámara se cambian, incluso el modo AE (a menos que, obviamente, se haya especificado lo contrario en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]); ten en cuenta que la cámara puede operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal. Pero si se apaga la cámara y se vuelve a encender, se volverá al modo de AE real seleccionado en el dial principal.
+Bajo circunstancias normales, cuando se recupera un preajuste todos los parámetros de la cámara se cambian, incluso el modo AE (a menos que, obviamente, se haya especificado lo contrario en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]); ten en cuenta que la cámara puede entonces operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal. Pero si se apaga la cámara y se vuelve a encender, se volverá al modo de AE real seleccionado en el dial principal.
 
 Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado); cuando esa opción está activa, ocurrirán los cambios siguientes:
 
