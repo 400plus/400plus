@@ -144,7 +144,7 @@ Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos
 
 = Selección del patrón AF =
 
-Pulsa el botón de ZOOM para entrar en "Selección del punto AF", a continuación pulsa ZOOM de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los patrones, y pulsa hasta la mitad el botón del obturador para salir del diálogo. 
+Pulsa el botón de ZOOM para entrar en "Selección del punto AF"; a continuación pulsa ZOOM de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los patrones, y pulsa hasta la mitad el botón del obturador para salir del diálogo. 
 
 == Los extras==
 
