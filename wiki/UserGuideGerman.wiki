@@ -11,20 +11,20 @@ Es wird davon ausgegangen, dass der Benutzer 400plus bereits vor dem Lesen diese
 
 Für nähere Informationen über die Installation von 400plus, lesen Sie bitte  [FirmwareHackInstallation].
 
-= Das Menü =
+= Das Einstellungsmenü =
 
-== Zugriff auf das Menü ==
+== Zugriff auf das Einstellungsmenü ==
 
 Um in das 400plus-Menü zu gelangen, drücken Sie die `MENU`-Taste (sie gelangen so zum Standardmenü) und danach die `DIRECT PRINT`-Taste (dies wird das 400plus-Menü öffnen).
 Um das 400plus-Menü zu verlassen drücken Sie den Auslöser halb durch.
 
-== Navigation im Menü ==
+== Navigation im Einstellungsmenü ==
 
 Benutzen Sie die `HOCH` (ISO) und `RUNTER` (WB)-Tasten um zwischen den Einstellungspunkten zu wechseln. 
 
 Benutzen Sie die `LINKS` (METERING MODE) und `RECHTS` (AF MODE)-Tasten um den Wert der gewählten Einstellung zu ändern; drücken und halten Sie diese-Tasten um schneller zu ändern. Bei manchen Einstellungen kann die  `AV`-Taste benutzt werden um den Wert zu ändern.
 
-Benutzen Sie die `SET`-Taste um die Einstellungen zu sichern und die Änderungen zu aktivieren; bitte beachten Sie, dass alle Änderungen verloren gehen, wenn Sie das Menü verlassen ohne zuvor die `SET`-Taste gedrückt zu haben.
+Benutzen Sie die `SET`-Taste um die Einstellungen zu sichern und die Änderungen zu aktivieren; bitte beachten Sie, dass alle Änderungen verloren gehen, wenn Sie das Einstellungsmenü verlassen ohne zuvor die `SET`-Taste gedrückt zu haben.
 
 == Navigation in den Untermenüs ==
 
@@ -36,43 +36,52 @@ Sowohl `HOCH` als auch `RUNTER` können jederzeit benutzt werden um zu einer and
 
   * _*Av comp*_: Das gleiche wie die Einstellmöglichkeit über  die  `AV`-Taste, jedoch mit den Grenzen -6 bis +6 EV.
   * _*Flash comp*_: Das gleiche wie der Standardmenüpunkt "Blitzbe. Korr.", jedoch mit den Grenzen -6 bis +6 EV.
+  * _*Use flash*_: Erzwinge die nicht-Verwendung des Blitzes bei der aktuellen Aufnahme, selbst wenn dieser ausgefahren ist.
+ * _*Color Temp. (K)*_: Setzen einer benutzerdefinierten Farbtemperatur (aktivieren Sie diese später, indem Sie im Weißabgleichdialog die `DIRECT PRINT`-Taste drücken).
   * _*AEB*_: Das gleiche wie der Standardmenüpunkt "AEB", aber mit den Grenzen -6 bis +6 EV.
   * _*ISO in viewfinder*_: Falls aktiviert und im `P` oder `Tv` Modus, können Sie die `LINKS` oder `RECHTS`-Taste benutzen um den ISO-Wert zu ändern während Sie durch den Sucher schauen.
   * _*Shortcutmenü*_: Falls aktiviert, wird Ihnen aus dem Hauptdialog aus das Shortcutmenü angezeigt, wenn Sie die `DIRECT PRINT`-Taste drücken; falls Sie "No" eingestellt haben, wird die `DIRECT PRINT`-Taste zwischen ISO-Zwischenwerten wechseln.
-  * _*Safety shift*_: Falls aktiviert und im `Tv` (bzw. `Av`) Modus, wird die Kamera die vom Nutzer eingestellte Verschlusszeit (bzw. die Blende) ändern, um eine Unter-/Überbelichtung zu vermeiden, falls der Wert zu niedrig/hoch für die Szene ist.
-  * _*Color Temp. (K)*_: Einstellen einer benutzerdef. Farbtemperatur (aktivieren sie dies später indem sie die `DIRECT PRINT`-Taste im WB-Dialog drücken).
-  * _*Flash*_: Nichtbenutzung des Blitzes während des Fotografierens erzwingen, selbst wenn dieser ausgeklappt ist.
-  * _*Handwave*_: Dieses Untermenü stellt das [UserGuideGerman#Hand_Waving Hand Waving]-Skript ein:
+ * _*Scripts*_: Dieses Untermenü stellt das Verhalten [#Die_Skripte der Skripts] ein.
+* LCD dim: falls aktiviert, wird das LCD gedimmt um die Laufzeit der Batterie zu verlängern.
+* APO dsbl: falls aktiviert, wird die autom. abschalten Option der Kamera deaktiviert.
+* _*Handwave*_: Dieses Untermenü stellt das [#Hand_Waving Hand Waving]-Skript ein:
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
     * Action: Wählen Sie hier die auszuführende Aktion.
     * Repeat: Wenn ausgewählt, startet das Skript nach jeder Aufnahme neu, so dass auch die nächste Aufnahme durch ein Winken gestartet werden kann.
     * Instant: wenn ausgewählt, löst das Skript die Aufnahme aus, sobald eine Hand bemerkt wird; falls nicht ausgewählt wartet das Skript solange ab, bis die Hand wieder weggenommen wird.
-  * _*Ext. AEB*_: Dieses Untermenü stellt das Extended AEB-Skript ein:
+  * _*Ext. AEB*_: Dieses Untermenü stellt das [#Extended_AEB Extended AEB]-Skript ein:
     * Frames: Anzahl der zu schießenden Bilder.
     * Step (EV): EV-Abstand zwischen einzelnen Aufnahmen.
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
-    * Manual [: minimale Verschlusszeit im `M` Modus.
-    * Manual ]: maximale Verschlusszeit im `M` Modus.
+    * Manual [: minimale Verschlusszeit im `BULB` Modus (einstellbar zwischen 16 Minuten bi zu 1/4000 Sekunde).
+    * Manual ]: maximale Verschlusszeit im `BULB` Modus (einstellbar zwischen 16 Minuten bi zu 1/4000 Sekunde).
   * _*Interval*_: Dieses Untermenü stellt das Intervalometer-Skript ein:
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
     * Time (s): Zeit (in Sekunden) zwischen den einzelnen Aufnahmen.
-    * EAEB: Wählt aus, ob Extended AEB bei jeder Aufnahme benutzt warden soll.
+    * EAEB: Wählt aus, ob [#Extended_AEB Extended AEB] bei jeder Aufnahme benutzt werden soll.
     * Shots: Anzahl der zu machenden Aufnahmen; wählen Sie "no limit" um keine Begrenzung einzustellen.
-  * _*Timer*_: Dieses Untermenü stellt das Self Timer-Skript ein:
+  * _*Timer*_: Dieses Untermenü stellt das [#Self_Timer Self Timer]-Skript ein:
     * Delay (s): Zeit (in Sekunden) die das Skript vor der Aufnahme warten soll.
     * Action: Wählen Sie hier die auszuführende Aktion.
-  * _*IR remote delay*_: Legt fest, ob die Aufnahme bei Benutzung eines IR-Fernauslöser mit 2 Sek. Verzögerung erfolgen soll.
-  * _*Developers menu*_: Drücken Sie `SET` während dieser Eintrag ausgewählt ist um das [UserGuideGerman#Developers_Menu developers menu] zu öffnen.
+
+* _*Presets*_: Dieses Untermenü stellt das Verhalten [#Die_Presets der Presets] ein:
+    * Use A-DEP: falls aktiviert, wird der `A-DEP` Modus für die Verwendung von[#Die_Presets Presets] genutzt; mehr Informationen dazu unter [#Der_A-DEP_Modus der A-DEP Modus].
+    * Camera: falls aktiviert, werden beim Laden eines Presets die Aufnahmeparameter der Kamera neu abgerufen (Verschlußzeit, Blende, ISO, ...).
+    * 400plus: falls aktiiert, werden beim Laden eines Presets die Settings der 400plus-Software neu abgerufen (Skripte, ...).
+    * Settings: falls aktiviert, werden beim Laden eines Presets die selten verwendete Einstellungen neu geladen (Sprache, Videosystem, ...).
+    * Image: falls aktiviert, werden beim Laden eines Presets bildbezogene Parameter neu geladen (RAW/JPEG, Qualität, ...).
+    * Custom Fn: falls aktiviert, werden beim Laden eines Presets die die Custom Functions neu geladen (Spiegelverriegelung, Langzeitbelichtung, Rauschreduktion, ...).
+* _*Developers menu*_: Drücken Sie `SET` während dieser Eintrag ausgewählt ist um das [#Developers_Menu developers menu] zu öffnen.
 
 = Das Shortcutmenü =
 
 Um Zugriff auf das Shortcutmenü zu erhalten drücken Sie die `DIRECT PRINT`-Taste aus dem Hauptdialog heraus (nur, falls die "Shortcutmenü"-Einstellung im 400plus Einstellungsmenü aktiviert ist); navigieren Sie in diesem Menü wie in einem normalen Menü und drücken Sie `SET` um eine Änderung anzuwenden oder ein Skript zu starten:
 
  * _* Intermediate ISO*_: Rollen Sie mit dem Hauptrad durch die ISO-Zwischenwerte.
- * _* Extended AEB*_: Startet das [UserGuideGerman#Extended_AEB Extended AEB] Skript. 
- * _* Intervalometer*_: Startet das[UserGuideGerman#Intervalometer Intervalometer] Skript.
- * _* Hand waving*_: Startet das [UserGuideGerman#Hand_Waving Hand Waving] Skript.
- * _* Self timer*_: Startet das [UserGuideGerman#Self_Timer Self Timer] Skript.
+ * _* Extended AEB*_: Startet das [#Extended_AEB Extended AEB] Skript. 
+ * _* Intervalometer*_: Startet das[#Intervalometer Intervalometer] Skript.
+ * _* Hand waving*_: Startet das [#Hand_Waving Hand Waving] Skript.
+ * _* Self timer*_: Startet das [#Self_Timer Self Timer] Skript.
  * _*AF assist beam*_: Nichtbenutzung des Blitzes während des Autofokussierens erzwingen, selbst wenn dieser ausgeklappt ist.
  * _*Mirror lock-up*_: De-/aktiviert die Individualfunktion 'Spiegelverriegelung'
  * _*Rear curtain flash*_: De-/aktiviert die Individualfunktion 'Verschluss-Synchronisation' mit dem 2.Verschlussvorhang 
@@ -93,18 +102,19 @@ Die folgenden Aktionen sind ebenfalls verfügbar, wenn sie einem Shortcut zugewi
 
 = Die Skripte =
 
-Alle Skripte werden über das [UserGuideGerman#Das_Shortcutmen%FC Shortcutmenü] aktiviert. Wenn ein Skript gestartet oder gestoppt wird erklingt ein Ton; während ein Skript läuft, blinkt die `DIRECT PRINT`-Taste (circa zweimal pro Sekunde). 
+Alle Skripte werden über das [#Das_Shortcutmen%FC Shortcutmenü] aktiviert. Wenn ein Skript gestartet oder gestoppt wird erklingt ein Ton; während ein Skript läuft, blinkt die `DIRECT PRINT`-Taste (circa zweimal pro Sekunde). 
 
 Um ein laufendes Skript zu beenden drücken Sie erneut die `DIRECT PRINT`-Taste; es kann passieren, dass das Skript sich nicht sofort beendet, von daher sollten Sie die `DIRECT PRINT`-Taste solange halten, bis Sie einen Ton wahrnehmen, welcher die Beendigung des Skripts signalisiert.
 
 == Extended AEB ==
 
 Dieses Skript übernimmt die gleiche Aufgabe wie die standardmäßige AEB-Option der Kamera, jedoch mit folgenden Unterschieden
-  #. Es können bis zu 9 Aufnahmen festgelegt werden.
-  #. Die Unterschiede zwischen den einzelnen Aufnahmen können bis zu +6 EV eingestellt werden.
-  #. Die Kamera wird alle Aufnahmen  nacheinander automatisch machen.
+  * Es können bis zu 9 Aufnahmen festgelegt werden.
+  * Die Unterschiede zwischen den einzelnen Aufnahmen können bis zu +6 EV eingestellt werden.
+  * Die Kamera wird alle Aufnahmen  nacheinander automatisch machen.
 
-Im `M` Modus, wird das Skript die Kamera so oft wie nötig mit Verschlusszeiten von „Manual [„ bis „Manual ]“ auslösen und jede Aufnahme um den Wert der „Step (EV)“-Einstellung verändern.
+Im `BULB` Modus, wird das Skript die Kamera so oft wie nötig mit Verschlusszeiten von „Manual [„ bis „Manual ]“ auslösen und jede Aufnahme um den Wert der „Step (EV)“-Einstellung verändern.
+Beachten Sie bitte, dass in diesem Modus Belichtungszeiten von bis zu 16 Minuten genutzt werden können.
 
 == Intervalometer ==
 
@@ -116,23 +126,42 @@ Stellen Sie "EAEB" auf "yes" um das Extended AEB-Skript bei jeder Aufnahme zu be
 
 Dieses Skript wird die Kamera automatisch auslösen wenn der "Display-Aus Sensor" auf der Rückseite der Kamera ausgelöst wird; benutzen Sie dieses Skript um die Kamera ohne Fernauslöser zu benutzen. 
 
-Dieses Skript kann das [UserGuideGerman#Extended_AEB Extended AEB] -  oder das [UserGuideGerman#Intervalometer Intervalometer] -Skript ausführen, wenn dies in der "Action" Unter-Einstellung festgelegt wird. Falls die „repeat“-Einstellung aktiviert ist, wird das Skript nach Auslösung nicht mehr beendet, sondern wird sich neustarten, um weitere Aufnahmen mit dem Skript machen zu können.
+Dieses Skript kann das [#Extended_AEB Extended AEB] -  oder das [#Intervalometer Intervalometer] -Skript ausführen, wenn dies in der "Action" Unter-Einstellung festgelegt wird. Falls die „repeat“-Einstellung aktiviert ist, wird das Skript nach Auslösung nicht mehr beendet, sondern wird sich neustarten, um weitere Aufnahmen mit dem Skript machen zu können.
 
 Standardmäßig wird das Skript warten, bis etwas den Sensor  verdeckt und wieder weggenommen wird (z.B. ein Finger oder eine Hand); falls jedoch die „Instant“-Option eingestellt ist, wird die Kamera bereits auslösen, sobald eine Hand den Sensor verdeckt.
 
 == Self Timer ==
 
-Dieses Skript fügt eine konfigurierbare Pause ein, beor die Kamera ausgelöst wird; dieses Skript kann das [UserGuideGerman#Extended_AEB Extended AEB] oder das [UserGuideGerman#Intervalometer Intervalometer] Skript starten, wenn diese im "Action" Unterpunkt eingestellt wurden.
+Dieses Skript fügt eine konfigurierbare Pause ein, beor die Kamera ausgelöst wird; dieses Skript kann das [#Extended_AEB Extended AEB] oder das [#Intervalometer Intervalometer] Skript starten, wenn diese im "Action" Unterpunkt eingestellt wurden.
   
 = Die Presets =
 
-*WARNUNG*: Dieses Feature ist noch experimentell, benutzen Sie es nur mit entsprechender Vorsicht.
-
 Ein "Preset" ist ein komplettes Abbild Ihrer Einstellungen, es enthält ein komplettes Abbild der Kameraeinstellungen. Presets können benutzt werden um die Kamera für bestimmte Aufnahmesituationen vorzukonfigurieren (wie z.B. "Landschaft", "Portrait","Low Light", Vögel im Flug", usw.), und erlauben es Ihnen später schnellen Zugriff auf diese Konfigurationen zu haben.
 
-Presets werden auf der CF-Speicherkarte gesichert.  Bis zu 5 Presets können so gespeichert werden. Um ein Preset zu speichern, drücken Sie die `DP`-Taste, während Sie sich im [UserGuideGerman#Das_Men%FC 400plus Menü] befinden; wählen Sie einen Speicherplatz aus und drücken Sie die `SET`-Taste (falls in dem gewählten Slot bereits ein Preset gesichert ist, wird dieses überschrieben).  Um ein Preset abzurufen, drücken Sie die `DP`-Taste, während Sie sich im [UserGuideGerman#Das_Shortcutmen%FC Shortcutmenü] befinden; wählen Sie nun das gewünschte Preset und drücken Sie die `SET`-Taste (falls der gewählte Speicherplatz leer ist passiert nichts).
+Presets werden auf der CF-Speicherkarte gesichert.  Bis zu 5 Presets können so gespeichert werden. Um ein Preset zu speichern, drücken Sie die `DP`-Taste, während Sie sich im [#Das_Men%FC 400plus Menü] befinden; wählen Sie einen Speicherplatz aus und drücken Sie die `SET`-Taste (falls in dem gewählten Slot bereits ein Preset gesichert ist, wird dieses überschrieben).  Um ein Preset abzurufen, drücken Sie die `DP`-Taste, während Sie sich im [#Das_Shortcutmen%FC Shortcutmenü] befinden; wählen Sie nun das gewünschte Preset und drücken Sie die `SET`-Taste (falls der gewählte Speicherplatz leer ist passiert nichts).
 
-*Anmerkung*: Wenn ein Preset abgerufen wird werden alle Kameraeinstellungen geändert, selbst der AE-Modus; beachten Sie also , dass die Kamera sich in einem anderen AE-Modus befinden könnte als dem momentan am Hauptwahlrad eingestellten.
+== The A-DEP mode ==
+
+Normalerweise werden, wenn ein Preset aufgerufen wird, alle Kameraeinstellungen geändert; selbst der AE Modus.
+(es sei denn dies wurde in [#Das_Einstellungsmen%FC dem Einstellungsmenü] anders eingestellt); 
+beachten Sie in diesem Fall, dass die Kamera sich in einem anderen AE-Modus befinden kann, als dem aktuell am Hauptwahlrad ausgewählten.
+Wenn die Kamera allerdings aus- und wieder eingeschaltet wird, befindet sie sich wieder im am Hauptwahlrad ausgewählten AE-Modus.
+Um dieses Problem zu lösen, gibt es eine Option in [#Das_Einstellungsmen%FC dem Einstellungsmenü] um den (zumeist ungenutzte A-DEP zu überschreiben; wenn diese Option aktiviert ist, werden die folgenden Änderungen aktiviert:
+ * Presets können nur geladen werden, wenn sich die Kamera im A-DEP Modus befindet.
+ * Wenn sich die Kamera im A-DEP Modus befindet wenn sie eingeschaltet wird, wird das zuletzt verwendete Preset automatisch geladen.
+
+== Das Presetmenü einstellen ==
+
+Die Reihenfolge der Presets kann, ebenso wie im [#Das_Shortcutmen%FC Shortcutmenü], geändert werden:
+Drücken Sie `MENU` um ein Objekt zu "greifen"/"loszulassen" und `HOCH` / `RUNTER` um es zu platzieren).
+Die Presets können außerdem umbenannt werden:
+Während ein Preset markiert ist, drücken Sie die `SET`-Taste um ein Menü zu öffnen, welches der Umbenennung dient;
+benutzen sie hier
+ * `HOCH`/ `RUNTER` um einen Buchstaben auszuwählen.
+ * `AV` um zwischen Kleinschreibung/Ziffern und Großschreibung/Symbolen zu wechseln.
+ * `SET` um einen Buchstaben zu setzen und den nächsten auszuwählen.
+ * das Hauptrad um den Cursor zu bewegen.
+ * Navigieren Sie zu der untersten Zeile und drücken Sie die `SET`-Taste um zurück in das Presetmenü zu gelangen.
 
 = DIE AF-Felder-Auswahl =
 
@@ -172,7 +201,7 @@ Benutzen Sie `SET` und `LINKS` / `RECHTS` um den angeziegten Wert zu wechseln.
 
 Während des Schauens durch den Sucher werden die `HOCH`(ISO) und `RUNTER`(WB)-Taste deaktiviert. Dies geschieht um versehentliche Änderungen durch die Berührung mit der Nase oder Wange des Benutzers auszuschließen.
 
-== Werksmenü(“Factory menu”) und der Debugmodus ==
+== Das Entwicklermenü ==
 
 *WARNUNG*: Diese Einstellungen sollten nur mit größter Sorgfalt verwandt werden, wahrscheinlich werden Sie sie nicht brauchen, solange Sie nicht Ihren eigenen Hack entwickeln.
 
@@ -203,4 +232,3 @@ Der Messbereich ist jedoch kleiner.
 The following relevant bugs have been reported and confirmed:
 
  * Problem #15: Belichtung wechselt während EAEB.
- * Problem #38: Presets: Der falsche AE-Modus wird beim Starten der Kamera geladen. 
