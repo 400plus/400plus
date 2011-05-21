@@ -32,16 +32,17 @@ char letters[2][4][9] = {
 	}
 };
 
+void rename_initialize();
+void rename_destroy();
+
+void rename_display();
+void rename_refresh(int line);
+
 void rename_repeat(void (*repeateable)(int repeating));
 
 void rename_repeateable_cycle(int repeating);
 void rename_repeateable_right(int repeating);
 void rename_repeateable_left (int repeating);
-
-void rename_display();
-void rename_refresh(int line);
-
-void rename_destroy();
 
 char *rename_message(int id);
 
@@ -51,12 +52,29 @@ void rename_create(char *filename, type_TASK callback) {
 
 	FLAG_GUI_MODE = GUIMODE_RENAME;
 
-	rename_destroy();
+	rename_initialize();
 
 	handle = dialog_create(22, InfoCreativeAppProc);
 	dialog_set_property_str(handle, 8, "Rename");
 
 	rename_display();
+}
+
+void rename_close() {
+	rename_destroy();
+}
+
+void rename_initialize() {
+	rename_destroy();
+
+	handle = 0;
+	x = y = z = 0;
+	caps = FALSE;
+}
+
+void rename_destroy() {
+	if (handle != NULL)
+		DeleteDialogBox(handle);
 }
 
 void rename_display() {
@@ -109,7 +127,7 @@ void rename_action() {
 		rename_refresh(4);
 	} else {
 		presets_write();
-		rename_destroy();
+		rename_close();
 		rename_callback();
 	}
 }
@@ -187,15 +205,6 @@ void rename_repeateable_left(int repeating) {
 void rename_repeateable_cycle(int repeating) {
 	caps = !caps;
 	rename_display();
-}
-
-void rename_destroy() {
-	if (handle != NULL)
-		DeleteDialogBox(handle);
-
-	handle = 0;
-	x = y = z = 0;
-	caps = FALSE;
 }
 
 char *rename_message(int id) {
