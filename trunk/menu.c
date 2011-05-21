@@ -18,15 +18,15 @@ OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTER
 OPTIONLIST_DEF(shutter, "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 
 type_ACTION callbacks_standard[] = {
-	{GUI_BUTTON_UP,             FALSE, FALSE,  {menu_up}},
-	{GUI_BUTTON_DOWN,           FALSE, FALSE,  {menu_down}},
-	{GUI_BUTTON_DISP,           FALSE, FALSE,  {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, TRUE, {NULL}},
-	{GUI_BUTTON_JUMP,           FALSE, TRUE, {NULL}},
-	{GUI_BUTTON_PLAY,           FALSE, TRUE, {menu_drag_drop}},
-	{GUI_BUTTON_TRASH,          FALSE, TRUE, {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE, {menu_submenu_next}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE, {menu_submenu_prev}},
+	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_up}},
+	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_down}},
+	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
+	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_submenu_next}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_submenu_prev}},
 	END_OF_LIST
 };
 
