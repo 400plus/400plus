@@ -222,10 +222,17 @@ void menu_drag_drop() {
 	type_MENUITEM *item = get_current_item();
 
 	if (current_menu->reorder) {
-		if (current_menu->rename && current_menu->item_grabbed) {
-			rename_create(item->name, current_menu->callback);
+		if (current_menu->item_grabbed) {
+			if (current_menu->rename) {
+				rename_create(item->name, current_menu->callback);
+			} else {
+				if (current_menu->action)
+					current_menu->action();
+				current_menu->item_grabbed = FALSE;
+				menu_refresh();
+			}
 		} else {
-			current_menu->item_grabbed = ! current_menu->item_grabbed;
+			current_menu->item_grabbed = TRUE;
 			menu_refresh();
 		}
 	}
