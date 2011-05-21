@@ -32,8 +32,22 @@ char letters[2][4][9] = {
 	}
 };
 
+type_ACTION callbacks_rename[] = {
+	{GUI_BUTTON_UP,             FALSE, RESP_PASS,  {rename_up}},
+	{GUI_BUTTON_DOWN,           FALSE, RESP_PASS,  {rename_down}},
+	{GUI_BUTTON_DISP,           FALSE, RESP_PASS,  {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {rename_clear}},
+	{GUI_BUTTON_JUMP,           FALSE, RESP_BLOCK, {NULL}},
+	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {NULL}},
+	{GUI_BUTTON_TRASH,          FALSE, RESP_BLOCK, {NULL}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, RESP_BLOCK, {rename_next}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, RESP_BLOCK, {rename_prev}},
+	END_OF_LIST
+};
 void rename_initialize();
 void rename_destroy();
+
+int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 void rename_display();
 void rename_refresh(int line);
@@ -54,7 +68,7 @@ void rename_create(char *filename, type_TASK callback) {
 
 	rename_initialize();
 
-	handle = dialog_create(22, InfoCreativeAppProc);
+	handle = dialog_create(22, rename_handler);
 	dialog_set_property_str(handle, 8, "Rename");
 
 	rename_display();
@@ -75,6 +89,35 @@ void rename_initialize() {
 void rename_destroy() {
 	if (handle != NULL)
 		DeleteDialogBox(handle);
+}
+
+int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+	type_ACTION *action;
+
+	// Loop over all the actions from this action chain
+	for (action = callbacks_rename; ! IS_EOL(action); action++) {
+
+		// Check whether this action corresponds to the event received
+		if (action->button == event) {
+
+			// Launch the defined task
+			if (action->task[0])
+				action->task[0]();
+
+			// Decide how to respond to this button
+			switch(action->resp) {
+			case RESP_PASS:
+				goto pass_event;
+			case RESP_BLOCK:
+				return FALSE;
+			case RESP_RELEASE:
+				return TRUE;
+			}
+		}
+	}
+
+pass_event:
+	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
 void rename_display() {

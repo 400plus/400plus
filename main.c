@@ -61,13 +61,10 @@ type_ACTION actions_400plus[]  = {
 };
 
 type_ACTION actions_rename[]  = {
-	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {rename_up}},
-	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {rename_down}},
 	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {rename_right}},
 	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {rename_left}},
 	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {rename_cycle}},
 	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {rename_action}},
-	{IC_BUTTON_MENU,       FALSE, RESP_BLOCK,   {rename_clear}},
 	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {rename_prev}},
 	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {rename_next}},
 	END_OF_LIST
