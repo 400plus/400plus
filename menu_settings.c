@@ -78,7 +78,7 @@ type_MENU main_menu = {
 	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
-	action      : menu_settings_save,
+	save        : menu_settings_save,
 	dp_action   : menu_presets_save_start,
 	reorder     : FALSE
 };

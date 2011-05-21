@@ -78,7 +78,7 @@ typedef struct {
 	char            *name;
 	int              length;
 	type_MENUITEM   *items;
-	type_TASK        action;
+	type_TASK        save;
 	type_TASK        dp_action;
 	int              rename;
 	type_TASK        callback;

@@ -26,9 +26,9 @@ type_MENU menu_shortcuts = {
 	name        : LP_WORD(L_SHORTCUTS),
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
-	action      : menu_shortcuts_save,
-	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
+	save        : menu_shortcuts_save,
+	dp_action   : menu_presets_load_start,
 	ordering    : settings.shortcuts_order
 };
 

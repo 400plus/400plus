@@ -196,7 +196,7 @@ void menu_action() {
 		action = item->menuitem_launch.action;
 	} else {
 		close  = FALSE;
-		action = current_menu->action;
+		action = current_menu->save;
 	}
 
 	if (action) {
@@ -224,15 +224,11 @@ void menu_rename() {
 
 void menu_drag_drop() {
 	if (current_menu->reorder) {
-		if (current_menu->item_grabbed) {
-			if (current_menu->action)
-				current_menu->action();
-			current_menu->item_grabbed = FALSE;
-			menu_refresh();
-		} else {
-			current_menu->item_grabbed = TRUE;
-			menu_refresh();
-		}
+		if (current_menu->item_grabbed && current_menu->save)
+			current_menu->save();
+
+		current_menu->item_grabbed = ! current_menu->item_grabbed;
+		menu_refresh();
 	}
 }
 
