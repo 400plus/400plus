@@ -44,8 +44,6 @@ void menu_shortcuts_start() {
 }
 
 void menu_shortcuts_save() {
-	beep();
-
 	send_to_intercom(IC_SET_ISO,                2, sc_cameraMode.iso);
 	send_to_intercom(IC_SET_CF_EMIT_AUX,        1, sc_cameraMode.cf_emit_aux);
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,  1, sc_cameraMode.cf_mirror_up_lock);
