@@ -36,7 +36,7 @@ type_ACTION callbacks_rename[] = {
 	{GUI_BUTTON_UP,             FALSE, FALSE, {rename_up}},
 	{GUI_BUTTON_DOWN,           FALSE, FALSE, {rename_down}},
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, TRUE,  {rename_caps}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {rename_save}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {rename_clear}},
@@ -152,6 +152,11 @@ void rename_left() {
 	rename_repeat(rename_repeateable_left);
 }
 
+void rename_caps() {
+	caps = !caps;
+	rename_display();
+}
+
 void rename_cycle() {
 	rename_repeat(rename_repeateable_cycle);
 }
@@ -244,8 +249,12 @@ void rename_repeateable_left(int repeating) {
 }
 
 void rename_repeateable_cycle(int repeating) {
-	caps = !caps;
-	rename_display();
+	if ('a' <= rename_filename[z] && rename_filename[z] <= 'z')
+		rename_filename[z] += 'A' - 'a';
+	else if ('A' <= rename_filename[z] && rename_filename[z] <= 'Z')
+		rename_filename[z] += 'a' - 'A';
+
+	rename_refresh(4);
 }
 
 char *rename_message(int id) {
