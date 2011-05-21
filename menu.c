@@ -18,15 +18,15 @@ OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTER
 OPTIONLIST_DEF(shutter, "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 
 type_ACTION callbacks_standard[] = {
-	{GUI_BUTTON_UP,             FALSE, RESP_PASS,  {menu_up}},
-	{GUI_BUTTON_DOWN,           FALSE, RESP_PASS,  {menu_down}},
-	{GUI_BUTTON_DISP,           FALSE, RESP_PASS,  {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_JUMP,           FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {menu_drag_drop}},
-	{GUI_BUTTON_TRASH,          FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, RESP_BLOCK, {menu_submenu_next}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, RESP_BLOCK, {menu_submenu_prev}},
+	{GUI_BUTTON_UP,             FALSE, FALSE,  {menu_up}},
+	{GUI_BUTTON_DOWN,           FALSE, FALSE,  {menu_down}},
+	{GUI_BUTTON_DISP,           FALSE, FALSE,  {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, TRUE, {NULL}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE, {NULL}},
+	{GUI_BUTTON_PLAY,           FALSE, TRUE, {menu_drag_drop}},
+	{GUI_BUTTON_TRASH,          FALSE, TRUE, {NULL}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE, {menu_submenu_next}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE, {menu_submenu_prev}},
 	END_OF_LIST
 };
 
@@ -103,12 +103,10 @@ int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int 
 				action->task[0]();
 
 			// Decide how to respond to this button
-			switch(action->resp) {
-			case RESP_PASS:
-				goto pass_event;
-			case RESP_BLOCK:
+			if (action->block)
 				return FALSE;
-			}
+			else
+				goto pass_event;
 		}
 	}
 
