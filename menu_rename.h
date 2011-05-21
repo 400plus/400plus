@@ -11,6 +11,7 @@ extern void rename_left();
 
 extern void rename_cycle();
 extern void rename_action();
+extern void rename_save();
 extern void rename_clear();
 
 extern void rename_next();

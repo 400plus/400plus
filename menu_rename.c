@@ -37,7 +37,7 @@ type_ACTION callbacks_rename[] = {
 	{GUI_BUTTON_DOWN,           FALSE, FALSE, {rename_down}},
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {rename_save}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {rename_clear}},
 	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {rename_next}},
@@ -164,11 +164,13 @@ void rename_action() {
 			z++;
 
 		rename_refresh(4);
-	} else {
-		presets_write();
-		rename_close();
-		rename_callback();
 	}
+}
+
+void rename_save() {
+	presets_write();
+	rename_close();
+	rename_callback();
 }
 
 void rename_clear() {
