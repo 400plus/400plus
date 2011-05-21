@@ -462,15 +462,10 @@ typedef struct struct_DIALOG type_DIALOG;
 // Action definitions
 typedef void(*type_TASK)();
 
-typedef enum {
-	RESP_BLOCK,
-	RESP_PASS
-} type_RESP;
-
 typedef struct {
 	int       button;
 	int       holds;
-	type_RESP resp;
+	int       block;
 	type_TASK task[2];
 	int       _eol_;
 } type_ACTION;
@@ -489,7 +484,7 @@ typedef struct {
 	int       afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int       main_dial_ae;      // AE mode selected in the main dial
 	type_TASK button_up_task;    // Task that must be executed when the current button is released
-	type_RESP button_up_resp;    // Response when the current button is released
+	int       button_up_block;   // Response when the current button is released
 } type_STATUS;
 
 // Main message queue

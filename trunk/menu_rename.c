@@ -33,15 +33,15 @@ char letters[2][4][9] = {
 };
 
 type_ACTION callbacks_rename[] = {
-	{GUI_BUTTON_UP,             FALSE, RESP_PASS,  {rename_up}},
-	{GUI_BUTTON_DOWN,           FALSE, RESP_PASS,  {rename_down}},
-	{GUI_BUTTON_DISP,           FALSE, RESP_PASS,  {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {rename_clear}},
-	{GUI_BUTTON_JUMP,           FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_TRASH,          FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, RESP_BLOCK, {rename_next}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, RESP_BLOCK, {rename_prev}},
+	{GUI_BUTTON_UP,             FALSE, FALSE,  {rename_up}},
+	{GUI_BUTTON_DOWN,           FALSE, FALSE,  {rename_down}},
+	{GUI_BUTTON_DISP,           FALSE, FALSE,  {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, TRUE, {rename_clear}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE, {NULL}},
+	{GUI_BUTTON_PLAY,           FALSE, TRUE, {NULL}},
+	{GUI_BUTTON_TRASH,          FALSE, TRUE, {NULL}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE, {rename_next}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE, {rename_prev}},
 	END_OF_LIST
 };
 void rename_initialize();
@@ -105,12 +105,10 @@ int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int 
 				action->task[0]();
 
 			// Decide how to respond to this button
-			switch(action->resp) {
-			case RESP_PASS:
-				goto pass_event;
-			case RESP_BLOCK:
+			if (action->block)
 				return FALSE;
-			}
+			else
+				goto pass_event;
 		}
 	}
 
