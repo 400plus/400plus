@@ -9,6 +9,7 @@ extern void rename_down();
 extern void rename_right();
 extern void rename_left();
 
+extern void rename_caps();
 extern void rename_cycle();
 extern void rename_action();
 extern void rename_save();
