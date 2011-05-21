@@ -22,7 +22,7 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_down}},
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_rename}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_submenu_next}},
@@ -214,19 +214,21 @@ void menu_dp_action() {
 		current_menu->dp_action();
 }
 
-void menu_drag_drop() {
+void menu_rename() {
 	type_MENUITEM *item = get_current_item();
 
+	if (current_menu->rename) {
+		rename_create(item->name, current_menu->callback);
+	}
+}
+
+void menu_drag_drop() {
 	if (current_menu->reorder) {
 		if (current_menu->item_grabbed) {
-			if (current_menu->rename) {
-				rename_create(item->name, current_menu->callback);
-			} else {
-				if (current_menu->action)
-					current_menu->action();
-				current_menu->item_grabbed = FALSE;
-				menu_refresh();
-			}
+			if (current_menu->action)
+				current_menu->action();
+			current_menu->item_grabbed = FALSE;
+			menu_refresh();
 		} else {
 			current_menu->item_grabbed = TRUE;
 			menu_refresh();

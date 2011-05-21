@@ -148,6 +148,7 @@ extern void menu_action();
 extern void menu_dp_action();
 extern void menu_cycle();
 
+extern void menu_rename();
 extern void menu_drag_drop();
 
 extern void menu_submenu_next();
