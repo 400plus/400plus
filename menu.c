@@ -21,9 +21,9 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_UP,             FALSE, RESP_PASS,  {menu_up}},
 	{GUI_BUTTON_DOWN,           FALSE, RESP_PASS,  {menu_down}},
 	{GUI_BUTTON_DISP,           FALSE, RESP_PASS,  {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {menu_drag_drop}},
+	{GUI_BUTTON_MENU,           FALSE, RESP_BLOCK, {NULL}},
 	{GUI_BUTTON_JUMP,           FALSE, RESP_BLOCK, {NULL}},
-	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {NULL}},
+	{GUI_BUTTON_PLAY,           FALSE, RESP_BLOCK, {menu_drag_drop}},
 	{GUI_BUTTON_TRASH,          FALSE, RESP_BLOCK, {NULL}},
 	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, RESP_BLOCK, {menu_submenu_next}},
 	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, RESP_BLOCK, {menu_submenu_prev}},
@@ -195,24 +195,20 @@ void menu_action() {
 	type_TASK action;
 	type_MENUITEM *item = get_current_item();
 
-	if (current_menu->rename && current_menu->item_grabbed) {
-		rename_create(item->name, current_menu->callback);
+	if (item->type == MENUITEM_TYPE_LAUNCH) {
+		close  = item->menuitem_launch.close;
+		action = item->menuitem_launch.action;
 	} else {
-		if (item->type == MENUITEM_TYPE_LAUNCH) {
-			close  = item->menuitem_launch.close;
-			action = item->menuitem_launch.action;
-		} else {
-			close  = FALSE;
-			action = current_menu->action;
-		}
+		close  = FALSE;
+		action = current_menu->action;
+	}
 
-		if (action) {
-			if (close) {
-				menu_close();
-				ENQUEUE_TASK(action);
-			} else {
-				action();
-			}
+	if (action) {
+		if (close) {
+			menu_close();
+			ENQUEUE_TASK(action);
+		} else {
+			action();
 		}
 	}
 }
@@ -223,9 +219,15 @@ void menu_dp_action() {
 }
 
 void menu_drag_drop() {
+	type_MENUITEM *item = get_current_item();
+
 	if (current_menu->reorder) {
-		current_menu->item_grabbed = ! current_menu->item_grabbed;
-		menu_refresh();
+		if (current_menu->rename && current_menu->item_grabbed) {
+			rename_create(item->name, current_menu->callback);
+		} else {
+			current_menu->item_grabbed = ! current_menu->item_grabbed;
+			menu_refresh();
+		}
 	}
 }
 
