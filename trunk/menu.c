@@ -108,8 +108,6 @@ int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int 
 				goto pass_event;
 			case RESP_BLOCK:
 				return FALSE;
-			case RESP_RELEASE:
-				return TRUE;
 			}
 		}
 	}
