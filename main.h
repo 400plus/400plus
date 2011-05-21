@@ -464,8 +464,7 @@ typedef void(*type_TASK)();
 
 typedef enum {
 	RESP_BLOCK,
-	RESP_PASS,
-	RESP_RELEASE
+	RESP_PASS
 } type_RESP;
 
 typedef struct {

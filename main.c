@@ -187,7 +187,6 @@ void intercom_proxy(const int handler, char *message) {
 
 		// Decide how to respond to this button
 		switch(status.button_up_resp) {
-		case RESP_RELEASE:
 		case RESP_PASS:
 			goto pass_message;
 		case RESP_BLOCK:
@@ -227,9 +226,6 @@ void intercom_proxy(const int handler, char *message) {
 
 					// Decide how to respond to this button
 					switch(action->resp) {
-					case RESP_RELEASE:
-						IntercomHandler(handler, message);
-						message[2] = FALSE;
 					case RESP_PASS:
 						goto pass_message;
 					case RESP_BLOCK:
