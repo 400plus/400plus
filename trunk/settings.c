@@ -76,6 +76,9 @@ void settings_write() {
 }
 
 extern void settings_apply() {
+	if (settings.color_temp != cameraMode.color_temp)
+		send_to_intercom(IC_SET_WB, 1, WB_MODE_COLORTEMP);
+
 	send_to_intercom(IC_SET_AV_COMP,         1,  settings.av_comp);
 	send_to_intercom(IC_SET_EFCOMP,          1,  settings.flash_comp);
 	send_to_intercom(IC_SET_AE_BKT,          1,  settings.aeb_ev);
