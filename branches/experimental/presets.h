@@ -1,7 +1,7 @@
 #ifndef PRESETS_H_
 #define PRESETS_H_
 
-#define PRESETS_VERSION 0x01
+#define PRESETS_VERSION 0x02
 #define PRESETS_CONFIG  "A:/PRESETS"
 #define PRESETS_FILE    "A:/PRESET_%u"
 
@@ -17,8 +17,8 @@ typedef struct {
 	int  recall_settings;
 	int  recall_image;
 	int  recall_cfn;
-	int  order[5];
-	char names[5][32];
+	int  order[9];
+	char names[9][32];
 } type_PRESETS_CONFIG;
 
 extern type_PRESETS_CONFIG presets_config;
@@ -30,5 +30,7 @@ extern int  preset_read (int id);
 extern void preset_write(int id);
 extern void preset_apply();
 extern void preset_recall();
+
+extern void get_preset_filename(char *filename, int id);
 
 #endif /* PRESETS_H_ */

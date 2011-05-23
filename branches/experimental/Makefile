@@ -16,8 +16,6 @@ OBJCOPY = arm-elf-objcopy
 S_OBJS = entry.o      \
          entry_subs.o \
          gui.o        \
-         mainctrl.o   \
-
          
 C_OBJS = init.o           \
          main.o           \

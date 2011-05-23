@@ -74,42 +74,21 @@ struct MENUITEM {
 	};
 };
 
-typedef enum {
-	MENU_NONE,   // not in our menus
-	MENU_400PLUS,// normal menus
-	MENU_RENAME  // rename dialog
-} type_MENU_TYPES;
-
-typedef enum {
-	MENU_COLOR_RED              = 0x00,
-	MENU_COLOR_BLUE             = 0x01,
-	MENU_COLOR_YELLOW           = 0x02,
-	MENU_COLOR_YELLOW_AND_WHITE = 0x06,
-	MENU_COLOR_DARK_BLUE        = 0x09,
-	//MENU_COLOR_SOMETHING_FOR_THE_HELP_SCREEN_MAY_BE = 0x0A, // cannot be used for menus
-	MENU_COLOR_DARK_RED         = 0x0C,
-	MENU_COLOR_YELLOW_AND_GREEN = 0x10, // nice
-	MENU_COLOR_WHITE_ON_BLACK   = 0x12, // dark one
-	MENU_COLOR_ORANGE           = 0x67,
-} type_MENU_COLOR;
-
 typedef struct {
-	char            *name;         // required
-	type_MENU_TYPES  type;         // required
-	type_MENU_COLOR  color;        // optional
+	char            *name;
 	int              length;
 	type_MENUITEM   *items;
-	type_TASK        action;
+	type_TASK        save;
 	type_TASK        dp_action;
 	int              rename;
 	type_TASK        callback;
 	int              reorder;
 	int             *ordering;
-	type_DIALOG     *handle;       // dialog handle returned from CreateDialogBox()
+	void            *handle;       // dialog handle returned from CreateDialogBox()
 	int              current_line;
 	int              current_item;
 	int              item_grabbed; // for menu reordering
-	type_BTN_HANDLER btn_handler;  // routine to proccess the key presses
+	int              show_filenames;
 } type_MENU;
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
@@ -161,9 +140,6 @@ OPTIONLIST_DEC(shutter)
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
-extern void menu_create_last();
-extern type_MENU * menu_get_current();
-
 extern void menu_up();
 extern void menu_down();
 extern void menu_right();
@@ -173,11 +149,11 @@ extern void menu_action();
 extern void menu_dp_action();
 extern void menu_cycle();
 
+extern void menu_toggle_filenames();
+extern void menu_rename();
 extern void menu_drag_drop();
 
 extern void menu_submenu_next();
 extern void menu_submenu_prev();
-
-int menu_buttons_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 #endif /* MENU_H_ */

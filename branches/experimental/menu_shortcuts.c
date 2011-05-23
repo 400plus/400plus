@@ -24,15 +24,12 @@ type_MENUITEM menu_shortcut_items[] = {
 
 type_MENU menu_shortcuts = {
 	name        : LP_WORD(L_SHORTCUTS),
-	type        : MENU_400PLUS,
-	color       : MENU_COLOR_YELLOW_AND_GREEN,
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
-	action      : menu_shortcuts_save,
-	dp_action   : menu_presets_load_start,
 	reorder     : TRUE,
-	ordering    : settings.shortcuts_order,
-	btn_handler : menu_buttons_handler
+	save        : menu_shortcuts_save,
+	dp_action   : menu_presets_load_start,
+	ordering    : settings.shortcuts_order
 };
 
 void menu_shortcuts_start() {
@@ -40,15 +37,13 @@ void menu_shortcuts_start() {
 
 	sc_cameraMode = cameraMode;
 
-	//press_button(BUTTON_MENU);
-	//SleepTask(100);
+	press_button(IC_BUTTON_MENU);
+	SleepTask(100);
 
 	menu_create(&menu_shortcuts);
 }
 
 void menu_shortcuts_save() {
-	beep();
-
 	send_to_intercom(IC_SET_ISO,                2, sc_cameraMode.iso);
 	send_to_intercom(IC_SET_CF_EMIT_AUX,        1, sc_cameraMode.cf_emit_aux);
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,  1, sc_cameraMode.cf_mirror_up_lock);

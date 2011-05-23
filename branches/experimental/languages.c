@@ -4,10 +4,6 @@
 
 #include "languages.h"
 
-/// @todo: languages will take too mych space at some point, keep only lang_pack_current[][]
-//         and set only the english there. make the rest in files on the CF card and load them
-//         from there. if i understand it correctly, we have only 64kb for the hack.
-//         (see my_taskcreate_Startup())
 const char *lang_packs[LANG_COUNT][L_COUNT] = {
 	[LANG_ENGLISH] = {
 		[L_FREE_SPACE]    = "Free Space",
@@ -29,11 +25,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_LOAD_PRESETS]  = "Load presets",
 		[L_SAVE_PRESETS]  = "Save presets",
 
-		[L_PRESET_1]      = "Preset 1",
-		[L_PRESET_2]      = "Preset 2",
-		[L_PRESET_3]      = "Preset 3",
-		[L_PRESET_4]      = "Preset 4",
-		[L_PRESET_5]      = "Preset 5",
+		[L_PRESET_NAME]   = "Preset",
 
 		[L_DEVELOPER]          = "Developer",
 		[L_ENTER_FACTORY_MODE] = "Enter factory Mode",
@@ -105,11 +97,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_LOAD_PRESETS]  = "Presets laden",
 		[L_SAVE_PRESETS]  = "Presets speichern",
 
-		[L_PRESET_1]      = "Preset 1",
-		[L_PRESET_2]      = "Preset 2",
-		[L_PRESET_3]      = "Preset 3",
-		[L_PRESET_4]      = "Preset 4",
-		[L_PRESET_5]      = "Preset 5",
+		[L_PRESET_NAME]   = "Preset",
 
 		[L_DEVELOPER]          = "Entwickler",
 		[L_ENTER_FACTORY_MODE] = "Betrete Werksmenü",

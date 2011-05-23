@@ -17,13 +17,10 @@ type_MENUITEM menu_developer_items[] = {
 
 type_MENU menu_developer = {
 	name        : LP_WORD(L_DEVELOPER),
-	type        : MENU_400PLUS,
 	length      : LENGTH(menu_developer_items),
 	items       : menu_developer_items,
-	action      : NULL,
 	reorder     : FALSE,
-	dp_action   : menu_settings_start,
-	btn_handler : menu_buttons_handler
+	dp_action   : menu_settings_start
 };
 
 void menu_developer_start() {

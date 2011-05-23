@@ -9,7 +9,8 @@
 
 int   x, y, z;
 int   caps;
-type_DIALOG *dialog;
+
+type_DIALOG *handle = NULL;
 
 char *rename_filename;
 char  rename_buffer[32];
@@ -31,12 +32,25 @@ char letters[2][4][9] = {
 	}
 };
 
-// we need only the type here, there is no real menu structure
-type_MENU menu_rename = {
-	name        : LP_WORD(L_RENAME),
-	type        : MENU_RENAME,
+type_ACTION callbacks_rename[] = {
+	{GUI_BUTTON_UP,             FALSE, FALSE, {rename_up}},
+	{GUI_BUTTON_DOWN,           FALSE, FALSE, {rename_down}},
+	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, TRUE,  {rename_caps}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {rename_save}},
+	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {rename_clear}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {rename_next}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {rename_prev}},
+	END_OF_LIST
 };
+void rename_initialize();
+void rename_destroy();
 
+int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+
+void rename_display();
+void rename_refresh(int line);
 
 void rename_repeat(void (*repeateable)(int repeating));
 
@@ -44,41 +58,76 @@ void rename_repeateable_cycle(int repeating);
 void rename_repeateable_right(int repeating);
 void rename_repeateable_left (int repeating);
 
-void rename_display();
-void rename_refresh(int line);
-
-void rename_destroy();
-
 char *rename_message(int id);
 
-/// @todo no need of rename_prepare() anymore, merge it with rename_create()
-void rename_prepare(char *filename, type_TASK callback) {
+void rename_create(char *filename, type_TASK callback) {
 	rename_filename = filename;
 	rename_callback = callback;
-}
 
-void rename_create() {
-	type_MENU *menu;
+	FLAG_GUI_MODE = GUIMODE_RENAME;
 
-	menu_create(&menu_rename); // create rename dialog
-	menu = menu_get_current();
-	dialog = menu->handle;
+	rename_initialize();
+
+	handle = dialog_create(22, rename_handler);
+	dialog_set_property_str(handle, 8, "Rename");
 
 	rename_display();
+}
+
+void rename_close() {
+	rename_destroy();
+}
+
+void rename_initialize() {
+	rename_destroy();
+
+	handle = 0;
+	x = y = z = 0;
+	caps = FALSE;
+}
+
+void rename_destroy() {
+	if (handle != NULL)
+		DeleteDialogBox(handle);
+}
+
+int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+	type_ACTION *action;
+
+	// Loop over all the actions from this action chain
+	for (action = callbacks_rename; ! IS_EOL(action); action++) {
+
+		// Check whether this action corresponds to the event received
+		if (action->button == event) {
+
+			// Launch the defined task
+			if (action->task[0])
+				action->task[0]();
+
+			// Decide how to respond to this button
+			if (action->block)
+				return FALSE;
+			else
+				goto pass_event;
+		}
+	}
+
+pass_event:
+	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
 void rename_display() {
 	int i;
 
 	for(i = 0; i < 5; i++)
-		dialog_set_property_str(dialog, i + 1, rename_message(i));
+		dialog_set_property_str(handle, i + 1, rename_message(i));
 
-	dialog_redraw(dialog);
+	dialog_redraw(handle);
 }
 
 void rename_refresh(int line) {
-	dialog_set_property_str(dialog, line + 1, rename_message(line));
-	dialog_redraw(dialog);
+	dialog_set_property_str(handle, line + 1, rename_message(line));
+	dialog_redraw(handle);
 }
 
 void rename_up() {
@@ -103,6 +152,11 @@ void rename_left() {
 	rename_repeat(rename_repeateable_left);
 }
 
+void rename_caps() {
+	caps = !caps;
+	rename_display();
+}
+
 void rename_cycle() {
 	rename_repeat(rename_repeateable_cycle);
 }
@@ -115,11 +169,13 @@ void rename_action() {
 			z++;
 
 		rename_refresh(4);
-	} else {
-		presets_write();
-		rename_destroy();
-		rename_callback();
 	}
+}
+
+void rename_save() {
+	presets_write();
+	rename_close();
+	rename_callback();
 }
 
 void rename_clear() {
@@ -193,14 +249,12 @@ void rename_repeateable_left(int repeating) {
 }
 
 void rename_repeateable_cycle(int repeating) {
-	caps = !caps;
-	rename_display();
-}
+	if ('a' <= rename_filename[z] && rename_filename[z] <= 'z')
+		rename_filename[z] += 'A' - 'a';
+	else if ('A' <= rename_filename[z] && rename_filename[z] <= 'Z')
+		rename_filename[z] += 'a' - 'A';
 
-void rename_destroy() {
-	x = y = z = 0;
-	caps = FALSE;
-	menu_create_last();
+	rename_refresh(4);
 }
 
 char *rename_message(int id) {

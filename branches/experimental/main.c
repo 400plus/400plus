@@ -27,74 +27,78 @@ type_STATUS status = {
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{IC_BUTTON_UP,    TRUE,  RESP_PASS,  {restore_iso}},
-	{IC_BUTTON_DOWN,  TRUE,  RESP_PASS,  {restore_wb}},
-	{IC_BUTTON_LEFT,  TRUE,  RESP_PASS,  {restore_metering}},
-	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {dp_action}},
-	{IC_BUTTON_AV,    TRUE,  RESP_PASS,  {toggle_raw_jpeg}},
+	{IC_BUTTON_UP,    TRUE,  FALSE,  {restore_iso}},
+	{IC_BUTTON_DOWN,  TRUE,  FALSE,  {restore_wb}},
+	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
+	{IC_BUTTON_DP,    FALSE, TRUE,   {dp_action}},
+	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_raw_jpeg}},
 	END_OF_LIST
 };
 
 type_ACTION actions_menu[]  = {
-	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {menu_settings_start}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {menu_settings_start}},
 	END_OF_LIST
 };
 
 type_ACTION actions_info[]  = {
-	{IC_BUTTON_SET,   FALSE, RESP_BLOCK, {info_option_next}},
-	{IC_BUTTON_DOWN,  TRUE,  RESP_BLOCK, {info_option_next}},
-	{IC_BUTTON_RIGHT, TRUE,  RESP_BLOCK, {info_option_next}},
-	{IC_BUTTON_UP,    TRUE,  RESP_BLOCK, {info_option_prev}},
-	{IC_BUTTON_LEFT,  TRUE,  RESP_BLOCK, {info_option_prev}},
+	{IC_BUTTON_SET,   FALSE, TRUE, {info_option_next}},
+	{IC_BUTTON_DOWN,  TRUE,  TRUE, {info_option_next}},
+	{IC_BUTTON_RIGHT, TRUE,  TRUE, {info_option_next}},
+	{IC_BUTTON_UP,    TRUE,  TRUE, {info_option_prev}},
+	{IC_BUTTON_LEFT,  TRUE,  TRUE, {info_option_prev}},
 	END_OF_LIST
 };
 
-// the old way of handling the menus, in the intercom_proxy()
-/*
-type_ACTION actions_400plus_old[]  = {
-	{IC_BUTTON_UP,         TRUE,  RESP_RELEASE, {menu_up}},
-	{IC_BUTTON_DOWN,       TRUE,  RESP_RELEASE, {menu_down}},
-	{IC_BUTTON_RIGHT,      TRUE,  RESP_BLOCK,   {menu_right}},
-	{IC_BUTTON_LEFT,       TRUE,  RESP_BLOCK,   {menu_left}},
-	{IC_BUTTON_AV,         TRUE,  RESP_BLOCK,   {menu_cycle}},
-	{IC_BUTTON_SET,        FALSE, RESP_BLOCK,   {menu_action}},
-	{IC_BUTTON_DP,         FALSE, RESP_BLOCK,   {menu_dp_action}},
-	{IC_BUTTON_MENU,       FALSE, RESP_BLOCK,   {menu_drag_drop}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, RESP_BLOCK,   {menu_submenu_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, RESP_BLOCK,   {menu_submenu_next}},
+type_ACTION actions_400plus[]  = {
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE, {menu_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE, {menu_left}},
+	{IC_BUTTON_AV,         TRUE,  TRUE, {menu_cycle}},
+	{IC_BUTTON_SET,        FALSE, TRUE, {menu_action}},
+	{IC_BUTTON_DP,         FALSE, TRUE, {menu_dp_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE, {menu_submenu_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE, {menu_submenu_next}},
 	END_OF_LIST
 };
-*/
+
+type_ACTION actions_rename[]  = {
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE, {rename_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE, {rename_left}},
+	{IC_BUTTON_AV,         TRUE,  TRUE, {rename_cycle}},
+	{IC_BUTTON_SET,        FALSE, TRUE, {rename_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE, {rename_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE, {rename_next}},
+	END_OF_LIST
+};
 
 type_ACTION actions_meter[] = {
-	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {set_metering_spot}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {set_metering_spot}},
 	END_OF_LIST
 };
 
 type_ACTION actions_wb[] = {
-	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {set_whitebalance_colortemp}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {set_whitebalance_colortemp}},
 	END_OF_LIST
 };
 
 type_ACTION actions_iso[] = {
-	{IC_BUTTON_DP,    FALSE, RESP_BLOCK, {set_iso_high}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {set_iso_high}},
 	END_OF_LIST
 };
 
 type_ACTION actions_face[] = {
-	{IC_BUTTON_UP,    TRUE,  RESP_BLOCK, {}},
-	{IC_BUTTON_DOWN,  TRUE,  RESP_BLOCK, {}},
-	{IC_BUTTON_RIGHT, TRUE,  RESP_BLOCK, {viewfinder_right, viewfinder_end}},
-	{IC_BUTTON_LEFT,  TRUE,  RESP_BLOCK, {viewfinder_left,  viewfinder_end}},
+	{IC_BUTTON_UP,    TRUE, TRUE, {}},
+	{IC_BUTTON_DOWN,  TRUE, TRUE, {}},
+	{IC_BUTTON_RIGHT, TRUE, TRUE, {viewfinder_right, viewfinder_end}},
+	{IC_BUTTON_LEFT,  TRUE, TRUE, {viewfinder_left,  viewfinder_end}},
 	END_OF_LIST
 };
 
 type_ACTION actions_af[] = {
-	{IC_BUTTON_SET,   FALSE,  RESP_BLOCK, {afp_center}},
-	{IC_BUTTON_UP,    TRUE,   RESP_BLOCK, {afp_top}},
-	{IC_BUTTON_DOWN,  TRUE,   RESP_BLOCK, {afp_bottom}},
-	{IC_BUTTON_RIGHT, TRUE,   RESP_BLOCK, {afp_right}},
-	{IC_BUTTON_LEFT,  TRUE,   RESP_BLOCK, {afp_left}},
+	{IC_BUTTON_SET,   FALSE, TRUE, {afp_center}},
+	{IC_BUTTON_UP,    TRUE,  TRUE, {afp_top}},
+	{IC_BUTTON_DOWN,  TRUE,  TRUE, {afp_bottom}},
+	{IC_BUTTON_RIGHT, TRUE,  TRUE, {afp_right}},
+	{IC_BUTTON_LEFT,  TRUE,  TRUE, {afp_left}},
 	END_OF_LIST
 };
 
@@ -103,7 +107,8 @@ type_CHAIN intercom_chains[] = {
 	{GUIMODE_MAIN,      actions_main},
 	{GUIMODE_MENU,      actions_menu},
 	{GUIMODE_INFO,      actions_info},
-	//{GUIMODE_400PLUS_OLD,actions_400plus_old},
+	{GUIMODE_400PLUS,   actions_400plus},
+	{GUIMODE_RENAME,    actions_rename},
 	{GUIMODE_METER,     actions_meter},
 	{GUIMODE_WB,        actions_wb},
 	{GUIMODE_ISO,       actions_iso},
@@ -181,13 +186,10 @@ void intercom_proxy(const int handler, char *message) {
 			ENQUEUE_TASK(status.button_up_task);
 
 		// Decide how to respond to this button
-		switch(status.button_up_resp) {
-		case RESP_RELEASE:
-		case RESP_PASS:
-			goto pass_message;
-		case RESP_BLOCK:
+		if (status.button_up_block)
 			goto block_message;
-		}
+		else
+			goto pass_message;
 	}
 
 	// Use fictitious GUI modes so everything else fits nicely
@@ -211,9 +213,9 @@ void intercom_proxy(const int handler, char *message) {
 					// Consider buttons with "button down" and "button up" events
 					// and save "button up" parameters for later use
 					if (action->holds && holds) {
-						status.button_down    = event;
-						status.button_up_task = action->task[1];
-						status.button_up_resp = action->resp;
+						status.button_down     = event;
+						status.button_up_task  = action->task[1];
+						status.button_up_block = action->block;
 					}
 
 					// Launch the defined task
@@ -221,15 +223,10 @@ void intercom_proxy(const int handler, char *message) {
 						ENQUEUE_TASK(action->task[0]);
 
 					// Decide how to respond to this button
-					switch(action->resp) {
-					case RESP_RELEASE:
-						IntercomHandler(handler, message);
-						message[2] = FALSE;
-					case RESP_PASS:
-						goto pass_message;
-					case RESP_BLOCK:
+					if (action->block)
 						goto block_message;
-					}
+					else
+						goto pass_message;
 				}
 			}
 
@@ -253,10 +250,4 @@ void task_dispatcher () {
 		ReceiveMessageQueue(message_queue, &task, 0);
 		task();
 	}
-}
-
-
-void my_task_MainCtrl() {
-	*((int*)0xC0220000) = 0x46; // turn on blue led
-	task_MainCtrl();
 }
