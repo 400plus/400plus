@@ -16,22 +16,22 @@ type_PRESETS_CONFIG presets_config = {
 	recall_settings : FALSE,
 	recall_image    : TRUE,
 	recall_cfn      : TRUE,
-	order           : {0, 1, 2, 3, 4}
+	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8}
 };
 
 void get_filename(char *filename, int id);
 
 void presets_read() {
+	int id;
 	int file    = -1;
 	int version =  0;
 
 	type_PRESETS_CONFIG buffer;
 
-	sprintf(presets_config.names[0], "%-25s", LP_WORD(L_PRESET_1));
-	sprintf(presets_config.names[1], "%-25s", LP_WORD(L_PRESET_2));
-	sprintf(presets_config.names[2], "%-25s", LP_WORD(L_PRESET_3));
-	sprintf(presets_config.names[3], "%-25s", LP_WORD(L_PRESET_4));
-	sprintf(presets_config.names[4], "%-25s", LP_WORD(L_PRESET_5));
+	for (id = 0; id < 9; id ++) {
+		sprintf(presets_config.names[id], "%-25s", "");
+		sprintf(presets_config.names[id], "%s %i", LP_WORD(L_PRESET_NAME), id + 1);
+	}
 
 	if ((file = FIO_OpenFile(PRESETS_CONFIG, O_RDONLY, 644)) == -1)
 		goto end;
