@@ -33,7 +33,7 @@ _*20110328-0*_
  * Added the shortcuts menu.
 
 _*20110323-0*_
- * Added an ption to run the Wave script endlessly.
+ * Added an option to run the Wave script endlessly.
 
 _*20110318-2*_
  * Fixed another bug (flash-related options act inverted).
@@ -50,4 +50,3 @@ _*20110314-0*_
 _*20110211-0*_
  * Deactivate UP / DOWN buttons when camera is at the face, to avoid changing ISO / WB with your nose.
  * Better detection of double-event buttons, and some code clean-up.
-
