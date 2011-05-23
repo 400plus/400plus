@@ -1,6 +1,8 @@
 #include "main.h"
 #include "utils.h"
 #include "display.h"
+#include "settings.h"
+#include "presets.h"
 #include "languages.h"
 #include "menu_rename.h"
 #include "firmware.h"
@@ -21,7 +23,7 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_up}},
 	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_down}},
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_toggle_filenames}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_rename}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
@@ -53,6 +55,7 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
+int get_real_id(int item_id);
 
 void menu_create(type_MENU * menu) {
 	current_menu = menu;
@@ -212,6 +215,13 @@ void menu_action() {
 void menu_dp_action() {
 	if (current_menu->dp_action)
 		current_menu->dp_action();
+}
+
+void menu_toggle_filenames() {
+	if (current_menu->rename) {
+		current_menu->show_filenames = ! current_menu->show_filenames;
+		menu_display();
+	}
 }
 
 void menu_rename() {
@@ -387,16 +397,20 @@ void menu_repeateable_cycle(int repeating) {
 }
 
 char *menu_message(int item_id) {
+	char item_name[32];
 	char name[32];
 
 	type_MENUITEM *item = get_item(item_id);
 
-	if (current_menu->reorder) {
-		sprintf(name, "%c%s",
-			(current_menu->item_grabbed && item_id == current_menu->current_item) ? '>' : ' ',
-			item->name);
-	} else
-		sprintf(name, "%s", item->name);
+	if (current_menu->show_filenames)
+		get_preset_filename(item_name, 1 + get_real_id(item_id));
+	else
+		sprintf(item_name, "%s", item->name);
+
+	if (current_menu->reorder)
+		sprintf(name, "%c%s", (current_menu->item_grabbed && item_id == current_menu->current_item) ? '>' : ' ', item_name);
+	else
+		sprintf(name, "%s", item_name);
 
 	if (item->type == MENUITEM_TYPE_SUBMENU) {
 		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
@@ -462,8 +476,12 @@ type_MENUITEM *get_current_item() {
 }
 
 type_MENUITEM *get_item(int item_id) {
+	return &current_menu->items[get_real_id(item_id)];
+}
+
+int get_real_id(int item_id) {
 	if (current_menu->reorder)
-		return &current_menu->items[current_menu->ordering[item_id]];
+		return current_menu->ordering[item_id];
 	else
-		return &current_menu->items[item_id];
+		return item_id;
 }

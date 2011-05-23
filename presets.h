@@ -31,4 +31,6 @@ extern void preset_write(int id);
 extern void preset_apply();
 extern void preset_recall();
 
+extern void get_preset_filename(char *filename, int id);
+
 #endif /* PRESETS_H_ */

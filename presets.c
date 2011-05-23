@@ -74,7 +74,7 @@ int preset_read(int id) {
 
 	type_PRESET buffer;
 
-	get_filename(filename, id);
+	get_preset_filename(filename, id);
 
 	if ((file = FIO_OpenFile(filename, O_RDONLY, 644)) == -1)
 		goto end;
@@ -109,7 +109,7 @@ void preset_write(int id) {
 		camera_mode : cameraMode
 	};
 
-	get_filename(filename, id);
+	get_preset_filename(filename, id);
 
 	if ((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644)) != -1) {
 		FIO_WriteFile(file, (void*)&version,  sizeof(version));
@@ -210,6 +210,6 @@ void preset_recall() {
 	}
 }
 
-void get_filename(char *filename, int id) {
+void get_preset_filename(char *filename, int id) {
 	sprintf(filename, PRESETS_FILE, id);
 }

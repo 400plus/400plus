@@ -88,6 +88,7 @@ typedef struct {
 	int              current_line;
 	int              current_item;
 	int              item_grabbed; // for menu reordering
+	int              show_filenames;
 } type_MENU;
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
@@ -148,6 +149,7 @@ extern void menu_action();
 extern void menu_dp_action();
 extern void menu_cycle();
 
+extern void menu_toggle_filenames();
 extern void menu_rename();
 extern void menu_drag_drop();
 
