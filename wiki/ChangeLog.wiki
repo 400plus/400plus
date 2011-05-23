@@ -1,0 +1,53 @@
+#summary Log of changes made to this project.
+
+_*20110517-0*_
+ * Multi-language support (only English and German right now).
+ * Presets have been improved, there are more options related to them, and now they can be renamed and reordered.
+ * Some enhancements for the scripts: 
+    * Disable MLU and auto power-off during the execution of a script.
+    * Dim LCD down during the execution of a script.
+    * EAEB exposures up to 16 minutes.
+ * Other minor additions and fixes.
+
+_*20110425-1*_
+ * Fixed wrong version number displayed.
+
+_*20110425-0*_
+ * New "Presets" feature.
+ * More info (BodyID) at the INFO dialog.
+ * AF settings moved to the shortcuts dialog and expanded.
+
+_*20110412-0*_
+ * The shortcuts menu acts now like a real menu, only that it can be reordered.
+ * Optionally, the shortcuts menu can be disabled, and then the DP button will change to an intermediate ISO.
+ * Sub-menus at the settings menu are now navigated using the front wheel.
+ * Displayed release count and 400plus version at the INFO menu.
+ * Added new developers menu to enter / leave the factory mode or activate the debug mode (use with care, or even better, do not use at all).
+ * And lots of other minor improvements and bug fixes.
+
+_*20110403-0*_
+ * Added the configuration of the shortcuts menu.
+ * Added a couple of new shortcuts.
+
+_*20110328-0*_
+ * Added the shortcuts menu.
+
+_*20110323-0*_
+ * Added an ption to run the Wave script endlessly.
+
+_*20110318-2*_
+ * Fixed another bug (flash-related options act inverted).
+
+_*20110318-1*_
+ * Fixed a bug (highlighted line does not match active line when returning to menu).
+
+_*20110318-0*_
+ * New menu infrastructure.
+
+_*20110314-0*_
+ * Code clean-up.
+
+_*20110211-0*_
+ * Deactivate UP / DOWN buttons when camera is at the face, to avoid changing ISO / WB with your nose.
+ * Better detection of double-event buttons, and some code clean-up.
+
