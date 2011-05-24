@@ -74,8 +74,22 @@ struct MENUITEM {
 	};
 };
 
+typedef enum {
+	MENU_COLOR_RED              = 0x00,
+	MENU_COLOR_BLUE             = 0x01,
+	MENU_COLOR_YELLOW           = 0x02,
+	MENU_COLOR_YELLOW_AND_WHITE = 0x06,
+	MENU_COLOR_DARK_BLUE        = 0x09,
+	//MENU_COLOR_SOMETHING_FOR_THE_HELP_SCREEN_MAY_BE = 0x0A, // cannot be used for menus
+	MENU_COLOR_DARK_RED         = 0x0C,
+	MENU_COLOR_YELLOW_AND_GREEN = 0x10, // nice
+	MENU_COLOR_WHITE_ON_BLACK   = 0x12, // dark one
+	MENU_COLOR_ORANGE           = 0x67,
+} type_MENU_COLOR;
+
 typedef struct {
 	char            *name;
+	type_MENU_COLOR  color;
 	int              length;
 	type_MENUITEM   *items;
 	type_TASK        save;
@@ -84,7 +98,7 @@ typedef struct {
 	type_TASK        callback;
 	int              reorder;
 	int             *ordering;
-	void            *handle;       // dialog handle returned from CreateDialogBox()
+	type_DIALOG     *handle;       // dialog handle returned from CreateDialogBox()
 	int              current_line;
 	int              current_item;
 	int              item_grabbed; // for menu reordering

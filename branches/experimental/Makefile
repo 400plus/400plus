@@ -5,7 +5,7 @@ VERSION = $(shell [[ -d .svn ]] && svn info | grep Revision | cut -d' ' -f2 || d
 RELEASE = 0
 
 CC     = arm-elf-gcc
-CFLAGS+= -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION)
+CFLAGS+= -Os -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION)
 
 AS      = arm-elf-as
 ASFLAGS = 
@@ -16,7 +16,8 @@ OBJCOPY = arm-elf-objcopy
 S_OBJS = entry.o      \
          entry_subs.o \
          gui.o        \
-         
+	 mainctrl.o   \
+
 C_OBJS = init.o           \
          main.o           \
          tasks.o          \
@@ -60,6 +61,7 @@ release: clean
 $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
 	rm -f $(PROJECT).arm.elf
+	@echo;echo;ls -l AUTOEXEC.BIN
 
 $(PROJECT).arm.elf: $(OBJS) link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^

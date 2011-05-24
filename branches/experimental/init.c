@@ -238,7 +238,7 @@ void my_task_Startup() {
 
 	RegisterISR_EMERGENCY_CARDDOOR();
 
-	MainCtrlInit();
+	my_MainCtrlInit();
 
 	CaptureSemaphoreInit();
 

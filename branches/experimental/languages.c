@@ -4,6 +4,11 @@
 
 #include "languages.h"
 
+/// @todo: languages will take too much space at some point, keep only lang_pack_current[][]
+//         and set only the english there. make the rest in files on the CF card and load them
+//         from there. if i understand it correctly, we have only 64kb for the hack.
+//         (see my_taskcreate_Startup())
+
 const char *lang_packs[LANG_COUNT][L_COUNT] = {
 	[LANG_ENGLISH] = {
 		[L_FREE_SPACE]    = "Free Space",

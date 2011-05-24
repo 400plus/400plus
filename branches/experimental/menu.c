@@ -66,6 +66,8 @@ void menu_create(type_MENU * menu) {
 	current_menu->handle = dialog_create(22, button_handler);
 	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
 
+	PaletteChange(current_menu->color);
+
 	menu_display();
 }
 
