@@ -104,6 +104,7 @@ extern SEM_ID CreateBinarySemaphore(char * name, SEM_B_STATE state); // SEM_EMPT
 extern int TakeSemaphore(SEM_ID sem, int time);
 extern int GiveSemaphore(SEM_ID sem);
 extern int DeleteSemaphore(int* sem);
+extern SEM_ID hMainCtrlMonoSem;
 
 // Event generation
 
@@ -158,7 +159,24 @@ extern int RemReleaseSelfMin;
 extern int RemReleaseSelfMax;
 
 // Language
-
 extern void GetLanguageStr(int lang_id, char * lang_str);
+
+// MainCtrl
+extern char * aMonoSem_0;
+extern int *MC_dword_2A520;
+extern int *MC_dword_259C0;
+extern int *MC_State;
+extern int *MC_dword_26940;
+extern int *MC_dword_27BE0;
+extern int *dword_1C78;
+extern int SendToMC_T_28();
+extern int proc_CardDoor_Emergency();
+extern int ErrorDetectActSweep();
+extern void * hMainMessQueue;
+extern char * aMainMessQueue;
+extern void * hMainDataQueue;
+extern char * aMainDataQueue;
+extern char * aMainCtrl;
+extern int GetMainPreserveData();
 
 #endif /* FIRMWARE_H_ */
