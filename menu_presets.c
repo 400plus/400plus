@@ -84,10 +84,24 @@ type_MENU menu_presets_load = {
 };
 
 void menu_presets_save_start() {
+	if (status.last_preset) {
+		menu_presets_save.highlight        = TRUE;
+		menu_presets_save.highlighted_item = status.last_preset;
+	} else {
+		menu_presets_save.highlight        = FALSE;
+	}
+
 	menu_create(&menu_presets_save);
 }
 
 void menu_presets_load_start() {
+	if (status.last_preset) {
+		menu_presets_load.highlight        = TRUE;
+		menu_presets_load.highlighted_item = status.last_preset;
+	} else {
+		menu_presets_load.highlight        = FALSE;
+	}
+
 	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP)
 		menu_create(&menu_presets_load);
 }
@@ -113,7 +127,9 @@ void preset_save_9() { preset_save(9); }
 void preset_save(int id) {
 	beep();
 
-	preset_write(id);
+	if (preset_write(id)) {
+		status.last_preset = id;
+	}
 
 	menu_close();
 }
@@ -139,8 +155,10 @@ void preset_load_9() { preset_load(9); }
 void preset_load(int id) {
 	beep();
 
-	if (preset_read(id))
+	if (preset_read(id)) {
 		preset_apply();
+		status.last_preset = id;
+	}
 
 	menu_close();
 }

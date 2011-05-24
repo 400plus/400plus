@@ -84,6 +84,8 @@ typedef struct {
 	type_TASK        callback;
 	int              reorder;
 	int             *ordering;
+	int              highlight;
+	int              highlighted_item;
 	void            *handle;       // dialog handle returned from CreateDialogBox()
 	int              current_line;
 	int              current_item;
