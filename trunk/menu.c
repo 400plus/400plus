@@ -407,9 +407,14 @@ char *menu_message(int item_id) {
 	else
 		sprintf(item_name, "%s", item->name);
 
-	if (current_menu->reorder)
-		sprintf(name, "%c%s", (current_menu->item_grabbed && item_id == current_menu->current_item) ? '>' : ' ', item_name);
-	else
+	if (current_menu->highlight || current_menu->reorder) {
+		if (current_menu->reorder && current_menu->item_grabbed && item_id == current_menu->current_item)
+			sprintf(name, "%c%s", '>', item_name);
+		else if (current_menu->highlight && current_menu->highlighted_item == 1 + get_real_id(item_id))
+			sprintf(name, "%c%s", '*', item_name);
+		else
+			sprintf(name, "%c%s", ' ', item_name);
+	} else
 		sprintf(name, "%s", item_name);
 
 	if (item->type == MENUITEM_TYPE_SUBMENU) {

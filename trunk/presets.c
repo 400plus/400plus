@@ -66,7 +66,6 @@ void presets_write() {
 
 int preset_read(int id) {
 	int result  = FALSE;
-
 	int file    = -1;
 	int version =  0;
 
@@ -98,10 +97,12 @@ end:
 	return result;
 }
 
-void preset_write(int id) {
+int preset_write(int id) {
 	const int version = SETTINGS_VERSION;
 
-	int  file = -1;
+	int  result = FALSE;
+	int  file   = -1;
+
 	char filename[16];
 
 	type_PRESET buffer = {
@@ -111,11 +112,25 @@ void preset_write(int id) {
 
 	get_preset_filename(filename, id);
 
-	if ((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644)) != -1) {
-		FIO_WriteFile(file, (void*)&version,  sizeof(version));
-		FIO_WriteFile(file, (void*)&buffer,   sizeof(buffer));
+	if ((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644)) == -1)
+		goto end;
+
+	if (FIO_WriteFile(file, (void*)&version, sizeof(version)) != sizeof(version))
+		goto end;
+
+	if (FIO_WriteFile(file, (void*)&buffer, sizeof(buffer)) != sizeof(buffer))
+		goto end;
+
+	if (FIO_CloseFile(file) == -1)
+		goto end;
+
+	result = TRUE;
+
+end:
+	if (file != -1)
 		FIO_CloseFile(file);
-	}
+
+	return result;
 }
 
 extern void preset_apply() {

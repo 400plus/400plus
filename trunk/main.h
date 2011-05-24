@@ -485,6 +485,7 @@ typedef struct {
 	int       main_dial_ae;      // AE mode selected in the main dial
 	type_TASK button_up_task;    // Task that must be executed when the current button is released
 	int       button_up_block;   // Response when the current button is released
+	int       last_preset;       // Last preset used
 } type_STATUS;
 
 // Main message queue
