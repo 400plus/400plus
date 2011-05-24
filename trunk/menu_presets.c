@@ -125,13 +125,12 @@ void preset_save_8() { preset_save(8); }
 void preset_save_9() { preset_save(9); }
 
 void preset_save(int id) {
-	beep();
-
 	if (preset_write(id)) {
 		status.last_preset = id;
-	}
 
-	menu_close();
+		beep();
+		menu_close();
+	}
 }
 
 void preset_load_1() { preset_load(1); }
@@ -153,12 +152,11 @@ void preset_load_8() { preset_load(8); }
 void preset_load_9() { preset_load(9); }
 
 void preset_load(int id) {
-	beep();
-
 	if (preset_read(id)) {
 		preset_apply();
 		status.last_preset = id;
-	}
 
-	menu_close();
+		beep();
+		menu_close();
+	}
 }
