@@ -175,5 +175,8 @@ extern void * hMainMessQueue;
 extern void * hMainDataQueue;
 extern int GetMainPreserveData();
 extern void task_MainCtrl();
+// task_MainCtrl
+extern void unk_26AC0();
+extern void sub_FF825078();
 
 #endif /* FIRMWARE_H_ */

@@ -3,11 +3,13 @@
 #include "debug.h"
 
 
-void my_task_MainCtrl() {
+void __my_task_MainCtrl() {
 	(*((int*)0xC0220000)) = 0x46; // turn on the blue led
 	//eventproc_EdLedOn(); // we cannot use this here, the tasks are not created yet...
 	task_MainCtrl();
 }
+
+extern void my_task_MainCtrl();
 
 void my_MainCtrlInit() {
 

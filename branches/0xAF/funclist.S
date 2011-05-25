@@ -15223,3 +15223,6 @@ DEF(sub_FF823A44, 0xFF823A44)
 DEF(proc_CardDoor_Emergency, 0xFF82759C)
 DEF(dword_1C78, 0x00001C78)
 
+// for task_mainctrl
+DEF(sub_FF825078, 0xFF825078)
+DEF(unk_26AC0, 0x00026AC0)
