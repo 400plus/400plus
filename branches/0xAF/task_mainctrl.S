@@ -8,78 +8,77 @@ var_1C          = -0x1C
 var_18          = -0x18
 var_14          = -0x14
 
-                STMFD   SP!, {R4-R6,LR} // Store Block to Memory
-                LDR     R5, =MC_T_Table // Load from Memory
-                LDR     R6, =MC_State   // Load from Memory
-                SUB     SP, SP, #0xC    // Rd = Op1 - Op2
+                STMFD   SP!, {R4-R6,LR} // save r4-r6 and return address
+                LDR     R5, =MC_T_Table // r5 = MC_T_Table
+                LDR     R6, =MC_State   // r6 = MC_State
+                SUB     SP, SP, #0xC    // alocate stack 0xC0 ? 0x0C ?
 
-loop:                                    // CODE XREF: task_MainCtrl+68j
-                                        // task_MainCtrl+7CMj ...
-                LDR     R3, =hMainMessQueue // Load from Memory
-                ADD     R1, SP, #0x1C+var_14 // Rd = Op1 + Op2
-                LDR     R0, [R3]        // Load from Memory
-                MOV     R2, #0          // Rd = Op2
-                BL      ReceiveMessageQueue // (void* hMessageQueue, void* pMessage, int FOREVER);
-                LDR     R12, [SP,#0x1C+var_14] // Load from Memory
-                ADD     R4, R12, R12,LSL#1 // Rd = Op1 + Op2
-                MOV     R4, R4,LSL#2    // Rd = Op2
-                LDR     LR, [R6]        // Load from Memory
-                LDR     R3, [R4,R5]     // Load from Memory
-                MOV     R0, #1          // Rd = Op2
-                LDR     R2, =aMcT04dS04xD // Load from Memory
-                MOV     R1, #6          // Rd = Op2
-                STR     LR, [SP,#0x1C+var_1C] // Store to Memory
-                STR     R12, [SP,#0x1C+var_18] // Store to Memory
-                BL      printf_log      // Branch with Link
-                LDR     R2, [R4,R5]     // Load from Memory
-                SUB     R3, R2, #1      // Rd = Op1 - Op2
-                CMP     R3, #4          // Set cond. codes on Op1 - Op2
-                ADD     R0, R4, R5      // Rd = Op1 + Op2
-                BHI     loc_FF81BEC8    // Branch
-                BL      MC_T_1_5        // Branch with Link
-                B       loop            // Branch
+loop:
+                LDR     R3, =hMainMessQueue // r3 = &hMainMessQueue
+                ADD     R1, SP, #0x08   // r1 = message[4] // pointer
+                LDR     R0, [R3]        // r0 = hMainMessQueue
+                MOV     R2, #0          // r2 = 0
+                BL      ReceiveMessageQueue // call ReceiveMessageQueue(hMainMessQueue, message, 0);
+                LDR     R12, [SP,#0x08] // r12 = *message
+                ADD     R4, R12, R12,LSL#1 // r4 = message + message << 1, message + message * 2, message * 3
+                MOV     R4, R4,LSL#2    // r4 = r4 * 4 // r4 = (int)message[3]
+                LDR     LR, [R6]        // return address = MC_State
+                LDR     R3, [R4,R5]     // r3 = r4[r5], MC_T_Table[message[3]]
+                MOV     R0, #1          // r0 = 1
+                LDR     R2, =aMcT04dS04xD // r2 = aMcT04dS04xD // "[MC] T:%04d, S:%04X, %d"
+                MOV     R1, #6          // r1 = 6
+                STR     LR, [SP,#0]     // localvar1 = MC_State
+                STR     R12, [SP,#0x04] // localvar2 = *message
+                BL      printf_log      // call printf_log(1, 6, "[MC] T:%04d, S:%04X, %d", MC_T_Table[message[3]], message[3], MC_T_Table);
+                LDR     R2, [R4,R5]     // r2 = MC_T_Table[message[3]]
+                SUB     R3, R2, #1      // r3 = MC_T_Table[message[3]] - 1
+                CMP     R3, #4          // ? r3 == 4
+                ADD     R0, R4, R5      // r0 = MC_T_Table[message[3]]
+                BHI     loc_FF81BEC8    // if (r3 > 4) goto loc_FF81BEC8;
+                BL      MC_T_1_5        // call MC_T_1_5()
+                B       loop            // goto loop
 // ---------------------------------------------------------------------------
 
-loc_FF81BEC8:                            // CODE XREF: task_MainCtrl+60j
-                SUB     R3, R2, #6      // Rd = Op1 - Op2
-                CMP     R3, #1          // Set cond. codes on Op1 - Op2
-                BHI     loc_FF81BEDC    // Branch
-                BL      MC_T_6_7        // Branch with Link
-                B       loop            // Branch
+loc_FF81BEC8:
+                SUB     R3, R2, #6      // r3 = MC_T_Table[message[3]] - 6
+                CMP     R3, #1          // ? r3 == 1
+                BHI     loc_FF81BEDC    // if (r3 > 1) goto loc_FF81BEDC;
+                BL      MC_T_6_7        // MC_T_6_7();
+                B       loop            // goto loop;
 // ---------------------------------------------------------------------------
 
-loc_FF81BEDC:                            // CODE XREF: task_MainCtrl+74j
-                SUB     R3, R2, #8      // Rd = Op1 - Op2
-                CMP     R3, #12         // Set cond. codes on Op1 - Op2
-                BHI     loc_FF81BEF0    // Branch
-                BL      MC_T_8_20       // Branch with Link
-                B       loop            // Branch
+loc_FF81BEDC:
+                SUB     R3, R2, #8      // r3 = MC_T_Table[message[3]] - 8
+                CMP     R3, #12         // ? r3 == 12
+                BHI     loc_FF81BEF0    // if (r3 > 12) goto loc_FF81BEF0;
+                BL      MC_T_8_20       // MC_T_8_20();
+                B       loop            // goto loop
 // ---------------------------------------------------------------------------
 
-loc_FF81BEF0:                            // CODE XREF: task_MainCtrl+88j
-                SUB     R3, R2, #21     // Rd = Op1 - Op2
-                CMP     R3, #4          // Set cond. codes on Op1 - Op2
-                BHI     loc_FF81BF04    // Branch
-                BL      MC_T_21_25      // Branch with Link
-                B       loop            // Branch
+loc_FF81BEF0:
+                SUB     R3, R2, #21     // r3 = MC_T_Table[message[3]] - 21
+                CMP     R3, #4          // ? r2 == 4
+                BHI     loc_FF81BF04    // if (r3 > 4) goto loc_FF81BF04;
+                BL      MC_T_21_25      // MC_T_21_25();
+                B       loop            // goto loop;
 // ---------------------------------------------------------------------------
 
-loc_FF81BF04:                            // CODE XREF: task_MainCtrl+9Cj
-                CMP     R2, #26 // MC_26      // Set cond. codes on Op1 - Op2
-                BNE     loc_FF81BF40    // Branch
-                BL      InitializeDriveManager // Branch with Link
-                BL      InitializeDcfManager // Branch with Link
-                BL      RegisterChangeNotifyCallback_DCF // Branch with Link
-                MOV     R1, #0          // Rd = Op2
-                LDR     R0, =DriveNotifyCallBack // Load from Memory
-                BL      RegisterDriveNotifyCallBack // Branch with Link
-                LDR     R0, =ChangeNotifyCallback_MC // Load from Memory
-                MOV     R1, #0          // Rd = Op2
-                BL      RegisterChangeNotifyCallback // Branch with Link
-                LDR     R3, =hMainCtrlMonoSem // Load from Memory
-                LDR     R0, [R3]        // Load from Memory
-                BL      GiveSemaphore   // (hSem);
-                B       loop            // Branch
+loc_FF81BF04:
+                CMP     R2, #26 // MC_26      // ? r2 == 26
+                BNE     loc_FF81BF40    // if (r2 != 26) goto loc_FF81BF40;
+                BL      InitializeDriveManager // InitializeDriveManager();
+                BL      InitializeDcfManager // InitializeDcfManager();
+                BL      RegisterChangeNotifyCallback_DCF // RegisterChangeNotifyCallback_DCF()
+                MOV     R1, #0          // r1 = 0
+                LDR     R0, =DriveNotifyCallBack // r0 = DriveNotifyCallBack
+                BL      RegisterDriveNotifyCallBack // RegisterDriveNotifyCallBack(DriveNotifyCallBack, 0);
+                LDR     R0, =ChangeNotifyCallback_MC // r0 = ChangeNotifyCallback_MC
+                MOV     R1, #0          // r1 = 0;
+                BL      RegisterChangeNotifyCallback // RegisterChangeNotifyCallback(ChangeNotifyCallback_MC, 0);
+                LDR     R3, =hMainCtrlMonoSem // r3 = &hMainCtrlMonoSem
+                LDR     R0, [R3]        // r0 = &hMainCtrlMonoSem
+                BL      GiveSemaphore   // GiveSemaphore(hMainCtrlMonoSem);
+                B       loop            // goto loop
 // ---------------------------------------------------------------------------
 
 loc_FF81BF40:                            // CODE XREF: task_MainCtrl+ACj
