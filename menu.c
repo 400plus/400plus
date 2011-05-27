@@ -203,7 +203,8 @@ void menu_action() {
 	if (action) {
 		if (close) {
 			menu_close();
-			initialize_display();
+
+			ENQUEUE_TASK(restore_display);
 			ENQUEUE_TASK(action);
 		} else {
 			action();
