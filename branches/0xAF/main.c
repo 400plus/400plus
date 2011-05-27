@@ -22,7 +22,8 @@ type_STATUS status = {
 	button_down       : FALSE,
 	script_running    : FALSE,
 	iso_in_viewfinder : FALSE,
-	afp_dialog        : FALSE
+	afp_dialog        : FALSE,
+	last_preset       : FALSE,
 };
 
 // Action definitions
@@ -143,6 +144,7 @@ void intercom_proxy(const int handler, char *message) {
 	// Status-independent events and special cases
 	switch (event) {
 	case IC_MAIN_DIAL: // Mode dial moved
+		status.last_preset  = FALSE;
 		status.main_dial_ae = param;
 		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP)
 			ENQUEUE_TASK(preset_recall);

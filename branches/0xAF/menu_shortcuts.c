@@ -52,5 +52,5 @@ void menu_shortcuts_save() {
 
 	settings_write();
 
-	//menu_close();
+	menu_close();
 }

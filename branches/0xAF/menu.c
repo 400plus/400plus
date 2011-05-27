@@ -55,12 +55,14 @@ void menu_print_char (char *buffer, char *name, char *parameter);
 
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
+
 int get_real_id(int item_id);
 
 void menu_create(type_MENU * menu) {
 	current_menu = menu;
 	FLAG_GUI_MODE = GUIMODE_400PLUS;
 
+	menu_destroy();
 	menu_initialize();
 
 	current_menu->handle = dialog_create(22, button_handler);
@@ -72,17 +74,11 @@ void menu_create(type_MENU * menu) {
 }
 
 void menu_close() {
-	menu_destroy();
-
 	press_button(IC_BUTTON_DISP);
-	SleepTask(250);
-
-	display_refresh();
+	menu_destroy();
 }
 
 void menu_initialize() {
-	menu_destroy();
-
 	current_menu->handle = 0;
 	current_menu->current_line = 0;
 	current_menu->current_item = 0;
@@ -90,8 +86,10 @@ void menu_initialize() {
 }
 
 void menu_destroy() {
-	if (current_menu->handle != 0)
+	if (current_menu->handle != 0) {
 		DeleteDialogBox(current_menu->handle);
+		current_menu->handle = 0;
+	}
 }
 
 int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
@@ -207,6 +205,8 @@ void menu_action() {
 	if (action) {
 		if (close) {
 			menu_close();
+
+			ENQUEUE_TASK(restore_display);
 			ENQUEUE_TASK(action);
 		} else {
 			action();
@@ -409,9 +409,14 @@ char *menu_message(int item_id) {
 	else
 		sprintf(item_name, "%s", item->name);
 
-	if (current_menu->reorder)
-		sprintf(name, "%c%s", (current_menu->item_grabbed && item_id == current_menu->current_item) ? '>' : ' ', item_name);
-	else
+	if (current_menu->highlight || current_menu->reorder) {
+		if (current_menu->reorder && current_menu->item_grabbed && item_id == current_menu->current_item)
+			sprintf(name, "%c%s", '>', item_name);
+		else if (current_menu->highlight && current_menu->highlighted_item == 1 + get_real_id(item_id))
+			sprintf(name, "%c%s", '*', item_name);
+		else
+			sprintf(name, "%c%s", ' ', item_name);
+	} else
 		sprintf(name, "%s", item_name);
 
 	if (item->type == MENUITEM_TYPE_SUBMENU) {
