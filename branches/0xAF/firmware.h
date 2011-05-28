@@ -178,5 +178,6 @@ extern void task_MainCtrl();
 // task_MainCtrl
 extern void unk_26AC0();
 extern void sub_FF825078();
+extern int MC_T_Table[];
 
 #endif /* FIRMWARE_H_ */

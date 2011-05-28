@@ -43,8 +43,9 @@ static inline char * gui_event_name(char * buf, gui_event_t event) {
 #define LEDON   0x46
 #define LEDOFF  0x44
 
-#define blink_red() do { int i; LEDRED=LEDON; for (i=0;i<2000000; i++); LEDRED=LEDOFF; for (i=0;i<2000000; i++); } while (0)
-#define blink_blue() do { int i; LEDBLUE=LEDON; for (i=0;i<2000000; i++); LEDBLUE=LEDOFF; for (i=0;i<2000000; i++); } while(0)
+#define blink_cycles 1000000
+#define blink_red() do { int i; LEDRED=LEDON; for (i=0;i<blink_cycles; i++); LEDRED=LEDOFF; for (i=0;i<blink_cycles; i++); } while (0)
+#define blink_blue() do { int i; LEDBLUE=LEDON; for (i=0;i<blink_cycles; i++); LEDBLUE=LEDOFF; for (i=0;i<blink_cycles; i++); } while(0)
 
 #else // ENABLE_DEBUG
 
