@@ -2,6 +2,7 @@
 #define MENU_SETTINGS_H_
 
 extern void menu_settings_start();
+extern void menu_settings_create();
 extern void menu_settings_save();
 
 #endif /* MENU_SETTINGS_H_ */

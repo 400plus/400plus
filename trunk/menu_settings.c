@@ -85,7 +85,10 @@ type_MENU main_menu = {
 
 void menu_settings_start() {
 	beep();
+	menu_settings_create();
+}
 
+void menu_settings_create() {
 	menu_settings = settings;
 
 	menu_settings.av_comp        =  cameraMode.av_comp;
