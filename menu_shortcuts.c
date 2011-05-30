@@ -35,11 +35,14 @@ type_MENU menu_shortcuts = {
 void menu_shortcuts_start() {
 	beep();
 
-	sc_cameraMode = cameraMode;
-
 	press_button(IC_BUTTON_MENU);
 	SleepTask(100);
 
+	menu_shortcuts_create();
+}
+
+void menu_shortcuts_create() {
+	sc_cameraMode = cameraMode;
 	menu_create(&menu_shortcuts);
 }
 
