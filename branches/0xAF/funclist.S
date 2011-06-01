@@ -765,9 +765,9 @@ DEF(FIO_SetFileAttributes, 0xFFA9EB3C)
 DEF(FIO_SetFileTime, 0xFFA9EBFC)
 DEF(FIO_WriteFile, 0xFFA9EA84)
 DEF(FIO_something1, 0xFFA9ECB4) // good candidate for FindNext
-DEF(FIO_something1, 0xFFA9ECC0) // good candidate for FindNext
-DEF(FIO_something1, 0xFFA9EF54) // good candidate for FindNext
-DEF(FIO_something2, 0xFFA9EFA8) // good candidate for FindNext
+DEF(FIO_something2, 0xFFA9ECC0) // good candidate for FindNext
+DEF(FIO_something3, 0xFFA9EF54) // good candidate for FindNext
+DEF(FIO_something4, 0xFFA9EFA8) // good candidate for FindNext
 DEF(FJOB_Cancel, 0xFFA9E97C)
 DEF(FJOB_Create, 0xFFA9E85C)
 DEF(FM_RegisterChangeNotifyCallback, 0xFFA8DB0C)
@@ -903,7 +903,7 @@ DEF(GetLastJob, 0xFFB2D258)
 DEF(GetLastStageJob, 0xFFB2CBD8)
 DEF(GetLockCount, 0xFFB22F74)
 DEF(GetLpfDistance, 0xFF93E3CC)
-DEF(GetMainPreserveData.field_1C, 0xFF823EA8)
+DEF(GetMainPreserveData_field_1C, 0xFF823EA8)
 DEF(GetMainPreserveData_field_1C_LSR30, 0xFF825B50)
 DEF(GetMemoryChunkSize, 0xFFB162CC)
 DEF(GetMemoryInformation, 0xFFB12034)
@@ -15225,4 +15225,4 @@ DEF(dword_1C78, 0x00001C78)
 
 // for task_mainctrl
 DEF(sub_FF825078, 0xFF825078)
-DEF(unk_26AC0, 0x00026AC0)
+DEF(err_MC_T, 0x00026AC0)

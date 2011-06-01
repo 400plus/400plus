@@ -62,12 +62,14 @@ extern int   fread(void *buffer, long size, long count, FILE *fp);
 extern int   fwrite(const void *buffer, long size, long count, FILE *fp);
 extern int   fclose(FILE *fp);
 
+// File IO
 extern int FIO_CreateFile(const char *name);
 extern int FIO_RemoveFile(const char *name);
 extern int FIO_OpenFile(const char *name, int flags, int mode);
 extern int FIO_ReadFile(int fd, void *buffer, long nbytes);
 extern int FIO_WriteFile(int fd, void *buf, long nbytes);
 extern int FIO_CloseFile(int fd);
+extern void FIO_GetFileSize(char * file, int * size);
 
 // free space is reported in KB, drvltr is "A:"
 extern int FP_GetDriveFreeSpace(char * drv_letter, int * result);
@@ -146,7 +148,7 @@ extern int ioGlobalStdSet(int handle, int file);
 // Shutter stuff
 
 extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
-extern char *aRelSem;   // semaphore name
+extern char aRelSem[];   // semaphore name
 
 // Remote shutter stuff -- this variables can help us detect any remote (may be)
 extern int RemPulseWidthMin;
@@ -173,11 +175,19 @@ extern int proc_CardDoor_Emergency();
 extern int ErrorDetectActSweep();
 extern void * hMainMessQueue;
 extern void * hMainDataQueue;
-extern int GetMainPreserveData();
+extern int GetMainPreserveData_field_1C();
 extern void task_MainCtrl();
 // task_MainCtrl
-extern void unk_26AC0();
+extern int err_MC_T;
 extern void sub_FF825078();
 extern int MC_T_Table[];
+extern char aMcT04dS04xD[];
+extern char aMainMessQueue[];
+extern char aMainDataQueue[];
+extern int  DriveNotifyCallBack();
+extern int  ChangeNotifyCallback_MC();
+extern char aMainCannotPowo[];
+
+
 
 #endif /* FIRMWARE_H_ */
