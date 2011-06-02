@@ -173,8 +173,8 @@ extern int dword_1C78;
 extern int SendToMC_T_28();
 extern int proc_CardDoor_Emergency();
 extern int ErrorDetectActSweep();
-extern void * hMainMessQueue;
-extern void * hMainDataQueue;
+extern int * hMainMessQueue;
+extern int * hMainDataQueue;
 extern int GetMainPreserveData_field_1C();
 extern void task_MainCtrl();
 // task_MainCtrl
@@ -187,7 +187,7 @@ extern char aMainDataQueue[];
 extern int  DriveNotifyCallBack();
 extern int  ChangeNotifyCallback_MC();
 extern char aMainCannotPowo[];
-
-
+extern char aMainCtrl[];
+extern char aMonoSem[];
 
 #endif /* FIRMWARE_H_ */
