@@ -19,6 +19,7 @@ type_PRESETS_CONFIG presets_config = {
 	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8}
 };
 
+void sub_preset_recall(int full);
 void get_filename(char *filename, int id);
 
 void presets_read() {
@@ -207,23 +208,32 @@ extern void preset_apply() {
 		send_to_intercom(IC_SET_CF_TFT_ON_POWER_ON,      1, preset.camera_mode.cf_tft_on_power_on);
 	}
 
-	preset_write(0);
-
 	display_refresh();
 	status.main_dial_ae = ae;
 }
 
 void preset_recall() {
-	int ae = status.main_dial_ae;
+	sub_preset_recall(FALSE);
+}
 
+void preset_recall_full() {
+	sub_preset_recall(TRUE);
+}
+
+void sub_preset_recall(int full) {
 	if (preset_read(0)) {
-		settings_apply();
+		if (preset.camera_mode.ae != AE_MODE_ADEP) {
+			if (full) {
+				preset_apply();
+			} else {
+				int ae = status.main_dial_ae;
 
-		if (preset.camera_mode.ae != AE_MODE_ADEP)
-			send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
+				send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
 
-		display_refresh();
-		status.main_dial_ae = ae;
+				status.main_dial_ae = ae;
+				display_refresh();
+			}
+		}
 	}
 }
 

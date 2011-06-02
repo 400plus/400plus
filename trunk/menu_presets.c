@@ -154,6 +154,8 @@ void preset_load_9() { preset_load(9); }
 void preset_load(int id) {
 	if (preset_read(id)) {
 		preset_apply();
+		preset_write(0);
+
 		status.last_preset = id;
 
 		beep();
