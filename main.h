@@ -486,6 +486,7 @@ typedef struct {
 	type_TASK button_up_task;    // Task that must be executed when the current button is released
 	int       button_up_block;   // Response when the current button is released
 	int       last_preset;       // Last preset used
+	int       booting;           // Camera is still booting up
 } type_STATUS;
 
 // Main message queue

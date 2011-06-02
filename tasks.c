@@ -15,6 +15,9 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
+	// We are no longer booting up
+	status.booting = FALSE;
+
 	// Set current language
 	lang_pack_config();
 

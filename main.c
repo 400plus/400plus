@@ -24,6 +24,7 @@ type_STATUS status = {
 	iso_in_viewfinder : FALSE,
 	afp_dialog        : FALSE,
 	last_preset       : FALSE,
+	booting           : TRUE,
 };
 
 // Action definitions
@@ -146,8 +147,13 @@ void intercom_proxy(const int handler, char *message) {
 	case IC_MAIN_DIAL: // Mode dial moved
 		status.last_preset  = FALSE;
 		status.main_dial_ae = param;
-		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP)
-			ENQUEUE_TASK(preset_recall);
+		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
+			if (status.booting) {
+				ENQUEUE_TASK(preset_recall);
+			} else {
+				ENQUEUE_TASK(preset_recall_full);
+			}
+		}
 		goto pass_message;
 	case IC_SETTINGS: // Settings changed
 		// Restore display
