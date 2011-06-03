@@ -10,6 +10,7 @@ typedef struct {
 	char **data;
 } type_LIST;
 
+typedef struct MENU     type_MENU;
 typedef struct MENUITEM type_MENUITEM;
 
 typedef enum {
@@ -23,6 +24,16 @@ typedef enum {
 	MENUITEM_TYPE_FIRST = 0,
 	MENUITEM_TYPE_LAST  = MENUITEM_TYPE_COUNT - 1
 } type_MENUITEM_TYPE;
+
+typedef enum {
+	MENU_EVENT_SET,
+	MENU_EVENT_COUNT,
+	MENU_EVENT_FIRST = 0,
+	MENU_EVENT_LAST  = MENU_EVENT_COUNT - 1
+} type_MENU_EVENT;
+
+typedef void(*type_MENU_CALLBACK)(type_MENU *menu);
+typedef void(*type_MENUITEM_CALLBACK)(type_MENUITEM *item);
 
 typedef struct {
 	int  *value;
@@ -52,7 +63,6 @@ typedef struct {
 
 typedef struct {
 	int       close;
-	type_TASK action;
 } type_MENUITEM_LAUNCH;
 
 typedef struct {
@@ -71,12 +81,13 @@ typedef union {
 } type_MENUITEM_PARM;
 
 struct MENUITEM {
-	char               *name;
-	type_MENUITEM_TYPE  type;
-	type_MENUITEM_PARM  parm;
+	char                   *name;
+	type_MENUITEM_TYPE      type;
+	type_MENUITEM_PARM      parm;
+	type_MENUITEM_CALLBACK  action_map[MENU_EVENT_COUNT];
 };
 
-typedef struct {
+struct MENU {
 	char            *name;
 	int              length;
 	type_MENUITEM   *items;
@@ -93,7 +104,7 @@ typedef struct {
 	int              current_item;
 	int              item_grabbed; // for menu reordering
 	int              show_filenames;
-} type_MENU;
+};
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
 #define OPTIONLIST_REF(NAME)      (&_##NAME##_LIST_)
@@ -118,7 +129,7 @@ OPTIONLIST_DEC(shutter)
 	{name:_NAME_, type:MENUITEM_TYPE_ENUM, parm:{menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, list:_TEXTS_}}}
 
 #define MENUITEM_LAUNCH(_NAME_, _CLOSE_, _ACTION_) \
-	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, parm:{menuitem_launch:{close:_CLOSE_, action:_ACTION_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, parm:{menuitem_launch:{close:_CLOSE_}}, action_map:{[MENU_EVENT_SET] = _ACTION_}}
 
 #define MENUITEM_SUBMENU(_NAME_, _ITEMS_) \
 	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, parm:{menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
