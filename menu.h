@@ -61,17 +61,19 @@ typedef struct {
 	type_MENUITEM *items;
 } type_MENUITEM_SUBMENU;
 
+typedef union {
+	type_MENUITEM_EV      menuitem_ev;
+	type_MENUITEM_ISO     menuitem_iso;
+	type_MENUITEM_INT     menuitem_int;
+	type_MENUITEM_ENUM    menuitem_enum;
+	type_MENUITEM_LAUNCH  menuitem_launch;
+	type_MENUITEM_SUBMENU menuitem_submenu;
+} type_MENUITEM_PARM;
+
 struct MENUITEM {
 	char               *name;
 	type_MENUITEM_TYPE  type;
-	union {
-		type_MENUITEM_EV      menuitem_ev;
-		type_MENUITEM_ISO     menuitem_iso;
-		type_MENUITEM_INT     menuitem_int;
-		type_MENUITEM_ENUM    menuitem_enum;
-		type_MENUITEM_LAUNCH  menuitem_launch;
-		type_MENUITEM_SUBMENU menuitem_submenu;
-	};
+	type_MENUITEM_PARM  parm;
 };
 
 typedef struct {
@@ -104,22 +106,22 @@ OPTIONLIST_DEC(action)
 OPTIONLIST_DEC(shutter)
 
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_) \
-	{name:_NAME_, type:MENUITEM_TYPE_EV, {menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_EV, parm:{menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}}
 
 #define MENUITEM_ISO(_NAME_, _VALUE_) \
 	{name:_NAME_, type:MENUITEM_TYPE_ISO, {menuitem_iso:{value:_VALUE_}}}
 
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_) \
-	{name:_NAME_, type:MENUITEM_TYPE_INT, {menuitem_int:{value:_VALUE_, readonly:_RO_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_INT, parm:{menuitem_int:{value:_VALUE_, readonly:_RO_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}}
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_) \
-	{name:_NAME_, type:MENUITEM_TYPE_ENUM, {menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, list:_TEXTS_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_ENUM, parm:{menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, list:_TEXTS_}}}
 
 #define MENUITEM_LAUNCH(_NAME_, _CLOSE_, _ACTION_) \
-	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, {menuitem_launch:{close:_CLOSE_, action:_ACTION_}}}
+	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, parm:{menuitem_launch:{close:_CLOSE_, action:_ACTION_}}}
 
 #define MENUITEM_SUBMENU(_NAME_, _ITEMS_) \
-	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, {menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
+	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, parm:{menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
 
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE)
 #define MENUITEM_EVSEP( _NAME_, _VALUE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE)

@@ -193,8 +193,8 @@ void menu_action() {
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_LAUNCH) {
-		close  = item->menuitem_launch.close;
-		action = item->menuitem_launch.action;
+		close  = item->parm.menuitem_launch.close;
+		action = item->parm.menuitem_launch.action;
 	} else {
 		close  = FALSE;
 		action = current_menu->save;
@@ -246,10 +246,10 @@ void menu_submenu_next() {
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_SUBMENU) {
-		if (item->menuitem_submenu.current_item == item->menuitem_submenu.length - 1)
-			item->menuitem_submenu.current_item = 0;
+		if (item->parm.menuitem_submenu.current_item == item->parm.menuitem_submenu.length - 1)
+			item->parm.menuitem_submenu.current_item = 0;
 		else
-			item->menuitem_submenu.current_item++;
+			item->parm.menuitem_submenu.current_item++;
 
 		menu_refresh();
 	}
@@ -259,10 +259,10 @@ void menu_submenu_prev() {
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_SUBMENU) {
-		if (item->menuitem_submenu.current_item == 0)
-			item->menuitem_submenu.current_item = item->menuitem_submenu.length - 1;
+		if (item->parm.menuitem_submenu.current_item == 0)
+			item->parm.menuitem_submenu.current_item = item->parm.menuitem_submenu.length - 1;
 		else
-			item->menuitem_submenu.current_item--;
+			item->parm.menuitem_submenu.current_item--;
 
 		menu_refresh();
 	}
@@ -291,30 +291,30 @@ void menu_repeateable_right(int repeating) {
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
-		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
+		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		*item->menuitem_ev.value = ev_inc(*item->menuitem_ev.value);
+		*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
 		if (repeating)
-			*item->menuitem_iso.value = iso_inc(*item->menuitem_iso.value);
+			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
 		else
-			*item->menuitem_iso.value = iso_next(*item->menuitem_iso.value);
+			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->menuitem_int.readonly) {
-			*item->menuitem_int.value += repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
-			*item->menuitem_int.value  = MIN(*item->menuitem_int.value, item->menuitem_int.max);
+		if (!item->parm.menuitem_int.readonly) {
+			*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 		}
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->menuitem_enum.value == item->menuitem_enum.list->length - 1) {
-			if (item->menuitem_enum.cycle)
-				*item->menuitem_enum.value = 0;
+		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
+			if (item->parm.menuitem_enum.cycle)
+				*item->parm.menuitem_enum.value = 0;
 		} else
-			(*item->menuitem_enum.value)++;
+			(*item->parm.menuitem_enum.value)++;
 		break;
 	default:
 		break;
@@ -327,33 +327,33 @@ void menu_repeateable_left(int repeating) {
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
-		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
+		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		if (item->menuitem_ev.zero_means_off && *item->menuitem_ev.value < 0x05)
-				*item->menuitem_ev.value = 0x00;
+		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
+				*item->parm.menuitem_ev.value = 0x00;
 		else
-			*item->menuitem_ev.value = ev_dec(*item->menuitem_ev.value);
+			*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
 		if (repeating)
-			*item->menuitem_iso.value = iso_dec(*item->menuitem_iso.value);
+			*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
 		else
-			*item->menuitem_iso.value = iso_prev(*item->menuitem_iso.value);
+			*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->menuitem_int.readonly) {
-			*item->menuitem_int.value -= repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
-			*item->menuitem_int.value  = MAX(*item->menuitem_int.value, item->menuitem_int.min);
+		if (!item->parm.menuitem_int.readonly) {
+			*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+			*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
 		}
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->menuitem_enum.value == 0) {
-			if (item->menuitem_enum.cycle)
-				*item->menuitem_enum.value = item->menuitem_enum.list->length - 1;
+		if (*item->parm.menuitem_enum.value == 0) {
+			if (item->parm.menuitem_enum.cycle)
+				*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
 		} else
-			*item->menuitem_enum.value -= 1;
+			*item->parm.menuitem_enum.value -= 1;
 		break;
 	default:
 		break;
@@ -366,28 +366,28 @@ void menu_repeateable_cycle(int repeating) {
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
-		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
+		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		if (!item->menuitem_ev.zero_means_off)
-			*item->menuitem_ev.value = ev_sgn(*item->menuitem_ev.value);
+		if (!item->parm.menuitem_ev.zero_means_off)
+			*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
 		if (repeating)
-			*item->menuitem_iso.value = iso_inc(*item->menuitem_iso.value);
+			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
 		else
-			*item->menuitem_iso.value = iso_next(*item->menuitem_iso.value);
+			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		*item->menuitem_int.value += repeating ? item->menuitem_int.big_step : item->menuitem_int.small_step;
-		*item->menuitem_int.value  = MIN(*item->menuitem_int.value, item->menuitem_int.max);
+		*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+		*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		if (*item->menuitem_enum.value == item->menuitem_enum.list->length - 1)
-			*item->menuitem_enum.value = 0;
+		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1)
+			*item->parm.menuitem_enum.value = 0;
 		else
-			*item->menuitem_enum.value += 1;
+			*item->parm.menuitem_enum.value += 1;
 		break;
 	default:
 		break;
@@ -418,28 +418,28 @@ char *menu_message(int item_id) {
 		sprintf(name, "%s", item_name);
 
 	if (item->type == MENUITEM_TYPE_SUBMENU) {
-		item = &item->menuitem_submenu.items[item->menuitem_submenu.current_item];
+		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 		sprintf(name + strlen(name), ">%s", item->name);
 	}
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
-		if (item->menuitem_ev.zero_means_off && *item->menuitem_ev.value == 0)
+		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0)
 			menu_print_char(menu_buffer, name, LP_WORD(L_OFF));
 		else
-			menu_print_ev(menu_buffer, name, *item->menuitem_ev.value);
+			menu_print_ev(menu_buffer, name, *item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
-		menu_print_iso(menu_buffer, name, *item->menuitem_iso.value);
+		menu_print_iso(menu_buffer, name, *item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (item->menuitem_int.zero_means_unlimited && *item->menuitem_int.value == 0)
+		if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0)
 			menu_print_char(menu_buffer, name, LP_WORD(L_NO_LIMIT));
 		else
-			menu_print_int(menu_buffer, name, *item->menuitem_int.value, item->menuitem_int.format);
+			menu_print_int(menu_buffer, name, *item->parm.menuitem_int.value, item->parm.menuitem_int.format);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		menu_print_char(menu_buffer, name, item->menuitem_enum.list->data[*item->menuitem_enum.value]);
+		menu_print_char(menu_buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
 		break;
 	case MENUITEM_TYPE_LAUNCH:
 		sprintf(menu_buffer, "%s", name);
