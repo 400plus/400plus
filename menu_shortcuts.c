@@ -11,8 +11,10 @@
 
 type_CAMERA_MODE sc_cameraMode;
 
+void menu_shortcuts_apply_iso(type_MENUITEM *item);
+
 type_MENUITEM menu_shortcut_items[] = {
-	MENUITEM_ISO    (LP_WORD(L_ISO),           &sc_cameraMode.iso),
+	MENUITEM_ISO    (LP_WORD(L_ISO),           &sc_cameraMode.iso, menu_shortcuts_apply_iso),
 	MENUITEM_SCRIPT (LP_WORD(L_EXTENDED_AEB),   script_extended_aeb),
 	MENUITEM_SCRIPT (LP_WORD(L_INTERVALOMETER), script_interval),
 	MENUITEM_SCRIPT (LP_WORD(L_HAND_WAVING),    script_wave),
@@ -55,4 +57,8 @@ void menu_shortcuts_save() {
 	settings_write();
 
 	menu_close();
+}
+
+void menu_shortcuts_apply_iso(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_ISO, 2, *item->parm.menuitem_iso.value);
 }

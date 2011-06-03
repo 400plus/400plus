@@ -320,6 +320,9 @@ void menu_repeateable_right(int repeating) {
 		break;
 	}
 
+	if (item->action_map && item->action_map[MENU_EVENT_CHANGE])
+		item->action_map[MENU_EVENT_CHANGE](item);
+
 	menu_refresh();
 }
 
@@ -359,6 +362,9 @@ void menu_repeateable_left(int repeating) {
 		break;
 	}
 
+	if (item->action_map && item->action_map[MENU_EVENT_CHANGE])
+		item->action_map[MENU_EVENT_CHANGE](item);
+
 	menu_refresh();
 }
 
@@ -392,6 +398,9 @@ void menu_repeateable_cycle(int repeating) {
 	default:
 		break;
 	}
+
+	if (item->action_map && item->action_map[MENU_EVENT_CHANGE])
+		item->action_map[MENU_EVENT_CHANGE](item);
 
 	menu_refresh();
 }
