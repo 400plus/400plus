@@ -194,7 +194,7 @@ void menu_action() {
 
 	if (item->type == MENUITEM_TYPE_LAUNCH) {
 		close  = item->parm.menuitem_launch.close;
-		action = item->parm.menuitem_launch.action;
+		action = item->action_map[MENU_EVENT_SET];
 	} else {
 		close  = FALSE;
 		action = current_menu->save;
