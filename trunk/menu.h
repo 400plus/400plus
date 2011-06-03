@@ -27,6 +27,7 @@ typedef enum {
 
 typedef enum {
 	MENU_EVENT_SET,
+	MENU_EVENT_CHANGE,
 	MENU_EVENT_COUNT,
 	MENU_EVENT_FIRST = 0,
 	MENU_EVENT_LAST  = MENU_EVENT_COUNT - 1
@@ -119,8 +120,8 @@ OPTIONLIST_DEC(shutter)
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_) \
 	{name:_NAME_, type:MENUITEM_TYPE_EV, parm:{menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}}
 
-#define MENUITEM_ISO(_NAME_, _VALUE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_ISO, {menuitem_iso:{value:_VALUE_}}}
+#define MENUITEM_ISO(_NAME_, _VALUE_, _ON_CHANGE_) \
+	{name:_NAME_, type:MENUITEM_TYPE_ISO, parm:{menuitem_iso:{value:_VALUE_}}, action_map:{[MENU_EVENT_CHANGE] = _ON_CHANGE_}}
 
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_) \
 	{name:_NAME_, type:MENUITEM_TYPE_INT, parm:{menuitem_int:{value:_VALUE_, readonly:_RO_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}}
