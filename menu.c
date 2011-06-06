@@ -194,7 +194,7 @@ void menu_action() {
 
 	if (item->type == MENUITEM_TYPE_LAUNCH) {
 		close  = item->parm.menuitem_launch.close;
-		action = item->action_map[MENU_EVENT_SET];
+		action = item->tasks[MENU_EVENT_SET];
 	} else {
 		close  = FALSE;
 		action = current_menu->save;
@@ -320,8 +320,8 @@ void menu_repeateable_right(int repeating) {
 		break;
 	}
 
-	if (item->action_map && item->action_map[MENU_EVENT_CHANGE])
-		item->action_map[MENU_EVENT_CHANGE](item);
+	if (item->tasks && item->tasks[MENU_EVENT_CHANGE])
+		item->tasks[MENU_EVENT_CHANGE](item);
 
 	menu_refresh();
 }
@@ -362,8 +362,8 @@ void menu_repeateable_left(int repeating) {
 		break;
 	}
 
-	if (item->action_map && item->action_map[MENU_EVENT_CHANGE])
-		item->action_map[MENU_EVENT_CHANGE](item);
+	if (item->tasks && item->tasks[MENU_EVENT_CHANGE])
+		item->tasks[MENU_EVENT_CHANGE](item);
 
 	menu_refresh();
 }
@@ -399,8 +399,8 @@ void menu_repeateable_cycle(int repeating) {
 		break;
 	}
 
-	if (item->action_map && item->action_map[MENU_EVENT_CHANGE])
-		item->action_map[MENU_EVENT_CHANGE](item);
+	if (item->tasks && item->tasks[MENU_EVENT_CHANGE])
+		item->tasks[MENU_EVENT_CHANGE](item);
 
 	menu_refresh();
 }

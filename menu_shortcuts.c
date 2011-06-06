@@ -17,7 +17,7 @@ void menu_shortcuts_apply_cf_mirror_up_lock  (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_flash_sync_rear (type_MENUITEM *item);
 
 type_MENUITEM menu_shortcut_items[] = {
-	MENUITEM_ISO    (LP_WORD(L_ISO),           &sc_cameraMode.iso, menu_shortcuts_apply_iso),
+	MENUITEM_ISO    (LP_WORD(L_ISO),           &sc_cameraMode.iso,                menu_shortcuts_apply_iso),
 	MENUITEM_SCRIPT (LP_WORD(L_EXTENDED_AEB),   script_extended_aeb),
 	MENUITEM_SCRIPT (LP_WORD(L_INTERVALOMETER), script_interval),
 	MENUITEM_SCRIPT (LP_WORD(L_HAND_WAVING),    script_wave),
