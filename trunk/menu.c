@@ -37,6 +37,8 @@ void menu_destroy();
 
 int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
+void menu_event(type_MENU_EVENT);
+
 void menu_display();
 void menu_refresh();
 
@@ -113,6 +115,19 @@ int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int 
 
 pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+}
+
+void menu_event_close() {
+	menu_event(MENU_EVENT_CLOSE);
+}
+
+void menu_event(type_MENU_EVENT event) {
+	type_MENUITEM *item = get_current_item();
+
+	if (item->tasks && item->tasks[event])
+		item->tasks[event](item);
+	else if (current_menu->tasks && current_menu->tasks[event])
+		current_menu->tasks[event](current_menu);
 }
 
 void menu_display() {

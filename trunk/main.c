@@ -52,23 +52,25 @@ type_ACTION actions_info[]  = {
 };
 
 type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_RIGHT,      TRUE,  TRUE, {menu_right}},
-	{IC_BUTTON_LEFT,       TRUE,  TRUE, {menu_left}},
-	{IC_BUTTON_AV,         TRUE,  TRUE, {menu_cycle}},
-	{IC_BUTTON_SET,        FALSE, TRUE, {menu_action}},
-	{IC_BUTTON_DP,         FALSE, TRUE, {menu_dp_action}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE, {menu_submenu_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE, {menu_submenu_next}},
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {menu_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {menu_left}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_cycle}},
+	{IC_BUTTON_SET,        FALSE, TRUE,  {menu_action}},
+	{IC_BUTTON_DP,         FALSE, TRUE,  {menu_dp_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {menu_submenu_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE,  {menu_submenu_next}},
+	{IC_DIALOGOFF,         FALSE, FALSE, {menu_event_close}},
 	END_OF_LIST
 };
 
 type_ACTION actions_rename[]  = {
-	{IC_BUTTON_RIGHT,      TRUE,  TRUE, {rename_right}},
-	{IC_BUTTON_LEFT,       TRUE,  TRUE, {rename_left}},
-	{IC_BUTTON_AV,         TRUE,  TRUE, {rename_cycle}},
-	{IC_BUTTON_SET,        FALSE, TRUE, {rename_action}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE, {rename_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE, {rename_next}},
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {rename_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {rename_left}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {rename_cycle}},
+	{IC_BUTTON_SET,        FALSE, TRUE,  {rename_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {rename_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE,  {rename_next}},
+	{IC_DIALOGOFF,         FALSE, FALSE, {rename_event_close}},
 	END_OF_LIST
 };
 

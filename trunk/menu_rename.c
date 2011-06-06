@@ -49,6 +49,8 @@ void rename_destroy();
 
 int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
+void rename_event(type_MENU_EVENT event);
+
 void rename_display();
 void rename_refresh(int line);
 
@@ -114,6 +116,13 @@ int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int 
 
 pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+}
+
+void rename_event_close() {
+	rename_event(MENU_EVENT_CLOSE);
+}
+
+void rename_event(type_MENU_EVENT event) {
 }
 
 void rename_display() {

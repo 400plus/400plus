@@ -28,6 +28,7 @@ typedef enum {
 typedef enum {
 	MENU_EVENT_SET,
 	MENU_EVENT_CHANGE,
+	MENU_EVENT_CLOSE,
 	MENU_EVENT_COUNT,
 	MENU_EVENT_FIRST = 0,
 	MENU_EVENT_LAST  = MENU_EVENT_COUNT - 1
@@ -92,6 +93,7 @@ struct MENU {
 	char            *name;
 	int              length;
 	type_MENUITEM   *items;
+	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
 	type_TASK        save;
 	type_TASK        dp_action;
 	int              rename;
@@ -155,6 +157,8 @@ OPTIONLIST_DEC(shutter)
 
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
+
+extern void menu_event_close();
 
 extern void menu_up();
 extern void menu_down();
