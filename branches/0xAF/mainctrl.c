@@ -12,6 +12,7 @@ void my_task_MainCtrl() {
 
 	// using printf() in this function makes troubles with shooting...
 	// took me the whole eternity to understand that ...
+	// perhaps the direct writing to STDOUT.TXT conflicts with writing the photo to the CF...
 
 	(*((int*)0xC0220000)) = 0x46; // turn on the blue led
 	MC_Table_entry * event;
@@ -25,7 +26,7 @@ void my_task_MainCtrl() {
 		printf_log(1, 6, aMcT04dS04xD, event->t, MC_State, msg); // "[MC] T:%04d, S:%04X, %d"
 
 		/*
-		already found names of event->t
+		names of event->t
 
 		MC_INFOANDCTRL		1
 		MC_BUTTON		2
