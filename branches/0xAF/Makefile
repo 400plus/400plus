@@ -14,7 +14,7 @@ LDFLAGS = -Wl,-Ttext,$(ADDRESS)
 OBJCOPY = arm-elf-objcopy
 
 S_OBJS = entry.o      \
-         entry_subs.o \
+         funclist.o \
          gui.o        \
 
 C_OBJS = init.o           \
