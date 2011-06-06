@@ -32,7 +32,7 @@ type_MENU menu_shortcuts = {
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
 	reorder     : TRUE,
-	save        : menu_shortcuts_save,
+	save        : settings_write,
 	dp_action   : menu_presets_load_start,
 	ordering    : settings.shortcuts_order
 };
@@ -49,17 +49,6 @@ void menu_shortcuts_start() {
 void menu_shortcuts_create() {
 	sc_cameraMode = cameraMode;
 	menu_create(&menu_shortcuts);
-}
-
-void menu_shortcuts_save() {
-	send_to_intercom(IC_SET_ISO,                2, sc_cameraMode.iso);
-	send_to_intercom(IC_SET_CF_EMIT_AUX,        1, sc_cameraMode.cf_emit_aux);
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,  1, sc_cameraMode.cf_mirror_up_lock);
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, sc_cameraMode.cf_flash_sync_rear);
-
-	settings_write();
-
-	menu_close();
 }
 
 void menu_shortcuts_apply_iso(type_MENUITEM *item) {
