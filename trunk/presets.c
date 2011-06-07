@@ -136,8 +136,8 @@ end:
 	return result;
 }
 
-extern void preset_apply() {
-	int ae = status.main_dial_ae;
+void preset_apply() {
+	status.ignore_ae_change = TRUE;
 
 	if (presets_config.recall_400plus) {
 		settings = preset.settings;
@@ -209,7 +209,6 @@ extern void preset_apply() {
 	}
 
 	display_refresh();
-	status.main_dial_ae = ae;
 }
 
 void preset_recall() {
@@ -226,11 +225,9 @@ void sub_preset_recall(int full) {
 			if (full) {
 				preset_apply();
 			} else {
-				int ae = status.main_dial_ae;
-
+				status.ignore_ae_change = TRUE;
 				send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
 
-				status.main_dial_ae = ae;
 				display_refresh();
 			}
 		}
