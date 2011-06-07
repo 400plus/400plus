@@ -24,6 +24,7 @@ type_STATUS status = {
 	iso_in_viewfinder : FALSE,
 	afp_dialog        : FALSE,
 	last_preset       : FALSE,
+	ignore_ae_change  : FALSE,
 	booting           : TRUE,
 };
 
@@ -147,13 +148,18 @@ void intercom_proxy(const int handler, char *message) {
 	// Status-independent events and special cases
 	switch (event) {
 	case IC_MAIN_DIAL: // Mode dial moved
-		status.last_preset  = FALSE;
-		status.main_dial_ae = param;
-		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
-			if (status.booting) {
-				ENQUEUE_TASK(preset_recall);
-			} else {
-				ENQUEUE_TASK(preset_recall_full);
+		// Ignore first AE change after loading a preset, as it generates this same event
+		if (status.ignore_ae_change) {
+			status.ignore_ae_change = FALSE;
+		} else {
+			status.last_preset  = FALSE;
+			status.main_dial_ae = param;
+			if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
+				if (status.booting) {
+					ENQUEUE_TASK(preset_recall);
+				} else {
+					ENQUEUE_TASK(preset_recall_full);
+				}
 			}
 		}
 		goto pass_message;
@@ -162,7 +168,7 @@ void intercom_proxy(const int handler, char *message) {
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;
 	case IC_DIALOGON: // Entering a dialog
-		status.afp_dialog = (param == 0x06);
+		status.afp_dialog = (param == IC_SET_AF);
 		goto pass_message;
 	case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
 		if (status.afp_dialog) {
