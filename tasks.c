@@ -12,18 +12,11 @@
 void set_intermediate_iso();
 
 void start_up() {
-	// Wait for camera to settle down
-	SleepTask(1000);
-
-	// We are no longer booting up
-	status.booting = FALSE;
-
 	// Set current language
 	lang_pack_config();
 
 	// Enable (hidden) CFn.8 for ISO H
-	if (!cameraMode.cf_extend_iso)
-		send_to_intercom(IC_SET_CF_EXTEND_ISO, 1, 1);
+	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1, 1);
 
 	// Enable realtime ISO change
 	send_to_intercom(IC_SET_REALTIME_ISO_0, 0, 0);
@@ -34,6 +27,12 @@ void start_up() {
 
 	// Read presets from file
 	presets_read();
+
+	// Wait for camera to settle down
+	SleepTask(1000);
+
+	// We are no longer booting up
+	status.booting = FALSE;
 }
 
 void dp_action() {
@@ -46,10 +45,8 @@ void dp_action() {
 }
 
 void set_metering_spot() {
-	int metering_spot = METERING_MODE_SPOT;
-
 	press_button(IC_BUTTON_SET);
-	send_to_intercom(IC_SET_METERING, 1, metering_spot);
+	send_to_intercom(IC_SET_METERING, 1, METERING_MODE_SPOT);
 	print_icu_info();
 
 	beep();
