@@ -137,14 +137,24 @@ end:
 }
 
 void preset_apply() {
-	status.ignore_ae_change = TRUE;
+	if (presets_config.recall_camera) {
+		status.ignore_ae_change = TRUE;
 
+		send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
+	}
+
+	display_refresh();
+}
+
+void preset_apply_full() {
 	if (presets_config.recall_400plus) {
 		settings = preset.settings;
 		settings_apply();
 	}
 
 	if (presets_config.recall_camera) {
+		status.ignore_ae_change = TRUE;
+
 		send_to_intercom(IC_SET_AE,         1, preset.camera_mode.ae);
 		send_to_intercom(IC_SET_METERING,   1, preset.camera_mode.metering);
 		send_to_intercom(IC_SET_EFCOMP,     1, preset.camera_mode.efcomp);
@@ -221,15 +231,10 @@ void preset_recall_full() {
 
 void sub_preset_recall(int full) {
 	if (preset_read(0)) {
-		if (preset.camera_mode.ae != AE_MODE_ADEP) {
-			if (full) {
-				preset_apply();
-			} else {
-				status.ignore_ae_change = TRUE;
-				send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
-
-				display_refresh();
-			}
+		if (full) {
+			preset_apply_full();
+		} else {
+			preset_apply();
 		}
 	}
 }
