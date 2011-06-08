@@ -13,6 +13,10 @@
 type_SETTINGS       menu_settings;
 type_PRESETS_CONFIG menu_presets;
 
+void menu_settings_apply_cf_emit_flash   (type_MENUITEM *item);
+void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
+void menu_settings_apply_remote_delay    (type_MENUITEM *item);
+
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_DIM_LCD_DOWN),  &menu_settings.dim_lcd_down,  NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_KEEP_POWER_ON), &menu_settings.keep_power_on, NULL)
@@ -57,11 +61,11 @@ type_MENUITEM presets_items[] = {
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),           &menu_settings.av_comp),
 	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),        &menu_settings.flash_comp),
-	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash,        NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash,        menu_settings_apply_cf_emit_flash),
 	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_settings.color_temp),
 	MENUITEM_EVSEP  (LP_WORD(L_AEB),               &menu_settings.aeb_ev),
-	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_settings.safety_shift,      NULL),
-	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay,      NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_settings.safety_shift,      menu_settings_apply_cf_safety_shift),
+	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay,      menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &menu_settings.iso_in_viewfinder, NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_SHORTCUTS_MENU),    &menu_settings.shortcuts_menu,    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),     scripts_items),
@@ -80,7 +84,10 @@ type_MENU main_menu = {
 	items       : menu_settings_items,
 	save        : menu_settings_save,
 	dp_action   : menu_presets_save_start,
-	reorder     : FALSE
+	reorder     : FALSE,
+	tasks       : {
+		[MENU_EVENT_CLOSE] = menu_settings_save,
+	}
 };
 
 void menu_settings_start() {
@@ -110,6 +117,22 @@ void menu_settings_save() {
 	presets_config = menu_presets;
 
 	presets_write();
+}
 
-	beep();
+void menu_settings_apply_cf_emit_flash(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, !*item->parm.menuitem_enum.value);
+}
+
+void menu_settings_apply_cf_safety_shift(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);
+}
+
+void menu_settings_apply_remote_delay(type_MENUITEM *item) {
+	if(*item->parm.menuitem_enum.value){
+		RemReleaseSelfMax = 4500;
+		RemReleaseInstMin = 5560;
+	} else {
+		RemReleaseSelfMax = 6160;
+		RemReleaseInstMin = 7410;
+	}
 }
