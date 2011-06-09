@@ -17,7 +17,7 @@ int ev_sgn(int ev) {
 int ev_inc(int ev) {
 	ev = ev_normalize(ev);
 
-	if (cameraMode.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		ev = ev_add(ev, 0x04); // +0 1/2
 	else
 		ev = ev_add(ev, 0x03); // +0 1/3
@@ -28,7 +28,7 @@ int ev_inc(int ev) {
 int ev_dec(int ev) {
 	ev = ev_normalize(ev);
 
-	if (cameraMode.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		ev = ev_add(ev, 0xFC); // -0 1/2
 	else
 		ev = ev_add(ev, 0xFD); // -0 1/3
@@ -103,7 +103,7 @@ int tv_sub(int ying, int yang) {
 }
 
 int ev_normalize(int ev) {
-	if (cameraMode.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		ev &= 0xFC;
 	else if ((ev & 0x07) && !(ev & 0x03))
 		ev -= 0x01;
@@ -206,7 +206,7 @@ void iso_display(const char *buffer, int iso) {
 }
 
 void beep() {
-	if (cameraMode.beep) {
+	if (cameraMode->beep) {
 		eventproc_RiseEvent("RequestBuzzer");
 		SleepTask(EVENT_WAIT);
 	}

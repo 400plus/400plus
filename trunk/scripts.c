@@ -91,7 +91,7 @@ void script_start() {
 	beep();
 	status.script_running = TRUE;
 
-	st_cameraMode = cameraMode;
+	st_cameraMode = *cameraMode;
 
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
 
@@ -132,7 +132,7 @@ void script_feedback() {
 }
 
 void script_shot(type_SHOT_ACTION action) {
-	int aeb = cameraMode.ae_bkt;
+	int aeb = cameraMode->ae_bkt;
 	send_to_intercom(IC_SET_AE_BKT, 1, 0x00);
 
 	switch (action) {
@@ -153,8 +153,8 @@ void script_shot(type_SHOT_ACTION action) {
 }
 
 void sub_extended_aeb() {
-	if (cameraMode.ae == AE_MODE_M) {
-		if (cameraMode.tv_val == TV_VAL_BULB) {
+	if (cameraMode->ae == AE_MODE_M) {
+		if (cameraMode->tv_val == TV_VAL_BULB) {
 			int tv_val;
 
 			int tv_start = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max) - 5;
@@ -182,8 +182,8 @@ void sub_extended_aeb() {
 		} else {
 			int i;
 
-			int tv_inc = cameraMode.tv_val;
-			int tv_dec = cameraMode.tv_val;
+			int tv_inc = cameraMode->tv_val;
+			int tv_dec = cameraMode->tv_val;
 
 			release_and_wait();
 
@@ -208,8 +208,8 @@ void sub_extended_aeb() {
 	} else {
 		int i;
 
-		int av_inc = cameraMode.av_comp;
-		int av_dec = cameraMode.av_comp;
+		int av_inc = cameraMode->av_comp;
+		int av_dec = cameraMode->av_comp;
 
 		release_and_wait();
 
@@ -266,7 +266,7 @@ void wait_for_camera(int strict) {
 		SleepTask(WAIT_CAMERA_BUSY);
 
 	if (strict)
-		while(cameraMode.status_busy_flag)
+		while(cameraMode->status_busy_flag)
 			SleepTask(WAIT_CAMERA_BUSY);
 	else
 		SleepTask(WAIT_CAMERA_BUSY);

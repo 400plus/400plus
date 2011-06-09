@@ -317,7 +317,7 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int field_190;               // 0x0190
 } type_CAMERA_MODE;
 
-#define cameraMode (*(type_CAMERA_MODE*)&DPData)
+extern type_CAMERA_MODE *cameraMode;
 
 // [1] Values for "ae"
 #define AE_MODE_P    0
