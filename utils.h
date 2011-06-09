@@ -22,7 +22,7 @@ extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
 
-extern void iso_display(const char *buffer, int iso);
+extern const char *iso_display(int iso);
 
 extern void beep();
 

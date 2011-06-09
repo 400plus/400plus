@@ -194,15 +194,16 @@ int iso_dec(int iso) {
 	else                 return 0x48; //  100
 }
 
-void iso_display(const char *buffer, int iso) {
+const char *iso_display(int iso) {
 	int i;
 
 	for (i = 0; i < LENGTH(iso_code); i++) {
 		if (iso_code[i] == iso) {
-			sprintf(buffer, "%s", iso_text[i]);
-			break;
+			return iso_text[i];
 		}
 	}
+
+	return NULL;
 }
 
 void beep() {
