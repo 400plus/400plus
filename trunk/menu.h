@@ -65,10 +65,6 @@ typedef struct {
 } type_MENUITEM_ENUM;
 
 typedef struct {
-	int       close;
-} type_MENUITEM_LAUNCH;
-
-typedef struct {
 	int length;
 	int current_item;
 	type_MENUITEM *items;
@@ -79,7 +75,6 @@ typedef union {
 	type_MENUITEM_ISO     menuitem_iso;
 	type_MENUITEM_INT     menuitem_int;
 	type_MENUITEM_ENUM    menuitem_enum;
-	type_MENUITEM_LAUNCH  menuitem_launch;
 	type_MENUITEM_SUBMENU menuitem_submenu;
 } type_MENUITEM_PARM;
 
@@ -130,8 +125,8 @@ OPTIONLIST_DEC(shutter)
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_) \
 	{name:_NAME_, type:MENUITEM_TYPE_ENUM, parm:{menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, list:_TEXTS_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
 
-#define MENUITEM_LAUNCH(_NAME_, _CLOSE_, _ACTION_) \
-	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, parm:{menuitem_launch:{close:_CLOSE_}}, tasks:{[MENU_EVENT_SET]=_ACTION_}}
+#define MENUITEM_LAUNCH(_NAME_, _ACTION_) \
+	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, tasks:{[MENU_EVENT_SET]=_ACTION_}}
 
 #define MENUITEM_SUBMENU(_NAME_, _ITEMS_) \
 	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, parm:{menuitem_submenu:{length:LENGTH(_ITEMS_), items:_ITEMS_, current_item:0}}}
@@ -151,13 +146,11 @@ OPTIONLIST_DEC(shutter)
 #define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
 #define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,     9,   2,   2, FALSE, "%1u", _ON_CHANGE_)
 
-#define MENUITEM_SCRIPT(_NAME_, _VALUE_) MENUITEM_LAUNCH(_NAME_, TRUE,  _VALUE_)
-#define MENUITEM_TASK(  _NAME_, _VALUE_) MENUITEM_LAUNCH(_NAME_, FALSE, _VALUE_)
-
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
 extern void menu_event_dp();
+extern void menu_event_set();
 extern void menu_event_change();
 extern void menu_event_close();
 
@@ -166,7 +159,6 @@ extern void menu_down();
 extern void menu_right();
 extern void menu_left();
 
-extern void menu_action();
 extern void menu_cycle();
 
 extern void menu_toggle_filenames();
