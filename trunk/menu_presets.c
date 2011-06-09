@@ -63,24 +63,28 @@ type_MENU menu_presets_save = {
 	name        : LP_WORD(L_SAVE_PRESETS),
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
-	dp_action   : menu_settings_create,
 	rename      : TRUE,
 	save        : presets_write,
 	callback    : menu_presets_save_start,
 	reorder     : TRUE,
-	ordering    : presets_config.order
+	ordering    : presets_config.order,
+	tasks       : {
+		[MENU_EVENT_DP] = menu_settings_create,
+	}
 };
 
 type_MENU menu_presets_load = {
 	name        : LP_WORD(L_LOAD_PRESETS),
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
-	dp_action   : menu_shortcuts_create,
 	rename      : TRUE,
 	save        : presets_write,
 	callback    : menu_presets_load_start,
 	reorder     : TRUE,
-	ordering    : presets_config.order
+	ordering    : presets_config.order,
+	tasks       : {
+		[MENU_EVENT_DP] = menu_shortcuts_create,
+	}
 };
 
 void menu_presets_save_start() {

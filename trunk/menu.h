@@ -26,6 +26,7 @@ typedef enum {
 } type_MENUITEM_TYPE;
 
 typedef enum {
+	MENU_EVENT_DP,
 	MENU_EVENT_SET,
 	MENU_EVENT_CHANGE,
 	MENU_EVENT_CLOSE,
@@ -95,7 +96,6 @@ struct MENU {
 	type_MENUITEM   *items;
 	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
 	type_TASK        save;
-	type_TASK        dp_action;
 	int              rename;
 	type_TASK        callback;
 	int              reorder;
@@ -158,6 +158,7 @@ OPTIONLIST_DEC(shutter)
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
+extern void menu_event_dp();
 extern void menu_event_change();
 extern void menu_event_close();
 
@@ -167,7 +168,6 @@ extern void menu_right();
 extern void menu_left();
 
 extern void menu_action();
-extern void menu_dp_action();
 extern void menu_cycle();
 
 extern void menu_toggle_filenames();

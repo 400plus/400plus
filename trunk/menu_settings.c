@@ -85,9 +85,9 @@ type_MENU main_menu = {
 	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
-	dp_action   : menu_presets_save_start,
 	reorder     : FALSE,
 	tasks       : {
+		[MENU_EVENT_DP]    = menu_presets_save_start,
 		[MENU_EVENT_CLOSE] = menu_settings_save,
 	}
 };
