@@ -86,7 +86,6 @@ type_MENU main_menu = {
 	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
-	save        : menu_settings_save,
 	dp_action   : menu_presets_save_start,
 	reorder     : FALSE,
 	tasks       : {
@@ -114,12 +113,9 @@ void menu_settings_create() {
 
 void menu_settings_save() {
 	settings = menu_settings;
-
-	settings_apply();
 	settings_write();
 
 	presets_config = menu_presets;
-
 	presets_write();
 }
 
