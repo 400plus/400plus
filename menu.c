@@ -117,6 +117,10 @@ pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
+void menu_event_change() {
+	menu_event(MENU_EVENT_CHANGE);
+}
+
 void menu_event_close() {
 	menu_event(MENU_EVENT_CLOSE);
 }
@@ -126,7 +130,8 @@ void menu_event(type_MENU_EVENT event) {
 
 	if (item->tasks && item->tasks[event])
 		item->tasks[event](item);
-	else if (current_menu->tasks && current_menu->tasks[event])
+
+	if (current_menu->tasks && current_menu->tasks[event])
 		current_menu->tasks[event](current_menu);
 }
 
@@ -335,9 +340,7 @@ void menu_repeateable_right(int repeating) {
 		break;
 	}
 
-	if (item->tasks && item->tasks[MENU_EVENT_CHANGE])
-		item->tasks[MENU_EVENT_CHANGE](item);
-
+	menu_event_change();
 	menu_refresh();
 }
 
@@ -377,9 +380,7 @@ void menu_repeateable_left(int repeating) {
 		break;
 	}
 
-	if (item->tasks && item->tasks[MENU_EVENT_CHANGE])
-		item->tasks[MENU_EVENT_CHANGE](item);
-
+	menu_event_change();
 	menu_refresh();
 }
 
@@ -414,9 +415,7 @@ void menu_repeateable_cycle(int repeating) {
 		break;
 	}
 
-	if (item->tasks && item->tasks[MENU_EVENT_CHANGE])
-		item->tasks[MENU_EVENT_CHANGE](item);
-
+	menu_event_change();
 	menu_refresh();
 }
 
