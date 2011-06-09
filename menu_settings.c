@@ -77,8 +77,8 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),           interval_items),
 	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),       timer_items),
 	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),     presets_items),
-	MENUITEM_TASK   ("---------------------------", NULL),
-	MENUITEM_TASK   (LP_WORD(L_DEVELOPERS_MENU),    menu_developer_start)
+	MENUITEM_LAUNCH ("---------------------------", NULL),
+	MENUITEM_LAUNCH (LP_WORD(L_DEVELOPERS_MENU),    menu_developer_start)
 };
 
 type_MENU main_menu = {

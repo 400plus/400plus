@@ -1,6 +1,5 @@
 #include "main.h"
 #include "utils.h"
-#include "display.h"
 #include "settings.h"
 #include "presets.h"
 #include "languages.h"
@@ -121,6 +120,10 @@ void menu_event_dp() {
 	menu_event(MENU_EVENT_DP);
 }
 
+void menu_event_set() {
+	menu_event(MENU_EVENT_SET);
+}
+
 void menu_event_change() {
 	menu_event(MENU_EVENT_CHANGE);
 }
@@ -209,26 +212,6 @@ void menu_left() {
 
 void menu_cycle() {
 	menu_repeat(menu_repeateable_cycle);
-}
-
-void menu_action() {
-	type_MENUITEM *item = get_current_item();
-
-	if (item->type == MENUITEM_TYPE_LAUNCH) {
-		int       close  = item->parm.menuitem_launch.close;
-		type_TASK action = item->tasks[MENU_EVENT_SET];
-
-		if (action) {
-			if (close) {
-				menu_close();
-
-				ENQUEUE_TASK(restore_display);
-				ENQUEUE_TASK(action);
-			} else {
-				action();
-			}
-		}
-	}
 }
 
 void menu_toggle_filenames() {
