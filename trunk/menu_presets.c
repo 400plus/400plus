@@ -64,12 +64,12 @@ type_MENU menu_presets_save = {
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
 	rename      : TRUE,
-	save        : presets_write,
 	callback    : menu_presets_save_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
-		[MENU_EVENT_DP] = menu_settings_create,
+		[MENU_EVENT_DP]    = menu_settings_create,
+		[MENU_EVENT_CLOSE] = presets_write,
 	}
 };
 
@@ -78,12 +78,12 @@ type_MENU menu_presets_load = {
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
 	rename      : TRUE,
-	save        : presets_write,
 	callback    : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
-		[MENU_EVENT_DP] = menu_shortcuts_create,
+		[MENU_EVENT_DP]    = menu_shortcuts_create,
+		[MENU_EVENT_CLOSE] = presets_write,
 	}
 };
 
