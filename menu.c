@@ -253,9 +253,6 @@ void menu_rename() {
 
 void menu_drag_drop() {
 	if (current_menu->reorder) {
-		if (current_menu->item_grabbed && current_menu->save)
-			current_menu->save();
-
 		current_menu->item_grabbed = ! current_menu->item_grabbed;
 		menu_refresh();
 	}
