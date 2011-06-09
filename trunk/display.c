@@ -76,10 +76,7 @@ void display_refresh_flashcomp() {
 
 
 void display_refresh_iso() {
-	const char *text = "----";
-
-	iso_display(text, cameraMode->iso);
-	dialog_set_property_str(hMainDialog, 0x04, text);
+	dialog_set_property_str(hMainDialog, 0x04, iso_display(cameraMode->iso));
 }
 
 void display_countdown_dialog_create() {

@@ -49,10 +49,10 @@ void menu_repeateable_left (int repeating);
 
 char *menu_message(int item_id);
 
-void menu_print_ev   (char *buffer, char *name, int   parameter);
-void menu_print_iso  (char *buffer, char *name, int   parameter);
-void menu_print_int  (char *buffer, char *name, int   parameter, char *format);
-void menu_print_char (char *buffer, char *name, char *parameter);
+void menu_print_ev   (const char *buffer, const char *name, int   parameter);
+void menu_print_iso  (const char *buffer, const char *name, int   parameter);
+void menu_print_int  (const char *buffer, const char *name, int   parameter, const char *format);
+void menu_print_char (const char *buffer, const char *name, const char *parameter);
 
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
@@ -448,28 +448,25 @@ char *menu_message(int item_id) {
 	return menu_buffer;
 }
 
-void menu_print_ev(char *buffer, char *name, int parameter) {
+void menu_print_ev(const char *buffer, const char *name, int parameter) {
 	char tmp[32];
 
 	ev_print(tmp, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 
-void menu_print_iso(char *buffer, char *name, int parameter) {
-	char tmp[32];
-
-	iso_display(tmp, parameter);
-	menu_print_char(buffer, name, tmp);
+void menu_print_iso(const char *buffer, const char *name, int parameter) {
+	menu_print_char(buffer, name, iso_display(parameter));
 }
 
-void menu_print_int(char *buffer, char *name, int parameter, char *format) {
+void menu_print_int(const char *buffer, const char *name, int parameter, const char *format) {
 	char tmp[32];
 
 	sprintf(tmp, format, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 
-void menu_print_char(char *buffer, char *name, char *parameter) {
+void menu_print_char(const char *buffer, const char *name, const char *parameter) {
 	sprintf(buffer, "%-18s:%s", name, parameter);
 }
 
