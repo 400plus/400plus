@@ -36,7 +36,7 @@ void start_up() {
 }
 
 void dp_action() {
-	if (settings.shortcuts_menu || cameraMode.ae > 6) {
+	if (settings.shortcuts_menu || cameraMode->ae > 6) {
 		menu_shortcuts_start();
 	} else {
 		set_intermediate_iso();
@@ -69,35 +69,35 @@ void set_iso_high() {
 }
 
 void toggle_raw_jpeg() {
-	if (cameraMode.ae > 6) {
+	if (cameraMode->ae > 6) {
 		// Only for non-creative modes
-		send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode.img_format ^ 0x03);
+		send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode->img_format ^ 0x03);
 	}
 }
 
 void toggle_CfMLU() {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, cameraMode.cf_mirror_up_lock ^ 0x01);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, cameraMode->cf_mirror_up_lock ^ 0x01);
 }
 
 void toggle_CfFlashSyncRear() {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, cameraMode.cf_flash_sync_rear ^ 0x01);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, cameraMode->cf_flash_sync_rear ^ 0x01);
 }
 
 void set_intermediate_iso() {
-	if (cameraMode.ae < 6)
-		send_to_intercom(IC_SET_ISO, 2, iso_roll(cameraMode.iso));
+	if (cameraMode->ae < 6)
+		send_to_intercom(IC_SET_ISO, 2, iso_roll(cameraMode->iso));
 }
 
 void restore_iso() {
 	int iso;
 
-	if (cameraMode.iso >= 0x68) {
+	if (cameraMode->iso >= 0x68) {
 		iso = 0x68;
-	} else if (cameraMode.iso >= 0x60) {
+	} else if (cameraMode->iso >= 0x60) {
 		iso = 0x60;
-	} else if (cameraMode.iso >= 0x58) {
+	} else if (cameraMode->iso >= 0x58) {
 		iso = 0x58;
-	} else if (cameraMode.iso >= 0x50) {
+	} else if (cameraMode->iso >= 0x50) {
 		iso = 0x50;
 	} else {
 		iso = 0x48;
@@ -107,11 +107,11 @@ void restore_iso() {
 }
 
 void restore_wb() {
-	if (cameraMode.wb == WB_MODE_COLORTEMP)
+	if (cameraMode->wb == WB_MODE_COLORTEMP)
 		send_to_intercom(IC_SET_WB, 1, WB_MODE_AUTO);
 }
 
 void restore_metering() {
-	if (cameraMode.metering == METERING_MODE_SPOT)
+	if (cameraMode->metering == METERING_MODE_SPOT)
 		send_to_intercom(IC_SET_METERING, 1, METERING_MODE_EVAL);
 }

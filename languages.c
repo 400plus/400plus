@@ -150,12 +150,12 @@ void lang_pack_config() {
 	int  i;
 	char lang[32];
 
-	GetLanguageStr(cameraMode.language, lang);
-	debug_log("Setting language to [%d] - '%s'", cameraMode.language, lang);
+	GetLanguageStr(cameraMode->language, lang);
+	debug_log("Setting language to [%d] - '%s'", cameraMode->language, lang);
 
 	for (i = L_FIRST; i < L_COUNT; i++)
-		if(lang_packs[cameraMode.language][i] != NULL)
-			strncpy(lang_pack_current[i], lang_packs[cameraMode.language][i], LP_MAX_WORD);
+		if(lang_packs[cameraMode->language][i] != NULL)
+			strncpy(lang_pack_current[i], lang_packs[cameraMode->language][i], LP_MAX_WORD);
 		else if(lang_packs[LANG_FIRST][i] != NULL)
 			strncpy(lang_pack_current[i], lang_packs[LANG_FIRST][i], LP_MAX_WORD);
 		else

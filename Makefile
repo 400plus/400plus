@@ -5,7 +5,7 @@ VERSION = $(shell [[ -d .svn ]] && svn info | grep Revision | cut -d' ' -f2 || d
 RELEASE = 0
 
 CC     = arm-elf-gcc
-CFLAGS+= -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION)
+CFLAGS+= -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION) -Os
 
 AS      = arm-elf-as
 ASFLAGS = 

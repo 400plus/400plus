@@ -49,7 +49,7 @@ void menu_shortcuts_start() {
 }
 
 void menu_shortcuts_create() {
-	sc_cameraMode = cameraMode;
+	sc_cameraMode = *cameraMode;
 	menu_create(&menu_shortcuts);
 }
 

@@ -98,7 +98,7 @@ void menu_settings_start() {
 }
 
 void menu_settings_create() {
-	menu_cameraMode = cameraMode;
+	menu_cameraMode = *cameraMode;
 
 	menu_create(&main_menu);
 }
