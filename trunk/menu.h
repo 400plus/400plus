@@ -158,6 +158,7 @@ OPTIONLIST_DEC(shutter)
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
+extern void menu_event_change();
 extern void menu_event_close();
 
 extern void menu_up();
