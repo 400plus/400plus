@@ -54,8 +54,7 @@ void set_metering_spot() {
 
 void set_whitebalance_colortemp() {
 	press_button(IC_BUTTON_SET);
-	send_to_intercom(IC_SET_WB,         1, WB_MODE_COLORTEMP);
-	send_to_intercom(IC_SET_COLOR_TEMP, 2, settings.color_temp);
+	send_to_intercom(IC_SET_WB, 1, WB_MODE_COLORTEMP);
 	print_icu_info();
 
 	beep();
@@ -85,12 +84,8 @@ void toggle_CfFlashSyncRear() {
 }
 
 void set_intermediate_iso() {
-	if (cameraMode.ae < 6) {
-		int iso = iso_roll(cameraMode.iso);
-		send_to_intercom(IC_SET_ISO, 2, iso);
-	}
-
-	SleepTask(50);
+	if (cameraMode.ae < 6)
+		send_to_intercom(IC_SET_ISO, 2, iso_roll(cameraMode.iso));
 }
 
 void restore_iso() {
@@ -112,9 +107,8 @@ void restore_iso() {
 }
 
 void restore_wb() {
-	if (cameraMode.wb == WB_MODE_COLORTEMP) {
+	if (cameraMode.wb == WB_MODE_COLORTEMP)
 		send_to_intercom(IC_SET_WB, 1, WB_MODE_AUTO);
-	}
 }
 
 void restore_metering() {
