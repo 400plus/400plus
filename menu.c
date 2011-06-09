@@ -117,6 +117,10 @@ pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
+void menu_event_dp() {
+	menu_event(MENU_EVENT_DP);
+}
+
 void menu_event_change() {
 	menu_event(MENU_EVENT_CHANGE);
 }
@@ -230,11 +234,6 @@ void menu_action() {
 			action();
 		}
 	}
-}
-
-void menu_dp_action() {
-	if (current_menu->dp_action)
-		current_menu->dp_action();
 }
 
 void menu_toggle_filenames() {

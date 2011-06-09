@@ -32,9 +32,9 @@ type_MENU menu_shortcuts = {
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
 	reorder     : TRUE,
-	dp_action   : menu_presets_load_start,
 	ordering    : settings.shortcuts_order,
 	tasks       : {
+		[MENU_EVENT_DP]    = menu_presets_load_start,
 		[MENU_EVENT_CLOSE] = settings_write,
 	}
 };
