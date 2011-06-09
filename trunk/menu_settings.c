@@ -13,7 +13,11 @@
 type_SETTINGS       menu_settings;
 type_PRESETS_CONFIG menu_presets;
 
+void menu_settings_apply_av_comp         (type_MENUITEM *item);
+void menu_settings_apply_efcomp          (type_MENUITEM *item);
 void menu_settings_apply_cf_emit_flash   (type_MENUITEM *item);
+void menu_settings_apply_color_temp      (type_MENUITEM *item);
+void menu_settings_apply_ae_bkt          (type_MENUITEM *item);
 void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
 
@@ -30,23 +34,23 @@ type_MENUITEM wave_items[] = {
 };
 
 type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT(LP_WORD(L_DELAY),  &menu_settings.timer_timeout),
-	MENUITEM_ACTION (LP_WORD(L_ACTION), &menu_settings.timer_action, NULL)
+	MENUITEM_TIMEOUT(LP_WORD(L_DELAY),  &menu_settings.timer_timeout, NULL),
+	MENUITEM_ACTION (LP_WORD(L_ACTION), &menu_settings.timer_action,  NULL)
 };
 
 type_MENUITEM eaeb_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_DELAY),     &menu_settings.eaeb_delay,  NULL),
-	MENUITEM_BRACKET(LP_WORD(L_FRAMES),    &menu_settings.eaeb_frames),
-	MENUITEM_EVSEP  (LP_WORD(L_STEP_EV),   &menu_settings.eaeb_ev),
+	MENUITEM_BRACKET(LP_WORD(L_FRAMES),    &menu_settings.eaeb_frames, NULL),
+	MENUITEM_EVSEP  (LP_WORD(L_STEP_EV),   &menu_settings.eaeb_ev,     NULL),
 	MENUITEM_SHUTTER(LP_WORD(L_MANUAL_L),  &menu_settings.eaeb_tv_min, NULL),
 	MENUITEM_SHUTTER(LP_WORD(L_MANUAL_R),  &menu_settings.eaeb_tv_max, NULL)
 };
 
 type_MENUITEM interval_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_DELAY),    &menu_settings.interval_delay, NULL),
-	MENUITEM_TIMEOUT(LP_WORD(L_TIME_S),   &menu_settings.interval_time),
+	MENUITEM_TIMEOUT(LP_WORD(L_TIME_S),   &menu_settings.interval_time,  NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_EAEB),     &menu_settings.interval_eaeb,  NULL),
-	MENUITEM_COUNTER(LP_WORD(L_SHOTS),    &menu_settings.interval_shots)
+	MENUITEM_COUNTER(LP_WORD(L_SHOTS),    &menu_settings.interval_shots, NULL)
 };
 
 type_MENUITEM presets_items[] = {
@@ -59,11 +63,11 @@ type_MENUITEM presets_items[] = {
 };
 
 type_MENUITEM menu_settings_items[] = {
-	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),           &menu_settings.av_comp),
-	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),        &menu_settings.flash_comp),
+	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),           &menu_settings.av_comp,           menu_settings_apply_av_comp),
+	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),        &menu_settings.flash_comp,        menu_settings_apply_efcomp),
 	MENUITEM_BOOLEAN(LP_WORD(L_USE_FLASH),         &menu_settings.emit_flash,        menu_settings_apply_cf_emit_flash),
-	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_settings.color_temp),
-	MENUITEM_EVSEP  (LP_WORD(L_AEB),               &menu_settings.aeb_ev),
+	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_settings.color_temp,        menu_settings_apply_color_temp),
+	MENUITEM_EVSEP  (LP_WORD(L_AEB),               &menu_settings.aeb_ev,            menu_settings_apply_ae_bkt),
 	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_settings.safety_shift,      menu_settings_apply_cf_safety_shift),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &menu_settings.remote_delay,      menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &menu_settings.iso_in_viewfinder, NULL),
@@ -119,8 +123,25 @@ void menu_settings_save() {
 	presets_write();
 }
 
+void menu_settings_apply_av_comp(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_AV_COMP, 1, *item->parm.menuitem_ev.value);
+}
+
+void menu_settings_apply_efcomp(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_EFCOMP, 1, *item->parm.menuitem_ev.value);
+}
+
 void menu_settings_apply_cf_emit_flash(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, !*item->parm.menuitem_enum.value);
+}
+
+void menu_settings_apply_color_temp(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_WB,         1, WB_MODE_COLORTEMP);
+	send_to_intercom(IC_SET_COLOR_TEMP, 2, *item->parm.menuitem_int.value);
+}
+
+void menu_settings_apply_ae_bkt(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_AE_BKT, 1, *item->parm.menuitem_ev.value);
 }
 
 void menu_settings_apply_cf_safety_shift(type_MENUITEM *item) {
