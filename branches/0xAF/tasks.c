@@ -13,7 +13,7 @@ void set_intermediate_iso();
 
 void start_up() {
 	// Wait for camera to settle down
-	SleepTask(1000);
+	SleepTask(2000);
 
 #ifdef ENABLE_DEBUG
 	start_debug_mode();

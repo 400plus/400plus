@@ -189,5 +189,11 @@ extern int  ChangeNotifyCallback_MC();
 extern char aMainCannotPowo[];
 extern char aMainCtrl[];
 extern char aMonoSem[];
+// mc_button
+extern char asw04d04d[];
+extern int PowerFlag;
+extern int off_24860;
+extern int unk_258A0;
+
 
 #endif /* FIRMWARE_H_ */

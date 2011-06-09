@@ -99,6 +99,8 @@ typedef enum {
 	IC_BUTTON_DOWN                 = 0xB2, //
 	IC_BUTTON_RIGHT                = 0xB3, //
 	IC_BUTTON_LEFT                 = 0xB4, //
+	IC_BUTTON_B6                   = 0xB6, // half or full shutter
+	IC_BUTTON_B7                   = 0xB7, // half or full shutter
 	IC_BUTTON_DP                   = 0xB8, //
 	IC_AFPDLGON                    = 0xB9, //
 	IC_BUTTON_DRIVE                = 0xBA, //
