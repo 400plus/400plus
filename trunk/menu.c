@@ -212,26 +212,21 @@ void menu_cycle() {
 }
 
 void menu_action() {
-	int close;
-	type_TASK action;
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_LAUNCH) {
-		close  = item->parm.menuitem_launch.close;
-		action = item->tasks[MENU_EVENT_SET];
-	} else {
-		close  = FALSE;
-		action = current_menu->save;
-	}
+		int       close  = item->parm.menuitem_launch.close;
+		type_TASK action = item->tasks[MENU_EVENT_SET];
 
-	if (action) {
-		if (close) {
-			menu_close();
+		if (action) {
+			if (close) {
+				menu_close();
 
-			ENQUEUE_TASK(restore_display);
-			ENQUEUE_TASK(action);
-		} else {
-			action();
+				ENQUEUE_TASK(restore_display);
+				ENQUEUE_TASK(action);
+			} else {
+				action();
+			}
 		}
 	}
 }
