@@ -1,6 +1,7 @@
 #include "main.h"
-#include "debug.h"
 #include "firmware.h"
+
+#include "debug.h"
 
 #include "languages.h"
 

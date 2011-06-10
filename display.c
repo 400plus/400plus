@@ -1,6 +1,7 @@
 #include "main.h"
-#include "utils.h"
 #include "firmware.h"
+
+#include "utils.h"
 
 #include "display.h"
 

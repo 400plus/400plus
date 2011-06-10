@@ -1,9 +1,7 @@
 #include "main.h"
-#include "menu.h"
-#include "settings.h"
-#include "presets.h"
-#include "languages.h"
 #include "firmware.h"
+
+#include "presets.h"
 
 #include "menu_rename.h"
 
