@@ -298,10 +298,8 @@ void menu_repeateable_right(int repeating) {
 			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->parm.menuitem_int.readonly) {
-			*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-		}
+		*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+		*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 		break;
 	case MENUITEM_TYPE_ENUM:
 		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
@@ -338,10 +336,8 @@ void menu_repeateable_left(int repeating) {
 			*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->parm.menuitem_int.readonly) {
-			*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-			*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
-		}
+		*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+		*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
 		break;
 	case MENUITEM_TYPE_ENUM:
 		if (*item->parm.menuitem_enum.value == 0) {
