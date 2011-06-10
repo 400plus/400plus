@@ -19,6 +19,7 @@ type_PRESETS_CONFIG presets_config = {
 	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8}
 };
 
+void sub_preset_recall(int full);
 void get_filename(char *filename, int id);
 
 void presets_read() {
@@ -26,11 +27,13 @@ void presets_read() {
 	int file    = -1;
 	int version =  0;
 
+	char name[25];
+
 	type_PRESETS_CONFIG buffer;
 
 	for (id = 0; id < 9; id ++) {
-		sprintf(presets_config.names[id], "%-25s", "");
-		sprintf(presets_config.names[id], "%s %i", LP_WORD(L_PRESET_NAME), id + 1);
+		sprintf(name, "%s %i", LP_WORD(L_PRESET_NAME), id + 1);
+		sprintf(presets_config.names[id], "%-25s", name);
 	}
 
 	if ((file = FIO_OpenFile(PRESETS_CONFIG, O_RDONLY, 644)) == -1)
@@ -107,7 +110,7 @@ int preset_write(int id) {
 
 	type_PRESET buffer = {
 		settings    : settings,
-		camera_mode : cameraMode
+		camera_mode : *cameraMode
 	};
 
 	get_preset_filename(filename, id);
@@ -133,15 +136,25 @@ end:
 	return result;
 }
 
-extern void preset_apply() {
-	int ae = status.main_dial_ae;
+void preset_apply() {
+	if (presets_config.recall_camera) {
+		status.ignore_ae_change = TRUE;
 
+		send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
+	}
+
+	display_refresh();
+}
+
+void preset_apply_full() {
 	if (presets_config.recall_400plus) {
 		settings = preset.settings;
 		settings_apply();
 	}
 
 	if (presets_config.recall_camera) {
+		status.ignore_ae_change = TRUE;
+
 		send_to_intercom(IC_SET_AE,         1, preset.camera_mode.ae);
 		send_to_intercom(IC_SET_METERING,   1, preset.camera_mode.metering);
 		send_to_intercom(IC_SET_EFCOMP,     1, preset.camera_mode.efcomp);
@@ -205,23 +218,24 @@ extern void preset_apply() {
 		send_to_intercom(IC_SET_CF_TFT_ON_POWER_ON,      1, preset.camera_mode.cf_tft_on_power_on);
 	}
 
-	preset_write(0);
-
 	display_refresh();
-	status.main_dial_ae = ae;
 }
 
 void preset_recall() {
-	int ae = status.main_dial_ae;
+	sub_preset_recall(FALSE);
+}
 
+void preset_recall_full() {
+	sub_preset_recall(TRUE);
+}
+
+void sub_preset_recall(int full) {
 	if (preset_read(0)) {
-		settings_apply();
-
-		if (preset.camera_mode.ae != AE_MODE_ADEP)
-			send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
-
-		display_refresh();
-		status.main_dial_ae = ae;
+		if (full) {
+			preset_apply_full();
+		} else {
+			preset_apply();
+		}
 	}
 }
 

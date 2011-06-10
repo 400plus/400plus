@@ -19,12 +19,6 @@ type_SETTINGS settings = {
 	wave_action      : SHOT_ACTION_FIRST,
 	wave_repeat      : FALSE,
 	wave_instant     : FALSE,
-	color_temp       : 5200,
-	av_comp          : 0,
-	flash_comp       : 0,
-	aeb_ev           : 0,
-	safety_shift     : FALSE,
-	emit_flash       : TRUE,
 	remote_delay     : FALSE,
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_FIRST,
@@ -76,16 +70,6 @@ void settings_write() {
 }
 
 extern void settings_apply() {
-	if (settings.color_temp != cameraMode.color_temp)
-		send_to_intercom(IC_SET_WB, 1, WB_MODE_COLORTEMP);
-
-	send_to_intercom(IC_SET_AV_COMP,         1,  settings.av_comp);
-	send_to_intercom(IC_SET_EFCOMP,          1,  settings.flash_comp);
-	send_to_intercom(IC_SET_AE_BKT,          1,  settings.aeb_ev);
-	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1,  settings.safety_shift);
-	send_to_intercom(IC_SET_CF_EMIT_FLASH,   1, !settings.emit_flash);
-	send_to_intercom(IC_SET_COLOR_TEMP,      2,  settings.color_temp);
-
 	if(settings.remote_delay){
 		RemReleaseSelfMax = 4500;
 		RemReleaseInstMin = 5560;

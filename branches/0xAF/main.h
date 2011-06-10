@@ -71,6 +71,7 @@ typedef enum {
 	IC_DIALOGOFF                   = 0x51, //
 	IC_SHUTDOWN                    = 0x52, //
 	IC_RELEASE                     = 0x53, //
+	IC_RESET_SETTINGS              = 0x59, // it is called in reset settings, then 0x5A is called. so they both should be related
 	IC_ENTERFACTORYMODE            = 0x5D, //
 	IC_EXITFACTORYMODE             = 0x5E, //
 	IC_UILOCK                      = 0x5F, //
@@ -78,6 +79,9 @@ typedef enum {
 	IC_FIRMUP                      = 0x61, //
 	IC_BAT_TYPE                    = 0x65, //
 	IC_BC_LEVEL                    = 0x66, //
+	IC_CARD_FULL_MSG_IN_VF         = 0x6B, //
+	IC_CHANGE_BAT_DIALOG           = 0x6C, //
+	IC_SET_BURST_COUNTER,          = 0x6D, //
 	IC_POWER_FLAG                  = 0x72, //
 	IC_BUZZER                      = 0x73, //
 	IC_TEMP                        = 0x74, //
@@ -319,7 +323,7 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int field_190;               // 0x0190
 } type_CAMERA_MODE;
 
-#define cameraMode (*(type_CAMERA_MODE*)&DPData)
+extern type_CAMERA_MODE *cameraMode;
 
 // [1] Values for "ae"
 #define AE_MODE_P    0
@@ -488,6 +492,8 @@ typedef struct {
 	type_TASK button_up_task;    // Task that must be executed when the current button is released
 	int       button_up_block;   // Response when the current button is released
 	int       last_preset;       // Last preset used
+	int       ignore_ae_change;  // Ignore next AE change
+	int       booting;           // Camera is still booting up
 } type_STATUS;
 
 // Main message queue

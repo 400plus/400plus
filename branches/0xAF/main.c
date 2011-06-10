@@ -14,6 +14,9 @@
 #include "languages.h"
 #include "firmware.h"
 
+// Camera data
+type_CAMERA_MODE *cameraMode = (type_CAMERA_MODE*)&DPData;
+
 // Main message queue
 int *message_queue;
 
@@ -24,6 +27,8 @@ type_STATUS status = {
 	iso_in_viewfinder : FALSE,
 	afp_dialog        : FALSE,
 	last_preset       : FALSE,
+	ignore_ae_change  : FALSE,
+	booting           : TRUE,
 };
 
 // Action definitions
@@ -51,23 +56,25 @@ type_ACTION actions_info[]  = {
 };
 
 type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_RIGHT,      TRUE,  TRUE, {menu_right}},
-	{IC_BUTTON_LEFT,       TRUE,  TRUE, {menu_left}},
-	{IC_BUTTON_AV,         TRUE,  TRUE, {menu_cycle}},
-	{IC_BUTTON_SET,        FALSE, TRUE, {menu_action}},
-	{IC_BUTTON_DP,         FALSE, TRUE, {menu_dp_action}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE, {menu_submenu_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE, {menu_submenu_next}},
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {menu_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {menu_left}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_cycle}},
+	{IC_BUTTON_SET,        FALSE, TRUE,  {menu_event_set}},
+	{IC_BUTTON_DP,         FALSE, TRUE,  {menu_event_dp}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {menu_submenu_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE,  {menu_submenu_next}},
+	{IC_DIALOGOFF,         FALSE, FALSE, {menu_event_close}},
 	END_OF_LIST
 };
 
 type_ACTION actions_rename[]  = {
-	{IC_BUTTON_RIGHT,      TRUE,  TRUE, {rename_right}},
-	{IC_BUTTON_LEFT,       TRUE,  TRUE, {rename_left}},
-	{IC_BUTTON_AV,         TRUE,  TRUE, {rename_cycle}},
-	{IC_BUTTON_SET,        FALSE, TRUE, {rename_action}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE, {rename_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE, {rename_next}},
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {rename_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {rename_left}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {rename_cycle}},
+	{IC_BUTTON_SET,        FALSE, TRUE,  {rename_action}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {rename_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE,  {rename_next}},
+	{IC_DIALOGOFF,         FALSE, FALSE, {rename_event_close}},
 	END_OF_LIST
 };
 
@@ -144,17 +151,27 @@ void intercom_proxy(const int handler, char *message) {
 	// Status-independent events and special cases
 	switch (event) {
 	case IC_MAIN_DIAL: // Mode dial moved
-		status.last_preset  = FALSE;
-		status.main_dial_ae = param;
-		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP)
-			ENQUEUE_TASK(preset_recall);
+		// Ignore first AE change after loading a preset, as it generates this same event
+		if (status.ignore_ae_change) {
+			status.ignore_ae_change = FALSE;
+		} else {
+			status.last_preset  = FALSE;
+			status.main_dial_ae = param;
+			if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
+				if (status.booting) {
+					ENQUEUE_TASK(preset_recall);
+				} else {
+					ENQUEUE_TASK(preset_recall_full);
+				}
+			}
+		}
 		goto pass_message;
 	case IC_SETTINGS: // Settings changed
 		// Restore display
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;
 	case IC_DIALOGON: // Entering a dialog
-		status.afp_dialog = (param == 0x06);
+		status.afp_dialog = (param == IC_SET_AF);
 		goto pass_message;
 	case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
 		if (status.afp_dialog) {

@@ -28,8 +28,8 @@ extern long eventproc_EdLedBlink(void);
 // String management
 
 extern int   strlen(const char *);
-extern char *strncpy(char *destination, const char *source, int length);
-extern void  sprintf(const char*, char*, ...);
+extern char *strncpy(const char *destination, const char *source, int length);
+extern void  sprintf(const char*, const char*, ...);
 
 // Queue management
 

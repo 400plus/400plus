@@ -4,6 +4,8 @@
 extern void rename_create(char *filename, type_TASK callback);
 extern void rename_close();
 
+extern void rename_event_close();
+
 extern void rename_up();
 extern void rename_down();
 extern void rename_right();

@@ -44,8 +44,8 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_INSTANT]         = "Instant",
 		[L_FRAMES]          = "Frames",
 		[L_STEP_EV]         = "Step (EV)",
-		[L_MANUAL_L]        = "Manual [",
-		[L_MANUAL_R]        = "Manual ]",
+		[L_MANUAL_L]        = "Bulb min",
+		[L_MANUAL_R]        = "Bulb max",
 		[L_TIME_S]          = "Time (s)",
 		[L_EAEB]            = "EAEB",
 		[L_SHOTS]           = "Shots",
@@ -96,7 +96,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_EXT_ONLY]      = "Nur Ext.",
 		[L_EXT_AEB]       = "Ext. AEB",
 		[L_ONE_SHOT]      = "Einzelaufnahme",
-		[L_INTERVAL]      = "Intervall",
+		[L_INTERVAL]      = "Interv.",
 		[L_NO_LIMIT]      = "Unbegrenzt",
 
 		[L_LOAD_PRESETS]  = "Presets laden",
@@ -110,12 +110,12 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_START_DEBUG_MODE]   = "Debugmodus starten",
 
 		[L_SETTINGS]        = "Einstellungen",
-		[L_DELAY]           = "Verzögerung",
+		[L_DELAY]           = "Verz.",
 		[L_ACTION]          = "Aktion",
-		[L_REPEAT]          = "Wiederholen",
+		[L_REPEAT]          = "Wiederh.",
 		[L_INSTANT]         = "Dauerhaft",
 		[L_FRAMES]          = "Bilder",
-		[L_STEP_EV]         = "Schritt (EV)",
+		[L_STEP_EV]         = "SchrittEV",
 		[L_MANUAL_L]        = "Manuell [",
 		[L_MANUAL_R]        = "Manuell ]",
 		[L_TIME_S]          = "Zeit (s)",
@@ -155,12 +155,12 @@ void lang_pack_config() {
 	int  i;
 	char lang[32];
 
-	GetLanguageStr(cameraMode.language, lang);
-	debug_log("Setting language to [%d] - '%s'", cameraMode.language, lang);
+	GetLanguageStr(cameraMode->language, lang);
+	debug_log("Setting language to [%d] - '%s'", cameraMode->language, lang);
 
 	for (i = L_FIRST; i < L_COUNT; i++)
-		if(lang_packs[cameraMode.language][i] != NULL)
-			strncpy(lang_pack_current[i], lang_packs[cameraMode.language][i], LP_MAX_WORD);
+		if(lang_packs[cameraMode->language][i] != NULL)
+			strncpy(lang_pack_current[i], lang_packs[cameraMode->language][i], LP_MAX_WORD);
 		else if(lang_packs[LANG_FIRST][i] != NULL)
 			strncpy(lang_pack_current[i], lang_packs[LANG_FIRST][i], LP_MAX_WORD);
 		else

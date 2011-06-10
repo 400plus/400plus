@@ -6,6 +6,8 @@ RELEASE = 0
 
 
 COMMON_FLAGS =\
+	-Wall                \
+	-Werror              \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
 	-Wp,-MT,$@           \
 	-nostdlib            \
@@ -30,12 +32,12 @@ COMMON_FLAGS =\
 CC     = arm-elf-gcc
 CFLAGS+= $(COMMON_FLAGS)     \
 	-Os                  \
+         -Wno-implicit-function-declaration \
 
 	 #-fomit-frame-pointer \
          #-fno-strict-aliasing \
          #-Wno-unused-parameter \
          #-Wno-unused-function \
-         #-Wno-implicit-function-declaration \
 
 
 AS      = arm-elf-as
