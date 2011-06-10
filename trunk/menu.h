@@ -90,7 +90,6 @@ struct MENU {
 	type_MENUITEM   *items;
 	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
 	int              rename;
-	type_TASK        callback;
 	int              reorder;
 	int             *ordering;
 	int              highlight;

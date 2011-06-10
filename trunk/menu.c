@@ -238,7 +238,7 @@ void menu_rename() {
 	type_MENUITEM *item = get_current_item();
 
 	if (current_menu->rename) {
-		rename_create(item->name, current_menu->callback);
+		rename_create(item->name, current_menu);
 	}
 }
 

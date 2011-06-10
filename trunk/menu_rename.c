@@ -11,11 +11,10 @@ int   x, y, z;
 int   caps;
 
 type_DIALOG *handle = NULL;
+type_MENU   *rename_parent;
 
 char *rename_filename;
 char  rename_buffer[32];
-
-type_TASK rename_callback;
 
 char letters[2][4][9] = {
 	{
@@ -62,9 +61,9 @@ void rename_repeateable_left (int repeating);
 
 char *rename_message(int id);
 
-void rename_create(char *filename, type_TASK callback) {
+void rename_create(char *filename, type_MENU *parent) {
 	rename_filename = filename;
-	rename_callback = callback;
+	rename_parent   = parent;
 
 	FLAG_GUI_MODE = GUIMODE_RENAME;
 
@@ -184,7 +183,7 @@ void rename_action() {
 void rename_save() {
 	presets_write();
 	rename_close();
-	rename_callback();
+	menu_create(rename_parent);
 }
 
 void rename_clear() {

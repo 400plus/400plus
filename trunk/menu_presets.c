@@ -64,7 +64,6 @@ type_MENU menu_presets_save = {
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
 	rename      : TRUE,
-	callback    : menu_presets_save_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
@@ -78,7 +77,6 @@ type_MENU menu_presets_load = {
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
 	rename      : TRUE,
-	callback    : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
