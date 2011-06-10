@@ -8,8 +8,6 @@
 
 #include "menu.h"
 
-char  menu_buffer[32];
-
 void *menu_handler;
 int   current_line;
 int   current_item;
@@ -53,7 +51,7 @@ void menu_repeateable_cycle(int repeating);
 void menu_repeateable_right(int repeating);
 void menu_repeateable_left (int repeating);
 
-char *menu_message(int item_id);
+void menu_message(const char *buffer, int item_id);
 
 void menu_print_ev   (const char *buffer, const char *name, int   parameter);
 void menu_print_iso  (const char *buffer, const char *name, int   parameter);
@@ -153,17 +151,23 @@ void menu_event(type_MENU_EVENT event) {
 
 void menu_display() {
 	int i;
-	int offset = current_item > current_line ?
-		current_item - current_line : 0;
+	int offset = current_item > current_line ? current_item - current_line : 0;
 
-	for(i = 0; i < 5; i++)
-		dialog_set_property_str(menu_handler, i + 1, menu_message(i + offset));
+	char buffer[32];
+
+	for(i = 0; i < 5; i++) {
+		menu_message(buffer, i + offset);
+		dialog_set_property_str(menu_handler, i + 1, buffer);
+	}
 
 	dialog_redraw(menu_handler);
 }
 
 void menu_refresh() {
-	dialog_set_property_str(menu_handler, current_line + 1, menu_message(current_item));
+	char buffer[32];
+
+	menu_message(buffer, current_item);
+	dialog_set_property_str(menu_handler, current_line + 1, buffer);
 	dialog_redraw(menu_handler);
 }
 
@@ -398,7 +402,7 @@ void menu_repeateable_cycle(int repeating) {
 	menu_refresh();
 }
 
-char *menu_message(int item_id) {
+void menu_message(const char *buffer, int item_id) {
 	char item_name[32];
 	char name[32];
 
@@ -427,30 +431,28 @@ char *menu_message(int item_id) {
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
 		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0)
-			menu_print_char(menu_buffer, name, LP_WORD(L_OFF));
+			menu_print_char(buffer, name, LP_WORD(L_OFF));
 		else
-			menu_print_ev(menu_buffer, name, *item->parm.menuitem_ev.value);
+			menu_print_ev(buffer, name, *item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
-		menu_print_iso(menu_buffer, name, *item->parm.menuitem_iso.value);
+		menu_print_iso(buffer, name, *item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
 		if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0)
-			menu_print_char(menu_buffer, name, LP_WORD(L_NO_LIMIT));
+			menu_print_char(buffer, name, LP_WORD(L_NO_LIMIT));
 		else
-			menu_print_int(menu_buffer, name, *item->parm.menuitem_int.value, item->parm.menuitem_int.format);
+			menu_print_int(buffer, name, *item->parm.menuitem_int.value, item->parm.menuitem_int.format);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		menu_print_char(menu_buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
+		menu_print_char(buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
 		break;
 	case MENUITEM_TYPE_LAUNCH:
-		sprintf(menu_buffer, "%s", name);
+		sprintf(buffer, "%s", name);
 		break;
 	default:
 		break;
 	}
-
-	return menu_buffer;
 }
 
 void menu_print_ev(const char *buffer, const char *name, int parameter) {
