@@ -1,18 +1,17 @@
-#include "main.h"
+#include "firmware.h"
 
+#include "af_patterns.h"
+#include "display.h"
+#include "info.h"
+#include "languages.h"
 #include "menu.h"
 #include "menu_rename.h"
 #include "menu_settings.h"
-#include "menu_shortcuts.h"
-#include "info.h"
-#include "tasks.h"
-#include "settings.h"
 #include "presets.h"
-#include "display.h"
+#include "tasks.h"
 #include "viewfinder.h"
-#include "af_patterns.h"
-#include "languages.h"
-#include "firmware.h"
+
+#include "main.h"
 
 // Camera data
 type_CAMERA_MODE *cameraMode = (type_CAMERA_MODE*)&DPData;

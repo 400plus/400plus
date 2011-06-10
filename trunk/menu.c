@@ -1,10 +1,10 @@
 #include "main.h"
-#include "utils.h"
-#include "settings.h"
-#include "presets.h"
+#include "firmware.h"
+
 #include "languages.h"
 #include "menu_rename.h"
-#include "firmware.h"
+#include "presets.h"
+#include "utils.h"
 
 #include "menu.h"
 
@@ -38,7 +38,7 @@ type_ACTION callbacks_standard[] = {
 void menu_initialize();
 void menu_destroy();
 
-int button_menu_handlerr(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 void menu_event(type_MENU_EVENT);
 
@@ -70,7 +70,7 @@ void menu_create(type_MENU * menu) {
 	menu_destroy();
 	menu_initialize();
 
-	menu_handler = dialog_create(22, button_menu_handlerr);
+	menu_handler = dialog_create(22, button_menu_handler);
 	dialog_set_property_str(menu_handler, 8, current_menu->name);
 
 	menu_display();
@@ -98,7 +98,7 @@ void menu_destroy() {
 	}
 }
 
-int button_menu_handlerr(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	type_ACTION *action;
 
 	// Loop over all the actions from this action chain

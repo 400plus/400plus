@@ -1,6 +1,6 @@
 #include "main.h"
+
 #include "utils.h"
-#include "firmware.h"
 
 #include "af_patterns.h"
 

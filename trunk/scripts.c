@@ -1,8 +1,9 @@
 #include "main.h"
-#include "utils.h"
+#include "firmware.h"
+
 #include "display.h"
 #include "settings.h"
-#include "firmware.h"
+#include "utils.h"
 
 #include "scripts.h"
 

@@ -1,5 +1,4 @@
 #include "main.h"
-#include "settings.h"
 #include "firmware.h"
 
 #include "utils.h"
