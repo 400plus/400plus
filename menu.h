@@ -95,11 +95,6 @@ struct MENU {
 	int             *ordering;
 	int              highlight;
 	int              highlighted_item;
-	void            *handle;       // dialog handle returned from CreateDialogBox()
-	int              current_line;
-	int              current_item;
-	int              item_grabbed; // for menu reordering
-	int              show_filenames;
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;

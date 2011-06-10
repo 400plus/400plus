@@ -8,7 +8,13 @@
 
 #include "menu.h"
 
-char menu_buffer[32];
+char  menu_buffer[32];
+
+void *menu_handler;
+int   current_line;
+int   current_item;
+int   item_grabbed;
+int   show_filenames;
 
 type_MENU *current_menu;
 
@@ -34,7 +40,7 @@ type_ACTION callbacks_standard[] = {
 void menu_initialize();
 void menu_destroy();
 
-int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+int button_menu_handlerr(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 void menu_event(type_MENU_EVENT);
 
@@ -66,8 +72,8 @@ void menu_create(type_MENU * menu) {
 	menu_destroy();
 	menu_initialize();
 
-	current_menu->handle = dialog_create(22, button_handler);
-	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
+	menu_handler = dialog_create(22, button_menu_handlerr);
+	dialog_set_property_str(menu_handler, 8, current_menu->name);
 
 	menu_display();
 }
@@ -78,20 +84,23 @@ void menu_close() {
 }
 
 void menu_initialize() {
-	current_menu->handle = 0;
-	current_menu->current_line = 0;
-	current_menu->current_item = 0;
-	current_menu->item_grabbed = FALSE;
+	menu_handler = NULL;
+
+	current_line = 0;
+	current_item = 0;
+
+	item_grabbed   = FALSE;
+	show_filenames = FALSE;
 }
 
 void menu_destroy() {
-	if (current_menu->handle != 0) {
-		DeleteDialogBox(current_menu->handle);
-		current_menu->handle = 0;
+	if (menu_handler != NULL) {
+		DeleteDialogBox(menu_handler);
+		menu_handler = NULL;
 	}
 }
 
-int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+int button_menu_handlerr(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	type_ACTION *action;
 
 	// Loop over all the actions from this action chain
@@ -144,35 +153,35 @@ void menu_event(type_MENU_EVENT event) {
 
 void menu_display() {
 	int i;
-	int offset = current_menu->current_item > current_menu->current_line ?
-		current_menu->current_item - current_menu->current_line : 0;
+	int offset = current_item > current_line ?
+		current_item - current_line : 0;
 
 	for(i = 0; i < 5; i++)
-		dialog_set_property_str(current_menu->handle, i + 1, menu_message(i + offset));
+		dialog_set_property_str(menu_handler, i + 1, menu_message(i + offset));
 
-	dialog_redraw(current_menu->handle);
+	dialog_redraw(menu_handler);
 }
 
 void menu_refresh() {
-	dialog_set_property_str(current_menu->handle, current_menu->current_line + 1, menu_message(current_menu->current_item));
-	dialog_redraw(current_menu->handle);
+	dialog_set_property_str(menu_handler, current_line + 1, menu_message(current_item));
+	dialog_redraw(menu_handler);
 }
 
 void menu_up() {
 	int display = FALSE;
 
-	if (current_menu->current_item != 0) {
-		current_menu->current_item--;
+	if (current_item != 0) {
+		current_item--;
 
-		if (current_menu->item_grabbed) {
-			INT_SWAP(current_menu->ordering[current_menu->current_item],
-					current_menu->ordering[current_menu->current_item + 1]);
+		if (item_grabbed) {
+			INT_SWAP(current_menu->ordering[current_item],
+					current_menu->ordering[current_item + 1]);
 			display = TRUE;
 		}
 	}
 
-	if (current_menu->current_line != 0)
-		current_menu->current_line--;
+	if (current_line != 0)
+		current_line--;
 	else
 		display = TRUE;
 
@@ -183,18 +192,18 @@ void menu_up() {
 void menu_down() {
 	int display = FALSE;
 
-	if (current_menu->current_item != current_menu->length - 1) {
-		current_menu->current_item++;
+	if (current_item != current_menu->length - 1) {
+		current_item++;
 
-		if (current_menu->item_grabbed) {
-			INT_SWAP(current_menu->ordering[current_menu->current_item],
-					current_menu->ordering[current_menu->current_item - 1]);
+		if (item_grabbed) {
+			INT_SWAP(current_menu->ordering[current_item],
+					current_menu->ordering[current_item - 1]);
 			display = TRUE;
 		}
 	}
 
-	if (current_menu->current_line != 4)
-		current_menu->current_line++;
+	if (current_line != 4)
+		current_line++;
 	else
 		display = TRUE;
 
@@ -216,7 +225,7 @@ void menu_cycle() {
 
 void menu_toggle_filenames() {
 	if (current_menu->rename) {
-		current_menu->show_filenames = ! current_menu->show_filenames;
+		show_filenames = ! show_filenames;
 		menu_display();
 	}
 }
@@ -231,7 +240,7 @@ void menu_rename() {
 
 void menu_drag_drop() {
 	if (current_menu->reorder) {
-		current_menu->item_grabbed = ! current_menu->item_grabbed;
+		item_grabbed = ! item_grabbed;
 		menu_refresh();
 	}
 }
@@ -395,13 +404,13 @@ char *menu_message(int item_id) {
 
 	type_MENUITEM *item = get_item(item_id);
 
-	if (current_menu->show_filenames)
+	if (show_filenames)
 		get_preset_filename(item_name, 1 + get_real_id(item_id));
 	else
 		sprintf(item_name, "%s", item->name);
 
 	if (current_menu->highlight || current_menu->reorder) {
-		if (current_menu->reorder && current_menu->item_grabbed && item_id == current_menu->current_item)
+		if (current_menu->reorder && item_grabbed && item_id == current_item)
 			sprintf(name, "%c%s", '>', item_name);
 		else if (current_menu->highlight && current_menu->highlighted_item == 1 + get_real_id(item_id))
 			sprintf(name, "%c%s", '*', item_name);
@@ -467,7 +476,7 @@ void menu_print_char(const char *buffer, const char *name, const char *parameter
 }
 
 type_MENUITEM *get_current_item() {
-	return get_item(current_menu->current_item);
+	return get_item(current_item);
 }
 
 type_MENUITEM *get_item(int item_id) {
