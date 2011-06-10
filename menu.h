@@ -49,7 +49,6 @@ typedef struct {
 
 typedef struct {
 	int   *value;
-	int    readonly;
 	int    min;
 	int    max;
 	int    small_step;
@@ -119,8 +118,8 @@ OPTIONLIST_DEC(shutter)
 #define MENUITEM_ISO(_NAME_, _VALUE_, _ON_CHANGE_) \
 	{name:_NAME_, type:MENUITEM_TYPE_ISO, parm:{menuitem_iso:{value:_VALUE_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
 
-#define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_INT, parm:{menuitem_int:{value:_VALUE_, readonly:_RO_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_INT(_NAME_, _VALUE_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) \
+	{name:_NAME_, type:MENUITEM_TYPE_INT, parm:{menuitem_int:{value:_VALUE_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_) \
 	{name:_NAME_, type:MENUITEM_TYPE_ENUM, parm:{menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, list:_TEXTS_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
@@ -140,11 +139,10 @@ OPTIONLIST_DEC(shutter)
 #define MENUITEM_ACTION( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  OPTIONLIST_REF(action),  _ON_CHANGE_)
 #define MENUITEM_SHUTTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, OPTIONLIST_REF(shutter), _ON_CHANGE_)
 
-#define MENUITEM_RELEASE(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE,     0,     0,   0,   0, FALSE, "%6u", _ON_CHANGE_)
-#define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE, 1800, 11000, 100, 500, FALSE, "%5u", _ON_CHANGE_)
-#define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, FALSE, "%3u", _ON_CHANGE_)
-#define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
-#define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,     9,   2,   2, FALSE, "%1u", _ON_CHANGE_)
+#define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, 1800, 11000, 100, 500, FALSE, "%5u", _ON_CHANGE_)
+#define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_,    0,   250,   1,  10, FALSE, "%3u", _ON_CHANGE_)
+#define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
+#define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_,    1,     9,   2,   2, FALSE, "%1u", _ON_CHANGE_)
 
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
