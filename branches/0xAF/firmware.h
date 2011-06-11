@@ -62,6 +62,16 @@ extern int   fread(void *buffer, long size, long count, FILE *fp);
 extern int   fwrite(const void *buffer, long size, long count, FILE *fp);
 extern int   fclose(FILE *fp);
 
+// Time functions
+typedef unsigned int  time_t;
+struct timespec {
+	time_t tv_sec;   /* seconds */
+	time_t tv_nsec;  /* nanoseconds */
+};
+
+extern time_t time(time_t *t); // returns timestamp, and sets arg1 if pointer is provided
+extern int clock_gettime(int clock_id/* 0 */, struct timespec *tp); // return 0 on success
+
 // File IO
 extern int FIO_CreateFile(const char *name);
 extern int FIO_RemoveFile(const char *name);
