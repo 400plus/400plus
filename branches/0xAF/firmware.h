@@ -192,8 +192,10 @@ extern char aMonoSem[];
 // mc_button
 extern char asw04d04d[];
 extern int PowerFlag;
-extern int off_24860;
+extern int *some_important_structure;
 extern int unk_258A0;
+extern void DDD_Capture(int);
+extern void set_2A0E0_to_1();
 
 
 #endif /* FIRMWARE_H_ */

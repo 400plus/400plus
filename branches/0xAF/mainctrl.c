@@ -3,7 +3,9 @@
 #include "firmware.h"
 #include "debug.h"
 
-// eventproc_RemOn, RemOff - should enable/disable remote controll
+// eventproc_RemOn, RemOff - should enable/disable IR remote control
+// if it works, it could be in settings menu, so we wont need to put
+// the camera in special drive mode for IR remote.
 
 typedef struct MC_Table_entry_struct {
 	mc_event_t t;
@@ -13,94 +15,119 @@ typedef struct MC_Table_entry_struct {
 
 void my_MC_T_Button(mc_table_t * event) {
 
-	printf_log(1, 6, "MC_BUTTON:\n");
-	printf_log(1, 6, asw04d04d /*"\t sw:%04d(%04d)"*/, event->sw, event->arg3);
+	// actually, i feel a little bit stupid now...
+	// i so enthusiastic about task_mainctrl() and mc_button() routines
+	// that i missed the important thing...
+	// we could just let the original one do the stuff...
+	//	MC_T_Button(event);
+	//
+	// and use this routine as a proxy, which would block or pass the event...
+	// just like the intecom_proxy
+	//
+	// of course it is better to know what is going on arround, and this helped me to find
+	// some buttons which we didnt knew before, but still i could save myself one night...
+
+
+	//printf_log(1, 6, asw04d04d /*"\t sw:%04d(%04d)"*/, event->sw, event->arg3);
+	printf_log(1, 6, "\t BUTTON: sw:%04d/%02X arg3:(%04d)", event->sw, event->sw, event->arg3);
 
 	switch (event->sw) {
-	case 162:
-	case 165:
-	case 172:
-		printf_log(1, 6, "AF: sent to intercom -> powerflag\n");
-		SendToIntercom(IC_POWER_FLAG, 1, (PowerFlag | 1)); // PowerFlag.1 ?
-		break;
 
-	case 171:
-		printf_log(1, 6, "AF: 171\n");
-		if (event->arg3 == 0) {
-			printf_log(1, 6, "AF: err_MC_T |= 1, sub...\n");
-			err_MC_T |= 1;
-			sub_FF821428();
-		}
-		break;
-
-	case 175:
-		printf_log(1, 6, "AF: 175\n");
+	case IC_BUTTON_BATTERY_DOOR: // 162+13 = 175 // bat door
+		printf_log(1, 6, "AF: 0xAF carddoor_emergency\n");
 		if (event->arg3 == 0) {
 			printf_log(1, 6, "AF: err_MC_T |= 2, sub...\n");
 			err_MC_T |= 2;
-			sub_FF821428();
+			CardDoorEmergency_Func(); // took me too much time to understand this routine and put correct name to it.
+		}
+		break;
+	case IC_BUTTON_CARD_DOOR: // 162+9 = 171 // card door
+		printf_log(1, 6, "AF: 0xAB carddoor_emergency\n");
+		if (event->arg3 == 0) {
+			printf_log(1, 6, "AF: err_MC_T |= 1, sub...\n");
+			err_MC_T |= 1;
+			CardDoorEmergency_Func();
 		}
 		break;
 
-	case 174:
-		printf_log(1, 6, "AF: 174\n");
+	case IC_BUTTON_POWER: // 162+12 = 174 // shutdown
+		printf_log(1, 6, "AF: 0xAE\n");
 		if (event->arg3 !=0) {
-			printf_log(1, 6, "AF: a3 != 0, err_MC_T &~4, ret\n");
+			printf_log(1, 6, "AF: set err and return\n");
 			err_MC_T = err_MC_T & ~4;
 			break;
 		} else {
-			printf_log(1, 6, "AF: err_MC_T|=4\n");
+			printf_log(1, 6, "AF: make checks\n");
 			err_MC_T |= 4;
-			if (*(int *)(&off_24860 + 0xBC) != 1) { // off_24860.0xBC -> offset in some structure
+			if (*(some_important_structure + 0xBC) != 1) { // off_24860.0xBC -> offset in some structure
 				printf_log(1, 6, "AF: call change_menupos()\n");
 				change_menupos();
 			}
 
-			if (unk_258A0 != 0) {
+			if (unk_258A0 != 0) { // i think this flag indicates that we are taking photo ATM
 				printf_log(1, 6, "AF: sub,sub\n");
-				sub_FFA22D6C();
-				sub_FF825E28(event->arg3);
+				set_dword_7610_to_0();
+				DDD_Capture(event->arg3);// now we need to find WTF is this DDD... i see this DDD stuff frequently in the FW.
+				// for this DDD_Capture here, if it's called with 0, like this call here
+				// it will call internaly End_DDD_Capture.
+				// so i guess this is called when we turn off the camera, while shooting
 			}
 
 			printf_log(1, 6, "AF: sub, change_playback\n");
-			sub_FF811814();
+			set_2A0E0_to_1();
 			change_playback_file_id2();
 
-			if (!(MC_State & 0x800)) {
+			if (!(MC_State & 0x800)) { // i'm not 100% sure that i have to reverse the condition here, but it's not fatal
 				printf_log(1, 6, "AF: turndisplay 2,1 off\n");
 				SetTurnDisplayEvent_2_after_1();
 			}
 		}
 		break;
 
-	case 182:
+	case IC_BUTTON_HALF_SHUTTER: // 162+20 = 182
 		printf_log(1, 6, "AF: 182, senttoIC B6\n");
-		SendToIntercom(IC_BUTTON_B6, 0, 0);
+		SendToIntercom(IC_BUTTON_HALF_SHUTTER, 0, 0);
 		eventproc_RemOn();
 		break;
 
-	case 183:
+	case IC_BUTTON_FULL_SHUTTER: // 162+21 = 183
 		printf_log(1, 6, "AF: 183, senttoIC B7\n");
-		SendToIntercom(IC_BUTTON_B7, 0, 0);
+		SendToIntercom(IC_BUTTON_FULL_SHUTTER, 0, 0);
 		eventproc_RemOn();
 		break;
 
-	case 188:
+	case IC_BUTTON_UNK2: // 162+26 = 188
 		printf_log(1, 6, "AF: tft off\n");
+		beep();SleepTask(500);beep(); // if you hear 2 beeps, please tell me which btn you've pressed.
 		eventproc_TFTOff();
 		break;
 
+	case IC_BUTTON_JUMP: // 162+0 = 162 // btn JUMP
+	case IC_BUTTON_TRASH: // 162+3 = 165 // btn TRASH
+	case IC_BUTTON_UNK1: // 162+10= 172 // btn UNK1
+		printf_log(1, 6, "AF: btn: %d, PF: %d,%d\n", event->sw, PowerFlag, (PowerFlag|1));
+		//SendToIntercom(IC_POWER_FLAG, 1, (PowerFlag|1)); // im not sure why this isnt working ?
+		MC_T_Button(event); // so we call the original btn handler to take care of it.
+		break;
+
 	default:
-		ManySendToGUI_and_other(event->sw, event->arg3);
+		ManySendToGUI_and_other(event->sw, event->arg3); // may be it would be good to have this
+		// one reversed too, but it would take much time, as it's big one
 		break;
 	}
 }
+
+
+
 
 void my_task_MainCtrl() {
 
 	// using printf() in this function makes troubles with shooting...
 	// took me the whole eternity to understand that ...
+	// we can use the canon's printf_log of course.
 	// perhaps the direct writing to STDOUT.TXT conflicts with writing the photo to the CF...
+	// after all we are redirecting the console to STDOUT.TXT, and the camera would not
+	// expect that someone other than canon's routines will try to write to the CF.
 
 	(*((int*)0xC0220000)) = 0x46; // turn on the blue led
 	mc_table_t * event;
@@ -116,7 +143,7 @@ void my_task_MainCtrl() {
 		if (0) {
 		} else if (event->t < 6) {
 			if (event->t == MC_BUTTON) {
-				my_MC_T_Button(event);
+				my_MC_T_Button(event); // we add our handler here
 			} else {
 				MC_T_1_5(event);
 			}
