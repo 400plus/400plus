@@ -15,12 +15,13 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
-#ifdef ENABLE_DEBUG
-	start_debug_mode();
 	printf("400Plus STARTING!\n");
-#endif
-	// turn off the blue led after it was lighten by our my_task_MainCtrl()
-	eventproc_EdLedOff();
+
+	// Read settings from file
+	settings_read();
+
+	if (settings.debug_on_poweron)
+		start_debug_mode();
 
 	// Set current language
 	lang_pack_config();
@@ -32,11 +33,11 @@ void start_up() {
 	send_to_intercom(IC_SET_REALTIME_ISO_0, 0, 0);
 	send_to_intercom(IC_SET_REALTIME_ISO_1, 0, 0);
 
-	// Read settings from file
-	settings_read();
-
 	// Read presets from file
 	presets_read();
+
+	// turn off the blue led after it was lighten by our my_task_MainCtrl()
+	eventproc_EdLedOff();
 
 	// We are no longer booting up
 	status.booting = FALSE;

@@ -46,7 +46,12 @@ enum WordID {
 	L_DEVELOPER,
 	L_ENTER_FACTORY_MODE,	// 18 chars max
 	L_EXIT_FACTORY_MODE,	// 18 chars max
-	L_START_DEBUG_MODE,	// 18 chars max
+	L_DEBUG_ON_POWERON,	// 18 chars max
+	L_LOGFILE,
+	L_OVERWRITE,
+	L_NEW,
+	L_APPEND,
+
 
 	L_LOAD_PRESETS,
 	L_SAVE_PRESETS,

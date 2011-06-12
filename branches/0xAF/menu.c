@@ -17,6 +17,7 @@ OPTIONLIST_DEF(delay,   LP_WORD(L_NO), LP_WORD(L_2S))
 OPTIONLIST_DEF(flash,   LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_ONLY))
 OPTIONLIST_DEF(action,  LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter, "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
+OPTIONLIST_DEF(logfile, LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
 
 type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_up}},

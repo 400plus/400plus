@@ -35,7 +35,11 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Developer",
 		[L_ENTER_FACTORY_MODE] = "Enter factory Mode",
 		[L_EXIT_FACTORY_MODE]  = "Exit  factory Mode",
-		[L_START_DEBUG_MODE]   = "Start debug   Mode",
+		[L_DEBUG_ON_POWERON]   = "Debug on PowerOn",
+		[L_LOGFILE]            = "Log File Mode",
+		[L_OVERWRITE]          = "Overwrite",
+		[L_NEW]                = "New",
+		[L_APPEND]             = "Append",
 
 		[L_SETTINGS]        = "Settings",
 		[L_DELAY]           = "Delay",
@@ -107,7 +111,6 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Entwickler",
 		[L_ENTER_FACTORY_MODE] = "Betrete Werksmenü",
 		[L_EXIT_FACTORY_MODE]  = "Verlasse Werksmenü",
-		[L_START_DEBUG_MODE]   = "Debugmodus starten",
 
 		[L_SETTINGS]        = "Einstellungen",
 		[L_DELAY]           = "Verz.",

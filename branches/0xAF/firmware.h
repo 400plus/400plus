@@ -63,14 +63,26 @@ extern int   fwrite(const void *buffer, long size, long count, FILE *fp);
 extern int   fclose(FILE *fp);
 
 // Time functions
-typedef unsigned int  time_t;
+typedef unsigned int time_t;
 struct timespec {
 	time_t tv_sec;   /* seconds */
 	time_t tv_nsec;  /* nanoseconds */
 };
+struct tm {
+	int tm_sec;         /* seconds */
+	int tm_min;         /* minutes */
+	int tm_hour;        /* hours */
+	int tm_mday;        /* day of the month */
+	int tm_mon;         /* month */
+	int tm_year;        /* year */
+	int tm_wday;        /* day of the week */
+	int tm_yday;        /* day in the year */
+	int tm_isdst;       /* daylight saving time */
+};
 
 extern time_t time(time_t *t); // returns timestamp, and sets arg1 if pointer is provided
 extern int clock_gettime(int clock_id/* 0 */, struct timespec *tp); // return 0 on success
+extern struct tm * localtime_r(time_t *time, struct tm*);
 
 // File IO
 extern int FIO_CreateFile(const char *name);
@@ -80,6 +92,7 @@ extern int FIO_ReadFile(int fd, void *buffer, long nbytes);
 extern int FIO_WriteFile(int fd, void *buf, long nbytes);
 extern int FIO_CloseFile(int fd);
 extern void FIO_GetFileSize(char * file, int * size);
+extern void FIO_SeekFile(int fd, long offset, int whence); // whence: SEEK_SET=0, SEEK_CUR=1, SEEK_END=2
 
 // free space is reported in KB, drvltr is "A:"
 extern int FP_GetDriveFreeSpace(char * drv_letter, int * result);

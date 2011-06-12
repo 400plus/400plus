@@ -226,12 +226,32 @@ void exit_factory_mode() {
 
 void start_debug_mode() {
 	int file;
+	char filename[20] = "A:/DEBUG.LOG"; // default name
+	//int filesize;
+	time_t t;
+	struct tm tm;
 
-	if((file = FIO_CreateFile("A:/STDOUT.TXT")) > 0)
+	time(&t);
+	localtime_r(&t, &tm);
+
+	if (settings.logfile_mode == 1) // new
+		sprintf(filename, "A:/%02d%02d%02d%02d.LOG", tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min);
+
+	// O_APPEND is not working in VxWorks, so we seek to the end later
+	file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644);
+	if(file > 0) {
+		if (settings.logfile_mode == 2) // append
+			FIO_SeekFile(file, 0, 2/*SEEK_END*/);
+
+		// redirect stdout and stderr to our file
 		ioGlobalStdSet(1, file);
-
-	if((file = FIO_CreateFile("A:/STDERR.TXT")) > 0)
 		ioGlobalStdSet(2, file);
+	}
+
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("::::: %04d-%02d-%02d %02d:%02d:%02d :::::\n", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
+			tm.tm_hour, tm.tm_min, tm.tm_sec);
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n");
 
 	beep();
 }
