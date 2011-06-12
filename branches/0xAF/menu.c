@@ -1,14 +1,18 @@
 #include "main.h"
-#include "utils.h"
-#include "settings.h"
-#include "presets.h"
+#include "firmware.h"
+
 #include "languages.h"
 #include "menu_rename.h"
-#include "firmware.h"
+#include "presets.h"
+#include "utils.h"
 
 #include "menu.h"
 
-char menu_buffer[32];
+void *menu_handler;
+int   current_line;
+int   current_item;
+int   item_grabbed;
+int   show_filenames;
 
 type_MENU *current_menu;
 
@@ -35,7 +39,7 @@ type_ACTION callbacks_standard[] = {
 void menu_initialize();
 void menu_destroy();
 
-int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 void menu_event(type_MENU_EVENT);
 
@@ -48,7 +52,7 @@ void menu_repeateable_cycle(int repeating);
 void menu_repeateable_right(int repeating);
 void menu_repeateable_left (int repeating);
 
-char *menu_message(int item_id);
+void menu_message(const char *buffer, int item_id);
 
 void menu_print_ev   (const char *buffer, const char *name, int   parameter);
 void menu_print_iso  (const char *buffer, const char *name, int   parameter);
@@ -67,8 +71,8 @@ void menu_create(type_MENU * menu) {
 	menu_destroy();
 	menu_initialize();
 
-	current_menu->handle = dialog_create(22, button_handler);
-	dialog_set_property_str(current_menu->handle, 8, current_menu->name);
+	menu_handler = dialog_create(22, button_menu_handler);
+	dialog_set_property_str(menu_handler, 8, current_menu->name);
 
 	PaletteChange(current_menu->color);
 
@@ -81,20 +85,23 @@ void menu_close() {
 }
 
 void menu_initialize() {
-	current_menu->handle = 0;
-	current_menu->current_line = 0;
-	current_menu->current_item = 0;
-	current_menu->item_grabbed = FALSE;
+	menu_handler = NULL;
+
+	current_line = 0;
+	current_item = 0;
+
+	item_grabbed   = FALSE;
+	show_filenames = FALSE;
 }
 
 void menu_destroy() {
-	if (current_menu->handle != 0) {
-		DeleteDialogBox(current_menu->handle);
-		current_menu->handle = 0;
+	if (menu_handler != NULL) {
+		DeleteDialogBox(menu_handler);
+		menu_handler = NULL;
 	}
 }
 
-int button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	type_ACTION *action;
 
 	// Loop over all the actions from this action chain
@@ -147,35 +154,41 @@ void menu_event(type_MENU_EVENT event) {
 
 void menu_display() {
 	int i;
-	int offset = current_menu->current_item > current_menu->current_line ?
-		current_menu->current_item - current_menu->current_line : 0;
+	int offset = current_item > current_line ? current_item - current_line : 0;
 
-	for(i = 0; i < 5; i++)
-		dialog_set_property_str(current_menu->handle, i + 1, menu_message(i + offset));
+	char buffer[32];
 
-	dialog_redraw(current_menu->handle);
+	for(i = 0; i < 5; i++) {
+		menu_message(buffer, i + offset);
+		dialog_set_property_str(menu_handler, i + 1, buffer);
+	}
+
+	dialog_redraw(menu_handler);
 }
 
 void menu_refresh() {
-	dialog_set_property_str(current_menu->handle, current_menu->current_line + 1, menu_message(current_menu->current_item));
-	dialog_redraw(current_menu->handle);
+	char buffer[32];
+
+	menu_message(buffer, current_item);
+	dialog_set_property_str(menu_handler, current_line + 1, buffer);
+	dialog_redraw(menu_handler);
 }
 
 void menu_up() {
 	int display = FALSE;
 
-	if (current_menu->current_item != 0) {
-		current_menu->current_item--;
+	if (current_item != 0) {
+		current_item--;
 
-		if (current_menu->item_grabbed) {
-			INT_SWAP(current_menu->ordering[current_menu->current_item],
-					current_menu->ordering[current_menu->current_item + 1]);
+		if (item_grabbed) {
+			INT_SWAP(current_menu->ordering[current_item],
+					current_menu->ordering[current_item + 1]);
 			display = TRUE;
 		}
 	}
 
-	if (current_menu->current_line != 0)
-		current_menu->current_line--;
+	if (current_line != 0)
+		current_line--;
 	else
 		display = TRUE;
 
@@ -186,18 +199,18 @@ void menu_up() {
 void menu_down() {
 	int display = FALSE;
 
-	if (current_menu->current_item != current_menu->length - 1) {
-		current_menu->current_item++;
+	if (current_item != current_menu->length - 1) {
+		current_item++;
 
-		if (current_menu->item_grabbed) {
-			INT_SWAP(current_menu->ordering[current_menu->current_item],
-					current_menu->ordering[current_menu->current_item - 1]);
+		if (item_grabbed) {
+			INT_SWAP(current_menu->ordering[current_item],
+					current_menu->ordering[current_item - 1]);
 			display = TRUE;
 		}
 	}
 
-	if (current_menu->current_line != 4)
-		current_menu->current_line++;
+	if (current_line != 4)
+		current_line++;
 	else
 		display = TRUE;
 
@@ -219,7 +232,7 @@ void menu_cycle() {
 
 void menu_toggle_filenames() {
 	if (current_menu->rename) {
-		current_menu->show_filenames = ! current_menu->show_filenames;
+		show_filenames = ! show_filenames;
 		menu_display();
 	}
 }
@@ -228,13 +241,13 @@ void menu_rename() {
 	type_MENUITEM *item = get_current_item();
 
 	if (current_menu->rename) {
-		rename_create(item->name, current_menu->callback);
+		rename_create(item->name, current_menu);
 	}
 }
 
 void menu_drag_drop() {
 	if (current_menu->reorder) {
-		current_menu->item_grabbed = ! current_menu->item_grabbed;
+		item_grabbed = ! item_grabbed;
 		menu_refresh();
 	}
 }
@@ -301,10 +314,8 @@ void menu_repeateable_right(int repeating) {
 			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->parm.menuitem_int.readonly) {
-			*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-		}
+		*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+		*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 		break;
 	case MENUITEM_TYPE_ENUM:
 		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
@@ -341,10 +352,8 @@ void menu_repeateable_left(int repeating) {
 			*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
-		if (!item->parm.menuitem_int.readonly) {
-			*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-			*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
-		}
+		*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+		*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
 		break;
 	case MENUITEM_TYPE_ENUM:
 		if (*item->parm.menuitem_enum.value == 0) {
@@ -396,19 +405,19 @@ void menu_repeateable_cycle(int repeating) {
 	menu_refresh();
 }
 
-char *menu_message(int item_id) {
+void menu_message(const char *buffer, int item_id) {
 	char item_name[32];
 	char name[32];
 
 	type_MENUITEM *item = get_item(item_id);
 
-	if (current_menu->show_filenames)
+	if (show_filenames)
 		get_preset_filename(item_name, 1 + get_real_id(item_id));
 	else
 		sprintf(item_name, "%s", item->name);
 
 	if (current_menu->highlight || current_menu->reorder) {
-		if (current_menu->reorder && current_menu->item_grabbed && item_id == current_menu->current_item)
+		if (current_menu->reorder && item_grabbed && item_id == current_item)
 			sprintf(name, "%c%s", '>', item_name);
 		else if (current_menu->highlight && current_menu->highlighted_item == 1 + get_real_id(item_id))
 			sprintf(name, "%c%s", '*', item_name);
@@ -425,30 +434,28 @@ char *menu_message(int item_id) {
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
 		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0)
-			menu_print_char(menu_buffer, name, LP_WORD(L_OFF));
+			menu_print_char(buffer, name, LP_WORD(L_OFF));
 		else
-			menu_print_ev(menu_buffer, name, *item->parm.menuitem_ev.value);
+			menu_print_ev(buffer, name, *item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
-		menu_print_iso(menu_buffer, name, *item->parm.menuitem_iso.value);
+		menu_print_iso(buffer, name, *item->parm.menuitem_iso.value);
 		break;
 	case MENUITEM_TYPE_INT:
 		if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0)
-			menu_print_char(menu_buffer, name, LP_WORD(L_NO_LIMIT));
+			menu_print_char(buffer, name, LP_WORD(L_NO_LIMIT));
 		else
-			menu_print_int(menu_buffer, name, *item->parm.menuitem_int.value, item->parm.menuitem_int.format);
+			menu_print_int(buffer, name, *item->parm.menuitem_int.value, item->parm.menuitem_int.format);
 		break;
 	case MENUITEM_TYPE_ENUM:
-		menu_print_char(menu_buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
+		menu_print_char(buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
 		break;
 	case MENUITEM_TYPE_LAUNCH:
-		sprintf(menu_buffer, "%s", name);
+		sprintf(buffer, "%s", name);
 		break;
 	default:
 		break;
 	}
-
-	return menu_buffer;
 }
 
 void menu_print_ev(const char *buffer, const char *name, int parameter) {
@@ -474,7 +481,7 @@ void menu_print_char(const char *buffer, const char *name, const char *parameter
 }
 
 type_MENUITEM *get_current_item() {
-	return get_item(current_menu->current_item);
+	return get_item(current_item);
 }
 
 type_MENUITEM *get_item(int item_id) {

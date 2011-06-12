@@ -1,9 +1,9 @@
 #include "main.h"
-#include "menu.h"
-#include "utils.h"
+
 #include "languages.h"
+#include "menu.h"
 #include "menu_settings.h"
-#include "firmware.h"
+#include "utils.h"
 #include "settings.h"
 
 #include "menu_developer.h"

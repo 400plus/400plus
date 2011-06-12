@@ -1,12 +1,13 @@
 #include "main.h"
+#include "firmware.h"
+
+#include "display.h"
+#include "languages.h"
 #include "menu.h"
 #include "menu_presets.h"
-#include "utils.h"
-#include "display.h"
 #include "scripts.h"
 #include "settings.h"
-#include "languages.h"
-#include "firmware.h"
+#include "utils.h"
 
 #include "menu_shortcuts.h"
 

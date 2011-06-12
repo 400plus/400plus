@@ -1,13 +1,11 @@
 #include "main.h"
+
+#include "languages.h"
 #include "menu.h"
-#include "utils.h"
-#include "settings.h"
-#include "scripts.h"
-#include "presets.h"
 #include "menu_settings.h"
 #include "menu_shortcuts.h"
-#include "firmware.h"
-#include "languages.h"
+#include "presets.h"
+#include "utils.h"
 
 #include "menu_presets.h"
 
@@ -64,7 +62,6 @@ type_MENU menu_presets_save = {
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
 	rename      : TRUE,
-	callback    : menu_presets_save_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
@@ -78,7 +75,6 @@ type_MENU menu_presets_load = {
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
 	rename      : TRUE,
-	callback    : menu_presets_load_start,
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
