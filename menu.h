@@ -145,6 +145,7 @@ extern void menu_event_dp();
 extern void menu_event_set();
 extern void menu_event_change();
 extern void menu_event_close();
+extern void menu_event(type_MENU_EVENT);
 
 extern void menu_up();
 extern void menu_down();

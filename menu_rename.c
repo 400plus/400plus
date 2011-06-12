@@ -1,7 +1,7 @@
 #include "main.h"
 #include "firmware.h"
 
-#include "presets.h"
+#include "menu.h"
 
 #include "menu_rename.h"
 
@@ -179,9 +179,10 @@ void rename_action() {
 }
 
 void rename_save() {
-	presets_write();
 	rename_close();
+
 	menu_create(rename_parent);
+	menu_event(MENU_EVENT_CHANGE);
 }
 
 void rename_clear() {
