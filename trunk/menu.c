@@ -13,6 +13,7 @@ int   current_line;
 int   current_item;
 int   item_grabbed;
 int   show_filenames;
+int   changed;
 
 type_MENU *current_menu;
 
@@ -89,6 +90,7 @@ void menu_initialize() {
 
 	item_grabbed   = FALSE;
 	show_filenames = FALSE;
+	changed        = FALSE;
 }
 
 void menu_destroy() {
@@ -400,6 +402,14 @@ void menu_repeateable_cycle(int repeating) {
 
 	menu_event_change();
 	menu_refresh();
+}
+
+void menu_set_changed() {
+	changed = TRUE;
+}
+
+int menu_get_changed() {
+	return changed;
 }
 
 void menu_message(const char *buffer, int item_id) {

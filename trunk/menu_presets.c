@@ -9,6 +9,8 @@
 
 #include "menu_presets.h"
 
+void menu_preset_close();
+
 void preset_save_1();
 void preset_save_2();
 void preset_save_3();
@@ -65,8 +67,9 @@ type_MENU menu_presets_save = {
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
-		[MENU_EVENT_DP]    = menu_settings_create,
-		[MENU_EVENT_CLOSE] = presets_write,
+		[MENU_EVENT_DP]     = menu_settings_create,
+		[MENU_EVENT_CHANGE] = menu_set_changed,
+		[MENU_EVENT_CLOSE]  = menu_preset_close,
 	}
 };
 
@@ -78,8 +81,9 @@ type_MENU menu_presets_load = {
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
-		[MENU_EVENT_DP]    = menu_shortcuts_create,
-		[MENU_EVENT_CLOSE] = presets_write,
+		[MENU_EVENT_DP]     = menu_shortcuts_create,
+		[MENU_EVENT_CHANGE] = menu_set_changed,
+		[MENU_EVENT_CLOSE]  = menu_preset_close,
 	}
 };
 
@@ -104,6 +108,12 @@ void menu_presets_load_start() {
 
 	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP)
 		menu_create(&menu_presets_load);
+}
+
+void menu_preset_close() {
+	if (menu_get_changed()) {
+		presets_write();
+	}
 }
 
 void preset_save_1() { preset_save(1); }
