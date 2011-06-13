@@ -1,5 +1,14 @@
 #summary Log of changes made to this project.
 
+_*yyyymmdd-r*_
+ * Lots of improvements regarding usability at the menus; several buttons have been reassigned, please see the [UserGuide].
+ * SET is no longer needed to apply settings or save changes in any menu.
+ * The number of available presets has been increased to 9.
+ * Latest preset "used" (loaded or saved) is highlighted in the presets' menus.
+ * The presets' menus can now display file-names instead of user-defined names (useful to identify which file contains what preset).
+ * When moving the main dial out of A-DEP and back, the last preset used is recalled completely (not just the AE mode).
+ * White balance is automatically changed to "custom" when color temperature is changed.
+
 _*20110517-0*_
  * Multi-language support (only English and German right now).
  * Presets have been improved, there are more options related to them, and now they can be renamed and reordered.
