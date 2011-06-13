@@ -44,8 +44,8 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial or the `ZOOM IN
     * Frames: number of frames to shoot.
     * Step (EV): separation in EV between shots.
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Manual [: minimum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
-    * Manual ]: maximum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
+    * Bulb min: minimum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
+    * Bulb max: maximum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
  * _*Interval*_: This sub-menu configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately, or wait for 2 seconds.
     * Time (s): time (in seconds) between each shot.
@@ -95,7 +95,7 @@ This script performs the same task as the _standard_ AEB option from the camera,
  * The separation between shots is configurable up to +6 EV.
  * The camera will take all the shots in a sequence, automatically.
 
-In `BULB` mode, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Manual [" value to the "Manual ]" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 16 minutes can be used in this mode.
+In `BULB` mode, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Bulb min" value to the "Bulb max" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 16 minutes can be used in this mode.
 
 == Intervalometer ==
 
