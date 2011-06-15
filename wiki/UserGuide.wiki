@@ -1,6 +1,8 @@
 #summary User Guide for 400plus
 #labels Featured
 
+*WARNING: This document is a _preview_ and may document features not yet released.*
+
 = Introduction =
 
 This document contains the user guide for 400plus. It is assumed in this document that the user has installed 400plus and it is working properly, prior to reading this guide. For information about installing 400plus, please see [FirmwareHackInstallation].
@@ -15,18 +17,16 @@ To enter the 400plus menu, press the `MENU` button (this will display the _stand
 
 To navigate the settings menu, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons to move among items. Then use the `LEFT` (`METERING MODE`) and `RIGHT` (`AF MODE`) buttons to change the value of the current item; press and hold these buttons to change faster. On some items, the `AV` button can be used to roll the value.
 
-Use the `SET` button to save the values and activate the changes; please, *notice* that all changes will be lost if you exit the settings menu before pressing the `SET` button.
-
 == Navigating the sub-menus ==
 
-Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial to roll to the next sub-item, then `LEFT` and `RIGHT` to change the value (press and hold to change faster). Both `UP` and `DOWN` can be used anytime to move to another item.
+Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial or the `ZOOM IN` / `ZOOM OUT` buttons to roll to the next sub-item, then `LEFT` and `RIGHT` to change the value (press and hold to change faster). Both `UP` and `DOWN` can be used anytime to move to another item.
 
 == The items ==
 
  * _*Av comp*_: Same as the _standard_ "AV compensation", but may go from -6 to +6 EV.
  * _*Flash comp*_: Same as the _standard_ "Flash compensation", but may go from -6 to +6 EV.
  * _*Use flash*_: Force the deactivation of the flash during the actual shot, even if it has been raised.
- * _*Color Temp. (K)*_: Set a user-defined color temperature (activate it later pressing `DIRECT PRINT` at the white balance selection dialog).
+ * _*Color Temp. (K)*_: Set a user-defined color temperature, and change the white balance to "custom".
  * _*AEB*_: Same as the _standard_ "AEB", but may go from -6 to +6 EV.
  * _*Safety shift*_: When active, and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid a under/over-exposure, if the value is too small/large for the scene.
  * _*IR remote delay*_: Select whether the camera should wait 2 seconds when released using an IR remote.
@@ -44,8 +44,8 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial to roll to the 
     * Frames: number of frames to shoot.
     * Step (EV): separation in EV between shots.
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Manual [: minimum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
-    * Manual ]: maximum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
+    * Bulb min: minimum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
+    * Bulb max: maximum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
  * _*Interval*_: This sub-menu configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately, or wait for 2 seconds.
     * Time (s): time (in seconds) between each shot.
@@ -65,7 +65,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial to roll to the 
 
 = The shortcuts menu =
 
-To access the shortcuts menu, press the `DIRECT PRINT` button from the main dialog (only valid if the "Shortcuts menu" is activated from the 400plus Settings menu); navigate this menu like a normal menu, and press `SET` to apply a change or launch a script:
+To access the shortcuts menu, press the `DIRECT PRINT` button from the main dialog (only valid if the "Shortcuts menu" is activated from the 400plus Settings menu); navigate this menu like a normal menu, and press `SET` to launch a script:
 
  * _*Intermediate ISO*_: Roll through the intermediate ISOs.
  * _*Extended AEB*_: Start the [#Extended_AEB Extended AEB] script.
@@ -80,7 +80,7 @@ To exit the shortcuts menu, half-press the shutter button.
 
 == Configuring the shortcuts menu ==
 
-While in the shortcuts menu, you have the ability to change the order of the menu items.  Press `MENU` to "grab" an item (a small ">" will be displayed at the left of the item); then use use `UP` / `DOWN` to position it, and press `MENU` again when finished. Remember to press the `SET` button to save the new shortcuts order to the CF card before exiting the menu.
+While in the shortcuts menu, you have the ability to change the order of the menu items.  Press `PLAY` to "grab" an item (a small ">" will be displayed at the left of the item); then use use `UP` / `DOWN` to position it, and press `PLAY` again when finished.
 
 = The scripts =
 
@@ -95,7 +95,7 @@ This script performs the same task as the _standard_ AEB option from the camera,
  * The separation between shots is configurable up to +6 EV.
  * The camera will take all the shots in a sequence, automatically.
 
-In `BULB` mode, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Manual [" value to the "Manual ]" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 16 minutes can be used in this mode.
+In `BULB` mode, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Bulb min" value to the "Bulb max" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 16 minutes can be used in this mode.
 
 == Intervalometer ==
 
@@ -113,7 +113,7 @@ This script simply adds a configurable pause before firing the camera; this scri
 
 A "preset" is a complete snapshot containing all of the camera settings and configuration parameters.  Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations later.
 
-Presets are stored on the CF card itself.  Up to 5 presets can be stored. To store a preset, press `DP` while in [#The_settings_menu the settings menu]; then select a preset slot and press `SET` (if the slot has been previously used, its contents will be overwritten).  To recover a preset, press `DP` while in the [#The_shortcuts_menu the shortcuts menu]; then select your desired preset and press the `SET` button (if the slot is empty, nothing happens).
+Presets are stored on the CF card itself.  Up to 9 presets can be stored. To store a preset, press `DP` while in [#The_settings_menu the settings menu]; then select a preset slot and press `SET` (if the slot has been previously used, its contents will be overwritten).  To recover a preset, press `DP` while in the [#The_shortcuts_menu the shortcuts menu]; then select your desired preset and press the `SET` button (if the slot is empty, nothing happens).
 
 == The A-DEP mode ==
 
@@ -121,16 +121,16 @@ Under normal circumstances, when a preset is recovered all camera parameters are
 
 To solve this issue, there is an option at [#The_settings_menu the settings menu] to hijack the (mostly unused) A-DEP mode; when that option is active, the following changes will happen:
  * Presets can only be loaded when the camera is in A-DEP mode.
- * When the camera is powered on in A-DEP mode, the last preset used is automatically recalled.
+ * When the camera is powered on in A-DEP mode, or when the user moves the main dial to the A-DEP mode, the last preset used is automatically recalled.
 
 == Configuring the presets menu ==
 
-The presets can be reordered, just like [#The_shortcuts_menu the shortcuts menu] (press `MENU` to grab / release, and `UP`/ `DOWN` to move); but they can also be renamed: while a preset is grabbed, press `SET` to enter the rename menu:
- * Use `UP`/ `DOWN` to select a letter.
- * Use `AV`to toggle between lowercase / numbers and uppercase / symbols.
+The presets can be reordered, just like [#The_shortcuts_menu the shortcuts menu] (press `PLAY` to grab / release, and `UP`/ `DOWN` to move); but they can also be renamed, pressing the 'JUMP' button to enter the rename menu:
+ * Use `UP` / `DOWN` / `LEFT` / `RIGHT` to select a letter.
+ * Use `MENU` to toggle between lowercase / numbers and uppercase / symbols; press `AV` to change the case of the selected letter at the bottom line.
  * Use `SET` to use a letter on the name and advance the cursor.
- * Use the front dial to move the cursor.
- * Move to the lower line and press `SET` there to go back to the presets' menu.
+ * Use the front dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor.
+ * Press `JUMP` to go back to the presets' menu.
 
 = The AF-Pattern selection =
 
