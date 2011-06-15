@@ -1,6 +1,6 @@
 #summary Log of changes made to this project.
 
-_*yyyymmdd-r*_
+_*20110615-0*_
  * Lots of improvements regarding usability at the menus; several buttons have been reassigned, please see the [UserGuide].
  * SET is no longer needed to apply settings or save changes in any menu.
  * The number of available presets has been increased to 9.
