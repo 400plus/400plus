@@ -99,7 +99,7 @@ Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar d
  * La separación entre las tomas se puede configurar hasta +6 EV. 
  * La cámara tomará todas las fotos en una secuencia, de forma automática.
 
-En el modo BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Manual [" hasta el valor "Manual ]", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
+En el modo BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb min" hasta el valor "Bulb max", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
 
 == Intervalometro ==
 
