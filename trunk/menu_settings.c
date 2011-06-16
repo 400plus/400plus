@@ -121,7 +121,7 @@ void menu_settings_apply_efcomp(type_MENUITEM *item) {
 }
 
 void menu_settings_apply_cf_emit_flash(type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, !*item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, *item->parm.menuitem_enum.value);
 }
 
 void menu_settings_apply_color_temp(type_MENUITEM *item) {
