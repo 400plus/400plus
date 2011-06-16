@@ -29,7 +29,7 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal o los b
  * _*Comp. Av*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
  * _*Comp Flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
  * _*Usa Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
- * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos a 'personalizable'. 
+ * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos a 'personalizado'. 
  * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV.
  * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*Retardo infrarrojos*_: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
