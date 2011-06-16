@@ -131,13 +131,13 @@ Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_aju
   
 == Configurar el menú presets ==
 
-Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos] (presiona MENU para seleccionar / soltar, y ARRIBA / ABAJO para mover); pero además los podemos renombrar: mientras un preset está seleccionado, presiona SET para entrar en el menú para cambio de nombre.
+Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos] (presiona PLAY para seleccionar / soltar, y ARRIBA / ABAJO para mover); pero además los podemos renombrar, pulsando el botón JUMP para entrar en el menú para cambio de nombre:
 
- * Utiliza ARRIBA / ABAJO para seleccionar una letra.
- * Utiliza el botón AV para alternar entre minúsculas / números y mayúsculas / símbolos. 
+ * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar una letra.
+ * Utiliza MENU para alternar entre minúsculas / números y mayúsculas / símbolos; presiona AV para cambiar el tipo de la letra seleccionada en la línea inferior. 
  * Utiliza SET para usar una letra en el nombre y avanzar el cursor.
- * Utiliza el dial frontal para mover el cursor.
- * Muévete a la línea inferior y presiona SET allí para volver al menú presets.   
+ * Utiliza el dial frontal o los botones de ZOOM para mover el cursor.
+ * Presiona JUMP para volver al menú presets.   
 
 = Selección del patrón AF =
 
