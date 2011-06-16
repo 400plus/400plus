@@ -20,8 +20,6 @@ Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar d
 
 Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor.
 
-Utiliza el botón SET para guardar los valores y activar los cambios; recuerda que todos los cambios se perderán si sales del menú antes de pulsar el botón SET.
-
 == Navegación por los sub-menús ==
 
 Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal para pasar al siguiente subítem y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). Los botones ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro ítem.
