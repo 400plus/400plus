@@ -63,8 +63,8 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal o los b
   * 400plus: cuando está activo, la carga de un preset reclama los propios ajustes 400plus (guiones,...).
   * Ajustes: cuando está activo, la carga de un preset reclama los ajustes rara vez cambiados (lenguaje, sistema de video,...).
   * Imagen: cuando está activo, la carga de un preset reclama los parámetros relativos a la imagen (RAW/JPEG, calidad,...).
-  * Funciones personalizadas: cuando está activo, la carga de un preset reclama las funciones personalizadas (bloqueo de espejo, reducción de ruido a larga exposición,...).
- * _*Menú de desarrolladores*_: Presiona el botón SET mientras está resaltada esta opción para entrar en el menú de desarrolladores.
+  * Funciones personalizables: cuando está activo, la carga de un preset reclama las funciones personalizables (bloqueo de espejo, reducción de ruido a larga exposición,...).
+ * _*Menú de desarrolladores*_: Presiona el botón SET mientras está resaltada esta opción para entrar en [UserGuideSpanish#El_menu_de_desarrolladores el menú de desarrolladores].
 
 = El menu de accesos directos =
 
@@ -175,7 +175,7 @@ Utiliza SET e IZQUIERDA / DERECHA para cambiar el ítem a mostrar.
 
 Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar con la nariz o la mejilla del usuario. 
 
-== El menú de desarrolladores ==
+== El menu de desarrolladores ==
 
 *AVISO*: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
 
