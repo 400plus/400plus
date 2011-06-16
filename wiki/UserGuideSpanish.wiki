@@ -47,8 +47,8 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal o los b
   * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
   * Marcos: número de tomas a disparar. 
   * Paso (EV): separación en EV entre disparos. 
-  * Manual [: velocidad mínima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
-  * Manual ]: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
+  * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
+  * Bulb max: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
  * _*Intervalo*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
   * Retardo: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
   * Tiempo (s): tiempo (en segundos) entre cada disparo.
