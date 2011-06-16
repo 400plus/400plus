@@ -127,7 +127,7 @@ Bajo circunstancias normales, cuando se recupera un preajuste todos los parámet
 Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado); cuando esa opción está activa, ocurrirán los cambios siguientes:
 
  * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. 
- * Cuando la cámara se enciende en el modo A-DEP, o cuando el usuario mueve el dial principal al modo A-DEP, el último preset utilizado es automáticamente reclamado.
+ * Cuando la cámara se enciende en el modo A-DEP, o cuando el usuario mueve el dial principal al modo A-DEP, se carga el último preset utilizado.
   
 == Configurar el menú presets ==
 
