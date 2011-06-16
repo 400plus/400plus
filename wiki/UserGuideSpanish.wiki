@@ -172,7 +172,7 @@ Utiliza SET e IZQUIERDA / DERECHA para cambiar el ítem a mostrar.
 
 == El asunto de la nariz (ojo zurdo) ==
 
-Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar con la nariz o la mejilla del usuario. 
+Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar la nariz o la mejilla del usuario contra el cuerpo de la cámara. 
 
 == El menu de desarrolladores ==
 
