@@ -83,8 +83,7 @@ Para salir del menú de accesos directos, presiona hasta la mitad el botón disp
 
 == Configurar el menú de accesos directos ==
 
-Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aparecen. Presiona MENU para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo MENU cuando hayas acabado. No olvides pulsar SET para guardar el nuevo orden de los accesos directos en la tarjeta CF antes de salir.
-
+Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aparecen. Presiona PLAY para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo PLAY cuando hayas acabado.
 
 = Los guiones =
 
