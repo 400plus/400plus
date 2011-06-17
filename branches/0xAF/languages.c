@@ -64,6 +64,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_USE_FLASH]       = "Use flash",
 		[L_HANDWAVE]        = "Handwave",
 		[L_TIMER_SPACES]    = "Timer   ",
+		[L_IR_REMOTE_ENABLE]= "IR remote enable",
 		[L_IR_REMOTE_DELAY] = "IR remote delay",
 		[L_DEVELOPERS_MENU] = "Developers Menu",
 

@@ -19,6 +19,7 @@ void menu_settings_apply_cf_emit_flash   (type_MENUITEM *item);
 void menu_settings_apply_color_temp      (type_MENUITEM *item);
 void menu_settings_apply_ae_bkt          (type_MENUITEM *item);
 void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
+void menu_settings_apply_remote_enable   (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
@@ -69,6 +70,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),      &menu_cameraMode.color_temp,      menu_settings_apply_color_temp),
 	MENUITEM_EVSEP  (LP_WORD(L_AEB),               &menu_cameraMode.ae_bkt,          menu_settings_apply_ae_bkt),
 	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_cameraMode.cf_safety_shift, menu_settings_apply_cf_safety_shift),
+	MENUITEM_BOOLEAN(LP_WORD(L_IR_REMOTE_ENABLE),  &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &settings.iso_in_viewfinder,      NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_SHORTCUTS_MENU),    &settings.shortcuts_menu,         NULL),
@@ -134,6 +136,13 @@ void menu_settings_apply_cf_safety_shift(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);
 }
 
+void menu_settings_apply_remote_enable(type_MENUITEM *item) {
+	if(*item->parm.menuitem_enum.value){
+		eventproc_RemOn();
+	} else {
+		eventproc_RemOff();
+	}
+}
 void menu_settings_apply_remote_delay(type_MENUITEM *item) {
 	if(*item->parm.menuitem_enum.value){
 		RemReleaseSelfMax = 4500;

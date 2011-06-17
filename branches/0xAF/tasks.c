@@ -16,13 +16,19 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
-	printf("400Plus STARTING!\n");
-
 	// Read settings from file
 	settings_read();
 
 	if (settings.debug_on_poweron)
 		start_debug_mode();
+
+	printf("400Plus STARTING!\n");
+
+	// enable IR remote
+	// i'm not sure where to call this? perhaps this isnt the right place.
+	if (settings.remote_enable) {
+		eventproc_RemOn();
+	}
 
 	// Set current language
 	lang_pack_config();

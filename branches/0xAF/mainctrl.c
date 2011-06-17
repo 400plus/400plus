@@ -68,9 +68,10 @@ void my_MC_T_Button(mc_table_t * event) {
 				printf_log(1, 6, "AF: sub,sub\n");
 				set_dword_7610_to_0();
 				DDD_Capture(event->arg3);// now we need to find WTF is this DDD... i see this DDD stuff frequently in the FW.
-				// for this DDD_Capture here, if it's called with 0, like this call here
+				// this call of DDD_Capture here, is called with arg3==0,
 				// it will call internaly End_DDD_Capture.
-				// so i guess this is called when we turn off the camera, while shooting
+				// so i guess this is called when we turn off the camera, while it's shooting
+				// to terminate the taking of photo
 			}
 
 			printf_log(1, 6, "AF: sub, change_playback\n");

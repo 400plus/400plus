@@ -24,7 +24,10 @@ type_SETTINGS settings = {
 	shortcuts_menu   : TRUE,
 	shortcuts_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	dim_lcd_down     : TRUE,
-	keep_power_on    : TRUE
+	keep_power_on    : TRUE,
+	debug_on_poweron : FALSE,
+	logfile_mode     : 0,
+	remote_enable    : FALSE
 };
 
 int settings_read() {
@@ -69,11 +72,17 @@ void settings_write() {
 }
 
 extern void settings_apply() {
-	if(settings.remote_delay){
+	if (settings.remote_delay) {
 		RemReleaseSelfMax = 4500;
 		RemReleaseInstMin = 5560;
 	} else {
 		RemReleaseSelfMax = 6160;
 		RemReleaseInstMin = 7410;
+	}
+
+	if (settings.remote_enable) {
+		eventproc_RemOn();
+	} else {
+		eventproc_RemOff();
 	}
 }

@@ -37,6 +37,7 @@ typedef struct {
 	int keep_power_on;
 	int debug_on_poweron;
 	int logfile_mode;
+	int remote_enable;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;
