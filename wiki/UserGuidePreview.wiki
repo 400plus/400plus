@@ -11,130 +11,139 @@ This document contains the user guide for 400plus. It is assumed in this documen
 
 == Accessing the settings menu ==
 
-To enter the 400plus menu, press the `MENU` button (this will display the _standard_ camera menu) and then `DIRECT PRINT` (this will display the new 400plus menu). To exit the 400plus menu, just half-press the shutter button.
+To enter the 400plus settings menu, press the `MENU` button (this will display the _standard_ camera menu) and then press the `DP` (DIRECT PRINT) button.  The 400plus settings menu should now be displayed on the camera LCD. To exit the 400plus settings menu, just half-press the shutter release button.  *NOTE: The DP button is located on the rear of the camera just left of the viewfinder (it is a button with an icon of a blue printer and curved arrow line next to it).
 
 == Navigating the settings menu ==
 
-To navigate the settings menu, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons to move among items. Then use the `LEFT` (`METERING MODE`) and `RIGHT` (`AF MODE`) buttons to change the value of the current item; press and hold these buttons to change faster. On some items, the `AV` button can be used to roll the value.
+To navigate the settings menu, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons to move among items. Then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the current item (press and hold these buttons to change faster). On some items, the `Av` button can be used to change (roll) the value, or a portion of the value (like + and - signs).
 
 == Navigating the sub-menus ==
 
-Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front dial or the `ZOOM IN` / `ZOOM OUT` buttons to roll to the next sub-item, then `LEFT` and `RIGHT` to change the value (press and hold to change faster). Both `UP` and `DOWN` can be used anytime to move to another item.
+Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to roll to the next or previous sub-item, then use the `LEFT` and `RIGHT` buttons to change the value of the selected item (press and hold these buttons to change faster). Both the `UP` and `DOWN` buttons can be used at any time to move to another item.
 
 == The items ==
 
- * _*Av comp*_: Same as the _standard_ "AV compensation", but may go from -6 to +6 EV.
- * _*Flash comp*_: Same as the _standard_ "Flash compensation", but may go from -6 to +6 EV.
- * _*Use flash*_: Force the deactivation of the flash during the actual shot, even if it has been raised.
- * _*Color Temp. (K)*_: Set a user-defined color temperature, and change the white balance to "custom".
- * _*AEB*_: Same as the _standard_ "AEB", but may go from -6 to +6 EV.
- * _*Safety shift*_: When active, and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid a under/over-exposure, if the value is too small/large for the scene.
- * _*IR remote delay*_: Select whether the camera should wait 2 seconds when released using an IR remote.
- * _*ISO in viewfinder*_: When active, and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
- * _*Shortcuts menu*_: When active, the shortcuts menu will be displayed from the main dialog when pressing the `DIRECT PRINT` button; when set to "No", the `DIRECT PRINT` button will change to an intermediate ISO.
+ * _*Av comp*_: Same as the _standard_ "Av compensation", but extends the range from -6 to +6 EV.
+ * _*Flash comp*_: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
+ * _*Disable flash*_: Force the deactivation of the camera flash even if the flash has already been raised.
+ * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
+ * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
+ * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
+ * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
+ * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
+ * _*Shortcuts menu*_: When active (set to Yes), the shortcuts menu will be displayed when pressing the `DP` button from the main LCD dialog.  When not active (set to No), the `DP` button will change (roll) the ISO value to an intermediate setting.
  * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
-    * LCD dim: when active, the LCD is dimmed down, to preserve battery life.
-    * APO dsbl: when active, the auto power-off option of the camera is disabled.
+    * LCD dim: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life.  The value is restored after the script has completed.
+    * APO dsbl: when active (set to Yes), the Auto power-off option of the camera is disabled.  The value is restored after the script has completed.
  * _*Handwave*_: This sub-menu configures the [#Hand_Waving Hand Waving] script:
-    * Delay: select whether this script should take the shot immediately, or wait for 2 seconds.
-    * Action: action to be performed.
-    * Repeat: if selected, the script will restart itself after each shot, so you can wave your hand again to take another shot.
-    * Instant: if selected, the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
+    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
+    * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
+    * Repeat: if active (set to Yes), the script will restart itself after is has completed.  This allows you to wave your hand repeatedly to continue using the script.
+    * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Ext. AEB*_: This sub-menu configures the [#Extended_AEB Extended AEB] script:
-    * Frames: number of frames to shoot.
-    * Step (EV): separation in EV between shots.
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Bulb min: minimum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
-    * Bulb max: maximum shutter speed in `BULB` mode (can go from 16 minutes to 1/4000 seconds).
+    * Frames: the number of frames (shots) the script should take.  Values range from 1 to 9.
+    * Step (EV): the separation in EV (exposure value) between each frame (shot).  Values range from 0 (Off) to +-6EV.
+    * Bulb min: the minimum shutter speed in `BULB` mode.  Values range from  1/4000th of a second to 16 minutes.
+    * Bulb max: the maximum shutter speed in `BULB` mode.  Values range from  1/4000th of a second to 16 minutes.
  * _*Interval*_: This sub-menu configures the [#Intervalometer Intervalometer] script:
-    * Delay: select whether this script should start shooting immediately, or wait for 2 seconds.
-    * Time (s): time (in seconds) between each shot.
-    * EAEB: select whether [#Extended_AEB Extended AEB] should be used on each shot.
-    * Shots: number of shots to make, or select "no limit" to shoot endlessly;
+    * Delay: select whether this script should start shooting immediately or wait 2 seconds.
+    * Time (s): the interval time (in seconds) between each shot.  Values range from 0 to 250.
+    * EAEB: select whether the [#Extended_AEB Extended AEB] script should be used for each shot.
+    * Shots: the total number of frames (shots) the script will take.  Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
  * _*Timer*_: This sub-menu configures the [#Self_Timer Self Timer] script:
-    * Delay (s): time (in seconds) that the script should wait before shooting.
-    * Action: action to be performed.
+    * Delay (s): the time (in seconds) that the script should wait before shooting.  Values range from 0 to 250.
+    * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
  * _*Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
-    * Use A-DEP: when active, the `A-DEP` mode is hijacked for the [#The_presets the presets]; please see [#The_A-DEP_mode the A-DEP mode] for more information.
-    * Camera: when active, loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
-    * 400plus: when active, loading a preset recalls 400plus' own settings (scripts, ...).
-    * Settings: when active, loading a preset recalls rarely changed settings (language, video system, ...).
-    * Image: when active, loading a preset recalls image related parameters (RAW/JPEG, quality, ...).
-    * Custom Fn: when active, loading a preset recalls custom functions (mirror lock-up, long-exposure noise-reduction, ...).
- * _*Developers menu*_: Press `SET` while this entry is highlighted to enter [#The_developers_menu the developers menu].
+    * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets].  See [#The_A-DEP_mode the A-DEP mode] for more information.
+    * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
+    * 400plus: when active (set to Yes), loading a preset recalls 400plus' own settings (scripts, ...).
+    * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
+    * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
+    * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
+ * _*Developers Menu*_: Press the `SET` button while this entry is highlighted to enter [#The_developers_menu the developers menu].
 
 = The shortcuts menu =
 
-To access the shortcuts menu, press the `DIRECT PRINT` button from the main dialog (only valid if the "Shortcuts menu" is activated from the 400plus Settings menu); navigate this menu like a normal menu, and press `SET` to launch a script:
+To access the shortcuts menu, press the `DP` button from the main LCD dialog (only valid if the "Shortcuts menu" value is set to "Yes" from the 400plus settings menu).  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
 
- * _*Intermediate ISO*_: Roll through the intermediate ISOs.
+ * _*Intermediate ISO*_: Roll through the intermediate ISO values. Values are 100 - 3200.
  * _*Extended AEB*_: Start the [#Extended_AEB Extended AEB] script.
  * _*Intervalometer*_: Start the [#Intervalometer Intervalometer] script.
- * _*Hand waving*_: Start the [#Hand_Waving Hand Waving] script.
- * _*Self timer*_: Start the [#Self_Timer Self Timer] button.
- * _*AF assist beam*_: Force the deactivation of the flash (during the AF phase), even if it has been raised.
- * _*Mirror lock-up*_: Enable / disable the "mirror lock-up" custom function.
- * _*Rear curtain flash*_: Enable / disable the "sync flash to the second curtain" custom function.
+ * _*Hand Waving*_: Start the [#Hand_Waving Hand Waving] script.
+ * _*Self Timer*_: Start the [#Self_Timer Self Timer] script.
+ * _*AF Flash (assist beam)*_: Enable or disable the activation of the flash (during the AF phase), even if it has been raised.  Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
+ * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
+ * _*Flash 2curt (rear curtain flash)*_: Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
 
-To exit the shortcuts menu, half-press the shutter button.
+To exit the shortcuts menu, half-press the shutter release button.
 
 == Configuring the shortcuts menu ==
 
-While in the shortcuts menu, you have the ability to change the order of the menu items.  Press `PLAY` to "grab" an item (a small ">" will be displayed at the left of the item); then use use `UP` / `DOWN` to position it, and press `PLAY` again when finished.
+While in the shortcuts menu, you have the ability to change the order of the menu items for your own personal preference.  To do this, while in the shortcuts menu, press the `PLAY` button to "grab" an item (a small ">" will be displayed at the left of the item).  Now use the `UP` or `DOWN` buttons to position the menu item where you would like it to reside (you will see the menu item move to a new position).  Finish the process by pressing the `PLAY` button again to save your changes.
 
 = The scripts =
 
-All scripts are activated from the [#The_shortcuts_menu Shortcuts Menu]. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DIRECT PRINT` button will flash (approx. twice per second).
+All scripts are activated from the [#The_shortcuts_menu Shortcuts Menu].  Therefore to execute a script make sure and set the "Shortcuts menu:" value to "Yes" in the 400plus settings menu.
 
-To stop a running script, press the `DIRECT PRINT` button again; sometimes the camera may not stop immediately, so press and hold the `DIRECT PRINT` button until you hear a _beep_ that signals the effective end of the script.
+When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second).
+
+To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so press and hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
 
 == Extended AEB ==
 
-This script performs the same task as the _standard_ AEB option from the camera, with a few differences:
+This script performs the same task as the _standard_ AEB option from the camera, but with a few nice enhancements:
  * Up to 9 shots may be specified.
- * The separation between shots is configurable up to +6 EV.
+ * The separation between shots is configurable up to +-6 EV.
  * The camera will take all the shots in a sequence, automatically.
 
-In `BULB` mode, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Bulb min" value to the "Bulb max" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 16 minutes can be used in this mode.
+In 'M' mode with the aperture value set to `BULB`, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value.  Notice also that exposure times as long as 16 minutes can be used in this mode.
 
 == Intervalometer ==
 
-This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots; use this script to create _stop-motion_ movies, for example. Set "EAEB" to "Yes" to run the [#Extended_AEB Extended AEB] script on each shot.
+This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots.  Use this script to create _stop-motion_ movies.  For example: Set "EAEB" to "Yes" to run the [#Extended_AEB Extended AEB] script on each shot.
 
 == Hand Waving ==
 
-This script will fire the camera when the "display-off sensor" at the back of the camera is triggered; use this script to fire the camera without a remote. This script can run the [#Extended_AEB Extended AEB] or the [#Intervalometer Intervalometer] script, if configured at the "Action" sub-item. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, the script will wait until something (like your hand or finger) blocks the sensor and then is removed; but, when the "Instant" option is active, the script will fire the camera as soon as the sensor is blocked.
+This script will fire the camera when the display-off sensor (at the rear of the camera) is triggered.  Use this script to fire the camera without the need of a remote to help reduce camera shake.  This script can execute the [#Extended_AEB Extended AEB] or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, this script will wait until something (like your hand or finger) blocks the sensor and is then removed to fire the camera.  However, if the "Instant" option is enabled, the script will fire the camera as soon as the sensor becomes blocked.
 
 == Self Timer ==
 
-This script simply adds a configurable pause before firing the camera; this script can run the [#Extended_AEB Extended AEB] or the [#Intervalometer Intervalometer] script, if configured at the "Action" sub-item.
+This script simply adds a configurable pause before firing the camera.  This script can execute the [#Extended_AEB Extended AEB], or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value.
 
 = The presets =
 
-A "preset" is a complete snapshot containing all of the camera settings and configuration parameters.  Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations later.
+A "preset" is a complete snapshot containing all of the camera settings and configuration parameters.  Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting.
 
-Presets are stored on the CF card itself.  Up to 9 presets can be stored. To store a preset, press `DP` while in [#The_settings_menu the settings menu]; then select a preset slot and press `SET` (if the slot has been previously used, its contents will be overwritten).  To recover a preset, press `DP` while in the [#The_shortcuts_menu the shortcuts menu]; then select your desired preset and press the `SET` button (if the slot is empty, nothing happens).
+Presets are stored on the CF card itself.  Up to 9 presets can be stored.  The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
+
+To store (save) a preset, press the `DP` button while in [#The_settings_menu the settings menu]; then select a preset slot and press the `SET` button (if the slot has been previously used, its contents will be overwritten).  To load (recover) a preset, press the `DP` button while in the [#The_shortcuts_menu the shortcuts menu]; (the shortcuts menu setting must be set to "Yes" to use this feature) then select your desired preset and press the `SET` button.  Once activated, the preset settings and parameters for the selected preset will be restored and become immediately active (if the slot is empty, nothing happens).
 
 == The A-DEP mode ==
 
-Under normal circumstances, when a preset is recovered all camera parameters are changed, even the AE mode (unless otherwise specified in the [#The_settings_menu the settings menu], obviously); take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected on the main dial. But when the camera is powered off and back on, it will revert to the actual AE mode selected on the main dial.
+Under normal circumstances, when a preset is loaded (recovered) all camera parameters are changed, even the AE mode (unless otherwise specified in the [#The_settings_menu the settings menu], obviously). Take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected with the mode dial. Yet when the camera is powered off and back on, it will revert to the actual AE mode that the mode dial is set to.
 
-To solve this issue, there is an option at [#The_settings_menu the settings menu] to hijack the (mostly unused) A-DEP mode; when that option is active, the following changes will happen:
- * Presets can only be loaded when the camera is in A-DEP mode.
- * When the camera is powered on in A-DEP mode, or when the user moves the main dial to the A-DEP mode, the last preset used is automatically recalled.
+To solve this issue, there is an option at [#The_settings_menu the settings menu] to hijack the (mostly unused) A-DEP mode.  When this option is active (Presets>Use A-DEP: Yes), the following changes will take place:
+ * Presets can only be loaded when the camera is in A-DEP mode.  Envision the word "Presets" instead of "A-DEP" on the mode dial.
+ * When the camera is powered on in A-DEP mode, or when the user moves the mode dial to the A-DEP position, the last preset used is automatically loaded (recalled).
+ * When this option is not enabled (Presets>Use A-DEP: No), then when the A-DEP position is selected with the mode dial the camera will use the A-DEP mode as it normally would.
 
 == Configuring the presets menu ==
 
-The presets can be reordered, just like [#The_shortcuts_menu the shortcuts menu] (press `PLAY` to grab / release, and `UP`/ `DOWN` to move); but they can also be renamed, pressing the 'JUMP' button to enter the rename menu:
- * Use `UP` / `DOWN` / `LEFT` / `RIGHT` to select a letter.
- * Use `MENU` to toggle between lowercase / numbers and uppercase / symbols; press `AV` to change the case of the selected letter at the bottom line.
- * Use `SET` to use a letter on the name and advance the cursor.
- * Use the front dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor.
- * Press `JUMP` to go back to the presets' menu.
+Similar to [#The_shortcuts_menu the shortcuts menu] the presets menus will also allow you to change the order of the items to your own personal liking.  To do this, while in the "Load presets" or "Save presets" menu, press the `PLAY` button to "grab" an item (a small ">" will be displayed at the left of the item).  Now use the `UP` or `DOWN` buttons to position the menu item where you would like it to reside (you will see the menu item move to a new position).  Finish the process by pressing the `PLAY` button again to save your changes.
+
+In addition to changing the order of the presets, you are also able to rename the preset names from the standard names of "Preset 1", "Preset 2", etc.  To do this follow these steps while in the "Load presets" or "Save presets" menu:
+ * Press the `JUMP` button to enter the rename menu.
+ * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a value.
+ * Use the `MENU` button to toggle between lowercase / numbers and uppercase / symbols.
+ * Use the `Av` button to change the case of the selected value on the Preset name line (bottom line).
+ * Use the `SET` button to use the selected value in the name and advance the cursor to the next position.
+ * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the preset name line (bottom line).
+ * Press the `JUMP` button again to save your changes and return to the previous preset menu.
 
 = The AF-Pattern selection =
 
-Press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog; then press `ZOOM IN` again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the patterns, then half-press the shutter button to exit the dialog.
+During shooting, press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog, then press the `ZOOM IN` button again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the different AF selection patterns available.  Half-press the shutter release button to exit the dialog.
 
 = The goodies =
 
@@ -147,9 +156,9 @@ In the _basic zone_, use the `Av` button to toggle between `RAW` and `JPEG` imag
 == In the creative zone ==
 
 In the _creative zone_ the following goodies are available:
- * In the ISO selection dialog, press `DIRECT PRINT` to set ISO 3200 (see [#Extended_ISOs Notes / Extended ISOs]).
- * In the metering mode selection dialog, press `DIRECT PRINT` to set spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
- * In the white balance selection dialog, press `DIRECT PRINT` to set the user-defined kelvin temperature.
+ * In the ISO selection dialog, press `DP` to set the ISO value to 3200 (see [#Extended_ISOs Notes / Extended ISOs]).
+ * In the metering mode selection dialog, press `DP` to set spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
+ * In the white balance selection dialog, press `DP` to set the user-defined kelvin temperature.
 
 = Other freebies =
 
@@ -157,12 +166,14 @@ Other changes to the camera behavior, not described above.
 
 == Extended info ==
 
-In the "camera settings" screen (press `DISP` at the _standard_ camera menu), the last info line now displays the following information (instead of the CF card's free space):
+On the "camera settings" screen (press the `DISP.` button from the _standard_ camera menu), the last info line now displays the following information (instead of the CF card's free space):
  * The total number of shots (actuations) made by this camera body.
  * The version number of the 400plus software currently installed.
  * The "BodyID" of the camera body (an internal number, unique to each camera).
 
-Use `SET` and `LEFT` / `RIGHT` to change which item to display.
+Use the `SET`, `LEFT` or `RIGHT` buttons to change which item to display.
+
+*NOTE that this feature is only available when the camera is in a creative zone mode (P, Tv, Av, M, A-DEP).
 
 == The nose affair ==
 
@@ -172,15 +183,14 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 
 *WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
-From the 400plus menu, scroll down to the "Developer's menu" selection and press `SET`:
-
+To enter the Developers menu from the 400plus settings menu, scroll down to the "Developers menu" selection and press the `SET` button.  The options available are:
  * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
- * _*Leave factory mode*_: Puts the camera back into "normal mode".
- * _*Start debug mode*_: The camera will store lots of debugging information to the card, in two files called `STDOUT.TXT` and `STDERR.TXT`..
+ * _*Exit factory mode*_: Puts the camera back into "normal mode".
+ * _*Start debug mode*_: The camera will store lots of debugging information to the CF card, in two (2) files named `STDOUT.TXT` and `STDERR.TXT`.
 
-*NOTE*: After entering "factory mode", the "factory menu" will remain available until the camera is powered down; exiting the "factory mode" will not disable the "factory menu".
+*NOTE*: After entering "factory mode", the "factory menu" will remain available until the camera is powered down.  Exiting the "factory mode" will not disable the "factory menu".
 
-*NOTE*: Remember to exit the "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in factory mode.
+*NOTE*: Remember to exit "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in factory mode.
 
 = Notes =
 
@@ -188,11 +198,11 @@ Some notes and comments.
 
 == Extended ISOs ==
 
-_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image; this includes ISO-3200.  ISO-3200 however is valuable during very low light situations when no other options would allow you to get the shot.
+_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image; this includes the extended ISO-3200 value.  ISO-3200 however can be valuable during very low-light conditions when no other options would allow you to get your intended shot.
 
 == Spot metering mode ==
 
-The spot metering mode is like the _standard_ "partial metering" mode, but the area included in the metering is smaller.
+The spot metering mode is similar to the _standard_ "partial metering" mode, but the area included in the metering is smaller (approx. 3.5% of the center of the viewfinder vs. partial metering at approx. 9% of the center of the viewfinder).  It works quite well when needed.
 
 = Known bugs =
 
