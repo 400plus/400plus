@@ -192,6 +192,10 @@ To enter the Developers menu from the 400plus settings menu, scroll down to the 
 
 *NOTE*: Remember to exit "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in factory mode.
 
+== Multi-language support ==
+
+Currently 400plus supports three (3) languages (English, German, Spanish).  Conversion to other languages is certainly possible and desired.  If you desire to assist in converting 400plus to an additional  language please make your request via the forum!
+
 = Notes =
 
 Some notes and comments.
