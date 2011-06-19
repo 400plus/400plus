@@ -1,5 +1,11 @@
 #summary Log of changes made to this project.
 
+_*20110615-2*_
+ * Spanish translation added.
+
+_*20110615-1*_
+ * Bugfixes only.
+
 _*20110615-0*_
  * Lots of improvements regarding usability at the menus; several buttons have been reassigned, please see the [UserGuide].
  * SET is no longer needed to apply settings or save changes in any menu.
