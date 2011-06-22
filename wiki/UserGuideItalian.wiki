@@ -14,131 +14,141 @@ Questo documento contiene il manuale d'uso per 400plus. Si suppone che, prima di
 
 == Accesso al menu delle impostazioni ==
 
-Per accedere al menu delle impostazioni di 400plus, premere MENU (verrà visualizzato il menu standard della fotocamera) e poi Direct Print (per visualizzare il nuovo menu 400plus). Per uscire dal menu 400plus, basta premere a metà corsa il pulsante di scatto.
+Per accedere al menu delle impostazioni di 400plus, premere il tasto MENU (verrà visualizzato il menu standard della fotocamera) e poi il tasto `DP` (Direct Print). Verrà visualizzato il menu delle impostazioni di 400plus. Per uscire dal menu delle impostazioni di 400plus, basta premere a metà corsa il pulsante di scatto.
+ *NOTA: Il tasto `DP` si trova sul retro della macchina, appena a sinistra del mirino (è un pulsante con un'icona blu di una stampante con una freccia curva vicino).
 
 == Navigazione nel menu delle impostazioni ==
 
-Per navigare all'interno del menu delle impostazioni, utilizzare i tasti `SU` (`ISO`) e `GIU'` (`WB`) per spostarsi tra le voci. Quindi utilizzare il `SINISTRA` (`MISURAZIONE`) e `DESTRA` (`AF`) per cambiarne il valore; premere e tenere premuto questi tasti per cambiare più velocemente. Su alcune voci del menu, il tasto `AV` può essere utilizzato per scorrere i valori. 
-Utilizzare il tasto `SET` per salvare i valori e attivare i cambiamenti, facendo attenzione che tutte le modifiche andranno perse se si esce dal menu delle impostazioni prima di premere il pulsante `SET`. 
+Per navigare all'interno del menu delle impostazioni, utilizzare i tasti `SU` (`ISO`) e `GIU'` (`WB`) per spostarsi tra le voci. Quindi utilizzare il `SINISTRA` (`MISURAZIONE`) e `DESTRA` (`AF`) per cambiarne il valore (premere e tenere premuto questi tasti per cambiare più velocemente). Su alcune voci del menu, il tasto `AV` può essere utilizzato per cambiare (scorrere) i valori, o una parte di essi (come il segno + e -). 
 
 == Navigazione nel sotto-menu ==
 
-I Sub-menu vengono visualizzati come "`ITEM>SUBITEM`"; utilizzare la rotellina frontale per scorrere fino alla prossima voce secondaria, poi `SINISTRA` E `DESTRA` per modificare il valore (premere e tenere premuto per cambiare più velocemente). I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
+I Sub-menu vengono visualizzati come "`ITEM>SUBITEM`"; utilizzare la rotellina frontale o i pulsanti `ZOOM IN` E `ZOOM OUT` per scorrere fino alla prossima o alla precedente voce secondaria, poi `SINISTRA` E `DESTRA` per modificare il valore (premere e tenere premuto per cambiare più velocemente) della voce selezionata. I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
 
 == Le voci del menu ==
 
- * _*Av Comp*_: la stessa funzione della "compensazione AV" standard, ma può andare da -6 a +6 EV. 
- * _*Flash Comp*_: la stessa funzione della "compensazione Flash" standard, ma può andare da -6 a +6 EV. 
- * _*Use Flash*_: forza la disattivazione del flash (durante lo scatto), anche se l’opzione è selezionata.
- * _*Color Temp. (K)*_: permette di impostare una temperatura di colore definita dall'utente (attivabile in un secondo momento premendo il tasto Direct Print nella finestra di dialogo per il bilanciamento del bianco). 
- * _*AEB_*: la stessa funzione della "AEB" standard, ma può andare da -6 a +6 EV. 
- * _*Safety Shift*_: Quando è attivo, e se in Tv (risp. Av), la fotocamera cambierà la velocità dell'otturatore (risp. apertura del diaframma) impostati dall'utente per evitare una sotto/sovraesposizione, se il valore è troppo piccolo/grande per la scena.
-  * IR remote delay: seleziona se la telecamera debba aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
- * _*ISO in viewfinder*_: Quando è attivo, e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino. 
- * _*Shortcuts menu*_: Quando è attivo, la pressione del tasto `DIRECT PRINT` nella finestra principale entrerà nel [#Menu_dei_collegamenti_rapidi menu dei collegamenti rapidi]; se impostato su "No", il pulsante `DIRECT PRINT` cambierà il valore `ISO` tra i valori intermedi.
+ * _*Av Comp*_: la stessa funzione della "compensazione AV" standard, ma estende l'escursione tra -6 e +6 EV. 
+ * _*Flash Comp*_: la stessa funzione della "compensazione Flash" standard, ma estende l'escursione tra -6 e +6 EV. 
+ * _*Disable Flash*_: forza la disattivazione del flash, anche se il flash è stato alzato e attivato.
+ * _*Color Temp. (K)*_: permette di impostare una temperatura di colore in gradi Kelvin definita dall'utente e attiva automaticamente il bilanciamento del bianco personalizzato. 
+ * _*AEB_*: la stessa funzione della "AEB" standard, ma estende l'escursione tra -6 e +6 EV. 
+ * _*Safety Shift*_: Quando è attivo (impostato su Yes), e se in Tv (risp. Av), la fotocamera cambierà la velocità dell'otturatore (risp. apertura del diaframma) impostati dall'utente per evitare una sotto/sovraesposizione, se il valore è troppo piccolo/grande per la scena.
+  * IR remote delay: seleziona se la telecamera debba scattare immediatamente oppure aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
+ * _*ISO in viewfinder*_: Quando è attivo (impostato su Yes), e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino. 
+ * _*Shortcuts menu*_: Quando è attivo (impostato su Yes), la pressione del tasto `DIRECT PRINT` nella finestra principale porterà al [#Menu_dei_collegamenti_rapidi menu dei collegamenti rapidi]; se impostato su "No", il tasto`DP` cambierà (scorrerà) il valore `ISO` tra i valori intermedi.
  * _*Scripts*_: Questo menu configura il comportamento degli [#Gli_script script].
-  * LCD dim: se attivato, lo schermo LCD viene disattivato durante lo script, per aumentare la durata della batteria.
-  * APO dsbl: se attivato, la funzione di auto spegnimento della camera viene disabilitata.
+  * LCD dim: se attivato (impostato su Yes), la luminosità dello schermo LCD viene abbassata durante lo script, per aumentare la durata della batteria, il valore iniziale viene reimpostato al termine dell'esecuzione dello script.
+  * APO dsbl: se attivato (impostato su Yes), la funzione di auto spegnimento della camera viene disabilitata durante l'esecuzione dello script. Viene riattivata al termine dell'esecuzione.
  * _*Wave*_: questo sottomenu configura lo script [#Hand_Waving Hand Waving]: 
-  * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
-  * Action: azione da eseguire. 
-  * Repeat: se selezionato, lo script ri riavvierà dopo ogni scatto, in modo da poter effettuare un nuovo scatto col movimento della mano.
-  * Instant: se selezionato, lo script scatta appena rileva la mano; altrimenti, lo script aspetterà che la mano venga tolta da davanti il sensore.
+  * Delay: seleziona se questo script debba effettuare lo scatto subito o attendere 2 secondi. 
+  * Action: l'azione da eseguire (Intervallometro, Scatto singolo, Extended AEB). 
+  * Repeat: se attivo (impostato su Yes), lo script ri riavvierà dopo l'esecuzione, in modo da rimanere attivo e consentire un nuovo scatto col movimento della mano.
+  * Instant: se attivo (impostato su Yes), lo script scatta appena rileva la mano; altrimenti, lo script aspetterà che la mano venga tolta da davanti il sensore.
  * _*Ext. AEB*_: Questo sottomenu configura lo script [#Extended_AEB Extended AEB]: 
-  * Frames: numero di fotogrammi da scattare. 
-  * Step (EV): la differenza in EV tra gli scatti. 
   * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
-  * Manual [: velocità minima dell’otturatore in modalità `BULB` (può essere impostato tra 16 minuti e 1/4000 di secondo). 
-  * Manual ]: velocità massima dell'otturatore in modalità `BULB` (può essere impostato tra 16 minuti e 1/4000 di secondo). 
+  * Frames: numero di fotogrammi che lo script deve scattare. Può essere impostato un valore tra 1 e 9. 
+  * Step (EV): la differenza in EV tra ogni scatto. Può essere impostato un valore tra 0 (spento) e +/-6EV 
+  * Bulb min: velocità minima dell’otturatore in modalità `BULB`. Può essere impostato un valore compreso tra 1/4000 di secondo e 16 minuti ). 
+  * Bulb max: velocità massima dell'otturatore in modalità `BULB`. Può essere impostato un valore compreso tra 1/4000 di secondo e 16 minuti ). 
  * _*Interval*_: Questo sottomenu consente di configurare lo script [#Intervallometro Intervallometro]: 
-  * Delay: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
-  * Time (s): tempo (in secondi) tra ogni scatto.
+  * Delay: seleziona se questo script debba effettuare lo scatto immediatamente o attendere 2 secondi. 
+  * Time (s): intervallo (in secondi) tra gli scatti. Può essere impostato un valore tra 0 e 250.
   * EAEB: seleziona se lo script [#Extended_AEB Extended AEB] debba essere utilizzato su ogni scatto. 
-  * Shots: numero di scatti da eseguire, oppure selezionare "no limit" per scattare all'infinito
+  * Shots: numero di scatti da eseguire. Può essere impostato un valore tra 0 e 250, oppure il valore "no limit" per scattare all'infinito.
  * _*Timer*_: Questo sottomenu configura lo script [#Autoscatto Autoscatto]: 
-  * Delay (s): il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. 
-  * Action: azione da eseguire. 
+  * Delay (s): il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. Può essere impostato un valore tra 0 e 250.
+  * Action: l'azione da eseguire (Intervallometro, Scatto singolo, Extended AEB). 
  * _*Presets*_: Questo sottomenu configura il comportamento delle [#Le_preselezioni preselezioni]:
-  * Use A-DEP: se attivo, viene utilizzata la modalità `A-DEP` solo per le [#Le_preselezioni preselezioni]; consultare la sezione [#La_modalit%C3%A0_A-DEP Modalità A-DEP] per maggiori informazioni.
-  * Camera: se attivo, richiamando una preselezione verranno richiamati i parametri di scatto della fotocamera (velocità di scatto, apertura, ISO, ...).
-  * 400plus: se attivato, richiamando una preselezione verranno richiamati i parametri di configurazione di 400plus (script, ...).
-  * Settings: se attivo, richiamando una preselezione verranno richiamati i parametri di configurazione che vengono cambiati molto di rado (lingua, sistema video, ...).
-  * Image: se attio, richiamando una preselezione verranno richiamati i parametri relativi all'immagine(RAW/JPEG, qualità, ...).
-  * Custom Fn: se attivato, richiamando una preselezione verranno richiamate le funzioni personalizzate (blocco specchio, riduzione rumore per le esposizioni lunghe, ...).
+  * Use A-DEP: se attivo (impostato su Yes), viene utilizzata la modalità `A-DEP` solo per le [#Le_preselezioni preselezioni]. Consultare la sezione [#La_modalit%C3%A0_A-DEP Modalità A-DEP] per maggiori informazioni.
+  * Camera: se attivo (impostato su Yes), richiamando una preselezione verranno richiamati i parametri di scatto della fotocamera (velocità di scatto, apertura, ISO, ...).
+  * 400plus: se attivo (impostato su Yes), richiamando una preselezione verranno richiamati i parametri di configurazione di 400plus (script, ...).
+  * Settings: se attivo (impostato su Yes), richiamando una preselezione verranno richiamati alcuni parametri di configurazione che vengono cambiati molto di rado (lingua, sistema video, ...).
+  * Image: se attivo (impostato su Yes), richiamando una preselezione verranno richiamate le impostazioni relativi all'immagine(RAW/JPEG, qualità, ...).
+  * Custom Fn: se attivato (impostato su Yes), richiamando una preselezione verranno richiamate le impostazioni per le funzioni personalizzate (C.Fn) (blocco specchio, riduzione rumore per le esposizioni lunghe, ...).
  * _*Developers menu*_: Con la pressione del tasto `SET` mentre questa voce è evidenziata si entra nel [#Il_menu_degli_sviluppatori Menu degli sviluppatori].
 
 = Menu dei collegamenti rapidi =
 
-Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DIRECT PRINT` dalla schermata principale (ovviamente, a meno che nel menu delle impostazioni non sia impostata su Off la voce "Shortcuts menu"). Navigando normalmente all'interno di questo menu, con la pressione del tasto `SET` vengono cambiate le impostazioni o viene lanciato uno script:
+Per accedere al menu dei collegamenti rapidi, è sufficiente premere il tasto `DP` dalla schermata principale (ovviamente, a meno che nel menu delle impostazioni non sia impostata su Off la voce "Shortcuts menu"). Navigando normalmente all'interno di questo menu, con la pressione del tasto `SET` viene lanciato uno script:
 
- * _* Intermediate ISO*_: Scorre tra i valori ISO intermedi.
+ * _* Intermediate ISO*_: Scorre tra i valori ISO intermedi. i valori sono compresi tra 100 e 3200.
  * _* Extended AEB*_: Avvia lo script [#Extended_AEB Extended AEB].
  * _* Intervalometer*_: Avvia lo script [#Intervallometro Intervalometer].
  * _* Hand waving*_: Avvia lo script [#Hand_Waving Hand Waving].
  * _* Self timer*_: Avvia lo script [#Autoscatto Autoscatto].
- * _*AF assist beam*_: forza la disattivazione del flash (durante la fase di AF), anche se l’opzione è selezionata.
- * _*Mirror lock-up*_: Abilita / Disabilita la funzione personalizzata "mirror lock-up" (blocco dello specchio).
- * _*Rear curtain flash*_: Abilita / Disabilita la funzione personalizzata "sync flash to the second curtain" (sincronizzazione del flash in seconda tendina).
+ * _*AF Flash (assist beam)*_: Abilita o disabilita l'attivazione del flash (durante la fase di AF), anche se il flash è alzato e attivato. I possibili valori sono: Enabled, Disabled, Ext Only (come nella C.Fn 05).
+ * _*Mirror Lock-up*_: Abilita o Disabilita la funzione personalizzata "mirror lock-up" (blocco dello specchio) come nella C.Fn 07.
+ * _*Rear curtain flash*_: Abilita / Disabilita la funzione personalizzata "sync flash to the second curtain" (sincronizzazione del flash in seconda tendina) come nella C.Fn 09.
 
 Per uscire dal menu dei collegamenti rapidi, basta premere a metà corsa il pulsante di scatto.
 
 == Configurazione del Menu dei collegamenti rapidi ==
 
-All'interno del Menu dei collegamenti rapidi, premere `MENU` per "prendere" un collegamento (una piccola ">" comparirà a destra del collegamento); con la pressione di `SU` e `GIU'` si seleziona la nuova posizione, e con il tasto `MENU` si termina lo spostamento Non dimenticare di premere il tasto `SET` per salvare le nuove impostazioni.
+All'interno del Menu dei collegamenti rapidi, c'è la possibilità di personalizzare l'ordine delle voci secondo le preferenze personali. Per fare ciò, nel menu dei collegamenti rapidi, premere il tasto `PLAY` per "prendere" una voce (una piccola ">" comparirà a destra della voce stessa); con la pressione di `SU` e `GIU'` si seleziona la nuova posizione, e con una nuova pressione del tasto `PLAY` si termina lo spostamento e si salvano le impostazioni.
 
 = Gli script =
 
-Tutti gli script vengono attivati dal menu dei [#Menu_dei_collegamenti_rapidi collegamenti rapidi]. Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente premere nuovamente il pulsante `DIRECT PRINT`; qualche volta la macchina potrebbe non fermarsi immediatamente, in tal caso bisogna premere e tenere premuto il pulsante `DIRECT PRINT` finché non si sentirà un _bip_ che annuncia l'effettiva chiusura dello script.
+Tutti gli script vengono attivati dal menu dei [#Menu_dei_collegamenti_rapidi collegamenti rapidi]. Quindi, per avviare uno script, bisogna assicurarsi che nel menu delle impostazioni di 400plus sia impostata su Yes la voce Shortcuts Menu.
+Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script è in esecuzione, il pulsante di stampa diretta lampeggia (due volte al secondo, circa). Per fermare uno script in esecuzione, è sufficiente premere nuovamente il pulsante `DP`; qualche volta la macchina potrebbe non fermarsi immediatamente, in tal caso bisogna premere e tenere premuto il pulsante `DP` finché non si sentirà un _bip_ che annuncia l'effettiva chiusura dello script.
 
 == Extended AEB ==
 
-Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, con alcune differenze: 
+Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, ma aggiunge alcune migliorie: 
   * Possono essere effettuati fino a 9 scatti. 
-  * La differenza tra gli scatti può essere configurata fino a +6 EV. 
+  * La differenza tra gli scatti può essere configurata fino a +-6 EV. 
   * La fotocamera effettuerà tutti i colpi in sequenza, automaticamente.
-In modalità `BULB`, questo script farà scattare la fotocamera tutte le volte che servono, con tempi di scatto vanno dal valore "Manual [" al valore "Manual ]", e separando ogni scatto in base al valore "Step (EV)". Da notare anche che in questa modalità possono essere usati tempi di esposizione lunghi fino a 16 minuti.
+In modalità `M` col tempo impostato a `BULB`, questo script farà scattare la fotocamera tutte le volte che servono, con tempi di scatto vanno dal valore "Bulb min" al valore "Bulb max", e separando ogni scatto in base al valore "Step (EV)". Da notare anche che in questa modalità possono essere usati tempi di esposizione lunghi fino a 16 minuti.
 
 == Intervallometro ==
 
-Questo script fa scattare la fotocamera il numero di volte configurato (o all'infinito), aspettando il tempo specificato tra uno scatto e l’altro; questo script può essere utilizzato per creare filmati in stop-motion, per esempio. Impostando "EAEB" a "yes" si esegue lo script [#Extended_AEB Extended AEB] su ogni scatto.
+Questo script fa scattare la fotocamera il numero di volte configurato (o all'infinito), aspettando il tempo specificato tra uno scatto e l’altro. Questo script può essere utilizzato per creare filmati in stop-motion. Per esempio, impostando "EAEB" a "yes" si esegue lo script [#Extended_AEB Extended AEB] su ogni scatto.
 
 == Hand Waving ==
 
-Questo script fa scattare la fotocamera quando viene innescato il sensore "display-off" sul retro della fotocamera; si può utilizzare questo script per far scattare la fotocamera senza un telecomando. E’ possibile far eseguire gli script [#Extended_AEB Extended AEB] o [#Intervallometro Intervallometro], se configurato nella voce "Action". Se è attivata l'opzione "Repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità. Di default, lo script aspetterà che il sensore venga innescato e poi rilasciato (ovvero scatterà appena viene tolta la mano); se, però, è selezionata l'opzione "Instant", lo script scatterà appena il sensore viene coperto.
+Questo script fa scattare la fotocamera quando viene innescato il sensore display-off (sul retro della fotocamera). Si può utilizzare questo script per far scattare la fotocamera senza l'aiuto di un telecomando per evitare micromovimenti. E’ possibile far eseguire gli script [#Extended_AEB Extended AEB] o [#Intervallometro Intervallometro], se opportunamente configurato nella voce "Action". Se è attivata l'opzione "Repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità. Di default, lo script aspetterà che il sensore venga innescato e poi rilasciato (ovvero scatterà appena viene tolta la mano). Se, però, è selezionata l'opzione "Instant", lo script scatterà appena il sensore viene coperto.
 
 == Autoscatto ==
 
-Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera; possibile far eseguire gli script AEB Extended o Intervallometro, se configurato nella voce "Action".
+Questo script aggiunge semplicemente una pausa configurabile prima di far scattare la fotocamera. E' possibile eseguire gli script AEB Extended o Intervallometro, se opportunamente configurato nella voce "Action".
 
 
 = Le preselezioni =
 
-Una "Preselezione" è una immagine completa di tutte le preferenze di scatto e parametri di configurazione della fotocamera. Le preselezioni possono essere usate per preconfigurare la fotocamera in maniera specifica per una determinata situazione di scatto (e.g. "Panorama", "Ritratto", etc.), ed avere in seguito la possibilità di richiamare velocemente tale configurazione.
+Una "Preselezione" è una immagine completa di tutte le preferenze di scatto e parametri di configurazione della fotocamera. Le preselezioni possono essere usate per preconfigurare la fotocamera in maniera specifica per una determinata situazione di scatto (e.g. "Panorama", "Ritratto", etc.), ed avere in seguito la possibilità di richiamare velocemente tale configurazione in fase di scatto.
 
 
-Si possono immagazzinare nella scheda di memoria fino a 5 preselezioni. Per salvare una preselezione, bisogna premere `DP` nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400plus]; poi bisogna selezionare una posizione e premere `SET` (se una posizione è già stata usata, il suo contenuto sarà sovrascritto). Per richiamare una preselezione, bisogna premere il tasto `DP` all'interno del [#Menu_dei_collegamenti_rapidi menu dei collegamenti rapidi]; poi bisogna selezionare una preselezione e premere il tasto `SET` (se la posizione è vuota, ovviamente, non si avranno effetti).
+Si possono immagazzinare nella scheda di memoria fino a 9 preselezioni.
+Il numero di preselezioni è comunque pressoché illimitato, in quanto è possibile usare più schede di memoria, ognuna contenente 9 preselezioni.
+
+Per salvare una preselezione, bisogna premere `DP` nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400plus]; poi bisogna selezionare una posizione e premere il tasto `SET` (se una posizione è già stata usata, il suo contenuto sarà sovrascritto). Per richiamare una preselezione, bisogna premere il tasto `DP` all'interno del [#Menu_dei_collegamenti_rapidi menu dei collegamenti rapidi] (ovviamente, per usare questa funzione, il menu dei collegamenti rapidi deve essere abilitato); poi bisogna selezionare una preselezione e premere il tasto `SET`. Una volta attivata la preselezione, le preferenze di scatto e i parametri saranno richiamati e diventeranno immediatamente attivi (se la posizione è vuota, ovviamente, non si avranno effetti).
 
 == La modalità A-DEP ==
 
 In circostanze normali, quando viene richiamata una preselezione, vengono modificati tutti i parametri della fotocamera, anche la modalità di scatto (AE mode), se non specificato diversamente nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400plus]; bisogna tener conto che la fotocamera potrebbe operare in una modalità di scatto diversa da quella selezionata con la ghiera di selezione. 
 Però, quando la fotocamera viene spenta e poi riaccesa, si reimposterà sulla modalità di scatto selezionata dalla ghiera di selezione.
 
-Per ovviare a questo problema, nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400plus] è presente un'opzione per utilizzare la (pressoché inutile) modalità A-DEP; quando questa opzione è abilitata, si avranno i seguenti cambiamenti:
- * Le preselezioni possono essere usate solo se la fotocamera è in modalità di scatto A-DEP.
- * Se la fotocamera viene accesa in modalità di scatto A-DEP, l'ultima preselezione usata viene automaticamente richiamata.
+Per ovviare a questo problema, nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400plus] è presente un'opzione per utilizzare la (pressoché inutile) modalità A-DEP; quando questa opzione è abilitata (Presets>Use A-DEP: Yes), si avranno i seguenti cambiamenti:
+ * Le preselezioni possono essere usate solo se la fotocamera è in modalità di scatto A-DEP. Immaginiamo che nella ghiera delle modalità di scatto ci sia la parola "Presets" invece di "A-DEP".
+ * Se la fotocamera viene accesa in modalità di scatto A-DEP, o l'utente posiziona la ghiera delle modalità su A-DEP, l'ultima preselezione usata viene automaticamente richiamata.
+ * Quando questa opzione è disabilitata (Presets>Use A-DEP: No), se viene selezionata la posizione A-DEP nella ghiera delle modalità di scatto, la fotocamera userà in maniera normale la modalità A-DEP.
+
 
 == Configurazione del menu delle preselezioni ==
 
-Le preselezioni possono essere riordinate, proprio come nel [#Menu_dei_collegamenti_rapidi menu dei collegamenti rapidi]: (premere `MENU` per prendere/rilasciare e `SU`/ `GIU'` per spostare); ma possono anche essere rinominati: mentre abbiamo "preso" una preselezione, premendo `SET` si entra nel menu di rinominazione:
- * Con `SU`/ `GIU'` si seleziona una lettera.
- * Con `AV` si cambia tra minuscolo / numeri e maiuscolo / simboli.
- * Con `SET` si aggiunge una lettera e si muove in avanti il cursore.
- * La rotellina frontale sposta il cursoreavanti e indietro.
- * Per uscire e tornare al menu delle preselezioni bisogna muoversi nell'ultima riga e premere `SET`.
+Come nel menu dei [#Menu_dei_collegamenti_rapidi collegamenti rapidi], le preselezioni possono essere riordinate a piacimento. Per farlo, mentre si è nel menu per salvare o richiamare una preselezione, premere il tasto `PLAY` per "prendere" una voce (una piccola ">" comparirà a destra della voce stessa); con la pressione di `SU` e `GIU'` si seleziona la nuova posizione, e con una nuova pressione del tasto `PLAY` si termina lo spostamento e si salvano le impostazioni.
+
+Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli standard "Preset 1", "Preset 2", etc. Per fare ciò, nel menu per salvare o richiamare una preselezione:
+ * Premere il tasto `JUMP` per entrare nel menu di rinominazione.
+ * Premere i tasti `SU`/ `GIU'`/`DESTRA`/ `SINISTRA'` per selezionare una voce.
+ * Premere il tasto `MENU` per alternare minuscolo / numeri e maiuscolo / simboli.
+ * Premere il tasto `AV` per cambiare in maiuscolo / minuscolo il valore selezionato nel riga del nome della preselezione.
+ * Premere `SET` per accettare il valore selezionato e muovere in avanti il cursore.
+ * Usare rotellina frontale o i tasti `ZOOM IN` e `ZOOM OUT` per spostare il cursore avanti e indietro.
+ * Premere nuovamente il tasto `JUMP` per salvare le modifiche e tornare nel menu delle preselezioni.
 
 = La selezione dell’AF-Pattern =
 
-Premere il pulsante Zoom In per inserire il menu "selezione punto AF" standard, quindi premere ZOOM IN di nuovo per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i pattern, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
+In fase di scatto, premere il tasto `ZOOM IN` per entrare nel menu "selezione punto AF" standard, quindi premere di nuovo il tasto `ZOOM IN` per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i vari pattern disponibili, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
 
 == Le chicche==
 
@@ -151,9 +161,9 @@ Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’outp
 === Nella zona creativa ===
 
 Nella zona creativa le _chicche_ attivabili sono i seguenti: 
- * Nella finestra di dialogo di selezione ISO, premere PRINT DIRECT per impostare ISO 3200 (vedi [#Extended_ISOs Note / Extended ISO]). 
- * Nella finestra di selezione della modalità di misurazione, premere PRINT DIRECT per impostare la misurazione spot (vedi [#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
- * Nella finestra di dialogo di selezione del bilanciamento bianco, premere PRINT DIRECT per impostare la temperatura del colore definito dall'utente. 
+ * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per impostare il valore di ISO 3200 (vedi [#Extended_ISOs Note / Extended ISO]). 
+ * Nella finestra di selezione della modalità di misurazione, premere `DP` per impostare la misurazione spot (vedi [#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
+ * Nella finestra di dialogo di selezione del bilanciamento bianco, premere `DP` per impostare la temperatura del colore definito dall'utente. 
 
 = Altri omaggi =
 
@@ -164,7 +174,9 @@ Nella schermata delle impostazioni della fotocamera (ci si arriva premendo `DISP
  * Il numero totale di scatti fatti dalla fotocamera.
  * La versione di 400plus correntemente installata.
  * Il "BodyID" (un numero interno, unico per ogni fotocamera).
-L'uso dei tasti `SET` e poi `SINISTRA` / `DESTRA` cambierà i valori visualizzati.
+L'uso dei tasti `SET`, `SINISTRA` o `DESTRA` per cambiare il valore visualizzato.
+
+*NOTA che questa funzione è disponibile solo nella zona creativa (P, Tv, Av, M, A-DEP).
 
 == Il problema "naso" ==
 
@@ -174,12 +186,18 @@ Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi,
 
 *ATTENZIONE*: Queste opzioni dovrebbero essere utilizzate con molta attenzione, probabilmente c'è molto poco da vedere qui, a meno che tu non stia sviluppando un tuo hack personalizzato.
 
-Dal menu 400plus, andando sulla voce "Developers menu" e premendo `SET` si attiverà un nuovo menu:
+Per entrare nel menu degli sviluppatori dal menu 400plus, andare giù sulla voce "Developers menu" e premere il tasto `SET`. Saranno disponibili le seguenti opzioni:
  * _*Enter factory mode*_: Fa entrare la fotocamera nel "factory mode"; inoltre attiva il "Menu Factory".
- * _*Leave factory mode*_: Esce dal "factory mode" e ritorna al "normal mode".
- * _*Start debug mode*_: La fotocamera scriverà una notevole quantità di informazioni sulla scheda di memoria, in due file chiamati `STDOUT.TXT` e `STDERR.TXT`.
+ * _*Exit factory mode*_: Esce dal "factory mode" e ritorna al "normal mode".
+ * _*Start debug mode*_: La fotocamera scriverà una notevole quantità di informazioni sulla scheda di memoria, in due (2) file chiamati `STDOUT.TXT` e `STDERR.TXT`.
+
+*NOTA*: Dopo essere entrato nel "factory mode", il "Menu Factory" rimarrà disponibile finché non viene spenta la fotocamera. Uscire dal "factory mode" non disabiliterà il "Menu Factory".
 
 *NOTA*: Ricordati di uscire dal "factory mode" prima di usare la fotocamera, poiché le fotografie non possono essere scaricate su un computer mentre la fotocamera è in questa modalità.
+
+== Multi-language support ==
+ 
+Attualmente 400plus è tradotto in tre (3) lingue (Inglese, Tedesco e Spagnolo). La conversione in altre lingue è possibile e caldeggiata. Se vuoi fornire assistenza per convertire 400plus in un altra lingua, per favore fai richiesta nel forum!
 
 = Note =
 
@@ -187,11 +205,11 @@ Alcune note e commenti.
 
 == Extended ISOs ==
 
-I valori di ISO non standard sono ottenuti solo tramite software, e tecnicamente non producono vantaggi per gli scatti rispetto all’uso delle ISO di base abbinata al post-processing dell'immagine; includono ISO-3200.
+I valori di ISO non standard sono ottenuti solo tramite software, e tecnicamente non producono vantaggi per gli scatti rispetto all’uso delle ISO di base abbinata al post-processing dell'immagine, incluso il valore ISO-3200. Il valore ISO 2300, comunque, può essere utilizzato in condizioni di scarsa luce, quando non c'è altro modo di eseguire lo scatto desiderato.
 
 == Modalità di misurazione spot ==
 
-Le modalità di misurazione spot è come la modalità standard "misurazione parziale", ma l'area inclusa nel calcolo è più piccola.
+Le modalità di misurazione spot è simile alla modalità standard "misurazione parziale", ma l'area inclusa nel calcolo è più piccola (approssimativamente il 3.5% del centro del mirino, contro il 9% della "misurazione parziale" standard. Funziona quasi ottimamente, quando serve.
 
 = Malfunzionamenti conosciuti =
 
