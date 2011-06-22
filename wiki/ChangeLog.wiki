@@ -1,5 +1,8 @@
 #summary Log of changes made to this project.
 
+_*20110615-3*_
+ * Italian translation added.
+
 _*20110615-2*_
  * Spanish translation added.
 
