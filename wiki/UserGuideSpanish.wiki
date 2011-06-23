@@ -27,40 +27,40 @@ Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal o los b
 == Los items ==
 
  * _*Comp. Av*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
- * _*Comp Flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
- * _*Usa Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
- * _*Color Temp. (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos a 'personalizado'. 
+ * _*Comp. flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
+ * _*Bloquea Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
+ * _*Temp. color (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos a 'personalizado'. 
  * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV.
  * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*Retardo infrarrojos*_: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
  * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
- * _*Menú de accesos directos*_: Cuando está activo, el menú de accesos directos se mostrará en la pantalla principal al presionar el botón de IMPRESIÓN DIRECTA; cuando está fijado en "No", el botón de IMPRESIÓN DIRECTA cambiará a una ISO intermedia.
+ * _*Menú de Accesos Directos*_: Cuando está activo, el menú de accesos directos se mostrará en la pantalla principal al presionar el botón de IMPRESIÓN DIRECTA; cuando está fijado en "No", el botón de IMPRESIÓN DIRECTA cambiará a una ISO intermedia.
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones]. 
   * LCD bajo: cuando está activado, la pantalla se atenúa para preservar la vida de la batería. 
   * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo, la opción de auto-apagado de la cámara está desactivada.
  * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
-  * Retardo: selecciona el disparo inmediato, o una demora de 2 segundos. 
+  * Demora: selecciona el disparo inmediato, o una demora de 2 segundos. 
   * Acción: la acción a realizar. 
   * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
   * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario, el guión va a esperar hasta que la mano se retira.
- * _*AEB Ext.*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
-  * Retardo: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
+ * _*AEB ext.*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
+  * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
   * Marcos: número de tomas a disparar. 
   * Paso (EV): separación en EV entre disparos. 
   * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
-  * Bulb max: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
- * _*Intervalo*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
-  * Retardo: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
-  * Tiempo (s): tiempo (en segundos) entre cada disparo.
+  * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
+ * _*Interval.*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
+  * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
+  * Tiempo: tiempo (en segundos) entre cada disparo.
   * EAEB: selecciona si [UserGuideSpanish#AEB_Extendido AEB Extendido] se debe utilizar en cada disparo. 
-  * Disparos: número de disparos a hacer, o selecciona "sin límite" para disparar sin cesar.
- * _*Temporizador*_: Este sub-menú configura la secuencia de comandos del [UserGuideSpanish#Autodisparador Autodisparador]. 
-  * Retardo (s): tiempo (en segundos) que el guión debe esperar antes de disparar. 
+  * Tomas: número de disparos a hacer, o selecciona "sin límite" para disparar sin cesar.
+ * _*Temporizador*_: Este sub-menú configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador]. 
+  * Demora: tiempo (en segundos) que el guión debe esperar antes de disparar. 
   * Acción: la acción a realizar. 
- * _*Preajustes (Presets)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
+ * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
   * Usa A-DEP: cuando está activo, el modo A-DEP es "secuestrado" por los presets; por favor, lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo, la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
-  * 400plus: cuando está activo, la carga de un preset reclama los propios ajustes 400plus (guiones,...).
+  * 400D+: cuando está activo, la carga de un preset reclama los propios ajustes 400plus (guiones,...).
   * Ajustes: cuando está activo, la carga de un preset reclama los ajustes rara vez cambiados (lenguaje, sistema de video,...).
   * Imagen: cuando está activo, la carga de un preset reclama los parámetros relativos a la imagen (RAW/JPEG, calidad,...).
   * Funciones personalizables: cuando está activo, la carga de un preset reclama las funciones personalizables (bloqueo de espejo, reducción de ruido a larga exposición,...).
@@ -74,7 +74,7 @@ Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de
  * _*AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
  * _*Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
  * _*Toma por Visor*_: Inicia el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
- * _*Autodisparador*_: Inicia el [UserGuideSpanish#Autodisparador Autodisparador].
+ * _*Temporizador*_: Inicia el [UserGuideSpanish#Temporizador Temporizador].
  * _*Flash AF*_: Fuerza la desactivación del flash (durante la fase de AF), aunque se haya elevado.
  * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo.
  * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla.
@@ -99,7 +99,7 @@ Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar d
  * La separación entre las tomas se puede configurar hasta +6 EV. 
  * La cámara tomará todas las fotos en una secuencia, de forma automática.
 
-En el modo BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb min" hasta el valor "Bulb max", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
+En el modo BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb min" hasta el valor "Bulb máx", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
 
 == Intervalometro ==
 
@@ -109,7 +109,7 @@ Este guión disparará la cámara tantas veces como se haya configurado (o sin f
 
 Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (como tu mano o tu dedo) bloquee el sensor y luego se retire; sin embargo, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
 
-== Autodisparador ==
+== Temporizador ==
 
 Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
 
