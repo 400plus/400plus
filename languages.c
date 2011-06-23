@@ -226,7 +226,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_EXT_ONLY]      = "Solo Est.",
 		[L_EXT_AEB]       = "Ext. AEB",
 		[L_ONE_SHOT]      = "Singolo",
-		[L_INTERVAL]      = "Intrvalli",
+		[L_INTERVAL]      = "Interval.",
 		[L_NO_LIMIT]      = "Illimitato",
 
 		[L_RENAME]        = "Rinomina",
@@ -284,7 +284,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_PRESETS_ADEP]     = "Usa A-DEP",
 		[L_PRESETS_CAMERA]   = "Fotocamera",
 		[L_PRESETS_400PLUS]  = "400D+",
-		[L_PRESETS_SETTINGS] = "Impstzioni",
+		[L_PRESETS_SETTINGS] = "Impostaz.",
 		[L_PRESETS_IMAGE]    = "Immagine",
 		[L_PRESETS_CFN]      = "Fn pers.",
 	},
