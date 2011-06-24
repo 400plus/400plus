@@ -94,8 +94,8 @@ typedef enum {
 	IC_BUTTON_PLAY                 = 0xA4, //
 	IC_BUTTON_TRASH                = 0xA5, //
 	IC_BUTTON_SET                  = 0xA6, //
-	IC_AFPDLGOFF                   = 0xA7, // this can't be other than button event... perhaps the name needs to be corrected, it should be BUTTON_ZOOM_IN maybe.
-	// there is a 0xA8 button too, it could be the ZOOM_OUT
+	IC_AFPDLGOFF                   = 0xA7, // hmm it seems like dialog destroy after all
+	// and 0xA8 is perhaps dialog create.
 	IC_BUTTON_DIAL                 = 0xA9, //
 	IC_BUTTON_DIAL_LEFT            = ( 1 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
 	IC_BUTTON_DIAL_RIGHT           = ( 2 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn

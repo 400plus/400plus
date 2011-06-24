@@ -3,20 +3,16 @@
 #include "firmware.h"
 #include "debug.h"
 
-// eventproc_RemOn, RemOff - should enable/disable IR remote control
-// if it works, it could be in settings menu, so we wont need to put
-// the camera in special drive mode for IR remote.
-
 typedef struct MC_Table_entry_struct {
 	mc_event_t t;
 	int sw;
-	int arg3;
+	int arg;
 } mc_table_t;
 
 void my_MC_T_Button(mc_table_t * event) {
 
 	// actually, i feel a little bit stupid now...
-	// i so enthusiastic about task_mainctrl() and mc_button() routines
+	// i was so enthusiastic about task_mainctrl() and mc_button() routines
 	// that i missed the important thing...
 	// we could just let the original one do the stuff...
 	//	MC_T_Button(event);
@@ -28,98 +24,82 @@ void my_MC_T_Button(mc_table_t * event) {
 	// some buttons which we didnt knew before, but still i could save myself one night...
 
 
-	//printf_log(1, 6, asw04d04d /*"\t sw:%04d(%04d)"*/, event->sw, event->arg3);
-	printf_log(1, 6, "\t BUTTON: sw:%04d/%02X arg3:(%04d)", event->sw, event->sw, event->arg3);
+	printf_log(1, 6, asw04d04d /*"\t sw:%04d(%04d)"*/, event->sw, event->arg);
+	//static char buf[30];
+	//printf_log(1, 6, "\t BUTTON: sw:0x%02X(%s) arg:(0x%04X)", event->sw, mc_btn_name(buf, event->sw), event->arg);
 
 	switch (event->sw) {
 
-	case IC_BUTTON_BATTERY_DOOR: // 162+13 = 175 // bat door
-		printf_log(1, 6, "AF: 0xAF carddoor_emergency\n");
-		if (event->arg3 == 0) {
-			printf_log(1, 6, "AF: err_MC_T |= 2, sub...\n");
+	case MC_BUTTON_BATTERY_DOOR_OPEN: // 162+13 = 175 // bat door
+		if (event->arg == 0) {
 			err_MC_T |= 2;
-			CardDoorEmergency_Func(); // took me too much time to understand this routine and put correct name to it.
+			CardDoorEmergency_Func();
 		}
 		break;
-	case IC_BUTTON_CARD_DOOR: // 162+9 = 171 // card door
-		printf_log(1, 6, "AF: 0xAB carddoor_emergency\n");
-		if (event->arg3 == 0) {
-			printf_log(1, 6, "AF: err_MC_T |= 1, sub...\n");
+	case MC_BUTTON_CARD_DOOR_OPEN: // 162+9 = 171 // card door
+		if (event->arg == 0) {
 			err_MC_T |= 1;
 			CardDoorEmergency_Func();
 		}
 		break;
 
-	case IC_BUTTON_POWER: // 162+12 = 174 // shutdown
-		printf_log(1, 6, "AF: 0xAE\n");
-		if (event->arg3 !=0) {
-			printf_log(1, 6, "AF: set err and return\n");
+	case MC_BUTTON_POWER: // 162+12 = 174 // shutdown
+		if (event->arg !=0) {
 			err_MC_T = err_MC_T & ~4;
 			break;
 		} else {
-			printf_log(1, 6, "AF: make checks\n");
 			err_MC_T |= 4;
 			if (*(some_important_structure + 0xBC) != 1) { // off_24860.0xBC -> offset in some structure
-				printf_log(1, 6, "AF: call change_menupos()\n");
 				change_menupos();
 			}
 
 			if (unk_258A0 != 0) { // i think this flag indicates that we are taking photo ATM
-				printf_log(1, 6, "AF: sub,sub\n");
 				set_dword_7610_to_0();
-				DDD_Capture(event->arg3);// now we need to find WTF is this DDD... i see this DDD stuff frequently in the FW.
-				// this call of DDD_Capture here, is called with arg3==0,
+				DDD_Capture(event->arg);// now we need to find WTF is this DDD... i see this DDD stuff frequently in the FW.
+				// when DDD_Capture(), is called with arg==0 (like in this call)
 				// it will call internaly End_DDD_Capture.
 				// so i guess this is called when we turn off the camera, while it's shooting
-				// to terminate the taking of photo
+				// to finish the taking of the photo
 			}
 
-			printf_log(1, 6, "AF: sub, change_playback\n");
 			set_2A0E0_to_1();
 			change_playback_file_id2();
 
 			if (!(MC_State & 0x800)) { // i'm not 100% sure that i have to reverse the condition here, but it's not fatal
-				printf_log(1, 6, "AF: turndisplay 2,1 off\n");
 				SetTurnDisplayEvent_2_after_1();
 			}
 		}
 		break;
 
-	case IC_BUTTON_HALF_SHUTTER: // 162+20 = 182
-		printf_log(1, 6, "AF: 182, senttoIC B6\n");
+	case MC_BUTTON_HALF_SHUTTER: // 162+20 = 182
 		SendToIntercom(IC_BUTTON_HALF_SHUTTER, 0, 0);
 		eventproc_RemOn();
 		break;
 
-	case IC_BUTTON_FULL_SHUTTER: // 162+21 = 183
-		printf_log(1, 6, "AF: 183, senttoIC B7\n");
+	case MC_BUTTON_FULL_SHUTTER: // 162+21 = 183
 		SendToIntercom(IC_BUTTON_FULL_SHUTTER, 0, 0);
 		eventproc_RemOn();
 		break;
 
-	case IC_BUTTON_UNK2: // 162+26 = 188
-		printf_log(1, 6, "AF: tft off\n");
+	case MC_BUTTON_UNK2: // 162+26 = 188
 		beep();SleepTask(500);beep(); // if you hear 2 beeps, please tell me which btn you've pressed.
 		eventproc_TFTOff();
 		break;
 
-	case IC_BUTTON_JUMP: // 162+0 = 162 // btn JUMP
-	case IC_BUTTON_TRASH: // 162+3 = 165 // btn TRASH
-	case IC_BUTTON_UNK1: // 162+10= 172 // btn UNK1
-		printf_log(1, 6, "AF: btn: %d, PF: %d,%d\n", event->sw, PowerFlag, (PowerFlag|1));
+	case MC_BUTTON_JUMP: // 162+0 = 162 // btn JUMP
+	case MC_BUTTON_TRASH: // 162+3 = 165 // btn TRASH
+	case MC_BUTTON_UNK1: // 162+10= 172 // btn UNK1
+		//printf_log(1, 6, "AF: btn: %d, PF: %d,%d\n", event->sw, PowerFlag, (PowerFlag|1));
 		//SendToIntercom(IC_POWER_FLAG, 1, (PowerFlag|1)); // im not sure why this isnt working ?
 		MC_T_Button(event); // so we call the original btn handler to take care of it.
 		break;
 
 	default:
-		ManySendToGUI_and_other(event->sw, event->arg3); // may be it would be good to have this
-		// one reversed too, but it would take much time, as it's big one
+		ManySendToGUI_and_other(event->sw, event->arg); // perhaps it would be good to have this one
+		// reversed too, but it would take much time, as it's a big one
 		break;
 	}
 }
-
-
-
 
 void my_task_MainCtrl() {
 
@@ -186,7 +166,6 @@ void my_task_MainCtrl() {
 		}
 
 	} // while(1)
-
 }
 
 

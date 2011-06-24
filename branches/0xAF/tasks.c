@@ -22,7 +22,7 @@ void start_up() {
 	if (settings.debug_on_poweron)
 		start_debug_mode();
 
-	printf("400Plus STARTING!\n");
+	SleepTask(100);
 
 	// enable IR remote
 	// i'm not sure where to call this? perhaps this isnt the right place.
