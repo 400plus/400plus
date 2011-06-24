@@ -257,6 +257,9 @@ pass_message:
 	IntercomHandler(handler, message);
 
 block_message:
+	// AF: who would free the message ?
+	// when IntercomHandler handles it, it could be freeing it...
+	// i should check what it does.
 	return;
 }
 
@@ -269,3 +272,4 @@ void task_dispatcher () {
 		task();
 	}
 }
+

@@ -5,6 +5,11 @@
 
 #include "languages.h"
 
+/// @todo: languages will take too much space at some point, keep only lang_pack_current[][]
+//         and set only the english there. make the rest in files on the CF card and load them
+//         from there. if i understand it correctly, we have only 64kb for the hack.
+//         (see my_taskcreate_Startup())
+
 const char *lang_packs[LANG_COUNT][L_COUNT] = {
 	[LANG_ENGLISH] = {
 		[L_FREE_SPACE]    = "Free Space",
@@ -31,7 +36,11 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Developer",
 		[L_ENTER_FACTORY_MODE] = "Enter factory Mode",
 		[L_EXIT_FACTORY_MODE]  = "Exit  factory Mode",
-		[L_START_DEBUG_MODE]   = "Start debug   Mode",
+		[L_DEBUG_ON_POWERON]   = "Debug on PowerOn",
+		[L_LOGFILE]            = "Log File Mode",
+		[L_OVERWRITE]          = "Overwrite",
+		[L_NEW]                = "New",
+		[L_APPEND]             = "Append",
 
 		[L_SETTINGS]        = "Settings",
 		[L_DELAY]           = "Delay",
@@ -55,6 +64,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_USE_FLASH]       = "Disable flash",
 		[L_HANDWAVE]        = "Handwave",
 		[L_TIMER_SPACES]    = "Timer   ",
+		[L_IR_REMOTE_ENABLE]= "IR remote enable",
 		[L_IR_REMOTE_DELAY] = "IR remote delay",
 		[L_DEVELOPERS_MENU] = "Developers Menu",
 
@@ -103,7 +113,6 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Entwickler",
 		[L_ENTER_FACTORY_MODE] = "Betrete Werksmenü",
 		[L_EXIT_FACTORY_MODE]  = "Verlasse Werksmenü",
-		[L_START_DEBUG_MODE]   = "Debugmodus starten",
 
 		[L_SETTINGS]        = "Einstellungen",
 		[L_DELAY]           = "Verz.",
@@ -165,7 +174,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Desarrolladores",
 		[L_ENTER_FACTORY_MODE] = "entrar modo fábrica",
 		[L_EXIT_FACTORY_MODE]  = "salir modo fábrica",
-		[L_START_DEBUG_MODE]   = "modo depuración",
+		[L_DEBUG_ON_POWERON]   = "modo depuración",
 
 		[L_SETTINGS]        = "ajustes",
 		[L_DELAY]           = "demora",
@@ -239,7 +248,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Sviluppo",
 		[L_ENTER_FACTORY_MODE] = "Entra factory Mode",
 		[L_EXIT_FACTORY_MODE]  = "Esci  factory Mode",
-		[L_START_DEBUG_MODE]   = "Avvia modal. debug",
+		[L_DEBUG_ON_POWERON]   = "Avvia modal. debug",
 
 		[L_SETTINGS]        = "Impostazioni",
 		[L_DELAY]           = "Ritardo",
