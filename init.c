@@ -117,6 +117,7 @@ usrRoot_failed:
 
 	reboot(1);
 
+	return 0;
 }
 
 void my_taskcreate_Startup() {
