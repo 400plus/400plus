@@ -53,6 +53,7 @@ S_OBJS = entry.o          \
 
 C_OBJS = init.o           \
          main.o           \
+	 mainctrl.o       \
          tasks.o          \
          languages.o      \
          utils.o          \
