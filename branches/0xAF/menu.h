@@ -161,6 +161,7 @@ extern void menu_event_dp();
 extern void menu_event_set();
 extern void menu_event_change();
 extern void menu_event_close();
+extern void menu_event(type_MENU_EVENT);
 
 extern void menu_up();
 extern void menu_down();
@@ -168,6 +169,9 @@ extern void menu_right();
 extern void menu_left();
 
 extern void menu_cycle();
+
+extern void menu_set_changed();
+extern int  menu_get_changed();
 
 extern void menu_toggle_filenames();
 extern void menu_rename();

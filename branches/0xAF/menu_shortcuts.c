@@ -13,6 +13,8 @@
 
 type_CAMERA_MODE sc_cameraMode;
 
+void menu_shortcuts_close();
+
 void menu_shortcuts_script_extended_aeb (type_MENUITEM *item);
 void menu_shortcuts_script_interval     (type_MENUITEM *item);
 void menu_shortcuts_script_wave         (type_MENUITEM *item);
@@ -44,8 +46,9 @@ type_MENU menu_shortcuts = {
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
 	tasks       : {
-		[MENU_EVENT_DP]    = menu_presets_load_start,
-		[MENU_EVENT_CLOSE] = settings_write,
+		[MENU_EVENT_DP]     = menu_presets_load_start,
+		[MENU_EVENT_CHANGE] = menu_set_changed,
+		[MENU_EVENT_CLOSE]  = menu_shortcuts_close,
 	}
 };
 
@@ -61,6 +64,12 @@ void menu_shortcuts_start() {
 void menu_shortcuts_create() {
 	sc_cameraMode = *cameraMode;
 	menu_create(&menu_shortcuts);
+}
+
+void menu_shortcuts_close() {
+	if (menu_get_changed()) {
+		settings_write();
+	}
 }
 
 void menu_shortcuts_apply_iso(type_MENUITEM *item) {

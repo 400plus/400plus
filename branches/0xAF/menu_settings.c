@@ -90,8 +90,9 @@ type_MENU main_menu = {
 	items       : menu_settings_items,
 	reorder     : FALSE,
 	tasks       : {
-		[MENU_EVENT_DP]    = menu_presets_save_start,
-		[MENU_EVENT_CLOSE] = menu_settings_save,
+		[MENU_EVENT_DP]     = menu_presets_save_start,
+		[MENU_EVENT_CHANGE] = menu_set_changed,
+		[MENU_EVENT_CLOSE]  = menu_settings_save,
 	}
 };
 
@@ -107,8 +108,10 @@ void menu_settings_create() {
 }
 
 void menu_settings_save() {
-	settings_write();
-	presets_write();
+	if (menu_get_changed()) {
+		settings_write();
+		presets_write();
+	}
 }
 
 void menu_settings_apply_av_comp(type_MENUITEM *item) {
@@ -120,7 +123,7 @@ void menu_settings_apply_efcomp(type_MENUITEM *item) {
 }
 
 void menu_settings_apply_cf_emit_flash(type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, !*item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, *item->parm.menuitem_enum.value);
 }
 
 void menu_settings_apply_color_temp(type_MENUITEM *item) {

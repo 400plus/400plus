@@ -1,8 +1,9 @@
 #include "main.h"
 #include "firmware.h"
 
-#include "presets.h"
+#include "menu.h"
 
+#include "languages.h"
 #include "menu_rename.h"
 
 int   x, y, z;
@@ -68,7 +69,7 @@ void rename_create(char *filename, type_MENU *parent) {
 	rename_initialize();
 
 	handle = dialog_create(22, rename_handler);
-	dialog_set_property_str(handle, 8, "Rename");
+	dialog_set_property_str(handle, 8, LP_WORD(L_RENAME));
 
 	rename_display();
 }
@@ -179,9 +180,10 @@ void rename_action() {
 }
 
 void rename_save() {
-	presets_write();
 	rename_close();
+
 	menu_create(rename_parent);
+	menu_event(MENU_EVENT_CHANGE);
 }
 
 void rename_clear() {
