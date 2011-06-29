@@ -8,7 +8,7 @@ Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290
 
 = Introduzione =
 
-Questo documento contiene il manuale d'uso per 400D+. Si suppone che, prima di leggere questa guida, l'utente abbia installato 400D+ e che il software funzioni correttamente. Per informazioni sull'installazione di 400D+, vedere [http://code.google.com/p/400D+/wiki/FirmwareHackInstallation FirmwareHackInstallation].
+Questo documento contiene il manuale d'uso per 400D+. Si suppone che, prima di leggere questa guida, l'utente abbia installato 400D+ e che il software funzioni correttamente. Per informazioni sull'installazione di 400D+, vedere [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
 = Il menu delle impostazioni=
 
@@ -37,11 +37,11 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
  * _*Abilita com.IR_*: attiva sempre telecomando a raggi infrarossi. *<--NEW*
  * _*Ritardo com.IR_*: seleziona se la telecamera debba scattare immediatamente oppure aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
  * _*ISO nel mirino*_: Quando è attivo (impostato su Si), e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino. 
- * _*Accesso Diretto*_: Quando è attivo (impostato su Si), la pressione del tasto `DIRECT PRINT` nella finestra principale porterà al [#Menu_dei_collegamenti_rapidi menu di accesso diretto]; se impostato su "No", il tasto`DP` cambierà (scorrerà) il valore `ISO` tra i valori intermedi.
+ * _*Accesso Diretto*_: Quando è attivo (impostato su Si), la pressione del tasto `DIRECT PRINT` nella finestra principale porterà al [#Menu_di_accesso_diretto menu di accesso diretto]; se impostato su "No", il tasto`DP` cambierà (scorrerà) il valore `ISO` tra i valori intermedi.
  * _*Script*_: Questo menu configura il comportamento degli [#Gli_script script].
   * Oscura LCD: se attivato (impostato su Si), la luminosità dello schermo LCD viene abbassata durante lo script, per aumentare la durata della batteria, il valore iniziale viene reimpostato al termine dell'esecuzione dello script.
   * No AutoOFF: se attivato (impostato su Si), la funzione di auto spegnimento della camera viene disabilitata durante l'esecuzione dello script. Viene riattivata al termine dell'esecuzione.
- * _*HandWave*_: questo sottomenu configura lo script [#Hand_Waving Hand Waving]: 
+ * _*HandWave*_: questo sottomenu configura lo script [#HandWave HandWave]: 
   * Ritardo: seleziona se questo script debba effettuare lo scatto subito o attendere 2 secondi. 
   * Azione: l'azione da eseguire (Intervallometro, Scatto singolo, AEB Esteso). 
   * Ripeti: se attivo (impostato su Si), lo script ri riavvierà dopo l'esecuzione, in modo da rimanere attivo e consentire un nuovo scatto col movimento della mano.
@@ -163,7 +163,7 @@ Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’outp
 === Nella zona creativa ===
 
 Nella zona creativa le _chicche_ attivabili sono i seguenti: 
- * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per impostare il valore di ISO 3200 (vedi [#Extended_ISOs Note / ISO Estesi]). 
+ * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per impostare il valore di ISO 3200 (vedi [#ISO_Estesi Note / ISO Estesi]). 
  * Nella finestra di selezione della modalità di misurazione, premere `DP` per impostare la misurazione spot (vedi [#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
  * Nella finestra di dialogo di selezione del bilanciamento bianco, premere `DP` per impostare la temperatura del colore definito dall'utente. 
 
