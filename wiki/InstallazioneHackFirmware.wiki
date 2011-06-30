@@ -1,4 +1,5 @@
 #summary Installazione Hack Firmware
+#labels Italian
 
 = Introduzione =
 
