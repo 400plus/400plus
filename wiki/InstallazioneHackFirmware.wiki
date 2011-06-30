@@ -1,0 +1,45 @@
+#summary Installazione Hack Firmware
+
+= Introduzione =
+
+Questo documento descrive la procedura di installazione.<br>
+Se cerchi informazioni riguardo l'uso del hack, leggi il  [http://code.google.com/p/400plus/wiki/UserGuideItalian Manuale Utente 400D+].
+
+= Dettagli =
+
+  #. Assicurarsi di usare una batteria completamente carica. È necessario un lettore di schede CF e windows,  linux o Osx.<br>Con Osx, potete usare windows virtualizzato o il metodo per linux.
+  #. Aggiornate al [http://web.canon.jp/imaging/eosdigital3/e4kr3_firmware-e.html ultimo firmware (1.1.1)] copiandolo nella CF tramite il lettore di schede,<br> poi inseritela nella fotocamera e avviate "aggiornamento firmware" dal menu delle impostazioni.
+  #. vuotate la CF, scaricate [http://code.google.com/p/400plus/downloads/list testfir.fir] e copiatelo nella CF con il lettore di schede.
+  #. inserite la CF nella fotocamera e avviate "aggiornamento firmware" usando testfir.fir, lo schermo si spegnerà.<br> _*<font color="red">Aspettate almeno 2 minuti senza toccare alcun tasto</font>*_, spegnete, togliete la batteria e reinseritela.
+  #. A seconda del vostro Sistema Operativo e CF Card il prossimo step cambia, ma prima inserite la CF nella fotocamera e formattatela.<br>
+    * Windows: usate [http://pel.hu/down/EOScard.exe EOScard] by [http://chdk.setepontos.com/index.php?topic=4214.msg58253#msg58253 pelican], dovete controllare EOS_DEVELOP e BOOTDISK<br>come mostrato [http://chdk.wikia.com/wiki/EOScard qui]
+    * Mac: usate zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot].
+    * Linux: usate metodo diretto (qui sotto)<br>o usate il metodo e i file descritti [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de qui] (usate la seconda versione)
+    * Metodo diretto per Linux, Mac e windows con [http://www.cygwin.com/ cygwin] o [http://www.chrysocome.net/dd dd]:
+      * FAT12/FAT16 (CF Card <= 4GB)
+{{{
+dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
+echo EOS_DEVELOP | dd of="$dev" bs=1 seek=43 count=11
+echo BOOTDISK | dd of="$dev" bs=1 seek=64 count=8
+}}}
+      * FAT32
+{{{
+dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
+echo EOS_DEVELOP | dd of="$dev" bs=1 seek=71 count=11
+echo BOOTDISK | dd of="$dev" bs=1 seek=92 count=8
+}}}
+      * exFAT
+        questo non può funzionare direttamente perché il "sector checksums" deve esser<br> calcolato e  scritto dopo aver scritto le string. Usate i metodi precedenti.
+  #. scaricate [http://code.google.com/p/400plus/downloads/list l'ultimo autoexec.bin], estraetelo e copiatelo nella CF. 
+  #. inserite la CF nella fotocamera e avete finito.
+
+<font color="blue">
+_*Se il LED blue della fotocamera si accende per un attimo all'accensione della fotocamera, l'hack è stato caricato con successo.*_
+</font><br><br>
+*Ora potete passare a [http://code.google.com/p/400plus/wiki/UserGuideItalian come usare l'hack].*
+
+= Fonti =
+  * [http://chdk.setepontos.com/index.php/topic,3290.msg38630.html#msg38630 raingrove]
+  * [http://code.google.com/p/400d/downloads/detail?name=400d_autoexec_bin_guide.doc&can=2&q= Huong dan cai dat]
+  * [http://chdk.wikia.com/wiki/400D 400d page on wikia]
+  * [http://chdk.setepontos.com/index.php/topic,4214.msg39827.html#msg39827 whim's post]
