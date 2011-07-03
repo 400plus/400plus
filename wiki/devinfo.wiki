@@ -192,3 +192,13 @@ for (( x=$((${#bind_dirs[@]} - 1)) ; x >= 0; x-- )); do
 done
 
 }}}
+----
+
+= Localization Help =
+
+To localize 400plus in one of the language supported by canon menu you need to modify localization.c to add language specific entries. 
+When translating the string we need to keep present that we can have a max length of 18 char (> included) in the settings menu (before the : ). Total char length of each line is 28.
+So after the : we have 9  char max (using 10 don't seem to create problem like a wrong length before the : but it's really ugly and unpleasant)
+For the italian localization I used 9 char (instead of 8 like in the english version) for all the SubMenu ITEM and 8 char for all the SUB-ITEM 
+Only the Scripts ITEM is 6char (SCRIPT) because that permitted me to use a more clear and self-explanatory entries of 11 char for the SUB Items.
+----
