@@ -123,7 +123,7 @@ Una "Preselezione" è una immagine completa di tutte le preferenze di scatto e p
 Si possono immagazzinare nella scheda di memoria fino a 9 preselezioni.
 Il numero di preselezioni è comunque pressoché illimitato, in quanto è possibile usare più schede di memoria, ognuna contenente 9 preselezioni.
 
-Per salvare una preselezione, bisogna premere `DP` nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400D+]; poi bisogna selezionare una posizione e premere il tasto `SET` (se una posizione è già stata usata, il suo contenuto sarà sovrascritto). Per richiamare una preselezione, bisogna premere il tasto `DP` all'interno del [#Menu_dei_collegamenti_rapidi menu di accesso diretto] (ovviamente, per usare questa funzione, il menu di accesso diretto deve essere abilitato); poi bisogna selezionare una preselezione e premere il tasto `SET`. Una volta attivata la preselezione, le preferenze di scatto e i parametri saranno richiamati e diventeranno immediatamente attivi (se la posizione è vuota, ovviamente, non si avranno effetti).
+Per salvare una preselezione, bisogna premere `DP` nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400D+]; poi bisogna selezionare una posizione e premere il tasto `SET` (se una posizione è già stata usata, il suo contenuto sarà sovrascritto). Per richiamare una preselezione, bisogna premere il tasto `DP` all'interno del [#Menu_di_accesso_diretto menu di accesso diretto] (ovviamente, per usare questa funzione, il menu di accesso diretto deve essere abilitato); poi bisogna selezionare una preselezione e premere il tasto `SET`. Una volta attivata la preselezione, le preferenze di scatto e i parametri saranno richiamati e diventeranno immediatamente attivi (se la posizione è vuota, ovviamente, non si avranno effetti).
 
 == La modalità A-DEP ==
 
@@ -164,7 +164,7 @@ Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’outp
 === Nella zona creativa ===
 
 Nella zona creativa le _chicche_ attivabili sono i seguenti: 
- * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per impostare il valore di ISO 3200 (vedi [#ISO_Estesi Note / ISO Estesi]). 
+ * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per impostare il valore di ISO 3200 (vedi [#Estensione_ISO Estensione ISO]). 
  * Nella finestra di selezione della modalità di misurazione, premere `DP` per impostare la misurazione spot (vedi [#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
  * Nella finestra di dialogo di selezione del bilanciamento bianco, premere `DP` per impostare la temperatura del colore definito dall'utente. 
 
