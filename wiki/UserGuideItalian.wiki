@@ -42,7 +42,7 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
  * _*Script*_: Questo menu configura il comportamento degli [#Gli_script script].
   * Oscura LCD: se attivato (impostato su Si), la luminosità dello schermo LCD viene abbassata durante lo script, per aumentare la durata della batteria, il valore iniziale viene reimpostato al termine dell'esecuzione dello script.
   * No AutoOFF: se attivato (impostato su Si), la funzione di auto spegnimento della camera viene disabilitata durante l'esecuzione dello script. Viene riattivata al termine dell'esecuzione.
-  * HandWave: questo sottomenu configura lo script [#HandWave HandWave]. 
+  * HandWave: questo sottomenu configura lo script [#Hand_Wave Hand Wave]. 
   * Ritardo: seleziona se questo script debba effettuare lo scatto subito o attendere 2 secondi. 
   * Azione: l'azione da eseguire (Intervallometro, Scatto singolo, AEB Esteso). 
   * Ripeti: se attivo (impostato su Si), lo script ri riavvierà dopo l'esecuzione, in modo da rimanere attivo e consentire un nuovo scatto col movimento della mano.
@@ -78,7 +78,7 @@ Per accedere al menu di accesso diretto, è sufficiente premere il tasto `DP` da
  * _*Temp. Colore (K)*_: permette di impostare una temperatura di colore in gradi Kelvin definita dall'utente e attiva automaticamente il bilanciamento del bianco personalizzato. (Stessa voce del menu impostazioni)
  * _*AEB Esteso*_: Avvia lo script [#AEB_Esteso AEB Esteso].
  * _*Intervallometro*_: Avvia lo script [#Intervallometro Intervallometro].
- * _*HandWave*_: Avvia lo script [#HandWave HandWave].
+ * _*Hand Wave*_: Avvia lo script [#Hand_Wave Hand Wave].
  * _*Autoscatto*_: Avvia lo script [#Autoscatto Autoscatto].
  * _*Flash Aiuto AF*_: Abilita o disabilita l'attivazione del flash (durante la fase di AF), anche se il flash è alzato e attivato. I possibili valori sono: Enabled, Disabled, Ext Only (come nella C.Fn 05).
  * _*Blocco Specchio*_: Abilita o Disabilita la funzione personalizzata "mirror lock-up" (blocco dello specchio) come nella C.Fn 07.
@@ -107,7 +107,7 @@ In modalità `M` col tempo impostato a `BULB`, questo script farà scattare la f
 
 Questo script fa scattare la fotocamera il numero di volte configurato (o all'infinito), aspettando il tempo specificato tra uno scatto e l’altro. Questo script può essere utilizzato per creare filmati in stop-motion. Per esempio, impostando "AEB Est." a "Si" si esegue lo script [#AEB_Esteso AEB Esteso] su ogni scatto.
 
-== HandWave ==
+== Hand Wave ==
 
 Questo script fa scattare la fotocamera quando viene innescato il sensore display-off (sul retro della fotocamera). Si può utilizzare questo script per far scattare la fotocamera senza l'aiuto di un telecomando per evitare micromovimenti. E’ possibile far eseguire gli script [#AEB_Esteso AEB Esteso] o [#Intervallometro Intervallometro], se opportunamente configurato nella voce "Azione". Se è attivata l'opzione "Repeat", questo script non verrà terminato una volta attivato, ma si riavvierà in modo da poter effettuare altri scatti con la stessa modalità. Di default, lo script aspetterà che il sensore venga innescato e poi rilasciato (ovvero scatterà appena viene tolta la mano). Se, però, è selezionata l'opzione "Subito", lo script scatterà appena il sensore viene coperto.
 
