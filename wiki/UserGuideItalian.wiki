@@ -42,7 +42,7 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
  * _*Script*_: Questo menu configura il comportamento degli [#Gli_script script].
   * Oscura LCD: se attivato (impostato su Si), la luminosità dello schermo LCD viene abbassata durante lo script, per aumentare la durata della batteria, il valore iniziale viene reimpostato al termine dell'esecuzione dello script.
   * No AutoOFF: se attivato (impostato su Si), la funzione di auto spegnimento della camera viene disabilitata durante l'esecuzione dello script. Viene riattivata al termine dell'esecuzione.
- * _*HandWave*_: questo sottomenu configura lo script [#HandWave HandWave]: 
+  *HandWave: questo sottomenu configura lo script [#HandWave HandWave]: 
   * Ritardo: seleziona se questo script debba effettuare lo scatto subito o attendere 2 secondi. 
   * Azione: l'azione da eseguire (Intervallometro, Scatto singolo, AEB Esteso). 
   * Ripeti: se attivo (impostato su Si), lo script ri riavvierà dopo l'esecuzione, in modo da rimanere attivo e consentire un nuovo scatto col movimento della mano.
@@ -138,7 +138,7 @@ Per ovviare a questo problema, nel [#Il_menu_delle_impostazioni menu delle impos
 
 == Configurazione del menu delle preselezioni ==
 
-Come nel menu dei [#Menu_dei_collegamenti_rapidi collegamenti rapidi], le preselezioni possono essere riordinate a piacimento. Per farlo, mentre si è nel menu per salvare o richiamare una preselezione, premere il tasto `PLAY` per "prendere" una voce (una piccola ">" comparirà a destra della voce stessa); con la pressione di `SU` e `GIU'` si seleziona la nuova posizione, e con una nuova pressione del tasto `PLAY` si termina lo spostamento e si salvano le impostazioni.
+Come nel menu [#Menu_di_accesso_diretto di accesso diretto], le preselezioni possono essere riordinate a piacimento. Per farlo, mentre si è nel menu per salvare o richiamare una preselezione, premere il tasto `PLAY` per "prendere" una voce (una piccola ">" comparirà a destra della voce stessa); con la pressione di `SU` e `GIU'` si seleziona la nuova posizione, e con una nuova pressione del tasto `PLAY` si termina lo spostamento e si salvano le impostazioni.
 
 Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli standard "Preset 1", "Preset 2", etc. Per fare ciò, nel menu per salvare o richiamare una preselezione:
  * Premere il tasto `JUMP` per entrare nel menu di rinominazione.
