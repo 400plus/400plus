@@ -21,6 +21,7 @@ void menu_shortcuts_script_wave         (type_MENUITEM *item);
 void menu_shortcuts_script_self_timer   (type_MENUITEM *item);
 
 void menu_shortcuts_apply_iso                (type_MENUITEM *item);
+void menu_shortcuts_apply_color_temp         (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_emit_aux        (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_mirror_up_lock  (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_flash_sync_rear (type_MENUITEM *item);
@@ -29,6 +30,7 @@ void menu_shortcuts_script (type_TASK script);
 
 type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_ISO    (LP_WORD(L_ISO),           &sc_cameraMode.iso,                menu_shortcuts_apply_iso),
+	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),  &sc_cameraMode.color_temp,         menu_shortcuts_apply_color_temp),
 	MENUITEM_LAUNCH (LP_WORD(L_EXTENDED_AEB),   menu_shortcuts_script_extended_aeb),
 	MENUITEM_LAUNCH (LP_WORD(L_INTERVALOMETER), menu_shortcuts_script_interval),
 	MENUITEM_LAUNCH (LP_WORD(L_HAND_WAVING),    menu_shortcuts_script_wave),
@@ -76,6 +78,11 @@ void menu_shortcuts_apply_iso(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_ISO, 2, *item->parm.menuitem_iso.value);
 }
 
+void menu_shortcuts_apply_color_temp(type_MENUITEM *item) {
+	send_to_intercom(IC_SET_WB,         1, WB_MODE_COLORTEMP);
+	send_to_intercom(IC_SET_COLOR_TEMP, 2, *item->parm.menuitem_int.value);
+}
+ 
 void menu_shortcuts_apply_cf_emit_aux(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_EMIT_AUX, 1, *item->parm.menuitem_enum.value);
 }
