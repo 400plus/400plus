@@ -75,9 +75,10 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
 Per accedere al menu di accesso diretto, è sufficiente premere il tasto `DP` dalla schermata principale (ovviamente, a meno che nel menu delle impostazioni non sia impostata su Off la voce "Accesso Diretto"). Navigando normalmente all'interno di questo menu, con la pressione del tasto `SET` viene lanciato uno script:
 
  * _* ISO Intermedi*_: Scorre tra i valori ISO intermedi. i valori sono compresi tra 100 e 3200.
- * _* AEB Esteso*_: Avvia lo script [#AEB_Esteso AEB Esteso].
- * _* Intervallometro*_: Avvia lo script [#Intervallometro Intervalometer].
- * _* HandWave*_: Avvia lo script [#HandWave HandWave].
+  * _*Temp. Colore (K)*_: permette di impostare una temperatura di colore in gradi Kelvin definita dall'utente e attiva automaticamente il bilanciamento del bianco personalizzato. (Stessa voce del menu impostazioni)
+* _* AEB Esteso*_: Avvia lo script [#AEB_Esteso AEB Esteso].
+ * _* Intervallometro*_: Avvia lo script [#Intervallometro Intervallometro].
+ * _* HandWave*_: Avvia lo script [#Hand_Wave Hand Wave].
  * _* Autoscatto*_: Avvia lo script [#Autoscatto Autoscatto].
  * _*Flash Aiuto AF*_: Abilita o disabilita l'attivazione del flash (durante la fase di AF), anche se il flash è alzato e attivato. I possibili valori sono: Enabled, Disabled, Ext Only (come nella C.Fn 05).
  * _*Blocco Specchio*_: Abilita o Disabilita la funzione personalizzata "mirror lock-up" (blocco dello specchio) come nella C.Fn 07.
@@ -209,7 +210,7 @@ Alcune note e commenti.
 
 == Estensione ISO ==
 
-I valori di ISO non standard sono ottenuti solo tramite software, e tecnicamente non producono vantaggi per gli scatti rispetto all’uso delle ISO di base abbinata al post-processing dell'immagine, incluso il valore ISO-3200. Il valore ISO 2300, comunque, può essere utilizzato in condizioni di scarsa luce, quando non c'è altro modo di eseguire lo scatto desiderato.
+I valori di ISO non standard sono ottenuti solo tramite software, e tecnicamente non producono vantaggi per gli scatti rispetto all’uso delle ISO di base abbinata al post-processing dell'immagine, incluso il valore ISO-3200. Il valore ISO 3200, comunque, può essere utilizzato in condizioni di scarsa luce, quando non c'è altro modo di eseguire lo scatto desiderato, o in astro fotografia per ridurre i tempi di esposizione durante gli scatti di prova.
 
 == Modalità di misurazione spot ==
 
