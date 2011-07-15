@@ -4,15 +4,14 @@
 #include "menu.h"
 #include "menu_settings.h"
 #include "utils.h"
-#include "settings.h"
 
 #include "menu_developer.h"
 
 type_MENUITEM menu_developer_items[] = {
 	MENUITEM_LAUNCH(LP_WORD(L_ENTER_FACTORY_MODE), enter_factory_mode),
 	MENUITEM_LAUNCH(LP_WORD(L_EXIT_FACTORY_MODE),  exit_factory_mode),
-	MENUITEM_BOOLEAN(LP_WORD(L_DEBUG_ON_POWERON),  &settings.debug_on_poweron, NULL),
-	MENUITEM_LOGFILE(LP_WORD(L_LOGFILE),           &settings.logfile_mode, NULL),
+	MENUITEM_LAUNCH(LP_WORD(L_START_DEBUG_MODE),   start_debug_mode),
+	MENUITEM_LAUNCH("",                            NULL),
 	MENUITEM_LAUNCH("",                            NULL)
 };
 
@@ -23,7 +22,6 @@ type_MENU menu_developer = {
 	reorder     : FALSE,
 	tasks       : {
 		[MENU_EVENT_DP] = menu_settings_start,
-		[MENU_EVENT_CLOSE] = menu_settings_save,
 	}
 };
 

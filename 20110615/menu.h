@@ -84,22 +84,8 @@ struct MENUITEM {
 	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
 };
 
-typedef enum {
-	MENU_COLOR_RED              = 0x00,
-	MENU_COLOR_BLUE             = 0x01,
-	MENU_COLOR_YELLOW           = 0x02,
-	MENU_COLOR_YELLOW_AND_WHITE = 0x06,
-	MENU_COLOR_DARK_BLUE        = 0x09,
-	//MENU_COLOR_SOMETHING_FOR_THE_HELP_SCREEN_MAY_BE = 0x0A, // cannot be used for menus
-	MENU_COLOR_DARK_RED         = 0x0C,
-	MENU_COLOR_YELLOW_AND_GREEN = 0x10, // nice
-	MENU_COLOR_WHITE_ON_BLACK   = 0x12, // dark one
-	MENU_COLOR_ORANGE           = 0x67,
-} type_MENU_COLOR;
-
 struct MENU {
 	char            *name;
-	type_MENU_COLOR  color;
 	int              length;
 	type_MENUITEM   *items;
 	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
@@ -119,7 +105,6 @@ OPTIONLIST_DEC(delay)
 OPTIONLIST_DEC(flash)
 OPTIONLIST_DEC(action)
 OPTIONLIST_DEC(shutter)
-OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_, _ON_CHANGE_) \
 	{name:_NAME_, type:MENUITEM_TYPE_EV, parm:{menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
@@ -147,7 +132,6 @@ OPTIONLIST_DEC(logfile)
 #define MENUITEM_AFFLASH(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  OPTIONLIST_REF(flash),   _ON_CHANGE_)
 #define MENUITEM_ACTION( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  OPTIONLIST_REF(action),  _ON_CHANGE_)
 #define MENUITEM_SHUTTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, OPTIONLIST_REF(shutter), _ON_CHANGE_)
-#define MENUITEM_LOGFILE(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, OPTIONLIST_REF(logfile), _ON_CHANGE_)
 
 #define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, 1800, 11000, 100, 500, FALSE, "%5u", _ON_CHANGE_)
 #define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_,    0,   250,   1,  10, FALSE, "%3u", _ON_CHANGE_)

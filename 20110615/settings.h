@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x1D
+#define SETTINGS_VERSION  0x1C
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -35,9 +35,6 @@ typedef struct {
 	int shortcuts_menu;
 	int dim_lcd_down;
 	int keep_power_on;
-	int debug_on_poweron;
-	int logfile_mode;
-	int remote_enable;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;

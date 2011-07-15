@@ -3,7 +3,6 @@
 
 #include "menu.h"
 
-#include "languages.h"
 #include "menu_rename.h"
 
 int   x, y, z;
@@ -69,7 +68,7 @@ void rename_create(char *filename, type_MENU *parent) {
 	rename_initialize();
 
 	handle = dialog_create(22, rename_handler);
-	dialog_set_property_str(handle, 8, LP_WORD(L_RENAME));
+	dialog_set_property_str(handle, 8, "Rename");
 
 	rename_display();
 }

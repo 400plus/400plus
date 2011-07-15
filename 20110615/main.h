@@ -71,7 +71,6 @@ typedef enum {
 	IC_DIALOGOFF                   = 0x51, //
 	IC_SHUTDOWN                    = 0x52, //
 	IC_RELEASE                     = 0x53, //
-	IC_RESET_SETTINGS              = 0x59, // it is called in reset settings, then 0x5A is called. so they both should be related
 	IC_ENTERFACTORYMODE            = 0x5D, //
 	IC_EXITFACTORYMODE             = 0x5E, //
 	IC_UILOCK                      = 0x5F, //
@@ -79,9 +78,6 @@ typedef enum {
 	IC_FIRMUP                      = 0x61, //
 	IC_BAT_TYPE                    = 0x65, //
 	IC_BC_LEVEL                    = 0x66, //
-	IC_CARD_FULL_MSG_IN_VF         = 0x6B, //
-	IC_CHANGE_BAT_DIALOG           = 0x6C, //
-	IC_SET_BURST_COUNTER           = 0x6D, //
 	IC_POWER_FLAG                  = 0x72, //
 	IC_BUZZER                      = 0x73, //
 	IC_TEMP                        = 0x74, //
@@ -94,26 +90,19 @@ typedef enum {
 	IC_BUTTON_PLAY                 = 0xA4, //
 	IC_BUTTON_TRASH                = 0xA5, //
 	IC_BUTTON_SET                  = 0xA6, //
-	IC_AFPDLGOFF                   = 0xA7, // hmm it seems like dialog destroy after all
-	// and 0xA8 is perhaps dialog create.
+	IC_AFPDLGOFF                   = 0xA7, //
 	IC_BUTTON_DIAL                 = 0xA9, //
 	IC_BUTTON_DIAL_LEFT            = ( 1 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
 	IC_BUTTON_DIAL_RIGHT           = ( 2 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
-	IC_BUTTON_CARD_DOOR            = 0xAB, //
 	IC_BUTTON_UNK1                 = 0xAC, //
-	IC_BUTTON_POWER                = 0xAE, //
-	IC_BUTTON_BATTERY_DOOR         = 0xAF, //
 	IC_BUTTON_UP                   = 0xB1, //
 	IC_BUTTON_DOWN                 = 0xB2, //
 	IC_BUTTON_RIGHT                = 0xB3, //
 	IC_BUTTON_LEFT                 = 0xB4, //
-	IC_BUTTON_HALF_SHUTTER         = 0xB6, //
-	IC_BUTTON_FULL_SHUTTER         = 0xB7, //
 	IC_BUTTON_DP                   = 0xB8, //
 	IC_AFPDLGON                    = 0xB9, //
 	IC_BUTTON_DRIVE                = 0xBA, //
 	IC_BUTTON_AV                   = 0xBB, //
-	IC_BUTTON_UNK2                 = 0xBC, // calls TFT OFF, i cannot find which button is this
 	IC_MONOPEN                     = 0xC8, //
 	IC_MONCLOSE                    = 0xC9, //
 	IC_MONREAD                     = 0xCA, //
@@ -519,68 +508,3 @@ extern void intercom_proxy(const int handler, char *message);
 extern type_STATUS status;
 
 #endif /* MAIN_H_ */
-
-
-
-#if 0
-
-ChangeDprData (int what, int value);
-
-  2: red_eye
-  3: beep
-  4: auto_power_off
-  5: view_type
-  6: review_time
-  7: auto_rotate
-  8: lcd_brightness
-  9: file_numbering
- 10: language
- 11: video_system
- 12: ptp
- 13: picture_style_mode
- 14: histogram
- 15: color_space
- 16: forbid_rel
- 17: iso
- 18: metering
- 19: selected_af_mode
- 21: face_sensor_disable
- 23: drive
- 24: wb
- 26: color_temp
- 27: date_time
- 28: cfmenupos
- 29: cf_set_button_func
- 30: cf_nr_for_long_exposure
- 31: cf_efav_fix_x
- 32: cf_afael_active_button
- 33: cf_emit_aux
- 34: cf_explevel_inc_third
- 35: cf_mirror_up_lock
- 36: cf_flash_metering
- 37: cf_flash_sync_rear
- 38: cf_qr_magnify
- 39: field_188
- 40: cf_emit_flash
- 41: cf_extend_iso
- 42: cf_aeb_sequence
- 43: cf_si_indicate
- 44: cf_menu_pos
- 45: cf_fpsel_method
- 46: cf_safety_shift
- 47: cf_lens_button
- 55: efcomp
- 66: ae_bkt
- 90: usb_connect_type
- 91: menupos
-113: play_jump_type
-114: playback_file_id
-115: playback_file_id_pos
-138: field_18C
-156: wb_bkt
-157: wbcomp_gm
-158: wbcomp_ab
-
-#endif
-
-

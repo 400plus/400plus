@@ -4,56 +4,21 @@ VERSION = $(shell [[ -d .svn ]] && svn info | grep Revision | cut -d' ' -f2 || d
 # make release RELEASE=X    - to change the release number
 RELEASE = 0
 
-
-COMMON_FLAGS =\
-	-Wall                \
-	-Werror              \
-	-Wp,-MMD,$(dir $@).$(notdir $@).d \
-	-Wp,-MT,$@           \
-	-nostdlib            \
-	-fno-builtin         \
-	-mcpu=arm946e-s      \
-	-DVERSION=$(VERSION) \
-
-	#-mlong-calls \
-	#-fomit-frame-pointer \
-	#-fno-strict-aliasing \
-
-# check if this fixes the problems with FPA
-# i get those compiler misunderstanding sometimes, when i import new ASM code
-	#-mthumb-interwork \
-	#-msoft-float \
-
-# alex had issues with struct alignment (gcc-4.6.0, -Os) in ML
-# this fixes them, keep it here in case we need it
-         #-mstructure-size-boundary=32 \
-
-
 CC     = arm-elf-gcc
-CFLAGS+= $(COMMON_FLAGS)     \
-	-Os                  \
-         -Wno-implicit-function-declaration \
-
-	 #-fomit-frame-pointer \
-         #-fno-strict-aliasing \
-         #-Wno-unused-parameter \
-         #-Wno-unused-function \
-
+CFLAGS+= -nostdlib -march=armv5te -fno-builtin -DVERSION=$(VERSION) -Os
 
 AS      = arm-elf-as
-ASFLAGS = $(COMMON_FLAGS)
+ASFLAGS = 
 
-LDFLAGS = -Wl,-Ttext,$(ADDRESS) -e _start
-
+LDFLAGS = -Wl,-Ttext,$(ADDRESS)
 OBJCOPY = arm-elf-objcopy
 
-S_OBJS = entry.o          \
-         funclist.o       \
-         gui.o            \
-
+S_OBJS = entry.o      \
+         entry_subs.o \
+         gui.o        \
+         
 C_OBJS = init.o           \
          main.o           \
-	 mainctrl.o       \
          tasks.o          \
          languages.o      \
          utils.o          \
@@ -72,6 +37,7 @@ C_OBJS = init.o           \
          af_patterns.o    \
 
 OBJS   = $(S_OBJS) $(C_OBJS)
+DEPS   = $(C_OBJS:.o=.d)
 
 all: $(PROJECT).BIN
 
@@ -94,11 +60,13 @@ release: clean
 $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
 	rm -f $(PROJECT).arm.elf
-	@echo;echo;ls -l AUTOEXEC.BIN
 
 $(PROJECT).arm.elf: $(OBJS) link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^
 
+%.d: %.c
+	$(CC) $(CFLAGS) -MM -MT $@ $*.c -o $*.d
+	
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
@@ -106,8 +74,7 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 	$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJS) .*.o.d
+	rm -f $(OBJS) $(DEPS)
 	rm -f $(PROJECT).arm.elf
 
--include .*.d
-
+-include $(DEPS)

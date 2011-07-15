@@ -5,11 +5,6 @@
 
 #include "languages.h"
 
-/// @todo: languages will take too much space at some point, keep only lang_pack_current[][]
-//         and set only the english there. make the rest in files on the CF card and load them
-//         from there. if i understand it correctly, we have only 64kb for the hack.
-//         (see my_taskcreate_Startup())
-
 const char *lang_packs[LANG_COUNT][L_COUNT] = {
 	[LANG_ENGLISH] = {
 		[L_FREE_SPACE]    = "Free Space",
@@ -36,11 +31,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Developer",
 		[L_ENTER_FACTORY_MODE] = "Enter factory Mode",
 		[L_EXIT_FACTORY_MODE]  = "Exit  factory Mode",
-		[L_DEBUG_ON_POWERON]   = "Debug on PowerOn",
-		[L_LOGFILE]            = "Log File Mode",
-		[L_OVERWRITE]          = "Overwrite",
-		[L_NEW]                = "New",
-		[L_APPEND]             = "Append",
+		[L_START_DEBUG_MODE]   = "Start debug   Mode",
 
 		[L_SETTINGS]        = "Settings",
 		[L_DELAY]           = "Delay",
@@ -64,7 +55,6 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_USE_FLASH]       = "Disable flash",
 		[L_HANDWAVE]        = "Handwave",
 		[L_TIMER_SPACES]    = "Timer   ",
-		[L_IR_REMOTE_ENABLE]= "IR remote enable",
 		[L_IR_REMOTE_DELAY] = "IR remote delay",
 		[L_DEVELOPERS_MENU] = "Developers Menu",
 
@@ -113,6 +103,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Entwickler",
 		[L_ENTER_FACTORY_MODE] = "Betrete Werksmenü",
 		[L_EXIT_FACTORY_MODE]  = "Verlasse Werksmenü",
+		[L_START_DEBUG_MODE]   = "Debugmodus starten",
 
 		[L_SETTINGS]        = "Einstellungen",
 		[L_DELAY]           = "Verz.",
@@ -149,6 +140,80 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_MIRROR_LOCKUP]  = "Spiegelverriegel.",
 		[L_FLASH_2ND_CURT] = "Blitz 2. Vorhang",
 	},
+	[LANG_FRENCH] = {
+		[L_FREE_SPACE]    = "Esp. Libre",
+		[L_RELEASE_COUNT] = "Prises totales",
+		[L_OFF]           = "Eteint",
+		[L_YES]           = "Oui",
+		[L_NO]            = "Non",
+		[L_2S]            = "2s",
+		[L_ENABLED]       = "Activé",
+		[L_DISABLED]      = "Eteint",
+		[L_EXT_ONLY]      = "Ext seul",
+		[L_EXT_AEB]       = "Ext AEB",
+		[L_ONE_SHOT]      = "1 Photo",
+		[L_INTERVAL]      = "Interv.",
+		[L_NO_LIMIT]      = "Infini",
+
+		[L_RENAME]        = "Renommer",
+
+		[L_LOAD_PRESETS]  = "Charger style",
+		[L_SAVE_PRESETS]  = "Sauver style",
+
+		[L_PRESET_NAME]   = "Style",
+
+		[L_DEVELOPER]          = "Développer",
+		[L_ENTER_FACTORY_MODE] = "Entrer en Factory",
+		[L_EXIT_FACTORY_MODE]  = "Sortir du Factory",
+		[L_START_DEBUG_MODE]   = "Mode de débogage",
+
+		[L_SETTINGS]        = "Réglages",
+		[L_DELAY]           = " Délai     ",
+		[L_ACTION]          = " Action    ",
+		[L_REPEAT]          = " Répète    ",
+		[L_INSTANT]         = " Immédiat  ",
+		[L_FRAMES]          = " Photos    ",
+		[L_STEP_EV]         = " Ecart(EV) ",
+		[L_MANUAL_L]        = " Bulb min  ",
+		[L_MANUAL_R]        = " Bulb max  ",
+		[L_TIME_S]          = " Durée (s) ",
+		[L_EAEB]            = " EAEB      ",
+		[L_SHOTS]           = " Prises    ",
+		[L_AV_COMP]         = "AV compensation    ",
+		[L_FLASH_COMP]      = "Flash compensation ",
+		[L_AEB]             = "AEB                ",
+		[L_ISO_IN_VF]       = "ISO dans le viseur ",
+		[L_SHORTCUTS_MENU]  = "Menu rapide        ",
+		[L_SAFETY_SHIFT]    = "Safety Shift       ",
+		[L_COLOR_TEMP_K]    = "Temp. Couleur (K)  ",
+		[L_USE_FLASH]       = "Couper le flash    ",
+		[L_HANDWAVE]        = "Capteur",
+		[L_TIMER_SPACES]    = "Retard.",
+		[L_IR_REMOTE_DELAY] = "Délai télécommande ",
+		[L_DEVELOPERS_MENU] = "Menu développeurs",
+
+		[L_SCRIPTS_SPACES]  = "Scripts",
+		[L_DIM_LCD_DOWN]    = " LCD Doux  ",
+		[L_KEEP_POWER_ON]   = " APO Coupé ",
+
+		[L_SHORTCUTS]      = "Menu rapide",
+		[L_ISO]            = "ISO",
+		[L_EXTENDED_AEB]   = "AEB étendu",
+		[L_INTERVALOMETER] = "Intervallomètre",
+		[L_HAND_WAVING]    = "Capteur",
+		[L_SELF_TIMER]     = "Retardateur",
+		[L_AF_FLASH]       = "AF Flash",
+		[L_MIRROR_LOCKUP]  = "Miroir ouvert",
+		[L_FLASH_2ND_CURT] = "Flash 2éme rdx   ",
+
+		[L_PRESETS_SPACES]   = "Styles ",
+		[L_PRESETS_ADEP]     = " Btn A-DEP ",
+		[L_PRESETS_CAMERA]   = " Caméra    ",
+		[L_PRESETS_400PLUS]  = " 400plus   ",
+		[L_PRESETS_SETTINGS] = " Paramètre ",
+		[L_PRESETS_IMAGE]    = " Image     ",
+		[L_PRESETS_CFN]      = " Fn Perso. ",
+	},
 	[LANG_SPANISH] = {
 		[L_FREE_SPACE]    = "Esp. libre",
 		[L_RELEASE_COUNT] = "Disparos totales",
@@ -174,7 +239,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "Desarrolladores",
 		[L_ENTER_FACTORY_MODE] = "entrar modo fábrica",
 		[L_EXIT_FACTORY_MODE]  = "salir modo fábrica",
-		[L_DEBUG_ON_POWERON]   = "modo depuración",
+		[L_START_DEBUG_MODE]   = "modo depuración",
 
 		[L_SETTINGS]        = "ajustes",
 		[L_DELAY]           = "demora",
@@ -248,11 +313,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_DEVELOPER]          = "SVILUPPO",
 		[L_ENTER_FACTORY_MODE] = "Entra factory Mode",
 		[L_EXIT_FACTORY_MODE]  = "Esci  factory Mode",
-		[L_DEBUG_ON_POWERON]   = "Avvia modal. debug",
-		[L_LOGFILE]            = "Modalità File Log ",
-		[L_OVERWRITE]          = "Sovrasc.",
-		[L_NEW]                = "Nuovo",
-		[L_APPEND]             = "Aggiungi",
+		[L_START_DEBUG_MODE]   = "Avvia modal. debug",
 
 		[L_SETTINGS]        = "IMPOSTAZIONI 400D+",
 		[L_DELAY]           = "Ritardo",
@@ -264,7 +325,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_MANUAL_L]        = "Bulb min",
 		[L_MANUAL_R]        = "Bulb max",
 		[L_TIME_S]          = "Tempo(s)",
-		[L_EAEB]            = "AEB Est.",
+		[L_EAEB]            = "EAEB",
 		[L_SHOTS]           = "Scatti",
 		[L_AV_COMP]         = "Compensazione AV",
 		[L_FLASH_COMP]      = "Compensaz. Flash",
@@ -276,7 +337,6 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_USE_FLASH]       = "Disattiva Flash",
 		[L_HANDWAVE]        = "HandWave ",
 		[L_TIMER_SPACES]    = "Autoscat.",
-		[L_IR_REMOTE_ENABLE]= "Abilita com.IR",
 		[L_IR_REMOTE_DELAY] = "Ritardo com.IR",
 		[L_DEVELOPERS_MENU] = "Menu Sviluppatori",
 

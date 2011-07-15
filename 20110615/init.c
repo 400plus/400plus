@@ -117,8 +117,6 @@ usrRoot_failed:
 
 	reboot(1);
 
-
-	return 0;
 }
 
 void my_taskcreate_Startup() {
@@ -240,7 +238,7 @@ void my_task_Startup() {
 
 	RegisterISR_EMERGENCY_CARDDOOR();
 
-	my_MainCtrlInit();
+	MainCtrlInit();
 
 	CaptureSemaphoreInit();
 

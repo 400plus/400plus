@@ -36,6 +36,7 @@ type_ACTION actions_main[]  = {
 	{IC_BUTTON_DOWN,  TRUE,  FALSE,  {restore_wb}},
 	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
 	{IC_BUTTON_DP,    FALSE, TRUE,   {dp_action}},
+	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_raw_jpeg}},
 	END_OF_LIST
 };
 
@@ -256,9 +257,6 @@ pass_message:
 	IntercomHandler(handler, message);
 
 block_message:
-	// AF: who would free the message ?
-	// when IntercomHandler handles it, it could be freeing it...
-	// i should check what it does.
 	return;
 }
 
@@ -271,4 +269,3 @@ void task_dispatcher () {
 		task();
 	}
 }
-

@@ -16,20 +16,6 @@ void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
 
-	// Read settings from file
-	settings_read();
-
-	if (settings.debug_on_poweron)
-		start_debug_mode();
-
-	SleepTask(100);
-
-	// enable IR remote
-	// i'm not sure where to call this? perhaps this isnt the right place.
-	if (settings.remote_enable) {
-		eventproc_RemOn();
-	}
-
 	// Set current language
 	lang_pack_config();
 
@@ -40,11 +26,11 @@ void start_up() {
 	send_to_intercom(IC_SET_REALTIME_ISO_0, 0, 0);
 	send_to_intercom(IC_SET_REALTIME_ISO_1, 0, 0);
 
+	// Read settings from file
+	settings_read();
+
 	// Read presets from file
 	presets_read();
-
-	// turn off the blue led after it was lighten by our my_task_MainCtrl()
-	eventproc_EdLedOff();
 
 	// We are no longer booting up
 	status.booting = FALSE;
@@ -84,29 +70,9 @@ void set_iso_high() {
 }
 
 void toggle_raw_jpeg() {
-	switch (cameraMode->ae) {
-		case AE_MODE_P:
-		case AE_MODE_TV:
-		case AE_MODE_AV:
-		case AE_MODE_ADEP:
-		case AE_MODE_M:
-		case AE_MODE_AUTO:
-			switch (cameraMode->img_format & 0x03) {
-				case 0x01:
-					cameraMode->img_format = 0x02;
-					break;
-				case 0x02:
-					cameraMode->img_format = 0x03;
-					break;
-				case 0x03:
-				default:
-					cameraMode->img_format = 0x01;
-					break;
-			}
-			send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode->img_format);
-			break;
-		default:
-			break;
+	if (cameraMode->ae > 6) {
+		// Only for non-creative modes
+		send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode->img_format ^ 0x03);
 	}
 }
 
