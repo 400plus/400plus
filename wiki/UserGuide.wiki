@@ -202,12 +202,13 @@ To enter the Developers menu from the 400plus settings menu, scroll down to the 
 
 == Multi-language support ==
 
-Currently 400plus supports four (4) languages:
+Currently 400plus supports four (5) languages:
 
   * English
   * German
   * Spanish
   * Italian
+  * French
 
 The desire is to have 400plus be supported in as many languages as possible!  If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts.  Let us know by making a request via the forum!
 
