@@ -202,7 +202,7 @@ To enter the Developers menu from the 400plus settings menu, scroll down to the 
 
 == Multi-language support ==
 
-Currently 400plus supports four (5) languages:
+Currently 400plus supports five (5) languages:
 
   * English
   * German
