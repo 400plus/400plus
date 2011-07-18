@@ -202,7 +202,15 @@ Per entrare nel menu degli sviluppatori dal menu 400D+, andare giù sulla voce "
 
 == Supporto Multilingua ==
  
-Attualmente 400D+ è tradotto in quattro (4) lingue (Inglese, Tedesco, Spagnolo e Italiano). La conversione in altre lingue è possibile e caldeggiata. Se vuoi fornire assistenza per convertire 400D+ in un altra lingua, per favore fai richiesta nel forum!
+Attualmente 400D+ è tradotto in cinque (5) lingue:
+
+ * Francese
+ * Inglese
+ * Italiano
+ * Spagnolo
+ * Tedesco
+
+La conversione in altre lingue è possibile e caldeggiata. Se vuoi fornire assistenza per convertire 400D+ in un altra lingua, per favore fai richiesta nel forum!
 
 = Note =
 
