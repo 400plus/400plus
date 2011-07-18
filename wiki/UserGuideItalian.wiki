@@ -1,11 +1,10 @@
 #summary 400D+ User Guide in Italian / Manuale Utente 400D+.
 #labels Italian
 
-= Translation =
-
+== Translation ==
 Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63149#msg63149 ataru] updated and revised by Scrizza.
 
-= Manuale Utente 400D+ =
+= MANUALE UTENTE 400D+ =
 
 = Introduzione =
 
@@ -154,26 +153,25 @@ Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli st
 
 In fase di scatto, premere il tasto `ZOOM IN` per entrare nel menu "selezione punto AF" standard, quindi premere di nuovo il tasto `ZOOM IN` per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i vari pattern disponibili, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
 
-== Le chicche==
+= Le chicche e altre funzioni=
 
-Sono state aggiunte le seguenti _chicche_ alla fotocamera. 
+Sono state aggiunte le seguenti _chicche_ alla fotocamera assieme ad altre modifiche al comportamento della fotocamera, non descritti in precedenza.
 
-=== Nella zona di base ===
 
-Nella zona di base, il pulsante `AV` serve per commutare tra RAW e JPEG l’output dello scatto.
+== Nella zona AUTO ==
 
-=== Nella zona creativa ===
+Nella zona AUTO, il pulsante `JUMP` serve per commutare tra RAW e JPEG l’output dello scatto (rimane impostato anche dopo aver riavviato con una card senza 400D+). *<--NEW*
+
+== Nella zona creativa ==
 
 Nella zona creativa le _chicche_ attivabili sono i seguenti: 
+ * Il pulsante `JUMP` serve per commutare tra RAW e JPEG l’output dello scatto. *<--NEW*
  * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per impostare il valore di ISO 3200 (vedi [#Estensione_ISO Estensione ISO]). 
  * Nella finestra di selezione della modalità di misurazione, premere `DP` per impostare la misurazione spot (vedi [#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
  * Nella finestra di dialogo di selezione del bilanciamento bianco, premere `DP` per impostare la temperatura del colore definito dall'utente. 
 
-= Altri omaggi =
-
-Altre modifiche al comportamento della fotocamera, non descritti in precedenza.
-
 == Informazioni aggiuntive ==
+
 Nella schermata delle impostazioni della fotocamera (ci si arriva premendo `DISP` nel menu standard della fotocamera), l'ultima riga mostrerà le seguenti informazioni (al posto dello spazio libero nella scheda di memoria):
  * Il numero totale di scatti fatti dalla fotocamera.
  * La versione di 400D+ correntemente installata.
@@ -204,7 +202,7 @@ Per entrare nel menu degli sviluppatori dal menu 400D+, andare giù sulla voce "
  
 Attualmente 400D+ è tradotto in cinque (5) lingue:
 
- * Francese
+ * Francese  *<--NEW*
  * Inglese
  * Italiano
  * Spagnolo
