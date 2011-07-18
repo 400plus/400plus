@@ -21,7 +21,6 @@ Per accedere al menu delle impostazioni di 400D+, premere il tasto MENU (verrà 
 == Navigazione nel menu delle impostazioni ==
 
 Per navigare all'interno del menu delle impostazioni, utilizzare i tasti `SU` (`ISO`) e `GIU'` (`WB`) per spostarsi tra le voci. Quindi utilizzare il `SINISTRA` (`MISURAZIONE`) e `DESTRA` (`AF`) per cambiarne il valore (premere e tenere premuto questi tasti per cambiare più velocemente). Su alcune voci del menu, il tasto `AV` può essere utilizzato per cambiare (scorrere) i valori, o una parte di essi (come il segno + e -). 
-
 == Navigazione nel sotto-menu ==
 
 I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotellina frontale o i pulsanti `ZOOM IN` E `ZOOM OUT` per scorrere fino alla prossima o alla precedente voce secondaria, poi `SINISTRA` E `DESTRA` per modificare il valore (premere e tenere premuto per cambiare più velocemente) della voce selezionata. I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
@@ -119,7 +118,6 @@ Questo script aggiunge semplicemente una pausa configurabile prima di far scatta
 
 Una "Preselezione" è una immagine completa di tutte le preferenze di scatto e parametri di configurazione della fotocamera. Le preselezioni possono essere usate per preconfigurare la fotocamera in maniera specifica per una determinata situazione di scatto (e.g. "Panorama", "Ritratto", etc.), ed avere in seguito la possibilità di richiamare velocemente tale configurazione in fase di scatto.
 
-
 Si possono immagazzinare nella scheda di memoria fino a 9 preselezioni.
 Il numero di preselezioni è comunque pressoché illimitato, in quanto è possibile usare più schede di memoria, ognuna contenente 9 preselezioni.
 
@@ -151,7 +149,7 @@ Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli st
 
 = La selezione dell’AF-Pattern =
 
-In fase di scatto, premere il tasto `ZOOM IN` per entrare nel menu "selezione punto AF" standard, quindi premere di nuovo il tasto `ZOOM IN` per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i vari pattern disponibili, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo. 
+In fase di scatto, premere il tasto `ZOOM IN` per entrare nel menu "selezione punto AF" standard, quindi premere di nuovo il tasto `ZOOM IN` per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i vari pattern disponibili, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo (rimane impostato anche dopo aver riavviato con una card senza 400D+). 
 
 = Le chicche e altre funzioni=
 
