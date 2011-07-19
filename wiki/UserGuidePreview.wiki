@@ -17,7 +17,7 @@ This wiki page document will serve as the user guide for 400plus. It is assumed 
 
 == Accessing the settings menu ==
 
-To enter the 400plus settings menu, press the `MENU` button (this will display the _standard_ camera menu) and then press the `DP` (DIRECT PRINT) button.  The 400plus settings menu should now be displayed on the camera LCD. To exit the 400plus settings menu, just half-press the shutter release button.  NOTE: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
+To enter the 400plus settings menu, press the `MENU` button (this will display the _standard_ camera menu) and then press the `DP` (`DIRECT PRINT`) button.  The 400plus settings menu should now be displayed on the camera LCD. To exit the 400plus settings menu, just half-press the shutter release button.  *NOTE*: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
 
 == Navigating the settings menu ==
 
@@ -35,6 +35,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
  * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
  * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
  * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
+ * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote.  When set to No, this feature is disabled.
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
  * _*Shortcuts menu*_: When active (set to Yes), the shortcuts menu will be displayed when pressing the `DP` button from the main LCD dialog.  When not active (set to No), the `DP` button will change (roll) the ISO value to an intermediate setting.
@@ -73,7 +74,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
 
 To access the shortcuts menu, press the `DP` button from the main LCD dialog (only valid if the "Shortcuts menu" value is set to "Yes" from the 400plus settings menu).  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
 
- * _*Intermediate ISO*_: Roll through the intermediate ISO values. Values are 100 - 3200.
+ * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3200.
  * _*Extended AEB*_: Start the [#Extended_AEB Extended AEB] script.
  * _*Intervalometer*_: Start the [#Intervalometer Intervalometer] script.
  * _*Hand Waving*_: Start the [#Hand_Waving Hand Waving] script.
@@ -157,18 +158,18 @@ To use the additional AF-Pattern point selections during shooting, press the `ZO
 
 = The goodies =
 
-The following _goodies_ have been added to the camera.
+The following *_goodies_* have been added to the camera to enhance its capabilities.
 
 == In the basic zone ==
 
-In the _basic zone_, use the `Av` button to toggle between `RAW` and `JPEG` image quality.
+  * Use the `JUMP` button to toggle between image quality settings `JPEG`, `RAW`, and `JPEG+RAW`.  If a `JPEG` quality type is used, it will be based upon the selected `JPEG` quality type chosen using the standard camera "Image quality" menu setting (`JPEG-L`, `JPEG-M`, `JPEG-S`).  Both 'normal' and 'fine' `JPEG` quality settings are supported.
 
 == In the creative zone ==
 
-In the _creative zone_ the following goodies are available:
- * In the ISO selection dialog, press `DP` to set the ISO value to 3200 (see [#Extended_ISOs Notes / Extended ISOs]).
- * In the metering mode selection dialog, press `DP` to set spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
- * In the white balance selection dialog, press `DP` to set the user-defined kelvin temperature.
+  * Use the `JUMP` button to toggle between image quality settings (same as described above for _basic zone_).
+  * In the ISO selection dialog, press `DP` to set the ISO value to 3200 (see [#Extended_ISOs Notes / Extended ISOs]).
+  * In the Metering mode selection dialog, press `DP` to set Spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
+  * In the White balance selection dialog, press `DP` to set the user-defined white balance kelvin temperature.
 
 = Other freebies =
 
@@ -177,13 +178,13 @@ Other changes to the camera behavior, not described above.
 == Extended info ==
 
 On the "camera settings" screen (press the `DISP.` button from the _standard_ camera menu), the last info line now displays the following information (instead of the CF card's free space):
- * The total number of shots (actuations) made by this camera body.
- * The version number of the 400plus software currently installed.
- * The "BodyID" of the camera body (an internal number, unique to each camera).
+  * The total number of shots (actuations) made by this camera body.
+  * The version number of the 400plus software currently installed.
+  * The "BodyID" of the camera body (an internal number, unique to each camera).
 
 Use the `SET`, `LEFT` or `RIGHT` buttons to change which item to display.
 
-*NOTE that this feature is only available when the camera is in a creative zone mode (P, Tv, Av, M, A-DEP).
+*NOTE*: This feature is only available when the camera is in a creative zone mode (P, Tv, Av, M, A-DEP).
 
 == The nose affair ==
 
@@ -194,9 +195,11 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 *WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
 To enter the Developers menu from the 400plus settings menu, scroll down to the "Developers menu" selection and press the `SET` button.  The options available are:
- * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
- * _*Exit factory mode*_: Puts the camera back into "normal mode".
- * _*Start debug mode*_: The camera will store lots of debugging information to the CF card, in two (2) files named `STDOUT.TXT` and `STDERR.TXT`.
+  * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
+  * _*Exit factory mode*_: Puts the camera back into "normal mode".
+  * ~~_*Start debug mode*_: The camera will store lots of debugging information to the CF card, in two (2) files named `STDOUT.TXT` and `STDERR.TXT`.~~
+  * _*Debug on Power-On*_: (Yes, No): the camera will begin debug mode upon power-on and will log information to the CF card in developer specified log files.
+  * _*Log File Mode*_: (Overwrite, New, Append): Developer specified log files will either be: overwritten, created new each time, or appended to if existing already during debug logging.
 
 *NOTE*: After entering "factory mode", the "factory menu" will remain available until the camera is powered down.  Exiting the "factory mode" will not disable the "factory menu".
 
@@ -207,10 +210,10 @@ To enter the Developers menu from the 400plus settings menu, scroll down to the 
 Currently 400plus supports five (5) languages:
 
   * English
-  * German
-  * Spanish
-  * Italian
   * French
+  * German
+  * Italian
+  * Spanish
 
 The desire is to have 400plus be supported in as many languages as possible!  If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts.  Let us know by making a request via the forum!
 
