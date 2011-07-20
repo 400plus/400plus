@@ -66,6 +66,9 @@ char *info_display() {
 	case INFO_OPTION_BODY_ID:
 		sprintf(message, "<> Body ID     : %010lu", BodyID);
 		break;
+	case INFO_OPTION_BCLEVEL:
+		sprintf(message, "<> BCLevel: %d", cameraMode->batt_bclevel);
+		break;
 	default:
 		break;
 	}
