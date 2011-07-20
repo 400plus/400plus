@@ -13,7 +13,7 @@ type_MENUITEM menu_developer_items[] = {
 	MENUITEM_LAUNCH(LP_WORD(L_EXIT_FACTORY_MODE),  exit_factory_mode),
 	MENUITEM_BOOLEAN(LP_WORD(L_DEBUG_ON_POWERON),  &settings.debug_on_poweron, NULL),
 	MENUITEM_LOGFILE(LP_WORD(L_LOGFILE),           &settings.logfile_mode, NULL),
-	MENUITEM_LAUNCH("",                            NULL)
+	MENUITEM_BREAK("")
 };
 
 type_MENU menu_developer = {
