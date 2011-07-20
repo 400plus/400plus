@@ -61,6 +61,7 @@ void menu_print_char (const char *buffer, const char *name, const char *paramete
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
+int get_item_id(int item_id);
 int get_real_id(int item_id);
 
 void menu_create(type_MENU * menu) {
@@ -154,7 +155,7 @@ void menu_event(type_MENU_EVENT event) {
 
 void menu_display() {
 	int i;
-	int offset = current_item > current_line ? current_item - current_line : 0;
+	int offset = current_item - current_line;
 
 	char buffer[32];
 
@@ -169,7 +170,7 @@ void menu_display() {
 void menu_refresh() {
 	char buffer[32];
 
-	menu_message(buffer, current_item);
+	menu_message(buffer, get_item_id(current_item));
 	dialog_set_property_str(menu_handler, current_line + 1, buffer);
 	dialog_redraw(menu_handler);
 }
@@ -177,14 +178,12 @@ void menu_refresh() {
 void menu_up() {
 	int display = FALSE;
 
-	if (current_item != 0) {
-		current_item--;
+	current_item--;
 
-		if (item_grabbed) {
-			INT_SWAP(current_menu->ordering[current_item],
-					current_menu->ordering[current_item + 1]);
-			display = TRUE;
-		}
+	if (item_grabbed) {
+		INT_SWAP(current_menu->ordering[get_item_id(current_item)],
+				current_menu->ordering[get_item_id(current_item + 1)]);
+		display = TRUE;
 	}
 
 	if (current_line != 0)
@@ -199,14 +198,12 @@ void menu_up() {
 void menu_down() {
 	int display = FALSE;
 
-	if (current_item != current_menu->length - 1) {
 		current_item++;
 
-		if (item_grabbed) {
-			INT_SWAP(current_menu->ordering[current_item],
-					current_menu->ordering[current_item - 1]);
-			display = TRUE;
-		}
+	if (item_grabbed) {
+		INT_SWAP(current_menu->ordering[get_item_id(current_item)],
+				current_menu->ordering[get_item_id(current_item - 1)]);
+		display = TRUE;
 	}
 
 	if (current_line != 4)
@@ -426,7 +423,7 @@ void menu_message(const char *buffer, int item_id) {
 		sprintf(item_name, "%s", item->name);
 
 	if (current_menu->highlight || current_menu->reorder) {
-		if (current_menu->reorder && item_grabbed && item_id == current_item)
+		if (current_menu->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
 			sprintf(name, "%c%s", '>', item_name);
 		else if (current_menu->highlight && current_menu->highlighted_item == 1 + get_real_id(item_id))
 			sprintf(name, "%c%s", '*', item_name);
@@ -499,7 +496,17 @@ type_MENUITEM *get_item(int item_id) {
 
 int get_real_id(int item_id) {
 	if (current_menu->reorder)
-		return current_menu->ordering[item_id];
+		return current_menu->ordering[get_item_id(item_id)];
 	else
-		return item_id;
+		return get_item_id(item_id);
+}
+
+int get_item_id(int item_id) {
+	while (item_id < 0)
+		item_id += current_menu->length;
+
+	while (item_id > current_menu->length - 1)
+		item_id -= current_menu->length;
+
+	return item_id;
 }

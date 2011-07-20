@@ -154,6 +154,9 @@ OPTIONLIST_DEC(logfile)
 #define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
 #define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_,    1,     9,   2,   2, FALSE, "%1u", _ON_CHANGE_)
 
+#define MENUITEM_BREAK(_NAME_) MENUITEM_LAUNCH(_NAME_, NULL)
+
+
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
