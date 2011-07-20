@@ -4,10 +4,6 @@
 
 #include "utils.h"
 
-// Translation from ISO codes to text displayed
-const char iso_text[][5] = {" 100", " 125", " 160", " 200", " 250", " 320", " 400", " 500", " 640", " 800", "1000", "1250", "1600", "2000", "2500", "3200"};
-const int  iso_code[]    = {  0x48,   0x4C,   0x4E,   0x50,   0x53,   0x56,   0x58,   0x5C,   0x5D,   0x60,   0x64,   0x66,   0x68,   0x6C,   0x6D,   0x6F};
-
 int ev_normalize(int ev);
 
 int ev_sgn(int ev) {
@@ -194,16 +190,30 @@ int iso_dec(int iso) {
 	else                 return 0x48; //  100
 }
 
-const char *iso_display(int iso) {
-	int i;
+void iso_print(const char *string, int iso) {
+	int value = 100 * 1 << (((iso & 0x38) >> 3) - 1);
 
-	for (i = 0; i < LENGTH(iso_code); i++) {
-		if (iso_code[i] == iso) {
-			return iso_text[i];
-		}
+	switch (iso & 0x07) {
+	case 0x00:
+		break;
+	case 0x03:
+		value += 1 * value / 4; // 1/4 ~ 1/3
+		break;
+	case 0x04:
+		value += 2 * value / 4; // 2/4 = 1/2
+		break;
+	case 0x05:
+	case 0x06: // Is this code correct?
+		value += 3 * value / 4; // 3/4 ~ 2/3
+		break;
+	case 0x07:
+		value += 4 * value / 4; // 4/4 = 1
+		break;
+	default:
+		break;
 	}
 
-	return NULL;
+	sprintf(string, "%4d", value);
 }
 
 void beep() {

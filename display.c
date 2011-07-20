@@ -77,7 +77,10 @@ void display_refresh_flashcomp() {
 
 
 void display_refresh_iso() {
-	dialog_set_property_str(hMainDialog, 0x04, iso_display(cameraMode->iso));
+	char tmp[32];
+
+	iso_print(tmp, cameraMode->iso);
+	dialog_set_property_str(hMainDialog, 0x04, tmp);
 }
 
 void display_countdown_dialog_create() {

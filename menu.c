@@ -472,7 +472,10 @@ void menu_print_ev(const char *buffer, const char *name, int parameter) {
 }
 
 void menu_print_iso(const char *buffer, const char *name, int parameter) {
-	menu_print_char(buffer, name, iso_display(parameter));
+	char tmp[32];
+
+	iso_print(tmp, parameter);
+	menu_print_char(buffer, name, tmp);
 }
 
 void menu_print_int(const char *buffer, const char *name, int parameter, const char *format) {
