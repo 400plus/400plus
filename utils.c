@@ -108,25 +108,9 @@ int ev_normalize(int ev) {
 }
 
 int iso_roll(int iso) {
-	switch(iso) {
-	case 0x6F: return 0x68; // 3200-> 1600
-	case 0x6D: return 0x6F; // 2500-> 3200
-	case 0x6C: return 0x6D; // 2000-> 2500
-	case 0x68: return 0x6C; // 1600-> 2000
-	case 0x66: return 0x60; // 1250->  800
-	case 0x64: return 0x66; // 1000-> 1250
-	case 0x60: return 0x64; //  800-> 1000
-	case 0x5D: return 0x58; //  640->  400
-	case 0x5C: return 0x5D; //  500->  640
-	case 0x58: return 0x5C; //  400->  500
-	case 0x56: return 0x50; //  320->  200
-	case 0x53: return 0x56; //  250->  320
-	case 0x50: return 0x53; //  200->  250
-	case 0x4E: return 0x48; //  160->  100
-	case 0x4C: return 0x4E; //  125->  160
-	case 0x48: return 0x4C; //  100->  125
-	default  : return 0x48; //  100... just in case
-	}
+	iso = (iso & 0xF8) | ((iso + 1) & 0x07);
+
+	return MIN(iso, 0x70);
 }
 
 int iso_prev(int iso) {
@@ -190,30 +174,16 @@ int iso_dec(int iso) {
 	else                 return 0x48; //  100
 }
 
-void iso_print(const char *string, int iso) {
-	int value = 100 * 1 << (((iso & 0x38) >> 3) - 1);
+void iso_print(const char *string, int code) {
+	int iso;
 
-	switch (iso & 0x07) {
-	case 0x00:
-		break;
-	case 0x03:
-		value += 1 * value / 4; // 1/4 ~ 1/3
-		break;
-	case 0x04:
-		value += 2 * value / 4; // 2/4 = 1/2
-		break;
-	case 0x05:
-	case 0x06: // Is this code correct?
-		value += 3 * value / 4; // 3/4 ~ 2/3
-		break;
-	case 0x07:
-		value += 4 * value / 4; // 4/4 = 1
-		break;
-	default:
-		break;
-	}
+	int base = ((code & 0x38) >> 3) - 1;
+	int mult =  (code & 0x07);
 
-	sprintf(string, "%4d", value);
+	iso  = 100 * (1 << base);
+	iso += iso * mult / 8;
+
+	sprintf(string, "%d", iso);
 }
 
 void beep() {

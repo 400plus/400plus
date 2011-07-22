@@ -22,7 +22,7 @@ extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
 
-extern void iso_print(const char *string, int iso);
+extern void iso_print(const char *string, int code);
 
 extern void beep();
 

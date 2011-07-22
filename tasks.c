@@ -77,7 +77,7 @@ void set_whitebalance_colortemp() {
 
 void set_iso_high() {
 	press_button(IC_BUTTON_SET);
-	send_to_intercom(IC_SET_ISO, 2, 0x6F);
+	send_to_intercom(IC_SET_ISO, 2, 0x70);
 	print_icu_info();
 
 	beep();
@@ -119,26 +119,16 @@ void toggle_CfFlashSyncRear() {
 }
 
 void set_intermediate_iso() {
-	if (cameraMode->ae < 6)
+	if (cameraMode->ae < 6) {
 		send_to_intercom(IC_SET_ISO, 2, iso_roll(cameraMode->iso));
+		print_icu_info();
+	}
 }
 
 void restore_iso() {
-	int iso;
+	int iso = cameraMode->iso & 0xF8;
 
-	if (cameraMode->iso >= 0x68) {
-		iso = 0x68;
-	} else if (cameraMode->iso >= 0x60) {
-		iso = 0x60;
-	} else if (cameraMode->iso >= 0x58) {
-		iso = 0x58;
-	} else if (cameraMode->iso >= 0x50) {
-		iso = 0x50;
-	} else {
-		iso = 0x48;
-	}
-
-	send_to_intercom(IC_SET_ISO, 2, iso);
+	send_to_intercom(IC_SET_ISO, 2, MIN(iso, 0x68));
 }
 
 void restore_wb() {
