@@ -94,8 +94,10 @@ void my_MC_T_Button(mc_table_t * event) {
 			case GUIMODE_OLC:
 				ENQUEUE_TASK(toggle_raw_jpeg);
 				break;
+            default:
+				MC_T_Button(event);
+				break;
 		}
-		MC_T_Button(event);
 		break;
 
 	case MC_BUTTON_TRASH: // 162+3 = 165 // btn TRASH

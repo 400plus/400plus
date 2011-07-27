@@ -330,6 +330,11 @@ typedef struct {                 // [*] Used and tested, others unknown
 
 extern type_CAMERA_MODE *cameraMode;
 
+// Values for IMG_FORMAT
+#define IMG_FORMAT_JPGL        0x01
+#define IMG_FORMAT_RAW         0x02
+#define IMG_FORMAT_RAW_JPGL    0x03
+
 // [1] Values for "ae"
 #define AE_MODE_P    0
 #define AE_MODE_TV   1
