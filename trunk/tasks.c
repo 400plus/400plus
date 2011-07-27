@@ -84,30 +84,19 @@ void set_iso_high() {
 }
 
 void toggle_raw_jpeg() {
-	switch (cameraMode->ae) {
-		case AE_MODE_P:
-		case AE_MODE_TV:
-		case AE_MODE_AV:
-		case AE_MODE_ADEP:
-		case AE_MODE_M:
-		case AE_MODE_AUTO:
-			switch (cameraMode->img_format & 0x03) {
-				case 0x01:
-					cameraMode->img_format = 0x02;
-					break;
-				case 0x02:
-					cameraMode->img_format = 0x03;
-					break;
-				case 0x03:
-				default:
-					cameraMode->img_format = 0x01;
-					break;
-			}
-			send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode->img_format);
+	switch (cameraMode->img_format & 0x03) {
+		case 0x01:
+			cameraMode->img_format = IMG_FORMAT_RAW;
 			break;
+		case 0x02:
+			cameraMode->img_format = IMG_FORMAT_RAW_JPGL;
+			break;
+		case 0x03:
 		default:
+			cameraMode->img_format = IMG_FORMAT_JPGL;
 			break;
 	}
+	send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode->img_format);
 }
 
 void toggle_CfMLU() {
