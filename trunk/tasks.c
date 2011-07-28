@@ -51,15 +51,6 @@ void start_up() {
 	status.booting = FALSE;
 }
 
-void dp_action() {
-	if (settings.shortcuts_menu || cameraMode->ae >= AE_MODE_AUTO) {
-		menu_shortcuts_start();
-	} else {
-		set_intermediate_iso();
-		display_refresh();
-	}
-}
-
 void set_metering_spot() {
 	press_button(IC_BUTTON_SET);
 	send_to_intercom(IC_SET_METERING, 1, METERING_MODE_SPOT);
@@ -74,6 +65,14 @@ void set_whitebalance_colortemp() {
 	print_icu_info();
 
 	beep();
+}
+
+void set_intermediate_iso() {
+	if (cameraMode->ae < AE_MODE_AUTO) {
+		send_to_intercom(IC_SET_ISO, 2, iso_roll(cameraMode->iso));
+		print_icu_info();
+		display_refresh();
+	}
 }
 
 void toggle_img_format() {
@@ -101,13 +100,6 @@ void toggle_CfMLU() {
 
 void toggle_CfFlashSyncRear() {
 	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, cameraMode->cf_flash_sync_rear ^ 0x01);
-}
-
-void set_intermediate_iso() {
-	if (cameraMode->ae < 6) {
-		send_to_intercom(IC_SET_ISO, 2, iso_roll(cameraMode->iso));
-		print_icu_info();
-	}
 }
 
 void restore_iso() {

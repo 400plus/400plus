@@ -73,7 +73,6 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_IR_REMOTE_ENABLE),  &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &settings.iso_in_viewfinder,      NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_SHORTCUTS_MENU),    &settings.shortcuts_menu,         NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),     scripts_items),
 	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),           wave_items),
 	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),            eaeb_items),

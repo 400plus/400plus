@@ -7,6 +7,7 @@
 #include "menu.h"
 #include "menu_rename.h"
 #include "menu_settings.h"
+#include "menu_shortcuts.h"
 #include "presets.h"
 #include "tasks.h"
 #include "viewfinder.h"
@@ -35,7 +36,7 @@ type_ACTION actions_main[]  = {
 	{IC_BUTTON_UP,    TRUE,  FALSE,  {restore_iso}},
 	{IC_BUTTON_DOWN,  TRUE,  FALSE,  {restore_wb}},
 	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
-	{IC_BUTTON_DP,    FALSE, TRUE,   {dp_action}},
+	{IC_BUTTON_DP,    FALSE, TRUE,   {menu_shortcuts_start}},
 	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_img_format}},
 	END_OF_LIST
 };

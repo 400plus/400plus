@@ -13,6 +13,7 @@ extern void restore_iso();
 extern void restore_wb();
 extern void restore_metering();
 
+extern void set_intermediate_iso();
 extern void set_metering_spot();
 extern void set_whitebalance_colortemp();
 
