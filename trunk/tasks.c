@@ -196,9 +196,7 @@ void set_intermediate_iso() {
 }
 
 void restore_iso() {
-	int iso = cameraMode->iso & 0xF8;
-
-	send_to_intercom(IC_SET_ISO, 2, MIN(iso, 0x68));
+	send_to_intercom(IC_SET_ISO, 2, cameraMode->iso & 0xF8);
 }
 
 void restore_wb() {
