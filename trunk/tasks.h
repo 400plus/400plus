@@ -26,6 +26,5 @@ extern void restore_metering();
 
 extern void set_metering_spot();
 extern void set_whitebalance_colortemp();
-extern void set_iso_high();
 
 #endif /* TASKS_H_ */
