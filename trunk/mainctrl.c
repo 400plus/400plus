@@ -88,18 +88,6 @@ void my_MC_T_Button(mc_table_t * event) {
 		break;
 
 	case MC_BUTTON_JUMP: // 162+0 = 162 // btn JUMP
-		// work around fact i can't get it to work any other way
-		switch (FLAG_GUI_MODE) {
-			case GUIMODE_MAIN:
-			case GUIMODE_OLC:
-				ENQUEUE_TASK(toggle_img_setting);
-				break;
-            default:
-				MC_T_Button(event);
-				break;
-		}
-		break;
-
 	case MC_BUTTON_TRASH: // 162+3 = 165 // btn TRASH
 	case MC_BUTTON_UNK1: // 162+10= 172 // btn UNK1
 		//printf_log(1, 6, "AF: btn: %d, PF: %d,%d\n", event->sw, PowerFlag, (PowerFlag|1));

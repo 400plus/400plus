@@ -254,9 +254,9 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int histogram;               // 0x0068     [D]
 	int disp_afpoint;            // 0x006c
 	int color_space;             // 0x0070     [E]
-	int img_format;              // 0x0074 [*]
-	int img_size;                // 0x0078
-	int img_quality;             // 0x007c
+	int img_format;              // 0x0074 [*] [G]
+	int img_size;                // 0x0078 [*] [H]
+	int img_quality;             // 0x007c [*] [I]
 	int cfmenupos;               // 0x0080
 	int menupos;                 // 0x0084
 	int wbcomp_gm;               // 0x0088
@@ -330,27 +330,19 @@ typedef struct {                 // [*] Used and tested, others unknown
 
 extern type_CAMERA_MODE *cameraMode;
 
-// Values for IMG_FORMAT
-#define IMG_FORMAT_JPG        0x01
-#define IMG_FORMAT_RAW        0x02
-#define IMG_FORMAT_RAW_JPG    0x03
-
-// Values for IMG_QUALITY
-#define IMG_QUALITY_HIGH      0x00
-#define IMG_QUALITY_LOW       0x01
-
-// Values for IMG_SIZE
-#define IMG_SIZE_JPEG_L       0x00
-#define IMG_SIZE_JPEG_M       0x01
-#define IMG_SIZE_JPEG_S       0x02
-
 // [1] Values for "ae"
-#define AE_MODE_P    0
-#define AE_MODE_TV   1
-#define AE_MODE_AV   2
-#define AE_MODE_M    3
-#define AE_MODE_ADEP 5
-#define AE_MODE_AUTO 8
+#define AE_MODE_P         0x00
+#define AE_MODE_TV        0x01
+#define AE_MODE_AV        0x02
+#define AE_MODE_M         0x03
+#define AE_MODE_ADEP      0x05
+#define AE_MODE_AUTO      0x08
+#define AE_MODE_NIGHT     0x09
+#define AE_MODE_SPORTS    0x0A
+#define AE_MODE_PORTRAIT  0x0B
+#define AE_MODE_LANDSCAPE 0x0C
+#define AE_MODE_CLOSEUP   0x0D
+#define AE_MODE_FLASHOFF  0x0E
 
 // [2] Values for "metering"
 #define METERING_MODE_EVAL 0
@@ -420,6 +412,19 @@ extern type_CAMERA_MODE *cameraMode;
 // [F] Values for "tv_val"
 //     0x10 => 30", 0x18 => 15", ..., 0x90 => 1/4000
 #define TV_VAL_BULB 0x0C
+
+// [G] Values for "img_format"
+#define IMG_FORMAT_JPG   0x01
+#define IMG_FORMAT_RAW   0x02
+
+// [H] Values for "img_quality"
+#define IMG_QUALITY_HIGH 0x00
+#define IMG_QUALITY_LOW  0x01
+
+// [I] Values for "img_size"
+#define IMG_SIZE_L       0x00
+#define IMG_SIZE_M       0x01
+#define IMG_SIZE_S       0x02
 
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))

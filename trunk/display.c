@@ -15,7 +15,7 @@ static type_DIALOG *countdown_dialog = NULL;
 void restore_display() {
 	SleepTask(100);
 
-	if (cameraMode->ae < 6)
+	if (cameraMode->ae < AE_MODE_AUTO)
 		display_refresh();
 }
 
