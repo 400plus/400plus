@@ -92,7 +92,7 @@ void my_MC_T_Button(mc_table_t * event) {
 		switch (FLAG_GUI_MODE) {
 			case GUIMODE_MAIN:
 			case GUIMODE_OLC:
-				ENQUEUE_TASK(toggle_raw_jpeg);
+				ENQUEUE_TASK(toggle_img_setting);
 				break;
             default:
 				MC_T_Button(event);
