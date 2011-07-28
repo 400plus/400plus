@@ -46,6 +46,9 @@ void start_up() {
 	// turn off the blue led after it was lighten by our my_task_MainCtrl()
 	eventproc_EdLedOff();
 
+	// set img_setting
+	set_img_setting();
+
 	// We are no longer booting up
 	status.booting = FALSE;
 }
@@ -83,20 +86,105 @@ void set_iso_high() {
 	beep();
 }
 
-void toggle_raw_jpeg() {
-	switch (cameraMode->img_format & 0x03) {
-		case 0x01:
+void set_img_setting() {
+	cameraMode->img_setting = IMG_SETTING_RAW;
+
+	if (cameraMode->img_format == IMG_FORMAT_RAW) {
+		cameraMode->img_setting = IMG_SETTING_RAW;
+	} else if (cameraMode->img_format == IMG_FORMAT_RAW_JPG) {
+		cameraMode->img_setting = IMG_SETTING_RAW_JPEG_L;
+	} else if (cameraMode->img_format == IMG_FORMAT_JPG) {
+		switch (cameraMode->img_size) {
+			case IMG_SIZE_JPEG_L:
+				switch (cameraMode->img_quality) {
+					case IMG_QUALITY_HIGH:
+						cameraMode->img_setting = IMG_SETTING_JPEG_L_HIGH;
+						break;
+					case IMG_QUALITY_LOW:
+						cameraMode->img_setting = IMG_SETTING_JPEG_L_LOW;
+						break;
+				}
+				break;
+			case IMG_SIZE_JPEG_M:
+				switch (cameraMode->img_quality) {
+					case IMG_QUALITY_HIGH:
+						cameraMode->img_setting = IMG_SETTING_JPEG_M_HIGH;
+						break;
+					case IMG_QUALITY_LOW:
+						cameraMode->img_setting = IMG_SETTING_JPEG_M_LOW;
+						break;
+				}
+				break;
+			case IMG_SIZE_JPEG_S:
+				switch (cameraMode->img_quality) {
+					case IMG_QUALITY_HIGH:
+						cameraMode->img_setting = IMG_SETTING_JPEG_S_HIGH;
+						break;
+					case IMG_QUALITY_LOW:
+						cameraMode->img_setting = IMG_SETTING_JPEG_S_LOW;
+						break;
+				}
+				break;
+		}
+	}
+
+	toggle_img_setting();
+}
+
+void toggle_img_setting() {
+	switch (cameraMode->img_setting) {
+		case IMG_SETTING_RAW:
 			cameraMode->img_format = IMG_FORMAT_RAW;
+			cameraMode->img_quality = IMG_QUALITY_HIGH;
+			cameraMode->img_size = IMG_SIZE_JPEG_L;
+			cameraMode->img_setting = IMG_SETTING_RAW_JPEG_L;
 			break;
-		case 0x02:
-			cameraMode->img_format = IMG_FORMAT_RAW_JPGL;
+		case IMG_SETTING_RAW_JPEG_L:
+			cameraMode->img_format = IMG_FORMAT_RAW_JPG;
+			cameraMode->img_quality = IMG_QUALITY_HIGH;
+			cameraMode->img_size = IMG_SIZE_JPEG_L;
+			cameraMode->img_setting = IMG_SETTING_JPEG_L_HIGH;
 			break;
-		case 0x03:
-		default:
-			cameraMode->img_format = IMG_FORMAT_JPGL;
+		case IMG_SETTING_JPEG_L_HIGH:
+			cameraMode->img_format = IMG_FORMAT_JPG;
+			cameraMode->img_quality = IMG_QUALITY_HIGH;
+			cameraMode->img_size = IMG_SIZE_JPEG_L;
+			cameraMode->img_setting = IMG_SETTING_JPEG_L_LOW;
+			break;
+		case IMG_SETTING_JPEG_L_LOW:
+			cameraMode->img_format = IMG_FORMAT_JPG;
+			cameraMode->img_quality = IMG_QUALITY_LOW;
+			cameraMode->img_size = IMG_SIZE_JPEG_L;
+			cameraMode->img_setting = IMG_SETTING_JPEG_M_HIGH;
+			break;
+		case IMG_SETTING_JPEG_M_HIGH:
+			cameraMode->img_format = IMG_FORMAT_JPG;
+			cameraMode->img_quality = IMG_QUALITY_HIGH;
+			cameraMode->img_size = IMG_SIZE_JPEG_M;
+			cameraMode->img_setting = IMG_SETTING_JPEG_M_LOW;
+			break;
+		case IMG_SETTING_JPEG_M_LOW:
+			cameraMode->img_format = IMG_FORMAT_JPG;
+			cameraMode->img_quality = IMG_QUALITY_LOW;
+			cameraMode->img_size = IMG_SIZE_JPEG_M;
+			cameraMode->img_setting = IMG_SETTING_JPEG_S_HIGH;
+			break;
+		case IMG_SETTING_JPEG_S_HIGH:
+			cameraMode->img_format = IMG_FORMAT_JPG;
+			cameraMode->img_quality = IMG_QUALITY_HIGH;
+			cameraMode->img_size = IMG_SIZE_JPEG_S;
+			cameraMode->img_setting = IMG_SETTING_JPEG_S_LOW;
+			break;
+		case IMG_SETTING_JPEG_S_LOW:
+			cameraMode->img_format = IMG_FORMAT_JPG;
+			cameraMode->img_quality = IMG_QUALITY_LOW;
+			cameraMode->img_size = IMG_SIZE_JPEG_S;
+			cameraMode->img_setting = IMG_SETTING_RAW;
 			break;
 	}
 	send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode->img_format);
+	send_to_intercom(IC_SET_IMG_QUALITY, 1, cameraMode->img_quality);
+	send_to_intercom(IC_SET_IMG_SIZE, 1, cameraMode->img_size);
 }
 
 void toggle_CfMLU() {

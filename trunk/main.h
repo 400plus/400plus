@@ -331,9 +331,18 @@ typedef struct {                 // [*] Used and tested, others unknown
 extern type_CAMERA_MODE *cameraMode;
 
 // Values for IMG_FORMAT
-#define IMG_FORMAT_JPGL        0x01
-#define IMG_FORMAT_RAW         0x02
-#define IMG_FORMAT_RAW_JPGL    0x03
+#define IMG_FORMAT_JPG        0x01
+#define IMG_FORMAT_RAW        0x02
+#define IMG_FORMAT_RAW_JPG    0x03
+
+// Values for IMG_QUALITY
+#define IMG_QUALITY_HIGH      0x00
+#define IMG_QUALITY_LOW       0x01
+
+// Values for IMG_SIZE
+#define IMG_SIZE_JPEG_L       0x00
+#define IMG_SIZE_JPEG_M       0x01
+#define IMG_SIZE_JPEG_S       0x02
 
 // [1] Values for "ae"
 #define AE_MODE_P    0
