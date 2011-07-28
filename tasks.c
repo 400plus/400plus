@@ -79,14 +79,6 @@ void set_whitebalance_colortemp() {
 	beep();
 }
 
-void set_iso_high() {
-	press_button(IC_BUTTON_SET);
-	send_to_intercom(IC_SET_ISO, 2, 0x70);
-	print_icu_info();
-
-	beep();
-}
-
 void set_img_setting() {
 	img_setting = IMG_SETTING_RAW;
 
