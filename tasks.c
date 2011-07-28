@@ -11,6 +11,7 @@
 #include "tasks.h"
 
 void set_intermediate_iso();
+int img_setting;
 
 void start_up() {
 	// Wait for camera to settle down
@@ -87,41 +88,41 @@ void set_iso_high() {
 }
 
 void set_img_setting() {
-	cameraMode->img_setting = IMG_SETTING_RAW;
+	img_setting = IMG_SETTING_RAW;
 
 	if (cameraMode->img_format == IMG_FORMAT_RAW) {
-		cameraMode->img_setting = IMG_SETTING_RAW;
+		img_setting = IMG_SETTING_RAW;
 	} else if (cameraMode->img_format == IMG_FORMAT_RAW_JPG) {
-		cameraMode->img_setting = IMG_SETTING_RAW_JPEG_L;
+		img_setting = IMG_SETTING_RAW_JPEG_L;
 	} else if (cameraMode->img_format == IMG_FORMAT_JPG) {
 		switch (cameraMode->img_size) {
 			case IMG_SIZE_JPEG_L:
 				switch (cameraMode->img_quality) {
 					case IMG_QUALITY_HIGH:
-						cameraMode->img_setting = IMG_SETTING_JPEG_L_HIGH;
+						img_setting = IMG_SETTING_JPEG_L_HIGH;
 						break;
 					case IMG_QUALITY_LOW:
-						cameraMode->img_setting = IMG_SETTING_JPEG_L_LOW;
+						img_setting = IMG_SETTING_JPEG_L_LOW;
 						break;
 				}
 				break;
 			case IMG_SIZE_JPEG_M:
 				switch (cameraMode->img_quality) {
 					case IMG_QUALITY_HIGH:
-						cameraMode->img_setting = IMG_SETTING_JPEG_M_HIGH;
+						img_setting = IMG_SETTING_JPEG_M_HIGH;
 						break;
 					case IMG_QUALITY_LOW:
-						cameraMode->img_setting = IMG_SETTING_JPEG_M_LOW;
+						img_setting = IMG_SETTING_JPEG_M_LOW;
 						break;
 				}
 				break;
 			case IMG_SIZE_JPEG_S:
 				switch (cameraMode->img_quality) {
 					case IMG_QUALITY_HIGH:
-						cameraMode->img_setting = IMG_SETTING_JPEG_S_HIGH;
+						img_setting = IMG_SETTING_JPEG_S_HIGH;
 						break;
 					case IMG_QUALITY_LOW:
-						cameraMode->img_setting = IMG_SETTING_JPEG_S_LOW;
+						img_setting = IMG_SETTING_JPEG_S_LOW;
 						break;
 				}
 				break;
@@ -132,54 +133,54 @@ void set_img_setting() {
 }
 
 void toggle_img_setting() {
-	switch (cameraMode->img_setting) {
+	switch (img_setting) {
 		case IMG_SETTING_RAW:
 			cameraMode->img_format = IMG_FORMAT_RAW;
 			cameraMode->img_quality = IMG_QUALITY_HIGH;
 			cameraMode->img_size = IMG_SIZE_JPEG_L;
-			cameraMode->img_setting = IMG_SETTING_RAW_JPEG_L;
+			img_setting = IMG_SETTING_RAW_JPEG_L;
 			break;
 		case IMG_SETTING_RAW_JPEG_L:
 			cameraMode->img_format = IMG_FORMAT_RAW_JPG;
 			cameraMode->img_quality = IMG_QUALITY_HIGH;
 			cameraMode->img_size = IMG_SIZE_JPEG_L;
-			cameraMode->img_setting = IMG_SETTING_JPEG_L_HIGH;
+			img_setting = IMG_SETTING_JPEG_L_HIGH;
 			break;
 		case IMG_SETTING_JPEG_L_HIGH:
 			cameraMode->img_format = IMG_FORMAT_JPG;
 			cameraMode->img_quality = IMG_QUALITY_HIGH;
 			cameraMode->img_size = IMG_SIZE_JPEG_L;
-			cameraMode->img_setting = IMG_SETTING_JPEG_L_LOW;
+			img_setting = IMG_SETTING_JPEG_L_LOW;
 			break;
 		case IMG_SETTING_JPEG_L_LOW:
 			cameraMode->img_format = IMG_FORMAT_JPG;
 			cameraMode->img_quality = IMG_QUALITY_LOW;
 			cameraMode->img_size = IMG_SIZE_JPEG_L;
-			cameraMode->img_setting = IMG_SETTING_JPEG_M_HIGH;
+			img_setting = IMG_SETTING_JPEG_M_HIGH;
 			break;
 		case IMG_SETTING_JPEG_M_HIGH:
 			cameraMode->img_format = IMG_FORMAT_JPG;
 			cameraMode->img_quality = IMG_QUALITY_HIGH;
 			cameraMode->img_size = IMG_SIZE_JPEG_M;
-			cameraMode->img_setting = IMG_SETTING_JPEG_M_LOW;
+			img_setting = IMG_SETTING_JPEG_M_LOW;
 			break;
 		case IMG_SETTING_JPEG_M_LOW:
 			cameraMode->img_format = IMG_FORMAT_JPG;
 			cameraMode->img_quality = IMG_QUALITY_LOW;
 			cameraMode->img_size = IMG_SIZE_JPEG_M;
-			cameraMode->img_setting = IMG_SETTING_JPEG_S_HIGH;
+			img_setting = IMG_SETTING_JPEG_S_HIGH;
 			break;
 		case IMG_SETTING_JPEG_S_HIGH:
 			cameraMode->img_format = IMG_FORMAT_JPG;
 			cameraMode->img_quality = IMG_QUALITY_HIGH;
 			cameraMode->img_size = IMG_SIZE_JPEG_S;
-			cameraMode->img_setting = IMG_SETTING_JPEG_S_LOW;
+			img_setting = IMG_SETTING_JPEG_S_LOW;
 			break;
 		case IMG_SETTING_JPEG_S_LOW:
 			cameraMode->img_format = IMG_FORMAT_JPG;
 			cameraMode->img_quality = IMG_QUALITY_LOW;
 			cameraMode->img_size = IMG_SIZE_JPEG_S;
-			cameraMode->img_setting = IMG_SETTING_RAW;
+			img_setting = IMG_SETTING_RAW;
 			break;
 	}
 	send_to_intercom(IC_SET_IMG_FORMAT, 1, cameraMode->img_format);
