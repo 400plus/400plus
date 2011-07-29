@@ -76,7 +76,9 @@ void set_intermediate_iso() {
 }
 
 void toggle_img_format() {
-	if (cameraMode->ae >= AE_MODE_AUTO) {
+	static int first_call = TRUE;
+
+	if (!first_call && cameraMode->ae >= AE_MODE_AUTO) {
 		switch(cameraMode->img_format) {
 		case IMG_FORMAT_JPG:
 			send_to_intercom(IC_SET_IMG_FORMAT, 1, IMG_FORMAT_RAW);
@@ -92,6 +94,8 @@ void toggle_img_format() {
 		send_to_intercom(IC_SET_IMG_QUALITY, 1, IMG_QUALITY_HIGH);
 		send_to_intercom(IC_SET_IMG_SIZE,    1, IMG_SIZE_L);
 	}
+
+	first_call = FALSE;
 }
 
 void toggle_CfMLU() {
