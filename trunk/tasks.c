@@ -7,6 +7,8 @@
 #include "presets.h"
 #include "settings.h"
 #include "utils.h"
+#include "debug.h"
+#include "memspy.h"
 
 #include "tasks.h"
 
@@ -24,6 +26,11 @@ void start_up() {
 		start_debug_mode();
 
 	SleepTask(100);
+
+#ifdef MEMSPY
+	debug_log("starting memspy task");
+	CreateTask("memspy", 0x1e, 0x1000, memspy_task, 0);
+#endif
 
 	// enable IR remote
 	// i'm not sure where to call this? perhaps this isnt the right place.
