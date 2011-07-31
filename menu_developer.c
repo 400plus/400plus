@@ -23,6 +23,7 @@ type_MENU menu_developer = {
 	reorder     : FALSE,
 	tasks       : {
 		[MENU_EVENT_DP] = menu_settings_start,
+		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE] = menu_settings_save,
 	}
 };

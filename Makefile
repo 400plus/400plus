@@ -57,6 +57,7 @@ C_OBJS = init.o           \
          tasks.o          \
          languages.o      \
          utils.o          \
+	 memspy.o         \
          menu.o           \
          menu_presets.o   \
          menu_rename.o    \

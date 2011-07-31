@@ -20,6 +20,9 @@ extern void *DPData; // CameraMode
 
 extern int logMsg(char *, ...);
 
+// Memory management
+extern void * AllocateMemory( unsigned int len );
+
 // LED management
 
 extern long eventproc_EdLedOn(void);
