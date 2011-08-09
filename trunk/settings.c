@@ -1,6 +1,8 @@
 #include "main.h"
 #include "firmware.h"
 
+#include "utils.h"
+
 #include "settings.h"
 
 type_SETTINGS settings = {
@@ -80,8 +82,8 @@ extern void settings_apply() {
 	}
 
 	if (settings.remote_enable) {
-		eventproc_RemOn();
+		remote_on();
 	} else {
-		eventproc_RemOff();
+		remote_off();
 	}
 }

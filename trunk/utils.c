@@ -248,6 +248,20 @@ int press_button(int button) {
 	return result;
 }
 
+int remote_on() {
+	int result = eventproc_RemOn();
+	SleepTask(EVENT_WAIT);
+
+	return result;
+}
+
+int remote_off() {
+	int result = eventproc_RemOff();
+	SleepTask(EVENT_WAIT);
+
+	return result;
+}
+
 void led_flash(int duration) {
 	eventproc_EdLedOn();
 	SleepTask(EVENT_WAIT);
