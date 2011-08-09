@@ -34,6 +34,10 @@ extern int  send_to_intercom(int message, int length, int parm);
 extern int  shutter_release();
 extern int  print_icu_info();
 extern int  press_button(int button);
+
+extern int remote_on();
+extern int remote_off();
+
 extern void led_flash(int delay);
 
 #endif /* UTILS_H_ */

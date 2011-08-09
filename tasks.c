@@ -35,7 +35,7 @@ void start_up() {
 	// enable IR remote
 	// i'm not sure where to call this? perhaps this isnt the right place.
 	if (settings.remote_enable) {
-		eventproc_RemOn();
+		remote_on();
 	}
 
 	// Set current language

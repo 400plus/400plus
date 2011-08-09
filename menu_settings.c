@@ -141,9 +141,9 @@ void menu_settings_apply_cf_safety_shift(type_MENUITEM *item) {
 
 void menu_settings_apply_remote_enable(type_MENUITEM *item) {
 	if(*item->parm.menuitem_enum.value){
-		eventproc_RemOn();
+		remote_on();
 	} else {
-		eventproc_RemOff();
+		remote_off();
 	}
 }
 void menu_settings_apply_remote_delay(type_MENUITEM *item) {

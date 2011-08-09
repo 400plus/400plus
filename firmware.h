@@ -178,6 +178,7 @@ extern int *hRelSem;	// semaphore handle, used for Camera Busy Flag too
 extern char aRelSem[];   // semaphore name
 
 // Remote shutter stuff -- this variables can help us detect any remote (may be)
+
 extern int RemPulseWidthMin;
 extern int RemPulseWidthMax;
 extern int RemPulseDiffMin;
@@ -187,7 +188,11 @@ extern int RemReleaseInstMax;
 extern int RemReleaseSelfMin;
 extern int RemReleaseSelfMax;
 
+extern int eventproc_RemOn();
+extern int eventproc_RemOff();
+
 // Language
+
 extern void GetLanguageStr(int lang_id, char * lang_str);
 
 // MainCtrl
