@@ -86,8 +86,10 @@ typedef enum {
 	IC_BUZZER                      = 0x73, //
 	IC_TEMP                        = 0x74, //
 	IC_TIMERCOUNTER                = 0x8C, //
-	IC_MAIN_DIAL                   = 0x90, //
-	IC_SETTINGS                    = 0x93, //
+	IC_SETTINGS_0                  = 0x90, //
+	IC_SETTINGS_1                  = 0x91, //
+	IC_SETTINGS_2                  = 0x92, //
+	IC_SETTINGS_3                  = 0x93, //
 	IC_BUTTON_MENU                 = 0xA0, //
 	IC_BUTTON_DISP                 = 0xA1, //
 	IC_BUTTON_JUMP                 = 0xA2, //

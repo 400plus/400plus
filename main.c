@@ -150,13 +150,15 @@ void intercom_proxy(const int handler, char *message) {
 
 	// Status-independent events and special cases
 	switch (event) {
-	case IC_MAIN_DIAL: // Mode dial moved
-		// Ignore first AE change after loading a preset, as it generates this same event
+	case IC_SETTINGS_0: // Settings changed (begin of sequence)
 		if (status.ignore_ae_change) {
+			// Ignore first AE change after loading a preset, as it generates this same event
 			status.ignore_ae_change = FALSE;
 		} else {
+			// Handle preset recall when dial moved to A-DEP
 			status.last_preset  = FALSE;
 			status.main_dial_ae = param;
+
 			if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
 				if (status.booting) {
 					ENQUEUE_TASK(preset_recall);
@@ -165,8 +167,8 @@ void intercom_proxy(const int handler, char *message) {
 				}
 			}
 		}
-		goto pass_message;
-	case IC_SETTINGS: // Settings changed
+
+	case IC_SETTINGS_3: // Settings changed (end of sequence)
 		// Restore display
 		ENQUEUE_TASK(restore_display);
 		goto pass_message;
