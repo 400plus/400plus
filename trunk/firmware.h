@@ -57,6 +57,7 @@ extern int read(int fd, void *buffer, long nbytes);
 extern int write(int fd, void *buffer, long nbytes);
 extern int close(int fd);
 
+extern int printf(const char *format, ...);
 extern int printErr(const char *, ...);
 extern int printf_log(int, int, const char *, ...);
 
@@ -164,6 +165,8 @@ extern int sub_FF837FA8(type_DIALOG *dialog, const int code, const char *text);
 extern int InfoCreativeAppProc(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
+
+extern int PaletteChange(int color);
 
 // Factory mode and debugging
 
