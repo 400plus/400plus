@@ -229,7 +229,7 @@ typedef enum {
 typedef struct {                 // [*] Used and tested, others unknown
 	int ae;                      // 0x0000 [*] [1]
 	int metering;                // 0x0004 [*] [2]
-	int efcomp;                  // 0x0008 [*]
+	int efcomp;                  // 0x0008 [*] [K]
 	int drive;                   // 0x000c     [3]
 	int wb;                      // 0x0010 [*] [4]
 	int af;                      // 0x0014
@@ -237,7 +237,7 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int tv_val;                  // 0x001c [*] [F]
 	int av_val;                  // 0x0020
 	int av_comp;                 // 0x0024 [*]
-	int iso;                     // 0x0028 [*]
+	int iso;                     // 0x0028 [*] [J]
 	int red_eye;                 // 0x002c
 	int ae_bkt;                  // 0x0030 [*]
 	int wb_bkt;                  // 0x0034
@@ -427,6 +427,20 @@ extern type_CAMERA_MODE *cameraMode;
 #define IMG_SIZE_L       0x00
 #define IMG_SIZE_M       0x01
 #define IMG_SIZE_S       0x02
+
+// [J] ISO encoding
+// Value xxyy.yzzz means:
+//    xx = 01 always
+//   yyy = Base ISO: 001 => 100, 010 => 200, 011 => 400, ...
+//   zzz = Int. ISO: 000 => BaseISO, 001 => BaseISO + 1/8EV, 010 => BaseISO + 2/8EV, ...
+
+// [K] EV encoding
+// Value xyyy.yzzz means:
+//      x = Sign: 0 => + , 1 => - (use two's complement for y and z)
+//   yyyy = Base value: 0000 => 0EV, 0001 => 1EV, ...
+//    yyy = Int. value: 000 => BaseEV, 011 => BaseEV + 1/3EV, 100 => BaseEV + 1/2EV, 101 => BaseEv + 2/3EV [*]
+// [*]: Could this be like [J], so 011 => BaseEV + 3/8EV , 100 => BaseEV + 4/8EV, 101 => BaseEv + 5/8EV?
+//      Could we have eight intermediate EV's, instead of three?
 
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
