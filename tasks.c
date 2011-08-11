@@ -128,19 +128,17 @@ void restore_metering() {
 }
 
 void autoiso() {
+	int miniso = ((MIN(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
+	int maxiso = ((MAX(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
+
 	int mintv = ((settings.autoiso_mintv - 5) << 3) + 0x10;
 
 	switch(cameraMode->ae) {
 	case AE_MODE_AV:
-		if (status.measured_tv < mintv - 5 && cameraMode->iso < 0x68) {
+		if (status.measured_tv < mintv - 5 && cameraMode->iso < maxiso)
 			send_to_intercom(IC_SET_ISO, 2, iso_inc(cameraMode->iso));
-			print_icu_info();
-			display_refresh();
-		} else if (status.measured_tv - 0x08 > mintv - 5 && cameraMode->iso > 0x48) {
+		else if (status.measured_tv - 0x08 > mintv - 5 && cameraMode->iso > miniso)
 			send_to_intercom(IC_SET_ISO, 2, iso_dec(cameraMode->iso));
-			print_icu_info();
-			display_refresh();
-		}
 	default:
 		break;
 	}
