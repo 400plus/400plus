@@ -10,6 +10,7 @@
 #include "menu_shortcuts.h"
 #include "presets.h"
 #include "tasks.h"
+#include "utils.h"
 #include "viewfinder.h"
 
 #include "main.h"
@@ -191,10 +192,18 @@ void intercom_proxy(const int handler, char *message) {
 		holds = FALSE;
 		break;
 	case IC_BUTTON_DP: // DP Button while a script is running
+		// TODO: Use a special status and take this out of here
 		if (status.script_running) {
 			status.script_running = FALSE;
 			goto block_message;
 		}
+		break;
+	case IC_MEASUREMENT:
+		// TODO: Generalize this
+		status.measured_tv = message[2];
+		status.measured_av = message[3];
+		if (settings.autoiso_enable)
+			ENQUEUE_TASK(autoiso);
 		break;
 	}
 

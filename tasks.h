@@ -17,4 +17,6 @@ extern void set_intermediate_iso();
 extern void set_metering_spot();
 extern void set_whitebalance_colortemp();
 
+extern void autoiso();
+
 #endif /* TASKS_H_ */
