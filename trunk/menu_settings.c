@@ -22,6 +22,11 @@ void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
 void menu_settings_apply_remote_enable   (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
 
+type_MENUITEM autoiso_items[] = {
+	MENUITEM_BOOLEAN(LP_WORD(L_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
+	MENUITEM_SHUTTER(LP_WORD(L_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL), // TODO: Use a shutter-speed list with only real values
+};
+
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_DIM_LCD_DOWN),  &settings.dim_lcd_down,  NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_KEEP_POWER_ON), &settings.keep_power_on, NULL)
@@ -73,6 +78,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_IR_REMOTE_ENABLE),  &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &settings.iso_in_viewfinder,      NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_AUTOISO),            autoiso_items),
 	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),     scripts_items),
 	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),           wave_items),
 	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),            eaeb_items),

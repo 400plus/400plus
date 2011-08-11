@@ -126,3 +126,22 @@ void restore_metering() {
 	if (cameraMode->metering == METERING_MODE_SPOT)
 		send_to_intercom(IC_SET_METERING, 1, METERING_MODE_EVAL);
 }
+
+void autoiso() {
+	int mintv = ((settings.autoiso_mintv - 5) << 3) + 0x10;
+
+	switch(cameraMode->ae) {
+	case AE_MODE_AV:
+		if (status.measured_tv < mintv - 5 && cameraMode->iso < 0x68) {
+			send_to_intercom(IC_SET_ISO, 2, iso_inc(cameraMode->iso));
+			print_icu_info();
+			display_refresh();
+		} else if (status.measured_tv - 0x08 > mintv - 5 && cameraMode->iso > 0x48) {
+			send_to_intercom(IC_SET_ISO, 2, iso_dec(cameraMode->iso));
+			print_icu_info();
+			display_refresh();
+		}
+	default:
+		break;
+	}
+}

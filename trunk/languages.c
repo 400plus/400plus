@@ -89,6 +89,9 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_PRESETS_SETTINGS] = "Settings",
 		[L_PRESETS_IMAGE]    = "Image",
 		[L_PRESETS_CFN]      = "Custom Fn",
+		[L_AUTOISO]          = "AutoISO ",
+		[L_AUTOISO_ENABLE]   = "Enable",
+		[L_AUTOISO_MINTV]    = "Min Tv",
 	},
 	[LANG_GERMAN] = {
 		[L_FREE_SPACE]    = "CF-Card frei",

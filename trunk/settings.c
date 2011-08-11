@@ -7,6 +7,8 @@
 
 type_SETTINGS settings = {
 	iso_in_viewfinder: FALSE,
+	autoiso_enable   : FALSE,
+	autoiso_mintv    : 16,
 	eaeb_frames      : 3,
 	eaeb_delay       : FALSE,
 	eaeb_ev          : 0x08,
