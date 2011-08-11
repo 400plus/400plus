@@ -134,6 +134,7 @@ void autoiso() {
 	int mintv = ((settings.autoiso_mintv - 5) << 3) + 0x10;
 
 	switch(cameraMode->ae) {
+	case AE_MODE_P:
 	case AE_MODE_AV:
 		if (status.measured_tv < mintv - 5 && cameraMode->iso < maxiso)
 			send_to_intercom(IC_SET_ISO, 2, iso_inc(cameraMode->iso));
