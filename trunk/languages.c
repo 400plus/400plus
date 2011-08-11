@@ -91,6 +91,8 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_PRESETS_CFN]      = "Custom Fn",
 		[L_AUTOISO]          = "AutoISO ",
 		[L_AUTOISO_ENABLE]   = "Enable",
+		[L_AUTOISO_MINISO]   = "Min ISO",
+		[L_AUTOISO_MAXISO]   = "Max ISO",
 		[L_AUTOISO_MINTV]    = "Min Tv",
 	},
 	[LANG_GERMAN] = {
