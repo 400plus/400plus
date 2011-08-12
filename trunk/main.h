@@ -85,6 +85,7 @@ typedef enum {
 	IC_POWER_FLAG                  = 0x72, //
 	IC_BUZZER                      = 0x73, //
 	IC_TEMP                        = 0x74, //
+	IC_MEASURING                   = 0x80, //
 	IC_MEASUREMENT                 = 0x81, //
 	IC_TIMERCOUNTER                = 0x8C, //
 	IC_SETTINGS_0                  = 0x90, //
@@ -535,6 +536,7 @@ typedef struct {
 	int       last_preset;       // Last preset used
 	int       ignore_ae_change;  // Ignore next AE change
 	int       booting;           // Camera is still booting up
+	int       measuring;         // Camera is measuring the scene
 	int       measured_tv;       // Shutter speed as proposed by the metering
 	int       measured_av;       // Aperture as proposed by the metering
 } type_STATUS;

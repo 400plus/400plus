@@ -30,6 +30,7 @@ type_STATUS status = {
 	last_preset       : FALSE,
 	ignore_ae_change  : FALSE,
 	booting           : TRUE,
+	measuring         : FALSE,
 };
 
 // Action definitions
@@ -198,12 +199,17 @@ void intercom_proxy(const int handler, char *message) {
 			goto block_message;
 		}
 		break;
+	case IC_MEASURING:
+		status.measuring = param;
+		break;
 	case IC_MEASUREMENT:
-		// TODO: Generalize this
-		status.measured_tv = message[2];
-		status.measured_av = message[3];
-		if (settings.autoiso_enable)
-			ENQUEUE_TASK(autoiso);
+		if (status.measuring) {
+			// TODO: Generalize this
+			status.measured_tv = message[2];
+			status.measured_av = message[3];
+			if (settings.autoiso_enable)
+				ENQUEUE_TASK(autoiso);
+		}
 		break;
 	}
 
