@@ -136,9 +136,9 @@ void autoiso() {
 	switch(cameraMode->ae) {
 	case AE_MODE_P:
 	case AE_MODE_AV:
-		if (status.measured_tv < mintv - 5 && cameraMode->iso < maxiso)
+		if (status.measured_tv < mintv && cameraMode->iso < maxiso)
 			send_to_intercom(IC_SET_ISO, 2, iso_inc(cameraMode->iso));
-		else if (status.measured_tv - 0x08 > mintv - 5 && cameraMode->iso > miniso)
+		else if (status.measured_tv - 0x08 > mintv && cameraMode->iso > miniso)
 			send_to_intercom(IC_SET_ISO, 2, iso_dec(cameraMode->iso));
 	default:
 		break;
