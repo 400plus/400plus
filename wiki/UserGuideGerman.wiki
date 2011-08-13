@@ -42,35 +42,33 @@ Sowohl die `HOCH`-, als auch die `RUNTER`-Taste können jederzeit genutzt werden
   * _*Flash comp*_: Das gleiche wie der Standardmenüpunkt "Blitzbe. Korr.", jedoch mit den Grenzen -6 bis +6 EV.
   * _*Use flash*_: Erzwinge die nicht-Verwendung des Blitzes bei der aktuellen Aufnahme, selbst wenn dieser ausgefahren ist.
  * _*Color Temp. (K)*_: Setzen einer benutzerdefinierten Farbtemperatur und schalten Sie Weißabgleich auf "Benutzerdef.".
-  * _*AEB*_: Das gleiche wie der Standardmenüpunkt "AEB", aber mit den Grenzen -6 bis +6 EV.
-  * _*ISO in viewfinder*_: Falls aktiviert und im `P` oder `Tv` Modus, können Sie die `LINKS` oder `RECHTS`-Taste benutzen um den ISO-Wert zu ändern während Sie durch den Sucher schauen.
-  * _*Shortcutmenü*_: Falls aktiviert, wird Ihnen aus dem Hauptdialog aus das Shortcutmenü angezeigt, wenn Sie die `DIRECT PRINT`-Taste drücken; falls Sie "No" eingestellt haben, wird die `DIRECT PRINT`-Taste zwischen ISO-Zwischenwerten wechseln.
+ * _*AEB*_: Das gleiche wie der Standardmenüpunkt "AEB", aber mit den Grenzen -6 bis +6 EV.
+ * _*ISO in viewfinder*_: Falls aktiviert und im `P` oder `Tv` Modus, können Sie die `LINKS` oder `RECHTS`-Taste benutzen um den ISO-Wert zu ändern während Sie durch den Sucher schauen.
+ * _*Shortcutmenü*_: Falls aktiviert, wird Ihnen aus dem Hauptdialog aus das Shortcutmenü angezeigt, wenn Sie die `DIRECT PRINT`-Taste drücken; falls Sie "No" eingestellt haben, wird die `DIRECT PRINT`-Taste zwischen ISO-Zwischenwerten wechseln.
  * _*Scripts*_: Dieses Untermenü stellt das Verhalten [#Die_Skripte der Skripts] ein.
-* LCD dim: falls aktiviert, wird das LCD gedimmt um die Laufzeit der Batterie zu verlängern. 
-(Nachdem das Skript fertig ist, wird dieser Wert wiederhergestellt)
-* APO dsbl: falls aktiviert, wird die autom. abschalten Option der Kamera deaktiviert.
-(Nachdem das Skript fertig ist, wird dieser Wert wiederhergestellt)
-* _*Handwave*_: Dieses Untermenü stellt das [#Hand_Waving Hand Waving]-Skript ein:
+  * LCD dim: falls aktiviert, wird das LCD gedimmt um die Laufzeit der Batterie zu verlängern. (Nachdem das Skript fertig ist, wird dieser Wert wiederhergestellt)
+  * APO dsbl: falls aktiviert, wird die autom. abschalten Option der Kamera deaktiviert.(Nachdem das Skript fertig ist, wird dieser Wert wiederhergestellt)
+ * _*Handwave*_: Dieses Untermenü stellt das [#Hand_Waving Hand Waving]-Skript ein:
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
     * Action: Wählen Sie hier die auszuführende Aktion.
     * Repeat: Wenn ausgewählt, startet das Skript nach jeder Aufnahme neu, so dass auch die nächste Aufnahme durch ein Winken gestartet werden kann.
     * Instant: wenn ausgewählt, löst das Skript die Aufnahme aus, sobald eine Hand bemerkt wird; falls nicht ausgewählt wartet das Skript solange ab, bis die Hand wieder weggenommen wird.
-  * _*Ext. AEB*_: Dieses Untermenü stellt das [#Extended_AEB Extended AEB]-Skript ein:    
+ * _*Ext. AEB*_: Dieses Untermenü stellt das [#Extended_AEB Extended AEB]-Skript ein:    
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
     * Frames: Anzahl der zu schießenden Bilder (1 bis 9).
     * Step (EV): EV-Abstand zwischen einzelnen Aufnahmen (von 0 bis +-6 EV).
     * Bulb min: minimale Verschlusszeit im `BULB` Modus (einstellbar von 1/4000 Sekunde bis zu 16 Minuten).
     * Bulb max: maximale Verschlusszeit im `BULB` Modus (einstellbar von 1/4000 Sekunde bis zu 16 Minuten).
-  * _*Interval*_: Dieses Untermenü stellt das Intervalometer-Skript ein:
+ * _*Interval*_: Dieses Untermenü stellt das Intervalometer-Skript ein:
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
     * Time (s): Zeit (in Sekunden) zwischen den einzelnen Aufnahmen (0-250).
     * EAEB: Wählt aus, ob [#Extended_AEB Extended AEB] bei jeder Aufnahme benutzt werden soll.
     * Shots: Anzahl der zu machenden Aufnahmen(1-250); wählen Sie "no limit" um keine Begrenzung einzustellen.
-  * _*Timer*_: Dieses Untermenü stellt das [#Self_Timer Self Timer]-Skript ein:
+ * _*Timer*_: Dieses Untermenü stellt das [#Self_Timer Self Timer]-Skript ein:
     * Delay (s): Zeit (in Sekunden) die das Skript vor der Aufnahme warten soll (0-250).
     * Action: Wählen Sie hier die auszuführende Aktion (Intervalometer, One Shot, Extended AEB).
 
-* _*Presets*_: Dieses Untermenü stellt das Verhalten [#Die_Presets der Presets] ein:
+ * _*Presets*_: Dieses Untermenü stellt das Verhalten [#Die_Presets der Presets] ein:
     * Use A-DEP: falls aktiviert, wird der `A-DEP` Modus für die Verwendung von[#Die_Presets Presets] genutzt; mehr Informationen dazu unter [#Der_A-DEP_Modus der A-DEP Modus].
     * Camera: falls aktiviert, werden beim Laden eines Presets die Aufnahmeparameter der Kamera neu abgerufen (Verschlußzeit, Blende, ISO, ...).
     * 400plus: falls aktiiert, werden beim Laden eines Presets die Settings der 400plus-Software neu abgerufen (Skripte, ...).
