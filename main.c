@@ -91,7 +91,8 @@ type_ACTION actions_wb[] = {
 };
 
 type_ACTION actions_iso[] = {
-//	{IC_BUTTON_DP,    FALSE, TRUE, {set_iso_auto}},
+	{IC_BUTTON_DP,    FALSE, TRUE,  {autoiso_enable}},
+	{IC_BUTTON_SET,   FALSE, FALSE, {autoiso_disable}},
 	END_OF_LIST
 };
 
