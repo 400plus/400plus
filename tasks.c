@@ -152,12 +152,19 @@ void autoiso() {
 
 void autoiso_enable() {
 	press_button(IC_BUTTON_SET);
-	settings.autoiso_enable = TRUE;
-	print_icu_info();
 
+	if (!settings.autoiso_enable) {
+		settings.autoiso_enable = TRUE;
+		settings_write();
+	}
+
+	print_icu_info();
 	beep();
 }
 
 void autoiso_disable() {
-	settings.autoiso_enable = FALSE;
+	if (settings.autoiso_enable) {
+		settings.autoiso_enable = FALSE;
+		settings_write();
+	}
 }
