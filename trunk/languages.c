@@ -94,6 +94,7 @@ const char *lang_packs[LANG_COUNT][L_COUNT] = {
 		[L_AUTOISO_MINISO]   = "Min ISO",
 		[L_AUTOISO_MAXISO]   = "Max ISO",
 		[L_AUTOISO_MINTV]    = "Min Tv",
+		[L_AUTOISO_MAXAV]    = "Max Av",
 	},
 	[LANG_GERMAN] = {
 		[L_FREE_SPACE]    = "CF-Card frei",

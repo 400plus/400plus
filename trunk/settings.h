@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x20
+#define SETTINGS_VERSION  0x21
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -19,6 +19,7 @@ typedef struct {
 	int autoiso_miniso;
 	int autoiso_maxiso;
 	int autoiso_mintv;
+	int autoiso_maxav;
 	int eaeb_frames;
 	int eaeb_delay;
 	int eaeb_ev;

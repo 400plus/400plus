@@ -81,13 +81,12 @@ void display_refresh_iso() {
 	char tmp[32] = "AUTO";
 
 	switch(cameraMode->ae) {
-	case AE_MODE_AV:
 	case AE_MODE_P:
+	case AE_MODE_TV:
+	case AE_MODE_AV:
 		if (!settings.autoiso_enable || status.measuring)
-			iso_print(tmp, cameraMode->iso);
-		break;
 	default:
-		iso_print(tmp, cameraMode->iso);
+			iso_print(tmp, cameraMode->iso);
 		break;
 	}
 
