@@ -209,6 +209,8 @@ void intercom_proxy(const int handler, char *message) {
 			// TODO: Generalize this
 			status.measured_tv = message[2];
 			status.measured_av = message[3];
+			status.measured_ev = message[4];
+
 			if (settings.autoiso_enable)
 				ENQUEUE_TASK(autoiso);
 		}
