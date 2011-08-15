@@ -202,6 +202,7 @@ void intercom_proxy(const int handler, char *message) {
 		break;
 	case IC_MEASURING:
 		status.measuring = param;
+		ENQUEUE_TASK(restore_display);
 		break;
 	case IC_MEASUREMENT:
 		if (status.measuring) {

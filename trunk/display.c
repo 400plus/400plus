@@ -1,6 +1,7 @@
 #include "main.h"
 #include "firmware.h"
 
+#include "settings.h"
 #include "utils.h"
 
 #include "display.h"
@@ -77,9 +78,19 @@ void display_refresh_flashcomp() {
 
 
 void display_refresh_iso() {
-	char tmp[32];
+	char tmp[32] = "AUTO";
 
-	iso_print(tmp, cameraMode->iso);
+	switch(cameraMode->ae) {
+	case AE_MODE_AV:
+	case AE_MODE_P:
+		if (!settings.autoiso_enable || status.measuring)
+			iso_print(tmp, cameraMode->iso);
+		break;
+	default:
+		iso_print(tmp, cameraMode->iso);
+		break;
+	}
+
 	dialog_set_property_str(hMainDialog, 0x04, tmp);
 }
 
