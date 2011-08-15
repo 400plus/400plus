@@ -23,10 +23,11 @@ void menu_settings_apply_remote_enable   (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
 
 type_MENUITEM autoiso_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
-	MENUITEM_BASEISO(LP_WORD(L_AUTOISO_MINISO), &settings.autoiso_miniso, NULL),
-	MENUITEM_BASEISO(LP_WORD(L_AUTOISO_MAXISO), &settings.autoiso_maxiso, NULL),
-	MENUITEM_SHUTTER(LP_WORD(L_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL), // TODO: Use a shutter-speed list with only real values
+	MENUITEM_BOOLEAN (LP_WORD(L_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
+	MENUITEM_BASEISO (LP_WORD(L_AUTOISO_MINISO), &settings.autoiso_miniso, NULL),
+	MENUITEM_BASEISO (LP_WORD(L_AUTOISO_MAXISO), &settings.autoiso_maxiso, NULL),
+	MENUITEM_SHUTTER (LP_WORD(L_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL), // TODO: Use a shutter-speed list with only real values
+	MENUITEM_APERTURE(LP_WORD(L_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
 };
 
 type_MENUITEM scripts_items[] = {

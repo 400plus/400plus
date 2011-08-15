@@ -133,6 +133,7 @@ void autoiso() {
 	int maxiso = ((MAX(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
 
 	int mintv = ((settings.autoiso_mintv - 5) << 3) + 0x10;
+	int maxav = ((settings.autoiso_maxav + 1) << 3);
 
 	switch(cameraMode->ae) {
 	case AE_MODE_P:
@@ -145,6 +146,17 @@ void autoiso() {
 			newiso = cameraMode->iso - (status.measured_tv - mintv);
 			send_to_intercom(IC_SET_ISO, 2, MAX(newiso, miniso) & 0xF8);
 		}
+		break;
+	case AE_MODE_TV:
+		// TODO: Clean-up these calculations
+		if (status.measured_av < maxav && cameraMode->iso < maxiso) {
+			newiso = cameraMode->iso + (maxav - status.measured_av) + 0x08;
+			send_to_intercom(IC_SET_ISO, 2, MIN(newiso, maxiso) & 0xF8);
+		} else if (status.measured_av - 0x08 >= maxav && cameraMode->iso > miniso) {
+			newiso = cameraMode->iso - (status.measured_av - maxav);
+			send_to_intercom(IC_SET_ISO, 2, MAX(newiso, miniso) & 0xF8);
+		}
+		break;
 	default:
 		break;
 	}
