@@ -23,7 +23,6 @@ OPTIONLIST_DEF(flash,    LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_
 OPTIONLIST_DEF(action,   LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter,  "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 OPTIONLIST_DEF(logfile,  LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
-OPTIONLIST_DEF(baseiso,  "100", "200", "400", "800", "1600")
 OPTIONLIST_DEF(aperture, "1.0", "1.4", "2.0", "2.8", "4.0", "5.6", "8.0", "11", "16", "22", "32", "45")
 
 type_ACTION callbacks_standard[] = {
@@ -308,7 +307,7 @@ void menu_repeateable_right(int repeating) {
 		*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
-		if (repeating)
+		if (repeating || !item->parm.menuitem_iso.full)
 			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
 		else
 			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
@@ -346,7 +345,7 @@ void menu_repeateable_left(int repeating) {
 			*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
 		break;
 	case MENUITEM_TYPE_ISO:
-		if (repeating)
+		if (repeating || !item->parm.menuitem_iso.full)
 			*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
 		else
 			*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
