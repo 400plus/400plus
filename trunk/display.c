@@ -84,6 +84,7 @@ void display_refresh_iso() {
 	case AE_MODE_P:
 	case AE_MODE_TV:
 	case AE_MODE_AV:
+	case AE_MODE_M:
 		if (!settings.autoiso_enable || status.measuring)
 	default:
 			iso_print(tmp, cameraMode->iso);
