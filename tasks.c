@@ -128,7 +128,7 @@ void restore_metering() {
 }
 
 void autoiso() {
-	int ev = 0x00, mask = 0xF8, limit;
+	int mask = 0xF8, ev = 0x00, measure = 0x00, limit = 0x00;
 
 	int newiso = cameraMode->iso;
 	int miniso = ((MIN(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
@@ -137,20 +137,12 @@ void autoiso() {
 	switch(cameraMode->ae) {
 	case AE_MODE_P:
 	case AE_MODE_AV:
-		limit = ((settings.autoiso_mintv - 5) << 3) + 0x10;
-
-		if (status.measured_tv < limit)
-			ev = (limit - status.measured_tv) + 0x08;
-		else if (status.measured_tv >= limit + 0x08)
-			ev = (limit - status.measured_tv);
+		measure = status.measured_tv;
+		limit   = ((settings.autoiso_mintv - 5) << 3) + 0x10;
 		break;
 	case AE_MODE_TV:
-		limit = ((settings.autoiso_maxav + 1) << 3);
-
-		if (status.measured_av < limit)
-			ev = (limit - status.measured_av) + 0x08;
-		else if (status.measured_av >= limit + 0x08)
-			ev = (limit - status.measured_av);
+		measure =  status.measured_av;
+		limit   = ((settings.autoiso_maxav + 1) << 3);
 		break;
 	case AE_MODE_M:
 		mask = 0xFF;
@@ -158,6 +150,13 @@ void autoiso() {
 		break;
 	default:
 		break;
+	}
+
+	if (measure != 0x00) {
+		if (measure < limit)
+			ev = (limit - measure) + 0x08;
+		else if (measure >= limit + 0x08)
+			ev = (limit - measure);
 	}
 
 	if (ev != 0x00) {
