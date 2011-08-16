@@ -9,6 +9,7 @@ SECTIONS {
 		main.o;
 		info.o;
 		tasks.o;
+		ini.o;
 		languages.o;
 		utils.o;
 		memspy.o;

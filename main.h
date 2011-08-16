@@ -71,6 +71,7 @@ typedef enum {
 	IC_DIALOGOFF                   = 0x51, //
 	IC_SHUTDOWN                    = 0x52, //
 	IC_RELEASE                     = 0x53, //
+	IC_INHIBIT_RELEASE_MAYBE       = 0x55, //
 	IC_RESET_SETTINGS              = 0x59, // it is called in reset settings, then 0x5A is called. so they both should be related
 	IC_ENTERFACTORYMODE            = 0x5D, //
 	IC_EXITFACTORYMODE             = 0x5E, //
