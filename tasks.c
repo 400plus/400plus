@@ -141,20 +141,20 @@ void autoiso() {
 	case AE_MODE_P:
 	case AE_MODE_AV:
 		// TODO: Clean-up these calculations
-		if (status.measured_tv < mintv && cameraMode->iso < maxiso) {
+		if (status.measured_tv < mintv) {
 			newiso += (mintv - status.measured_tv) + 0x08;
 			newiso  = MIN(newiso, maxiso) & 0xF8;
-		} else if (status.measured_tv - 0x08 >= mintv && cameraMode->iso > miniso) {
+		} else if (status.measured_tv - 0x08 >= mintv) {
 			newiso -= (status.measured_tv - mintv);
 			newiso  = MAX(newiso, miniso) & 0xF8;
 		}
 		break;
 	case AE_MODE_TV:
 		// TODO: Clean-up these calculations
-		if (status.measured_av < maxav && cameraMode->iso < maxiso) {
+		if (status.measured_av < maxav) {
 			newiso += (maxav - status.measured_av) + 0x08;
 			newiso  = MIN(newiso, maxiso) & 0xF8;
-		} else if (status.measured_av - 0x08 >= maxav && cameraMode->iso > miniso) {
+		} else if (status.measured_av - 0x08 >= maxav) {
 			newiso -= (status.measured_av - maxav);
 			newiso  = MAX(newiso, miniso) & 0xF8;
 		}
