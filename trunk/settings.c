@@ -8,8 +8,8 @@
 type_SETTINGS settings = {
 	iso_in_viewfinder: FALSE,
 	autoiso_enable   : FALSE,
-	autoiso_miniso   : 0,  //  100
-	autoiso_maxiso   : 4,  // 1600
+	autoiso_miniso   : 0x48, // ISO 100
+	autoiso_maxiso   : 0x68, // ISO1600
 	autoiso_mintv    : 16, // 1/60s
 	autoiso_maxav    : 4,  // f/4.0
 	eaeb_frames      : 3,

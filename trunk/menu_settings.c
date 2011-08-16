@@ -21,11 +21,13 @@ void menu_settings_apply_ae_bkt          (type_MENUITEM *item);
 void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
 void menu_settings_apply_remote_enable   (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
+void menu_settings_apply_autoiso_miniso  (type_MENUITEM *item);
+void menu_settings_apply_autoiso_maxiso  (type_MENUITEM *item);
 
 type_MENUITEM autoiso_items[] = {
 	MENUITEM_BOOLEAN (LP_WORD(L_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
-	MENUITEM_BASEISO (LP_WORD(L_AUTOISO_MINISO), &settings.autoiso_miniso, NULL),
-	MENUITEM_BASEISO (LP_WORD(L_AUTOISO_MAXISO), &settings.autoiso_maxiso, NULL),
+	MENUITEM_BASEISO (LP_WORD(L_AUTOISO_MINISO), &settings.autoiso_miniso, menu_settings_apply_autoiso_miniso),
+	MENUITEM_BASEISO (LP_WORD(L_AUTOISO_MAXISO), &settings.autoiso_maxiso, menu_settings_apply_autoiso_maxiso),
 	MENUITEM_SHUTTER (LP_WORD(L_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL), // TODO: Use a shutter-speed list with only real values
 	MENUITEM_APERTURE(LP_WORD(L_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
 };
@@ -163,4 +165,12 @@ void menu_settings_apply_remote_delay(type_MENUITEM *item) {
 		RemReleaseSelfMax = 6160;
 		RemReleaseInstMin = 7410;
 	}
+}
+
+void menu_settings_apply_autoiso_miniso(type_MENUITEM *item) {
+	settings.autoiso_maxiso = MAX(settings.autoiso_miniso, settings.autoiso_maxiso);
+}
+
+void menu_settings_apply_autoiso_maxiso(type_MENUITEM *item) {
+	settings.autoiso_miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
 }
