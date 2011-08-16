@@ -16,7 +16,11 @@ extern int ev_dec(int ev);
 extern int ev_add(int ying, int yang);
 extern int ev_sub(int ying, int yang);
 
+extern int av_inc(int ev);
+extern int av_dec(int ev);
+
 extern void ev_print(const char *dest, int ev);
+extern void av_print(const char *dest, int ev);
 
 extern int tv_add(int ying, int yang);
 extern int tv_sub(int ying, int yang);

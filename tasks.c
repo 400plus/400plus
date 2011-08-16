@@ -139,8 +139,8 @@ void autoiso() {
 		limit   = ((settings.autoiso_mintv - 5) << 3) + 0x10;
 		break;
 	case AE_MODE_TV:
-		measure =  status.measured_av;
-		limit   = ((settings.autoiso_maxav + 1) << 3);
+		measure = status.measured_av;
+		limit   = settings.autoiso_maxav;
 		break;
 	case AE_MODE_M:
 		mask = 0xFF;
