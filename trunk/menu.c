@@ -147,6 +147,9 @@ void menu_event_close() {
 void menu_event(type_MENU_EVENT event) {
 	type_MENUITEM *item = get_current_item();
 
+	if (item->type == MENUITEM_TYPE_SUBMENU)
+		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
+
 	if (item->tasks && item->tasks[event])
 		item->tasks[event](item);
 
