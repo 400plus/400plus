@@ -131,8 +131,6 @@ void autoiso() {
 	int mask = 0xF8, ev = 0x00, measure = 0x00, limit = 0x00;
 
 	int newiso = cameraMode->iso;
-	int miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
-	int maxiso = MAX(settings.autoiso_miniso, settings.autoiso_maxiso);
 
 	switch(cameraMode->ae) {
 	case AE_MODE_P:
@@ -162,8 +160,8 @@ void autoiso() {
 	if (ev != 0x00) {
 		newiso = (cameraMode->iso + ev) & mask;
 
-		newiso = MIN(newiso, maxiso);
-		newiso = MAX(newiso, miniso);
+		newiso = MIN(newiso, settings.autoiso_maxiso);
+		newiso = MAX(newiso, settings.autoiso_miniso);
 
 		send_to_intercom(IC_SET_ISO, 2, newiso);
 		ENQUEUE_TASK(restore_display);
