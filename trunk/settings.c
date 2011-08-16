@@ -10,8 +10,8 @@ type_SETTINGS settings = {
 	autoiso_enable   : FALSE,
 	autoiso_miniso   : 0x48, // ISO 100
 	autoiso_maxiso   : 0x68, // ISO1600
-	autoiso_mintv    : 16, // 1/60s
-	autoiso_maxav    : 4,  // f/4.0
+	autoiso_mintv    : 16,   // 1/60s
+	autoiso_maxav    : 0x28, // f/4.0
 	eaeb_frames      : 3,
 	eaeb_delay       : FALSE,
 	eaeb_ev          : 0x08,

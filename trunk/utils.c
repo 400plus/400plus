@@ -8,6 +8,18 @@
 
 int ev_normalize(int ev);
 
+static char *av_strings[][4] = {
+	{"1.0", "1.1", "1.2", "1.2"},
+	{"1.4", "1.6", "1.7", "1.8"},
+	{"2.0", "2.2", "2.4", "2.5"},
+	{"2.8", "3.2", "3.3", "3.5"},
+	{"4.0", "4.5", "4.8", "5.0"},
+	{"5.6", "6.3", "6.7", "7.1"},
+	{"8.0", "9.0", "9.5", "10"},
+	{"11",  "13",  "13",  "14"},
+	{"16",  "18",  "19",  "20"},
+	{"22",  "",    "",    ""},
+};
 int ev_sgn(int ev) {
 	return 0x100 - ev;
 }
@@ -53,6 +65,28 @@ int ev_sub(int ying, int yang) {
 	return ev_add(ying, ev_sgn(yang));
 }
 
+int av_inc(int av) {
+	av = ev_normalize(av);
+
+	if (cameraMode->cf_explevel_inc_third)
+		av = ev_add(av, 0x04); // +0 1/2
+	else
+		av = ev_add(av, 0x03); // +0 1/3
+
+	return MIN(av, 0x58); // f/22.0
+}
+
+int av_dec(int av) {
+	av = ev_normalize(av);
+
+	if (cameraMode->cf_explevel_inc_third)
+		av = ev_add(av, 0xFC); // -0 1/2
+	else
+		av = ev_add(av, 0xFD); // -0 1/3
+
+	return MAX(av, 0x08); // f/1.0
+}
+
 void ev_print(const char *dest, int ev) {
 	char dsp_sgn, dsp_int, *dsp_dec;
 
@@ -86,6 +120,27 @@ void ev_print(const char *dest, int ev) {
 	}
 
 	sprintf(dest, "%c%c %s", dsp_sgn, dsp_int, dsp_dec);
+}
+
+void av_print(const char *dest, int av) {
+	int base = (av >> 3) - 0x01;
+	int frac = 0;
+
+	switch (av & 0x07) {
+	case 0x03:
+		frac = 1;
+		break;
+	case 0x04:
+		frac = 2;
+		break;
+	case 0x05:
+		frac = 3;
+		break;
+	default:
+		break;
+	}
+
+	sprintf(dest, "%s", av_strings[base][frac]);
 }
 
 int tv_add(int ying, int yang) {

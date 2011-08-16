@@ -23,7 +23,6 @@ OPTIONLIST_DEF(flash,    LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_
 OPTIONLIST_DEF(action,   LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(shutter,  "16'", "8'", "4'", "2'", "1'", "30\"", "15\"", "8\"", "4\"", "2\"", "1\"", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000")
 OPTIONLIST_DEF(logfile,  LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
-OPTIONLIST_DEF(aperture, "1.0", "1.4", "2.0", "2.8", "4.0", "5.6", "8.0", "11", "16", "22", "32", "45")
 
 type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_up}},
@@ -55,6 +54,7 @@ void menu_repeateable_left (int repeating);
 void menu_message(const char *buffer, int item_id);
 
 void menu_print_ev   (const char *buffer, const char *name, int   parameter);
+void menu_print_av   (const char *buffer, const char *name, int   parameter);
 void menu_print_iso  (const char *buffer, const char *name, int   parameter);
 void menu_print_int  (const char *buffer, const char *name, int   parameter, const char *format);
 void menu_print_char (const char *buffer, const char *name, const char *parameter);
@@ -309,6 +309,9 @@ void menu_repeateable_right(int repeating) {
 	case MENUITEM_TYPE_EV:
 		*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
 		break;
+	case MENUITEM_TYPE_AV:
+		*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
+		break;
 	case MENUITEM_TYPE_ISO:
 		if (repeating || !item->parm.menuitem_iso.full)
 			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
@@ -346,6 +349,9 @@ void menu_repeateable_left(int repeating) {
 				*item->parm.menuitem_ev.value = 0x00;
 		else
 			*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
+		break;
+	case MENUITEM_TYPE_AV:
+		*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
 		break;
 	case MENUITEM_TYPE_ISO:
 		if (repeating || !item->parm.menuitem_iso.full)
@@ -448,6 +454,9 @@ void menu_message(const char *buffer, int item_id) {
 		else
 			menu_print_ev(buffer, name, *item->parm.menuitem_ev.value);
 		break;
+	case MENUITEM_TYPE_AV:
+		menu_print_av(buffer, name, *item->parm.menuitem_av.value);
+		break;
 	case MENUITEM_TYPE_ISO:
 		menu_print_iso(buffer, name, *item->parm.menuitem_iso.value);
 		break;
@@ -472,6 +481,13 @@ void menu_print_ev(const char *buffer, const char *name, int parameter) {
 	char tmp[32];
 
 	ev_print(tmp, parameter);
+	menu_print_char(buffer, name, tmp);
+}
+
+void menu_print_av(const char *buffer, const char *name, int parameter) {
+	char tmp[32];
+
+	av_print(tmp, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 
