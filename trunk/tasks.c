@@ -128,7 +128,7 @@ void restore_metering() {
 }
 
 void autoiso() {
-	int newiso;
+	int newiso = cameraMode->iso;
 	int miniso = ((MIN(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
 	int maxiso = ((MAX(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
 
@@ -142,21 +142,21 @@ void autoiso() {
 	case AE_MODE_AV:
 		// TODO: Clean-up these calculations
 		if (status.measured_tv < mintv && cameraMode->iso < maxiso) {
-			newiso = cameraMode->iso + (mintv - status.measured_tv) + 0x08;
-			send_to_intercom(IC_SET_ISO, 2, MIN(newiso, maxiso) & 0xF8);
+			newiso += (mintv - status.measured_tv) + 0x08;
+			newiso  = MIN(newiso, maxiso) & 0xF8;
 		} else if (status.measured_tv - 0x08 >= mintv && cameraMode->iso > miniso) {
-			newiso = cameraMode->iso - (status.measured_tv - mintv);
-			send_to_intercom(IC_SET_ISO, 2, MAX(newiso, miniso) & 0xF8);
+			newiso -= (status.measured_tv - mintv);
+			newiso  = MAX(newiso, miniso) & 0xF8;
 		}
 		break;
 	case AE_MODE_TV:
 		// TODO: Clean-up these calculations
 		if (status.measured_av < maxav && cameraMode->iso < maxiso) {
-			newiso = cameraMode->iso + (maxav - status.measured_av) + 0x08;
-			send_to_intercom(IC_SET_ISO, 2, MIN(newiso, maxiso) & 0xF8);
+			newiso += (maxav - status.measured_av) + 0x08;
+			newiso  = MIN(newiso, maxiso) & 0xF8;
 		} else if (status.measured_av - 0x08 >= maxav && cameraMode->iso > miniso) {
-			newiso = cameraMode->iso - (status.measured_av - maxav);
-			send_to_intercom(IC_SET_ISO, 2, MAX(newiso, miniso) & 0xF8);
+			newiso -= (status.measured_av - maxav);
+			newiso  = MAX(newiso, miniso) & 0xF8;
 		}
 		break;
 	case AE_MODE_M:
@@ -164,15 +164,15 @@ void autoiso() {
 			newiso = cameraMode->iso - ev;
 			newiso = MIN(newiso, maxiso);
 			newiso = MAX(newiso, miniso);
-
-			if (newiso != cameraMode->iso) {
-				send_to_intercom(IC_SET_ISO, 2, newiso);
-				ENQUEUE_TASK(restore_display);
-			}
 		}
 		break;
 	default:
 		break;
+	}
+
+	if (newiso != cameraMode->iso) {
+		send_to_intercom(IC_SET_ISO, 2, newiso);
+		ENQUEUE_TASK(restore_display);
 	}
 }
 
