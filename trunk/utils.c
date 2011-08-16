@@ -4,6 +4,8 @@
 
 #include "utils.h"
 
+#include "debug.h"
+
 int ev_normalize(int ev);
 
 int ev_sgn(int ev) {
@@ -271,3 +273,86 @@ void led_flash(int duration) {
 	eventproc_EdLedOff();
 	SleepTask(EVENT_WAIT);
 }
+
+// convert string to upper case in-place
+void stoupper(char *s) {
+	while (*s) {
+		if(('a' <= *s) && (*s <= 'z')) {
+			*s = 'A' + (*s - 'a');
+		}
+		s++;
+	}
+}
+
+// so basically this is a speed-up version which reads 255 bytes at a time
+// and use local buffer and local position pointer, sort of mmap'ed part of file.
+// the benefit is obvious: speed
+// the drawbacks are:
+// 1.the routine needs to be informed when a new file
+// is being parsed, so it will reset the local buffer
+// this is done by calling the routine with FD == -1, it is sort of init call.
+// you will have to init everytime you open a new file, before the first real call
+// 2. cannot use it in multi-thread/multi-task. use it only at one place in one time.
+char * my_fgets_faster(char *s, int n, int fd) {
+	register char *cs;
+
+	static unsigned char buf[256]; // local buffer
+	static unsigned char bpos = 0; // position in the buffer
+	int rc = 0;                    // last return code from read()
+
+	if (fd == -1) { // init
+		buf[0] = 0;
+		bpos = 0;
+		return NULL;
+	}
+
+	cs = s;
+	while (--n > 0 && ( bpos || (rc = read_(fd, &buf, 255)) ) ) {
+		unsigned char c;
+		if (rc < 255)
+			buf[rc] = '\0';
+
+		if ((c = buf[bpos++]) == 0) {
+			if (!bpos) // bpos was 255, continue to the next read()
+				continue;
+			else  // bpos was not 255, it's the end of the file
+				break;
+		}
+
+		if (c != '\r')
+			*cs++ = c;
+
+		if (c == '\n')
+			break;
+
+	}
+	*cs = '\0';
+
+	if (cs == s)
+		return NULL;
+
+	return s;
+}
+
+#ifdef FGETS_USE_SLOW
+char * my_fgets_simple_but_slow(char *s, int n, int fd) {
+	register char *cs;
+	unsigned char c;
+
+	cs = s;
+	while (--n > 0 && read_(fd, &c, 1)) {
+		if (c != '\r')
+			*cs++ = c;
+
+		if (c == '\n')
+			break;
+	}
+	*cs = '\0';
+
+	if (cs == s)
+		return NULL;
+
+	return s;
+}
+#endif
+

@@ -3,9 +3,10 @@
 
 #include "main.h"
 #include "vxworks.h"
+#include "types.h"
 
 // Variables, Flags, Pointers, Handlers
-extern unsigned int	  BodyID;
+extern unsigned int   BodyID;
 extern unsigned short ModelID;
 
 extern int BurstCounter;  // remaining shots in burst mode (displayed in VF's bottom right corner)
@@ -34,6 +35,8 @@ extern long eventproc_EdLedBlink(void);
 extern int   strlen(const char *);
 extern char *strncpy(const char *destination, const char *source, int length);
 extern void  sprintf(const char*, const char*, ...);
+extern int   isspace(int c);
+
 
 // Queue management
 
@@ -43,48 +46,43 @@ extern int  PostMessageQueue(void *hMessageQueue, void *pMessage, int forever);
 extern int  TryPostMessageQueue(void *hMessageQueue, void *pMessage, int forever);
 
 // File management
-
-#define O_RDONLY  0x0000
-#define O_WRONLY  0x0001
-#define O_RDWR    0x0002
-#define O_CREAT   0x0200
-#define O_TRUNC   0x0400
-
-typedef long FILE;
-
 extern int open(const char *name, int flags, int mode);
-extern int read(int fd, void *buffer, long nbytes);
-extern int write(int fd, void *buffer, long nbytes);
+extern int read(int fd, void *buffer, size_t nbytes);
+extern int write(int fd, void *buffer, size_t nbytes);
 extern int close(int fd);
 
-extern int printf(const char *format, ...);
-extern int printErr(const char *, ...);
-extern int printf_log(int, int, const char *, ...);
+extern int printf(const char *format, ...);         // printf to stdout
+extern int printErr(const char *, ...);             // printf to stderr
+extern int printf_log(int, int, const char *, ...); // printf to the log system
+extern int fprintf (FILE *fp, const char *fmt, ...);// printf to FILE stream
+extern int fdprintf(int fd, char *format, ...);     // printf to FD
 
+// FIO
+extern long fdConsole; // fd of stdout
 extern FILE *fopen(const char *file, const char *mode);
+extern FILE *freopen(const char * file, const char * mode, FILE * fp);
 extern FILE *fdopen(int fd, char * mode);
-extern int   fread(void *buffer, long size, long count, FILE *fp);
-extern int   fwrite(const void *buffer, long size, long count, FILE *fp);
 extern int   fclose(FILE *fp);
+extern int   fileno(FILE *fp); // return FD for the FILE stream
+extern int   fread(void *buffer, size_t size, size_t count, FILE *fp);
+extern int   fwrite(const void *buffer, size_t size, size_t count, FILE *fp);
+extern int   fseek(FILE * fp, long offset, int whence);
+extern long  ftell(FILE * fp);
+extern int   feof(FILE *fp);   // test for EOF
+extern int   ferror(FILE *fp); // test for error
+extern int   fflush(FILE *fp);
+extern int   fgetc(FILE *fp);
+extern int   fgets(char * buf, size_t n, FILE *fp);
+extern int   fscanf(FILE * fp, char const * fmt, ...);
+extern int   fputs (const char * s, FILE * fp);
+
+// we do not have fpos_t
+//extern int   fgetpos(FILE *fp, fpos_t *pos);
+//extern int   fsetpos(FILE *iop, const fpos_t * pos);
+//extern int   fioFormatV(const char *fmt, va_list vaList, FUNCPTR outRoutine, int outarg); // convert a format string
+
 
 // Time functions
-typedef unsigned int time_t;
-struct timespec {
-	time_t tv_sec;   /* seconds */
-	time_t tv_nsec;  /* nanoseconds */
-};
-struct tm {
-	int tm_sec;         /* seconds */
-	int tm_min;         /* minutes */
-	int tm_hour;        /* hours */
-	int tm_mday;        /* day of the month */
-	int tm_mon;         /* month */
-	int tm_year;        /* year */
-	int tm_wday;        /* day of the week */
-	int tm_yday;        /* day in the year */
-	int tm_isdst;       /* daylight saving time */
-};
-
 extern time_t time(time_t *t); // returns timestamp, and sets arg1 if pointer is provided
 extern int clock_gettime(int clock_id/* 0 */, struct timespec *tp); // return 0 on success
 extern struct tm * localtime_r(time_t *time, struct tm*);

@@ -30,9 +30,10 @@ COMMON_FLAGS =\
 
 
 CC     = arm-elf-gcc
-CFLAGS+= $(COMMON_FLAGS)     \
-	-Os                  \
-         -Wno-implicit-function-declaration \
+CFLAGS+= $(COMMON_FLAGS)                   \
+	-Os                                \
+        -Wno-implicit-function-declaration \
+        -Wno-char-subscripts               \
 
 	 #-fomit-frame-pointer \
          #-fno-strict-aliasing \
@@ -55,6 +56,7 @@ C_OBJS = init.o           \
          main.o           \
 	 mainctrl.o       \
          tasks.o          \
+	 ini.o            \
          languages.o      \
          utils.o          \
 	 memspy.o         \

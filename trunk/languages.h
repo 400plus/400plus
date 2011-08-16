@@ -4,121 +4,98 @@
 #define LP_MAX_WORD 32
 #define LP_WORD(word) lang_pack_current[word]
 
-enum LanguageID {
-	LANG_ENGLISH,
-	LANG_GERMAN,
-	LANG_FRENCH,
-	LANG_DUTCH,
-	LANG_DANISH,
-	LANG_FINNISH,
-	LANG_ITALIAN,
-	LANG_NORWEGIAN,
-	LANG_SWEDISH,
-	LANG_SPANISH,
-	LANG_RUSSIAN,
-	LANG_SIMPLIFIED_CHINESE,
-	LANG_TRADITIONAL_CHANISE,
-	LANG_KOREAN,
-	LANG_JAPANESE,
-	LANG_POLISH,
-	LANG_COUNT,
-	LANG_FIRST = 0,
-	LANG_LAST  = LANG_COUNT - 1
-};
+#define LANGUAGE_PAIRS                                        \
+	LANG_PAIR( FREE_SPACE,         "Free Space"         ) \
+	LANG_PAIR( RELEASE_COUNT,      "ReleaseCount"       ) \
+	LANG_PAIR( OFF,                "Off"                ) \
+	LANG_PAIR( YES,                "Yes"                ) \
+	LANG_PAIR( NO,                 "No"                 ) \
+	LANG_PAIR( 2S,                 "2s"                 ) \
+	LANG_PAIR( ENABLED,            "Enabled"            ) \
+	LANG_PAIR( DISABLED,           "Disabled"           ) \
+	LANG_PAIR( EXT_ONLY,           "Ext Only"           ) \
+	LANG_PAIR( EXT_AEB,            "Ext. AEB"           ) \
+	LANG_PAIR( ONE_SHOT,           "One Shot"           ) \
+	LANG_PAIR( INTERVAL,           "Interval"           ) \
+	LANG_PAIR( NO_LIMIT,           "No Limit"           ) \
+	LANG_PAIR( RENAME,             "Rename"             ) \
+	LANG_PAIR( LOAD_PRESETS,       "Load presets"       ) \
+	LANG_PAIR( SAVE_PRESETS,       "Save presets"       ) \
+	LANG_PAIR( PRESET_NAME,        "Preset"             ) \
+	LANG_PAIR( DEVELOPER,          "Developer"          ) \
+	LANG_PAIR( ENTER_FACTORY_MODE, "Enter factory Mode" ) \
+	LANG_PAIR( EXIT_FACTORY_MODE,  "Exit  factory Mode" ) \
+	LANG_PAIR( DEBUG_ON_POWERON,   "Debug on PowerOn"   ) \
+	LANG_PAIR( LOGFILE,            "Log File Mode"      ) \
+	LANG_PAIR( OVERWRITE,          "Overwrite"          ) \
+	LANG_PAIR( NEW,                "New"                ) \
+	LANG_PAIR( APPEND,             "Append"             ) \
+	LANG_PAIR( SETTINGS,           "Settings"           ) \
+	LANG_PAIR( DELAY,              "Delay"              ) \
+	LANG_PAIR( ACTION,             "Action"             ) \
+	LANG_PAIR( REPEAT,             "Repeat"             ) \
+	LANG_PAIR( INSTANT,            "Instant"            ) \
+	LANG_PAIR( FRAMES,             "Frames"             ) \
+	LANG_PAIR( STEP_EV,            "Step (EV)"          ) \
+	LANG_PAIR( MANUAL_L,           "Bulb min"           ) \
+	LANG_PAIR( MANUAL_R,           "Bulb max"           ) \
+	LANG_PAIR( TIME_S,             "Time (s)"           ) \
+	LANG_PAIR( EAEB,               "EAEB"               ) \
+	LANG_PAIR( SHOTS,              "Shots"              ) \
+	LANG_PAIR( AV_COMP,            "AV comp"            ) \
+	LANG_PAIR( FLASH_COMP,         "Flash comp"         ) \
+	LANG_PAIR( AEB,                "AEB"                ) \
+	LANG_PAIR( ISO_IN_VF,          "ISO in viewfinder"  ) \
+	LANG_PAIR( SHORTCUTS_MENU,     "Shortcuts menu"     ) \
+	LANG_PAIR( SAFETY_SHIFT,       "Safety Shift"       ) \
+	LANG_PAIR( COLOR_TEMP_K,       "Color Temp. (K)"    ) \
+	LANG_PAIR( USE_FLASH,          "Disable flash"      ) \
+	LANG_PAIR( HANDWAVE,           "Handwave"           ) \
+	LANG_PAIR( TIMER_SPACES,       "Timer   "           ) \
+	LANG_PAIR( IR_REMOTE_ENABLE,   "IR remote enable"   ) \
+	LANG_PAIR( IR_REMOTE_DELAY,    "IR remote delay"    ) \
+	LANG_PAIR( DEVELOPERS_MENU,    "Developers Menu"    ) \
+	LANG_PAIR( SCRIPTS_SPACES,     "Scripts "           ) \
+	LANG_PAIR( DIM_LCD_DOWN,       "LCD dim"            ) \
+	LANG_PAIR( KEEP_POWER_ON,      "APO dsbl"           ) \
+	LANG_PAIR( SHORTCUTS,          "Shortcuts"          ) \
+	LANG_PAIR( ISO,                "ISO"                ) \
+	LANG_PAIR( EXTENDED_AEB,       "Extended AEB"       ) \
+	LANG_PAIR( INTERVALOMETER,     "Intervalometer"     ) \
+	LANG_PAIR( HAND_WAVING,        "Hand Waving"        ) \
+	LANG_PAIR( SELF_TIMER,         "Self Timer"         ) \
+	LANG_PAIR( AF_FLASH,           "AF Flash"           ) \
+	LANG_PAIR( MIRROR_LOCKUP,      "Mirror Lockup"      ) \
+	LANG_PAIR( FLASH_2ND_CURT,     "Flash 2curt"        ) \
+	LANG_PAIR( PRESETS_SPACES,     "Presets "           ) \
+	LANG_PAIR( PRESETS_ADEP,       "Use A-DEP"          ) \
+	LANG_PAIR( PRESETS_CAMERA,     "Camera"             ) \
+	LANG_PAIR( PRESETS_400PLUS,    "400plus"            ) \
+	LANG_PAIR( PRESETS_SETTINGS,   "Settings"           ) \
+	LANG_PAIR( PRESETS_IMAGE,      "Image"              ) \
+	LANG_PAIR( PRESETS_CFN,        "Custom Fn"          ) \
+	LANG_PAIR( AUTOISO,            "AutoISO "           ) \
+	LANG_PAIR( AUTOISO_ENABLE,     "Enable"             ) \
+	LANG_PAIR( AUTOISO_MINISO,     "Min ISO"            ) \
+	LANG_PAIR( AUTOISO_MAXISO,     "Max ISO"            ) \
+	LANG_PAIR( AUTOISO_MINTV,      "Min Tv"             ) \
+	LANG_PAIR( AUTOISO_MAXAV,      "Max Av"             ) \
 
-enum WordID {
-	L_FREE_SPACE,		// 12 chars max
-	L_RELEASE_COUNT,	// 12 chars max
-	L_YES,
-	L_NO,
-	L_2S,			// 2s (two seconds)
-	L_OFF,
-	L_ENABLED,
-	L_DISABLED,
-	L_EXT_ONLY,
-	L_ONE_SHOT,
-	L_EXT_AEB,
-	L_INTERVAL,
-	L_NO_LIMIT,
-
-	L_RENAME,
-
-	L_DEVELOPER,
-	L_ENTER_FACTORY_MODE,	// 18 chars max
-	L_EXIT_FACTORY_MODE,	// 18 chars max
-	L_DEBUG_ON_POWERON,	// 18 chars max
-	L_LOGFILE,
-	L_OVERWRITE,
-	L_NEW,
-	L_APPEND,
-
-
-	L_LOAD_PRESETS,
-	L_SAVE_PRESETS,
-
-	L_PRESET_NAME,
-
-	L_SETTINGS,
-	L_DELAY,
-	L_ACTION,
-	L_REPEAT,
-	L_INSTANT,
-	L_FRAMES,
-	L_STEP_EV,
-	L_MANUAL_L,
-	L_MANUAL_R,
-	L_TIME_S,
-	L_EAEB,
-	L_SHOTS,
-	L_AV_COMP,
-	L_FLASH_COMP,
-	L_AEB,
-	L_ISO_IN_VF,
-	L_SHORTCUTS_MENU,
-	L_SAFETY_SHIFT,
-	L_COLOR_TEMP_K,
-	L_USE_FLASH,
-	L_HANDWAVE,
-	L_TIMER_SPACES,
-	L_IR_REMOTE_ENABLE,
-	L_IR_REMOTE_DELAY,
-	L_DEVELOPERS_MENU,
-
-	L_SCRIPTS_SPACES,
-	L_DIM_LCD_DOWN,
-	L_KEEP_POWER_ON,
-
-	L_SHORTCUTS,
-	L_ISO,
-	L_EXTENDED_AEB,
-	L_INTERVALOMETER,
-	L_HAND_WAVING,
-	L_SELF_TIMER,
-	L_AF_FLASH,
-	L_MIRROR_LOCKUP,
-	L_FLASH_2ND_CURT,
-
-	L_PRESETS_SPACES,
-	L_PRESETS_ADEP,
-	L_PRESETS_CAMERA,
-	L_PRESETS_400PLUS,
-	L_PRESETS_SETTINGS,
-	L_PRESETS_IMAGE,
-	L_PRESETS_CFN,
-
-	L_AUTOISO,
-	L_AUTOISO_ENABLE,
-	L_AUTOISO_MINISO,
-	L_AUTOISO_MAXISO,
-	L_AUTOISO_MINTV,
-	L_AUTOISO_MAXAV,
+enum LANG_WORDS_ENUM {
+	#define LANG_PAIR(key, val) L_##key,
+	LANGUAGE_PAIRS
+	#undef LANG_PAIR
+	// this will define the keys enum, eg:
+	// L_FREE_SPACE,
+	// L_RELEASE_COUNT,
+	// etc...
 
 	L_COUNT,
 	L_FIRST = 0,
 	L_LAST  = L_COUNT - 1
 };
 
-extern const char *lang_packs[LANG_COUNT][L_COUNT];
+extern const char *lang_pack_keys[L_COUNT];
 extern       char  lang_pack_current[L_COUNT][LP_MAX_WORD];
 
 extern void lang_pack_config();
