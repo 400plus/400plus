@@ -128,6 +128,8 @@ void restore_metering() {
 }
 
 void autoiso() {
+	int ev = 0x00, mask = 0xFF;
+
 	int newiso = cameraMode->iso;
 	int miniso = ((MIN(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
 	int maxiso = ((MAX(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
@@ -135,42 +137,39 @@ void autoiso() {
 	int mintv = ((settings.autoiso_mintv - 5) << 3) + 0x10;
 	int maxav = ((settings.autoiso_maxav + 1) << 3);
 
-	int ev    = (status.measured_ev & 0x80) ? -(0x100 - status.measured_ev) : status.measured_ev;
-
 	switch(cameraMode->ae) {
 	case AE_MODE_P:
 	case AE_MODE_AV:
+		mask = 0xF8;
 		// TODO: Clean-up these calculations
 		if (status.measured_tv < mintv) {
-			newiso += (mintv - status.measured_tv) + 0x08;
-			newiso  = MIN(newiso, maxiso) & 0xF8;
+			ev = (mintv - status.measured_tv) + 0x08;
 		} else if (status.measured_tv - 0x08 >= mintv) {
-			newiso -= (status.measured_tv - mintv);
-			newiso  = MAX(newiso, miniso) & 0xF8;
+			ev = -(status.measured_tv - mintv);
 		}
 		break;
 	case AE_MODE_TV:
+		mask = 0xF8;
 		// TODO: Clean-up these calculations
 		if (status.measured_av < maxav) {
-			newiso += (maxav - status.measured_av) + 0x08;
-			newiso  = MIN(newiso, maxiso) & 0xF8;
+			ev = (maxav - status.measured_av) + 0x08;
 		} else if (status.measured_av - 0x08 >= maxav) {
-			newiso -= (status.measured_av - maxav);
-			newiso  = MAX(newiso, miniso) & 0xF8;
+			ev = -(status.measured_av - maxav);
 		}
 		break;
 	case AE_MODE_M:
-		if (ev != 0x00) {
-			newiso = cameraMode->iso - ev;
-			newiso = MIN(newiso, maxiso);
-			newiso = MAX(newiso, miniso);
-		}
+		ev = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
 		break;
 	default:
 		break;
 	}
 
-	if (newiso != cameraMode->iso) {
+	if (ev != 0x00) {
+		newiso = (cameraMode->iso + ev) & mask;
+
+		newiso = MIN(newiso, maxiso);
+		newiso = MAX(newiso, miniso);
+
 		send_to_intercom(IC_SET_ISO, 2, newiso);
 		ENQUEUE_TASK(restore_display);
 	}
