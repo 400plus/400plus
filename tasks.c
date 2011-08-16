@@ -131,8 +131,8 @@ void autoiso() {
 	int mask = 0xF8, ev = 0x00, measure = 0x00, limit = 0x00;
 
 	int newiso = cameraMode->iso;
-	int miniso = ((MIN(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
-	int maxiso = ((MAX(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
+	int miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
+	int maxiso = MAX(settings.autoiso_miniso, settings.autoiso_maxiso);
 
 	switch(cameraMode->ae) {
 	case AE_MODE_P:

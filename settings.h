@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x21
+#define SETTINGS_VERSION  0x22
 
 typedef enum {
 	SHOT_ACTION_SHOT,
