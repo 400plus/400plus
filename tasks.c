@@ -128,37 +128,33 @@ void restore_metering() {
 }
 
 void autoiso() {
-	int ev = 0x00, mask = 0xFF;
+	int ev = 0x00, mask = 0xF8, limit;
 
 	int newiso = cameraMode->iso;
 	int miniso = ((MIN(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
 	int maxiso = ((MAX(settings.autoiso_miniso, settings.autoiso_maxiso) + 0x01) << 3) + 0x40;
 
-	int mintv = ((settings.autoiso_mintv - 5) << 3) + 0x10;
-	int maxav = ((settings.autoiso_maxav + 1) << 3);
-
 	switch(cameraMode->ae) {
 	case AE_MODE_P:
 	case AE_MODE_AV:
-		mask = 0xF8;
-		// TODO: Clean-up these calculations
-		if (status.measured_tv < mintv) {
-			ev = (mintv - status.measured_tv) + 0x08;
-		} else if (status.measured_tv - 0x08 >= mintv) {
-			ev = -(status.measured_tv - mintv);
-		}
+		limit = ((settings.autoiso_mintv - 5) << 3) + 0x10;
+
+		if (status.measured_tv < limit)
+			ev = (limit - status.measured_tv) + 0x08;
+		else if (status.measured_tv >= limit + 0x08)
+			ev = (limit - status.measured_tv);
 		break;
 	case AE_MODE_TV:
-		mask = 0xF8;
-		// TODO: Clean-up these calculations
-		if (status.measured_av < maxav) {
-			ev = (maxav - status.measured_av) + 0x08;
-		} else if (status.measured_av - 0x08 >= maxav) {
-			ev = -(status.measured_av - maxav);
-		}
+		limit = ((settings.autoiso_maxav + 1) << 3);
+
+		if (status.measured_av < limit)
+			ev = (limit - status.measured_av) + 0x08;
+		else if (status.measured_av >= limit + 0x08)
+			ev = (limit - status.measured_av);
 		break;
 	case AE_MODE_M:
-		ev = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
+		mask = 0xFF;
+		ev   = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
 		break;
 	default:
 		break;
