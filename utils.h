@@ -19,9 +19,10 @@ extern int ev_sub(int ying, int yang);
 extern int av_inc(int ev);
 extern int av_dec(int ev);
 
-extern void ev_print(const char *dest, int ev);
-extern void av_print(const char *dest, int ev);
-
+extern int tv_next(int ev);
+extern int tv_prev(int ev);
+extern int tv_inc(int ev);
+extern int tv_dec(int ev);
 extern int tv_add(int ying, int yang);
 extern int tv_sub(int ying, int yang);
 
@@ -30,6 +31,10 @@ extern int iso_next(int iso);
 extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
+
+extern void ev_print(const char *dest, int ev);
+extern void av_print(const char *dest, int ev);
+extern void tv_print(const char *dest, int ev);
 
 extern void iso_print(const char *string, int code);
 

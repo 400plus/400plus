@@ -8,15 +8,15 @@
 type_SETTINGS settings = {
 	iso_in_viewfinder: FALSE,
 	autoiso_enable   : FALSE,
-	autoiso_miniso   : 0x48, // ISO 100
+	autoiso_miniso   : 0x48, // ISO100
 	autoiso_maxiso   : 0x68, // ISO1600
-	autoiso_mintv    : 16,   // 1/60s
+	autoiso_mintv    : 0x68, // 1/60s
 	autoiso_maxav    : 0x28, // f/4.0
 	eaeb_frames      : 3,
 	eaeb_delay       : FALSE,
-	eaeb_ev          : 0x08,
-	eaeb_tv_min      : 0,
-	eaeb_tv_max      : 0,
+	eaeb_ev          : 0x08, // 1EV
+	eaeb_tv_min      : 0x68, // 1/60s
+	eaeb_tv_max      : 0x78, // 1/250s
 	interval_delay   : FALSE,
 	interval_time    : 2,
 	interval_eaeb    : FALSE,

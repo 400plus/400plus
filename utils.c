@@ -15,11 +15,39 @@ static char *av_strings[][4] = {
 	{"2.8", "3.2", "3.3", "3.5"},
 	{"4.0", "4.5", "4.8", "5.0"},
 	{"5.6", "6.3", "6.7", "7.1"},
-	{"8.0", "9.0", "9.5", "10"},
-	{"11",  "13",  "13",  "14"},
-	{"16",  "18",  "19",  "20"},
-	{"22",  "",    "",    ""},
+	{"8.0", "9.0", "9.5",  "10"},
+	{ "11",  "13",  "13",  "14"},
+	{ "16",  "18",  "19",  "20"},
+	{ "22",    "",    "",    ""},
 };
+
+static char *tv_strings[][4] = {
+	{   "32'",       "",       "",       ""},
+	{   "16'",       "",       "",       ""},
+	{    "8'",       "",       "",       ""},
+	{    "4'",       "",       "",       ""},
+	{    "2'",       "",       "",       ""},
+	{    "1'",       "",       "",       ""},
+	{  "30\"",   "25\"",   "20\"",   "20\""},
+	{  "15\"",   "13\"",   "10\"",   "10\""},
+	{   "8\"",    "6\"",    "6\"",    "5\""},
+	{   "4\"",   "3\"2",    "3\"",   "2\"5"},
+	{   "2\"",   "1\"6",   "1\"5",   "1\"3"},
+	{   "1\"",   "0\"8",   "0\"7",   "0\"6"},
+	{  "0\"5",   "0\"4",   "0\"3",   "0\"3"},
+	{   "1/4",    "1/5",    "1/6",    "1/6"},
+	{   "1/8",   "1/10",   "1/10",   "1/13"},
+	{  "1/15",   "1/20",   "1/20",   "1/25"},
+	{  "1/30",   "1/40",   "1/45",   "1/50"},
+	{  "1/60",   "1/80",   "1/90",  "1/100"},
+	{ "1/125",  "1/160",  "1/180",  "1/200"},
+	{ "1/250",  "1/320",  "1/350",  "1/400"},
+	{ "1/500",  "1/640",  "1/750",  "1/800"},
+	{"1/1000", "1/1250", "1/1500", "1/1600"},
+	{"1/2000", "1/2500", "1/3000", "1/3200"},
+	{"1/4000",  "",            "",       ""},
+};
+
 int ev_sgn(int ev) {
 	return 0x100 - ev;
 }
@@ -87,6 +115,87 @@ int av_dec(int av) {
 	return MAX(av, 0x08); // f/1.0
 }
 
+int tv_next(int tv) {
+	return MIN(tv + 0x08, 0x98);
+}
+
+int tv_prev(int tv) {
+	return MAX(tv - 0x08, -0x20);
+}
+
+int tv_inc(int tv) {
+	tv = ev_normalize(tv);
+
+	if (cameraMode->cf_explevel_inc_third)
+		tv = ev_add(tv, 0x04); // +0 1/2
+	else
+		tv = ev_add(tv, 0x03); // +0 1/3
+
+	return MIN(tv, 0x98); // 1/4000s
+}
+
+int tv_dec(int tv) {
+	tv = ev_normalize(tv);
+
+	if (cameraMode->cf_explevel_inc_third)
+		tv = ev_add(tv, 0xFC); // -0 1/2
+	else
+		tv = ev_add(tv, 0xFD); // -0 1/3
+
+	return MAX(tv, 0x10); // 30s
+}
+
+int tv_add(int ying, int yang) {
+	int ev = ev_add(ying, yang);
+
+	return MIN(ev, 0xA0);
+}
+
+int tv_sub(int ying, int yang) {
+	int ev = ev_sub(ying, yang);
+
+	return MAX(ev, 0x10);
+}
+
+int ev_normalize(int ev) {
+	if (cameraMode->cf_explevel_inc_third)
+		ev &= 0xFC;
+	else if ((ev & 0x07) && !(ev & 0x03))
+		ev -= 0x01;
+
+	return ev;
+}
+
+int iso_roll(int iso) {
+	iso = (iso & 0xF8) | ((iso + 1) & 0x07);
+
+	return MIN(iso, 0x70);
+}
+
+int iso_next(int iso) {
+	iso = iso + 0x01;;
+
+	return MIN(iso, 0x6F);
+}
+
+int iso_prev(int iso) {
+	iso = iso - 0x01;
+
+	return MAX(iso, 0x48);
+}
+
+int iso_inc(int iso) {
+	iso = (iso & 0xF8) + 0x08;
+
+	return MIN(iso, 0x68);
+}
+
+int iso_dec(int iso) {
+	iso = (iso & 0xF8) - 0x08;
+
+	return MAX(iso, 0x48);
+}
+
 void ev_print(const char *dest, int ev) {
 	char dsp_sgn, dsp_int, *dsp_dec;
 
@@ -143,55 +252,25 @@ void av_print(const char *dest, int av) {
 	sprintf(dest, "%s", av_strings[base][frac]);
 }
 
-int tv_add(int ying, int yang) {
-	int ev = ev_add(ying, yang);
+void tv_print(const char *dest, int tv) {
+	int base = (tv >> 3) + 0x04;
+	int frac = 0;
 
-	return MIN(ev, 0xA0);
-}
+	switch (tv & 0x07) {
+	case 0x03:
+		frac = 1;
+		break;
+	case 0x04:
+		frac = 2;
+		break;
+	case 0x05:
+		frac = 3;
+		break;
+	default:
+		break;
+	}
 
-int tv_sub(int ying, int yang) {
-	int ev = ev_sub(ying, yang);
-
-	return MAX(ev, 0x10);
-}
-
-int ev_normalize(int ev) {
-	if (cameraMode->cf_explevel_inc_third)
-		ev &= 0xFC;
-	else if ((ev & 0x07) && !(ev & 0x03))
-		ev -= 0x01;
-
-	return ev;
-}
-
-int iso_roll(int iso) {
-	iso = (iso & 0xF8) | ((iso + 1) & 0x07);
-
-	return MIN(iso, 0x70);
-}
-
-int iso_next(int iso) {
-	iso = iso + 0x01;;
-
-	return MIN(iso, 0x6F);
-}
-
-int iso_prev(int iso) {
-	iso = iso - 0x01;
-
-	return MAX(iso, 0x48);
-}
-
-int iso_inc(int iso) {
-	iso = (iso & 0xF8) + 0x08;
-
-	return MIN(iso, 0x68);
-}
-
-int iso_dec(int iso) {
-	iso = (iso & 0xF8) - 0x08;
-
-	return MAX(iso, 0x48);
+	sprintf(dest, "%s", tv_strings[base][frac]);
 }
 
 void iso_print(const char *string, int code) {
