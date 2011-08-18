@@ -23,6 +23,8 @@ void menu_settings_apply_remote_enable   (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
 void menu_settings_apply_autoiso_miniso  (type_MENUITEM *item);
 void menu_settings_apply_autoiso_maxiso  (type_MENUITEM *item);
+void menu_settings_apply_eaeb_tvmin      (type_MENUITEM *item);
+void menu_settings_apply_eaeb_tvmax      (type_MENUITEM *item);
 
 type_MENUITEM autoiso_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
@@ -53,8 +55,8 @@ type_MENUITEM eaeb_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_DELAY),     &settings.eaeb_delay,  NULL),
 	MENUITEM_BRACKET(LP_WORD(L_FRAMES),    &settings.eaeb_frames, NULL),
 	MENUITEM_EVSEP  (LP_WORD(L_STEP_EV),   &settings.eaeb_ev,     NULL),
-	MENUITEM_BULB   (LP_WORD(L_MANUAL_L),  &settings.eaeb_tv_min, NULL),
-	MENUITEM_BULB   (LP_WORD(L_MANUAL_R),  &settings.eaeb_tv_max, NULL)
+	MENUITEM_BULB   (LP_WORD(L_MANUAL_L),  &settings.eaeb_tv_min, menu_settings_apply_eaeb_tvmin),
+	MENUITEM_BULB   (LP_WORD(L_MANUAL_R),  &settings.eaeb_tv_max, menu_settings_apply_eaeb_tvmax)
 };
 
 type_MENUITEM interval_items[] = {
@@ -173,4 +175,12 @@ void menu_settings_apply_autoiso_miniso(type_MENUITEM *item) {
 
 void menu_settings_apply_autoiso_maxiso(type_MENUITEM *item) {
 	settings.autoiso_miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
+}
+
+void menu_settings_apply_eaeb_tvmin(type_MENUITEM *item) {
+	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
+}
+
+void menu_settings_apply_eaeb_tvmax(type_MENUITEM *item) {
+	settings.eaeb_tv_min = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
 }
