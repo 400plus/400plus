@@ -129,6 +129,8 @@ void restore_metering() {
 
 void autoiso() {
 	int mask = 0xF8, ev = 0x00, measure = 0x00, limit = 0x00;
+	int miniso = settings.autoiso_miniso;
+	int maxiso = settings.autoiso_maxiso;
 
 	int newiso = cameraMode->iso;
 
@@ -143,7 +145,10 @@ void autoiso() {
 		limit   = settings.autoiso_maxav;
 		break;
 	case AE_MODE_M:
-		mask = 0xFF;
+		mask   = 0xFF;
+		miniso = 0x48;
+		maxiso = 0x6F;
+
 		ev   = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
 		break;
 	default:
@@ -160,8 +165,8 @@ void autoiso() {
 	if (ev != 0x00) {
 		newiso = (cameraMode->iso + ev) & mask;
 
-		newiso = MIN(newiso, settings.autoiso_maxiso);
-		newiso = MAX(newiso, settings.autoiso_miniso);
+		newiso = MIN(newiso, maxiso);
+		newiso = MAX(newiso, miniso);
 
 		send_to_intercom(IC_SET_ISO, 2, newiso);
 		ENQUEUE_TASK(restore_display);

@@ -173,7 +173,7 @@ int iso_roll(int iso) {
 }
 
 int iso_next(int iso) {
-	iso = iso + 0x01;;
+	iso = iso + 0x01;
 
 	return MIN(iso, 0x6F);
 }
