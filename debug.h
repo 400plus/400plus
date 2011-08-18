@@ -8,6 +8,7 @@
 
 #define debug_log(f, p...) printf_log(8, 8, "[400Plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
 #define debug_printf(f, p...) printf("\n[400Plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
+#if 0
 static inline char * mc_btn_name(char * buf, int event) {
 	switch (event) {
 	case MC_BUTTON_MENU:		sprintf(buf, "MC_BUTTON_MENU");			break;
@@ -40,6 +41,12 @@ static inline char * mc_btn_name(char * buf, int event) {
 	}
 	return buf;
 }
+#else
+static inline char * __attribute__((unused)) mc_btn_name(char * buf, int event) {
+	sprintf(buf, "0x%08X", event);
+	return buf;
+}
+#endif
 
 #define LEDRED (*((int*)0xC02200A0))
 #define LEDBLUE (*((int*)0xC0220000))

@@ -224,6 +224,12 @@ void exit_factory_mode() {
 	beep();
 }
 
+void dump_log() {
+	debug_log("Dumping the log.\n");
+	dumpf();
+	beep();
+}
+
 void start_debug_mode() {
 	int file;
 	char filename[20] = "A:/DEBUG.LOG"; // default name
@@ -248,10 +254,12 @@ void start_debug_mode() {
 		ioGlobalStdSet(2, file);
 	}
 
-	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	char separator[] = "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n";
+	printf(separator);
 	printf("::::: %04d-%02d-%02d %02d:%02d:%02d :::::\n", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
 			tm.tm_hour, tm.tm_min, tm.tm_sec);
-	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n");
+	printf(separator);
+	printf("\n");
 
 	beep();
 }

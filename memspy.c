@@ -1,20 +1,20 @@
 // memspy tool ported from MagicLantern.
-#include "debug.h"
 #ifdef MEMSPY
+#include "debug.h"
 
 /*
  * Copyright (C) 2009 Trammell Hudson <hudson+ml@osresearch.net>
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the
  * Free Software Foundation, Inc.,
@@ -36,7 +36,7 @@ int mem_spy_len = 0x100/4;    // look at ### int32's; use only when mem_spy_fixe
 
 int mem_spy_count_lo = 1; // how many times is a value allowed to change
 int mem_spy_count_hi = 5; // (limits)
-int mem_spy_freq_lo = 0; 
+int mem_spy_freq_lo = 0;
 int mem_spy_freq_hi = 0;  // or check frequecy between 2 limits (0 = disable)
 int mem_spy_value_lo = 0;
 //int mem_spy_value_hi = 50;  // or look for a specific range of values (0 = disable)
@@ -78,7 +78,7 @@ void _tic()
 	//time(&t);
 	//localtime_r(&t, &now);
 	//_t = _get_timestamp(&now);
-	
+
 	time(&_t);
 }
 int _toc()
@@ -94,7 +94,7 @@ int _toc()
 
 static void dbg_memspy_init() // initial state of the analyzed memory
 {
-	printf_log(8,8,"memspy init @ from:%x ... (len:%x) ... to:%x", mem_spy_start, mem_spy_len, mem_spy_start + mem_spy_len * 4);
+	debug_log("memspy init @ from:%x ... (len:%x) ... to:%x", mem_spy_start, mem_spy_len, mem_spy_start + mem_spy_len * 4);
 	//mem_spy_len is number of int32's
 	if (!dbg_memmirror) dbg_memmirror = AllocateMemory(mem_spy_len*4 + 100); // local copy of mem area analyzed
 	if (!dbg_memmirror) return;
@@ -111,7 +111,7 @@ static void dbg_memspy_init() // initial state of the analyzed memory
 		dbg_memlogged[i] = 0;
 		crc += dbg_memmirror[i];
 	}
-	printf_log(8,8,"memspy OK: %x", crc);
+	debug_log("memspy OK: %x", crc);
 	_tic();
 }
 
@@ -143,10 +143,10 @@ static void dbg_memspy_update()
 
 		if (mem_spy_value_lo && newval < mem_spy_value_lo) continue;
 		if (mem_spy_value_hi && newval > mem_spy_value_hi) continue;
-		
+
 		if (mem_spy_count_lo && dbg_memchanges[i] < mem_spy_count_lo) continue;
 		if (mem_spy_count_hi && dbg_memchanges[i] > mem_spy_count_hi) continue;
-		
+
 		int freq = dbg_memchanges[i] / elapsed_time;
 		if (mem_spy_freq_lo && freq < mem_spy_freq_lo) continue;
 		if (mem_spy_freq_hi && freq > mem_spy_freq_hi) continue;
@@ -154,10 +154,10 @@ static void dbg_memspy_update()
 		if (dbg_memlogged[i]) return;
 
 		if (!printed_elapsed) {
-			printf_log(8,8,"memspy: elapsed: %d sec ", elapsed_time);
+			debug_log("memspy: elapsed: %d sec ", elapsed_time);
 			printed_elapsed = 1;
 		}
-		printf_log(8,8,"%8x:%2d:%8x", addr, dbg_memchanges[i], newval);
+		debug_log("%8x:%2d:%8x", addr, dbg_memchanges[i], newval);
 		dbg_memlogged[i] = 1;
 		SleepTask(10);
 	}

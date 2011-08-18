@@ -398,7 +398,7 @@ void my_task_Startup() {
 }
 
 int my_InitializeIntercom() {
-	printf("InitializeIntercom\n");
+	//printf("InitializeIntercom\n");
 	InitIntercomData(intercom_proxy);
 	CreateIntercomSem();
 
