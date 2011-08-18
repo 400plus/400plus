@@ -415,8 +415,8 @@ extern type_CAMERA_MODE *cameraMode;
 #define COLOR_SPACE_ADOBE 0x01
 
 // [F] Values for "tv_val"
-//     0x10 => 30", 0x18 => 15", ..., 0x90 => 1/4000
-#define TV_VAL_BULB 0x0C
+//     0x10 => 30", ..., 0x98 => 1/4000
+#define TV_VAL_BULB 0x0C // Internal code for BULB mode
 
 // [G] Values for "img_format"
 #define IMG_FORMAT_JPG   0x01

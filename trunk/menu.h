@@ -16,6 +16,7 @@ typedef struct MENUITEM type_MENUITEM;
 typedef enum {
 	MENUITEM_TYPE_EV,
 	MENUITEM_TYPE_AV,
+	MENUITEM_TYPE_TV,
 	MENUITEM_TYPE_ISO,
 	MENUITEM_TYPE_INT,
 	MENUITEM_TYPE_ENUM,
@@ -50,6 +51,11 @@ typedef struct {
 
 typedef struct {
 	int  *value;
+	int   bulb;
+} type_MENUITEM_TV;
+
+typedef struct {
+	int  *value;
 	int   full;
 } type_MENUITEM_ISO;
 
@@ -78,6 +84,7 @@ typedef struct {
 typedef union {
 	type_MENUITEM_EV      menuitem_ev;
 	type_MENUITEM_AV      menuitem_av;
+	type_MENUITEM_TV      menuitem_tv;
 	type_MENUITEM_ISO     menuitem_iso;
 	type_MENUITEM_INT     menuitem_int;
 	type_MENUITEM_ENUM    menuitem_enum;
@@ -125,7 +132,6 @@ OPTIONLIST_DEC(bool)
 OPTIONLIST_DEC(delay)
 OPTIONLIST_DEC(flash)
 OPTIONLIST_DEC(action)
-OPTIONLIST_DEC(shutter)
 OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_, _ON_CHANGE_) \
@@ -133,6 +139,12 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) \
 	{name:_NAME_, type:MENUITEM_TYPE_AV, parm:{menuitem_av:{value:_VALUE_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+
+#define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) \
+	{name:_NAME_, type:MENUITEM_TYPE_TV, parm:{menuitem_tv:{value:_VALUE_, bulb:FALSE}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+
+#define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) \
+	{name:_NAME_, type:MENUITEM_TYPE_TV, parm:{menuitem_tv:{value:_VALUE_, bulb:TRUE}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
 
 #define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_) \
 	{name:_NAME_, type:MENUITEM_TYPE_ISO, parm:{menuitem_iso:{value:_VALUE_, full:_FULL_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
@@ -159,7 +171,6 @@ OPTIONLIST_DEC(logfile)
 #define MENUITEM_DELAY(   _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, OPTIONLIST_REF(delay),    _ON_CHANGE_)
 #define MENUITEM_AFFLASH( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  OPTIONLIST_REF(flash),    _ON_CHANGE_)
 #define MENUITEM_ACTION(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE,  OPTIONLIST_REF(action),   _ON_CHANGE_)
-#define MENUITEM_SHUTTER( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, OPTIONLIST_REF(shutter),  _ON_CHANGE_)
 #define MENUITEM_LOGFILE( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, FALSE, OPTIONLIST_REF(logfile),  _ON_CHANGE_)
 
 #define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, 1800, 11000, 100, 500, FALSE, "%5u", _ON_CHANGE_)
