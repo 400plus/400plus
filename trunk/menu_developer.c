@@ -62,7 +62,7 @@ static int test_dialog_btn_handler(type_DIALOG * dialog, int r1, gui_event_t eve
 		if (template>=110) {
 			DeleteDialogBox(menu_handler);
 			menu_handler = NULL;
-			FLAG_GUI_MODE = 0x28;
+			FLAG_GUI_MODE = GUIMODE_400PLUS;
 		}
 		template++;
 		curr_palette = 0;
@@ -72,7 +72,7 @@ static int test_dialog_btn_handler(type_DIALOG * dialog, int r1, gui_event_t eve
 	case GUI_BUTTON_MENU:
 		DeleteDialogBox(menu_handler);
 		menu_handler = NULL;
-		FLAG_GUI_MODE = 0x28;
+		FLAG_GUI_MODE = GUIMODE_400PLUS;
 		return 0;
 	case GUI_BUTTON_JUMP:
 		curr_palette++;

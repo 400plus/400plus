@@ -17,7 +17,6 @@ const char *lang_pack_keys[L_COUNT] = {
 	// etc...
 };
 
-// @todo: remove this from ROM and allocate it directly in lang_pack_config()
 // store English language in the ROM, so we have at least one language available.
 static const char *lang_pack_english[L_COUNT] = {
 	#define LANG_PAIR(key, val) [L_##key] = val,
@@ -31,20 +30,54 @@ static const char *lang_pack_english[L_COUNT] = {
 char lang_pack_current[L_COUNT][LP_MAX_WORD];
 int  lang_pack_keys_loaded;
 
-int lang_pack_loader(void* user, int lineno, const char* section, const char* name, const char* value) {
-	char *lang_section = (char*)user;
+// see comment below before uncommenting this routine
+/*
+int lang_pack_sections(void *user, int lineno, const char *section) {
+	debug_log("section found: [%s]", section);
+	return 1;
+}
+*/
 
-	//debug_log("[%s]:%d:[%s]\n", name, lineno, value);
-	if (!strncmp(lang_section, section, 32)) {
-		int i;
-		// it's our section, now find the KEY id
-		// @todo: think of a better way to find our id
-		for (i = L_FIRST; i < L_COUNT; i++) {
-			if (!strncmp(lang_pack_keys[i], name, LP_MAX_WORD)) {
-				// this is our id
-				strncpy(lang_pack_current[i], value, LP_MAX_WORD);
-				lang_pack_keys_loaded++;
-			}
+void lang_pack_init() {
+	// this code should be uncommented and used to make a new menu for choosing
+	// language different from the camera's one, this way we can have additional languages.
+	// menu should look like this:
+	// Camera Language [default]
+	// German
+	// Italian
+	// French
+	// etc...
+	/*
+	int res = 0;
+
+	res = ini_parse("A:/languages.ini", NULL, NULL, lang_pack_sections, NULL);
+
+	if (res == 0) {
+		debug_log("sections parsed");
+	} else {
+		debug_log("ERROR: cannot parse sections from language.ini");
+		if (res > 0) {
+			debug_log("Problem on line [%d] in languages.ini ", res);
+		} else {
+			debug_log("languages.ini not found");
+		}
+	}
+	*/
+	lang_pack_config();
+}
+
+int lang_pack_loader(void* user, int lineno, const char* section, const char* name, const char* value) {
+	int i;
+
+	// after the ini_parser improvement, we should get only our section parsed, so no need to check the section
+
+	// find the KEY id
+	// @todo: think of a better way to find our id
+	for (i = L_FIRST; i < L_COUNT; i++) {
+		if (!strncmp(lang_pack_keys[i], name, LP_MAX_WORD)) {
+			// this is our id
+			strncpy(lang_pack_current[i], value, LP_MAX_WORD);
+			lang_pack_keys_loaded++;
 		}
 	}
 
@@ -71,10 +104,8 @@ void lang_pack_config() {
 	if (cameraMode->language > 0 /* ENGLISH */) {
 		int res;
 		stoupper(lang); // convert to upper case
-		//LockTask();
 		lang_pack_keys_loaded=0;
-		res = ini_parse("A:/languages.ini", lang_pack_loader, (void*)lang);
-		//UnLockTask();
+		res = ini_parse("A:/languages.ini", lang, lang_pack_loader, NULL, (void*)lang);
 		if (res == 0) {
 			debug_log("[%d] keys loaded from languages.ini.", lang_pack_keys_loaded);
 		} else {

@@ -16,10 +16,11 @@ http://code.google.com/p/inih/
 #include "ini.h"
 #include "utils.h"
 #include "debug.h"
+#include "languages.h"
 
 #define MAX_LINE 100
-#define MAX_SECTION 32
-#define MAX_NAME 32
+#define MAX_SECTION LP_MAX_WORD /*32*/
+#define MAX_NAME    LP_MAX_WORD /*32*/
 
 /* Strip whitespace chars off end of given string, in place. Return s. */
 static char* rstrip(char* s) {
@@ -56,7 +57,7 @@ static char* strncpy0(char* dest, const char* src, size_t size) {
 }
 
 /* See documentation in header file. */
-int ini_parse_file(int fd, int (*handler)(void*, int line, const char*, const char*, const char*), void* user) {
+int ini_parse_file(int fd, const char* wanted_section, ini_line_handler handler, ini_section_handler shandler, void* user) {
 	/* Uses a fair bit of stack (use heap instead if you need to) */
 	char line[MAX_LINE];
 	char section[MAX_SECTION] = "";
@@ -68,6 +69,10 @@ int ini_parse_file(int fd, int (*handler)(void*, int line, const char*, const ch
 	char* value;
 	int lineno = 0;
 	int error = 0;
+	int section_found = 0;
+
+	if (!wanted_section)
+		section_found = 1;
 
 	my_fgets_init();
 	/* Scan through file line by line */
@@ -82,7 +87,7 @@ int ini_parse_file(int fd, int (*handler)(void*, int line, const char*, const ch
 		if (*prev_name && *start && start > line) {
 			/* Non-black line with leading whitespace, treat as continuation
 			   of previous name's value (as per Python ConfigParser). */
-			if (!handler(user, lineno, section, prev_name, start) && !error)
+			if (section_found && handler && !handler(user, lineno, section, prev_name, start) && !error)
 				error = lineno;
 		} else
 #endif
@@ -95,6 +100,14 @@ int ini_parse_file(int fd, int (*handler)(void*, int line, const char*, const ch
 				*end = '\0';
 				strncpy0(section, start + 1, sizeof(section));
 				*prev_name = '\0';
+				if (wanted_section) { // 0xAF
+					if (!strncmp(section, wanted_section, MAX_SECTION))
+						section_found = 1;
+					else
+						section_found = 0;
+				}
+				if (shandler && !shandler(user, lineno, section) && !error)
+					error = lineno;
 			} else if (!error) {
 				/* No ']' found on section line */
 				error = lineno;
@@ -116,7 +129,7 @@ int ini_parse_file(int fd, int (*handler)(void*, int line, const char*, const ch
 
 				/* Valid name[=:]value pair found, call handler */
 				strncpy0(prev_name, name, sizeof(prev_name));
-				if (!handler(user, lineno, section, name, value) && !error)
+				if (section_found && handler && !handler(user, lineno, section, name, value) && !error)
 					error = lineno;
 			} else if (!error) {
 				/* No '=' or ':' found on name[=:]value line */
@@ -129,13 +142,13 @@ int ini_parse_file(int fd, int (*handler)(void*, int line, const char*, const ch
 }
 
 /* See documentation in header file. */
-int ini_parse(const char* filename, int (*handler)(void*, int, const char*, const char*, const char*), void* user) {
+int ini_parse(const char* filename, const char* wanted_section, ini_line_handler handler, ini_section_handler shandler, void* user) {
 	int fd;
 	int error;
 
 	if ( (fd = FIO_OpenFile(filename, O_RDONLY, 644)) < 0 )
 		return -1;
-	error = ini_parse_file(fd, handler, user);
+	error = ini_parse_file(fd, wanted_section, handler, shandler, user);
 	close(fd);
 	return error;
 }

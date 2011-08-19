@@ -39,7 +39,7 @@ void start_up() {
 	}
 
 	// Set current language
-	lang_pack_config();
+	lang_pack_init();
 
 	// Enable (hidden) CFn.8 for ISO H
 	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1, 1);
