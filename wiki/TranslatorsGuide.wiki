@@ -1,0 +1,45 @@
+#summary Translating 400plus
+#labels Translations
+
+= Introduction =
+
+This guide should give some lights on how to translate the 400plus project to your language.
+
+
+= Details =
+
+First you need to download languages.ini file from the [http://code.google.com/p/400plus/downloads/list NightlyBuild] or directly from the  [http://code.google.com/p/400plus/source/browse/trunk/languages.ini trunk]
+
+Then you will have to take the key/value pairs from  [http://code.google.com/p/400plus/source/browse/trunk/languages.h languages.h] file
+
+They look like this:
+{{{
+LANG_PAIR( FREE_SPACE,         "Free Space"         ) \
+LANG_PAIR( RELEASE_COUNT,      "ReleaseCount"       ) \
+LANG_PAIR( OFF,                "Off"                ) \
+LANG_PAIR( YES,                "Yes"                ) \
+LANG_PAIR( NO,                 "No"                 ) \
+LANG_PAIR( 2S,                 "2s"                 ) \
+}}}
+
+Here the first parameter of LANG_PAIR is the key and the second is value.
+
+for example:
+{{{
+FREE_SPACE = key
+"Free Space" = value
+}}}
+
+After translating the values, you will need to put all the keys and the translated values in the languages.ini file in the appropriate section.
+
+here is an example of German language section:
+{{{
+[GERMAN]
+FREE_SPACE         = CF-Card frei
+RELEASE_COUNT      = Anz. d. Aufn.
+OFF                = Aus
+YES                = Ja
+NO                 = Nein
+}}}
+
+After you're ready with the new languages.ini file, open a new [http://code.google.com/p/400plus/issues/list issue], and attach the file there.
