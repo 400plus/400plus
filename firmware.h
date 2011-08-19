@@ -45,7 +45,8 @@ extern int  ReceiveMessageQueue(void *hMessageQueue, void *pMessage, int forever
 extern int  PostMessageQueue(void *hMessageQueue, void *pMessage, int forever);
 extern int  TryPostMessageQueue(void *hMessageQueue, void *pMessage, int forever);
 
-// File management
+// StdIO
+
 extern int open(const char *name, int flags, int mode);
 extern int read(int fd, void *buffer, size_t nbytes);
 extern int write(int fd, void *buffer, size_t nbytes);
@@ -57,7 +58,18 @@ extern int printf_log(int, int, const char *, ...); // printf to the log system
 extern int fprintf (FILE *fp, const char *fmt, ...);// printf to FILE stream
 extern int fdprintf(int fd, char *format, ...);     // printf to FD
 
-// FIO
+// these are wrappers over stdio
+extern int FIO_CreateFile(const char *name);
+extern int FIO_RemoveFile(const char *name);
+extern int FIO_OpenFile(const char *name, int flags, int mode);
+extern int FIO_ReadFile(int fd, void *buffer, long nbytes);
+extern int FIO_WriteFile(int fd, void *buf, long nbytes);
+extern int FIO_CloseFile(int fd);
+extern void FIO_GetFileSize(char * file, int * size);
+extern void FIO_SeekFile(int fd, long offset, int whence); // whence: SEEK_SET=0, SEEK_CUR=1, SEEK_END=2
+
+// File IO
+
 extern long fdConsole; // fd of stdout
 extern FILE *fopen(const char *file, const char *mode);
 extern FILE *freopen(const char * file, const char * mode, FILE * fp);
@@ -72,7 +84,7 @@ extern int   feof(FILE *fp);   // test for EOF
 extern int   ferror(FILE *fp); // test for error
 extern int   fflush(FILE *fp);
 extern int   fgetc(FILE *fp);
-extern int   fgets(char * buf, size_t n, FILE *fp);
+extern int   fgets(char * buf, size_t n, FILE *fp); // not working, gets wrong file position pointer after a while
 extern int   fscanf(FILE * fp, char const * fmt, ...);
 extern int   fputs (const char * s, FILE * fp);
 
@@ -83,19 +95,10 @@ extern int   fputs (const char * s, FILE * fp);
 
 
 // Time functions
+
 extern time_t time(time_t *t); // returns timestamp, and sets arg1 if pointer is provided
 extern int clock_gettime(int clock_id/* 0 */, struct timespec *tp); // return 0 on success
 extern struct tm * localtime_r(time_t *time, struct tm*);
-
-// File IO
-extern int FIO_CreateFile(const char *name);
-extern int FIO_RemoveFile(const char *name);
-extern int FIO_OpenFile(const char *name, int flags, int mode);
-extern int FIO_ReadFile(int fd, void *buffer, long nbytes);
-extern int FIO_WriteFile(int fd, void *buf, long nbytes);
-extern int FIO_CloseFile(int fd);
-extern void FIO_GetFileSize(char * file, int * size);
-extern void FIO_SeekFile(int fd, long offset, int whence); // whence: SEEK_SET=0, SEEK_CUR=1, SEEK_END=2
 
 // free space is reported in KB, drvltr is "A:"
 extern int FP_GetDriveFreeSpace(char * drv_letter, int * result);
@@ -165,6 +168,19 @@ extern int InfoCreativeAppProc(type_DIALOG * dialog, int r1, gui_event_t event, 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 
 extern int PaletteChange(int color);
+/*
+DEF(GUI_Select_Item, 0xFF914F94)        // GUI_Select_Item(void *menu_handle, int menu_item)
+DEF(GUI_Highlight_Sub, 0xFF838714)  // opens submenu in menu dialog template or highlights item. GUI_Highlight_Sub(void *menu_handle,
+int menu_item, bool enable);
+DEF(GUI_Disable_Item, 0xFF838748)       // GUI_Disable_Item(void *menu_handle, int menu_item, bool enable);
+
+PaletteChange(1); //changes menu to blue
+// 0 red
+// 1 blue
+// 2 yelolw
+// 0x12 black and white
+// other numbers possible
+*/
 
 // Factory mode and debugging
 

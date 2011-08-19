@@ -18,6 +18,9 @@ extern "C" {
 //#include <stdio.h> // 0xAF
 #include "firmware.h"
 
+typedef int (*ini_line_handler)(void* user, int lineno, const char* section, const char* name, const char* value);
+typedef int (*ini_section_handler)(void* user, int lineno, const char* section);
+
 /* Parse given INI-style file. May have [section]s, name=value pairs
    (whitespace stripped), and comments starting with ';' (semicolon). Section
    is "" if name=value pair parsed before any section heading. name:value
@@ -29,16 +32,17 @@ extern "C" {
 
    Returns 0 on success, line number of first error on parse error (doesn't
    stop on first error), or -1 on file open error.
+
+   0xAF: added section parameter, pass the section name to get only this section parsed
+   if you want the whole file parsed, pass NULL
+   0xAF: added a section handler, which will be called when new section is found.
+   the return from this handler is the same like the name/value handler
 */
-int ini_parse(const char* filename,
-		int (*handler)(void* user, int lineno, const char* section, const char* name, const char* value),
-		void* user);
+int ini_parse(const char* filename, const char* wanted_section, ini_line_handler handler, ini_section_handler shandler, void* user);
 
 /* Same as ini_parse(), but takes a FD instead of filename. This doesn't
    close the file when it's finished -- the caller must do that. */
-int ini_parse_file(int fd,
-		int (*handler)(void* user, int lineno, const char* section, const char* name, const char* value),
-		void* user);
+int ini_parse_file(int fd, const char* wanted_section, ini_line_handler handler, ini_section_handler shandler, void* user);
 
 /* Nonzero to allow multi-line value parsing, in the style of Python's
    ConfigParser. If allowed, ini_parse() will call the handler with the same

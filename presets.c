@@ -20,7 +20,7 @@ type_PRESETS_CONFIG presets_config = {
 };
 
 void sub_preset_recall(int full);
-void get_filename(char *filename, int id);
+//void get_filename(char *filename, int id);
 
 void presets_read() {
 	int id;

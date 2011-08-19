@@ -93,7 +93,7 @@ void my_MC_T_Button(mc_table_t * event) {
 			case GUIMODE_OLC:
 				ENQUEUE_TASK(set_intermediate_iso);
 				break;
-            default:
+			default:
 				MC_T_Button(event);
 				break;
 		}

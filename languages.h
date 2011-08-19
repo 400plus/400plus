@@ -1,7 +1,7 @@
 #ifndef LANGUAGES_H_
 #define LANGUAGES_H_
 
-#define LP_MAX_WORD 32
+#define LP_MAX_WORD 32 // this is valid for the keys and section names too
 #define LP_WORD(word) lang_pack_current[word]
 
 #define LANGUAGE_PAIRS                                        \
@@ -100,6 +100,7 @@ enum LANG_WORDS_ENUM {
 extern const char *lang_pack_keys[L_COUNT];
 extern       char  lang_pack_current[L_COUNT][LP_MAX_WORD];
 
+extern void lang_pack_init();
 extern void lang_pack_config();
 
 #endif // LANGUAGES_H_
