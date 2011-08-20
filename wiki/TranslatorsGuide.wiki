@@ -44,6 +44,6 @@ NO                 = Nein
 
 
 After you're ready with the new languages.ini file, you will have to test it
-with the last NightlyBuild and see if it's working.
+with the last [http://code.google.com/p/400plus/downloads/list NightlyBuild]  and see if it's working.
 
 If everything runs smoothly, open a new [http://code.google.com/p/400plus/issues/list issue], and attach the file there.
