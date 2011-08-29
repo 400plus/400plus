@@ -1,4 +1,4 @@
-#summary Translating 400plus
+#summary [Guide] Translation
 #labels Translations
 
 = Introduction =
