@@ -1,4 +1,4 @@
-#summary User Guide for 400plus
+#summary [Guide][English] User Guide for 400plus
 #labels Preview
 
 *WARNING: This document is a _preview_ and may document features not yet released.*
