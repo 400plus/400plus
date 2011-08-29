@@ -161,7 +161,7 @@ void menu_display() {
 	int i;
 	int offset = current_item - current_line;
 
-	char buffer[32];
+	char buffer[LP_MAX_WORD];
 
 	for(i = 0; i < 5; i++) {
 		menu_message(buffer, i + offset);
@@ -172,7 +172,7 @@ void menu_display() {
 }
 
 void menu_refresh() {
-	char buffer[32];
+	char buffer[LP_MAX_WORD];
 
 	menu_message(buffer, get_item_id(current_item));
 	dialog_set_property_str(menu_handler, current_line + 1, buffer);
@@ -434,8 +434,8 @@ int menu_get_changed() {
 }
 
 void menu_message(const char *buffer, int item_id) {
-	char item_name[32];
-	char name[32];
+	char item_name[LP_MAX_WORD];
+	char name[LP_MAX_WORD];
 
 	type_MENUITEM *item = get_item(item_id);
 
@@ -493,35 +493,35 @@ void menu_message(const char *buffer, int item_id) {
 }
 
 void menu_print_ev(const char *buffer, const char *name, int parameter) {
-	char tmp[32];
+	char tmp[LP_MAX_WORD];
 
 	ev_print(tmp, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 
 void menu_print_av(const char *buffer, const char *name, int parameter) {
-	char tmp[32];
+	char tmp[LP_MAX_WORD];
 
 	av_print(tmp, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 
 void menu_print_tv(const char *buffer, const char *name, int parameter) {
-	char tmp[32];
+	char tmp[LP_MAX_WORD];
 
 	tv_print(tmp, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 
 void menu_print_iso(const char *buffer, const char *name, int parameter) {
-	char tmp[32];
+	char tmp[LP_MAX_WORD];
 
 	iso_print(tmp, parameter);
 	menu_print_char(buffer, name, tmp);
 }
 
 void menu_print_int(const char *buffer, const char *name, int parameter, const char *format) {
-	char tmp[32];
+	char tmp[LP_MAX_WORD];
 
 	sprintf(tmp, format, parameter);
 	menu_print_char(buffer, name, tmp);

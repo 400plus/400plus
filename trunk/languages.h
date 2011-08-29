@@ -1,7 +1,8 @@
 #ifndef LANGUAGES_H_
 #define LANGUAGES_H_
 
-#define LP_MAX_WORD 32 // this is valid for the keys and section names too
+// we need MAX_WORD==32, but we use 64, because the UTF8 (cyrrilic langs) is 2 bytes per char
+#define LP_MAX_WORD 64 // this is valid for the keys and section names too
 #define LP_WORD(word) lang_pack_current[word]
 
 #define LANGUAGE_PAIRS                                        \

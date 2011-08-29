@@ -74,9 +74,10 @@ int lang_pack_loader(void* user, int lineno, const char* section, const char* na
 	// find the KEY id
 	// @todo: think of a better way to find our id
 	for (i = L_FIRST; i < L_COUNT; i++) {
-		if (!strncmp(lang_pack_keys[i], name, LP_MAX_WORD)) {
+		if (!strncmp(lang_pack_keys[i], name, LP_MAX_WORD-1)) {
 			// this is our id
-			strncpy(lang_pack_current[i], value, LP_MAX_WORD);
+			strncpy(lang_pack_current[i], value, LP_MAX_WORD-1);
+			lang_pack_current[i][LP_MAX_WORD-1] = 0;
 			lang_pack_keys_loaded++;
 		}
 	}
