@@ -1,4 +1,4 @@
-#summary some useful information
+#summary [Developers] Information for developers
 
 
 <wiki:toc max_depth="2" />
