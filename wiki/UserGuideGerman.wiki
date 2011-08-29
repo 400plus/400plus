@@ -1,4 +1,4 @@
-#summary 400plus UserGuide in German (updated to r703)
+#summary [German][Guide] 400plus UserGuide in German (updated to r703)
 
 = Translation =
 German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
