@@ -23,6 +23,7 @@ extern int logMsg(char *, ...);
 
 // Memory management
 extern void * AllocateMemory( unsigned int len );
+extern void * memcpy(void *dest, const void *src, size_t n);
 
 // LED management
 
@@ -36,6 +37,7 @@ extern int   strlen(const char *);
 extern char *strncpy(const char *destination, const char *source, int length);
 extern void  sprintf(const char*, const char*, ...);
 extern int   isspace(int c);
+extern int   Run_UnicodeString_Dataset_c(char *dest, const char *src, size_t size);
 
 
 // Queue management
@@ -168,7 +170,7 @@ extern int InfoCreativeAppProc(type_DIALOG * dialog, int r1, gui_event_t event, 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 
 extern int PaletteChange(int color);
-/*
+/* @todo: 0xAF: implement the highlighting with this routines, do not call the canons handlers for moving up/down
 DEF(GUI_Select_Item, 0xFF914F94)        // GUI_Select_Item(void *menu_handle, int menu_item)
 DEF(GUI_Highlight_Sub, 0xFF838714)  // opens submenu in menu dialog template or highlights item. GUI_Highlight_Sub(void *menu_handle,
 int menu_item, bool enable);
