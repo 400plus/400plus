@@ -1,4 +1,4 @@
-#summary Log of changes made to this project.
+#summary [ChangeLog] Log of changes made to this project.
 
 _*20110615-4*_
  * French translation added.
