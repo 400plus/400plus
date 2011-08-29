@@ -1,4 +1,4 @@
-#summary User Guide for 400plus
+#summary [Guide][English][Official] User Guide for 400plus
 #labels Featured
 
 = Introduction =
