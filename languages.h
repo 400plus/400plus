@@ -26,6 +26,7 @@
 	LANG_PAIR( DEVELOPER,          "Developer"          ) \
 	LANG_PAIR( TEST_DIALOGS,       "Test the dialogs"   ) \
 	LANG_PAIR( DUMP_LOG_TO_FILE,   "Dump log to file"   ) \
+	LANG_PAIR( PRINT_INFO,         "Print info to log"  ) \
 	LANG_PAIR( ENTER_FACTORY_MODE, "Enter factory Mode" ) \
 	LANG_PAIR( EXIT_FACTORY_MODE,  "Exit  factory Mode" ) \
 	LANG_PAIR( DEBUG_ON_POWERON,   "Debug on PowerOn"   ) \

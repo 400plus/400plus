@@ -309,6 +309,20 @@ void dump_log() {
 	beep();
 }
 
+void print_info() {
+	// print some info to the log
+	eventproc_RiseEvent("about");
+	
+	// print last errors to the log
+	eventproc_RiseEvent("PrintICUInfo");
+
+	// print current DP settings to the log
+	eventproc_RiseEvent("PrintDPStatus");
+
+	beep();
+	debug_log("Info dumped.\n");
+}
+
 void start_debug_mode() {
 	int file;
 	char filename[20] = "A:/DEBUG.LOG"; // default name
