@@ -1,4 +1,4 @@
-#summary 400D+ User Guide in Italian / Manuale Utente 400D+.
+#summary [Guide][Italian] Manuale Utente 400D+.
 #labels Italian
 
 == Translation ==
