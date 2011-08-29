@@ -27,6 +27,7 @@ type_MENUITEM menu_developer_items[] = {
 	MENUITEM_LAUNCH(LP_WORD(L_TEST_DIALOGS),       test_dialog_create),
 #endif
 	MENUITEM_LAUNCH(LP_WORD(L_DUMP_LOG_TO_FILE),   dump_log),
+	MENUITEM_LAUNCH(LP_WORD(L_PRINT_INFO),         print_info),
 	MENUITEM_LAUNCH(LP_WORD(L_ENTER_FACTORY_MODE), enter_factory_mode),
 	MENUITEM_LAUNCH(LP_WORD(L_EXIT_FACTORY_MODE),  exit_factory_mode),
 	MENUITEM_BOOLEAN(LP_WORD(L_DEBUG_ON_POWERON),  &settings.debug_on_poweron, NULL),
@@ -158,6 +159,13 @@ Special Dialogs:
 	99 - key with SET text on top left with 1 line under, and one text in upper-right
 
 
+
+
+
+
+0xAF:
+eventproc_DispWarningDlg() shows nice OSD for helps -> reverse
+eventproc_DispWarningDlgLarge() - bigger one
 
 #endif
 
