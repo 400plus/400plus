@@ -1,4 +1,4 @@
-#summary 400plus User Guide in Spanish / Guía del Usuario 400plus.
+#summary [Guide][Spanish] Guía del Usuario 400plus.
 
 = Translation =
 
