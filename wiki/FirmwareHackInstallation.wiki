@@ -19,15 +19,19 @@ If you need information on using the hack, please read the [http://code.google.c
     * Direct method for Linux, Mac and windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
       * FAT12/FAT16 (CF Card <= 4GB)
 {{{
-dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
-echo EOS_DEVELOP | dd of="$dev" bs=1 seek=43 count=11
-echo BOOTDISK | dd of="$dev" bs=1 seek=64 count=8
+  dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
+  dd if="$dev" of=/tmp/eosBlock1 count=2
+  echo EOS_DEVELOP | dd of=/tmp/eosBlock1 bs=1 seek=43 count=11
+  echo BOOTDISK | dd of=/tmp/eosBlock1 bs=1 seek=64 count=8
+  dd if=/tmp/eosBlock1 of="$dev"
 }}}
       * FAT32
 {{{
-dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
-echo EOS_DEVELOP | dd of="$dev" bs=1 seek=71 count=11
-echo BOOTDISK | dd of="$dev" bs=1 seek=92 count=8
+  dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
+  dd if="$dev" of=/tmp/eosBlock1 count=2
+  echo EOS_DEVELOP | dd of=/tmp/eosBlock1 bs=1 seek=71 count=11
+  echo BOOTDISK | dd of=/tmp/eosBlock1 bs=1 seek=92 count=8
+  dd if=/tmp/eosBlock1 of="$dev"
 }}}
       * exFAT
         this is not going to work directly, because the sector checksums needs to be<br> calculated and written back after writing the strings. use the above methods.
