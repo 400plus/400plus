@@ -18,7 +18,7 @@ static char *av_strings[][4] = {
 	{"8.0", "9.0", "9.5",  "10"},
 	{ "11",  "13",  "13",  "14"},
 	{ "16",  "18",  "19",  "20"},
-	{ "22",    "",    "",    ""},
+	{ "22",  "25",  "27",  "29"},
 };
 
 static char *tv_strings[][4] = {
@@ -312,7 +312,7 @@ void dump_log() {
 void print_info() {
 	// print some info to the log
 	eventproc_RiseEvent("about");
-	
+
 	// print last errors to the log
 	eventproc_RiseEvent("PrintICUInfo");
 
