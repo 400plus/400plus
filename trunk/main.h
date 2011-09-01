@@ -541,6 +541,7 @@ typedef struct {
 	int       measured_tv;       // Shutter speed as proposed by the metering
 	int       measured_av;       // Aperture as proposed by the metering
 	int       measured_ev;       // Exposure deviation as measured by the camera
+	int       ev_comp;           // Exposure compensation for AutoISO + M
 } type_STATUS;
 
 // Main message queue
