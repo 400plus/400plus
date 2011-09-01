@@ -149,7 +149,8 @@ void autoiso() {
 		miniso = 0x48;
 		maxiso = 0x6F;
 
-		ev   = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
+		ev = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
+		ev = ev_add(ev, status.ev_comp);
 		break;
 	default:
 		break;

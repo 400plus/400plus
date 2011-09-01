@@ -31,6 +31,7 @@ type_STATUS status = {
 	ignore_ae_change  : FALSE,
 	booting           : TRUE,
 	measuring         : FALSE,
+	ev_comp           : 0x00,
 };
 
 // Action definitions
