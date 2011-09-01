@@ -101,7 +101,7 @@ int av_inc(int av) {
 	else
 		av = ev_add(av, 0x03); // +0 1/3
 
-	return MIN(av, 0x58); // f/22.0
+	return MIN(av, 0x55); // f/29.0
 }
 
 int av_dec(int av) {
