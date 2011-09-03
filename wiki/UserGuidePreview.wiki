@@ -224,6 +224,8 @@ Some notes and comments.
 
 _Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image.
 
+Please, notice that the camera will not always display the correct ISO value; for example, an image shot at ISO-3000 will show as ISO-3200 during the review.
+
 == Spot metering mode ==
 
 The spot metering mode is similar to the _standard_ "partial metering" mode, but the area included in the metering is smaller (approx. 3.5% of the center of the viewfinder vs. partial metering at approx. 9% of the center of the viewfinder).  It works quite well when needed.
