@@ -197,7 +197,6 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 To enter the Developers menu from the 400plus settings menu, scroll down to the "Developers menu" selection and press the `SET` button.  The options available are:
   * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
   * _*Exit factory mode*_: Puts the camera back into "normal mode".
-  * ~~_*Start debug mode*_: The camera will store lots of debugging information to the CF card, in two (2) files named `STDOUT.TXT` and `STDERR.TXT`.~~
   * _*Debug on Power-On*_: (Yes, No): the camera will begin debug mode upon power-on and will log information to the CF card in developer specified log files.
   * _*Log File Mode*_: (Overwrite, New, Append): Developer specified log files will either be: overwritten, created new each time, or appended to if existing already during debug logging.
 
