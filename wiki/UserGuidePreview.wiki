@@ -75,6 +75,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
 To access the shortcuts menu, press the `DP` button from the main LCD dialog (only valid if the "Shortcuts menu" value is set to "Yes" from the 400plus settings menu).  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
 
  * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3200.
+ * _*Color Temp. (K)*_: Same as in [#The_settings_menu the settings menu].
  * _*Extended AEB*_: Start the [#Extended_AEB Extended AEB] script.
  * _*Intervalometer*_: Start the [#Intervalometer Intervalometer] script.
  * _*Hand Waving*_: Start the [#Hand_Waving Hand Waving] script.
