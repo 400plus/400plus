@@ -38,7 +38,6 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
  * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote.  When set to No, this feature is disabled.
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
- * _*Shortcuts menu*_: When active (set to Yes), the shortcuts menu will be displayed when pressing the `DP` button from the main LCD dialog.  When not active (set to No), the `DP` button will change (roll) the ISO value to an intermediate setting.
  * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * LCD dim: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life.  The value is restored after the script has completed.
     * APO dsbl: when active (set to Yes), the Auto power-off option of the camera is disabled.  The value is restored after the script has completed.
@@ -74,7 +73,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
 
 To access the shortcuts menu, press the `DP` button from the main LCD dialog (only valid if the "Shortcuts menu" value is set to "Yes" from the 400plus settings menu).  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
 
- * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3200.
+ * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
  * _*Color Temp. (K)*_: Same as in [#The_settings_menu the settings menu].
  * _*Extended AEB*_: Start the [#Extended_AEB Extended AEB] script.
  * _*Intervalometer*_: Start the [#Intervalometer Intervalometer] script.
@@ -167,7 +166,7 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 
 == In the creative zone ==
 
-  * Use the `JUMP` button to toggle between image quality settings (same as described above for _basic zone_).
+  * Use the `JUMP` button to toggle between extended ISOs: you can fine-tune the value with 1/8 EV increments (see [#Extended_ISOs Notes / Extended ISOs]).
   * In the ISO selection dialog, press `DP` to set the ISO value to 3200 (see [#Extended_ISOs Notes / Extended ISOs]).
   * In the Metering mode selection dialog, press `DP` to set Spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
   * In the White balance selection dialog, press `DP` to set the user-defined white balance kelvin temperature.
@@ -223,7 +222,7 @@ Some notes and comments.
 
 == Extended ISOs ==
 
-_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image; this includes the extended ISO-3200 value.  ISO-3200 however can be valuable during very low-light conditions when no other options would allow you to get your intended shot.
+_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image.
 
 == Spot metering mode ==
 
