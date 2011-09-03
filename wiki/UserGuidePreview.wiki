@@ -162,7 +162,7 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 
 == In the basic zone ==
 
-  * Use the `JUMP` button to toggle between image quality settings `JPEG`, `RAW`, and `JPEG+RAW`.  If a `JPEG` quality type is used, it will be based upon the selected `JPEG` quality type chosen using the standard camera "Image quality" menu setting (`JPEG-L`, `JPEG-M`, `JPEG-S`).  Both 'normal' and 'fine' `JPEG` quality settings are supported.
+  * Use the `AV` button to toggle between image quality settings `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used.
 
 == In the creative zone ==
 
