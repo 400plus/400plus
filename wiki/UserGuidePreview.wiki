@@ -264,4 +264,5 @@ The spot metering mode is similar to the _standard_ "partial metering" mode, but
 
 The following relevant bugs have been reported and confirmed:
 
- * Issue #15: Exposure changes during EAEB.
+ * Issue  #15: Exposure changes during EAEB.
+ * Issue #130: Config not restored if camera shut down while script is running.
