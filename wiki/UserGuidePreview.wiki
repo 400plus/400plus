@@ -38,6 +38,12 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
  * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote.  When set to No, this feature is disabled.
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
+ * _*AutoISO*_: This sub-menu configures the behavior of [#AutoISO AutoISO].
+    * Enabled: when active (set to Yes), AutoISO is enabled.
+    * Min ISO: minimum ISO value that AutoISO will use.
+    * Max ISO: maximum ISO value that AutoISO will use.
+    * Min Tv : minimum shutter speed that AutoISO will try to maintain.
+    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain.
  * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * LCD dim: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life.  The value is restored after the script has completed.
     * APO dsbl: when active (set to Yes), the Auto power-off option of the camera is disabled.  The value is restored after the script has completed.
@@ -150,6 +156,30 @@ In addition to changing the order of the presets, you are also able to rename th
 
 Another nice feature included with presets is the ability to toggle the view of the presets back and forth between preset names and preset file names (as saved on the CF card).  This feature is handy when you want to copy presets to and from multiple CF cards and need to know the file names for each of your presets.  To use this feature, press the `MENU` button while in either the "Load presets" or "Save presets" menu to toggle.
 
+= AutoISO =
+
+To enable AutoISO for the creative modes, activate it at [#The_settings_menu the settings menu], or pres `DP` at the ISO selection dialog; to disable it, use [#The_settings_menu the settings menu] or select any ISO value at the ISO selection dialog. 
+
+== AutoISO and Av mode ==
+
+The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur; probably, this is the mode where AutoISO makes more sense.
+
+In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, 400plus will always select the lowest possible ISO (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, 400plus will raise the ISO (up to "Max ISO") as needed.
+
+== AutoISO and Tv mode ==
+
+In this case, the intention is to use the lowest possible ISO that ensures an acceptable depth of field: AutoISO will raise the ISO when the aperture becomes larger than a configured value ("Max Av"). 
+
+== AutoISO and P mode ==
+
+In P mode, AutoISO _tries_ to behave just like in Av mode; but, as the camera decides both aperture and shutter speed, there is no guarantee that raising the ISO will increase shutter speed: it tends to work OK for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead.
+
+== AutoISO and M mode ==
+
+In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects the aperture and shutter speed, and 400plus will decide the right ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
+
+While looking at the viewfinder, use the `LEFT` and `RIGHT` keys to change the exposure compensation.
+
 = The AF-Pattern point selection =
 
 400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera.  These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
@@ -167,7 +197,7 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 == In the creative zone ==
 
   * Use the `JUMP` button to toggle between extended ISOs: you can fine-tune the value with 1/8 EV increments (see [#Extended_ISOs Notes / Extended ISOs]).
-  * In the ISO selection dialog, press `DP` to set the ISO value to 3200 (see [#Extended_ISOs Notes / Extended ISOs]).
+  * In the ISO selection dialog, press `DP` to activate [#AutoISO AutoISO]); select any ISO value to deactivate it.
   * In the Metering mode selection dialog, press `DP` to set Spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
   * In the White balance selection dialog, press `DP` to set the user-defined white balance kelvin temperature.
 
