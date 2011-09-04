@@ -1,4 +1,4 @@
-#summary [Guide][English][Official] User Guide for 400plus.
+#summary [Guide][English][Preview] User Guide for 400plus - preview
 #labels Featured
 
 = Introduction =
@@ -15,7 +15,7 @@ This wiki page document will serve as the user guide for 400plus. It is assumed 
 
 == Accessing the settings menu ==
 
-To enter the 400plus settings menu, press the `MENU` button (this will display the _standard_ camera menu) and then press the `DP` (DIRECT PRINT) button.  The 400plus settings menu should now be displayed on the camera LCD. To exit the 400plus settings menu, just half-press the shutter release button.  NOTE: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
+To enter the 400plus settings menu, press the `MENU` button (this will display the _standard_ camera menu) and then press the `DP` (`DIRECT PRINT`) button.  The 400plus settings menu should now be displayed on the camera LCD. To exit the 400plus settings menu, just half-press the shutter release button.  *NOTE*: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
 
 == Navigating the settings menu ==
 
@@ -33,9 +33,15 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
  * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
  * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
  * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
+ * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote.  When set to No, this feature is disabled.
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
- * _*Shortcuts menu*_: When active (set to Yes), the shortcuts menu will be displayed when pressing the `DP` button from the main LCD dialog.  When not active (set to No), the `DP` button will change (roll) the ISO value to an intermediate setting.
+ * _*AutoISO*_: This sub-menu configures the behavior of [#AutoISO AutoISO].
+    * Enabled: when active (set to Yes), AutoISO is enabled.
+    * Min ISO: minimum ISO value that AutoISO will use.
+    * Max ISO: maximum ISO value that AutoISO will use.
+    * Min Tv : minimum shutter speed that AutoISO will try to maintain.
+    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain.
  * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * LCD dim: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life.  The value is restored after the script has completed.
     * APO dsbl: when active (set to Yes), the Auto power-off option of the camera is disabled.  The value is restored after the script has completed.
@@ -71,7 +77,8 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
 
 To access the shortcuts menu, press the `DP` button from the main LCD dialog (only valid if the "Shortcuts menu" value is set to "Yes" from the 400plus settings menu).  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
 
- * _*Intermediate ISO*_: Roll through the intermediate ISO values. Values are 100 - 3200.
+ * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
+ * _*Color Temp. (K)*_: Same as in [#The_settings_menu the settings menu].
  * _*Extended AEB*_: Start the [#Extended_AEB Extended AEB] script.
  * _*Intervalometer*_: Start the [#Intervalometer Intervalometer] script.
  * _*Hand Waving*_: Start the [#Hand_Waving Hand Waving] script.
@@ -147,6 +154,34 @@ In addition to changing the order of the presets, you are also able to rename th
 
 Another nice feature included with presets is the ability to toggle the view of the presets back and forth between preset names and preset file names (as saved on the CF card).  This feature is handy when you want to copy presets to and from multiple CF cards and need to know the file names for each of your presets.  To use this feature, press the `MENU` button while in either the "Load presets" or "Save presets" menu to toggle.
 
+= AutoISO =
+
+To enable AutoISO for the creative modes, activate it at [#The_settings_menu the settings menu], or pres `DP` at the ISO selection dialog; to disable it, use [#The_settings_menu the settings menu] or select any ISO value at the ISO selection dialog. 
+
+== AutoISO and Av mode ==
+
+The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur; probably, this is the mode where AutoISO makes more sense.
+
+In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, 400plus will always select the lowest possible ISO (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, 400plus will raise the ISO (up to "Max ISO") as needed.
+
+If safety shift is enabled, to maintain correct exposure in AV mode, the shutter speed could drop below "Min Tv" if "Max ISO" is exceeded.
+
+== AutoISO and Tv mode ==
+
+In this case, the intention is to use the lowest possible ISO that ensures an acceptable depth of field: AutoISO will raise the ISO when the aperture becomes larger than a configured value ("Max Av").
+
+You must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is F4.0-F5.6, "Max Av" should be set no lower than 4.5. Otherwise, AutoISO will not function in TV mode.
+
+== AutoISO and P mode ==
+
+In P mode, AutoISO _tries_ to behave just like in Av mode; but, as the camera decides both aperture and shutter speed, there is no guarantee that raising the ISO will increase shutter speed: it tends to work OK for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead.
+
+== AutoISO and M mode ==
+
+In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects the aperture and shutter speed, and 400plus will decide the right ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
+
+While looking at the viewfinder, use the `LEFT` and `RIGHT` keys to change the exposure compensation.
+
 = The AF-Pattern point selection =
 
 400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera.  These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
@@ -155,18 +190,18 @@ To use the additional AF-Pattern point selections during shooting, press the `ZO
 
 = The goodies =
 
-The following _goodies_ have been added to the camera.
+The following *_goodies_* have been added to the camera to enhance its capabilities.
 
 == In the basic zone ==
 
-In the _basic zone_, use the `Av` button to toggle between `RAW` and `JPEG` image quality.
+  * Use the `AV` button to toggle between image quality settings `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used.
 
 == In the creative zone ==
 
-In the _creative zone_ the following goodies are available:
- * In the ISO selection dialog, press `DP` to set the ISO value to 3200 (see [#Extended_ISOs Notes / Extended ISOs]).
- * In the metering mode selection dialog, press `DP` to set spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
- * In the white balance selection dialog, press `DP` to set the user-defined kelvin temperature.
+  * Use the `JUMP` button to toggle between extended ISOs: you can fine-tune the value with 1/8 EV increments (see [#Extended_ISOs Notes / Extended ISOs]).
+  * In the ISO selection dialog, press `DP` to activate [#AutoISO AutoISO]); select any ISO value to deactivate it.
+  * In the Metering mode selection dialog, press `DP` to set Spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
+  * In the White balance selection dialog, press `DP` to set the user-defined white balance kelvin temperature.
 
 = Other freebies =
 
@@ -175,13 +210,13 @@ Other changes to the camera behavior, not described above.
 == Extended info ==
 
 On the "camera settings" screen (press the `DISP.` button from the _standard_ camera menu), the last info line now displays the following information (instead of the CF card's free space):
- * The total number of shots (actuations) made by this camera body.
- * The version number of the 400plus software currently installed.
- * The "BodyID" of the camera body (an internal number, unique to each camera).
+  * The total number of shots (actuations) made by this camera body.
+  * The version number of the 400plus software currently installed.
+  * The "BodyID" of the camera body (an internal number, unique to each camera).
 
 Use the `SET`, `LEFT` or `RIGHT` buttons to change which item to display.
 
-*NOTE that this feature is only available when the camera is in a creative zone mode (P, Tv, Av, M, A-DEP).
+*NOTE*: This feature is only available when the camera is in a creative zone mode (P, Tv, Av, M, A-DEP).
 
 == The nose affair ==
 
@@ -192,9 +227,10 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 *WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
 To enter the Developers menu from the 400plus settings menu, scroll down to the "Developers menu" selection and press the `SET` button.  The options available are:
- * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
- * _*Exit factory mode*_: Puts the camera back into "normal mode".
- * _*Start debug mode*_: The camera will store lots of debugging information to the CF card, in two (2) files named `STDOUT.TXT` and `STDERR.TXT`.
+  * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
+  * _*Exit factory mode*_: Puts the camera back into "normal mode".
+  * _*Debug on Power-On*_: (Yes, No): the camera will begin debug mode upon power-on and will log information to the CF card in developer specified log files.
+  * _*Log File Mode*_: (Overwrite, New, Append): Developer specified log files will either be: overwritten, created new each time, or appended to if existing already during debug logging.
 
 *NOTE*: After entering "factory mode", the "factory menu" will remain available until the camera is powered down.  Exiting the "factory mode" will not disable the "factory menu".
 
@@ -218,7 +254,9 @@ Some notes and comments.
 
 == Extended ISOs ==
 
-_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image; this includes the extended ISO-3200 value.  ISO-3200 however can be valuable during very low-light conditions when no other options would allow you to get your intended shot.
+_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image.
+
+Please, notice that the camera will not always display the correct ISO value; for example, an image shot at ISO-3000 will show as ISO-3200 during the review.
 
 == Spot metering mode ==
 
@@ -228,4 +266,5 @@ The spot metering mode is similar to the _standard_ "partial metering" mode, but
 
 The following relevant bugs have been reported and confirmed:
 
- * Issue #15: Exposure changes during EAEB.
+ * Issue  #15: Exposure changes during EAEB.
+ * Issue #130: Config not restored if camera shut down while script is running.
