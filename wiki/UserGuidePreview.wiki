@@ -166,9 +166,13 @@ The intention of AutoISO in Av mode is to use the lowest possible ISO that ensur
 
 In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, 400plus will always select the lowest possible ISO (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, 400plus will raise the ISO (up to "Max ISO") as needed.
 
+If safety shift is enabled, to maintain correct exposure in AV mode, the shutter speed could drop below "Min Tv" if "Max ISO" is exceeded.
+
 == AutoISO and Tv mode ==
 
-In this case, the intention is to use the lowest possible ISO that ensures an acceptable depth of field: AutoISO will raise the ISO when the aperture becomes larger than a configured value ("Max Av"). 
+In this case, the intention is to use the lowest possible ISO that ensures an acceptable depth of field: AutoISO will raise the ISO when the aperture becomes larger than a configured value ("Max Av").
+
+You must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is F4.0-F5.6, "Max Av" should be set no lower than 4.5. Otherwise, AutoISO will not function in TV mode.
 
 == AutoISO and P mode ==
 
