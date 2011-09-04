@@ -1,5 +1,14 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20110904-0*_
+ * AutoISO
+ * Intermediate ISOs reworked: 1/8 EV resolution, false ISO-3200 removed.
+ * Translations saved in a separate INI file.
+ * All three possible file formats (JPEG, RAW, RAW+JPEG) available in AUTO modes.
+ * New shortcut: color temperature.
+ * Rolling menus.
+ * Debug on power-on and log file mode selection.
+
 _*20110615-4*_
  * French translation added.
  * Italian translation updated.
