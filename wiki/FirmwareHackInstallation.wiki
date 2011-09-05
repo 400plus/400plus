@@ -14,7 +14,7 @@ If you need information on using the hack, please read the [http://code.google.c
   #. insert CF into the camera and run firmware update using testfir.fir, the screen will go blank.<br> _*<font color="red">wait at least 2 minutes</font>*_, turn off, take battery out and back in.
   #. this step depends on your OS and CF Card, but first insert CF into the camera and format it.<br>_,,you can format it on the PC too,,_
     * Windows: use [http://pel.hu/down/EOScard.exe EOScard] by [http://chdk.setepontos.com/index.php?topic=4214.msg58253#msg58253 pelican], you need to check EOS_DEVELOP and BOOTDISK<br>like shown [http://chdk.wikia.com/wiki/EOScard here] <br>_,,note: There were user with Win7 and no method was working, so eventually he installed VirtualBox with Linux LiveCD running on it and used the linux method, after attaching the card reader to the VM.,,_
-    * Mac: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
+    * Mac: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool (Not compatible with Lion).
     * Linux: use the direct method (below)<br>or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version)
     * Direct method for Linux, Mac and windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
       * FAT12/FAT16 (CF Card <= 4GB)
