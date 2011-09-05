@@ -156,7 +156,7 @@ Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli st
 
 = AutoISO =
 
-To enable AutoISO for the creative modes, activate it at [#The_settings_menu the settings menu], or pres `DP` at the ISO selection dialog; to disable it, use [#il_menu_delle_impostazioni il menu delle impostazioni] or select any ISO value at the ISO selection dialog. 
+To enable AutoISO for the creative modes, activate it at [#Il_menu_delle_impostazioni il menu delle impostazioni], or pres `DP` at the ISO selection dialog; to disable it, use [#Il_menu_delle_impostazioni il menu delle impostazioni] or select any ISO value at the ISO selection dialog. 
 
 == AutoISO e modalità Av ==
 
