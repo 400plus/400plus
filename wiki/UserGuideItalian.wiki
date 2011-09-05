@@ -43,7 +43,7 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
     * Max ISO: maximum ISO value that AutoISO will use.
     * Min Tv : minimum shutter speed that AutoISO will try to maintain.
     * Max Av : maximum diaphragm aperture that AutoISO will try to maintain.
-* _*Script*_: Questo menu configura il comportamento degli [#Gli_script script].
+ * _*Script*_: Questo menu configura il comportamento degli [#Gli_script script].
   * Oscura LCD: se attivato (impostato su Si), la luminosità dello schermo LCD viene abbassata durante lo script, per aumentare la durata della batteria, il valore iniziale viene reimpostato al termine dell'esecuzione dello script.
   * No AutoOFF: se attivato (impostato su Si), la funzione di auto spegnimento della camera viene disabilitata durante l'esecuzione dello script. Viene riattivata al termine dell'esecuzione.
   * HandWave: questo sottomenu configura lo script [#Hand_Wave Hand Wave]. 
@@ -156,9 +156,9 @@ Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli st
 
 = AutoISO =
 
-To enable AutoISO for the creative modes, activate it at [#The_settings_menu the settings menu], or pres `DP` at the ISO selection dialog; to disable it, use [#The_settings_menu the settings menu] or select any ISO value at the ISO selection dialog. 
+To enable AutoISO for the creative modes, activate it at [#The_settings_menu the settings menu], or pres `DP` at the ISO selection dialog; to disable it, use [#il_menu_delle_impostazioni il menu delle impostazioni] or select any ISO value at the ISO selection dialog. 
 
-== AutoISO and Av mode ==
+== AutoISO e modalità Av ==
 
 The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur; probably, this is the mode where AutoISO makes more sense.
 
