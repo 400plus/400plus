@@ -1,0 +1,12 @@
+  * For users
+    * [AWordOfWarning A Word of Warning]
+    * [FirmwareHackInstallation Firmware Hack Installation]
+      * [InstallazioneHackFirmware Italian translation]
+    * [UserGuide User's Guide]
+      * [UserGuideItalian Italian translation]
+      * [UserGuideSpanish Spanish translation]
+      * [UserGuideGerman German translation]
+    * [ChangeLog Chronological list of changes]
+  * For developers
+     * [devinfo General info for developers]
+     * [TranslatorsGuide Translators' Guide]
