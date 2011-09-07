@@ -52,45 +52,44 @@ cd && svn checkout http://400plus.googlecode.com/svn/trunk/ 400plus-read-only
 ----
 <br>
 
+== Fedora 14 in a Virtual Machine ==
 
+This guide explains how to prepare a 32bit environment to cross-compile the source code; I had to follow this procedure as compilation was reporting inexplicable errors on my 64bit machine. If you are already working in a 32bit machine, skip down to "Install the cross-compiler".
 
-== fedora 14 in virtual machine ==
-_thanks to *eduardo.perezesteban* (project maintainer) for this one_<br>
-his post follows:<br>
-
-As promised:<br><br>
 === Create a VM ===
-I used Fedora 13 (64 bits) as the "host" OS, and Fedora 14 (32 bits) as the "guest" OS,<br>
-for no other particular reason that it is what I am used to run;<br>
-I downloaded the [http://fedoraproject.org/en/get-fedora-options Fedora 14 Desktop Edition (32 bit CD ISO)].<br>
-Basically, I followed the [http://fedoraproject.org/wiki/Virtualization_Quick_Start Virtualization Quick Start guide] to create the virtual machine.<br>
-Most relevant parameters for the emulation were: 4GB of disk space, 512 MB of RAM, 1 CPU.<br>
-Select an i686 architecture (should work with a 64b arch, as long as you install a 32b OS)<br>
-and use KVM if your processor supports it (it is way faster than the non-KVM alternative).<br>
-Boot the VM, using the ISO downloaded previously, and install it to the (virtual) disk drive<br>
-(there are no critical parameters here, just follow the installation assistant).<br>
+
+I used Fedora 13 (64 bits) as the "host" OS, and Fedora 14 (32 bits) as the "guest" OS, for no other particular reason that it is what I am used to run; I downloaded the [http://fedoraproject.org/en/get-fedora-options Fedora 14 Desktop Edition (32 bit CD ISO)].
+
+Basically, I followed the [http://fedoraproject.org/wiki/Virtualization_Quick_Start Virtualization Quick Start guide] to create the virtual machine. Most relevant parameters for the emulation were: 4GB of disk space, 512 MB of RAM, 1 CPU. Select an i686 architecture (should work with a 64b arch, as long as you install a 32b OS) and use KVM if your processor supports it (it is way faster than the non-KVM alternative). Boot the VM, using the ISO downloaded previously, and install it to the (virtual) disk drive
+(there are no critical parameters here, just follow the installation assistant).
 
 === Prepare the VM ===
+
 No special preparation is required here, just update the software:
 {{{
 su -c "yum -y update"
 su -c "yum -y update"
 }}}
-_Yes: it must be run twice, as the first update will only update the updater itself_<br>
-then reboot (just the VM) and install the required dependencies:
+
+_Yes: it must be run twice, as the first update will only update the updater itself_. Then reboot (just the VM, not the computer) and install the required dependencies:
 {{{
 su -c "yum -y install gcc mpfr-devel libmpc-devel"
 }}}
+
 === Install the cross-compiler ===
-I mostly followed the procedure outlined at<br>
-http://chdk.wikia.com/wiki/Compiling_CHDK_under_Linux and<br>
-http://chdk.wikia.com/wiki/Gcc433 , with some minor variations<br>
-(installed to "/opt/arm-elf", and changed some parameters to avoid a bug in GCC):<br>
+
+I mostly followed the procedure outlined at
+http://chdk.wikia.com/wiki/Compiling_CHDK_under_Linux and
+http://chdk.wikia.com/wiki/Gcc433 , with some minor variations
+(installed to "/opt/arm-elf", and changed some parameters to avoid a bug in GCC):
+
 Create the destination directory:
 {{{
 su -c "mkdir /opt/arm-elf".
 }}}
-=== Install binutils ===
+
+==== Install binutils ====
+
 {{{
 wget "ftp://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2"
 tar xvjf binutils-2.21.tar.bz2
@@ -100,16 +99,20 @@ cd binutils-2.21-arm-elf/
 make
 su -c "make install"
 }}}
-=== Install gcc ===
+
+==== Install gcc ====
+
 {{{
 wget "ftp://ftp.gnu.org/gnu/gcc/gcc-4.5.2/gcc-4.5.2.tar.bz2"
 tar -xvjf gcc-4.5.2.tar.bz2
 }}}
+
 Now edit the file "gcc-4.5.2/gcc/config/arm/t-arm-elf" and uncomment the following lines:
 {{{
 MULTILIB_OPTIONS    += mno-thumb-interwork/mthumb-interwork
 MULTILIB_DIRNAMES   += normal interwork
 }}}
+
 We can continue the installation:
 {{{
 mkdir gcc-4.5.2-arm-elf
@@ -119,18 +122,23 @@ cd gcc-4.5.2-arm-elf/
 --disable-libssp --disable-intl --with-dpu=arm9 --with-newlib --prefix=/opt/arm-elf/
 su -c "make install"
 }}}
+
 === Compile 400plus ===
-you need to download the [http://code.google.com/p/400plus/downloads/list 400plus sources] or checkout the current svn:
+
+You need to download the [http://code.google.com/p/400plus/downloads/list 400plus sources] or checkout the current SVN:
 {{{
 cd && svn checkout http://400plus.googlecode.com/svn/trunk/ 400plus-read-only
 }}}
+
 Finally, we are ready to compile:
 {{{
 export PATH=/opt/arm-elf/bin/:$PATH
 cd 400plus
 make
 }}}
-If everything goes as expected, you will get a new and shiny "AUTOEXEC.BIN" file;<br>
+
+If everything goes as expected, you will get a new and shiny "AUTOEXEC.BIN" file.
+
 ----
 = links =
   * [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation Hack Installation procedure]
@@ -192,13 +200,3 @@ for (( x=$((${#bind_dirs[@]} - 1)) ; x >= 0; x-- )); do
 done
 
 }}}
-----
-
-= Localization Help =
-
-To localize 400plus in one of the language supported by canon menu you need to modify localization.c to add language specific entries. 
-When translating the string we need to keep present that we can have a max length of 18 char (> included) in the settings menu (before the : ). Total char length of each line is 28.
-So after the : we have 9  char max (using 10 don't seem to create problem like a wrong length before the : but it's really ugly and unpleasant)
-For the italian localization I used 9 char (instead of 8 like in the english version) for all the SubMenu ITEM and 8 char for all the SUB-ITEM 
-Only the Scripts ITEM is 6char (SCRIPT) because that permitted me to use a more clear and self-explanatory entries of 11 char for the SUB Items.
-----
