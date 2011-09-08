@@ -135,22 +135,29 @@ Para guardar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras est
 
 == El modo A-DEP ==
 
-Bajo circunstancias normales, cuando se recupera un preajuste todos los parámetros de la cámara se cambian, incluso el modo AE (a menos que, obviamente, se haya especificado lo contrario en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]); ten en cuenta que la cámara puede entonces operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal. Pero si se apaga la cámara y se vuelve a encender, se volverá al modo de AE real seleccionado en el dial principal.
+Bajo circunstancias normales, cuando se recupera un preajuste todos los parámetros de la cámara se cambian, incluso el modo AE (a menos que, obviamente, se haya especificado lo contrario en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]). Ten en cuenta que la cámara puede entonces operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal. Pero si se apaga la cámara y se vuelve a encender, se volverá al modo de AE real seleccionado en el dial principal.
 
-Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado); cuando esa opción está activa, ocurrirán los cambios siguientes:
+Para resolver este problema, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado). Cuando esa opción está activa (Presets>usa A-DEP: "Sí"), ocurrirán los cambios siguientes:
 
- * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. 
+ * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. Se visualiza la palabra "Presets" en lugar de "A-DEP" en el dial de modos. 
  * Cuando la cámara se enciende en el modo A-DEP, o cuando el usuario mueve el dial principal al modo A-DEP, se carga el último preset utilizado.
+ * Si la opción no está activada (Presets>usa A-DEP: "No"), cuando se selecciona la posición A-DEP en el dial de modo, la cámara usará el modo A-DEP como lo haría normalmente.
   
 == Configurar el menú presets ==
 
-Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos] (presiona PLAY para seleccionar / soltar, y ARRIBA / ABAJO para mover); pero además los podemos renombrar, pulsando el botón JUMP para entrar en el menú para cambio de nombre:
+Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]. Para hacer esto, mientras estás en los menús guarda PRESET o carga PRESET, presiona PLAY para seleccionar el ítem (aparecerá a la izquierda del mismo el signo ">") y ARRIBA / ABAJO para moverlo a la posición deseada. Finaliza el proceso presionando PLAY de nuevo para guardar tus cambios.
+Además los podemos renombrar, pulsando el botón JUMP (desde los menús guarda PRESET o carga PRESET) para entrar en el menú para cambio de nombre:
 
  * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar una letra.
  * Utiliza MENU para alternar entre minúsculas / números y mayúsculas / símbolos; presiona AV para cambiar el tipo de la letra seleccionada en la línea inferior. 
- * Utiliza SET para usar una letra en el nombre y avanzar el cursor.
- * Utiliza el dial frontal o los botones de ZOOM para mover el cursor.
- * Presiona JUMP para volver al menú presets.   
+ * Utiliza SET para usar una letra en el nombre y avanzar el cursor a la siguiente posición.
+ * Utiliza el dial frontal o los botones de ZOOM +/- para mover el cursor.
+ * Presiona JUMP para guardar tus cambios y volver al menú presets.
+
+Otra característica interesante incluida es la capacidad de cambiar la vista de los presets hacia atrás y hacia delante entre los nombres de los presets y los nombres de los archivos de presets (guardados en la tarjeta CF). Esta característica es útil cuando se deseas copiar presets a y desde varias tarjetas CF y necesitas conocer los nombres de archivo de cada uno de tus presets. Para utilizar esta función pulsa el botón MENU mientras te encuentras en cualquiera de los menús guarda PRESET o carga PRESET.   
+
+= AutoISO =
+
 
 = Selección del patrón AF =
 
