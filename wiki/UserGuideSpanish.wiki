@@ -160,6 +160,28 @@ Otra característica interesante incluida es la capacidad de cambiar la vista de
 
 Para activar el AutoISO para los modos creativos, hazlo en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes], o presiona el botón de IMPRESIÓN DIRECTA en el diálogo de selección de ISO. Para desactivarlo, utiliza [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] o selecciona cualquier valor ISO en el diálogo de selección de ISO.
 
+== AutoISO y modo Av ==
+
+La intención del AutoISO en el modo Av es usar el ISO más bajo posible para asegurar que no se produzca desenfoque por movimiento. 
+En el modo Av normal el usuario selecciona ISO y apertura, y la cámara decide la velocidad de obturación de acuerdo a la escena. Sin embargo, cuando AutoISO está activo, la 400plus seleccionará siempre el ISO más bajo posible (según se haya configurado Min ISO), a no ser que la velocidad de obturación sea demasiado baja (según se haya configurado Min Tv); cuando esto ocurre, la cámara incrementará el ISO (hasta Max ISO) según necesite.
+
+Si Desplazam. seg. está activado, para mantener la exposición correcta en el modo AV, la velocidad del obturador podría caer por debajo de Min Tv si se sobrepasa Max ISO.
+
+== AutoISO y modo Tv ==
+
+En el modo Tv la intención es usar el ISO más bajo posible para asegurar una aceptable profundidad de campo: AutoISO incrementará la ISO cuando la apertura sea mayor que el valor configurado Max Av.
+
+Debes establecer Max Av, en general, justo por encima de la máxima apertura de la lente que estás usando. Por ejemplo, si tu lente es F4.0-F5.6, Max Av se debe establecer no inferior a 4.5, de lo contrario, AutoISO no funcionará en el modo de Tv.
+
+== AutoISO y modo P ==
+
+En el modo P, AutoISO trata de comportarse como en el modo Av, pero, dado que la cámara decide tanto la apertura como la velocidad de obturación, no hay garantías de que aumentar la ISO incremente la velocidad de obturación: tiende a funcionar bien para valores pequeños de Min Tv, pero para valores más grandes la cámara habitualmente decide cerrar el diafragma en su lugar.
+
+== AutoISO y modo M ==
+
+En el modo M, el comportamiento del AutoISO es totalmente diferente a los otros modos: en este caso el usuario selecciona la apertura y la velocidad de obturación, y 400plus decidirá el ISO correcto para ajustar la escena. Ninguno de los parámetros de configuración afectan al AutoISO en el modo M, y este es el único modo en el que se utilizan valores intermedios de ISO.
+
+Utiliza las teclas IZQUIERDA y DERECHA mientras miras por el visor para cambiar la compensación de la exposición.
 
 = Selección del patrón AF =
 
