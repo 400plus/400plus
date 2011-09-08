@@ -230,8 +230,8 @@ Mientras se mira por el visor, los botones de ISO y WB están inactivos, para pr
 Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y pulsa SET. Las opciones disponibles son:
  * _* Entrar modo fábrica*_: Pone la cámara en "modo fábrica"; también activa el "menú de fábrica".
  * _* Salir modo fábrica*_: Revierte la cámara al "modo normal".
- * _* Depuración de encendido: (No|Sí) la cámara iniciará el modo de depuración con el encendido y registrará la información en la tarjeta CF en archivos de registro.
- * _* Modo de registro de archivo: (Sobre-escribir, Nuevo, Añadir) los archivos de registro pueden ser: sobre-escritos, creados nuevos cada vez, o añadidos a los ya existentes en el registro de depuración.
+ * _* Depuración de encendido*_: (No|Sí) la cámara iniciará el modo de depuración con el encendido y registrará la información en la tarjeta CF en archivos de registro.
+ * _* Modo de registro de archivo*_: (Sobre-escribir, Nuevo, Añadir) los archivos de registro pueden ser: sobre-escritos, creados nuevos cada vez, o añadidos a los ya existentes en el registro de depuración.
 
 _*NOTA*_: Tras entrar en el "modo fábrica", el "menú de fábrica" permanecerá disponible hasta que se apague la cámara; salir del "modo de fábrica" no desactivará el "menú de fábrica". 
 
@@ -241,11 +241,11 @@ _*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado q
 
 Actualmente, 400plus soporta 5 idiomas:
 
- * _* Inglés.
- * _* Francés.
- * _* Alemán.
- * _* Italiano.
- * _* Español.
+ * _* Inglés.*_
+ * _* Francés.*_
+ * _* Alemán.*_
+ * _* Italiano.*_
+ * _* Español.*_
 
 El deseo es tener 400plus en tantos idiomas como sea posible! Si estás interesado en ayudar en la conversión de 400plus a un idioma diferente, sin duda tu esfuerzo es bienvenido. Háznoslo saber mediante una solicitud a través del foro!
 
