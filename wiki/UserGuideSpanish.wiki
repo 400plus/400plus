@@ -158,6 +158,8 @@ Otra característica interesante incluida es la capacidad de cambiar la vista de
 
 = AutoISO =
 
+Para activar el AutoISO para los modos creativos, hazlo en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes], o presiona el botón de IMPRESIÓN DIRECTA en el diálogo de selección de ISO. Para desactivarlo, utiliza [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] o selecciona cualquier valor ISO en el diálogo de selección de ISO.
+
 
 = Selección del patrón AF =
 
