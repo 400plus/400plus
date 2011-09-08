@@ -10,7 +10,7 @@ Spanish translation provided by Jmtd.
 
 = Guía del Usuario =
 
-Este documento contiene las instrucciones de uso para 400plus. Se supone que, antes de leer esta guía, el usuario ha instalado 400plus y funciona correctamente. Para información acerca de la instalación de 400plus, ver [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
+Este documento contiene las instrucciones de uso para 400plus. Se supone que, antes de leer esta guía, el usuario ha instalado 400plus y funciona correctamente. Para más información acerca de la instalación de 400plus, ver [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
 = El menu de ajustes =
 
