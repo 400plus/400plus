@@ -4,9 +4,11 @@
 
 Spanish translation provided by Jmtd.
 
-= Guía del Usuario 400plus =
+= Qué es 400plus? =
 
-= Introducción =
+400plus plus es un software libre mejora del firmware que ofrece funcionalidades adicionales para tu cámara Canon 400D/XTi de manera tanto no destructiva como no permanente. Funciona cargándose automáticamente en la memoria de tu cámara en el arranque para mejorar el firmware original de la cámara, pero no es una actualización permanente del firmware y se puede quitar fácilmente. Está diseñado específicamente para el 400D/XTi Canon y no funciona con otros modelos de cámara.
+
+= Guía del Usuario =
 
 Este documento contiene las instrucciones de uso para 400plus. Se supone que, antes de leer esta guía, el usuario ha instalado 400plus y funciona correctamente. Para información acerca de la instalación de 400plus, ver [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
@@ -18,52 +20,58 @@ Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar d
 
 == Navegación por el menú de ajustes ==
 
-Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor.
+Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor, o una parte del valor (como los signos + y -).
 
 == Navegación por los sub-menús ==
 
-Los sub-menús se muestran como "ITEM>SUBÍTEM"; utiliza el dial frontal o los botones de ZOOM para pasar al siguiente subítem, y a continuación IZQUIERDA y DERECHA para cambiar el valor (mantén pulsada la tecla para cambiar más rápido). Los botones ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro ítem.
+Los sub-menús se muestran como "ITEM>SUB·ÍTEM"; utiliza el dial frontal o los botones de ZOOM +/- para pasar al siguiente sub·ítem, y a continuación IZQUIERDA y DERECHA para cambiar el valor del ítem seleccionado (mantén pulsada la tecla para cambiar más rápido). Los botones ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro ítem.
 
 == Los items ==
 
- * _*Comp. Av*_: Igual que la función "compensación AV", pero puede ir de -6 a +6 EV. 
+ * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV. 
  * _*Comp. flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
  * _*Bloquea Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
- * _*Temp. color (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos a 'personalizado'. 
+ * _*Temp. color (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos WB a 'personalizado'. 
  * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV.
- * _*Desplazamiento de Seguridad*_: Cuando está activo, y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
- * _*Retardo infrarrojos*_: Selecciona si la cámara debe esperar 2 segundos cuando se activa mediante un control remoto por infrarrojos. 
- * _*ISO en visor*_: Cuando se activa, y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
- * _*Menú de Accesos Directos*_: Cuando está activo, el menú de accesos directos se mostrará en la pantalla principal al presionar el botón de IMPRESIÓN DIRECTA; cuando está fijado en "No", el botón de IMPRESIÓN DIRECTA cambiará a una ISO intermedia.
+ * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
+ * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva. 
+ * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos. 
+ * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
+ * _*AutoISO*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#AutoISO AutoISO].
+  * Activo: cuando está puesto en "Sí", el AutoISO está activo.
+  * Min ISO: mínimo valor ISO que AutoISO usará.
+  * Max ISO: máximo valor ISO que AutoISO usará.
+  * Min Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
+  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener. 
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones]. 
-  * LCD bajo: cuando está activado, la pantalla se atenúa para preservar la vida de la batería. 
-  * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo, la opción de auto-apagado de la cámara está desactivada.
+  * LCD bajo: cuando está activado (puesto en "Sí"), la pantalla se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado. 
+  * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado. 
  * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
   * Demora: selecciona el disparo inmediato, o una demora de 2 segundos. 
-  * Acción: la acción a realizar. 
-  * Repetición: si se selecciona, el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
-  * Instantánea: si se selecciona, se produce la toma tan pronto como se detecta una mano, de lo contrario, el guión va a esperar hasta que la mano se retira.
+  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro). 
+  * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
+  * Instantánea: si se selecciona (puesto en "Sí"), se produce la toma tan pronto como se detecta una mano; de lo contrario, el guión va a esperar hasta que la mano se retira.
  * _*AEB ext.*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
   * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
-  * Marcos: número de tomas a disparar. 
-  * Paso (EV): separación en EV entre disparos. 
+  * Marcos: número de tomas a disparar. Los valores van de 1 a 9. 
+  * Paso (EV): separación en EV entre cada disparo. Los valores van desde 0 (Off) hasta +-6EV.
   * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
   * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
  * _*Interval.*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
   * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
-  * Tiempo: tiempo (en segundos) entre cada disparo.
+  * Tiempo: tiempo (en segundos) entre cada disparo. Los valores van desde 0 a 250.
   * EAEB: selecciona si [UserGuideSpanish#AEB_Extendido AEB Extendido] se debe utilizar en cada disparo. 
-  * Tomas: número de disparos a hacer, o selecciona "sin límite" para disparar sin cesar.
+  * Tomas: el número de disparos a hacer. Los valores van desde 1 a 250, o selecciona "sin límite" para disparar sin cesar.
  * _*Temporizador*_: Este sub-menú configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador]. 
-  * Demora: tiempo (en segundos) que el guión debe esperar antes de disparar. 
-  * Acción: la acción a realizar. 
+  * Demora: tiempo (en segundos) que el guión debe esperar antes de disparar. Los valores van desde 0 a 250. 
+  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro).  
  * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
-  * Usa A-DEP: cuando está activo, el modo A-DEP es "secuestrado" por los presets; por favor, lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
-  * Cámara: cuando está activo, la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
-  * 400D+: cuando está activo, la carga de un preset reclama los propios ajustes 400plus (guiones,...).
-  * Ajustes: cuando está activo, la carga de un preset reclama los ajustes rara vez cambiados (lenguaje, sistema de video,...).
-  * Imagen: cuando está activo, la carga de un preset reclama los parámetros relativos a la imagen (RAW/JPEG, calidad,...).
-  * Funciones personalizables: cuando está activo, la carga de un preset reclama las funciones personalizables (bloqueo de espejo, reducción de ruido a larga exposición,...).
+  * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]; por favor, lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
+  * Cámara: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
+  * 400plus: cuando está activo (puesto en "Sí"), la carga de un preset reclama los propios ajustes 400plus (guiones,...).
+  * Ajustes: cuando está activo (puesto en "Sí"), la carga de un preset reclama los ajustes rara vez cambiados (lenguaje, sistema de video,...).
+  * Imagen: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros relativos a la imagen (RAW/JPEG, calidad,...).
+  * Funciones personalizables: cuando está activo (puesto en "Sí"), la carga de un preset reclama las funciones personalizables C.Fn (bloqueo de espejo, reducción de ruido a larga exposición,...).
  * _*Menú de desarrolladores*_: Presiona el botón SET mientras está resaltada esta opción para entrar en [UserGuideSpanish#El_menu_de_desarrolladores el menú de desarrolladores].
 
 = El menu de accesos directos =
