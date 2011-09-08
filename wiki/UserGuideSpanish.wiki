@@ -185,7 +185,9 @@ Utiliza las teclas IZQUIERDA y DERECHA mientras miras por el visor para cambiar 
 
 = Selección del patrón AF =
 
-Pulsa el botón de ZOOM IN para entrar en "Selección del punto AF"; a continuación pulsa ZOOM IN de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los patrones, y pulsa hasta la mitad el botón del obturador para salir del diálogo. 
+400plus ofrece un rango adicional de selección de puntos del patrón AF, en vez de los sólo dos (selección manual del punto AF y selección automática) que vienen con la cámara estándar. Este modo adicional permite una amplia gama de patrones de selección de puntos múltiples usando diferentes combinaciones de los 9 puntos de enfoque.
+
+Para usar la selección adicional de puntos del patrón AF durante el disparo, pulsa el botón de ZOOM + para entrar en "Selección del punto AF" estándar; a continuación pulsa ZOOM + de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los diferentes patrones disponibles, y pulsa hasta la mitad el botón del obturador para salir del diálogo. 
 
 == Los extras==
 
@@ -193,12 +195,13 @@ Se han agregado a la cámara los siguientes extras:
 
 === En la zona básica ===
 
-En la _zona básica_, utiliza el botón AV para alternar entre calidad de imagen RAW y JPEG.
+En la _zona básica_, utiliza el botón AV para alternar entre calidad de imagen RAW, JPEG y RAW+JPEG. Fíjate que la calidad y el tamaño se han cambiado a "HIGH + L" cada vez que se utiliza esta opción.
 
 === En la zona creativa ===
 
-En la _zona creativa_ están disponibles: 
- * En el diálogo de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para establecer ISO 3200 (ver [UserGuideSpanish#ISOs_Extendidos Notas / ISOs Extendidos]). 
+Utiliza el botón JUMP para alternar entre ISOS extendidos (puedes ajustar el valor con incrementos de 1/8 EV (ver [UserGuideSpanish#ISOs_Extendidos Notas / ISOs Extendidos]).
+
+ * En la pantalla de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para activar el [UserGuideSpanish#AutoISO AutoISO]. Selecciona cualquier valor ISO para desactivarlo.  
  * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver [UserGuideSpanish#Modo_de_medicion_puntual Notas / Modo de medición puntual]).
  * En el cuadro de diálogo de selección del balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
 
@@ -214,6 +217,8 @@ En la pantalla de "ajustes de la cámara" (presionar DISP en el menú estándar 
  * El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara). 
 Utiliza SET e IZQUIERDA / DERECHA para cambiar el ítem a mostrar.
 
+NOTA: Esta función sólo está disponible cuando la cámara se encuentra en los modos de zona creativa (P, Tv, Av, M, A-DEP).
+
 == El asunto de la nariz (ojo zurdo) ==
 
 Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar la nariz o la mejilla del usuario contra el cuerpo de la cámara. 
@@ -222,14 +227,27 @@ Mientras se mira por el visor, los botones de ISO y WB están inactivos, para pr
 
 *AVISO*: Estas opciones se deben usar con mucho cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
 
-Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y pulsa SET:
+Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y pulsa SET. Las opciones disponibles son:
  * _* Entrar modo fábrica*_: Pone la cámara en "modo fábrica"; también activa el "menú de fábrica".
  * _* Salir modo fábrica*_: Revierte la cámara al "modo normal".
- * _* Iniciar modo depuración*_: La cámara almacenará gran cantidad de información de depuración en la tarjeta, en dos archivos llamados STDOUT.TXT y STDERR.TXT.
+ * _* Depuración de encendido: (No|Sí) la cámara iniciará el modo de depuración con el encendido y registrará la información en la tarjeta CF en archivos de registro.
+ * _* Modo de registro de archivo: (Sobre-escribir, Nuevo, Añadir) los archivos de registro pueden ser: sobre-escritos, creados nuevos cada vez, o añadidos a los ya existentes en el registro de depuración.
 
 _*NOTA*_: Tras entrar en el "modo fábrica", el "menú de fábrica" permanecerá disponible hasta que se apague la cámara; salir del "modo de fábrica" no desactivará el "menú de fábrica". 
 
 _*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado que _*no es posible descargar fotografías al ordenador mientras la cámara se encuentra en "modo de fábrica"*_.
+
+= Soporte mult-idioma =
+
+Actualmente, 400plus soporta 5 idiomas:
+
+ * _* Inglés.
+ * _* Francés.
+ * _* Alemán.
+ * _* Italiano.
+ * _* Español.
+
+El deseo es tener 400plus en tantos idiomas como sea posible! Si estás interesado en ayudar en la conversión de 400plus a un idioma diferente, sin duda tu esfuerzo es bienvenido. Háznoslo saber mediante una solicitud a través del foro!
 
 = Notas =
 
@@ -237,14 +255,19 @@ Algunas notas y comentarios.
 
 == ISOs Extendidos ==
 
-Los valores ISO no estándar son sólo valores calculados por software, y técnicamente ofrecen poca o ninguna ganancia sobre los disparos a ISOs nativos y el posterior procesado de la imagen; esto incluye el ISO-3200, el cual es valorable durante situaciones con muy poca luz, cuando ningunas otras opciones te permitirían lograr el disparo.
+Los valores ISO no estándar son sólo valores calculados por software, y técnicamente ofrecen poca o ninguna ganancia sobre los disparos a ISOs nativos y el posterior procesado de la imagen.
+
+Ten en cuenta que la cámara no siempre mostrará en la pantalla el valor ISO correcto; por ejemplo, una imagen disparada a ISO 3000 se mostrará como a ISO 3200 durante la revisión.
 
 == Modo de medicion puntual ==
 
-El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña.
+El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña (aproximadamente 3.5% del centro del visor frente a la medición parcial de aproximadamente 9% del centro del visor).
 
 = Errores conocidos =
 
 Se han comunicado y confirmado los siguientes errores relevantes:
 
- * Issue #15: La exposición cambia durante EAEB. 
+ * Issue #15: La exposición cambia durante EAEB.
+ * Issue #130: La configuración no se restaura si la cámara se apaga mientras se ejecuta un guión.
+
+ 
