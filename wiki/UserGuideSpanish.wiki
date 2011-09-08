@@ -78,7 +78,8 @@ Los sub-menús se muestran como "ITEM>SUB·ÍTEM"; utiliza el dial frontal o los
 
 Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA desde la pantalla principal (a menos que, obviamente, la opción de "menú de accesos directos" esté desactivada). Navega por este menú como en un menú normal, y presiona el botón SET para lanzar un guión:
 
- * _*ISO Intermedio*_: Cambia los ISOs intermedios.
+ * _*ISO*_: Cambia los ISOs intermedios. Los valores oscilan entre 100 y 3000.
+* _*Temp. Color (K)*_: Igual que en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]. 
  * _*AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
  * _*Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
  * _*Toma por Visor*_: Inicia el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
