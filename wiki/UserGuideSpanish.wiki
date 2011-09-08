@@ -241,11 +241,11 @@ _*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado q
 
 Actualmente, 400plus soporta 5 idiomas:
 
- * _* Inglés.*_
- * _* Francés.*_
- * _* Alemán.*_
- * _* Italiano.*_
- * _* Español.*_
+ * Inglés.
+ * Francés.
+ * Alemán.
+ * Italiano.
+ * Español.
 
 El deseo es tener 400plus en tantos idiomas como sea posible! Si estás interesado en ayudar en la conversión de 400plus a un idioma diferente, sin duda tu esfuerzo es bienvenido. Háznoslo saber mediante una solicitud a través del foro!
 
