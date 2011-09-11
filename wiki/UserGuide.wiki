@@ -75,7 +75,7 @@ Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `
 
 = The shortcuts menu =
 
-To access the shortcuts menu, press the `DP` button from the main LCD dialog (only valid if the "Shortcuts menu" value is set to "Yes" from the 400plus settings menu).  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
+To access the shortcuts menu, press the `DP` button from the main LCD dialog.  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
 
  * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
  * _*Color Temp. (K)*_: Same as in [#The_settings_menu the settings menu].
@@ -95,9 +95,7 @@ While in the shortcuts menu, you have the ability to change the order of the men
 
 = The scripts =
 
-All scripts are activated from the [#The_shortcuts_menu Shortcuts Menu].  Therefore to execute a script make sure and set the "Shortcuts menu:" value to "Yes" in the 400plus settings menu.
-
-When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second).
+All scripts are activated from the [#The_shortcuts_menu Shortcuts Menu]. When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second).
 
 To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so press and hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
 
@@ -128,7 +126,7 @@ A "preset" is a complete snapshot containing all of the camera settings and conf
 
 Presets are stored on the CF card itself.  Up to 9 presets can be stored.  The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
 
-To store (save) a preset, press the `DP` button while in [#The_settings_menu the settings menu]; then select a preset slot and press the `SET` button (if the slot has been previously used, its contents will be overwritten).  To load (recover) a preset, press the `DP` button while in the [#The_shortcuts_menu the shortcuts menu]; (the shortcuts menu setting must be set to "Yes" to use this feature) then select your desired preset and press the `SET` button.  Once activated, the preset settings and parameters for the selected preset will be restored and become immediately active (if the slot is empty, nothing happens).
+To store (save) a preset, press the `DP` button while in [#The_settings_menu the settings menu]; then select a preset slot and press the `SET` button (if the slot has been previously used, its contents will be overwritten).  To load (recover) a preset, press the `DP` button while in the [#The_shortcuts_menu the shortcuts menu]; then select your desired preset and press the `SET` button.  Once activated, the preset settings and parameters for the selected preset will be restored and become immediately active (if the slot is empty, nothing happens).
 
 == The A-DEP mode ==
 
