@@ -139,13 +139,13 @@ Bajo circunstancias normales, cuando se recupera un preajuste todos los parámet
 
 Para resolver este asunto, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado). Cuando esa opción está activa (Presets>usa A-DEP: "Sí"), ocurrirán los cambios siguientes:
 
- * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. Se visualiza la palabra "Presets" en lugar de "A-DEP" en el dial de modos. 
+ * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. Se visualiza la palabra "Presets" en lugar de "A-DEP" en el dial de modo. 
  * Cuando la cámara se enciende en el modo A-DEP, o cuando el usuario mueve el dial principal al modo A-DEP, se carga el último preset utilizado.
  * Si la opción no está activada (Presets>usa A-DEP: "No"), cuando se selecciona la posición A-DEP en el dial de modo, la cámara usará el modo A-DEP como lo haría normalmente.
   
 == Configurar el menú presets ==
 
-Podemos reordenar los presets, al igual que [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]. Para hacer esto, mientras estás en los menús guarda PRESET o carga PRESET, presiona PLAY para seleccionar el ítem (aparecerá a la izquierda del mismo el signo ">") y ARRIBA / ABAJO para moverlo a la posición deseada. Finaliza el proceso presionando PLAY de nuevo para guardar tus cambios.
+Podemos reordenar los presets, al igual que en [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]. Para hacer esto, mientras estás en los menús carga PRESET o guarda PRESET, presiona PLAY para seleccionar el ítem (aparecerá a la izquierda del mismo el signo ">") y ARRIBA / ABAJO para moverlo a la posición deseada. Finaliza el proceso presionando PLAY de nuevo para guardar tus cambios.
 Además los podemos renombrar, pulsando el botón JUMP (desde los menús guarda PRESET o carga PRESET) para entrar en el menú para cambio de nombre:
 
  * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar una letra.
