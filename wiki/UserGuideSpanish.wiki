@@ -197,7 +197,7 @@ Se han agregado a la cámara los siguientes extras:
 
 === En la zona básica ===
 
-En la _zona básica_, utiliza el botón AV para alternar entre calidad de imagen RAW, JPEG y RAW+JPEG. Fíjate que la calidad y el tamaño se han cambiado a "HIGH + L" cada vez que se utiliza esta opción.
+En la _zona básica_, utiliza el botón AV para alternar entre calidad de imagen RAW, JPEG y RAW+JPEG. Fíjate que la calidad y el tamaño se cambian a "HIGH + L" cada vez que se utiliza esta opción.
 
 === En la zona creativa ===
 
@@ -235,7 +235,7 @@ Desde el menú 400plus, baja hasta la entrada del "menú de desarrolladores" y p
  * _* Depuración de encendido*_: (No|Sí) la cámara iniciará el modo de depuración con el encendido y registrará la información en la tarjeta CF en archivos de registro.
  * _* Modo de registro de archivo*_: (Sobre-escribir, Nuevo, Añadir) los archivos de registro pueden ser: sobre-escritos, creados nuevos cada vez, o añadidos a los ya existentes en el registro de depuración.
 
-_*NOTA*_: Tras entrar en el "modo fábrica", el "menú de fábrica" permanecerá disponible hasta que se apague la cámara; salir del "modo de fábrica" no desactivará el "menú de fábrica". 
+_*NOTA*_: Tras entrar en el "modo fábrica", el "menú de fábrica" permanecerá disponible hasta que se apague la cámara. Salir del "modo de fábrica" no desactivará el "menú de fábrica". 
 
 _*NOTA*_: Recuerda salir del "modo de fábrica" antes de usar la cámara, dado que _*no es posible descargar fotografías al ordenador mientras la cámara se encuentra en "modo de fábrica"*_.
 
