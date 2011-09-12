@@ -16,11 +16,11 @@ Este documento contiene las instrucciones de uso para 400plus. Se supone que, an
 
 == Acceso al menú de ajustes ==
 
-Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará el nuevo menú 400plus). Para salir del menú 400plus presiona hasta la mitad el botón disparador.
+Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará en pantalla el nuevo menú 400plus). Para salir del menú 400plus presiona hasta la mitad el botón disparador.
 
 == Navegación por el menú de ajustes ==
 
-Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual; presiona y mantén presionado estos botones para cambiar más rápido. En algunos elementos, el botón AV se puede utilizar para cambiar el valor, o una parte del valor (como los signos + y -).
+Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual (presiona y mantén presionado estos botones para cambiar más rápido). En algunos elementos, el botón AV se puede utilizar para cambiar el valor, o una parte del valor (como los signos + y -).
 
 == Navegación por los sub-menús ==
 
@@ -76,10 +76,10 @@ Los sub-menús se muestran como "ITEM>SUB·ÍTEM"; utiliza el dial frontal o los
 
 = El menu de accesos directos =
 
-Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA desde la pantalla principal (a menos que, obviamente, la opción de "menú de accesos directos" esté desactivada). Navega por este menú como en un menú normal, y presiona el botón SET para lanzar un guión:
+Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA desde la pantalla principal. Navega por este menú como en un menú normal, y presiona el botón SET para lanzar un guión:
 
  * _*ISO*_: Cambia los ISOs intermedios. Los valores oscilan entre 100 y 3000.
- * _*Temp. Color (K)*_: Igual que en el [UserGuideSpanish#El_menu_de_ajustes menú de ajustes]. 
+ * _*Temp. color (K)*_: Igual que en el [UserGuideSpanish#El_menu_de_ajustes menú de ajustes]. 
  * _*AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
  * _*Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
  * _*Toma por Visor*_: Inicia el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
