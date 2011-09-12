@@ -146,7 +146,7 @@ Para resolver este asunto, hay una opción en [UserGuideSpanish#El_menu_de_ajust
 == Configurar el menú presets ==
 
 Podemos reordenar los presets, al igual que en [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]. Para hacer esto, mientras estás en los menús carga PRESET o guarda PRESET, presiona PLAY para seleccionar el ítem (aparecerá a la izquierda del mismo el signo ">") y ARRIBA / ABAJO para moverlo a la posición deseada. Finaliza el proceso presionando PLAY de nuevo para guardar tus cambios.
-Además los podemos renombrar, pulsando el botón JUMP (desde los menús guarda PRESET o carga PRESET) para entrar en el menú para cambio de nombre:
+Además los podemos renombrar, pulsando el botón JUMP (desde los menús carga PRESET o guarda PRESET) para entrar en el menú para cambio de nombre:
 
  * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar una letra.
  * Utiliza MENU para alternar entre minúsculas / números y mayúsculas / símbolos; presiona AV para cambiar el tipo de la letra seleccionada en la línea inferior. 
