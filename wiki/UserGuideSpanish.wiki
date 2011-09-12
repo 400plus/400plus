@@ -149,7 +149,7 @@ Podemos reordenar los presets, al igual que en [UserGuideSpanish#El_menu_de_acce
 Además los podemos renombrar, pulsando el botón JUMP (desde los menús carga PRESET o guarda PRESET) para entrar en el menú para cambio de nombre:
 
  * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar una letra.
- * Utiliza MENU para alternar entre minúsculas / números y mayúsculas / símbolos; presiona AV para cambiar el tipo de la letra seleccionada en la línea inferior. 
+ * Utiliza MENU para alternar entre minúsculas/números y mayúsculas/símbolos; presiona AV para cambiar el tipo de la letra seleccionada en la línea inferior. 
  * Utiliza SET para usar una letra en el nombre y avanzar el cursor a la siguiente posición.
  * Utiliza el dial frontal o los botones de ZOOM +/- para mover el cursor.
  * Presiona JUMP para guardar tus cambios y volver al menú presets.
