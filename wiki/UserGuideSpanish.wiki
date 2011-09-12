@@ -92,7 +92,7 @@ Para salir del menú de accesos directos, presiona hasta la mitad el botón disp
 
 == Configurar el menú de accesos directos ==
 
-Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aparecen según tus preferencias. Presiona PLAY para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo y de nuevo PLAY cuando hayas acabado para grabar los cambios.
+Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aparecen los ítems según tus preferencias. Presiona PLAY para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo donde quieras y de nuevo PLAY cuando hayas acabado para grabar los cambios.
 
 = Los guiones =
 
