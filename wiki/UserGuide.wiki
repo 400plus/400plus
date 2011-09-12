@@ -250,9 +250,15 @@ The desire is to have 400plus be supported in as many languages as possible!  If
 
 Some notes and comments.
 
+== The _missing_ ISO-3200 ==
+
+Previous versions of `400plus` supported ISO-3200; or more precisely, it _appeared_ to support it: while the camera displayed "3200" as the ISO value, images where actually being shot at ISO-3000. Latests versions of `400plus` correct this bug, and thus only values up to ISO-3000 are supported now.
+
+Note, thus, that _an image shot at the new ISO-3000 will be exactly the same as if shot with the old ISO-3200_.
+
 == Extended ISOs ==
 
-_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image.
+_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image. They can be useful, for example, when there is no time for any post-processing.
 
 Please, notice that the camera will not always display the correct ISO value; for example, an image shot at ISO-3000 will show as ISO-3200 during the review.
 
