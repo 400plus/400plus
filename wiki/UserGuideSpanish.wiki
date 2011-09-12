@@ -154,7 +154,7 @@ Además los podemos renombrar, pulsando el botón JUMP (desde los menús carga P
  * Utiliza el dial frontal o los botones de ZOOM +/- para mover el cursor.
  * Presiona JUMP para guardar tus cambios y volver al menú presets.
 
-Otra característica interesante incluida es la capacidad de cambiar la vista de los presets hacia atrás y hacia delante entre los nombres de los presets y los nombres de los archivos de presets (guardados en la tarjeta CF). Esta característica es útil cuando se deseas copiar presets a y desde varias tarjetas CF y necesitas conocer los nombres de archivo de cada uno de tus presets. Para utilizar esta función pulsa el botón MENU mientras te encuentras en cualquiera de los menús carga PRESET o guarda PRESET.   
+Otra característica interesante incluida es la capacidad de cambiar la vista de los presets hacia atrás y hacia delante entre los nombres de los presets y los nombres de los archivos de presets (guardados en la tarjeta CF). Esta característica es útil cuando deseas copiar presets a y desde varias tarjetas CF y necesitas conocer los nombres de archivo de cada uno de tus presets. Para utilizar esta función pulsa el botón MENU mientras te encuentras en cualquiera de los menús carga PRESET o guarda PRESET.   
 
 = AutoISO =
 
