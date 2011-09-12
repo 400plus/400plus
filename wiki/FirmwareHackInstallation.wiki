@@ -7,6 +7,10 @@ This document describes the Installation procedure; if you need information on u
 
 = Details =
 
+== Before you begin ==
+
+_In order to install `400plus` you are definitively going to *need* a CF card reader; it is simply *not possible* to install `400plus` through a USB cord attached to your camera._
+
 == Preparing the camera ==
 
 The following steps prepare your camera to execute `400plus` each time it start up; this procedure must be done only once:
