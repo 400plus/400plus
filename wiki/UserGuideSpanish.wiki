@@ -96,7 +96,7 @@ Estando en el menú de accesos directos, tienes la posibilidad de cambiar el ord
 
 = Los guiones =
 
-Todos los guiones se activan desde el [UserGuideSpanish#El_menu_de_accesos_directos menú de accesos directos]. Por tanto, para ejecutar un guión asegúrate de fijar en "Sí" el valor de Accesos directos en el menú de ajustes 400plus.  
+Todos los guiones se activan desde el [UserGuideSpanish#El_menu_de_accesos_directos menú de accesos directos].
 
 Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y, al tiempo que el guión se ejecuta, el botón de IMPRESIÓN DIRECTA parpadea (dos veces por segundo, aproximadamente).
 
@@ -107,7 +107,7 @@ Para detener una secuencia de comandos en ejecución, presiona el botón de IMPR
 
 Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias: 
  * Se pueden especificar hasta 9 tomas. 
- * La separación entre las tomas se puede configurar hasta +6 EV. 
+ * La separación entre las tomas se puede configurar hasta +-6 EV. 
  * La cámara tomará todas las fotos en una secuencia, de forma automática.
 
 En el modo M con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb min" hasta el valor "Bulb máx", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
