@@ -14,7 +14,7 @@ Se cerchi informazioni riguardo l'uso del hack, leggi il  [http://code.google.co
   #. inserite la CF nella fotocamera e avviate "aggiornamento firmware" usando testfir.fir, lo schermo si spegnerà.<br> _*<font color="red">Aspettate almeno 2 minuti senza toccare alcun tasto</font>*_, spegnete, togliete la batteria e reinseritela.
   #. A seconda del vostro Sistema Operativo e CF Card il prossimo step cambia, ma prima inserite la CF nella fotocamera e formattatela.<br>
     * Windows: usate [http://pel.hu/down/EOScard.exe EOScard] by [http://chdk.setepontos.com/index.php?topic=4214.msg58253#msg58253 pelican], dovete controllare EOS_DEVELOP e BOOTDISK<br>come mostrato [http://chdk.wikia.com/wiki/EOScard qui]
-    * Mac: usate zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot].
+    * Mac: usate zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] (Lion non supportato).
     * Linux: usate metodo diretto (qui sotto)<br>o usate il metodo e i file descritti [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de qui] (usate la seconda versione)
     * Metodo diretto per Linux, Mac e windows con [http://www.cygwin.com/ cygwin] o [http://www.chrysocome.net/dd dd]:
       * FAT12/FAT16 (CF Card <= 4GB)
