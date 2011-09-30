@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20110904-1*_
+ * Updated Spanish translation (thanks JmTD at Canonistas).
+
 _*20110904-0*_
  * AutoISO
  * Intermediate ISOs reworked: 1/8 EV resolution, false ISO-3200 removed.
