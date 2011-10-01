@@ -133,6 +133,50 @@ void my_task_MainCtrl() {
 
 		printf_log(1, 6, aMcT04dS04xD, event->t, MC_State, msg); // "[MC] T:%04d, S:%04X, %d"
 
+#ifdef ENABLE_DEBUG
+		switch (event->t) {
+		case MC_INFOANDCTRL:
+			printf_log(1, 6, "[MC] MC_INFOANDCTRL");
+			break;
+		case MC_BUTTON:
+			printf_log(1, 6, "[MC] MC_BUTTON");
+			break;
+		case MC_ACTION:
+			printf_log(1, 6, "[MC] MC_ACTION");
+			break;
+		case MC_DISPLAY_MODE:
+			printf_log(1, 6, "[MC] MC_DISPLAY_MODE");
+			break;
+		case MC_START_MODE:
+			printf_log(1, 6, "[MC] MC_START_MODE");
+			break;
+		case MC_DriveNotifyCallBack:
+			printf_log(1, 6, "[MC] MC_DriveNotifyCallBack");
+			break;
+		case MC_ChangeAvailShot:
+			printf_log(1, 6, "[MC] MC_ChangeAvailShot");
+			break;
+		case MC_ShutDown:
+			printf_log(1, 6, "[MC] MC_ShutDown");
+			break;
+		case MC_ChangeNotifyCallback:
+			printf_log(1, 6, "[MC] MC_ChangeNotifyCallback");
+			break;
+		case MC_CardDoor_Emergency:
+			printf_log(1, 6, "[MC] MC_CardDoor_Emergency");
+			break;
+		case MC_REQ_UI_LOCK:
+			printf_log(1, 6, "[MC] MC_REQ_UI_LOCK");
+			break;
+		case MC_REQ_UI_UNLOCK:
+			printf_log(1, 6, "[MC] MC_REQ_UI_UNLOCK");
+			break;
+		default:
+			printf_log(1, 6, "[MC] MC_UNKNOWN");
+			break;
+		}
+#endif
+
 		if (0) {
 		} else if (event->t < 6) {
 			if (event->t == MC_BUTTON) {

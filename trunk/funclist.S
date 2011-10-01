@@ -17283,3 +17283,6 @@ DEF(set_2A0E0_to_1, 0xFF811814)
 DEF(some_important_structure,    0x00024860)
 DEF(unk_258A0,    0x000258A0)
 
+// for lens
+DEF(some_with_lens_name, 0xFF95AEA0);
+

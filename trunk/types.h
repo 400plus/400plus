@@ -30,5 +30,11 @@ struct tm {
 	int tm_isdst;       /* daylight saving time */
 };
 
-
+struct lens_info {
+	short id;
+	short max_mm;
+	short min_mm;
+	short not_used;
+	char *name;
+} __attribute__((packed));
 #endif // TYPES_H_

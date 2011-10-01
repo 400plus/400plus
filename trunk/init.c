@@ -2,8 +2,6 @@
 
 #include "init.h"
 
-extern void COPY();
-
 void my_romStart(int startType);
 int  my_usrInit(int startType);
 int  my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize);
@@ -137,7 +135,9 @@ void my_task_Startup() {
 	dmstart();
 	dmProcInit();
 
-	initialize(); // task_dispatcher
+	//int disable_hack = cameraMode->forbid_rel;
+	int disable_hack = 0;
+	if (!disable_hack) initialize(); // task_dispatcher
 
 	sub_FFAFE5BC();
 	SetAssert();
@@ -171,7 +171,11 @@ void my_task_Startup() {
 
 	SetAssertProc(AssertPrepare, 0);
 
-	my_InitializeIntercom(); // InitializeIntercom();
+	if (disable_hack) {
+		InitializeIntercom();
+	} else {
+		my_InitializeIntercom(); // InitializeIntercom();
+	}
 
 	AfeGainCmosParamInit();
 
@@ -240,7 +244,11 @@ void my_task_Startup() {
 
 	RegisterISR_EMERGENCY_CARDDOOR();
 
-	my_MainCtrlInit();
+	if (disable_hack) {
+		MainCtrlInit();
+	} else {
+		my_MainCtrlInit();
+	}
 
 	CaptureSemaphoreInit();
 
@@ -320,7 +328,11 @@ void my_task_Startup() {
 
 	CreateMemoryManagerPubInstance();
 
-	my_GUIInit(); //GUIInit();
+	if (disable_hack) {
+		GUIInit();
+	} else {
+		my_GUIInit(); //GUIInit();
+	}
 	GUIApiCalls();
 
 	InitializeImagePlayer();
