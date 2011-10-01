@@ -266,7 +266,7 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int menupos;                 // 0x0084
 	int wbcomp_gm;               // 0x0088
 	int wbcomp_ab;               // 0x008c
-	int forbid_rel;              // 0x0090
+	int forbid_rel;              // 0x0090 - forbid release, shoot w/o CF
 	int cf_set_button_func;      // 0x0094
 	int cf_nr_for_long_exposure; // 0x0098
 	int cf_efav_fix_x;           // 0x009c
@@ -507,6 +507,14 @@ typedef struct struct_DIALOG type_DIALOG;
 // to 0xFF914960 ("aDIALOG" from funclist), so i guess the first element of
 // the struct is "char *" with name of the dialog
 
+
+/*
+[15.9.2011 00:10] <alexML> {
+[15.9.2011 00:10] <alexML> const char * type; // "DIALOG" at 0x147F8
+[15.9.2011 00:10] <alexML> struct window * window; // off 0x04
+[15.9.2011 00:10] <alexML> void * arg0; // off 0x08
+[15.9.2011 00:10] <alexML> ...
+*/
 
 // Action definitions
 typedef void(*type_TASK)();
