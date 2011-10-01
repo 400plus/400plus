@@ -9,7 +9,7 @@
 #include "menu_developer.h"
 
 #undef TEST_DIALOGS
-//#define TEST_DIALOGS
+#define TEST_DIALOGS
 // enable dialogs testing from here...
 // when enter the dialogs test mode
 // DISPLAY -> next dialog
@@ -49,6 +49,8 @@ type_MENU menu_developer = {
 
 void menu_developer_start() {
 	beep();
+	if (FIO_OpenFile("A:/enable.dev", O_RDONLY, 644) == -1)
+		return;
 	menu_create(&menu_developer);
 }
 
