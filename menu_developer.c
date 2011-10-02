@@ -35,15 +35,22 @@ type_MENUITEM menu_developer_items[] = {
 	MENUITEM_BREAK("")
 };
 
-type_MENU menu_developer = {
+type_MENUPAGE menupages_developer[] = {{
 	name        : LP_WORD(L_DEVELOPER),
 	length      : LENGTH(menu_developer_items),
 	items       : menu_developer_items,
 	reorder     : FALSE,
 	tasks       : {
-		[MENU_EVENT_DP] = menu_settings_start,
 		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE] = menu_settings_save,
+	}
+}};
+
+type_MENU menu_developer = {
+	length: 1,
+	pages : menupages_developer,
+	tasks       : {
+		[MENU_EVENT_DP] = menu_settings_start,
 	}
 };
 
