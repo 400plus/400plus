@@ -40,7 +40,7 @@ type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&sc_cameraMode.cf_flash_sync_rear, menu_shortcuts_apply_cf_flash_sync_rear)
 };
 
-type_MENU menu_shortcuts = {
+type_MENUPAGE menupage_shortcuts[] = {{
 	name        : LP_WORD(L_SHORTCUTS),
 	//color       : MENU_COLOR_YELLOW_AND_GREEN,
 	length      : LENGTH(menu_shortcut_items),
@@ -48,9 +48,16 @@ type_MENU menu_shortcuts = {
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
 	tasks       : {
-		[MENU_EVENT_DP]     = menu_presets_load_start,
 		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE]  = menu_shortcuts_close,
+	}
+}};
+
+type_MENU menu_shortcuts = {
+	length : 1,
+	pages  : menupage_shortcuts,
+	tasks       : {
+		[MENU_EVENT_DP]     = menu_presets_load_start,
 	}
 };
 

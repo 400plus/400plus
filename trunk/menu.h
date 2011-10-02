@@ -10,7 +10,21 @@ typedef struct {
 	char **data;
 } type_LIST;
 
+typedef enum {
+	MENU_COLOR_RED              = 0x00,
+	MENU_COLOR_BLUE             = 0x01,
+	MENU_COLOR_YELLOW           = 0x02,
+	MENU_COLOR_YELLOW_AND_WHITE = 0x06,
+	MENU_COLOR_DARK_BLUE        = 0x09,
+	//MENU_COLOR_SOMETHING_FOR_THE_HELP_SCREEN_MAY_BE = 0x0A, // cannot be used for menus
+	MENU_COLOR_DARK_RED         = 0x0C,
+	MENU_COLOR_YELLOW_AND_GREEN = 0x10, // nice
+	MENU_COLOR_WHITE_ON_BLACK   = 0x12, // dark one
+	MENU_COLOR_ORANGE           = 0x67,
+} type_MENU_COLOR;
+
 typedef struct MENU     type_MENU;
+typedef struct MENUPAGE type_MENUPAGE;
 typedef struct MENUITEM type_MENUITEM;
 
 typedef enum {
@@ -98,22 +112,8 @@ struct MENUITEM {
 	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
 };
 
-typedef enum {
-	MENU_COLOR_RED              = 0x00,
-	MENU_COLOR_BLUE             = 0x01,
-	MENU_COLOR_YELLOW           = 0x02,
-	MENU_COLOR_YELLOW_AND_WHITE = 0x06,
-	MENU_COLOR_DARK_BLUE        = 0x09,
-	//MENU_COLOR_SOMETHING_FOR_THE_HELP_SCREEN_MAY_BE = 0x0A, // cannot be used for menus
-	MENU_COLOR_DARK_RED         = 0x0C,
-	MENU_COLOR_YELLOW_AND_GREEN = 0x10, // nice
-	MENU_COLOR_WHITE_ON_BLACK   = 0x12, // dark one
-	MENU_COLOR_ORANGE           = 0x67,
-} type_MENU_COLOR;
-
-struct MENU {
+struct MENUPAGE {
 	char            *name;
-	type_MENU_COLOR  color;
 	int              length;
 	type_MENUITEM   *items;
 	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
@@ -122,6 +122,13 @@ struct MENU {
 	int             *ordering;
 	int              highlight;
 	int              highlighted_item;
+};
+
+struct MENU {
+	type_MENU_COLOR  color;
+	int              length;
+	type_MENUPAGE   *pages;
+	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
