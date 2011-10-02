@@ -54,6 +54,9 @@ extern int  press_button(int button);
 extern int remote_on();
 extern int remote_off();
 
+extern int display_on();
+extern int display_off();
+
 extern void led_flash(int delay);
 
 // convert string to upper case in-place
