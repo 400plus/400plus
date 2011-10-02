@@ -420,6 +420,20 @@ int remote_off() {
 	return result;
 }
 
+int display_on() {
+	int result = SetTurnDisplayEvent_1_after_2();
+	SleepTask(EVENT_WAIT);
+
+	return result;
+}
+
+int display_off() {
+	int result = SetTurnDisplayEvent_2_after_1();
+	SleepTask(EVENT_WAIT);
+
+	return result;
+}
+
 void led_flash(int duration) {
 	eventproc_EdLedOn();
 	SleepTask(EVENT_WAIT);
