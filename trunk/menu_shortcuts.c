@@ -5,6 +5,7 @@
 #include "languages.h"
 #include "menu.h"
 #include "menu_presets.h"
+#include "menu_settings.h"
 #include "scripts.h"
 #include "settings.h"
 #include "utils.h"
@@ -40,7 +41,7 @@ type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&sc_cameraMode.cf_flash_sync_rear, menu_shortcuts_apply_cf_flash_sync_rear)
 };
 
-type_MENUPAGE menupage_shortcuts[] = {{
+type_MENUPAGE menupage_shortcuts[2] = {{
 	name        : LP_WORD(L_SHORTCUTS),
 	//color       : MENU_COLOR_YELLOW_AND_GREEN,
 	length      : LENGTH(menu_shortcut_items),
@@ -54,9 +55,9 @@ type_MENUPAGE menupage_shortcuts[] = {{
 }};
 
 type_MENU menu_shortcuts = {
-	length : 1,
+	length : 2,
 	pages  : menupage_shortcuts,
-	tasks       : {
+	tasks  : {
 		[MENU_EVENT_DP]     = menu_presets_load_start,
 	}
 };
@@ -71,6 +72,8 @@ void menu_shortcuts_start() {
 }
 
 void menu_shortcuts_create() {
+	menu_shortcuts.pages[1] = main_menupage[0];
+
 	sc_cameraMode = *cameraMode;
 	menu_create(&menu_shortcuts);
 }

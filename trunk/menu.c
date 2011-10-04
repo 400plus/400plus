@@ -271,6 +271,24 @@ void menu_drag_drop() {
 	}
 }
 
+void menu_page_next() {
+	if (current_page == current_menu->length - 1)
+		current_page = 0;
+	else
+		current_page++;
+
+	menu_display();
+}
+
+void menu_page_prev() {
+	if (current_page == 0)
+		current_page = current_menu->length - 1;
+	else
+		current_page--;
+
+	menu_display();
+}
+
 void menu_submenu_next() {
 	type_MENUITEM *item = get_current_item();
 
