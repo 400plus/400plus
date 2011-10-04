@@ -211,6 +211,9 @@ extern void menu_toggle_filenames();
 extern void menu_rename();
 extern void menu_drag_drop();
 
+extern void menu_page_next();
+extern void menu_page_prev();
+
 extern void menu_submenu_next();
 extern void menu_submenu_prev();
 
