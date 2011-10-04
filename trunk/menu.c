@@ -9,6 +9,7 @@
 #include "menu.h"
 
 void *menu_handler;
+int   current_page;
 int   current_line;
 int   current_item;
 int   item_grabbed;
@@ -59,6 +60,7 @@ void menu_print_iso  (const char *buffer, const char *name, int   parameter);
 void menu_print_int  (const char *buffer, const char *name, int   parameter, const char *format);
 void menu_print_char (const char *buffer, const char *name, const char *parameter);
 
+type_MENUPAGE *get_current_page();
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
@@ -73,7 +75,7 @@ void menu_create(type_MENU * menu) {
 	menu_initialize();
 
 	menu_handler = dialog_create(22, button_menu_handler);
-	dialog_set_property_str(menu_handler, 8, current_menu->pages[0].name);
+	dialog_set_property_str(menu_handler, 8, get_current_page()->name);
 
 	PaletteChange(current_menu->color);
 
@@ -87,6 +89,8 @@ void menu_close() {
 
 void menu_initialize() {
 	menu_handler = NULL;
+
+	current_page = 0;
 
 	current_line = 0;
 	current_item = 0;
@@ -145,6 +149,7 @@ void menu_event_close() {
 }
 
 void menu_event(type_MENU_EVENT event) {
+	type_MENUPAGE *page = get_current_page();
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
@@ -153,8 +158,8 @@ void menu_event(type_MENU_EVENT event) {
 	if (item->tasks && item->tasks[event])
 		item->tasks[event](item);
 
-	if (current_menu->pages[0].tasks && current_menu->pages[0].tasks[event])
-		current_menu->pages[0].tasks[event](current_menu);
+	if (page->tasks && page->tasks[event])
+		page->tasks[event](current_menu);
 
 	if (current_menu->tasks && current_menu->tasks[event])
 		current_menu->tasks[event](current_menu);
@@ -185,11 +190,13 @@ void menu_refresh() {
 void menu_up() {
 	int display = FALSE;
 
+	type_MENUPAGE *page = get_current_page();
+
 	current_item--;
 
 	if (item_grabbed) {
-		INT_SWAP(current_menu->pages[0].ordering[get_item_id(current_item)],
-				current_menu->pages[0].ordering[get_item_id(current_item + 1)]);
+		INT_SWAP(page->ordering[get_item_id(current_item)],
+				page->ordering[get_item_id(current_item + 1)]);
 		display = TRUE;
 	}
 
@@ -205,11 +212,13 @@ void menu_up() {
 void menu_down() {
 	int display = FALSE;
 
-		current_item++;
+	type_MENUPAGE *page = get_current_page();
+
+	current_item++;
 
 	if (item_grabbed) {
-		INT_SWAP(current_menu->pages[0].ordering[get_item_id(current_item)],
-				current_menu->pages[0].ordering[get_item_id(current_item - 1)]);
+		INT_SWAP(page->ordering[get_item_id(current_item)],
+				page->ordering[get_item_id(current_item - 1)]);
 		display = TRUE;
 	}
 
@@ -235,22 +244,27 @@ void menu_cycle() {
 }
 
 void menu_toggle_filenames() {
-	if (current_menu->pages[0].rename) {
+	type_MENUPAGE *page = get_current_page();
+
+	if (page->rename) {
 		show_filenames = ! show_filenames;
 		menu_display();
 	}
 }
 
 void menu_rename() {
+	type_MENUPAGE *page = get_current_page();
 	type_MENUITEM *item = get_current_item();
 
-	if (current_menu->pages[0].rename) {
+	if (page->rename) {
 		rename_create(item->name, current_menu);
 	}
 }
 
 void menu_drag_drop() {
-	if (current_menu->pages[0].reorder) {
+	type_MENUPAGE *page = get_current_page();
+
+	if (page->reorder) {
 		item_grabbed = ! item_grabbed;
 		menu_event_change();
 		menu_refresh();
@@ -440,6 +454,7 @@ void menu_message(const char *buffer, int item_id) {
 	char item_name[LP_MAX_WORD];
 	char name[LP_MAX_WORD];
 
+	type_MENUPAGE *page = get_current_page();
 	type_MENUITEM *item = get_item(item_id);
 
 	if (show_filenames)
@@ -447,10 +462,10 @@ void menu_message(const char *buffer, int item_id) {
 	else
 		sprintf(item_name, "%s", item->name);
 
-	if (current_menu->pages[0].highlight || current_menu->pages[0].reorder) {
-		if (current_menu->pages[0].reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+	if (page->highlight || page->reorder) {
+		if (page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
 			sprintf(name, "%c%s", '>', item_name);
-		else if (current_menu->pages[0].highlight && current_menu->pages[0].highlighted_item == 1 + get_real_id(item_id))
+		else if (page->highlight && page->highlighted_item == 1 + get_real_id(item_id))
 			sprintf(name, "%c%s", '*', item_name);
 		else
 			sprintf(name, "%c%s", ' ', item_name);
@@ -534,27 +549,37 @@ void menu_print_char(const char *buffer, const char *name, const char *parameter
 	sprintf(buffer, "%-18s:%s", name, parameter);
 }
 
+type_MENUPAGE *get_current_page() {
+	return &current_menu->pages[current_page];
+}
+
 type_MENUITEM *get_current_item() {
 	return get_item(current_item);
 }
 
 type_MENUITEM *get_item(int item_id) {
-	return &current_menu->pages[0].items[get_real_id(item_id)];
+	type_MENUPAGE *page = get_current_page();
+
+	return &page->items[get_real_id(item_id)];
 }
 
 int get_real_id(int item_id) {
-	if (current_menu->pages[0].reorder)
-		return current_menu->pages[0].ordering[get_item_id(item_id)];
+	type_MENUPAGE *page = get_current_page();
+
+	if (page->reorder)
+		return page->ordering[get_item_id(item_id)];
 	else
 		return get_item_id(item_id);
 }
 
 int get_item_id(int item_id) {
-	while (item_id < 0)
-		item_id += current_menu->pages[0].length;
+	type_MENUPAGE *page = get_current_page();
 
-	while (item_id > current_menu->pages[0].length - 1)
-		item_id -= current_menu->pages[0].length;
+	while (item_id < 0)
+		item_id += page->length;
+
+	while (item_id > page->length - 1)
+		item_id -= page->length;
 
 	return item_id;
 }
