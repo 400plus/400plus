@@ -277,6 +277,7 @@ void menu_page_next() {
 	else
 		current_page++;
 
+	current_item = current_line;
 	menu_display();
 }
 
@@ -286,6 +287,7 @@ void menu_page_prev() {
 	else
 		current_page--;
 
+	current_item = current_line;
 	menu_display();
 }
 
