@@ -399,8 +399,7 @@ loc_FF840754:
 		LDR R5, [R6]
 		BL memcpy
 		LDMIA R4, {R0-R3}
-		//BL sub_FF83A640 // cf free size
-		BL info_display
+		BL sub_FF83A640 // cf free size
 		MOV R1, #0x11
 		MOV R2, R0
 		MOV R0, R5
@@ -793,8 +792,7 @@ loc_FF840950:
 		BL memcpy
 		ADD R12, SP, #0x1B4+arg_188
 		LDMIA R12, {R0-R3}
-		//BL sub_FF83A640
-		BL info_display
+		BL sub_FF83A640
 		MOV R1, #0x11
 		MOV R2, R0
 		MOV R0, R4
