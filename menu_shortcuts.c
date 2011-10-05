@@ -4,6 +4,7 @@
 #include "display.h"
 #include "languages.h"
 #include "menu.h"
+#include "menu_info.h"
 #include "menu_presets.h"
 #include "menu_settings.h"
 #include "scripts.h"
@@ -57,10 +58,11 @@ type_MENUPAGE menupage_shortcuts = {
 type_MENUPAGE *menu_shortcuts_pages[] = {
 	&menupage_shortcuts,
 	&menupage_main,
+	&menupage_info,
 };
 
 type_MENU menu_shortcuts = {
-	length : 2,
+	length : LENGTH(menu_shortcuts_pages),
 	pages  : menu_shortcuts_pages,
 	tasks  : {
 		[MENU_EVENT_DP]     = menu_presets_load_start,
