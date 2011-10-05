@@ -21,6 +21,7 @@ Per accedere al menu delle impostazioni di 400D+, premere il tasto MENU (verrà 
 == Navigazione nel menu delle impostazioni ==
 
 Per navigare all'interno del menu delle impostazioni, utilizzare i tasti `SU` (`ISO`) e `GIU'` (`WB`) per spostarsi tra le voci. Quindi utilizzare il `SINISTRA` (`MISURAZIONE`) e `DESTRA` (`AF`) per cambiarne il valore (premere e tenere premuto questi tasti per cambiare più velocemente). Su alcune voci del menu, il tasto `AV` può essere utilizzato per cambiare (scorrere) i valori, o una parte di essi (come il segno + e -). 
+
 == Navigazione nel sotto-menu ==
 
 I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotellina frontale o i pulsanti `ZOOM IN` E `ZOOM OUT` per scorrere fino alla prossima o alla precedente voce secondaria, poi `SINISTRA` E `DESTRA` per modificare il valore (premere e tenere premuto per cambiare più velocemente) della voce selezionata. I tasti su e giù possono essere utilizzati in qualsiasi momento per passare da una voce all’altra.
@@ -37,12 +38,12 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
  * _*Ritardo com.IR_*: seleziona se la telecamera debba scattare immediatamente oppure aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
  * _*ISO nel mirino*_: Quando è attivo (impostato su Si), e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino. 
  * _*Accesso Diretto*_: Quando è attivo (impostato su Si), la pressione del tasto `DIRECT PRINT` nella finestra principale porterà al [#Menu_di_accesso_diretto menu di accesso diretto]; se impostato su "No", il tasto`DP` cambierà (scorrerà) il valore `ISO` tra i valori intermedi.
- * _*AutoISO*_: This sub-menu configures the behavior of [#AutoISO AutoISO].
-    * Enabled: when active (set to Yes), AutoISO is enabled.
-    * Min ISO: minimum ISO value that AutoISO will use.
-    * Max ISO: maximum ISO value that AutoISO will use.
-    * Min Tv : minimum shutter speed that AutoISO will try to maintain.
-    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain.
+ * _*AutoISO*_: Questoi sottomenu configura il comportamento dell'[#AutoISO AutoISO].
+    * Enabled: quando è attivo (impostato si Sì), l'AutoISO è abilitato.
+    * Min ISO: il minor valore ISO che verrà usato dall'AutoISO.
+    * Max ISO: il massimo valore ISO che verrà usato dall'AutoISO.
+    * Min Tv : il valore minimo di velocità dell'otturatore che l'AutoISO cercherà di mantenere.
+    * Max Av : l'apertura massima di diaframma che l'AutoISO cercherà di mantenere.
  * _*Script*_: Questo menu configura il comportamento degli [#Gli_script script].
   * Oscura LCD: se attivato (impostato su Si), la luminosità dello schermo LCD viene abbassata durante lo script, per aumentare la durata della batteria, il valore iniziale viene reimpostato al termine dell'esecuzione dello script.
   * No AutoOFF: se attivato (impostato su Si), la funzione di auto spegnimento della camera viene disabilitata durante l'esecuzione dello script. Viene riattivata al termine dell'esecuzione.
@@ -80,7 +81,7 @@ Per accedere al menu di accesso diretto, è sufficiente premere il tasto `DP` da
 
  * _*ISO Intermedi*_: Scorre tra i valori ISO intermedi. i valori sono compresi tra 100 e 3200.
  * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
- * _*Color Temp. (K)*_: Same as in [#The_settings_menu the settings menu].
+ * _*Color Temp. (K)*_: Lo stesso del [#Il_menu_delle_impostazioni menu delle impostazioni].
  * _*Temp. Colore (K)*_: permette di impostare una temperatura di colore in gradi Kelvin definita dall'utente e attiva automaticamente il bilanciamento del bianco personalizzato. (Stessa voce [#Il_menu_delle_impostazioni del menu impostazioni)
  * _*AEB Esteso*_: Avvia lo script [#AEB_Esteso AEB Esteso].
  * _*Intervallometro*_: Avvia lo script [#Intervallometro Intervallometro].
@@ -156,31 +157,31 @@ Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli st
 
 = AutoISO =
 
-To enable AutoISO for the creative modes, activate it at [#Il_menu_delle_impostazioni il menu delle impostazioni], or pres `DP` at the ISO selection dialog; to disable it, use [#Il_menu_delle_impostazioni il menu delle impostazioni] or select any ISO value at the ISO selection dialog. 
+Per abilitare l'AutoISO nelle modalità creative, bisogna attivarlo nel [#Il_menu_delle_impostazioni menu delle impostazioni], oppure si può premere il tasto `DP` nel menu di selezione degli ISO; si può disabilitare sempre tramite [#Il_menu_delle_impostazioni il menu delle impostazioni] o selezionando un qualsiasi valore nel menu di selezione degli ISO. 
 
 == AutoISO e modalità Av ==
 
-The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur; probably, this is the mode where AutoISO makes more sense.
+L'obiettivo dell'AutoISO nella modalità AV è quello di utilizzare il più basso valore ISO che assicuri l'assenza dimosso nella foto; probabilmente, questa è la modalità dove l'AutoISO ha più motivo di essere usato.
 
-In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, 400plus will always select the lowest possible ISO (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, 400plus will raise the ISO (up to "Max ISO") as needed.
+Nella modalità AV _normale_, l'utente seleziona ISO e apertura del diaframma, e la fotocamera decide la velocità dell'otturatore misurando la scena. Quando l'AutoISO è attivato, 400plus sceglierà sempre il valore ISO minore (come impostato in "Min ISO"), a meno che la velocità dell'otturatore non sia troppo bassa (il valore impostato su "Min Tv"); quando ciò accade, 400plus aumenterà quanto necessario il valore ISO (fino al valore "Max ISO").
 
-If safety shift is enabled, to maintain correct exposure in AV mode, the shutter speed could drop below "Min Tv" if "Max ISO" is exceeded.
+Se è abilitata la funzione safety shift, per mantenere la corretta esposizione in modalità AV, la velocità dell'otturatore potrà essere abbassata sotto il valore "Min Tv" se iene superato il valore ISO "Max ISO".
 
-== AutoISO and Tv mode ==
+== AutoISO e modalità Tv ==
 
-In this case, the intention is to use the lowest possible ISO that ensures an acceptable depth of field: AutoISO will raise the ISO when the aperture becomes larger than a configured value ("Max Av").
+In queto caso, l'obiettivoè quello di usare il valore ISO più basso che però assicuri una profondità di campo accettabile: AutoISO aumenterà il valorte ISO quando l'apertura del diaframma sarà più larga di un valore configurato ("Max Av").
 
-You must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is F4.0-F5.6, "Max Av" should be set no lower than 4.5. Otherwise, AutoISO will not function in TV mode.
+Si dovrà impostare "Max Av" appena sotto l'apertura massima della lente che si sta usando. Per esempio, se la lente è una F4.0-F5.6, il valore "Max Av" dovrebbe essere imostato non più basso di F4.5. Altrimenti, AutoISO non funzionerà in modalità Tv.
 
-== AutoISO and P mode ==
+== AutoISO e modalità P ==
 
-In P mode, AutoISO _tries_ to behave just like in Av mode; but, as the camera decides both aperture and shutter speed, there is no guarantee that raising the ISO will increase shutter speed: it tends to work OK for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead.
+In modalità P, l'AutoISO _prova_ a funzionare come in modalità Av mode; però, siccome la fotocamera decide sia l'apertura del diaframma che la velocità dell'otturatore, non è garantito che aumentando il valore ISO aumenterà anche la velocità dell'otturatore: tende a funzionare bene per valori bassi in "Min Tv", ma per valori più alti la fotocamera tende a decidere invece di chiudere il diaframma.
 
-== AutoISO and M mode ==
+== AutoISO e modalità M ==
 
-In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects the aperture and shutter speed, and 400plus will decide the right ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
+In modalità M, l'obiettivo dell'AutoISO è completamente differente che nelle altre modalità: in questo caso, l'utnte seleziona una coppia tempo-diaframma, e 400plus deciderà il valore ISO giusto per una corretta esposizione. Nessun parametro di configurazione verrà preso in considerazione dall'AutoISO in modalità M, e questo è l'unica modalità in cui l'AutoISO utilizza i valori intermedi degli ISO.
 
-While looking at the viewfinder, use the `LEFT` and `RIGHT` keys to change the exposure compensation.
+Mentre si guarda nel mirino, è possibile utilizzare i tasti `SINISTRA` e `DESTRAT` per variare la compensazione dell'esposizione.
 
 = La selezione dell’AF-Pattern =
 
@@ -262,4 +263,4 @@ Le modalità di misurazione spot è simile alla modalità standard "misurazione 
 Sono stati riportati e confermati i seguenti malfunzionamenti di una certa rilevanza:
 
  * Issue #15: Cambi di esposizione nell'esecuzione dell'AEB Est. .
- * Issue #130: Config not restored if camera shut down while script is running.
+ * Issue #130: non vengono ripristinate le configurazioni se la camera viene spenta mentre uno script è attivo.
