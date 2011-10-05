@@ -54,13 +54,14 @@ S_OBJS = entry.o          \
 
 C_OBJS = init.o           \
          main.o           \
-	 mainctrl.o       \
+         mainctrl.o       \
          tasks.o          \
-	 ini.o            \
+         ini.o            \
          languages.o      \
          utils.o          \
-	 memspy.o         \
+         memspy.o         \
          menu.o           \
+         menu_info.o      \
          menu_presets.o   \
          menu_rename.o    \
          menu_settings.o  \
