@@ -59,7 +59,7 @@ type_MENUITEM presets_load_items[] = {
 	MENUITEM_LAUNCH(presets_config.names[8], preset_load_9)
 };
 
-type_MENUPAGE menupages_presets_save[] = {{
+type_MENUPAGE menupage_presets_save = {
 	name        : LP_WORD(L_SAVE_PRESETS),
 	length      : LENGTH(presets_save_items),
 	items       : presets_save_items,
@@ -70,9 +70,9 @@ type_MENUPAGE menupages_presets_save[] = {{
 		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE]  = menu_preset_close,
 	}
-}};
+};
 
-type_MENUPAGE menupages_presets_load[] = {{
+type_MENUPAGE menupage_presets_load = {
 	name        : LP_WORD(L_LOAD_PRESETS),
 	length      : LENGTH(presets_load_items),
 	items       : presets_load_items,
@@ -83,30 +83,38 @@ type_MENUPAGE menupages_presets_load[] = {{
 		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE]  = menu_preset_close,
 	}
-}};
+};
+
+type_MENUPAGE *menu_presets_save_pages[] = {
+	&menupage_presets_save
+};
+
+type_MENUPAGE *menu_presets_load_pages[] = {
+	&menupage_presets_load
+};
 
 type_MENU menu_presets_save = {
 	length : 1,
-	pages  : menupages_presets_save,
-	tasks       : {
+	pages  : menu_presets_save_pages,
+	tasks  : {
 		[MENU_EVENT_DP]     = menu_settings_create,
 	}
 };
 
 type_MENU menu_presets_load = {
 	length : 1,
-	pages  : menupages_presets_load,
-	tasks       : {
+	pages  : menu_presets_load_pages,
+	tasks  : {
 		[MENU_EVENT_DP]     = menu_settings_create,
 	}
 };
 
 void menu_presets_save_start() {
 	if (status.last_preset) {
-		menupages_presets_save[0].highlight        = TRUE;
-		menupages_presets_save[0].highlighted_item = status.last_preset;
+		menupage_presets_save.highlight        = TRUE;
+		menupage_presets_save.highlighted_item = status.last_preset;
 	} else {
-		menupages_presets_save[0].highlight        = FALSE;
+		menupage_presets_save.highlight        = FALSE;
 	}
 
 	menu_create(&menu_presets_save);
@@ -114,10 +122,10 @@ void menu_presets_save_start() {
 
 void menu_presets_load_start() {
 	if (status.last_preset) {
-		menupages_presets_load[0].highlight        = TRUE;
-		menupages_presets_load[0].highlighted_item = status.last_preset;
+		menupage_presets_load.highlight        = TRUE;
+		menupage_presets_load.highlighted_item = status.last_preset;
 	} else {
-		menupages_presets_load[0].highlight        = FALSE;
+		menupage_presets_load.highlight        = FALSE;
 	}
 
 	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP)
