@@ -107,6 +107,7 @@ typedef union {
 
 struct MENUITEM {
 	char               *name;
+	int                 readonly;
 	type_MENUITEM_TYPE  type;
 	type_MENUITEM_PARM  parm;
 	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
