@@ -125,10 +125,10 @@ struct MENUPAGE {
 };
 
 struct MENU {
-	type_MENU_COLOR  color;
-	int              length;
-	type_MENUPAGE   *pages;
-	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
+	type_MENU_COLOR   color;
+	int               length;
+	type_MENUPAGE   **pages;
+	type_MENU_TASK    tasks[MENU_EVENT_COUNT];
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;

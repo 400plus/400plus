@@ -97,7 +97,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BREAK  ("===========================")
 };
 
-type_MENUPAGE main_menupage[] = {{
+type_MENUPAGE menupage_main = {
 	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
@@ -106,11 +106,15 @@ type_MENUPAGE main_menupage[] = {{
 		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE]  = menu_settings_save,
 	}
-}};
+};
+
+type_MENUPAGE *main_menu_pages[] = {
+	&menupage_main,
+};
 
 type_MENU main_menu = {
 	length : 1,
-	pages  : main_menupage,
+	pages  : main_menu_pages,
 	tasks  : {
 		[MENU_EVENT_DP]     = menu_presets_save_start,
 	}

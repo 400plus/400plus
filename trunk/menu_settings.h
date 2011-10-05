@@ -1,7 +1,7 @@
 #ifndef MENU_SETTINGS_H_
 #define MENU_SETTINGS_H_
 
-type_MENUPAGE main_menupage[1];
+type_MENUPAGE menupage_main;
 
 extern void menu_settings_start();
 extern void menu_settings_create();

@@ -41,7 +41,7 @@ type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&sc_cameraMode.cf_flash_sync_rear, menu_shortcuts_apply_cf_flash_sync_rear)
 };
 
-type_MENUPAGE menupage_shortcuts[2] = {{
+type_MENUPAGE menupage_shortcuts = {
 	name        : LP_WORD(L_SHORTCUTS),
 	//color       : MENU_COLOR_YELLOW_AND_GREEN,
 	length      : LENGTH(menu_shortcut_items),
@@ -52,11 +52,16 @@ type_MENUPAGE menupage_shortcuts[2] = {{
 		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE]  = menu_shortcuts_close,
 	}
-}};
+};
+
+type_MENUPAGE *menu_shortcuts_pages[] = {
+	&menupage_shortcuts,
+	&menupage_main,
+};
 
 type_MENU menu_shortcuts = {
 	length : 2,
-	pages  : menupage_shortcuts,
+	pages  : menu_shortcuts_pages,
 	tasks  : {
 		[MENU_EVENT_DP]     = menu_presets_load_start,
 	}
@@ -72,8 +77,6 @@ void menu_shortcuts_start() {
 }
 
 void menu_shortcuts_create() {
-	menu_shortcuts.pages[1] = main_menupage[0];
-
 	sc_cameraMode = *cameraMode;
 	menu_create(&menu_shortcuts);
 }

@@ -570,7 +570,7 @@ void menu_print_char(const char *buffer, const char *name, const char *parameter
 }
 
 type_MENUPAGE *get_current_page() {
-	return &current_menu->pages[current_page];
+	return current_menu->pages[current_page];
 }
 
 type_MENUITEM *get_current_item() {
