@@ -2,7 +2,6 @@
 
 #include "af_patterns.h"
 #include "display.h"
-#include "info.h"
 #include "languages.h"
 #include "menu.h"
 #include "menu_rename.h"
@@ -46,15 +45,6 @@ type_ACTION actions_main[]  = {
 
 type_ACTION actions_menu[]  = {
 	{IC_BUTTON_DP,    FALSE, TRUE, {menu_settings_start}},
-	END_OF_LIST
-};
-
-type_ACTION actions_info[]  = {
-	{IC_BUTTON_SET,   FALSE, TRUE, {info_option_next}},
-	{IC_BUTTON_DOWN,  TRUE,  TRUE, {info_option_next}},
-	{IC_BUTTON_RIGHT, TRUE,  TRUE, {info_option_next}},
-	{IC_BUTTON_UP,    TRUE,  TRUE, {info_option_prev}},
-	{IC_BUTTON_LEFT,  TRUE,  TRUE, {info_option_prev}},
 	END_OF_LIST
 };
 
@@ -118,7 +108,6 @@ type_CHAIN intercom_chains[] = {
 	{GUIMODE_OLC,       actions_main},
 	{GUIMODE_MAIN,      actions_main},
 	{GUIMODE_MENU,      actions_menu},
-	{GUIMODE_INFO,      actions_info},
 	{GUIMODE_400PLUS,   actions_400plus},
 	{GUIMODE_RENAME,    actions_rename},
 	{GUIMODE_METER,     actions_meter},

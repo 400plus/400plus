@@ -7,7 +7,6 @@ SECTIONS {
 		mainctrl.o;
 		init.o;
 		main.o;
-		info.o;
 		tasks.o;
 		ini.o;
 		languages.o;
