@@ -342,42 +342,44 @@ void menu_repeateable_right(int repeating) {
 	if (item->type == MENUITEM_TYPE_SUBMENU)
 		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
-	switch(item->type) {
-	case MENUITEM_TYPE_EV:
-		*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
-		break;
-	case MENUITEM_TYPE_AV:
-		*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
-		break;
-	case MENUITEM_TYPE_TV:
-		if (item->parm.menuitem_tv.bulb)
-			*item->parm.menuitem_tv.value = tv_next(*item->parm.menuitem_tv.value);
-		else
-			*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
-		break;
-	case MENUITEM_TYPE_ISO:
-		if (repeating || !item->parm.menuitem_iso.full)
-			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
-		else
-			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
-		break;
-	case MENUITEM_TYPE_INT:
-		*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-		*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-		break;
-	case MENUITEM_TYPE_ENUM:
-		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
-			if (item->parm.menuitem_enum.cycle)
-				*item->parm.menuitem_enum.value = 0;
-		} else
-			(*item->parm.menuitem_enum.value)++;
-		break;
-	default:
-		break;
-	}
+	if (!item->readonly) {
+		switch(item->type) {
+		case MENUITEM_TYPE_EV:
+			*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
+			break;
+		case MENUITEM_TYPE_AV:
+			*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
+			break;
+		case MENUITEM_TYPE_TV:
+			if (item->parm.menuitem_tv.bulb)
+				*item->parm.menuitem_tv.value = tv_next(*item->parm.menuitem_tv.value);
+			else
+				*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
+			break;
+		case MENUITEM_TYPE_ISO:
+			if (repeating || !item->parm.menuitem_iso.full)
+				*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
+			else
+				*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
+			break;
+		case MENUITEM_TYPE_INT:
+			*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
+			break;
+		case MENUITEM_TYPE_ENUM:
+			if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
+				if (item->parm.menuitem_enum.cycle)
+					*item->parm.menuitem_enum.value = 0;
+			} else
+				(*item->parm.menuitem_enum.value)++;
+			break;
+		default:
+			break;
+		}
 
-	menu_event_change();
-	menu_refresh();
+		menu_event_change();
+		menu_refresh();
+	}
 }
 
 void menu_repeateable_left(int repeating) {
@@ -386,45 +388,47 @@ void menu_repeateable_left(int repeating) {
 	if (item->type == MENUITEM_TYPE_SUBMENU)
 		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
-	switch(item->type) {
-	case MENUITEM_TYPE_EV:
-		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
-				*item->parm.menuitem_ev.value = 0x00;
-		else
-			*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
-		break;
-	case MENUITEM_TYPE_AV:
-		*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
-		break;
-	case MENUITEM_TYPE_TV:
-		if (item->parm.menuitem_tv.bulb)
-			*item->parm.menuitem_tv.value = tv_prev(*item->parm.menuitem_tv.value);
-		else
-			*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
-		break;
-	case MENUITEM_TYPE_ISO:
-		if (repeating || !item->parm.menuitem_iso.full)
-			*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
-		else
-			*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
-		break;
-	case MENUITEM_TYPE_INT:
-		*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-		*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
-		break;
-	case MENUITEM_TYPE_ENUM:
-		if (*item->parm.menuitem_enum.value == 0) {
-			if (item->parm.menuitem_enum.cycle)
-				*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
-		} else
-			*item->parm.menuitem_enum.value -= 1;
-		break;
-	default:
-		break;
-	}
+	if (!item->readonly) {
+		switch(item->type) {
+		case MENUITEM_TYPE_EV:
+			if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
+					*item->parm.menuitem_ev.value = 0x00;
+			else
+				*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
+			break;
+		case MENUITEM_TYPE_AV:
+			*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
+			break;
+		case MENUITEM_TYPE_TV:
+			if (item->parm.menuitem_tv.bulb)
+				*item->parm.menuitem_tv.value = tv_prev(*item->parm.menuitem_tv.value);
+			else
+				*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
+			break;
+		case MENUITEM_TYPE_ISO:
+			if (repeating || !item->parm.menuitem_iso.full)
+				*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
+			else
+				*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
+			break;
+		case MENUITEM_TYPE_INT:
+			*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+			*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
+			break;
+		case MENUITEM_TYPE_ENUM:
+			if (*item->parm.menuitem_enum.value == 0) {
+				if (item->parm.menuitem_enum.cycle)
+					*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
+			} else
+				*item->parm.menuitem_enum.value -= 1;
+			break;
+		default:
+			break;
+		}
 
-	menu_event_change();
-	menu_refresh();
+		menu_event_change();
+		menu_refresh();
+	}
 }
 
 void menu_repeateable_cycle(int repeating) {
@@ -433,33 +437,35 @@ void menu_repeateable_cycle(int repeating) {
 	if (item->type == MENUITEM_TYPE_SUBMENU)
 		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
-	switch(item->type) {
-	case MENUITEM_TYPE_EV:
-		if (!item->parm.menuitem_ev.zero_means_off)
-			*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
-		break;
-	case MENUITEM_TYPE_ISO:
-		if (repeating)
-			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
-		else
-			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
-		break;
-	case MENUITEM_TYPE_INT:
-		*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-		*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-		break;
-	case MENUITEM_TYPE_ENUM:
-		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1)
-			*item->parm.menuitem_enum.value = 0;
-		else
-			*item->parm.menuitem_enum.value += 1;
-		break;
-	default:
-		break;
-	}
+	if (!item->readonly) {
+		switch(item->type) {
+		case MENUITEM_TYPE_EV:
+			if (!item->parm.menuitem_ev.zero_means_off)
+				*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
+			break;
+		case MENUITEM_TYPE_ISO:
+			if (repeating)
+				*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
+			else
+				*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
+			break;
+		case MENUITEM_TYPE_INT:
+			*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
+			break;
+		case MENUITEM_TYPE_ENUM:
+			if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1)
+				*item->parm.menuitem_enum.value = 0;
+			else
+				*item->parm.menuitem_enum.value += 1;
+			break;
+		default:
+			break;
+		}
 
-	menu_event_change();
-	menu_refresh();
+		menu_event_change();
+		menu_refresh();
+	}
 }
 
 void menu_set_changed() {
