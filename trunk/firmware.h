@@ -6,7 +6,7 @@
 #include "types.h"
 
 // Variables, Flags, Pointers, Handlers
-extern unsigned int   BodyID;
+extern /*unsigned*/ int   BodyID;
 extern unsigned short ModelID;
 
 extern int BurstCounter;  // remaining shots in burst mode (displayed in VF's bottom right corner)
