@@ -64,6 +64,7 @@ C_OBJS = init.o           \
          menu_info.o      \
          menu_presets.o   \
          menu_rename.o    \
+         menu_scripts.o   \
          menu_settings.o  \
          menu_developer.o \
          menu_shortcuts.o \
