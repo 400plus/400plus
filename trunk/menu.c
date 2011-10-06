@@ -75,7 +75,6 @@ void menu_create(type_MENU * menu) {
 	menu_initialize();
 
 	menu_handler = dialog_create(22, button_menu_handler);
-	dialog_set_property_str(menu_handler, 8, get_current_page()->name);
 
 	PaletteChange(current_menu->color);
 
@@ -170,6 +169,10 @@ void menu_display() {
 	int offset = current_item - current_line;
 
 	char buffer[LP_MAX_WORD];
+
+	type_MENUPAGE *page = get_current_page();
+
+	dialog_set_property_str(menu_handler, 8, page->name);
 
 	for(i = 0; i < 5; i++) {
 		menu_message(buffer, i + offset);
