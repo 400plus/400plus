@@ -8,6 +8,8 @@
 
 #include "menu.h"
 
+type_CAMERA_MODE menu_cameraMode;
+
 void *menu_handler;
 int   current_page;
 int   current_line;

@@ -4,6 +4,7 @@
 #include "languages.h"
 #include "menu.h"
 #include "menu_info.h"
+#include "menu_params.h"
 #include "menu_presets.h"
 #include "menu_scripts.h"
 #include "menu_settings.h"
@@ -12,22 +13,16 @@
 
 #include "menu_shortcuts.h"
 
-type_CAMERA_MODE sc_cameraMode;
-
 void menu_shortcuts_close();
 
-void menu_shortcuts_apply_iso                (type_MENUITEM *item);
-void menu_shortcuts_apply_color_temp         (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_emit_aux        (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_mirror_up_lock  (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_flash_sync_rear (type_MENUITEM *item);
 
 type_MENUITEM menu_shortcut_items[] = {
-	MENUITEM_FULLISO(LP_WORD(L_ISO),           &sc_cameraMode.iso,                menu_shortcuts_apply_iso),
-	MENUITEM_CLRTEMP(LP_WORD(L_COLOR_TEMP_K),  &sc_cameraMode.color_temp,         menu_shortcuts_apply_color_temp),
-	MENUITEM_AFFLASH(LP_WORD(L_AF_FLASH),      &sc_cameraMode.cf_emit_aux,        menu_shortcuts_apply_cf_emit_aux),
-	MENUITEM_BOOLEAN(LP_WORD(L_MIRROR_LOCKUP), &sc_cameraMode.cf_mirror_up_lock,  menu_shortcuts_apply_cf_mirror_up_lock),
-	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&sc_cameraMode.cf_flash_sync_rear, menu_shortcuts_apply_cf_flash_sync_rear)
+	MENUITEM_BOOLEAN(LP_WORD(L_MIRROR_LOCKUP), &menu_cameraMode.cf_mirror_up_lock,  menu_shortcuts_apply_cf_mirror_up_lock),
+	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&menu_cameraMode.cf_flash_sync_rear, menu_shortcuts_apply_cf_flash_sync_rear),
+	MENUITEM_AFFLASH(LP_WORD(L_AF_FLASH),      &menu_cameraMode.cf_emit_aux,        menu_shortcuts_apply_cf_emit_aux),
 };
 
 type_MENUPAGE menupage_shortcuts = {
@@ -46,6 +41,7 @@ type_MENUPAGE menupage_shortcuts = {
 type_MENUPAGE *menu_shortcuts_pages[] = {
 	&menupage_shortcuts,
 	&menupage_scripts,
+	&menupage_params,
 	&menupage_main,
 	&menupage_info,
 };
@@ -68,7 +64,7 @@ void menu_shortcuts_start() {
 }
 
 void menu_shortcuts_create() {
-	sc_cameraMode = *cameraMode;
+	menu_cameraMode = *cameraMode;
 	menu_create(&menu_shortcuts);
 }
 
@@ -76,15 +72,6 @@ void menu_shortcuts_close() {
 	if (menu_get_changed()) {
 		settings_write();
 	}
-}
-
-void menu_shortcuts_apply_iso(type_MENUITEM *item) {
-	send_to_intercom(IC_SET_ISO, 2, *item->parm.menuitem_iso.value);
-}
-
-void menu_shortcuts_apply_color_temp(type_MENUITEM *item) {
-	send_to_intercom(IC_SET_WB,         1, WB_MODE_COLORTEMP);
-	send_to_intercom(IC_SET_COLOR_TEMP, 2, *item->parm.menuitem_int.value);
 }
 
 void menu_shortcuts_apply_cf_emit_aux(type_MENUITEM *item) {

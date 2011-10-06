@@ -190,7 +190,7 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_BREAK(_NAME_) MENUITEM_LAUNCH(_NAME_, NULL)
 
-
+extern type_CAMERA_MODE menu_cameraMode;
 
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
