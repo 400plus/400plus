@@ -16,7 +16,7 @@ type_MENUITEM menupage_info_items[] = {
 };
 
 type_MENUPAGE menupage_info = {
-	name        : "INFO",
+	name        : "Info",
 	length      : LENGTH(menupage_info_items),
 	items       : menupage_info_items,
 	reorder     : FALSE,
