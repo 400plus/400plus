@@ -17,107 +17,107 @@ my_GUIInit:
 		SUB     SP, SP, #0x10
 		MOV     R1, #1
 		LDR     R0, =aGuiSwSem
-		STR     R9, [R12]
-		STR     R9, [R2]
-		STR     R9, [R3]
-		STR     R9, [R4]
+		STR     R9, [R12]  // m_pSendDisplayModeToMC= 0
+		STR     R9, [R2]   // GUIIdleFlag = 0
+		STR     R9, [R3]   // GUIMode = 0
+		STR     R9, [R4]   // m_pSendStartModeToMC = 0
 		BL      CreateBinarySemaphore
 		LDR     R3, =hGuiSwSem
-		STR     R0, [R3]
+		STR     R0, [R3] // hGuiSwSem = CreateBinarySemaphore(aGuiSwSem, 1)
 		BL      TablesInit
 		MOV     R0, #1
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(1)
 		BL      WidgetBinaryBitmapInit
 		MOV     R0, #3
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(3)
 		BL      WidgetCounterInit
 		MOV     R0, #4
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(4)
 		BL      WidgetFocusMarkInit
 		MOV     R0, #5
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(5)
 		BL      WidgetHistogramInit
 		MOV     R0, #8
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(8)
 		BL      WidgetListSelectInit
 		MOV     R0, #0xA
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x0A)
 		BL      WidgetNavigateIconInit
 		MOV     R0, #0xB
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x0B)
 		BL      WidgetPopupAEBInit
 		MOV     R0, #0xD
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x0D)
 		BL      WidgetPopupMenuInit
 		MOV     R0, #0xE
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x0E)
 		BL      WidgetProgressBarInit
 		MOV     R0, #2
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(2)
 		BL      WidgetButtonInit
 		MOV     R0, #0xF
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x0F)
 		BL      WidgetRectangle
 		MOV     R0, #0x10
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x10)
 		BL      WidgetScrollBarInit
 		MOV     R0, #0x11
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x11)
 		BL      WidgetSliderInit
 		MOV     R0, #0x13
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x13)
 		BL      WidgetTextInit
 		MOV     R0, #0x14
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x14)
 		BL      WidgetListViewInit
 		MOV     R0, #0x16
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x16)
 		BL      WidgetPopupSliderInit
 		MOV     R0, #9
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(9)
 		BL      WidgetMenuTabInit
 		MOV     R0, #0x1C
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x1C)
 		BL      WidgetPaletteBitmapInit
 		MOV     R0, #0x17
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x17)
 		BL      WidgetAnimationBmpInit
 		MOV     R0, #0x1B
-		BL      placeListFromTab
+		BL      placeListFromTab // placeListFromTab(0x1B)
 		BL      WidgetArchRectInit
 		MOV     R0, #1
-		BL      str_0x5188
+		BL      str_0x5188 // str_0x5188(1)
 		MOV     R0, R9
-		BL      sub_FF918D24
+		BL      sub_FF918D24 // sub_FF918D24(0)
 		MOV     R0, #3
 		BL      sub_FF918C58
-		MOV     R4, R0
-		MOV     R0, #3
+		MOV     R4, R0 // r4=sub_FF918C58(3)
+		MOV     R0, #3 // r0=3
 		BL      GetBrushFromSystemColor
-		MOV     R11, R0
+		MOV     R11, R0 // r11=GetBrushFromSystemColor(3)
 		MOV     R0, R4
-		BL      sub_FF92AD74
-		BL      sub_FF934DE8
+		BL      sub_FF92AD74 // sub_FF92AD74(r4) -- sub_FF92AD74(sub_FF918C58(3))
+		BL      sub_FF934DE8 // sub_FF934DE8()
 		MOV     R1, #0x14
 		MOV     R0, #1
-		BL      FontInit
+		BL      FontInit // FontInit(1, 0x14)
 		LDR     R8, =sub_FF92ADD8
 		LDR     R10, =sub_FF92AF8C
 		LDR     R6, =sub_FF92AFD8
 		LDR     R7, =sub_FF92AF58
 		MOV     R4, #1
-		MOV     R2, R10
-		MOV     R3, R6
-		MOV     R1, R8
-		STR     R7, [SP]
-		STR     R4, [SP,#4]
-		BL      CreateFontManagerInstance
+		MOV     R2, R10 // r2=sub_FF92AF8C
+		MOV     R3, R6 // r3=sub_FF92AFD8
+		MOV     R1, R8 // r1=sub_FF92ADD8
+		STR     R7, [SP] // sp=sub_FF92AF58
+		STR     R4, [SP,#4] // sp+4=1
+		BL      CreateFontManagerInstance // CreateFontManagerInstance(1, sub_FF92ADD8, sub_FF92AF8C, sub_FF92AFD8, sub_FF92AF58, 1)
 		LDR     R5, =off_1EE0
 		MOV     R1, #0x1E
-		STR     R0, [R5]
-		MOV     R0, R4
-		BL      FontInit
-		MOV     R2, R10
+		STR     R0, [R5] // off_1EE0=CreateFontManagerInstance(...)
+		MOV     R0, R4 // r0=1
+		BL      FontInit // FontInit(1, 0x1E)
+		MOV     R2, R10 // XXX: AF: continue from there...
 		MOV     R3, R6
 		MOV     R1, R8
 		STR     R7, [SP,#0x34+var_34]
