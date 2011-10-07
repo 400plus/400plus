@@ -11,14 +11,15 @@
 type_CAMERA_MODE menu_cameraMode;
 
 void *menu_handler;
-int   current_page;
+int   current_page_id;
 int   current_line;
 int   current_item;
 int   item_grabbed;
 int   show_filenames;
 int   changed;
 
-type_MENU *current_menu;
+type_MENU     *current_menu;
+type_MENUPAGE *current_page;
 
 OPTIONLIST_DEF(bool,     LP_WORD(L_NO), LP_WORD(L_YES))
 OPTIONLIST_DEF(delay,    LP_WORD(L_NO), LP_WORD(L_2S))
@@ -62,7 +63,6 @@ void menu_print_iso  (const char *buffer, const char *name, int   parameter);
 void menu_print_int  (const char *buffer, const char *name, int   parameter, const char *format);
 void menu_print_char (const char *buffer, const char *name, const char *parameter);
 
-type_MENUPAGE *get_current_page();
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
@@ -91,7 +91,8 @@ void menu_close() {
 void menu_initialize() {
 	menu_handler = NULL;
 
-	current_page = 0;
+	current_page_id = 0;
+	current_page    = current_menu->pages[current_page_id];
 
 	current_line = 0;
 	current_item = 0;
@@ -150,7 +151,6 @@ void menu_event_close() {
 }
 
 void menu_event(type_MENU_EVENT event) {
-	type_MENUPAGE *page = get_current_page();
 	type_MENUITEM *item = get_current_item();
 
 	if (item->type == MENUITEM_TYPE_SUBMENU)
@@ -159,8 +159,8 @@ void menu_event(type_MENU_EVENT event) {
 	if (item->tasks && item->tasks[event])
 		item->tasks[event](item);
 
-	if (page->tasks && page->tasks[event])
-		page->tasks[event](current_menu);
+	if (current_page->tasks && current_page->tasks[event])
+		current_page->tasks[event](current_menu);
 
 	if (current_menu->tasks && current_menu->tasks[event])
 		current_menu->tasks[event](current_menu);
@@ -172,9 +172,7 @@ void menu_display() {
 
 	char buffer[LP_MAX_WORD];
 
-	type_MENUPAGE *page = get_current_page();
-
-	dialog_set_property_str(menu_handler, 8, page->name);
+	dialog_set_property_str(menu_handler, 8, current_page->name);
 
 	for(i = 0; i < 5; i++) {
 		menu_message(buffer, i + offset);
@@ -195,13 +193,10 @@ void menu_refresh() {
 void menu_up() {
 	int display = FALSE;
 
-	type_MENUPAGE *page = get_current_page();
-
 	current_item--;
 
 	if (item_grabbed) {
-		INT_SWAP(page->ordering[get_item_id(current_item)],
-				page->ordering[get_item_id(current_item + 1)]);
+		INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item + 1)]);
 		display = TRUE;
 	}
 
@@ -217,13 +212,10 @@ void menu_up() {
 void menu_down() {
 	int display = FALSE;
 
-	type_MENUPAGE *page = get_current_page();
-
 	current_item++;
 
 	if (item_grabbed) {
-		INT_SWAP(page->ordering[get_item_id(current_item)],
-				page->ordering[get_item_id(current_item - 1)]);
+		INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item - 1)]);
 		display = TRUE;
 	}
 
@@ -249,27 +241,22 @@ void menu_cycle() {
 }
 
 void menu_toggle_filenames() {
-	type_MENUPAGE *page = get_current_page();
-
-	if (page->rename) {
+	if (current_page->rename) {
 		show_filenames = ! show_filenames;
 		menu_display();
 	}
 }
 
 void menu_rename() {
-	type_MENUPAGE *page = get_current_page();
 	type_MENUITEM *item = get_current_item();
 
-	if (page->rename) {
+	if (current_page->rename) {
 		rename_create(item->name, current_menu);
 	}
 }
 
 void menu_drag_drop() {
-	type_MENUPAGE *page = get_current_page();
-
-	if (page->reorder) {
+	if (current_page->reorder) {
 		item_grabbed = ! item_grabbed;
 		menu_event_change();
 		menu_refresh();
@@ -277,21 +264,23 @@ void menu_drag_drop() {
 }
 
 void menu_page_next() {
-	if (current_page == current_menu->length - 1)
-		current_page = 0;
+	if (current_page_id == current_menu->length - 1)
+		current_page_id = 0;
 	else
-		current_page++;
+		current_page_id++;
 
+	current_page = current_menu->pages[current_page_id];
 	current_item = current_line;
 	menu_display();
 }
 
 void menu_page_prev() {
-	if (current_page == 0)
-		current_page = current_menu->length - 1;
+	if (current_page_id == 0)
+		current_page_id = current_menu->length - 1;
 	else
-		current_page--;
+		current_page_id--;
 
+	current_page = current_menu->pages[current_page_id];
 	current_item = current_line;
 	menu_display();
 }
@@ -485,7 +474,6 @@ void menu_message(const char *buffer, int item_id) {
 	char item_name[LP_MAX_WORD];
 	char name[LP_MAX_WORD];
 
-	type_MENUPAGE *page = get_current_page();
 	type_MENUITEM *item = get_item(item_id);
 
 	if (show_filenames)
@@ -493,10 +481,10 @@ void menu_message(const char *buffer, int item_id) {
 	else
 		sprintf(item_name, "%s", item->name);
 
-	if (page->highlight || page->reorder) {
-		if (page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+	if (current_page->highlight || current_page->reorder) {
+		if (current_page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
 			sprintf(name, "%c%s", '>', item_name);
-		else if (page->highlight && page->highlighted_item == 1 + get_real_id(item_id))
+		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
 			sprintf(name, "%c%s", '*', item_name);
 		else
 			sprintf(name, "%c%s", ' ', item_name);
@@ -580,37 +568,27 @@ void menu_print_char(const char *buffer, const char *name, const char *parameter
 	sprintf(buffer, "%-18s:%s", name, parameter);
 }
 
-type_MENUPAGE *get_current_page() {
-	return current_menu->pages[current_page];
-}
-
 type_MENUITEM *get_current_item() {
 	return get_item(current_item);
 }
 
 type_MENUITEM *get_item(int item_id) {
-	type_MENUPAGE *page = get_current_page();
-
-	return &page->items[get_real_id(item_id)];
+	return &current_page->items[get_real_id(item_id)];
 }
 
 int get_real_id(int item_id) {
-	type_MENUPAGE *page = get_current_page();
-
-	if (page->reorder)
-		return page->ordering[get_item_id(item_id)];
+	if (current_page->reorder)
+		return current_page->ordering[get_item_id(item_id)];
 	else
 		return get_item_id(item_id);
 }
 
 int get_item_id(int item_id) {
-	type_MENUPAGE *page = get_current_page();
-
 	while (item_id < 0)
-		item_id += page->length;
+		item_id += current_page->length;
 
-	while (item_id > page->length - 1)
-		item_id -= page->length;
+	while (item_id > current_page->length - 1)
+		item_id -= current_page->length;
 
 	return item_id;
 }
