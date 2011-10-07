@@ -20,6 +20,7 @@ int   changed;
 
 type_MENU     *current_menu;
 type_MENUPAGE *current_page;
+type_MENUPAGE  submenu_page;
 
 OPTIONLIST_DEF(bool,     LP_WORD(L_NO), LP_WORD(L_YES))
 OPTIONLIST_DEF(delay,    LP_WORD(L_NO), LP_WORD(L_2S))
@@ -428,9 +429,6 @@ void menu_repeateable_left(int repeating) {
 void menu_repeateable_cycle(int repeating) {
 	type_MENUITEM *item = get_current_item();
 
-	if (item->type == MENUITEM_TYPE_SUBMENU)
-		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
-
 	if (!item->readonly) {
 		switch(item->type) {
 		case MENUITEM_TYPE_EV:
@@ -452,6 +450,20 @@ void menu_repeateable_cycle(int repeating) {
 				*item->parm.menuitem_enum.value = 0;
 			else
 				*item->parm.menuitem_enum.value += 1;
+			break;
+		case MENUITEM_TYPE_SUBMENU:
+			submenu_page.name      =  item->name;
+			submenu_page.length    =  item->parm.menuitem_submenu.length;
+			submenu_page.items     =  item->parm.menuitem_submenu.items;
+//			submenu_page.tasks     =  item->tasks;
+			submenu_page.rename    =  FALSE;
+			submenu_page.reorder   =  FALSE;
+			submenu_page.highlight =  FALSE;
+
+			current_page = &submenu_page;
+			current_item =  current_line;
+
+			menu_display();
 			break;
 		default:
 			break;
