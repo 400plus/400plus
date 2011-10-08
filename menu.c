@@ -20,7 +20,6 @@ int   changed;
 
 type_MENU     *current_menu;
 type_MENUPAGE *current_page;
-type_MENUPAGE  submenu_page;
 
 OPTIONLIST_DEF(bool,     LP_WORD(L_NO), LP_WORD(L_YES))
 OPTIONLIST_DEF(delay,    LP_WORD(L_NO), LP_WORD(L_2S))
@@ -36,8 +35,8 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_rename}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_submenu_next}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_submenu_prev}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {NULL}},
 	END_OF_LIST
 };
 
@@ -153,9 +152,6 @@ void menu_event_close() {
 
 void menu_event(type_MENU_EVENT event) {
 	type_MENUITEM *item = get_current_item();
-
-	if (item->type == MENUITEM_TYPE_SUBMENU)
-		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
 	if (item->tasks && item->tasks[event])
 		item->tasks[event](item);
@@ -286,32 +282,6 @@ void menu_page_prev() {
 	menu_display();
 }
 
-void menu_submenu_next() {
-	type_MENUITEM *item = get_current_item();
-
-	if (item->type == MENUITEM_TYPE_SUBMENU) {
-		if (item->parm.menuitem_submenu.current_item == item->parm.menuitem_submenu.length - 1)
-			item->parm.menuitem_submenu.current_item = 0;
-		else
-			item->parm.menuitem_submenu.current_item++;
-
-		menu_refresh();
-	}
-}
-
-void menu_submenu_prev() {
-	type_MENUITEM *item = get_current_item();
-
-	if (item->type == MENUITEM_TYPE_SUBMENU) {
-		if (item->parm.menuitem_submenu.current_item == 0)
-			item->parm.menuitem_submenu.current_item = item->parm.menuitem_submenu.length - 1;
-		else
-			item->parm.menuitem_submenu.current_item--;
-
-		menu_refresh();
-	}
-}
-
 void menu_repeat(void(*repeateable)()){
 	int delay;
 	int button = status.button_down;
@@ -333,9 +303,6 @@ void menu_repeat(void(*repeateable)()){
 
 void menu_repeateable_right(int repeating) {
 	type_MENUITEM *item = get_current_item();
-
-	if (item->type == MENUITEM_TYPE_SUBMENU)
-		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
 	if (!item->readonly) {
 		switch(item->type) {
@@ -379,9 +346,6 @@ void menu_repeateable_right(int repeating) {
 
 void menu_repeateable_left(int repeating) {
 	type_MENUITEM *item = get_current_item();
-
-	if (item->type == MENUITEM_TYPE_SUBMENU)
-		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
 
 	if (!item->readonly) {
 		switch(item->type) {
@@ -452,15 +416,7 @@ void menu_repeateable_cycle(int repeating) {
 				*item->parm.menuitem_enum.value += 1;
 			break;
 		case MENUITEM_TYPE_SUBMENU:
-			submenu_page.name      =  item->name;
-			submenu_page.length    =  item->parm.menuitem_submenu.length;
-			submenu_page.items     =  item->parm.menuitem_submenu.items;
-//			submenu_page.tasks     =  item->tasks;
-			submenu_page.rename    =  FALSE;
-			submenu_page.reorder   =  FALSE;
-			submenu_page.highlight =  FALSE;
-
-			current_page = &submenu_page;
+			current_page = item->parm.menuitem_submenu.page;
 			current_item =  current_line;
 
 			menu_display();
@@ -503,11 +459,6 @@ void menu_message(const char *buffer, int item_id) {
 	} else
 		sprintf(name, "%s", item_name);
 
-	if (item->type == MENUITEM_TYPE_SUBMENU) {
-		item = &item->parm.menuitem_submenu.items[item->parm.menuitem_submenu.current_item];
-		sprintf(name + strlen(name), ">%s", item->name);
-	}
-
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
 		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0)
@@ -535,6 +486,9 @@ void menu_message(const char *buffer, int item_id) {
 		break;
 	case MENUITEM_TYPE_LAUNCH:
 		sprintf(buffer, "%s", name);
+		break;
+	case MENUITEM_TYPE_SUBMENU:
+		sprintf(buffer, "%-25.25s...", name);
 		break;
 	default:
 		break;
