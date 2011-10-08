@@ -212,23 +212,23 @@ void ev_print(const char *dest, int ev) {
 
 	switch (ev & 0x07) {
 	case 0x00:
-		dsp_dec = "   ";
+		dsp_dec = "";
 		break;
 	case 0x03:
-		dsp_dec = "1/3";
+		dsp_dec = " 1/3";
 		break;
 	case 0x04:
-		dsp_dec = "1/2";
+		dsp_dec = " 1/2";
 		break;
 	case 0x05:
-		dsp_dec = "2/3";
+		dsp_dec = " 2/3";
 		break;
 	default:
 		dsp_dec = " - ";
 		break;
 	}
 
-	sprintf(dest, "%c%c %s", dsp_sgn, dsp_int, dsp_dec);
+	sprintf(dest, "%c%c%s", dsp_sgn, dsp_int, dsp_dec);
 }
 
 void av_print(const char *dest, int av) {
