@@ -35,8 +35,8 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_rename}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {NULL}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_page_prev}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_page_next}},
 	END_OF_LIST
 };
 
