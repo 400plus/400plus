@@ -25,8 +25,14 @@ type_MENUITEM autoiso_items[] = {
 	MENUITEM_AV     (LP_WORD(L_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
 };
 
+type_MENUPAGE autoiso_page = {
+	name   : LP_WORD(L_AUTOISO),
+	length : LENGTH(autoiso_items),
+	items  : autoiso_items,
+};
+
 type_MENUITEM menupage_params_items[] = {
-	MENUITEM_SUBMENU(LP_WORD(L_AUTOISO),       autoiso_items),
+	MENUITEM_SUBMENU(LP_WORD(L_AUTOISO),      &autoiso_page),
 	MENUITEM_FULLISO(LP_WORD(L_ISO),          &menu_cameraMode.iso,           menu_params_apply_iso),
 	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),      &menu_cameraMode.av_comp,       menu_params_apply_av_comp),
 	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),   &menu_cameraMode.efcomp,        menu_params_apply_efcomp),

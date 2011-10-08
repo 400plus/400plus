@@ -58,17 +58,53 @@ type_MENUITEM presets_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CFN),      &presets_config.recall_cfn,      NULL)
 };
 
+type_MENUPAGE scripts_page = {
+	name   : LP_WORD(L_SCRIPTS_SPACES),
+	length : LENGTH(scripts_items),
+	items  : scripts_items,
+};
+
+type_MENUPAGE wave_page = {
+	name   : LP_WORD(L_HANDWAVE),
+	length : LENGTH(wave_items),
+	items  : wave_items,
+};
+
+type_MENUPAGE timer_page = {
+	name   : LP_WORD(L_TIMER_SPACES),
+	length : LENGTH(timer_items),
+	items  : timer_items,
+};
+
+type_MENUPAGE eaeb_page = {
+	name   : LP_WORD(L_EXT_AEB),
+	length : LENGTH(eaeb_items),
+	items  : eaeb_items,
+};
+
+type_MENUPAGE interval_page = {
+	name   : LP_WORD(L_INTERVAL),
+	length : LENGTH(interval_items),
+	items  : interval_items,
+};
+
+type_MENUPAGE presets_page = {
+	name   : LP_WORD(L_PRESETS_SPACES),
+	length : LENGTH(presets_items),
+	items  : presets_items,
+};
+
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_cameraMode.cf_safety_shift, menu_settings_apply_cf_safety_shift),
 	MENUITEM_BOOLEAN(LP_WORD(L_IR_REMOTE_ENABLE),  &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &settings.iso_in_viewfinder,      NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),     scripts_items),
-	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),           wave_items),
-	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),            eaeb_items),
-	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),           interval_items),
-	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),       timer_items),
-	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),     presets_items),
+	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),    &scripts_page),
+	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),          &wave_page),
+	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),           &eaeb_page),
+	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),          &interval_page),
+	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),      &timer_page),
+	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),    &presets_page),
 	MENUITEM_BREAK  ("---------------------------"),
 	MENUITEM_LAUNCH (LP_WORD(L_DEVELOPERS_MENU),    menu_developer_start),
 	MENUITEM_BREAK  ("===========================")
