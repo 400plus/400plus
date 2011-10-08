@@ -485,10 +485,10 @@ void menu_message(const char *buffer, int item_id) {
 		menu_print_char(buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
 		break;
 	case MENUITEM_TYPE_LAUNCH:
-		sprintf(buffer, "%s", name);
+		menu_print_char(buffer, name, "!");
 		break;
 	case MENUITEM_TYPE_SUBMENU:
-		sprintf(buffer, "%-25.25s...", name);
+		menu_print_char(buffer, name, ">");
 		break;
 	default:
 		break;
@@ -531,7 +531,9 @@ void menu_print_int(const char *buffer, const char *name, int parameter, const c
 }
 
 void menu_print_char(const char *buffer, const char *name, const char *parameter) {
-	sprintf(buffer, "%-18s:%s", name, parameter);
+	int pad = 26 - strlen(parameter);
+
+	sprintf(buffer, "%-*.*s %s", pad, pad, name, parameter);
 }
 
 type_MENUITEM *get_current_item() {
