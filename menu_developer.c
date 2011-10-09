@@ -1,5 +1,15 @@
-#include "main.h"
+// To enable the developers' menu, compile 400plus with -DBREAK_CAMERA enabled;
+// to enable dialogs testing, add -DTEST_DIALOGS too.
 
+// When enter the dialogs test mode
+// DISPLAY -> next dialog
+// MENU -> exit test mode
+// JUMP -> change color palette (some dialogs are seen in special palettes)
+
+#include "main.h"
+#include "firmware.h"
+
+#include "debug.h"
 #include "languages.h"
 #include "menu.h"
 #include "menu_settings.h"
@@ -8,67 +18,34 @@
 
 #include "menu_developer.h"
 
-#undef TEST_DIALOGS
-#define TEST_DIALOGS
-// enable dialogs testing from here...
-// when enter the dialogs test mode
-// DISPLAY -> next dialog
-// MENU -> exit test mode
-// JUMP -> change color palette (some dialogs are seen in special palettes)
+extern void *menu_handler;
+static int   template     = 1;
+static int   curr_palette = 0;
 
-#ifdef TEST_DIALOGS
-#include "firmware.h"
-#include "debug.h"
 static void test_dialog_create();
-#endif
 
 type_MENUITEM menu_developer_items[] = {
 #ifdef TEST_DIALOGS
-	MENUITEM_LAUNCH(LP_WORD(L_TEST_DIALOGS),       test_dialog_create),
+	MENUITEM_LAUNCH(LP_WORD(L_TEST_DIALOGS),        test_dialog_create),
 #endif
-	MENUITEM_LAUNCH(LP_WORD(L_DUMP_LOG_TO_FILE),   dump_log),
-	MENUITEM_LAUNCH(LP_WORD(L_PRINT_INFO),         print_info),
-	MENUITEM_LAUNCH(LP_WORD(L_ENTER_FACTORY_MODE), enter_factory_mode),
-	MENUITEM_LAUNCH(LP_WORD(L_EXIT_FACTORY_MODE),  exit_factory_mode),
+	MENUITEM_LAUNCH(LP_WORD(L_DUMP_LOG_TO_FILE),    dump_log),
+	MENUITEM_LAUNCH(LP_WORD(L_PRINT_INFO),          print_info),
+	MENUITEM_LAUNCH(LP_WORD(L_ENTER_FACTORY_MODE),  enter_factory_mode),
+	MENUITEM_LAUNCH(LP_WORD(L_EXIT_FACTORY_MODE),   exit_factory_mode),
 	MENUITEM_BOOLEAN(LP_WORD(L_DEBUG_ON_POWERON),  &settings.debug_on_poweron, NULL),
-	MENUITEM_LOGFILE(LP_WORD(L_LOGFILE),           &settings.logfile_mode, NULL),
-	MENUITEM_BREAK("")
+	MENUITEM_LOGFILE(LP_WORD(L_LOGFILE),           &settings.logfile_mode,     NULL),
 };
 
 type_MENUPAGE menupage_developer = {
-	name        : LP_WORD(L_DEVELOPER),
+	name        : LP_WORD(L_DEVELOPERS_MENU),
 	length      : LENGTH(menu_developer_items),
 	items       : menu_developer_items,
 	reorder     : FALSE,
 	tasks       : {
 		[MENU_EVENT_CHANGE] = menu_set_changed,
-		[MENU_EVENT_CLOSE] = menu_settings_save,
+		[MENU_EVENT_CLOSE]  = menu_settings_save,
 	}
 };
-
-type_MENUPAGE *menu_developer_pages[] = {
-	&menupage_developer,
-};
-
-type_MENU menu_developer = {
-	length: 1,
-	pages : menu_developer_pages,
-	tasks       : {
-		[MENU_EVENT_DP] = menu_settings_start,
-	}
-};
-
-void menu_developer_start() {
-	beep();
-	if (FIO_OpenFile("A:/enable.dev", O_RDONLY, 644) == -1)
-		return;
-	menu_create(&menu_developer);
-}
-
-#ifdef TEST_DIALOGS
-extern void *menu_handler;
-static int template = 1;
-static int curr_palette = 0;
 
 static int test_dialog_btn_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	switch (event) {
@@ -97,6 +74,7 @@ static int test_dialog_btn_handler(type_DIALOG * dialog, int r1, gui_event_t eve
 		debug_log("btn: [%d] pressed.", event);
 		break;
 	}
+
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
@@ -122,7 +100,6 @@ static void test_dialog_create() {
 
 	dialog_redraw(menu_handler);
 }
-#endif
 
 #if 0
 
@@ -171,14 +148,9 @@ Special Dialogs:
 	104 - key icon with SET text on top left
 	99 - key with SET text on top left with 1 line under, and one text in upper-right
 
-
-
-
-
-
 0xAF:
-eventproc_DispWarningDlg() shows nice OSD for helps -> reverse
-eventproc_DispWarningDlgLarge() - bigger one
+	eventproc_DispWarningDlg() shows nice OSD for helps -> reverse
+	eventproc_DispWarningDlgLarge() - bigger one
 
 #endif
 

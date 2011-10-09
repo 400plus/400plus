@@ -3,6 +3,7 @@
 
 #include "languages.h"
 #include "menu.h"
+#include "menu_developer.h"
 #include "menu_info.h"
 #include "menu_params.h"
 #include "menu_presets.h"
@@ -44,6 +45,9 @@ type_MENUPAGE *menu_shortcuts_pages[] = {
 	&menupage_params,
 	&menupage_main,
 	&menupage_info,
+#ifdef BREAK_CAMERA
+	&menupage_developer,
+#endif
 };
 
 type_MENU menu_shortcuts = {

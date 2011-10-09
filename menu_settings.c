@@ -3,7 +3,6 @@
 
 #include "languages.h"
 #include "menu.h"
-#include "menu_developer.h"
 #include "menu_presets.h"
 #include "presets.h"
 #include "settings.h"
@@ -105,9 +104,6 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),          &interval_page),
 	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),      &timer_page),
 	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),    &presets_page),
-	MENUITEM_BREAK  ("---------------------------"),
-	MENUITEM_LAUNCH (LP_WORD(L_DEVELOPERS_MENU),    menu_developer_start),
-	MENUITEM_BREAK  ("===========================")
 };
 
 type_MENUPAGE menupage_main = {
