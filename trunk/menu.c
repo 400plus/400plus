@@ -153,7 +153,7 @@ void menu_event_close() {
 void menu_event(type_MENU_EVENT event) {
 	type_MENUITEM *item = get_current_item();
 
-	if (item->tasks && item->tasks[event])
+	if (item && item->tasks && item->tasks[event])
 		item->tasks[event](item);
 
 	if (current_page->tasks && current_page->tasks[event])
@@ -253,7 +253,7 @@ void menu_toggle_filenames() {
 void menu_rename() {
 	type_MENUITEM *item = get_current_item();
 
-	if (current_page->rename) {
+	if (item && current_page->rename) {
 		rename_create(item->name, current_menu);
 	}
 }
@@ -306,7 +306,7 @@ void menu_repeat(void(*repeateable)()){
 void menu_repeateable_right(int repeating) {
 	type_MENUITEM *item = get_current_item();
 
-	if (!item->readonly) {
+	if (item && !item->readonly) {
 		switch(item->type) {
 		case MENUITEM_TYPE_EV:
 			*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
@@ -355,7 +355,7 @@ void menu_repeateable_right(int repeating) {
 void menu_repeateable_left(int repeating) {
 	type_MENUITEM *item = get_current_item();
 
-	if (!item->readonly) {
+	if (item && !item->readonly) {
 		switch(item->type) {
 		case MENUITEM_TYPE_EV:
 			if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
@@ -401,7 +401,7 @@ void menu_repeateable_left(int repeating) {
 void menu_repeateable_cycle(int repeating) {
 	type_MENUITEM *item = get_current_item();
 
-	if (!item->readonly) {
+	if (item && !item->readonly) {
 		switch(item->type) {
 		case MENUITEM_TYPE_EV:
 			if (!item->parm.menuitem_ev.zero_means_off)
@@ -447,51 +447,53 @@ void menu_message(const char *buffer, int item_id) {
 
 	type_MENUITEM *item = get_item(item_id);
 
-	if (show_filenames)
-		get_preset_filename(item_name, 1 + get_real_id(item_id));
-	else
-		sprintf(item_name, "%s", item->name);
-
-	if (current_page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
-		pad = '>';
-	else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
-		pad = '*';
-
-	sprintf(name, "%c%s", pad, item_name);
-
-	switch(item->type) {
-	case MENUITEM_TYPE_EV:
-		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0)
-			menu_print_char(buffer, name, LP_WORD(L_OFF));
+	if (item) {
+		if (show_filenames)
+			get_preset_filename(item_name, 1 + get_real_id(item_id));
 		else
-			menu_print_ev(buffer, name, *item->parm.menuitem_ev.value);
-		break;
-	case MENUITEM_TYPE_AV:
-		menu_print_av(buffer, name, *item->parm.menuitem_av.value);
-		break;
-	case MENUITEM_TYPE_TV:
-		menu_print_tv(buffer, name, *item->parm.menuitem_tv.value);
-		break;
-	case MENUITEM_TYPE_ISO:
-		menu_print_iso(buffer, name, *item->parm.menuitem_iso.value);
-		break;
-	case MENUITEM_TYPE_INT:
-		if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0)
-			menu_print_char(buffer, name, LP_WORD(L_NO_LIMIT));
-		else
-			menu_print_int(buffer, name, *item->parm.menuitem_int.value, item->parm.menuitem_int.format);
-		break;
-	case MENUITEM_TYPE_ENUM:
-		menu_print_char(buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
-		break;
-	case MENUITEM_TYPE_LAUNCH:
-		menu_print_char(buffer, name, "");
-		break;
-	case MENUITEM_TYPE_SUBMENU:
-		menu_print_char(buffer, name, ">");
-		break;
-	default:
-		break;
+			sprintf(item_name, "%s", item->name);
+
+		if (current_page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+			pad = '>';
+		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
+			pad = '*';
+
+		sprintf(name, "%c%s", pad, item_name);
+
+		switch(item->type) {
+		case MENUITEM_TYPE_EV:
+			if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0)
+				menu_print_char(buffer, name, LP_WORD(L_OFF));
+			else
+				menu_print_ev(buffer, name, *item->parm.menuitem_ev.value);
+			break;
+		case MENUITEM_TYPE_AV:
+			menu_print_av(buffer, name, *item->parm.menuitem_av.value);
+			break;
+		case MENUITEM_TYPE_TV:
+			menu_print_tv(buffer, name, *item->parm.menuitem_tv.value);
+			break;
+		case MENUITEM_TYPE_ISO:
+			menu_print_iso(buffer, name, *item->parm.menuitem_iso.value);
+			break;
+		case MENUITEM_TYPE_INT:
+			if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0)
+				menu_print_char(buffer, name, LP_WORD(L_NO_LIMIT));
+			else
+				menu_print_int(buffer, name, *item->parm.menuitem_int.value, item->parm.menuitem_int.format);
+			break;
+		case MENUITEM_TYPE_ENUM:
+			menu_print_char(buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
+			break;
+		case MENUITEM_TYPE_SUBMENU:
+			menu_print_char(buffer, name, ">");
+			break;
+		default:
+			menu_print_char(buffer, name, "");
+			break;
+		}
+	} else {
+		menu_print_char(buffer, "", "");
 	}
 }
 
