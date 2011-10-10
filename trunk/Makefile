@@ -1,9 +1,11 @@
 PROJECT = AUTOEXEC
 ADDRESS = 0x7F0000
-VERSION = $(shell [[ -d .svn ]] && svn info | grep Revision | cut -d' ' -f2 || date +'%Y%m%d')
-# make release RELEASE=X    - to change the release number
-RELEASE = 0
 
+ifndef VERSION
+VERSION = $(shell [[ -d .svn ]] && svn info | grep Revision | cut -d' ' -f2 || date +'%Y%m%d')
+endif
+
+# make release VERSION=YYYYMMDD RELEASE=XX   - to make a release package
 
 COMMON_FLAGS =\
 	-Wall                \
@@ -80,8 +82,7 @@ OBJS   = $(S_OBJS) $(C_OBJS)
 
 all: $(PROJECT).BIN
 
-CDATE := $(shell date +%Y%m%d)
-RELVER := $(CDATE)-$(RELEASE)
+RELVER := $(VERSION)-$(RELEASE)
 
 release: clean
 	@mkdir -p 400plus-$(RELVER)/bin

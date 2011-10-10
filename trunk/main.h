@@ -194,10 +194,14 @@ typedef enum {
 	GUI_DELETE_COLORBAR_DIALOG     = 0x10000070,
 	GUI_DELETE_LCDADJUST_DIALOG    = 0x10000071,
 	*/
+
+	//GUI_IDC_DBN_OK                 = 0x6, // ?
+	//GUI_IDC_DBN_CANCEL             = 0x7, // ?
 	GUI_GOT_TOP_OF_CONTROL         = 0x800,
 	GUI_LOST_TOP_OF_CONTROL        = 0x801,
 	GUI_INITIALIZE_CONTROLLER      = 0x802,
-	GUI_UNKNOWN0                   = 0x804, // this is somehow related to blink timer
+	GUI_TERMINATE_WINSYS           = 0x804,
+	GUI_DELETE_DIALOG_REQUEST      = 0x805,
 	GUI_BUTTON_RIGHT               = 0x807,
 	GUI_BUTTON_LEFT                = 0x809,
 	GUI_BUTTON_UP                  = 0x80B,
@@ -209,7 +213,8 @@ typedef enum {
 	GUI_BUTTON_ZOOM_IN_RELEASE     = 0x81A, // DISP_RELEASED
 	GUI_BUTTON_ZOOM_OUT_PRESS      = 0x81B,
 	GUI_BUTTON_ZOOM_OUT_RELEASE    = 0x81C, // DISP_RELEASED
-	// 820 ?
+	// 820 ? // SUB_DIAL (spin left) ? http://chdk.wikia.com/wiki/DryOS_structures
+	// 823 ? // PRESS_MLT_CENTER_BUTTON ? http://chdk.wikia.com/wiki/DryOS_structures
 	GUI_BUTTON_DISP                = 0x829, // GUI_BUTTON_INFO
 	GUI_BUTTON_DIAL_RIGHT          = 0x82B, // on DIAL_[LEFT|RIGHT] the r4 and r5 in btn_handler
 	GUI_BUTTON_DIAL_LEFT           = 0x82C, // are incremental counter for both of them, every dial increments them both
