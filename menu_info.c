@@ -11,8 +11,6 @@ type_MENUITEM menupage_info_items[] = {
 	MENUITEM_INFO("Release count", &FLAG_RELEASE_COUNT),
 	MENUITEM_INFO("Body  ID     ", &BodyID),
 	MENUITEM_INFO("Version      ", &version),
-	MENUITEM_BREAK("---------------------------"),
-	MENUITEM_BREAK("---------------------------"),
 };
 
 type_MENUPAGE menupage_info = {

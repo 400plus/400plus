@@ -543,7 +543,9 @@ type_MENUITEM *get_current_item() {
 }
 
 type_MENUITEM *get_item(int item_id) {
-	return &current_page->items[get_real_id(item_id)];
+	int real_id = get_real_id(item_id);
+
+	return (real_id < current_page->length) ? &current_page->items[real_id] : NULL;
 }
 
 int get_real_id(int item_id) {
@@ -555,10 +557,10 @@ int get_real_id(int item_id) {
 
 int get_item_id(int item_id) {
 	while (item_id < 0)
-		item_id += current_page->length;
+		item_id += MAX(current_page->length, 5);
 
-	while (item_id > current_page->length - 1)
-		item_id -= current_page->length;
+	while (item_id > MAX(current_page->length, 5) - 1)
+		item_id -= MAX(current_page->length, 5);
 
 	return item_id;
 }
