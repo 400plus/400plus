@@ -27,14 +27,10 @@ void presets_read() {
 	int file    = -1;
 	int version =  0;
 
-	char name[25];
-
 	type_PRESETS_CONFIG buffer;
 
-	for (id = 0; id < 9; id ++) {
-		sprintf(name, "%s %i", LP_WORD(L_PRESET_NAME), id + 1);
-		sprintf(presets_config.names[id], "%-25s", name);
-	}
+	for (id = 0; id < 9; id ++)
+		sprintf(presets_config.names[id], "%-25s", LP_WORD(L_PRESET_NAME));
 
 	if ((file = FIO_OpenFile(PRESETS_CONFIG, O_RDONLY, 644)) == -1)
 		goto end;

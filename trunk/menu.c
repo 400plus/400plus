@@ -15,7 +15,6 @@ int   current_page_id;
 int   current_line;
 int   current_item;
 int   item_grabbed;
-int   show_filenames;
 int   changed;
 
 type_MENU     *current_menu;
@@ -31,7 +30,7 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_up}},
 	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_down}},
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_toggle_filenames}},
+	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_rename}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
@@ -98,7 +97,6 @@ void menu_initialize() {
 	current_item = 0;
 
 	item_grabbed   = FALSE;
-	show_filenames = FALSE;
 	changed        = FALSE;
 }
 
@@ -241,13 +239,6 @@ void menu_left() {
 
 void menu_cycle() {
 	menu_repeat(menu_repeateable_cycle);
-}
-
-void menu_toggle_filenames() {
-	if (current_page->rename) {
-		show_filenames = ! show_filenames;
-		menu_display();
-	}
 }
 
 void menu_rename() {
@@ -448,8 +439,8 @@ void menu_message(const char *buffer, int item_id) {
 	type_MENUITEM *item = get_item(item_id);
 
 	if (item) {
-		if (show_filenames)
-			get_preset_filename(item_name, 1 + get_real_id(item_id));
+		if (current_page->rename)
+			sprintf(item_name, "%i %s", 1 + get_real_id(item_id), item->name);
 		else
 			sprintf(item_name, "%s", item->name);
 
