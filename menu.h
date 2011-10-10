@@ -199,6 +199,8 @@ extern void menu_event_change();
 extern void menu_event_close();
 extern void menu_event(type_MENU_EVENT);
 
+extern void menu_return();
+
 extern void menu_up();
 extern void menu_down();
 extern void menu_right();
