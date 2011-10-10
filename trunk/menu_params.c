@@ -29,6 +29,9 @@ type_MENUPAGE autoiso_page = {
 	name   : LP_WORD(L_AUTOISO),
 	length : LENGTH(autoiso_items),
 	items  : autoiso_items,
+	tasks  : {
+		[MENU_EVENT_SET] = menu_return,
+	}
 };
 
 type_MENUITEM menupage_params_items[] = {

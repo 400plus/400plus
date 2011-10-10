@@ -61,36 +61,54 @@ type_MENUPAGE scripts_page = {
 	name   : LP_WORD(L_SCRIPTS_SPACES),
 	length : LENGTH(scripts_items),
 	items  : scripts_items,
+	tasks  : {
+		[MENU_EVENT_SET] = menu_return,
+	}
 };
 
 type_MENUPAGE wave_page = {
 	name   : LP_WORD(L_HANDWAVE),
 	length : LENGTH(wave_items),
 	items  : wave_items,
+	tasks  : {
+		[MENU_EVENT_SET] = menu_return,
+	}
 };
 
 type_MENUPAGE timer_page = {
 	name   : LP_WORD(L_TIMER_SPACES),
 	length : LENGTH(timer_items),
 	items  : timer_items,
+	tasks  : {
+		[MENU_EVENT_SET] = menu_return,
+	}
 };
 
 type_MENUPAGE eaeb_page = {
 	name   : LP_WORD(L_EXT_AEB),
 	length : LENGTH(eaeb_items),
 	items  : eaeb_items,
+	tasks  : {
+		[MENU_EVENT_SET] = menu_return,
+	}
 };
 
 type_MENUPAGE interval_page = {
 	name   : LP_WORD(L_INTERVAL),
 	length : LENGTH(interval_items),
 	items  : interval_items,
+	tasks  : {
+		[MENU_EVENT_SET] = menu_return,
+	}
 };
 
 type_MENUPAGE presets_page = {
 	name   : LP_WORD(L_PRESETS_SPACES),
 	length : LENGTH(presets_items),
 	items  : presets_items,
+	tasks  : {
+		[MENU_EVENT_SET] = menu_return,
+	}
 };
 
 type_MENUITEM menu_settings_items[] = {

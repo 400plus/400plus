@@ -187,6 +187,12 @@ void menu_refresh() {
 	dialog_redraw(menu_handler);
 }
 
+void menu_return() {
+	current_page = current_menu->pages[current_page_id];
+	current_item = current_line;
+	menu_display();
+}
+
 void menu_up() {
 	int display = FALSE;
 
@@ -266,9 +272,7 @@ void menu_page_next() {
 	else
 		current_page_id++;
 
-	current_page = current_menu->pages[current_page_id];
-	current_item = current_line;
-	menu_display();
+	menu_return();
 }
 
 void menu_page_prev() {
@@ -277,9 +281,7 @@ void menu_page_prev() {
 	else
 		current_page_id--;
 
-	current_page = current_menu->pages[current_page_id];
-	current_item = current_line;
-	menu_display();
+	menu_return();
 }
 
 void menu_repeat(void(*repeateable)()){
@@ -334,6 +336,12 @@ void menu_repeateable_right(int repeating) {
 					*item->parm.menuitem_enum.value = 0;
 			} else
 				(*item->parm.menuitem_enum.value)++;
+			break;
+		case MENUITEM_TYPE_SUBMENU:
+			current_page = item->parm.menuitem_submenu.page;
+			current_item =  current_line;
+
+			menu_display();
 			break;
 		default:
 			break;
@@ -415,12 +423,6 @@ void menu_repeateable_cycle(int repeating) {
 			else
 				*item->parm.menuitem_enum.value += 1;
 			break;
-		case MENUITEM_TYPE_SUBMENU:
-			current_page = item->parm.menuitem_submenu.page;
-			current_item =  current_line;
-
-			menu_display();
-			break;
 		default:
 			break;
 		}
@@ -441,6 +443,7 @@ int menu_get_changed() {
 void menu_message(const char *buffer, int item_id) {
 	char item_name[LP_MAX_WORD];
 	char name[LP_MAX_WORD];
+	char pad = ' ';
 
 	type_MENUITEM *item = get_item(item_id);
 
@@ -449,15 +452,12 @@ void menu_message(const char *buffer, int item_id) {
 	else
 		sprintf(item_name, "%s", item->name);
 
-	if (current_page->highlight || current_page->reorder) {
-		if (current_page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
-			sprintf(name, "%c%s", '>', item_name);
-		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
-			sprintf(name, "%c%s", '*', item_name);
-		else
-			sprintf(name, "%c%s", ' ', item_name);
-	} else
-		sprintf(name, "%s", item_name);
+	if (current_page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+		pad = '>';
+	else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
+		pad = '*';
+
+	sprintf(name, "%c%s", pad, item_name);
 
 	switch(item->type) {
 	case MENUITEM_TYPE_EV:
@@ -485,7 +485,7 @@ void menu_message(const char *buffer, int item_id) {
 		menu_print_char(buffer, name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
 		break;
 	case MENUITEM_TYPE_LAUNCH:
-		menu_print_char(buffer, name, "!");
+		menu_print_char(buffer, name, "");
 		break;
 	case MENUITEM_TYPE_SUBMENU:
 		menu_print_char(buffer, name, ">");
