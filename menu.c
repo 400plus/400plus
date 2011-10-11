@@ -167,8 +167,8 @@ void menu_display() {
 	int i;
 
 	int len  = strlen(current_page->name);
-	int pad1 = (23 - len) / 2;
-	int pad2 = (24 - len) / 2;
+	int pad1 = (    MENU_WIDTH - 2 - len) / 2;
+	int pad2 = (1 + MENU_WIDTH - 4 - len) / 2;
 
 	int offset = current_item - current_line;
 
@@ -531,7 +531,7 @@ void menu_print_int(const char *buffer, const char *name, int parameter, const c
 }
 
 void menu_print_char(const char *buffer, const char *name, const char *parameter) {
-	int pad = 26 - strlen(parameter);
+	int pad = MENU_WIDTH - strlen(parameter) - 1;
 
 	sprintf(buffer, "%-*.*s %s", pad, pad, name, parameter);
 }
