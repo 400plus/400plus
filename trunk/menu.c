@@ -65,8 +65,8 @@ void menu_print_char (const char *buffer, const char *name, const char *paramete
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
-int get_item_id(int item_id);
-int get_real_id(int item_id);
+int get_item_id(int item_pos);
+int get_real_id(int item_pos);
 
 void menu_create(type_MENU * menu) {
 	current_menu = menu;
@@ -540,27 +540,22 @@ type_MENUITEM *get_current_item() {
 	return get_item(current_item);
 }
 
-type_MENUITEM *get_item(int item_id) {
-	int real_id = get_real_id(item_id);
+type_MENUITEM *get_item(int item_pos) {
+	int item_id = get_real_id(item_pos);
 
-	return (real_id < current_page->length) ? &current_page->items[real_id] : NULL;
+	return (item_id < current_page->length) ? &current_page->items[item_id] : NULL;
 }
 
-int get_real_id(int item_id) {
+int get_real_id(int item_pos) {
 	if (current_page->reorder)
-		return current_page->ordering[get_item_id(item_id)];
+		return current_page->ordering[get_item_id(item_pos)];
 	else
-		return get_item_id(item_id);
+		return get_item_id(item_pos);
 }
 
-int get_item_id(int item_id) {
-	int max = MAX(current_page->length, MENU_HEIGTH);
+int get_item_id(int item_pos) {
+	int max_pos = MAX(current_page->length, MENU_HEIGTH);
+	int item_id = item_pos - max_pos * (item_pos / max_pos);
 
-	while (item_id < 0)
-		item_id += max;
-
-	while (item_id > max - 1)
-		item_id -= max;
-
-	return item_id;
+	return (item_id < 0) ? (item_id + max_pos) : item_id;
 }
