@@ -162,12 +162,19 @@ void menu_event(type_MENU_EVENT event) {
 }
 
 void menu_display() {
-	int i;
-	int offset = current_item - current_line;
-
 	char buffer[LP_MAX_WORD];
 
-	dialog_set_property_str(menu_handler, 8, current_page->name);
+	int i;
+
+	int len  = strlen(current_page->name);
+	int pad1 = (23 - len) / 2;
+	int pad2 = (24 - len) / 2;
+
+	int offset = current_item - current_line;
+
+	sprintf(buffer, "<<%*s%s%*s>>", pad1, "", current_page->name, pad2, "");
+
+	dialog_set_property_str(menu_handler, 8, buffer);
 
 	for(i = 0; i < 5; i++) {
 		menu_message(buffer, i + offset);
