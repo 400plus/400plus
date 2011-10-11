@@ -176,7 +176,7 @@ void menu_display() {
 
 	dialog_set_property_str(menu_handler, 8, buffer);
 
-	for(i = 0; i < 5; i++) {
+	for(i = 0; i < MENU_HEIGTH; i++) {
 		menu_message(buffer, i + offset);
 		dialog_set_property_str(menu_handler, i + 1, buffer);
 	}
@@ -554,11 +554,13 @@ int get_real_id(int item_id) {
 }
 
 int get_item_id(int item_id) {
-	while (item_id < 0)
-		item_id += MAX(current_page->length, 5);
+	int max = MAX(current_page->length, MENU_HEIGTH);
 
-	while (item_id > MAX(current_page->length, 5) - 1)
-		item_id -= MAX(current_page->length, 5);
+	while (item_id < 0)
+		item_id += max;
+
+	while (item_id > max - 1)
+		item_id -= max;
 
 	return item_id;
 }
