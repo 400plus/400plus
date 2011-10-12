@@ -9,161 +9,165 @@ my_GUIInit:
 		var_28  = -0x28
 
 		STMFD   SP!, {R4-R11,LR}
-		LDR     R12, =m_pSendDisplayModeToMC
-		LDR     R2, =GUIIdleFlag
-		LDR     R3, =GUIMode
-		LDR     R4, =m_pSendStartModeToMC
-		MOV     R9, #0
-		SUB     SP, SP, #0x10
-		MOV     R1, #1
-		LDR     R0, =aGuiSwSem
-		STR     R9, [R12]  // m_pSendDisplayModeToMC= 0
-		STR     R9, [R2]   // GUIIdleFlag = 0
-		STR     R9, [R3]   // GUIMode = 0
-		STR     R9, [R4]   // m_pSendStartModeToMC = 0
+		LDR     R12, =m_pSendDisplayModeToMC // r12 = &m_pSendDisplayModeToMC
+		LDR     R2, =GUIIdleFlag // r2=&GUIIdleFlag
+		LDR     R3, =GUIMode // r3=&GUIMode
+		LDR     R4, =m_pSendStartModeToMC // r4=&m_pSendStartModeToMC
+		MOV     R9, #0 // r9=0
+		SUB     SP, SP, #0x10 // alloc(SPx10)
+		MOV     R1, #1 // r1=1
+		LDR     R0, =aGuiSwSem // r0=&aGuiSwSem
+		STR     R9, [R12]  // m_pSendDisplayModeToMC=0
+		STR     R9, [R2]   // GUIIdleFlag=0
+		STR     R9, [R3]   // GUIMode=0
+		STR     R9, [R4]   // m_pSendStartModeToMC=0
 		BL      CreateBinarySemaphore
-		LDR     R3, =hGuiSwSem
+		LDR     R3, =hGuiSwSem // r3=&hGuiSwSem
 		STR     R0, [R3] // hGuiSwSem = CreateBinarySemaphore(aGuiSwSem, 1)
-		BL      TablesInit
-		MOV     R0, #1
-		BL      placeListFromTab // placeListFromTab(1)
-		BL      WidgetBinaryBitmapInit
-		MOV     R0, #3
-		BL      placeListFromTab // placeListFromTab(3)
-		BL      WidgetCounterInit
-		MOV     R0, #4
-		BL      placeListFromTab // placeListFromTab(4)
-		BL      WidgetFocusMarkInit
-		MOV     R0, #5
-		BL      placeListFromTab // placeListFromTab(5)
-		BL      WidgetHistogramInit
-		MOV     R0, #8
-		BL      placeListFromTab // placeListFromTab(8)
-		BL      WidgetListSelectInit
-		MOV     R0, #0xA
-		BL      placeListFromTab // placeListFromTab(0x0A)
-		BL      WidgetNavigateIconInit
-		MOV     R0, #0xB
-		BL      placeListFromTab // placeListFromTab(0x0B)
-		BL      WidgetPopupAEBInit
-		MOV     R0, #0xD
-		BL      placeListFromTab // placeListFromTab(0x0D)
-		BL      WidgetPopupMenuInit
-		MOV     R0, #0xE
-		BL      placeListFromTab // placeListFromTab(0x0E)
-		BL      WidgetProgressBarInit
-		MOV     R0, #2
-		BL      placeListFromTab // placeListFromTab(2)
-		BL      WidgetButtonInit
-		MOV     R0, #0xF
-		BL      placeListFromTab // placeListFromTab(0x0F)
-		BL      WidgetRectangle
-		MOV     R0, #0x10
-		BL      placeListFromTab // placeListFromTab(0x10)
-		BL      WidgetScrollBarInit
-		MOV     R0, #0x11
-		BL      placeListFromTab // placeListFromTab(0x11)
-		BL      WidgetSliderInit
-		MOV     R0, #0x13
-		BL      placeListFromTab // placeListFromTab(0x13)
-		BL      WidgetTextInit
-		MOV     R0, #0x14
-		BL      placeListFromTab // placeListFromTab(0x14)
-		BL      WidgetListViewInit
-		MOV     R0, #0x16
-		BL      placeListFromTab // placeListFromTab(0x16)
-		BL      WidgetPopupSliderInit
-		MOV     R0, #9
-		BL      placeListFromTab // placeListFromTab(9)
-		BL      WidgetMenuTabInit
-		MOV     R0, #0x1C
-		BL      placeListFromTab // placeListFromTab(0x1C)
-		BL      WidgetPaletteBitmapInit
-		MOV     R0, #0x17
-		BL      placeListFromTab // placeListFromTab(0x17)
-		BL      WidgetAnimationBmpInit
-		MOV     R0, #0x1B
-		BL      placeListFromTab // placeListFromTab(0x1B)
-		BL      WidgetArchRectInit
-		MOV     R0, #1
+		BL      TablesInit // TablesInit()
+		MOV     R0, #1 // r0=1
+		BL      placeListFromTab // ///placeListFromTab(1)
+		BL      WidgetBinaryBitmapInit // WidgetBinaryBitmapInitA(placeListFromTab(1));
+		MOV     R0, #3 // r0=3
+		BL      placeListFromTab // ///placeListFromTab(3)
+		BL      WidgetCounterInit // WidgetCounterInit(placeListFromTab(3));
+		MOV     R0, #4 // r0=4
+		BL      placeListFromTab // ///placeListFromTab(4)
+		BL      WidgetFocusMarkInit // WidgetFocusMarkInit(placeListFromTab(4))
+		MOV     R0, #5 // r0=5
+		BL      placeListFromTab // ///placeListFromTab(5)
+		BL      WidgetHistogramInit // WidgetHistogramInit(placeListFromTab(5))
+		MOV     R0, #8 // r0=8
+		BL      placeListFromTab // ///placeListFromTab(8)
+		BL      WidgetListSelectInit // WidgetListSelectInit(placeListFromTab(8))
+		MOV     R0, #0xA // r0=0xA
+		BL      placeListFromTab // ///placeListFromTab(0x0A)
+		BL      WidgetNavigateIconInit // WidgetNavigateIconInit(placeListFromTab(10));
+		MOV     R0, #0xB // r0=0xB
+		BL      placeListFromTab // ///placeListFromTab(0x0B)
+		BL      WidgetPopupAEBInit // WidgetPopupAEBInit(placeListFromTab(11))
+		MOV     R0, #0xD // r0=0xD
+		BL      placeListFromTab // ///placeListFromTab(0x0D)
+		BL      WidgetPopupMenuInit // WidgetPopupMenuInit(placeListFromTab(13))
+		MOV     R0, #0xE // r0=0xE
+		BL      placeListFromTab // ///placeListFromTab(0x0E)
+		BL      WidgetProgressBarInit // WidgetProgressBarInit(placeListFromTab(14))
+		MOV     R0, #2 // r0=2
+		BL      placeListFromTab // ///placeListFromTab(2)
+		BL      WidgetButtonInit // WidgetButtonInit(placeListFromTab(2))
+		MOV     R0, #0xF // r0=15
+		BL      placeListFromTab // ///placeListFromTab(0x0F)
+		BL      WidgetRectangle // WidgetRectangle(placeListFromTab(15))
+		MOV     R0, #0x10 // r0=0x10
+		BL      placeListFromTab // ///placeListFromTab(0x10)
+		BL      WidgetScrollBarInit // WidgetScrollBarInit(placeListFromTab(16))
+		MOV     R0, #0x11 // r0=0x11
+		BL      placeListFromTab // ///placeListFromTab(0x11)
+		BL      WidgetSliderInit // WidgetSliderInit(placeListFromTab(17))
+		MOV     R0, #0x13 // r0=0x13
+		BL      placeListFromTab // ///placeListFromTab(0x13)
+		BL      WidgetTextInit // WidgetTextInit(placeListFromTab(19))
+		MOV     R0, #0x14 // r0=0x14
+		BL      placeListFromTab // ///placeListFromTab(0x14)
+		BL      WidgetListViewInit // WidgetListViewInit(placeListFromTab(20))
+		MOV     R0, #0x16 // 0x16
+		BL      placeListFromTab // ///placeListFromTab(0x16)
+		BL      WidgetPopupSliderInit // WidgetPopupSliderInit(placeListFromTab(22))
+		MOV     R0, #9 // r0=9
+		BL      placeListFromTab // ///placeListFromTab(9)
+		BL      WidgetMenuTabInit // WidgetMenuTabInit(placeListFromTab(9))
+		MOV     R0, #0x1C // r0=0x1c
+		BL      placeListFromTab // ///placeListFromTab(0x1C)
+		BL      WidgetPaletteBitmapInit // WidgetPaletteBitmapInit(placeListFromTab(28))
+		MOV     R0, #0x17 // r0=0x17
+		BL      placeListFromTab // ///placeListFromTab(0x17)
+		BL      WidgetAnimationBmpInit // WidgetAnimationBmpInit(placeListFromTab(23))
+		MOV     R0, #0x1B // r0=0x1b
+		BL      placeListFromTab // ///placeListFromTab(0x1B)
+		BL      WidgetArchRectInit // WidgetArchRectInit(placeListFromTab(27))
+		MOV     R0, #1 // r0=1
 		BL      str_0x5188 // str_0x5188(1)
-		MOV     R0, R9
+		MOV     R0, R9 // r0=0
 		BL      sub_FF918D24 // sub_FF918D24(0)
-		MOV     R0, #3
-		BL      sub_FF918C58
+		MOV     R0, #3 // r0=3
+		BL      sub_FF918C58 // ///sub_FF918C58(3)
 		MOV     R4, R0 // r4=sub_FF918C58(3)
 		MOV     R0, #3 // r0=3
 		BL      GetBrushFromSystemColor
 		MOV     R11, R0 // r11=GetBrushFromSystemColor(3)
 		MOV     R0, R4
 		BL      sub_FF92AD74 // sub_FF92AD74(r4) -- sub_FF92AD74(sub_FF918C58(3))
-		BL      sub_FF934DE8 // sub_FF934DE8()
-		MOV     R1, #0x14
-		MOV     R0, #1
-		BL      FontInit // FontInit(1, 0x14)
+		BL      sub_FF934DE8 // sub_FF934DE8() // no arg
+		MOV     R1, #0x14 // r1=20
+		MOV     R0, #1 // r0=1
+		BL      FontInit // FontInit(1, 20)
 		LDR     R8, =sub_FF92ADD8
 		LDR     R10, =sub_FF92AF8C
 		LDR     R6, =sub_FF92AFD8
 		LDR     R7, =sub_FF92AF58
-		MOV     R4, #1
+		MOV     R4, #1 // r4=1
+		MOV     R2, R10 // r2=&sub_FF92AF8C
+		MOV     R3, R6 // r3=&sub_FF92AFD8
+		MOV     R1, R8 // r1=&sub_FF92ADD8
+		STR     R7, [SP] // SPx00=sub_FF92AF58
+		STR     R4, [SP,#4] // SPx04=1
+		BL      CreateFontManagerInstance // ///CreateFontManagerInstance(FontInit(1, 0x14), sub_FF92ADD8, sub_FF92AF8C, sub_FF92AFD8, sub_FF92AF58, 1)
+		LDR     R5, =off_1EE0 // r5=&off_1EE0
+		MOV     R1, #0x1E // r1=30
+		STR     R0, [R5] // off_1EE0=CreateFontManagerInstance(FontInit(1, 20), sub_FF92ADD8, sub_FF92AF8C, sub_FF92AFD8, sub_FF92AF58, 1)
+		MOV     R0, R4 // r0=1
+		BL      FontInit // FontInit(1, 30)
 		MOV     R2, R10 // r2=sub_FF92AF8C
 		MOV     R3, R6 // r3=sub_FF92AFD8
 		MOV     R1, R8 // r1=sub_FF92ADD8
-		STR     R7, [SP] // sp=sub_FF92AF58
-		STR     R4, [SP,#4] // sp+4=1
-		BL      CreateFontManagerInstance // CreateFontManagerInstance(1, sub_FF92ADD8, sub_FF92AF8C, sub_FF92AFD8, sub_FF92AF58, 1)
-		LDR     R5, =off_1EE0
-		MOV     R1, #0x1E
-		STR     R0, [R5] // off_1EE0=CreateFontManagerInstance(...)
+		STR     R7, [SP] // SPx00=sub_FF92AF58
+		STR     R4, [SP,#4] // SPx04=1
+		BL      CreateFontManagerInstance  // CreateFontManagerInstance(FontInit(1, 0x1E), sub_FF92ADD8, sub_FF92AF8C, sub_FF92AFD8, sub_FF92AF58, 1)
+		MOV     R1, #0x24 // r1=36
 		MOV     R0, R4 // r0=1
-		BL      FontInit // FontInit(1, 0x1E)
-		MOV     R2, R10 // XXX: AF: continue from there...
-		MOV     R3, R6
-		MOV     R1, R8
-		STR     R7, [SP,#0x34+var_34]
-		STR     R4, [SP,#0x34+var_30]
+		BL      FontInit // ///FontInit(1, 36)
+		MOV     R3, R6 // r3=sub_FF92AFD8
+		MOV     R1, R8 // r1=sub_FF92ADD8
+		STR     R0, [R5] // off_1EE0=FontInit(1, 36)
+		MOV     R2, R10 // r2=sub_FF92AF8C
+		STR     R7, [SP] // SPx00 = sub_FF92AF58
+		STR     R4, [SP,#4] // SPx04=1
 		BL      CreateFontManagerInstance
-		MOV     R1, #0x24
-		MOV     R0, R4
-		BL      FontInit
-		MOV     R3, R6
-		MOV     R1, R8
-		STR     R0, [R5]
-		MOV     R2, R10
-		STR     R7, [SP,#0x34+var_34]
-		STR     R4, [SP,#0x34+var_30]
-		BL      CreateFontManagerInstance
-		STR     R0, [R5]
-		BL      get_0x5178
-		ADD     R1, SP,#0x34+var_28
-		ADD     R2, SP,#0x34+var_2C
-		BL      sub_FF92D8EC
-		LDR     R12, =GUIWindowInstanceProc
-		LDR     R3, [SP,#0x34+var_2C]
-		LDR     R2, [SP,#0x34+var_28]
-		MOV     R1, R9
-		MOV     R0, R9
-		STR     R12, [SP,#0x34+var_34]
-		STR     R11, [SP,#0x34+var_30]
+		STR     R0, [R5] // off_1EE0=CreateFontManagerInstance(FontInit(1, 36), sub_FF92ADD8, sub_FF92AF8C, sub_FF92AFD8, sub_FF92AF58, 1)
+		BL      get_0x5178_aVramInstance // r0=get_0x5178_aVramInstance
+		ADD     R1, SP,#0x0C // r1=SPx0C (var1)
+		ADD     R2, SP,#0x08 // r2=SPx08 (var2)
+		BL      sub_FF92D8EC // sub_FF92D8EC(get_0x5178_aVramInstance(), SPx0C(var1), SPx08(var2))
+		LDR     R12, =GUIWindowInstanceProc // r12=&GUIWindowInstanceProc
+		LDR     R3, [SP,#0x08] // r3=var2
+		LDR     R2, [SP,#0x0C] // r2=var1
+		MOV     R1, R9 // r1=0
+		MOV     R0, R9 // r0=0
+		STR     R12, [SP] // SPx00=&GUIWindowInstanceProc
+		STR     R11, [SP,#4] // SPx04=GetBrushFromSystemColor(3)
 		BL      CreateWindowInstance
 		LDR     R3, =hGUIWindowInstance
-		STR     R0, [R3]
-		BL      some_do_with_window_instance
-		BL      taskcreate_GuiMainTask
-		BL      CreateGUIPubInstance
-		BL      taskcreate_tGraphics
-		BL      CreateQRevImgQueue
-		BL      Some_DP_GUI
-		BL      SetGUIFactoryMenuProcInit
-		BL      GUIuramodeInit
-		MOV     R1, R9
-		LDR     R0, =my_GUI_IDLEHandler
-		BL      CreateCtrlMain
-		BL      sub_FF833D50
-		BL      sub_FF82B5AC
-		ADD     SP, SP, #0x10
+		STR     R0, [R3] // hGUIWindowInstance = CreateWindowInstance(0, 0, var1, var2)
+		BL      some_do_with_window_instance // some_do_with_window_instance(hGUIWindowInstance);
+		BL      taskcreate_GuiMainTask // taskcreate_GuiMainTask() no arg
+		BL      CreateGUIPubInstance // CreateGUIPubInstance() no arg
+		BL      taskcreate_tGraphics // taskcreate_tGraphics() no arg
+		BL      CreateQRevImgQueue // CreateQRevImgQueue() no arg
+		BL      Some_DP_GUI // Some_DP_GUI() no arg
+		BL      SetGUIFactoryMenuProcInit // SetGUIFactoryMenuProcInit() no arg
+		BL      GUIuramodeInit // GUIuramodeInit() no arg
+		MOV     R1, R9 // r1=0
+		LDR     R0, =my_GUI_IDLEHandler // r0=&my_GUI_IDLEHandler
+		BL      CreateCtrlMain // CreateCtrlMain(&my_GUI_IDLEHandler, 0)
+		BL      sub_FF833D50 // sub_FF833D50() no arg
+		BL      sub_FF82B5AC // sub_FF82B5AC() no arg
+		ADD     SP, SP, #0x10 
 		LDMFD   SP!, {R4-R11,PC}
 
+
+
+// perhaps this is enough...
+// we will replace the GUI_Handler, and fall-back to the original one when we need to
 
 my_GUI_IDLEHandler:
 		STMFD SP!, {R4,LR}
