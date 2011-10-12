@@ -31,19 +31,15 @@ The following steps prepare a card to contain `400plus``  and be recognized by t
     * Direct method for Linux, Mac, and Windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
       * FAT12 / FAT16 (CF Card <= 4GB)
 {{{
-  dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
-  dd if="$dev" of=/tmp/eosBlock1 count=2
-  echo EOS_DEVELOP | dd of=/tmp/eosBlock1 bs=1 seek=43 count=11
-  echo BOOTDISK | dd of=/tmp/eosBlock1 bs=1 seek=64 count=8
-  dd if=/tmp/eosBlock1 of="$dev"
+  dev=/dev/sdX1 # replace sdX1 with your CF device (first partition)
+  echo EOS_DEVELOP | dd of="$dev" bs=1 seek=43 count=11
+  echo BOOTDISK | dd of="$dev" bs=1 seek=64 count=8
 }}}
       * FAT32
 {{{
-  dev=/dev/sdb1 # replace sdb1 with your CF device (first partition)
-  dd if="$dev" of=/tmp/eosBlock1 count=2
-  echo EOS_DEVELOP | dd of=/tmp/eosBlock1 bs=1 seek=71 count=11
-  echo BOOTDISK | dd of=/tmp/eosBlock1 bs=1 seek=92 count=8
-  dd if=/tmp/eosBlock1 of="$dev"
+  dev=/dev/sdX1 # replace sdX1 with your CF device (first partition)
+  echo EOS_DEVELOP | dd of="$dev" bs=1 seek=71 count=11
+  echo BOOTDISK | dd of="$dev" bs=1 seek=92 count=8
 }}}
       * exFAT
         This is not going to work directly, because the sector checksums needs to be calculated and written back after writing the strings. Use the above methods.
@@ -67,6 +63,4 @@ Now you can read the [http://code.google.com/p/400plus/wiki/UserGuide User Guide
 
 = Sources =
   * [http://chdk.setepontos.com/index.php/topic,3290.msg38630.html#msg38630 raingrove]
-  * [http://code.google.com/p/400d/downloads/detail?name=400d_autoexec_bin_guide.doc&can=2&q= Huong dan cai dat]
-  * [http://chdk.wikia.com/wiki/400D 400d page on wikia]
   * [http://chdk.setepontos.com/index.php/topic,4214.msg39827.html#msg39827 whim's post]
