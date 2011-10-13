@@ -1,5 +1,3 @@
-WIKI
-
 #summary Wiki pages por 400plus
 
 = Documentation = 
