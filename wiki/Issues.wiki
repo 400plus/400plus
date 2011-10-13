@@ -1,0 +1,21 @@
+#summary Issues page for 400plus
+
+= Issues = 
+
+Before opening a new issue, please check first that it has not been discussed before; we currently have the following types of issues registered:
+
+ * [http://code.google.com/p/400plus/issues/list?can=1&q=Type%3DDefect+ Bug reports].
+ * [http://code.google.com/p/400plus/issues/list?can=1&q=Type%3DSupport+ Support requests].
+ * [http://code.google.com/p/400plus/issues/list?can=1&q=Type%3DEnhancement+ Suggestions of new features].
+
+Finally, if you still think that your issue has not been discussed already, open a [http://code.google.com/p/400plus/issues/entry new issue].
+
+= Other Channels =
+
+We also have the following support channels available:
+
+ * The [http://chdk.setepontos.com/index.php?board=33.0 official board] at the [http://chdk.setepontos.com/ CHDK forums] (see the [http://chdk.setepontos.com/index.php?topic=3290.0 main thread] first).
+
+ * The official [http://groups.google.com/group/400plus mailing list].
+
+ * And finally, when the moon is in the correct phase, and the weather conditions allow for it, some developers can also be contacted by IRC at `#canon-dslr-hacks` on `freenode`.
