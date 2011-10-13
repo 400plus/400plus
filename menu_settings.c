@@ -13,39 +13,10 @@
 void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
 void menu_settings_apply_remote_enable   (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
-void menu_settings_apply_eaeb_tvmin      (type_MENUITEM *item);
-void menu_settings_apply_eaeb_tvmax      (type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_DIM_LCD_DOWN),  &settings.dim_lcd_down,  NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_KEEP_POWER_ON), &settings.keep_power_on, NULL)
-};
-
-type_MENUITEM wave_items[] = {
-	MENUITEM_DELAY  (LP_WORD(L_DELAY),   &settings.wave_delay,   NULL),
-	MENUITEM_ACTION (LP_WORD(L_ACTION),  &settings.wave_action,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_REPEAT),  &settings.wave_repeat,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_INSTANT), &settings.wave_instant, NULL)
-};
-
-type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT(LP_WORD(L_DELAY),  &settings.timer_timeout, NULL),
-	MENUITEM_ACTION (LP_WORD(L_ACTION), &settings.timer_action,  NULL)
-};
-
-type_MENUITEM eaeb_items[] = {
-	MENUITEM_DELAY  (LP_WORD(L_DELAY),     &settings.eaeb_delay,  NULL),
-	MENUITEM_BRACKET(LP_WORD(L_FRAMES),    &settings.eaeb_frames, NULL),
-	MENUITEM_EVSEP  (LP_WORD(L_STEP_EV),   &settings.eaeb_ev,     NULL),
-	MENUITEM_BULB   (LP_WORD(L_MANUAL_L),  &settings.eaeb_tv_min, menu_settings_apply_eaeb_tvmin),
-	MENUITEM_BULB   (LP_WORD(L_MANUAL_R),  &settings.eaeb_tv_max, menu_settings_apply_eaeb_tvmax)
-};
-
-type_MENUITEM interval_items[] = {
-	MENUITEM_DELAY  (LP_WORD(L_DELAY),    &settings.interval_delay, NULL),
-	MENUITEM_TIMEOUT(LP_WORD(L_TIME_S),   &settings.interval_time,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_EAEB),     &settings.interval_eaeb,  NULL),
-	MENUITEM_COUNTER(LP_WORD(L_SHOTS),    &settings.interval_shots, NULL)
 };
 
 type_MENUITEM presets_items[] = {
@@ -66,42 +37,6 @@ type_MENUPAGE scripts_page = {
 	}
 };
 
-type_MENUPAGE wave_page = {
-	name   : LP_WORD(L_HANDWAVE),
-	length : LENGTH(wave_items),
-	items  : wave_items,
-	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
-	}
-};
-
-type_MENUPAGE timer_page = {
-	name   : LP_WORD(L_TIMER_SPACES),
-	length : LENGTH(timer_items),
-	items  : timer_items,
-	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
-	}
-};
-
-type_MENUPAGE eaeb_page = {
-	name   : LP_WORD(L_EXT_AEB),
-	length : LENGTH(eaeb_items),
-	items  : eaeb_items,
-	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
-	}
-};
-
-type_MENUPAGE interval_page = {
-	name   : LP_WORD(L_INTERVAL),
-	length : LENGTH(interval_items),
-	items  : interval_items,
-	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
-	}
-};
-
 type_MENUPAGE presets_page = {
 	name   : LP_WORD(L_PRESETS_SPACES),
 	length : LENGTH(presets_items),
@@ -117,11 +52,6 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &settings.iso_in_viewfinder,      NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),    &scripts_page,                    NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),          &wave_page,                       NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),           &eaeb_page,                       NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),          &interval_page,                   NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),      &timer_page,                      NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),    &presets_page,                    NULL),
 };
 
 type_MENUPAGE menupage_main = {
@@ -184,12 +114,4 @@ void menu_settings_apply_remote_delay(type_MENUITEM *item) {
 		RemReleaseSelfMax = 6160;
 		RemReleaseInstMin = 7410;
 	}
-}
-
-void menu_settings_apply_eaeb_tvmin(type_MENUITEM *item) {
-	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
-}
-
-void menu_settings_apply_eaeb_tvmax(type_MENUITEM *item) {
-	settings.eaeb_tv_min = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
 }
