@@ -42,6 +42,7 @@ type_MENUPAGE menupage_shortcuts = {
 type_MENUPAGE *menu_shortcuts_pages[] = {
 	&menupage_shortcuts,
 	&menupage_scripts,
+	&menupage_presets,
 	&menupage_params,
 	&menupage_main,
 	&menupage_info,
@@ -53,9 +54,6 @@ type_MENUPAGE *menu_shortcuts_pages[] = {
 type_MENU menu_shortcuts = {
 	length : LENGTH(menu_shortcuts_pages),
 	pages  : menu_shortcuts_pages,
-	tasks  : {
-		[MENU_EVENT_DP]     = menu_presets_load_start,
-	}
 };
 
 void menu_shortcuts_start() {

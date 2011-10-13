@@ -3,7 +3,7 @@
 
 #include "menu.h"
 
-extern void rename_create(char *filename, type_MENU *parent);
+extern void rename_create(char *filename, type_TASK save);
 extern void rename_close();
 
 extern void rename_event_close();
