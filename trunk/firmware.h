@@ -250,5 +250,22 @@ extern int unk_258A0;
 extern void DDD_Capture(int);
 extern void set_2A0E0_to_1();
 
+// gui / idle handler
+extern int m_pSendDisplayModeToMC;
+extern int GUIIdleFlag;
+extern int GUIMode;
+extern int m_pSendStartModeToMC;
+extern int hGuiSwSem;
+extern char aGuiSwSem[];
+extern int off_1EE0;
+extern int hGUIWindowInstance;
+extern int sub_FF92ADD8();
+extern int sub_FF92AF8C();
+extern int sub_FF92AFD8();
+extern int sub_FF92AF58();
+extern int GUIWindowInstanceProc();
+extern int GUI_IDLEHandler();
+
+
 
 #endif /* FIRMWARE_H_ */

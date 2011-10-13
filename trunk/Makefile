@@ -52,9 +52,12 @@ OBJCOPY = arm-elf-objcopy
 
 S_OBJS = entry.o          \
          funclist.o       \
-         gui.o            \
+
+
+#         gui.o            \
 
 C_OBJS = init.o           \
+         gui.o            \
          main.o           \
          mainctrl.o       \
          tasks.o          \
