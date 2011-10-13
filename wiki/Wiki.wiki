@@ -1,0 +1,21 @@
+WIKI
+
+#summary Wiki pages por 400plus
+
+= Documentation = 
+
+== About ==
+
+`400plus` is a free firmware enhancement software which offers additional functionality and capabilities to your Canon 400D/XTi camera, in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up to enhance the native camera firmware; but it is not a permanent firmware upgrade, and can easily be removed.
+
+_It is designed specifically for the Canon 400D/XTi and will not work with other camera models._
+
+== Instructions ==
+
+ * If you want to give it a try, please, read "[AWordOfWarning A Word of Warning]" at our wiki before doing anything elsethere.
+ * Then go to the installation guide at "[FirmwareHackInstallation Firmware Hack Installation]" (available also in [InstallazioneHackFirmware Italian]).
+ * And finally, there is an user guide at "[UserGuide User Guide]" (available also in [UserGuideItalian Italian], [UserGuideSpanish Spanish], and [UserGuideGerman German]), where you learn how to use `400plus`. 
+
+== All Pages ==
+
+Finally, all pages can be browsed at our [http://code.google.com/p/400plus/w/list wiki].
