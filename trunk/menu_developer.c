@@ -41,10 +41,6 @@ type_MENUPAGE menupage_developer = {
 	length      : LENGTH(menu_developer_items),
 	items       : menu_developer_items,
 	reorder     : FALSE,
-	tasks       : {
-		[MENU_EVENT_CHANGE] = menu_set_changed,
-		[MENU_EVENT_CLOSE]  = menu_settings_save,
-	}
 };
 
 static int test_dialog_btn_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {

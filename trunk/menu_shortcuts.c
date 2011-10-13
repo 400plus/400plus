@@ -3,12 +3,6 @@
 
 #include "languages.h"
 #include "menu.h"
-#include "menu_developer.h"
-#include "menu_info.h"
-#include "menu_params.h"
-#include "menu_presets.h"
-#include "menu_scripts.h"
-#include "menu_settings.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -33,48 +27,7 @@ type_MENUPAGE menupage_shortcuts = {
 	items       : menu_shortcut_items,
 	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
-	tasks       : {
-		[MENU_EVENT_CHANGE] = menu_set_changed,
-		[MENU_EVENT_CLOSE]  = menu_shortcuts_close,
-	}
 };
-
-type_MENUPAGE *menu_shortcuts_pages[] = {
-	&menupage_shortcuts,
-	&menupage_scripts,
-	&menupage_presets,
-	&menupage_params,
-	&menupage_main,
-	&menupage_info,
-#ifdef BREAK_CAMERA
-	&menupage_developer,
-#endif
-};
-
-type_MENU menu_shortcuts = {
-	length : LENGTH(menu_shortcuts_pages),
-	pages  : menu_shortcuts_pages,
-};
-
-void menu_shortcuts_start() {
-	beep();
-
-	press_button(IC_BUTTON_MENU);
-	SleepTask(100);
-
-	menu_shortcuts_create();
-}
-
-void menu_shortcuts_create() {
-	menu_cameraMode = *cameraMode;
-	menu_create(&menu_shortcuts);
-}
-
-void menu_shortcuts_close() {
-	if (menu_get_changed()) {
-		settings_write();
-	}
-}
 
 void menu_shortcuts_apply_cf_emit_aux(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_EMIT_AUX, 1, *item->parm.menuitem_enum.value);

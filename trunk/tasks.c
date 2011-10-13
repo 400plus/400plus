@@ -3,7 +3,6 @@
 
 #include "display.h"
 #include "languages.h"
-#include "menu_shortcuts.h"
 #include "presets.h"
 #include "settings.h"
 #include "utils.h"
