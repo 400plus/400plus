@@ -10,6 +10,6 @@ There are several types of downloads available here:
 
  * *Official Releases:* Our [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured official releases]; both the [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable binary] that you must install in your CF card, and the [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DSource  source code] for those interested in development.
   
- * *Nightly buids:* Created automatically every night, directly from the latest version avalilable in our [http://code.google.com/p/400plus/source repository]; if you are brave enought to bother with work-in-progress, test our [http://code.google.com/p/400plus/downloads/list?q=label%3ANightlyBuild Nightly builds].
+ * *Nightly buids:* Created automatically every night, directly from the latest version avalilable in our [http://code.google.com/p/400plus/source repository]; if you are brave enought to bother with work-in-progress, test our [http://code.google.com/p/400plus/downloads/list?q=label%3ANightlyBuild nightly builds].
 
- * *All Downloads:* Finally, all available files can be found at our [http://code.google.com/p/400plus/downloads/list Downloads Page].
+ * *All Downloads:* Finally, all available files can be found at our [http://code.google.com/p/400plus/downloads/list Downloads] page.
