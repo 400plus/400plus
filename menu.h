@@ -167,8 +167,8 @@ OPTIONLIST_DEC(logfile)
 #define MENUITEM_LAUNCH(_NAME_, _ACTION_) \
 	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, tasks:{[MENU_EVENT_SET]=_ACTION_}}
 
-#define MENUITEM_SUBMENU(_NAME_, _PAGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, parm:{menuitem_submenu:{page:_PAGE_}}}
+#define MENUITEM_SUBMENU(_NAME_, _PAGE_, _ACTION_) \
+	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, parm:{menuitem_submenu:{page:_PAGE_}}, tasks:{[MENU_EVENT_SET]=_ACTION_}}
 
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, _ON_CHANGE_)
 #define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  _ON_CHANGE_)

@@ -35,7 +35,7 @@ type_MENUPAGE autoiso_page = {
 };
 
 type_MENUITEM menupage_params_items[] = {
-	MENUITEM_SUBMENU(LP_WORD(L_AUTOISO),      &autoiso_page),
+	MENUITEM_SUBMENU(LP_WORD(L_AUTOISO),      &autoiso_page,                  NULL),
 	MENUITEM_FULLISO(LP_WORD(L_ISO),          &menu_cameraMode.iso,           menu_params_apply_iso),
 	MENUITEM_EVCOMP (LP_WORD(L_AV_COMP),      &menu_cameraMode.av_comp,       menu_params_apply_av_comp),
 	MENUITEM_EVCOMP (LP_WORD(L_FLASH_COMP),   &menu_cameraMode.efcomp,        menu_params_apply_efcomp),
