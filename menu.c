@@ -31,7 +31,7 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_down}},
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_rename}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_page_prev}},
@@ -140,6 +140,10 @@ void menu_event_set() {
 	menu_event(MENU_EVENT_SET);
 }
 
+void menu_event_display() {
+	menu_event(MENU_EVENT_DISPLAY);
+}
+
 void menu_event_change() {
 	menu_event(MENU_EVENT_CHANGE);
 }
@@ -175,6 +179,8 @@ void menu_display() {
 	sprintf(buffer, "<<%*s%s%*s>>", pad1, "", current_page->name, pad2, "");
 
 	dialog_set_property_str(menu_handler, 8, buffer);
+
+	menu_event_display();
 
 	for(i = 0; i < MENU_HEIGTH; i++) {
 		menu_message(buffer, i + offset);
@@ -252,14 +258,6 @@ void menu_left() {
 
 void menu_cycle() {
 	menu_repeat(menu_repeateable_cycle);
-}
-
-void menu_rename() {
-	type_MENUITEM *item = get_current_item();
-
-	if (item && current_page->rename) {
-		rename_create(item->name, current_menu);
-	}
 }
 
 void menu_drag_drop() {

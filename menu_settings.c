@@ -72,9 +72,6 @@ type_MENUPAGE *main_menu_pages[] = {
 type_MENU main_menu = {
 	length : 1,
 	pages  : main_menu_pages,
-	tasks  : {
-		[MENU_EVENT_DP]     = menu_presets_save_start,
-	}
 };
 
 void menu_settings_start() {

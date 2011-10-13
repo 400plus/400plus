@@ -1,16 +1,17 @@
 #include "main.h"
 #include "firmware.h"
 
-#include "menu.h"
-
 #include "languages.h"
+#include "menu.h"
+#include "utils.h"
+
 #include "menu_rename.h"
 
 int   x, y, z;
 int   caps;
 
-type_DIALOG *handle = NULL;
-type_MENU   *rename_parent;
+type_DIALOG *handle   = NULL;
+type_TASK    callback = NULL;
 
 char *rename_filename;
 char  rename_buffer[32];
@@ -60,9 +61,9 @@ void rename_repeateable_left (int repeating);
 
 char *rename_message(int id);
 
-void rename_create(char *filename, type_MENU *parent) {
+void rename_create(char *filename, type_TASK save) {
 	rename_filename = filename;
-	rename_parent   = parent;
+	callback        = save;
 
 	FLAG_GUI_MODE = GUIMODE_RENAME;
 
@@ -75,6 +76,7 @@ void rename_create(char *filename, type_MENU *parent) {
 }
 
 void rename_close() {
+	press_button(IC_BUTTON_DISP);
 	rename_destroy();
 }
 
@@ -180,9 +182,11 @@ void rename_action() {
 }
 
 void rename_save() {
+	if (callback)
+		callback();
+
 	rename_close();
 
-	menu_create(rename_parent);
 	menu_event(MENU_EVENT_CHANGE);
 }
 
