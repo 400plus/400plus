@@ -4,9 +4,8 @@
 #include "display.h"
 #include "languages.h"
 #include "menu.h"
+#include "menu_main.h"
 #include "menu_rename.h"
-#include "menu_settings.h"
-#include "menu_shortcuts.h"
 #include "presets.h"
 #include "tasks.h"
 #include "utils.h"
@@ -38,13 +37,8 @@ type_ACTION actions_main[]  = {
 	{IC_BUTTON_UP,    TRUE,  FALSE,  {restore_iso}},
 	{IC_BUTTON_DOWN,  TRUE,  FALSE,  {restore_wb}},
 	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
-	{IC_BUTTON_DP,    FALSE, TRUE,   {menu_shortcuts_start}},
+	{IC_BUTTON_DP,    FALSE, TRUE,   {menu_main_start}},
 	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_img_format}},
-	END_OF_LIST
-};
-
-type_ACTION actions_menu[]  = {
-	{IC_BUTTON_DP,    FALSE, TRUE, {menu_settings_start}},
 	END_OF_LIST
 };
 
@@ -107,7 +101,6 @@ type_ACTION actions_af[] = {
 type_CHAIN intercom_chains[] = {
 	{GUIMODE_OLC,       actions_main},
 	{GUIMODE_MAIN,      actions_main},
-	{GUIMODE_MENU,      actions_menu},
 	{GUIMODE_400PLUS,   actions_400plus},
 	{GUIMODE_RENAME,    actions_rename},
 	{GUIMODE_METER,     actions_meter},

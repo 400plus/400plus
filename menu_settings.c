@@ -3,12 +3,13 @@
 
 #include "languages.h"
 #include "menu.h"
-#include "menu_presets.h"
 #include "presets.h"
 #include "settings.h"
 #include "utils.h"
 
 #include "menu_settings.h"
+
+void menu_settings_save();
 
 void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
 void menu_settings_apply_remote_enable   (type_MENUITEM *item);
@@ -54,7 +55,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),    &scripts_page,                    NULL),
 };
 
-type_MENUPAGE menupage_main = {
+type_MENUPAGE menupage_settings = {
 	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
@@ -64,26 +65,6 @@ type_MENUPAGE menupage_main = {
 		[MENU_EVENT_CLOSE]  = menu_settings_save,
 	}
 };
-
-type_MENUPAGE *main_menu_pages[] = {
-	&menupage_main,
-};
-
-type_MENU main_menu = {
-	length : 1,
-	pages  : main_menu_pages,
-};
-
-void menu_settings_start() {
-	beep();
-	menu_settings_create();
-}
-
-void menu_settings_create() {
-	menu_cameraMode = *cameraMode;
-
-	menu_create(&main_menu);
-}
 
 void menu_settings_save() {
 	if (menu_get_changed()) {

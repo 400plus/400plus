@@ -64,6 +64,7 @@ C_OBJS = init.o           \
          memspy.o         \
          menu.o           \
          menu_info.o      \
+         menu_main.o      \
          menu_params.o    \
          menu_presets.o   \
          menu_rename.o    \
