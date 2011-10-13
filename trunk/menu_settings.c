@@ -116,12 +116,12 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_IR_REMOTE_ENABLE),  &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &settings.iso_in_viewfinder,      NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),    &scripts_page),
-	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),          &wave_page),
-	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),           &eaeb_page),
-	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),          &interval_page),
-	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),      &timer_page),
-	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),    &presets_page),
+	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),    &scripts_page,                    NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_HANDWAVE),          &wave_page,                       NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_EXT_AEB),           &eaeb_page,                       NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_INTERVAL),          &interval_page,                   NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_TIMER_SPACES),      &timer_page,                      NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_PRESETS_SPACES),    &presets_page,                    NULL),
 };
 
 type_MENUPAGE menupage_main = {
