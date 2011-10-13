@@ -27,7 +27,7 @@ my_GUIInit:
 		BL      TablesInit // TablesInit()
 		MOV     R0, #1 // r0=1
 		BL      placeListFromTab // ///placeListFromTab(1)
-		BL      WidgetBinaryBitmapInit // WidgetBinaryBitmapInitA(placeListFromTab(1));
+		BL      WidgetBinaryBitmapInit // WidgetBinaryBitmapInit(placeListFromTab(1));
 		MOV     R0, #3 // r0=3
 		BL      placeListFromTab // ///placeListFromTab(3)
 		BL      WidgetCounterInit // WidgetCounterInit(placeListFromTab(3));
@@ -147,7 +147,7 @@ my_GUIInit:
 		STR     R11, [SP,#4] // SPx04=GetBrushFromSystemColor(3)
 		BL      CreateWindowInstance
 		LDR     R3, =hGUIWindowInstance
-		STR     R0, [R3] // hGUIWindowInstance = CreateWindowInstance(0, 0, var1, var2)
+		STR     R0, [R3] // hGUIWindowInstance = CreateWindowInstance(0, 0, var1, var2, GUIWindowInstanceProc, GetBrushFromSystemColor(3))
 		BL      some_do_with_window_instance // some_do_with_window_instance(hGUIWindowInstance);
 		BL      taskcreate_GuiMainTask // taskcreate_GuiMainTask() no arg
 		BL      CreateGUIPubInstance // CreateGUIPubInstance() no arg
@@ -172,9 +172,9 @@ my_GUIInit:
 my_GUI_IDLEHandler:
 		STMFD SP!, {R4,LR}
 		LDR R2, =0x10000038
-		SUB SP, SP, #0x31C
-		CMP R1, R2
-		MOV R4, R3
+		SUB SP, SP, #0x31C // alloc(SPx31C)
+		CMP R1, R2 // if (arg1 == GUI_START_DIRECTTRANSFER_MODE)
+		MOV R4, R3 // r4=arg3
 		BEQ START_DIRECTTRANSFER_MODE
 		BHI my_loc_FF8292AC
 		LDR R3, =0x10000012
