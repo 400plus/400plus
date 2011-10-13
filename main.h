@@ -130,8 +130,40 @@ typedef enum {
 } intercom_event_t;
 
 typedef enum {
-	/*
-	GUI_PRESS_DISP_BUTTON          = 0x10000000,
+	//GUI_PRESS_DISP_BUTTON          = 0x10000000,
+
+	//GUI_IDC_DBN_OK                 = 0x6, // ?
+	//GUI_IDC_DBN_CANCEL             = 0x7, // ?
+	GUI_GOT_TOP_OF_CONTROL         = 0x800,
+	GUI_LOST_TOP_OF_CONTROL        = 0x801,
+	GUI_INITIALIZE_CONTROLLER      = 0x802,
+	GUI_TERMINATE_WINSYS           = 0x804,
+	GUI_DELETE_DIALOG_REQUEST      = 0x805,
+	GUI_BUTTON_RIGHT               = 0x807,
+	GUI_BUTTON_LEFT                = 0x809,
+	GUI_BUTTON_UP                  = 0x80B,
+	GUI_BUTTON_DOWN                = 0x80D,
+	GUI_BUTTON_MENU                = 0x80F,
+	GUI_BUTTON_JUMP                = 0x810,
+	GUI_BUTTON_SET                 = 0x812, //(code1 will be menu line number when set button was pressed)
+	GUI_BUTTON_ZOOM_IN_PRESS       = 0x819,
+	GUI_BUTTON_ZOOM_IN_RELEASE     = 0x81A, // DISP_RELEASED // idle handler shows them w/o a reason, could be disp_release
+	GUI_BUTTON_ZOOM_OUT_PRESS      = 0x81B,
+	GUI_BUTTON_ZOOM_OUT_RELEASE    = 0x81C, // DISP_RELEASED // idle handler shows them w/o a reason, could be disp_release
+	// 820 ? // SUB_DIAL (spin left) ? http://chdk.wikia.com/wiki/DryOS_structures
+	// 823 ? // PRESS_MLT_CENTER_BUTTON ? http://chdk.wikia.com/wiki/DryOS_structures
+	GUI_BUTTON_DISP                = 0x829, // GUI_BUTTON_INFO
+	GUI_BUTTON_DIAL_RIGHT          = 0x82B, // on DIAL_[LEFT|RIGHT] the r4 and r5 in btn_handler
+	GUI_BUTTON_DIAL_LEFT           = 0x82C, // are incremental counter for both of them, every dial increments them both
+	// AFAIK (from the asm) DIAL_LEFT is the last with a small number
+	GUI_BUTTON_PLAY                = 0x10000000,
+	GUI_BUTTON_TRASH               = 0x10000001,
+	GUI_BUTTON_DP                  = 0x10000002,
+	// 0x10000019 ?
+	// 0x10000021 ?
+
+	// these names below could be incorrect
+	GUI_BUTTON_CF_CARD             = 0x10000006, // could be
 	GUI_START_MENU_MODE            = 0x10000007,
 	GUI_START_INFO_MODE            = 0x10000008,
 	GUI_START_PLAY_MODE            = 0x10000009,
@@ -169,6 +201,7 @@ typedef enum {
 	GUI_DISP_AF_MODE               = 0x10000044,
 	GUI_DISP_WB_MODE               = 0x10000045,
 	GUI_DISP_MES_MODE              = 0x10000046,
+	GUI_BUTTON_DRIVE               = 0x10000047,
 	GUI_DISP_FP_SEL                = 0x10000048,
 	GUI_DISP_QUAL_MODE             = 0x10000049,
 	GUI_DISP_PICTURESTYLE_MODE     = 0x1000004A,
@@ -193,44 +226,8 @@ typedef enum {
 	GUI_START_LCDADJUST_DIALOG     = 0x1000006F,
 	GUI_DELETE_COLORBAR_DIALOG     = 0x10000070,
 	GUI_DELETE_LCDADJUST_DIALOG    = 0x10000071,
-	*/
 
-	//GUI_IDC_DBN_OK                 = 0x6, // ?
-	//GUI_IDC_DBN_CANCEL             = 0x7, // ?
-	GUI_GOT_TOP_OF_CONTROL         = 0x800,
-	GUI_LOST_TOP_OF_CONTROL        = 0x801,
-	GUI_INITIALIZE_CONTROLLER      = 0x802,
-	GUI_TERMINATE_WINSYS           = 0x804,
-	GUI_DELETE_DIALOG_REQUEST      = 0x805,
-	GUI_BUTTON_RIGHT               = 0x807,
-	GUI_BUTTON_LEFT                = 0x809,
-	GUI_BUTTON_UP                  = 0x80B,
-	GUI_BUTTON_DOWN                = 0x80D,
-	GUI_BUTTON_MENU                = 0x80F,
-	GUI_BUTTON_JUMP                = 0x810,
-	GUI_BUTTON_SET                 = 0x812, //(code1 will be menu line number when set button was pressed)
-	GUI_BUTTON_ZOOM_IN_PRESS       = 0x819,
-	GUI_BUTTON_ZOOM_IN_RELEASE     = 0x81A, // DISP_RELEASED
-	GUI_BUTTON_ZOOM_OUT_PRESS      = 0x81B,
-	GUI_BUTTON_ZOOM_OUT_RELEASE    = 0x81C, // DISP_RELEASED
-	// 820 ? // SUB_DIAL (spin left) ? http://chdk.wikia.com/wiki/DryOS_structures
-	// 823 ? // PRESS_MLT_CENTER_BUTTON ? http://chdk.wikia.com/wiki/DryOS_structures
-	GUI_BUTTON_DISP                = 0x829, // GUI_BUTTON_INFO
-	GUI_BUTTON_DIAL_RIGHT          = 0x82B, // on DIAL_[LEFT|RIGHT] the r4 and r5 in btn_handler
-	GUI_BUTTON_DIAL_LEFT           = 0x82C, // are incremental counter for both of them, every dial increments them both
-	// AFAIK (from the asm) DIAL_LEFT is the last with a small number
-	GUI_BUTTON_PLAY                = 0x10000000,
-	GUI_BUTTON_TRASH               = 0x10000001,
-	GUI_BUTTON_DP                  = 0x10000002,
-	// 0x10000014 ?
-	// 0x10000019 ?
-	// 0x10000021 ?
-	GUI_BUTTON_CF_CARD             = 0x10000006, // could be
-	GUI_BUTTON_DRIVE               = 0x10000047,
-
-	// 0x10000039 ?
 	GUI_UNKNOWN1                   = 0x1000003A, // related to mettering may be ?
-	// 0x1000003C ?
 	GUI_UNKNOWN2                   = 0x1000003E, // related to btns that repeats (AV, 1/2-SHUT) may be ?
 } gui_event_t;
 
