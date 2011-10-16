@@ -173,15 +173,17 @@ void rename_cycle() {
 void rename_action() {
 	if (x < 4) {
 		rename_filename[z] = letters[caps][x][y];
-
-		if (z != 24)
-			z++;
-
+		rename_next();
 		rename_refresh(4);
 	}
 }
 
 void rename_save() {
+	int i;
+
+	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)
+		rename_filename[i] = '\0';
+
 	if (callback)
 		callback();
 
@@ -202,6 +204,12 @@ void rename_clear() {
 void rename_next() {
 	if (z != 24) {
 		z++;
+
+		if (rename_filename[z] == '\0') {
+			rename_filename[z]   = ' ';
+			rename_filename[z+1] = '\0';
+		}
+
 		rename_refresh(4);
 	}
 }
