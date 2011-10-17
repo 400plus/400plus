@@ -259,7 +259,7 @@ Algunas notas y comentarios.
 
 Las anteriores versiones de 400plus soportaban ISO-3200; o más exactamente, parecían soportarla: mientras la cámara mostraba "3200" como valor ISO, las imágenes estaban realmente siendo disparadas a ISO-3000. Las últimas versiones de 400plus corrigen este error y por tanto ahora se soportan valores sólo de hasta ISO-3000.
 
-Ten en cuenta, por tanto, que una imagen disparada con el nuevo ISO-3000 será exactamente la misma que la disparada con el antiguo ISO-3200.      
+Ten en cuenta, entonces, que una imagen disparada con el nuevo ISO-3000 será exactamente la misma que la disparada con el antiguo ISO-3200.      
 
 == ISOs Extendidos ==
 
