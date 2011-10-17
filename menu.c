@@ -15,7 +15,6 @@ int   current_page_id;
 int   current_line;
 int   current_item;
 int   item_grabbed;
-int   changed;
 
 type_MENU     *current_menu;
 type_MENUPAGE *current_page;
@@ -97,7 +96,6 @@ void menu_initialize() {
 	current_item = 0;
 
 	item_grabbed   = FALSE;
-	changed        = FALSE;
 }
 
 void menu_destroy() {
@@ -432,14 +430,6 @@ void menu_repeateable_cycle(int repeating) {
 		menu_event_change();
 		menu_refresh();
 	}
-}
-
-void menu_set_changed() {
-	changed = TRUE;
-}
-
-int menu_get_changed() {
-	return changed;
 }
 
 void menu_message(const char *buffer, int item_id) {

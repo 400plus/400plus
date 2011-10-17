@@ -2,6 +2,7 @@
 #include "firmware.h"
 
 #include "menu.h"
+#include "settings.h"
 
 #include "menu_info.h"
 
@@ -17,5 +18,6 @@ type_MENUPAGE menupage_info = {
 	name        : "Info",
 	length      : LENGTH(menupage_info_items),
 	items       : menupage_info_items,
-	reorder     : FALSE,
+	reorder     : TRUE,
+	ordering    : settings.info_order,
 };

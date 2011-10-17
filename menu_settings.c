@@ -9,8 +9,6 @@
 
 #include "menu_settings.h"
 
-void menu_settings_save();
-
 void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
 void menu_settings_apply_remote_enable   (type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (type_MENUITEM *item);
@@ -59,19 +57,9 @@ type_MENUPAGE menupage_settings = {
 	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
-	reorder     : FALSE,
-	tasks       : {
-		[MENU_EVENT_CHANGE] = menu_set_changed,
-		[MENU_EVENT_CLOSE]  = menu_settings_save,
-	}
+	reorder     : TRUE,
+	ordering    : settings.settings_order,
 };
-
-void menu_settings_save() {
-	if (menu_get_changed()) {
-		settings_write();
-		presets_write();
-	}
-}
 
 void menu_settings_apply_cf_safety_shift(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);

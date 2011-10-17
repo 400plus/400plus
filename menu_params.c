@@ -26,10 +26,10 @@ type_MENUITEM autoiso_items[] = {
 };
 
 type_MENUPAGE autoiso_page = {
-	name   : LP_WORD(L_AUTOISO),
-	length : LENGTH(autoiso_items),
-	items  : autoiso_items,
-	tasks  : {
+	name     : LP_WORD(L_AUTOISO),
+	length   : LENGTH(autoiso_items),
+	items    : autoiso_items,
+	tasks    : {
 		[MENU_EVENT_SET] = menu_return,
 	}
 };
@@ -45,10 +45,11 @@ type_MENUITEM menupage_params_items[] = {
 };
 
 type_MENUPAGE menupage_params = {
-	name        : "Parameters",
-	length      : LENGTH(menupage_params_items),
-	items       : menupage_params_items,
-	reorder     : FALSE,
+	name     : "Parameters",
+	length   : LENGTH(menupage_params_items),
+	items    : menupage_params_items,
+	reorder  : TRUE,
+	ordering : settings.params_order,
 };
 
 void menu_params_apply_autoiso_miniso(type_MENUITEM *item) {

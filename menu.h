@@ -213,9 +213,6 @@ extern void menu_left();
 
 extern void menu_cycle();
 
-extern void menu_set_changed();
-extern int  menu_get_changed();
-
 extern void menu_drag_drop();
 
 extern void menu_page_next();
