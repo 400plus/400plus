@@ -93,7 +93,8 @@ type_MENUPAGE menupage_scripts = {
 	name        : "Scripts",
 	length      : LENGTH(menupage_scripts_items),
 	items       : menupage_scripts_items,
-	reorder     : FALSE,
+	reorder     : TRUE,
+	ordering    : settings.scripts_order,
 };
 
 void menu_scripts_apply_eaeb_tvmin(type_MENUITEM *item) {

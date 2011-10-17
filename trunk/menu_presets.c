@@ -11,7 +11,6 @@
 #include "menu_presets.h"
 
 void menu_preset_display();
-void menu_preset_close();
 
 void preset_save_1();
 void preset_save_2();
@@ -178,8 +177,6 @@ type_MENUPAGE menupage_presets = {
 	ordering    : presets_config.order,
 	tasks       : {
 		[MENU_EVENT_DISPLAY] = menu_preset_display,
-		[MENU_EVENT_CHANGE]  = menu_set_changed,
-		[MENU_EVENT_CLOSE]   = menu_preset_close,
 	}
 };
 
@@ -189,12 +186,6 @@ void menu_preset_display() {
 		menupage_presets.highlighted_item = status.last_preset;
 	} else {
 		menupage_presets.highlight        = FALSE;
-	}
-}
-
-void menu_preset_close() {
-	if (menu_get_changed()) {
-		presets_write();
 	}
 }
 
