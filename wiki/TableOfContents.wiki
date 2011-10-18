@@ -1,3 +1,4 @@
+[Wiki Documentation]
   * For users
     * [AWordOfWarning A Word of Warning]
     * [FirmwareHackInstallation Firmware Hack Installation]
