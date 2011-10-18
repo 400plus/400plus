@@ -23,15 +23,15 @@ void menu_set_changed();
 int  menu_get_changed();
 
 type_MENUPAGE *menu_main_pages[] = {
+	&menupage_params,
 	&menupage_shortcuts,
 	&menupage_scripts,
-	&menupage_presets,
-	&menupage_params,
-	&menupage_settings,
 	&menupage_info,
 #ifdef BREAK_CAMERA
 	&menupage_developer,
 #endif
+	&menupage_settings,
+	&menupage_presets,
 };
 
 type_MENU menu_main = {

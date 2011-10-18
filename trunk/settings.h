@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x25
+#define SETTINGS_VERSION  0x26
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -36,11 +36,11 @@ typedef struct {
 	int remote_delay;
 	int timer_timeout;
 	int timer_action;
-	int shortcuts_order[10];
-	int developer_order[10];
-	int info_order[10];
 	int params_order[10];
+	int shortcuts_order[10];
 	int scripts_order[10];
+	int info_order[10];
+	int developer_order[10];
 	int settings_order[10];
 	int dim_lcd_down;
 	int keep_power_on;
