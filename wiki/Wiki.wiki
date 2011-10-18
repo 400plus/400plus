@@ -8,12 +8,31 @@
 
 _It is designed specifically for the Canon 400D/XTi and will not work with other camera models._
 
-== Instructions ==
+== For Users ==
 
- * If you want to give it a try, please, read "[AWordOfWarning A Word of Warning]" at our wiki before doing anything elsethere.
- * Then go to the installation guide at "[FirmwareHackInstallation Firmware Hack Installation]" (available also in [InstallazioneHackFirmware Italian]).
- * And finally, there is an user guide at "[UserGuide User Guide]" (available also in [UserGuideItalian Italian], [UserGuideSpanish Spanish], and [UserGuideGerman German]), where you learn how to use `400plus`. 
+Some warning advice that everybody should read before doing anything else:
+  * [AWordOfWarning A Word of Warning].
+
+Instructions on how to prepare your camera and install `400plus` in your CF cards:
+  * [FirmwareHackInstallation Firmware Hack Installation]
+    * [InstallazioneHackFirmware Italian translation]
+
+A guide to understand how to configure and use `400plus`:
+  * [UserGuide User's Guide].
+    * [UserGuideItalian Italian translation].
+    * [UserGuideSpanish Spanish translation].
+    * [UserGuideGerman German translation].
+
+For those interested to know what has changed in each version:
+  * [ChangeLog Chronological list of changes]
+
+== For Developers ==
+
+Some resources for people interested in development:
+   * [devinfo General info for developers]
+   * [TranslatorsGuide Translators' Guide]
 
 == All Pages ==
 
-Finally, all pages can be browsed at our [http://code.google.com/p/400plus/w/list wiki].
+A complete list of all pages available in this wiki:
+  * [http://code.google.com/p/400plus/w/list All pages].
