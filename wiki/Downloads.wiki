@@ -6,10 +6,16 @@ _Please, read "[AWordOfWarning A Word of Warning]" at our Wiki before doing down
 
 There are several types of downloads available here:
 
- * *Firmware Hack Installation:* The [http://code.google.com/p/400plus/downloads/list?can=2&q=Hack-activation+firmware hack-activation firmware] that you will need to prepare your camera; see the [FirmwareHackInstallation Firmware Hack Installation] wiki page for more information.
+  * *Firmware Hack Installation:* You will need this file to prepare your camera; please see the installation instructions for more information.
+    * [http://code.google.com/p/400plus/downloads/list?can=2&q=Hack-activation+firmware Hack-activation firmware].
 
- * *Official Releases:* Our [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured official releases]; both the [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable binary] that you must install in your CF card, and the [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DSource  source code] for those interested in development.
+  * *Official Releases:* Ready to use packages with our latest official releases, intended for general usage; normal users need to download and install only binaries, while source code packages are targeted to people interested in development.
+    * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured Official releases].
+      * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable Binaries].
+      * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DSource Source code].
   
- * *Nightly buids:* Created automatically every night, directly from the latest version avalilable in our [http://code.google.com/p/400plus/source repository]; if you are brave enought to bother with work-in-progress, test our [http://code.google.com/p/400plus/downloads/list?q=label%3ANightlyBuild nightly builds].
+  * *Nightly builds:* Created automatically every night, directly from the latest version available in our repository, and intended to be used only for testing purposes; users are not expected to use these files.
+    * [http://code.google.com/p/400plus/downloads/list?q=label%3ANightlyBuild Nightly builds].
 
- * *All Downloads:* Finally, all available files can be found at our [http://code.google.com/p/400plus/downloads/list Downloads] page.
+  * *All Downloads:* A complete list of all files currently available.
+    * [http://code.google.com/p/400plus/downloads/list All downloads].
