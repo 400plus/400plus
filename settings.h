@@ -36,6 +36,7 @@ typedef struct {
 	int remote_delay;
 	int timer_timeout;
 	int timer_action;
+	int main_order[10];
 	int params_order[10];
 	int shortcuts_order[10];
 	int scripts_order[10];

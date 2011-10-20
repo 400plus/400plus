@@ -35,9 +35,10 @@ type_MENUPAGE *menu_main_pages[] = {
 };
 
 type_MENU menu_main = {
-	length : LENGTH(menu_main_pages),
-	pages  : menu_main_pages,
-	tasks  : {
+	length   : LENGTH(menu_main_pages),
+	pages    : menu_main_pages,
+	ordering : settings.main_order,
+	tasks    : {
 		[MENU_EVENT_CHANGE]  = menu_set_changed,
 		[MENU_EVENT_CLOSE]   = menu_save,
 	}

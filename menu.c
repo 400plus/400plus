@@ -61,6 +61,7 @@ void menu_print_iso  (const char *buffer, const char *name, int   parameter);
 void menu_print_int  (const char *buffer, const char *name, int   parameter, const char *format);
 void menu_print_char (const char *buffer, const char *name, const char *parameter);
 
+type_MENUPAGE *get_current_page();
 type_MENUITEM *get_current_item();
 type_MENUITEM *get_item(int item_id);
 
@@ -90,7 +91,7 @@ void menu_initialize() {
 	menu_handler = NULL;
 
 	current_page_id = 0;
-	current_page    = current_menu->pages[current_page_id];
+	current_page    = get_current_page();
 
 	current_line = 0;
 	current_item = 0;
@@ -199,7 +200,7 @@ void menu_refresh() {
 void menu_return() {
 	item_grabbed = FALSE;
 
-	current_page = current_menu->pages[current_page_id];
+	current_page = get_current_page();
 	current_item = current_line;
 
 	menu_display();
@@ -531,6 +532,14 @@ void menu_print_char(const char *buffer, const char *name, const char *parameter
 	int pad = MENU_WIDTH - strlen(parameter) - 1;
 
 	sprintf(buffer, "%-*.*s %s", pad, pad, name, parameter);
+}
+
+type_MENUPAGE *get_current_page() {
+	if (current_menu->ordering) {
+		return current_menu->pages[current_menu->ordering[current_page_id]];
+	} else {
+		return current_menu->pages[current_page_id];
+	}
 }
 
 type_MENUITEM *get_current_item() {
