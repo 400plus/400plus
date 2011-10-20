@@ -197,8 +197,11 @@ void menu_refresh() {
 }
 
 void menu_return() {
+	item_grabbed = FALSE;
+
 	current_page = current_menu->pages[current_page_id];
 	current_item = current_line;
+
 	menu_display();
 }
 
