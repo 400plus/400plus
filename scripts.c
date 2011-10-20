@@ -19,8 +19,6 @@ void script_shot(type_SHOT_ACTION action);
 void sub_extended_aeb();
 void sub_interval();
 
-void release_and_wait();
-void wait_for_camera(int strict);
 void script_delay(int seconds);
 
 void script_extended_aeb() {
@@ -106,8 +104,6 @@ void script_start() {
 		feedback_task = CreateTask("Feedback", 5, 0x2000, script_feedback, 0);
 	else
 		UnSuspendTask(feedback_task);
-
-	wait_for_camera(TRUE);
 }
 
 void script_stop() {
@@ -117,8 +113,6 @@ void script_stop() {
 	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_cameraMode.auto_power_off);
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
 	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
-
-	wait_for_camera(TRUE);
 }
 
 void script_feedback() {
@@ -138,7 +132,7 @@ void script_shot(type_SHOT_ACTION action) {
 
 	switch (action) {
 	case SHOT_ACTION_SHOT:
-		release_and_wait();
+		shutter_release();
 		break;
 	case SHOT_ACTION_EAEB:
 		sub_extended_aeb();
@@ -161,17 +155,10 @@ void sub_extended_aeb() {
 			for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
 				if (tv_val < 0x10) {
 					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
-
-					press_button(0xB6);
-					SleepTask(60 * 1000 * (1 << (1 - (tv_val >> 3))));
-
-					press_button(0xB6);
-					wait_for_camera(TRUE);
-
-					script_delay(1);
+					shutter_release_bulb(1 << (1 - (tv_val >> 3)));
 				} else {
 					send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
-					release_and_wait();
+					shutter_release();
 				}
 
 				if (!status.script_running)
@@ -183,19 +170,19 @@ void sub_extended_aeb() {
 			int tv_inc = cameraMode->tv_val;
 			int tv_dec = cameraMode->tv_val;
 
-			release_and_wait();
+			shutter_release();
 
 			for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
 				tv_inc = tv_add(tv_inc, settings.eaeb_ev);
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_inc);
-				release_and_wait();
+				shutter_release();
 
 				if (!status.script_running)
 					break;
 
 				tv_dec = tv_sub(tv_dec, settings.eaeb_ev);
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
-				release_and_wait();
+				shutter_release();
 
 				if (!status.script_running)
 					break;
@@ -209,19 +196,19 @@ void sub_extended_aeb() {
 		int av_inc = cameraMode->av_comp;
 		int av_dec = cameraMode->av_comp;
 
-		release_and_wait();
+		shutter_release();
 
 		for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
 			av_inc = ev_add(av_inc, settings.eaeb_ev);
 			send_to_intercom(IC_SET_AV_COMP, 1, av_inc);
-			release_and_wait();
+			shutter_release();
 
 			if (!status.script_running)
 				break;
 
 			av_dec = ev_sub(av_dec, settings.eaeb_ev);
 			send_to_intercom(IC_SET_AV_COMP, 1, av_dec);
-			release_and_wait();
+			shutter_release();
 
 			if (!status.script_running)
 				break;
@@ -238,8 +225,6 @@ void sub_interval() {
 		if (!status.script_running)
 			break;
 
-		wait_for_camera(TRUE);
-
 		if (settings.interval_eaeb)
 			script_shot(SHOT_ACTION_EAEB);
 		else
@@ -250,24 +235,6 @@ void sub_interval() {
 		else
 			break;
 	}
-
-	wait_for_camera(TRUE);
-}
-
-void release_and_wait() {
-	shutter_release();
-	wait_for_camera(FALSE);
-}
-
-void wait_for_camera(int strict) {
-	while(FLAG_CAMERA_BUSY)
-		SleepTask(WAIT_CAMERA_BUSY);
-
-	if (strict)
-		while(cameraMode->status_busy_flag)
-			SleepTask(WAIT_CAMERA_BUSY);
-	else
-		SleepTask(WAIT_CAMERA_BUSY);
 }
 
 void script_delay(int seconds) {

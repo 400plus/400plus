@@ -1,9 +1,6 @@
 #ifndef SCRIPTS_H_
 #define SCRIPTS_H_
 
-// Time between tries while waiting for camera
-#define WAIT_CAMERA_BUSY 250
-
 // Time between tries while waiting for user
 #define WAIT_USER_ACTION 100
 

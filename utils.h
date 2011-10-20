@@ -6,9 +6,11 @@
 
 #include "types.h"
 
-#define BEEP_LED_LENGTH 25
-#define INTERCOM_WAIT    5
-#define EVENT_WAIT       5
+#define BEEP_LED_LENGTH  25
+#define INTERCOM_WAIT     5
+#define EVENT_WAIT        5
+#define RELEASE_WAIT    100
+
 
 extern int ev_sgn(int ev);
 extern int ev_inc(int ev);
@@ -48,7 +50,7 @@ extern void print_info();
 
 extern int  send_to_intercom(int message, int length, int parm);
 extern int  shutter_release();
-extern int  print_icu_info();
+extern int  shutter_release_bulb(int time_ms);
 extern int  press_button(int button);
 
 extern int remote_on();
