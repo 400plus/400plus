@@ -17021,7 +17021,7 @@ DEF(_MAIN__MPU_Error , 0xFF82257C)
 DEF(_MAIN__OLC_but_cannot_OLC_ , 0xFF825078)
 DEF(_MAIN__PROTECT_FOLDER , 0xFF825508)
 DEF(_MAIN__RemainCluster , 0xFF8230E8)
-DEF(_MAIN__cannnot_send__inhibit , 0xFF8219B4)
+DEF(Permit_or_Inhibit_Release , 0xFF8219B4)
 DEF(_MAIN__detect_protected , 0xFF820870)
 DEF(_MAIN__save_energy_mode_ , 0xFF824F2C)
 DEF(_MAIN__save_energy_mode__2 , 0xFF825D60)
@@ -17284,5 +17284,5 @@ DEF(some_important_structure,    0x00024860)
 DEF(unk_258A0,    0x000258A0)
 
 // for lens
-DEF(some_with_lens_name, 0xFF95AEA0);
+DEF(some_with_lens_name, 0xFF95AEA0)
 

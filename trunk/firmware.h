@@ -131,7 +131,7 @@ extern int taskDeleteHookAdd (void *deleteHook);
 
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
-extern int IntercomHandlerButton(int button);
+extern int IntercomHandlerButton(int button, int unknown);
 
 // Semaphores
 
@@ -146,6 +146,7 @@ extern SEM_ID hMainCtrlMonoSem;
 extern int eventproc_PrintICUInfo();
 extern int eventproc_RiseEvent(const char *event);
 extern int eventproc_Release();
+extern int Permit_or_Inhibit_Release(int);
 
 // Display
 
@@ -190,6 +191,13 @@ PaletteChange(1); //changes menu to blue
 
 extern int EnterFactoryMode();
 extern int ExitFactoryMode();
+extern int hDbgMgr;
+// info on dmSet[Print|Store]Level() routines:
+// second arg is bits field, i guess the debug classes has their own bits
+// the 3rd arg is the level - 0 == max, 0xff == min
+extern int dmSetPrintLevel(int DbgMgr, int dwFlag, int dwLevel);
+extern int dmSetStoreLevel(int DbgMgr, int dwFlag, int dwLevel);
+
 
 extern int ioGlobalStdSet(int handle, int file);
 

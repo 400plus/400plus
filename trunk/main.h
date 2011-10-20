@@ -40,6 +40,7 @@ typedef enum {
 	IC_SET_FILE_NUMBERING          = 0x18, //
 	IC_SET_LANGUAGE                = 0x19, //
 	IC_SET_VIDEO_SYSTEM            = 0x1A, //
+	// 0x1C == picture style ?
 	IC_SET_HISTOGRAM               = 0x1D, //
 	IC_SET_COLOR_SPACE             = 0x21, //
 	IC_SET_IMG_FORMAT              = 0x22, //
@@ -71,15 +72,18 @@ typedef enum {
 	IC_DIALOGOFF                   = 0x51, //
 	IC_SHUTDOWN                    = 0x52, //
 	IC_RELEASE                     = 0x53, //
-	IC_INHIBIT_RELEASE_MAYBE       = 0x55, //
+	IC_RELEASE_INHIBIT             = 0x55, // forbid the shooting
+	IC_RELEASE_PERMIT              = 0x57, // permit the shooting
 	IC_RESET_SETTINGS              = 0x59, // it is called in reset settings, then 0x5A is called. so they both should be related
 	IC_ENTERFACTORYMODE            = 0x5D, //
 	IC_EXITFACTORYMODE             = 0x5E, //
 	IC_UILOCK                      = 0x5F, //
 	IC_GUILOCK                     = 0x60, //
 	IC_FIRMUP                      = 0x61, //
+	// 0x64 ?
 	IC_BAT_TYPE                    = 0x65, //
 	IC_BC_LEVEL                    = 0x66, //
+	// 0x67 ?
 	IC_CARD_FULL_MSG_IN_VF         = 0x6B, //
 	IC_CHANGE_BAT_DIALOG           = 0x6C, //
 	IC_SET_BURST_COUNTER           = 0x6D, //
@@ -102,11 +106,12 @@ typedef enum {
 	IC_AFPDLGOFF                   = 0xA7, // hmm it seems like dialog destroy after all
 	// and 0xA8 is perhaps dialog create.
 	IC_BUTTON_DIAL                 = 0xA9, //
+	IC_BUTTON_DIAL1                = 0xAA, // does the same as DIAL
 	IC_BUTTON_DIAL_LEFT            = ( 1 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
 	IC_BUTTON_DIAL_RIGHT           = ( 2 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
 	IC_BUTTON_CARD_DOOR            = 0xAB, //
 	IC_BUTTON_UNK1                 = 0xAC, //
-	IC_BUTTON_POWER                = 0xAE, //
+	IC_BUTTON_POWER                = 0xAE, // change_menupos ?
 	IC_BUTTON_BATTERY_DOOR         = 0xAF, //
 	IC_BUTTON_UP                   = 0xB1, //
 	IC_BUTTON_DOWN                 = 0xB2, //
@@ -343,6 +348,7 @@ extern type_CAMERA_MODE *cameraMode;
 #define AE_MODE_AV        0x02
 #define AE_MODE_M         0x03
 #define AE_MODE_ADEP      0x05
+// auto modes == (ae > 6)
 #define AE_MODE_AUTO      0x08
 #define AE_MODE_NIGHT     0x09
 #define AE_MODE_SPORTS    0x0A
