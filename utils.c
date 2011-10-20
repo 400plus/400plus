@@ -400,7 +400,7 @@ int print_icu_info() {
 }
 
 int press_button(int button) {
-	int result = IntercomHandlerButton(button);
+	int result = IntercomHandlerButton(button, 0); // takes 2 args...
 	SleepTask(EVENT_WAIT);
 
 	return result;
