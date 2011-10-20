@@ -147,7 +147,8 @@ extern SEM_ID hMainCtrlMonoSem;
 extern int eventproc_PrintICUInfo();
 extern int eventproc_RiseEvent(const char *event);
 extern int eventproc_Release();
-extern int Permit_or_Inhibit_Release(int);
+extern int permit_or_inhibit_release(int);
+extern int able_to_release(); // checks the "is_release_permitted" and "BurstCounter", return 1 if we can shoot
 
 // Display
 
