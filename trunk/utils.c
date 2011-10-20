@@ -386,10 +386,24 @@ int shutter_release_disasm() {
 #endif
 
 int shutter_release() {
+	while (! able_to_release())
+		SleepTask(RELEASE_WAIT);
+
 	int result = eventproc_Release();
 	SleepTask(EVENT_WAIT);
 
 	return result;
+}
+
+int shutter_release_bulb(int time_ms) {
+	while (! able_to_release())
+		SleepTask(RELEASE_WAIT);
+
+	press_button(0xB6);
+	SleepTask(60 * 1000 * time_ms);
+	press_button(0xB6);
+
+	return 0;
 }
 
 int print_icu_info() {
