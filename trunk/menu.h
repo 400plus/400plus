@@ -132,6 +132,7 @@ struct MENU {
 	int               length;
 	type_MENUPAGE   **pages;
 	type_MENU_TASK    tasks[MENU_EVENT_COUNT];
+	int              *ordering;
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;

@@ -27,6 +27,18 @@ type_MENUITEM presets_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_PRESETS_CFN),      &presets_config.recall_cfn,      NULL)
 };
 
+type_MENUITEM pages_items[] = {
+	MENUITEM_BREAK("Parameters"),
+	MENUITEM_BREAK(LP_WORD(L_SHORTCUTS)),
+	MENUITEM_BREAK("Scripts"),
+	MENUITEM_BREAK("Info"),
+#ifdef BREAK_CAMERA
+	MENUITEM_BREAK(LP_WORD(L_DEVELOPERS_MENU)),
+#endif
+	MENUITEM_BREAK(LP_WORD(L_SETTINGS)),
+	MENUITEM_BREAK("Presets"),
+};
+
 type_MENUPAGE scripts_page = {
 	name   : LP_WORD(L_SCRIPTS_SPACES),
 	length : LENGTH(scripts_items),
@@ -45,12 +57,24 @@ type_MENUPAGE presets_page = {
 	}
 };
 
+type_MENUPAGE pages_page = {
+	name     : "Pages",
+	length   : LENGTH(pages_items),
+	items    : pages_items,
+	reorder  : TRUE,
+	ordering : settings.main_order,
+	tasks    : {
+		[MENU_EVENT_SET] = menu_return,
+	}
+};
+
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_SAFETY_SHIFT),      &menu_cameraMode.cf_safety_shift, menu_settings_apply_cf_safety_shift),
 	MENUITEM_BOOLEAN(LP_WORD(L_IR_REMOTE_ENABLE),  &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_DELAY  (LP_WORD(L_IR_REMOTE_DELAY),   &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),         &settings.iso_in_viewfinder,      NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_SCRIPTS_SPACES),    &scripts_page,                    NULL),
+	MENUITEM_SUBMENU("Pages",                      &pages_page,                      NULL),
 };
 
 type_MENUPAGE menupage_settings = {
