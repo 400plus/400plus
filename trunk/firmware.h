@@ -19,6 +19,7 @@ extern int hMnBg;         // Menu Dialog
 extern void *OlcInfoData; // OLC data
 extern void *DPData; // CameraMode
 extern struct lens_info LensID; // lens info
+extern int is_release_permitted; // can we shoot
 
 
 extern int logMsg(char *, ...);
