@@ -27,9 +27,7 @@ type_MENUPAGE *menu_main_pages[] = {
 	&menupage_shortcuts,
 	&menupage_scripts,
 	&menupage_info,
-#ifdef BREAK_CAMERA
 	&menupage_developer,
-#endif
 	&menupage_settings,
 	&menupage_presets,
 };

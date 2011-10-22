@@ -25,15 +25,17 @@ static int   curr_palette = 0;
 static void test_dialog_create();
 
 type_MENUITEM menu_developer_items[] = {
+	MENUITEM_LAUNCH(LP_WORD(L_DUMP_LOG_TO_FILE),    dump_log),
+	MENUITEM_LAUNCH(LP_WORD(L_PRINT_INFO),          print_info),
+	MENUITEM_BOOLEAN(LP_WORD(L_DEBUG_ON_POWERON),  &settings.debug_on_poweron, NULL),
+	MENUITEM_LOGFILE(LP_WORD(L_LOGFILE),           &settings.logfile_mode,     NULL),
+#ifdef BREAK_CAMERA
+	MENUITEM_LAUNCH(LP_WORD(L_ENTER_FACTORY_MODE),  enter_factory_mode),
+	MENUITEM_LAUNCH(LP_WORD(L_EXIT_FACTORY_MODE),   exit_factory_mode),
+#endif
 #ifdef TEST_DIALOGS
 	MENUITEM_LAUNCH(LP_WORD(L_TEST_DIALOGS),        test_dialog_create),
 #endif
-	MENUITEM_LAUNCH(LP_WORD(L_DUMP_LOG_TO_FILE),    dump_log),
-	MENUITEM_LAUNCH(LP_WORD(L_PRINT_INFO),          print_info),
-	MENUITEM_LAUNCH(LP_WORD(L_ENTER_FACTORY_MODE),  enter_factory_mode),
-	MENUITEM_LAUNCH(LP_WORD(L_EXIT_FACTORY_MODE),   exit_factory_mode),
-	MENUITEM_BOOLEAN(LP_WORD(L_DEBUG_ON_POWERON),  &settings.debug_on_poweron, NULL),
-	MENUITEM_LOGFILE(LP_WORD(L_LOGFILE),           &settings.logfile_mode,     NULL),
 };
 
 type_MENUPAGE menupage_developer = {
