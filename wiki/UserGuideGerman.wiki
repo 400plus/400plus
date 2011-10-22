@@ -1,5 +1,9 @@
 #summary [Guide][German] 400plus UserGuide in German (updated to r703)
 
+<font color="red">
+DA ICH MOMENTAN LEIDER KEINE ZEIT HABE, SPIEGELT DIESES NICHT DEN AKTUELLEN SOFTWARESTAND WIDER.
+</font>
+
 = Translation =
 German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
 
