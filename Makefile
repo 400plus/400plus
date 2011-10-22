@@ -28,19 +28,19 @@ COMMON_FLAGS =\
 
 # alex had issues with struct alignment (gcc-4.6.0, -Os) in ML
 # this fixes them, keep it here in case we need it
-         #-mstructure-size-boundary=32 \
+	#-mstructure-size-boundary=32 \
 
 
 CC     = arm-elf-gcc
-CFLAGS+= $(COMMON_FLAGS)                   \
+CFLAGS+= $(COMMON_FLAGS)               \
 	-Os                                \
-        -Wno-implicit-function-declaration \
-        -Wno-char-subscripts               \
+	-Wno-implicit-function-declaration \
+	-Wno-char-subscripts               \
 
-	 #-fomit-frame-pointer \
-         #-fno-strict-aliasing \
-         #-Wno-unused-parameter \
-         #-Wno-unused-function \
+	#-fomit-frame-pointer  \
+	#-fno-strict-aliasing  \
+	#-Wno-unused-parameter \
+	#-Wno-unused-function  \
 
 
 AS      = arm-elf-as
@@ -52,9 +52,6 @@ OBJCOPY = arm-elf-objcopy
 
 S_OBJS = entry.o          \
          funclist.o       \
-
-
-#         gui.o            \
 
 C_OBJS = init.o           \
          gui.o            \
