@@ -75,15 +75,23 @@ void menu_create(type_MENU * menu) {
 	menu_destroy();
 	menu_initialize();
 
+	GUI_Lock();
+	GUI_PalleteInit();
+
 	menu_handler = dialog_create(22, button_menu_handler);
+	PalettePush();
 
 	PaletteChange(current_menu->color);
 
 	menu_display();
+
+	GUI_UnLock();
+	GUI_PalleteUnInit();
+
 }
 
 void menu_close() {
-	press_button(IC_BUTTON_DISP);
+	// press_button(IC_BUTTON_DISP);
 	menu_destroy();
 }
 
@@ -101,8 +109,10 @@ void menu_initialize() {
 
 void menu_destroy() {
 	if (menu_handler != NULL) {
+		PalettePop();
 		DeleteDialogBox(menu_handler);
 		menu_handler = NULL;
+		GUI_ClearImage();
 	}
 }
 

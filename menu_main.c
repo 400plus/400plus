@@ -47,7 +47,11 @@ type_MENU menu_main = {
 void menu_main_start() {
 	beep();
 
-	press_button(IC_BUTTON_MENU);
+	//
+	//GUI_Command(4,0);
+	//press_button(IC_BUTTON_MENU);
+	//
+	SendToMC(6, 2, 0);
 	SleepTask(100);
 
 	changed         = FALSE;

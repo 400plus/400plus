@@ -72,7 +72,7 @@ typedef enum {
 	IC_DIALOGOFF                   = 0x51, //
 	IC_SHUTDOWN                    = 0x52, //
 	IC_RELEASE                     = 0x53, //
-	IC_RELEASE_INHIBIT             = 0x55, // forbid the shooting
+	IC_RELEASE_INHIBIT             = 0x55, // forbid the shooting, if we call these, we will have to update "is_release_permitted" flag too
 	IC_RELEASE_PERMIT              = 0x57, // permit the shooting
 	IC_RESET_SETTINGS              = 0x59, // it is called in reset settings, then 0x5A is called. so they both should be related
 	IC_ENTERFACTORYMODE            = 0x5D, //
@@ -85,7 +85,7 @@ typedef enum {
 	IC_BC_LEVEL                    = 0x66, //
 	// 0x67 ?
 	IC_CARD_FULL_MSG_IN_VF         = 0x6B, //
-	IC_CHANGE_BAT_DIALOG           = 0x6C, //
+	IC_CHANGE_BAT_AND_OTHER_DIALOGS= 0x6C, //
 	IC_SET_BURST_COUNTER           = 0x6D, //
 	IC_POWER_FLAG                  = 0x72, //
 	IC_BUZZER                      = 0x73, //

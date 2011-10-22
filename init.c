@@ -2,6 +2,8 @@
 
 #include "init.h"
 
+#include "firmware.h"
+
 void my_romStart(int startType);
 int  my_usrInit(int startType);
 int  my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize);
@@ -134,6 +136,13 @@ void my_task_Startup() {
 
 	dmstart();
 	dmProcInit();
+
+#ifdef ENABLE_MASSIVE_DEBUG
+	// the 2nd level is 32 flags for debug classes
+	// the 3rd arg is log level, 0 == full debug, >0 == less debug
+	dmSetStoreLevel(hDbgMgr, 0xFF, 0);
+	dmSetPrintLevel(hDbgMgr, 0xFF, 0);
+#endif
 
 	//int disable_hack = cameraMode->forbid_rel;
 	int disable_hack = 0;

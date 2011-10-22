@@ -4,6 +4,9 @@
 #include "tasks.h"
 #include "debug.h"
 
+const char * get_mc_name(int event);
+const char * get_btn_name(int btn);
+
 typedef struct MC_Table_entry_struct {
 	mc_event_t t;
 	int sw;
@@ -12,22 +15,13 @@ typedef struct MC_Table_entry_struct {
 
 void my_MC_T_Button(mc_table_t * event) {
 
-	// actually, i feel a little bit stupid now...
-	// i was so enthusiastic about task_mainctrl() and mc_button() routines
-	// that i missed the important thing...
-	// we could just let the original one do the stuff...
-	//	MC_T_Button(event);
-	//
-	// and use this routine as a proxy, which would block or pass the event...
-	// just like the intecom_proxy
-	//
-	// of course it is better to know what is going on arround, and this helped me to find
-	// some buttons which we didnt knew before, but still i could save myself one night...
+	// AF: important original btns handled at 0xFF81C9F0 in the OFW
 
-
+#ifdef ENABLE_DEBUG
+	printf_log(1, 6, "\t sw:%s (arg:%04d)", get_btn_name(event->sw), event->arg);
+#else
 	printf_log(1, 6, asw04d04d /*"\t sw:%04d(%04d)"*/, event->sw, event->arg);
-	//static char buf[30];
-	//printf_log(1, 6, "\t BUTTON: sw:0x%02X(%s) arg:(0x%04X)", event->sw, mc_btn_name(buf, event->sw), event->arg);
+#endif
 
 	switch (event->sw) {
 
@@ -37,6 +31,7 @@ void my_MC_T_Button(mc_table_t * event) {
 			CardDoorEmergency_Func();
 		}
 		break;
+
 	case MC_BUTTON_CARD_DOOR_OPEN: // 162+9 = 171 // card door
 		if (event->arg == 0) {
 			err_MC_T |= 1;
@@ -56,7 +51,7 @@ void my_MC_T_Button(mc_table_t * event) {
 
 			if (unk_258A0 != 0) { // i think this flag indicates that we are taking photo ATM
 				set_dword_7610_to_0();
-				DDD_Capture(event->arg);// now we need to find WTF is this DDD... i see this DDD stuff frequently in the FW.
+				DDD_Capture(event->arg);// Dust Delete Data ?
 				// when DDD_Capture(), is called with arg==0 (like in this call)
 				// it will call internaly End_DDD_Capture.
 				// so i guess this is called when we turn off the camera, while it's shooting
@@ -66,8 +61,8 @@ void my_MC_T_Button(mc_table_t * event) {
 			set_2A0E0_to_1();
 			change_playback_file_id2();
 
-			if (!(MC_State & 0x800)) { // i'm not 100% sure that i have to reverse the condition here, but it's not fatal
-				SetTurnDisplayEvent_2_after_1();
+			if (!(MC_State & 0x800)) {
+				SetTurnDisplayEvent_2_after_1(); // turn off display
 			}
 		}
 		break;
@@ -131,50 +126,11 @@ void my_task_MainCtrl() {
 		ReceiveMessageQueue(hMainMessQueue, &msg, 0);
 		event = (mc_table_t *)(&MC_T_Table[msg*3]);
 
-		printf_log(1, 6, aMcT04dS04xD, event->t, MC_State, msg); // "[MC] T:%04d, S:%04X, %d"
 
 #ifdef ENABLE_DEBUG
-		switch (event->t) {
-		case MC_INFOANDCTRL:
-			printf_log(1, 6, "[MC] MC_INFOANDCTRL");
-			break;
-		case MC_BUTTON:
-			printf_log(1, 6, "[MC] MC_BUTTON");
-			break;
-		case MC_ACTION:
-			printf_log(1, 6, "[MC] MC_ACTION");
-			break;
-		case MC_DISPLAY_MODE:
-			printf_log(1, 6, "[MC] MC_DISPLAY_MODE");
-			break;
-		case MC_START_MODE:
-			printf_log(1, 6, "[MC] MC_START_MODE");
-			break;
-		case MC_DriveNotifyCallBack:
-			printf_log(1, 6, "[MC] MC_DriveNotifyCallBack");
-			break;
-		case MC_ChangeAvailShot:
-			printf_log(1, 6, "[MC] MC_ChangeAvailShot");
-			break;
-		case MC_ShutDown:
-			printf_log(1, 6, "[MC] MC_ShutDown");
-			break;
-		case MC_ChangeNotifyCallback:
-			printf_log(1, 6, "[MC] MC_ChangeNotifyCallback");
-			break;
-		case MC_CardDoor_Emergency:
-			printf_log(1, 6, "[MC] MC_CardDoor_Emergency");
-			break;
-		case MC_REQ_UI_LOCK:
-			printf_log(1, 6, "[MC] MC_REQ_UI_LOCK");
-			break;
-		case MC_REQ_UI_UNLOCK:
-			printf_log(1, 6, "[MC] MC_REQ_UI_UNLOCK");
-			break;
-		default:
-			printf_log(1, 6, "[MC] MC_UNKNOWN");
-			break;
-		}
+		printf_log(1, 6, "[MC] T:%s, S:%04X, %d", get_mc_name(event->t), MC_State, msg);
+#else
+		printf_log(1, 6, aMcT04dS04xD, event->t, MC_State, msg); // "[MC] T:%04d, S:%04X, %d"
 #endif
 
 		if (0) {
@@ -185,6 +141,11 @@ void my_task_MainCtrl() {
 				MC_T_1_5(event);
 			}
 		} else if (event->t < 8) {
+			// AF: if (6): debug the display_mode params
+			// when the MENU btn is pressed
+			// SendToMC(MC_DISPLAY_MODE, MENU_MODE(2), 0); happens
+			// or when leaving IDLE_MODE(0) is sent
+			// also debug DPData before and after SendToMC(...)
 			MC_T_6_7(event);
 		} else if (event->t < 21) {
 			MC_T_8_20(event);
@@ -288,3 +249,69 @@ givesem:
 out:
 	return;
 }
+
+
+#ifdef ENABLE_DEBUG
+const char * get_mc_name(int event) {
+	static char name[20];
+
+	switch (event) {
+	case GUI_GOT_TOP_OF_CONTROL: return "GUI_GOT_TOP_OF_CONTROL";
+	case MC_INFOANDCTRL: return "MC_INFOANDCTRL";
+	case MC_BUTTON: return "MC_BUTTON";
+	case MC_ACTION: return "MC_ACTION";
+	case MC_DISPLAY_MODE: return "MC_DISPLAY_MODE";
+	case MC_START_MODE: return "MC_START_MODE";
+	case MC_DriveNotifyCallBack: return "MC_DriveNotifyCallBack";
+	case MC_ChangeAvailShot: return "MC_ChangeAvailShot";
+	case MC_ShutDown: return "MC_ShutDown";
+	case MC_ChangeNotifyCallback: return "MC_ChangeNotifyCallback";
+	case MC_CardDoor_Emergency: return "MC_CardDoor_Emergency";
+	case MC_REQ_UI_LOCK: return "MC_REQ_UI_LOCK";
+	case MC_REQ_UI_UNLOCK: return "MC_REQ_UI_UNLOCK";
+	default:
+		sprintf(name, "0x%08X", event);
+		return name;
+	}
+}
+
+const char * get_btn_name(int btn) {
+	static char name[20];
+
+	switch(btn) {
+	case MC_BUTTON_MENU: return "MC_BUTTON_MENU";
+	case MC_BUTTON_DISP: return "MC_BUTTON_DISP";
+	case MC_BUTTON_JUMP: return "MC_BUTTON_JUMP";
+	case MC_BUTTON_PLAY: return "MC_BUTTON_PLAY";
+	case MC_BUTTON_TRASH: return "MC_BUTTON_TRASH";
+	case MC_BUTTON_SET: return "MC_BUTTON_SET";
+	case MC_DIALOG1: return "MC_DIALOG1";
+	case MC_DIALOG2: return "MC_DIALOG2";
+	case MC_BUTTON_DIAL: return "MC_BUTTON_DIAL";
+	case MC_BUTTON_DIAL1: return "MC_BUTTON_DIAL1";
+	case MC_BUTTON_DIAL_LEFT: return "MC_BUTTON_DIAL_LEFT";
+	case MC_BUTTON_DIAL_RIGHT: return "MC_BUTTON_DIAL_RIGHT";
+	case MC_BUTTON_CARD_DOOR_OPEN: return "MC_BUTTON_CARD_DOOR_OPEN";
+	case MC_BUTTON_UNK1: return "MC_BUTTON_UNK1";
+	case MC_BUTTON_POWER: return "MC_BUTTON_POWER";
+	case MC_BUTTON_BATTERY_DOOR_OPEN: return "MC_BUTTON_BATTERY_DOOR_OPEN";
+	case MC_BUTTON_UP: return "MC_BUTTON_UP";
+	case MC_BUTTON_DOWN: return "MC_BUTTON_DOWN";
+	case MC_BUTTON_RIGHT: return "MC_BUTTON_RIGHT";
+	case MC_BUTTON_LEFT: return "MC_BUTTON_LEFT";
+	case MC_BUTTON_HALF_SHUTTER: return "MC_BUTTON_HALF_SHUTTER";
+	case MC_BUTTON_FULL_SHUTTER: return "MC_BUTTON_FULL_SHUTTER";
+	case MC_BUTTON_DP: return "MC_BUTTON_DP";
+	case MC_AFPDLGON: return "MC_AFPDLGON";
+	case MC_BUTTON_DRIVE: return "MC_BUTTON_DRIVE";
+	case MC_BUTTON_AV: return "MC_BUTTON_AV";
+	case MC_BUTTON_UNK2: return "MC_BUTTON_UNK2";
+	default:
+		sprintf(name, "0x08X", btn);
+		return name;
+	}
+}
+#endif
+
+
+

@@ -6,10 +6,13 @@
 const char * get_gui_name(int event);
 #endif
 
+
+// GUI_Command(4) for MENU BTN
+
 int my_GUI_IDLEHandler(int unk0, int event, int param, int unk1) {
 
 #ifdef ENABLE_DEBUG
-	printf_log(8, 8, "[IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, get_gui_name(event), param, unk1);
+	printf_log(8, 8, "[400Plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, get_gui_name(event), param, unk1);
 #endif
 
 	if (event == GUI_START_OLC_MODE)
@@ -54,8 +57,7 @@ void my_GUIInit() {
 	str_0x5188(1);
 
 	sub_FF918D24(0);
-	int res1=sub_FF918C58(3);
-	sub_FF92AD74(res1);
+	sub_FF92AD74(sub_FF918C58(3));
 	sub_FF934DE8();
 
 	off_1EE0=CreateFontManagerInstance(FontInit(1, 20), &sub_FF92ADD8, &sub_FF92AF8C, &sub_FF92AFD8, &sub_FF92AF58, 1);
