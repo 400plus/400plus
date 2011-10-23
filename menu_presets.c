@@ -176,7 +176,7 @@ type_MENUPAGE menupage_presets = {
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
-		[MENU_EVENT_DISPLAY] = menu_preset_display,
+		[MENU_EVENT_DISP] = menu_preset_display,
 	}
 };
 

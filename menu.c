@@ -26,15 +26,15 @@ OPTIONLIST_DEF(action,   LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTE
 OPTIONLIST_DEF(logfile,  LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
 
 type_ACTION callbacks_standard[] = {
+	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_event_menu}},
+	{GUI_BUTTON_DISP,           FALSE, FALSE, {menu_event_disp}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_event_jump}},
+	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
+	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {menu_event_trash}},
 	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_event_up}},
 	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_event_down}},
-	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
-	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
-	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_event_in}},
 	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_event_out}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_event_in}},
 	END_OF_LIST
 };
 
@@ -141,65 +141,24 @@ pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
-void menu_event_play() {
-	menu_event(MENU_EVENT_PLAY);
-}
-
-void menu_event_av() {
-	menu_event(MENU_EVENT_AV);
-}
-
-void menu_event_up() {
-	menu_event(MENU_EVENT_UP);
-}
-
-void menu_event_down() {
-	menu_event(MENU_EVENT_DOWN);
-}
-
-void menu_event_left() {
-	menu_event(MENU_EVENT_LEFT);
-}
-
-void menu_event_right() {
-	menu_event(MENU_EVENT_RIGHT);
-}
-
-void menu_event_next() {
-	menu_event(MENU_EVENT_NEXT);
-}
-
-void menu_event_prev() {
-	menu_event(MENU_EVENT_PREV);
-}
-
-void menu_event_in() {
-	menu_event(MENU_EVENT_IN);
-}
-
-void menu_event_out() {
-	menu_event(MENU_EVENT_OUT);
-}
-
-void menu_event_dp() {
-	menu_event(MENU_EVENT_DP);
-}
-
-void menu_event_set() {
-	menu_event(MENU_EVENT_SET);
-}
-
-void menu_event_display() {
-	menu_event(MENU_EVENT_DISPLAY);
-}
-
-void menu_event_change() {
-	menu_event(MENU_EVENT_CHANGE);
-}
-
-void menu_event_close() {
-	menu_event(MENU_EVENT_CLOSE);
-}
+void menu_event_menu()   { menu_event(MENU_EVENT_MENU);   };
+void menu_event_disp()   { menu_event(MENU_EVENT_DISP);   };
+void menu_event_jump()   { menu_event(MENU_EVENT_JUMP);   };
+void menu_event_play()   { menu_event(MENU_EVENT_PLAY);   };
+void menu_event_trash()  { menu_event(MENU_EVENT_TRASH);  };
+void menu_event_set()    { menu_event(MENU_EVENT_SET);    };
+void menu_event_prev()   { menu_event(MENU_EVENT_PREV);   };
+void menu_event_next()   { menu_event(MENU_EVENT_NEXT);   };
+void menu_event_up()     { menu_event(MENU_EVENT_UP);     };
+void menu_event_down()   { menu_event(MENU_EVENT_DOWN);   };
+void menu_event_right()  { menu_event(MENU_EVENT_RIGHT);  };
+void menu_event_left()   { menu_event(MENU_EVENT_LEFT);   };
+void menu_event_dp()     { menu_event(MENU_EVENT_DP);     };
+void menu_event_av()     { menu_event(MENU_EVENT_AV);     };
+void menu_event_out()    { menu_event(MENU_EVENT_OUT);    };
+void menu_event_in()     { menu_event(MENU_EVENT_IN);     };
+void menu_event_change() { menu_event(MENU_EVENT_CHANGE); };
+void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);  };
 
 void menu_event(type_MENU_EVENT event) {
 	type_MENUITEM *item = get_current_item();
@@ -229,7 +188,7 @@ void menu_display() {
 
 	dialog_set_property_str(menu_handler, 8, buffer);
 
-	menu_event_display();
+	menu_event_disp();
 
 	for(i = 0; i < MENU_HEIGHT; i++) {
 		menu_message(buffer, i + offset);
