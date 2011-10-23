@@ -37,8 +37,10 @@ type_MENU menu_main = {
 	pages    : menu_main_pages,
 	ordering : settings.main_order,
 	tasks    : {
-		[MENU_EVENT_CHANGE]  = menu_set_changed,
-		[MENU_EVENT_CLOSE]   = menu_save,
+		[MENU_EVENT_UP]     = menu_up,
+		[MENU_EVENT_DOWN]   = menu_down,
+		[MENU_EVENT_CHANGE] = menu_set_changed,
+		[MENU_EVENT_CLOSE]  = menu_save,
 	}
 };
 

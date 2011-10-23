@@ -26,8 +26,8 @@ OPTIONLIST_DEF(action,   LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTE
 OPTIONLIST_DEF(logfile,  LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
 
 type_ACTION callbacks_standard[] = {
-	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_up}},
-	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_down}},
+	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_event_up}},
+	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_event_down}},
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
@@ -139,6 +139,14 @@ int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3,
 
 pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+}
+
+void menu_event_up() {
+	menu_event(MENU_EVENT_UP);
+}
+
+void menu_event_down() {
+	menu_event(MENU_EVENT_DOWN);
 }
 
 void menu_event_dp() {
