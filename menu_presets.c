@@ -227,7 +227,6 @@ type_MENUPAGE menupage_presets = {
 	length      : LENGTH(preset_items),
 	items       : preset_items,
 	rename      : TRUE,
-	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
 		[MENU_EVENT_OPEN] = menu_preset_open,

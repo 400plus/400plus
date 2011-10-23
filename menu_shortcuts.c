@@ -25,7 +25,6 @@ type_MENUPAGE menupage_shortcuts = {
 	//color       : MENU_COLOR_YELLOW_AND_GREEN,
 	length      : LENGTH(menu_shortcut_items),
 	items       : menu_shortcut_items,
-	reorder     : TRUE,
 	ordering    : settings.shortcuts_order,
 };
 

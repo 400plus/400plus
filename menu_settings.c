@@ -69,7 +69,6 @@ type_MENUPAGE pages_page = {
 	name     : "Pages",
 	length   : LENGTH(pages_items),
 	items    : pages_items,
-	reorder  : TRUE,
 	ordering : settings.main_order,
 	tasks  : {
 		[MENU_EVENT_SET]  = menu_return,
@@ -93,7 +92,6 @@ type_MENUPAGE menupage_settings = {
 	name        : LP_WORD(L_SETTINGS),
 	length      : LENGTH(menu_settings_items),
 	items       : menu_settings_items,
-	reorder     : TRUE,
 	ordering    : settings.settings_order,
 };
 

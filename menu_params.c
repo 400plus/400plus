@@ -52,7 +52,6 @@ type_MENUPAGE menupage_params = {
 	name     : "Parameters",
 	length   : LENGTH(menupage_params_items),
 	items    : menupage_params_items,
-	reorder  : TRUE,
 	ordering : settings.params_order,
 };
 

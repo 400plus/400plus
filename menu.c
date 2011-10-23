@@ -273,7 +273,7 @@ void menu_cycle() {
 }
 
 void menu_drag_drop() {
-	if (current_page->reorder) {
+	if (current_page->ordering) {
 		item_grabbed = ! item_grabbed;
 		menu_event_change();
 		menu_refresh();
@@ -459,7 +459,7 @@ void menu_message(const char *buffer, int item_id) {
 		else
 			sprintf(item_name, "%s", item->name);
 
-		if (current_page->reorder && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+		if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
 			pad = '>';
 		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
 			pad = '*';
@@ -563,7 +563,7 @@ type_MENUITEM *get_item(int item_pos) {
 }
 
 int get_real_id(int item_pos) {
-	if (current_page->reorder)
+	if (current_page->ordering)
 		return current_page->ordering[get_item_id(item_pos)];
 	else
 		return get_item_id(item_pos);

@@ -105,7 +105,6 @@ type_MENUPAGE menupage_scripts = {
 	name        : "Scripts",
 	length      : LENGTH(menupage_scripts_items),
 	items       : menupage_scripts_items,
-	reorder     : TRUE,
 	ordering    : settings.scripts_order,
 };
 
