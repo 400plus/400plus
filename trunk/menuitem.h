@@ -93,32 +93,114 @@ OPTIONLIST_DEC(flash)
 OPTIONLIST_DEC(action)
 OPTIONLIST_DEC(logfile)
 
-#define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_EV, parm:{menuitem_ev:{value:_VALUE_, zero_means_off:_ZMO_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_, _ON_CHANGE_) { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_EV, \
+	parm  : { menuitem_ev : { \
+		value          : _VALUE_, \
+		zero_means_off : _ZMO_, \
+	}}, \
+	tasks : { \
+		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
+	} \
+}
 
-#define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_AV, parm:{menuitem_av:{value:_VALUE_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_AV, \
+	parm  : { menuitem_av : { \
+			value : _VALUE_, \
+	}}, \
+	tasks : { \
+		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
+	} \
+}
 
-#define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_TV, parm:{menuitem_tv:{value:_VALUE_, bulb:FALSE}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_TV, \
+	parm  : { menuitem_tv : { \
+		value : _VALUE_, \
+		bulb  : FALSE, \
+	}}, \
+	tasks : { \
+		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
+	} \
+}
 
-#define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_TV, parm:{menuitem_tv:{value:_VALUE_, bulb:TRUE}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_TV, \
+	parm  : { menuitem_tv : { \
+		value : _VALUE_, \
+		bulb  : TRUE, \
+	}}, \
+	tasks : { \
+		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
+	} \
+}
 
-#define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_ISO, parm:{menuitem_iso:{value:_VALUE_, full:_FULL_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_)  { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_ISO, \
+	parm  : { menuitem_iso : { \
+		value : _VALUE_, \
+		full  : _FULL_, \
+	}}, \
+	tasks : { \
+		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
+	} \
+}
 
-#define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_INT, readonly:_RO_, parm:{menuitem_int:{value:_VALUE_, min:_MIN_, max:_MAX_, small_step:_SMALL_, big_step:_BIG_, zero_means_unlimited:_ZMU_, format:_FORMAT_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) { \
+	name     : _NAME_, \
+	type     : MENUITEM_TYPE_INT, \
+	readonly : _RO_, \
+	parm     : {menuitem_int : { \
+		value                : _VALUE_, \
+		min                  : _MIN_, \
+		max                  : _MAX_, \
+		small_step           : _SMALL_, \
+		big_step             : _BIG_, \
+		zero_means_unlimited : _ZMU_, \
+		format               : _FORMAT_, \
+	}}, \
+	tasks    : { \
+		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
+	} \
+}
 
-#define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_) \
-	{name:_NAME_, type:MENUITEM_TYPE_ENUM, parm:{menuitem_enum:{value:_VALUE_, cycle:_CYCLE_, list:_TEXTS_}}, tasks:{[MENU_EVENT_CHANGE]=_ON_CHANGE_}}
+#define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_)  { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_ENUM, \
+	parm  : { menuitem_enum : { \
+		value : _VALUE_, \
+		cycle : _CYCLE_, \
+		list  : _TEXTS_, \
+	}}, \
+	tasks : { \
+		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
+	} \
+}
 
-#define MENUITEM_LAUNCH(_NAME_, _ACTION_) \
-	{name:_NAME_, type:MENUITEM_TYPE_LAUNCH, tasks:{[MENU_EVENT_SET]=_ACTION_}}
+#define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_LAUNCH, \
+	tasks : { \
+		[MENU_EVENT_SET] = _ACTION_, \
+	} \
+}
 
-#define MENUITEM_SUBMENU(_NAME_, _PAGE_, _ACTION_) \
-	{name:_NAME_, type:MENUITEM_TYPE_SUBMENU, parm:{menuitem_submenu:{page:_PAGE_}}, tasks:{[MENU_EVENT_SET]=_ACTION_}}
+#define MENUITEM_SUBMENU(_NAME_, _PAGE_, _ACTION_) { \
+	name  : _NAME_, \
+	type  : MENUITEM_TYPE_SUBMENU, \
+	parm  : { menuitem_submenu : { \
+		page : _PAGE_, \
+	}}, \
+	tasks : { \
+		[MENU_EVENT_SET] = _ACTION_, \
+	} \
+}
 
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, _ON_CHANGE_)
 #define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  _ON_CHANGE_)
