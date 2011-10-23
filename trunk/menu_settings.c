@@ -44,7 +44,11 @@ type_MENUPAGE scripts_page = {
 	length : LENGTH(scripts_items),
 	items  : scripts_items,
 	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
+		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_NEXT] = menu_void,
+		[MENU_EVENT_PREV] = menu_void,
+		[MENU_EVENT_IN]   = menu_void,
+		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -53,7 +57,11 @@ type_MENUPAGE presets_page = {
 	length : LENGTH(presets_items),
 	items  : presets_items,
 	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
+		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_NEXT] = menu_void,
+		[MENU_EVENT_PREV] = menu_void,
+		[MENU_EVENT_IN]   = menu_void,
+		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -63,8 +71,12 @@ type_MENUPAGE pages_page = {
 	items    : pages_items,
 	reorder  : TRUE,
 	ordering : settings.main_order,
-	tasks    : {
-		[MENU_EVENT_SET] = menu_return,
+	tasks  : {
+		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_NEXT] = menu_void,
+		[MENU_EVENT_PREV] = menu_void,
+		[MENU_EVENT_IN]   = menu_void,
+		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
