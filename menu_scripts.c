@@ -90,7 +90,11 @@ type_MENUPAGE interval_page = {
 	length : LENGTH(interval_items),
 	items  : interval_items,
 	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
+		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_NEXT] = menu_void,
+		[MENU_EVENT_PREV] = menu_void,
+		[MENU_EVENT_IN]   = menu_void,
+		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
