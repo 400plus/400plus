@@ -42,7 +42,6 @@ type_MENUPAGE menupage_developer = {
 	name        : LP_WORD(L_DEVELOPERS_MENU),
 	length      : LENGTH(menu_developer_items),
 	items       : menu_developer_items,
-	reorder     : TRUE,
 	ordering    : settings.developer_order,
 };
 

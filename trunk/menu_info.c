@@ -18,6 +18,5 @@ type_MENUPAGE menupage_info = {
 	name        : "Info",
 	length      : LENGTH(menupage_info_items),
 	items       : menupage_info_items,
-	reorder     : TRUE,
 	ordering    : settings.info_order,
 };

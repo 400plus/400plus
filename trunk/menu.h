@@ -135,7 +135,6 @@ struct MENUPAGE {
 	type_MENUITEM   *items;
 	type_MENU_TASK   tasks[MENU_EVENT_COUNT];
 	int              rename;
-	int              reorder;
 	int             *ordering;
 	int              highlight;
 	int              highlighted_item;
