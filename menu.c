@@ -227,14 +227,13 @@ void menu_return() {
 void menu_up() {
 	int display = FALSE;
 
-	current_item--;
+	if (current_page->length > MENU_HEIGTH || current_item > 0) {
+		current_item--;
 
-	if (current_page->length <= MENU_HEIGTH)
-		current_item = MAX(current_item, 0);
-
-	if (item_grabbed) {
-		INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item + 1)]);
-		display = TRUE;
+		if (item_grabbed) {
+			INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item + 1)]);
+			display = TRUE;
+		}
 	}
 
 	if (current_line != 0)
@@ -249,14 +248,13 @@ void menu_up() {
 void menu_down() {
 	int display = FALSE;
 
-	current_item++;
+	if (current_page->length > MENU_HEIGTH || current_item < MENU_HEIGTH - 1) {
+		current_item++;
 
-	if (current_page->length <= MENU_HEIGTH)
-		current_item = MIN(current_item, MENU_HEIGTH - 1);
-
-	if (item_grabbed) {
-		INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item - 1)]);
-		display = TRUE;
+		if (item_grabbed) {
+			INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item - 1)]);
+			display = TRUE;
+		}
 	}
 
 	if (current_line != 4)
