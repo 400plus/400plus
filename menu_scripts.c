@@ -51,7 +51,11 @@ type_MENUPAGE wave_page = {
 	length : LENGTH(wave_items),
 	items  : wave_items,
 	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
+		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_NEXT] = menu_void,
+		[MENU_EVENT_PREV] = menu_void,
+		[MENU_EVENT_IN]   = menu_void,
+		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -60,7 +64,11 @@ type_MENUPAGE timer_page = {
 	length : LENGTH(timer_items),
 	items  : timer_items,
 	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
+		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_NEXT] = menu_void,
+		[MENU_EVENT_PREV] = menu_void,
+		[MENU_EVENT_IN]   = menu_void,
+		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -69,7 +77,11 @@ type_MENUPAGE eaeb_page = {
 	length : LENGTH(eaeb_items),
 	items  : eaeb_items,
 	tasks  : {
-		[MENU_EVENT_SET] = menu_return,
+		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_NEXT] = menu_void,
+		[MENU_EVENT_PREV] = menu_void,
+		[MENU_EVENT_IN]   = menu_void,
+		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
