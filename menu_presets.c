@@ -10,7 +10,7 @@
 
 #include "menu_presets.h"
 
-void menu_preset_display();
+void menu_preset_open();
 
 void preset_save_1();
 void preset_save_2();
@@ -230,11 +230,11 @@ type_MENUPAGE menupage_presets = {
 	reorder     : TRUE,
 	ordering    : presets_config.order,
 	tasks       : {
-		[MENU_EVENT_DISP] = menu_preset_display,
+		[MENU_EVENT_OPEN] = menu_preset_open,
 	}
 };
 
-void menu_preset_display() {
+void menu_preset_open() {
 	if (status.last_preset) {
 		menupage_presets.highlight        = TRUE;
 		menupage_presets.highlighted_item = status.last_preset;

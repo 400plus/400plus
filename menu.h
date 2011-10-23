@@ -61,6 +61,7 @@ typedef enum {
 	MENU_EVENT_AV,
 	MENU_EVENT_OUT,
 	MENU_EVENT_IN,
+	MENU_EVENT_OPEN,
 	MENU_EVENT_CHANGE,
 	MENU_EVENT_CLOSE,
 	MENU_EVENT_COUNT,
@@ -227,6 +228,7 @@ extern void menu_event_dp();
 extern void menu_event_av();
 extern void menu_event_out();
 extern void menu_event_in();
+extern void menu_event_open();
 extern void menu_event_change();
 extern void menu_event_close();
 
