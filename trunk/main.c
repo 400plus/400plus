@@ -45,7 +45,7 @@ type_ACTION actions_main[]  = {
 type_ACTION actions_400plus[]  = {
 	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {menu_event_right}},
 	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {menu_event_left}},
-	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_cycle}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_event_av}},
 	{IC_BUTTON_SET,        FALSE, TRUE,  {menu_event_set}},
 	{IC_BUTTON_DP,         FALSE, TRUE,  {menu_event_dp}},
 	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {menu_event_prev}},
