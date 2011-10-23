@@ -45,19 +45,22 @@ typedef enum {
 } type_MENUITEM_TYPE;
 
 typedef enum {
-	MENU_EVENT_AV,
+	MENU_EVENT_MENU,
+	MENU_EVENT_DISP,
+	MENU_EVENT_JUMP,
 	MENU_EVENT_PLAY,
+	MENU_EVENT_TRASH,
+	MENU_EVENT_SET,
+	MENU_EVENT_PREV,
+	MENU_EVENT_NEXT,
 	MENU_EVENT_UP,
 	MENU_EVENT_DOWN,
-	MENU_EVENT_LEFT,
 	MENU_EVENT_RIGHT,
+	MENU_EVENT_LEFT,
 	MENU_EVENT_DP,
-	MENU_EVENT_NEXT,
-	MENU_EVENT_PREV,
-	MENU_EVENT_IN,
+	MENU_EVENT_AV,
 	MENU_EVENT_OUT,
-	MENU_EVENT_SET,
-	MENU_EVENT_DISPLAY,
+	MENU_EVENT_IN,
 	MENU_EVENT_CHANGE,
 	MENU_EVENT_CLOSE,
 	MENU_EVENT_COUNT,
@@ -208,21 +211,25 @@ extern type_CAMERA_MODE menu_cameraMode;
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
+extern void menu_event_menu();
+extern void menu_event_disp();
+extern void menu_event_jump();
 extern void menu_event_play();
-extern void menu_event_av();
+extern void menu_event_trash();
+extern void menu_event_set();
+extern void menu_event_prev();
+extern void menu_event_next();
 extern void menu_event_up();
 extern void menu_event_down();
-extern void menu_event_left();
 extern void menu_event_right();
-extern void menu_event_next();
-extern void menu_event_prev();
-extern void menu_event_in();
-extern void menu_event_out();
+extern void menu_event_left();
 extern void menu_event_dp();
-extern void menu_event_set();
-extern void menu_event_display();
+extern void menu_event_av();
+extern void menu_event_out();
+extern void menu_event_in();
 extern void menu_event_change();
 extern void menu_event_close();
+
 extern void menu_event(type_MENU_EVENT);
 
 extern void menu_return();
