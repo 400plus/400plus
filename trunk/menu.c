@@ -153,6 +153,14 @@ void menu_event_down() {
 	menu_event(MENU_EVENT_DOWN);
 }
 
+void menu_event_left() {
+	menu_event(MENU_EVENT_LEFT);
+}
+
+void menu_event_right() {
+	menu_event(MENU_EVENT_RIGHT);
+}
+
 void menu_event_next() {
 	menu_event(MENU_EVENT_NEXT);
 }

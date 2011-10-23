@@ -48,6 +48,8 @@ typedef enum {
 	MENU_EVENT_PLAY,
 	MENU_EVENT_UP,
 	MENU_EVENT_DOWN,
+	MENU_EVENT_LEFT,
+	MENU_EVENT_RIGHT,
 	MENU_EVENT_DP,
 	MENU_EVENT_NEXT,
 	MENU_EVENT_PREV,
@@ -206,6 +208,8 @@ extern void menu_close();
 extern void menu_event_play();
 extern void menu_event_up();
 extern void menu_event_down();
+extern void menu_event_left();
+extern void menu_event_right();
 extern void menu_event_next();
 extern void menu_event_prev();
 extern void menu_event_dp();
