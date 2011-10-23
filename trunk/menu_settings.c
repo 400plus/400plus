@@ -3,6 +3,7 @@
 
 #include "languages.h"
 #include "menu.h"
+#include "menupage.h"
 #include "menuitem.h"
 #include "presets.h"
 #include "settings.h"

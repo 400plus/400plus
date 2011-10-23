@@ -63,6 +63,7 @@ C_OBJS = init.o           \
          utils.o          \
          memspy.o         \
          menu.o           \
+         menupage.o       \
          menuitem.o       \
          menu_info.o      \
          menu_main.o      \

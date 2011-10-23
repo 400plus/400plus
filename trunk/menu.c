@@ -2,8 +2,8 @@
 #include "firmware.h"
 
 #include "languages.h"
+#include "menupage.h"
 #include "menuitem.h"
-#include "menu_rename.h"
 #include "presets.h"
 #include "utils.h"
 

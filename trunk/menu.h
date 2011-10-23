@@ -51,18 +51,6 @@ typedef enum {
 } type_MENU_EVENT;
 
 typedef void(*type_MENU_TASK)    (type_MENU     *menu);
-typedef void(*type_MENUPAGE_TASK)(type_MENUPAGE *page);
-
-struct MENUPAGE {
-	char               *name;
-	int                 length;
-	type_MENUITEM      *items;
-	type_MENUPAGE_TASK  tasks[MENU_EVENT_COUNT];
-	int                 rename;
-	int                *ordering;
-	int                 highlight;
-	int                 highlighted_item;
-};
 
 struct MENU {
 	type_MENU_COLOR   color;
