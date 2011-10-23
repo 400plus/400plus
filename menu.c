@@ -31,7 +31,7 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_DISP,           FALSE, FALSE, {NULL}},
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_drag_drop}},
+	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_page_next}},
 	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_page_prev}},
@@ -139,6 +139,10 @@ int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3,
 
 pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+}
+
+void menu_event_play() {
+	menu_event(MENU_EVENT_PLAY);
 }
 
 void menu_event_up() {

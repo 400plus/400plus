@@ -45,6 +45,7 @@ typedef enum {
 } type_MENUITEM_TYPE;
 
 typedef enum {
+	MENU_EVENT_PLAY,
 	MENU_EVENT_UP,
 	MENU_EVENT_DOWN,
 	MENU_EVENT_DP,
@@ -200,6 +201,7 @@ extern type_CAMERA_MODE menu_cameraMode;
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
+extern void menu_event_play();
 extern void menu_event_up();
 extern void menu_event_down();
 extern void menu_event_dp();
