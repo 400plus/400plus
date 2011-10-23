@@ -2,6 +2,7 @@
 #include "firmware.h"
 
 #include "languages.h"
+#include "menuitem.h"
 #include "menu_rename.h"
 #include "presets.h"
 #include "utils.h"
@@ -18,12 +19,6 @@ int   item_grabbed;
 
 type_MENU     *current_menu;
 type_MENUPAGE *current_page;
-
-OPTIONLIST_DEF(bool,     LP_WORD(L_NO), LP_WORD(L_YES))
-OPTIONLIST_DEF(delay,    LP_WORD(L_NO), LP_WORD(L_2S))
-OPTIONLIST_DEF(flash,    LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_ONLY))
-OPTIONLIST_DEF(action,   LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
-OPTIONLIST_DEF(logfile,  LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
 
 type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_event_menu}},

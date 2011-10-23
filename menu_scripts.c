@@ -4,6 +4,7 @@
 #include "display.h"
 #include "languages.h"
 #include "menu.h"
+#include "menuitem.h"
 #include "settings.h"
 #include "scripts.h"
 

@@ -2,6 +2,7 @@
 
 #include "languages.h"
 #include "menu.h"
+#include "menuitem.h"
 #include "menu_rename.h"
 #include "menu_settings.h"
 #include "menu_shortcuts.h"
