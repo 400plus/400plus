@@ -12,6 +12,7 @@
 #include "debug.h"
 #include "languages.h"
 #include "menu.h"
+#include "menupage.h"
 #include "menuitem.h"
 #include "menu_settings.h"
 #include "utils.h"

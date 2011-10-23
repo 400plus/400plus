@@ -2,6 +2,7 @@
 #include "firmware.h"
 
 #include "menu.h"
+#include "menupage.h"
 #include "menuitem.h"
 #include "settings.h"
 
