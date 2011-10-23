@@ -211,7 +211,7 @@ void menu_display() {
 
 	menu_event_display();
 
-	for(i = 0; i < MENU_HEIGTH; i++) {
+	for(i = 0; i < MENU_HEIGHT; i++) {
 		menu_message(buffer, i + offset);
 		dialog_set_property_str(menu_handler, i + 1, buffer);
 	}
@@ -239,7 +239,7 @@ void menu_return() {
 void menu_up() {
 	int display = FALSE;
 
-	if (current_page->length > MENU_HEIGTH || current_item > 0) {
+	if (current_page->length > MENU_HEIGHT || current_item > 0) {
 		current_item--;
 
 		if (item_grabbed) {
@@ -260,7 +260,7 @@ void menu_up() {
 void menu_down() {
 	int display = FALSE;
 
-	if (current_page->length > MENU_HEIGTH || current_item < MENU_HEIGTH - 1) {
+	if (current_page->length > MENU_HEIGHT || current_item < MENU_HEIGHT - 1) {
 		current_item++;
 
 		if (item_grabbed) {
@@ -588,7 +588,7 @@ int get_real_id(int item_pos) {
 }
 
 int get_item_id(int item_pos) {
-	int max_pos = MAX(current_page->length, MENU_HEIGTH);
+	int max_pos = MAX(current_page->length, MENU_HEIGHT);
 	int item_id = item_pos - max_pos * (item_pos / max_pos);
 
 	return (item_id < 0) ? (item_id + max_pos) : item_id;
