@@ -33,8 +33,8 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {NULL}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {NULL}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_event_next}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_event_prev}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_event_in}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_event_out}},
 	END_OF_LIST
 };
 
@@ -167,6 +167,14 @@ void menu_event_next() {
 
 void menu_event_prev() {
 	menu_event(MENU_EVENT_PREV);
+}
+
+void menu_event_in() {
+	menu_event(MENU_EVENT_IN);
+}
+
+void menu_event_out() {
+	menu_event(MENU_EVENT_OUT);
 }
 
 void menu_event_dp() {

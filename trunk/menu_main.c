@@ -44,6 +44,8 @@ type_MENU menu_main = {
 		[MENU_EVENT_RIGHT]  = menu_right,
 		[MENU_EVENT_NEXT]   = menu_page_next,
 		[MENU_EVENT_PREV]   = menu_page_prev,
+		[MENU_EVENT_IN]     = menu_page_prev,
+		[MENU_EVENT_OUT]    = menu_page_next,
 		[MENU_EVENT_CHANGE] = menu_set_changed,
 		[MENU_EVENT_CLOSE]  = menu_save,
 	}
