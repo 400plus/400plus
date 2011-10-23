@@ -2,7 +2,7 @@
 #define MENU_H_
 
 #define MENU_WIDTH  27
-#define MENU_HEIGTH  5
+#define MENU_HEIGHT  5
 
 #define AUTOREPEAT_DELAY_UNIT   50
 #define AUTOREPEAT_DELAY_LONG   10
