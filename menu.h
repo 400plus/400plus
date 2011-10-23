@@ -53,6 +53,8 @@ typedef enum {
 	MENU_EVENT_DP,
 	MENU_EVENT_NEXT,
 	MENU_EVENT_PREV,
+	MENU_EVENT_IN,
+	MENU_EVENT_OUT,
 	MENU_EVENT_SET,
 	MENU_EVENT_DISPLAY,
 	MENU_EVENT_CHANGE,
@@ -212,6 +214,8 @@ extern void menu_event_left();
 extern void menu_event_right();
 extern void menu_event_next();
 extern void menu_event_prev();
+extern void menu_event_in();
+extern void menu_event_out();
 extern void menu_event_dp();
 extern void menu_event_set();
 extern void menu_event_display();
