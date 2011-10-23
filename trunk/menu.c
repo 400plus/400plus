@@ -157,6 +157,7 @@ void menu_event_dp()     { menu_event(MENU_EVENT_DP);     };
 void menu_event_av()     { menu_event(MENU_EVENT_AV);     };
 void menu_event_out()    { menu_event(MENU_EVENT_OUT);    };
 void menu_event_in()     { menu_event(MENU_EVENT_IN);     };
+void menu_event_open()   { menu_event(MENU_EVENT_OPEN);   };
 void menu_event_change() { menu_event(MENU_EVENT_CHANGE); };
 void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);  };
 
@@ -190,7 +191,7 @@ void menu_display() {
 
 	dialog_set_property_str(menu_handler, 8, buffer);
 
-	menu_event_disp();
+	menu_event_open();
 
 	for(i = 0; i < MENU_HEIGHT; i++) {
 		menu_message(buffer, i + offset);
