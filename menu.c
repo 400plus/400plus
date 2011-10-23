@@ -145,6 +145,10 @@ void menu_event_play() {
 	menu_event(MENU_EVENT_PLAY);
 }
 
+void menu_event_av() {
+	menu_event(MENU_EVENT_AV);
+}
+
 void menu_event_up() {
 	menu_event(MENU_EVENT_UP);
 }

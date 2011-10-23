@@ -45,6 +45,7 @@ typedef enum {
 } type_MENUITEM_TYPE;
 
 typedef enum {
+	MENU_EVENT_AV,
 	MENU_EVENT_PLAY,
 	MENU_EVENT_UP,
 	MENU_EVENT_DOWN,
@@ -208,6 +209,7 @@ extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
 extern void menu_event_play();
+extern void menu_event_av();
 extern void menu_event_up();
 extern void menu_event_down();
 extern void menu_event_left();
