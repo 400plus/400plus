@@ -246,7 +246,7 @@ void menu_down() {
 		}
 	}
 
-	if (current_line != 4)
+	if (current_line < MENU_HEIGHT - 1)
 		current_line++;
 	else
 		display = TRUE;
