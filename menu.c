@@ -47,7 +47,7 @@ void menu_repeateable_cycle(int repeating);
 void menu_repeateable_right(int repeating);
 void menu_repeateable_left (int repeating);
 
-void menu_message(const char *buffer, int item_id);
+void menu_message(const char *buffer, int line);
 
 void menu_print_ev   (const char *buffer, const char *name, int   parameter);
 void menu_print_av   (const char *buffer, const char *name, int   parameter);
@@ -180,8 +180,6 @@ void menu_display() {
 	int pad1 = (    MENU_WIDTH - 2 - len) / 2;
 	int pad2 = (1 + MENU_WIDTH - 4 - len) / 2;
 
-	int offset = current_item - current_line;
-
 	sprintf(buffer, "<<%*s%s%*s>>", pad1, "", current_page->name, pad2, "");
 
 	dialog_set_property_str(menu_handler, 8, buffer);
@@ -189,7 +187,7 @@ void menu_display() {
 	menu_event_open();
 
 	for(i = 0; i < MENU_HEIGHT; i++) {
-		menu_message(buffer, i + offset);
+		menu_message(buffer, i);
 		dialog_set_property_str(menu_handler, i + 1, buffer);
 	}
 
@@ -199,7 +197,7 @@ void menu_display() {
 void menu_refresh() {
 	char buffer[LP_MAX_WORD];
 
-	menu_message(buffer, get_item_id(current_item));
+	menu_message(buffer, current_line);
 	dialog_set_property_str(menu_handler, current_line + 1, buffer);
 	dialog_redraw(menu_handler);
 }
@@ -441,10 +439,12 @@ void menu_repeateable_cycle(int repeating) {
 	}
 }
 
-void menu_message(const char *buffer, int item_id) {
+void menu_message(const char *buffer, int line) {
 	char item_name[LP_MAX_WORD];
 	char name[LP_MAX_WORD];
 	char pad = ' ';
+
+	int item_id = line + current_item - current_line;
 
 	type_MENUITEM *item = get_item(item_id);
 
