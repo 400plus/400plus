@@ -49,6 +49,8 @@ void menu_repeateable_left (int repeating);
 
 void menu_message(int line);
 
+void get_item_name(const char *name, int item_id, type_MENUITEM *item);
+
 void menu_print_ev   (const char *buffer, const char *name, int   parameter);
 void menu_print_av   (const char *buffer, const char *name, int   parameter);
 void menu_print_tv   (const char *buffer, const char *name, int   parameter);
@@ -436,26 +438,14 @@ void menu_repeateable_cycle(int repeating) {
 
 void menu_message(int line) {
 	char buffer[LP_MAX_WORD];
-	char item_name[LP_MAX_WORD];
 	char name[LP_MAX_WORD];
-	char pad = ' ';
 
 	int item_id = line + current_item - current_line;
 
 	type_MENUITEM *item = get_item(item_id);
 
 	if (item) {
-		if (current_page->rename)
-			sprintf(item_name, "%i %s", 1 + get_real_id(item_id), item->name);
-		else
-			sprintf(item_name, "%s", item->name);
-
-		if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
-			pad = '>';
-		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
-			pad = '*';
-
-		sprintf(name, "%c%s", pad, item_name);
+		get_item_name(name, item_id, item);
 
 		switch(item->type) {
 		case MENUITEM_TYPE_EV:
@@ -494,6 +484,23 @@ void menu_message(int line) {
 	}
 
 	dialog_set_property_str(menu_handler, line + 1, buffer);
+}
+
+void get_item_name(const char *name, int item_id, type_MENUITEM *item) {
+	char item_name[LP_MAX_WORD];
+	char pad = ' ';
+
+	if (current_page->rename)
+		sprintf(item_name, "%i %s", 1 + get_real_id(item_id), item->name);
+	else
+		sprintf(item_name, "%s", item->name);
+
+	if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+		pad = '>';
+	else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
+		pad = '*';
+
+	sprintf(name, "%c%s", pad, item_name);
 }
 
 void menu_print_ev(const char *buffer, const char *name, int parameter) {
