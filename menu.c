@@ -47,7 +47,7 @@ void menu_repeateable_cycle(int repeating);
 void menu_repeateable_right(int repeating);
 void menu_repeateable_left (int repeating);
 
-void menu_message(const char *buffer, int line);
+void menu_message(int line);
 
 void menu_print_ev   (const char *buffer, const char *name, int   parameter);
 void menu_print_av   (const char *buffer, const char *name, int   parameter);
@@ -186,19 +186,14 @@ void menu_display() {
 
 	menu_event_open();
 
-	for(i = 0; i < MENU_HEIGHT; i++) {
-		menu_message(buffer, i);
-		dialog_set_property_str(menu_handler, i + 1, buffer);
-	}
+	for(i = 0; i < MENU_HEIGHT; i++)
+		menu_message(i);
 
 	dialog_redraw(menu_handler);
 }
 
 void menu_refresh() {
-	char buffer[LP_MAX_WORD];
-
-	menu_message(buffer, current_line);
-	dialog_set_property_str(menu_handler, current_line + 1, buffer);
+	menu_message(current_line);
 	dialog_redraw(menu_handler);
 }
 
@@ -439,7 +434,8 @@ void menu_repeateable_cycle(int repeating) {
 	}
 }
 
-void menu_message(const char *buffer, int line) {
+void menu_message(int line) {
+	char buffer[LP_MAX_WORD];
 	char item_name[LP_MAX_WORD];
 	char name[LP_MAX_WORD];
 	char pad = ' ';
@@ -496,6 +492,8 @@ void menu_message(const char *buffer, int line) {
 	} else {
 		menu_print_char(buffer, "", "");
 	}
+
+	dialog_set_property_str(menu_handler, line + 1, buffer);
 }
 
 void menu_print_ev(const char *buffer, const char *name, int parameter) {
