@@ -8,8 +8,6 @@ typedef struct {
 	char **data;
 } type_LIST;
 
-typedef struct MENUITEM type_MENUITEM;
-
 typedef enum {
 	MENUITEM_TYPE_EV,
 	MENUITEM_TYPE_AV,
