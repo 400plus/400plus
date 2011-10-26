@@ -80,6 +80,7 @@ C_OBJS = init.o           \
          scripts.o        \
          viewfinder.o     \
          af_patterns.o    \
+	 debug.o          \
 
 OBJS   = $(S_OBJS) $(C_OBJS)
 
