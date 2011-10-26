@@ -74,11 +74,12 @@ typedef union {
 } type_MENUITEM_PARM;
 
 struct MENUITEM {
-	char               *name;
-	int                 readonly;
+	char *name;
+	int   readonly;
 	type_MENUITEM_TYPE  type;
 	type_MENUITEM_PARM  parm;
 	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
+	void (*display)(type_MENUITEM *item, const char *buffer);
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
@@ -100,7 +101,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	} \
+	}, \
+	display : menuitem_display, \
 }
 
 #define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -111,7 +113,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -123,7 +126,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -135,7 +139,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_)  { \
@@ -147,7 +152,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) { \
@@ -165,7 +171,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks    : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_)  { \
@@ -178,7 +185,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \
@@ -186,7 +194,8 @@ OPTIONLIST_DEC(logfile)
 	type  : MENUITEM_TYPE_LAUNCH, \
 	tasks : { \
 		[MENU_EVENT_SET] = _ACTION_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_SUBMENU(_NAME_, _PAGE_, _ACTION_) { \
@@ -197,7 +206,8 @@ OPTIONLIST_DEC(logfile)
 	}}, \
 	tasks : { \
 		[MENU_EVENT_SET] = _ACTION_, \
-	} \
+	}, \
+	display : menuitem_display,  \
 }
 
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, _ON_CHANGE_)
@@ -220,5 +230,7 @@ OPTIONLIST_DEC(logfile)
 #define MENUITEM_INFO(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE, 0, 0, 0, 0, FALSE, "%u", NULL)
 
 #define MENUITEM_BREAK(_NAME_) MENUITEM_LAUNCH(_NAME_, NULL)
+
+extern void menuitem_display(type_MENUITEM *item, const char *buffer);
 
 #endif /* MENUITEM_H_ */
