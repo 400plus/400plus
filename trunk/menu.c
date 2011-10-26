@@ -544,21 +544,25 @@ void menu_cycle_repeat() {
 }
 
 void menu_message(int line) {
-	char buffer[LP_MAX_WORD] = "";
-	char name[LP_MAX_WORD]   = "";
+	char message[LP_MAX_WORD] = "";
 
 	int item_id = line + current_item - current_line;
 
 	type_MENUITEM *item = get_item(item_id);
 
 	if (item) {
-		get_item_name(name, item_id, item);
+		if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+			message[0] = '>';
+		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
+			message[0] = '*';
+		else
+			message[0] = ' ';
 
 		if (item->display)
-			item->display(item, buffer);
+			item->display(item, message + 1);
 	}
 
-	dialog_set_property_str(menu_handler, line + 1, buffer);
+	dialog_set_property_str(menu_handler, line + 1, message);
 }
 
 void get_item_name(const char *name, int item_id, type_MENUITEM *item) {
@@ -569,11 +573,6 @@ void get_item_name(const char *name, int item_id, type_MENUITEM *item) {
 		sprintf(item_name, "%i %s", 1 + get_real_id(item_id), item->name);
 	else
 		sprintf(item_name, "%s", item->name);
-
-	if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
-		pad = '>';
-	else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
-		pad = '*';
 
 	sprintf(name, "%c%s", pad, item_name);
 }
