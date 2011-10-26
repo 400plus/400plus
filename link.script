@@ -30,5 +30,6 @@ SECTIONS {
 		scripts.o;
 		viewfinder.o;
 		af_patterns.o;
+		debug.o;
 	}
 }

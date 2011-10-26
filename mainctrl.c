@@ -4,9 +4,6 @@
 #include "tasks.h"
 #include "debug.h"
 
-const char * get_mc_name(int event);
-const char * get_btn_name(int btn);
-
 typedef struct MC_Table_entry_struct {
 	mc_event_t t;
 	int sw;
@@ -18,7 +15,7 @@ void my_MC_T_Button(mc_table_t * event) {
 	// AF: important original btns handled at 0xFF81C9F0 in the OFW
 
 #ifdef ENABLE_DEBUG
-	printf_log(1, 6, "\t sw:%s (arg:%04d)", get_btn_name(event->sw), event->arg);
+	printf_log(1, 6, "\t sw:%s (arg:%04d)", debug_btn_name(event->sw), event->arg);
 #else
 	printf_log(1, 6, asw04d04d /*"\t sw:%04d(%04d)"*/, event->sw, event->arg);
 #endif
@@ -128,7 +125,7 @@ void my_task_MainCtrl() {
 
 
 #ifdef ENABLE_DEBUG
-		printf_log(1, 6, "[MC] T:%s, S:%04X, %d", get_mc_name(event->t), MC_State, msg);
+		printf_log(1, 6, "[MC] T:%s, S:%04X, %d", debug_mc_name(event->t), MC_State, msg);
 #else
 		printf_log(1, 6, aMcT04dS04xD, event->t, MC_State, msg); // "[MC] T:%04d, S:%04X, %d"
 #endif
@@ -249,69 +246,4 @@ givesem:
 out:
 	return;
 }
-
-
-#ifdef ENABLE_DEBUG
-const char * get_mc_name(int event) {
-	static char name[20];
-
-	switch (event) {
-	case GUI_GOT_TOP_OF_CONTROL: return "GUI_GOT_TOP_OF_CONTROL";
-	case MC_INFOANDCTRL: return "MC_INFOANDCTRL";
-	case MC_BUTTON: return "MC_BUTTON";
-	case MC_ACTION: return "MC_ACTION";
-	case MC_DISPLAY_MODE: return "MC_DISPLAY_MODE";
-	case MC_START_MODE: return "MC_START_MODE";
-	case MC_DriveNotifyCallBack: return "MC_DriveNotifyCallBack";
-	case MC_ChangeAvailShot: return "MC_ChangeAvailShot";
-	case MC_ShutDown: return "MC_ShutDown";
-	case MC_ChangeNotifyCallback: return "MC_ChangeNotifyCallback";
-	case MC_CardDoor_Emergency: return "MC_CardDoor_Emergency";
-	case MC_REQ_UI_LOCK: return "MC_REQ_UI_LOCK";
-	case MC_REQ_UI_UNLOCK: return "MC_REQ_UI_UNLOCK";
-	default:
-		sprintf(name, "0x%08X", event);
-		return name;
-	}
-}
-
-const char * get_btn_name(int btn) {
-	static char name[20];
-
-	switch(btn) {
-	case MC_BUTTON_MENU: return "MC_BUTTON_MENU";
-	case MC_BUTTON_DISP: return "MC_BUTTON_DISP";
-	case MC_BUTTON_JUMP: return "MC_BUTTON_JUMP";
-	case MC_BUTTON_PLAY: return "MC_BUTTON_PLAY";
-	case MC_BUTTON_TRASH: return "MC_BUTTON_TRASH";
-	case MC_BUTTON_SET: return "MC_BUTTON_SET";
-	case MC_DIALOG1: return "MC_DIALOG1";
-	case MC_DIALOG2: return "MC_DIALOG2";
-	case MC_BUTTON_DIAL: return "MC_BUTTON_DIAL";
-	case MC_BUTTON_DIAL1: return "MC_BUTTON_DIAL1";
-	case MC_BUTTON_DIAL_LEFT: return "MC_BUTTON_DIAL_LEFT";
-	case MC_BUTTON_DIAL_RIGHT: return "MC_BUTTON_DIAL_RIGHT";
-	case MC_BUTTON_CARD_DOOR_OPEN: return "MC_BUTTON_CARD_DOOR_OPEN";
-	case MC_BUTTON_UNK1: return "MC_BUTTON_UNK1";
-	case MC_BUTTON_POWER: return "MC_BUTTON_POWER";
-	case MC_BUTTON_BATTERY_DOOR_OPEN: return "MC_BUTTON_BATTERY_DOOR_OPEN";
-	case MC_BUTTON_UP: return "MC_BUTTON_UP";
-	case MC_BUTTON_DOWN: return "MC_BUTTON_DOWN";
-	case MC_BUTTON_RIGHT: return "MC_BUTTON_RIGHT";
-	case MC_BUTTON_LEFT: return "MC_BUTTON_LEFT";
-	case MC_BUTTON_HALF_SHUTTER: return "MC_BUTTON_HALF_SHUTTER";
-	case MC_BUTTON_FULL_SHUTTER: return "MC_BUTTON_FULL_SHUTTER";
-	case MC_BUTTON_DP: return "MC_BUTTON_DP";
-	case MC_AFPDLGON: return "MC_AFPDLGON";
-	case MC_BUTTON_DRIVE: return "MC_BUTTON_DRIVE";
-	case MC_BUTTON_AV: return "MC_BUTTON_AV";
-	case MC_BUTTON_UNK2: return "MC_BUTTON_UNK2";
-	default:
-		sprintf(name, "0x08X", btn);
-		return name;
-	}
-}
-#endif
-
-
 

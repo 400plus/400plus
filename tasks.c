@@ -55,6 +55,10 @@ void start_up() {
 
 	// We are no longer booting up
 	status.booting = FALSE;
+
+	SleepTask(5000);
+	dump_dpr_data();
+	beep();
 }
 
 void set_metering_spot() {
