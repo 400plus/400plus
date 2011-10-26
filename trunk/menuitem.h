@@ -102,7 +102,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display, \
+	display : menuitem_display_ev, \
 }
 
 #define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -114,7 +114,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display,  \
+	display : menuitem_display_av,  \
 }
 
 #define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -127,7 +127,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display,  \
+	display : menuitem_display_tv,  \
 }
 
 #define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -140,7 +140,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display,  \
+	display : menuitem_display_tv,  \
 }
 
 #define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_)  { \
@@ -153,7 +153,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display,  \
+	display : menuitem_display_iso,  \
 }
 
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) { \
@@ -172,7 +172,7 @@ OPTIONLIST_DEC(logfile)
 	tasks    : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display,  \
+	display : menuitem_display_int,  \
 }
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_)  { \
@@ -186,7 +186,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display,  \
+	display : menuitem_display_enum,  \
 }
 
 #define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \
@@ -207,7 +207,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_SET] = _ACTION_, \
 	}, \
-	display : menuitem_display,  \
+	display : menuitem_display_sub,  \
 }
 
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, _ON_CHANGE_)
@@ -231,6 +231,13 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_BREAK(_NAME_) MENUITEM_LAUNCH(_NAME_, NULL)
 
-extern void menuitem_display(type_MENUITEM *item, const char *buffer);
+extern void menuitem_display      (type_MENUITEM *item, const char *buffer);
+extern void menuitem_display_ev   (type_MENUITEM *item, const char *buffer);
+extern void menuitem_display_av   (type_MENUITEM *item, const char *buffer);
+extern void menuitem_display_tv   (type_MENUITEM *item, const char *buffer);
+extern void menuitem_display_iso  (type_MENUITEM *item, const char *buffer);
+extern void menuitem_display_int  (type_MENUITEM *item, const char *buffer);
+extern void menuitem_display_enum (type_MENUITEM *item, const char *buffer);
+extern void menuitem_display_sub  (type_MENUITEM *item, const char *buffer);
 
 #endif /* MENUITEM_H_ */
