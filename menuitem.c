@@ -12,65 +12,65 @@ OPTIONLIST_DEF(flash,    LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_
 OPTIONLIST_DEF(action,   LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
 OPTIONLIST_DEF(logfile,  LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
 
-void menuitem_print(const char *buffer, const char *name, const char *parameter);
+void menuitem_print(const char *buffer, const char *name, const char *parameter, const int length);
 
-void menuitem_display(const type_MENUITEM *item, const char *buffer) {
-	menuitem_print(buffer, item->name, "");
+void menuitem_display(const type_MENUITEM *item, const char *buffer, const int length) {
+	menuitem_print(buffer, item->name, "", length);
 }
 
-void menuitem_display_ev(const type_MENUITEM *item, const char *buffer) {
+void menuitem_display_ev(const type_MENUITEM *item, const char *buffer, const int length) {
 	const char value[LP_MAX_WORD];
 
 	if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0) {
-		menuitem_print(buffer, item->name, LP_WORD(L_OFF));
+		menuitem_print(buffer, item->name, LP_WORD(L_OFF), length);
 	} else {
 		ev_print(value, *item->parm.menuitem_ev.value);
-		menuitem_print(buffer, item->name, value);
+		menuitem_print(buffer, item->name, value, length);
 	}
 }
 
-void menuitem_display_av(const type_MENUITEM *item, const char *buffer) {
+void menuitem_display_av(const type_MENUITEM *item, const char *buffer, const int length) {
 	const char value[LP_MAX_WORD];
 
 	av_print(value, *item->parm.menuitem_av.value);
-	menuitem_print(buffer, item->name, value);
+	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_tv(const type_MENUITEM *item, const char *buffer) {
+void menuitem_display_tv(const type_MENUITEM *item, const char *buffer, const int length) {
 	const char value[LP_MAX_WORD];
 
 	tv_print(value, *item->parm.menuitem_tv.value);
-	menuitem_print(buffer, item->name, value);
+	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_iso(const type_MENUITEM *item, const char *buffer) {
+void menuitem_display_iso(const type_MENUITEM *item, const char *buffer, const int length) {
 	const char value[LP_MAX_WORD];
 
 	iso_print(value, *item->parm.menuitem_iso.value);
-	menuitem_print(buffer, item->name, value);
+	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_int(const type_MENUITEM *item, const char *buffer) {
+void menuitem_display_int(const type_MENUITEM *item, const char *buffer, const int length) {
 	const char value[LP_MAX_WORD];
 
 	if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0) {
-		menuitem_print(buffer, item->name, LP_WORD(L_NO_LIMIT));
+		menuitem_print(buffer, item->name, LP_WORD(L_NO_LIMIT), length);
 	} else {
 		sprintf(value, item->parm.menuitem_int.format, *item->parm.menuitem_int.value);
-		menuitem_print(buffer, item->name, value);
+		menuitem_print(buffer, item->name, value, length);
 	}
 }
 
-void menuitem_display_enum(const type_MENUITEM *item, const char *buffer) {
-	menuitem_print(buffer, item->name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value]);
+void menuitem_display_enum(const type_MENUITEM *item, const char *buffer, const int length) {
+	menuitem_print(buffer, item->name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value], length);
 }
 
-void menuitem_display_sub(const type_MENUITEM *item, const char *buffer) {
-	menuitem_print(buffer, item->name, ">");
+void menuitem_display_sub(const type_MENUITEM *item, const char *buffer, const int length) {
+	menuitem_print(buffer, item->name, ">", length);
 }
 
-void menuitem_print(const char *buffer, const char *name, const char *parameter) {
-	const int pad = MENU_WIDTH - strlen(parameter) - 2;
+void menuitem_print(const char *buffer, const char *name, const char *parameter, const int length) {
+	const int pad = length - strlen(parameter) - 1;
 
 	sprintf(buffer, "%-*.*s %s", pad, pad, name, parameter);
 }
