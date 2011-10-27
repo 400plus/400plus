@@ -37,7 +37,6 @@ type_MENU menu_main = {
 	pages    : menu_main_pages,
 	ordering : settings.main_order,
 	tasks    : {
-		[MENU_EVENT_AV]     = menu_cycle,
 		[MENU_EVENT_PLAY]   = menu_drag_drop,
 		[MENU_EVENT_UP]     = menu_up,
 		[MENU_EVENT_DOWN]   = menu_down,

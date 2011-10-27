@@ -46,7 +46,6 @@ void menu_repeat(void (*action)(const int repeating));
 
 void menu_repeat_right(const int repeating);
 void menu_repeat_left (const int repeating);
-void menu_repeat_cycle(const int repeating);
 
 void menu_display_line(int line);
 
@@ -257,10 +256,6 @@ void menu_left() {
 	menu_repeat(menu_repeat_left);
 }
 
-void menu_cycle() {
-	menu_repeat(menu_repeat_cycle);
-}
-
 void menu_drag_drop() {
 	if (current_page->ordering) {
 		item_grabbed = ! item_grabbed;
@@ -322,17 +317,6 @@ void menu_repeat_left(const int repeating) {
 
 	if (item && !item->readonly && item->left) {
 		item->left(item, repeating);
-
-		menu_event_change();
-		menu_refresh();
-	}
-}
-
-void menu_repeat_cycle(const int repeating) {
-	type_MENUITEM *item = get_current_item();
-
-	if (item && !item->readonly && item->cycle) {
-		item->cycle(item, repeating);
 
 		menu_event_change();
 		menu_refresh();
