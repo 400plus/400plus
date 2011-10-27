@@ -345,7 +345,7 @@ void menu_display_line(int line) {
 		}
 
 		if (item->display)
-			item->display(item, &message[i]);
+			item->display(item, &message[i], MENU_WIDTH - i);
 	}
 
 	dialog_set_property_str(menu_handler, line + 1, message);
