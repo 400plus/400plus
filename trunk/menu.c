@@ -36,20 +36,17 @@ type_ACTION callbacks_standard[] = {
 void menu_initialize();
 void menu_destroy();
 
-int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+int menu_button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
 
+void menu_set_page();
 void menu_display();
 void menu_refresh();
 
-void menu_repeat(void (*action_first)(), void (*action_repeat)());
+void menu_repeat(void (*action)(const int repeating));
 
-void menu_cycle_first();
-void menu_right_first();
-void menu_left_first ();
-
-void menu_cycle_repeat();
-void menu_right_repeat();
-void menu_left_repeat ();
+void menu_repeat_right(const int repeating);
+void menu_repeat_left (const int repeating);
+void menu_repeat_cycle(const int repeating);
 
 void menu_display_line(int line);
 
@@ -70,7 +67,7 @@ void menu_create(type_MENU * menu) {
 	GUI_Lock();
 	GUI_PalleteInit();
 
-	menu_handler = dialog_create(22, button_menu_handler);
+	menu_handler = dialog_create(22, menu_button_handler);
 	PalettePush();
 
 	PaletteChange(current_menu->color);
@@ -108,7 +105,7 @@ void menu_destroy() {
 	}
 }
 
-int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+int menu_button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
 	type_ACTION *action;
 
 	// Loop over all the actions from this action chain
@@ -131,6 +128,13 @@ int button_menu_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3,
 
 pass_event:
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+}
+
+void menu_set_page(type_MENUPAGE *page) {
+	current_page = page;
+	current_item = current_line;
+
+	menu_display();
 }
 
 void menu_event_menu()   { menu_event(MENU_EVENT_MENU);   };
@@ -246,15 +250,15 @@ void menu_down() {
 }
 
 void menu_right() {
-	menu_repeat(menu_right_first, menu_right_repeat);
+	menu_repeat(menu_repeat_right);
 }
 
 void menu_left() {
-	menu_repeat(menu_left_first, menu_left_repeat);
+	menu_repeat(menu_repeat_left);
 }
 
 void menu_cycle() {
-	menu_repeat(menu_cycle_first, menu_cycle_repeat);
+	menu_repeat(menu_repeat_cycle);
 }
 
 void menu_drag_drop() {
@@ -283,259 +287,52 @@ void menu_page_prev() {
 	menu_return();
 }
 
-void menu_repeat(void (*action_first)(), void (*action_repeat)()){
+void menu_repeat(void (*action)(const int repeating)){
 	int delay;
 	int button = status.button_down;
 
 	SleepTask(50);
 
-	action_first();
+	action(FALSE);
 	delay = AUTOREPEAT_DELAY_LONG;
 
 	do {
 		SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 		if (--delay == 0) {
-			action_repeat();
+			action(TRUE);
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
 }
 
-void menu_right_first() {
+void menu_repeat_right(const int repeating) {
 	type_MENUITEM *item = get_current_item();
 
-	if (item && !item->readonly) {
-		switch(item->type) {
-		case MENUITEM_TYPE_EV:
-			*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
-			break;
-		case MENUITEM_TYPE_AV:
-			*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
-			break;
-		case MENUITEM_TYPE_TV:
-			if (item->parm.menuitem_tv.bulb)
-				*item->parm.menuitem_tv.value = tv_next(*item->parm.menuitem_tv.value);
-			else
-				*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
-			break;
-		case MENUITEM_TYPE_ISO:
-			if (item->parm.menuitem_iso.full)
-				*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
-			else
-				*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
-			break;
-		case MENUITEM_TYPE_INT:
-			*item->parm.menuitem_int.value += item->parm.menuitem_int.small_step;
-			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-			break;
-		case MENUITEM_TYPE_ENUM:
-			if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
-				if (item->parm.menuitem_enum.cycle)
-					*item->parm.menuitem_enum.value = 0;
-			} else
-				(*item->parm.menuitem_enum.value)++;
-			break;
-		case MENUITEM_TYPE_SUBMENU:
-			current_page = item->parm.menuitem_submenu.page;
-			current_item =  current_line;
-
-			menu_display();
-			break;
-		default:
-			break;
-		}
+	if (item && !item->readonly && item->right) {
+		item->right(item, repeating);
 
 		menu_event_change();
 		menu_refresh();
 	}
 }
 
-void menu_right_repeat() {
+void menu_repeat_left(const int repeating) {
 	type_MENUITEM *item = get_current_item();
 
-	if (item && !item->readonly) {
-		switch(item->type) {
-		case MENUITEM_TYPE_EV:
-			*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
-			break;
-		case MENUITEM_TYPE_AV:
-			*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
-			break;
-		case MENUITEM_TYPE_TV:
-			if (item->parm.menuitem_tv.bulb)
-				*item->parm.menuitem_tv.value = tv_next(*item->parm.menuitem_tv.value);
-			else
-				*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
-			break;
-		case MENUITEM_TYPE_ISO:
-			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
-			break;
-		case MENUITEM_TYPE_INT:
-			*item->parm.menuitem_int.value += item->parm.menuitem_int.big_step;
-			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-			break;
-		case MENUITEM_TYPE_ENUM:
-			if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
-				if (item->parm.menuitem_enum.cycle)
-					*item->parm.menuitem_enum.value = 0;
-			} else
-				(*item->parm.menuitem_enum.value)++;
-			break;
-		default:
-			break;
-		}
+	if (item && !item->readonly && item->left) {
+		item->left(item, repeating);
 
 		menu_event_change();
 		menu_refresh();
 	}
 }
 
-void menu_left_first() {
+void menu_repeat_cycle(const int repeating) {
 	type_MENUITEM *item = get_current_item();
 
-	if (item && !item->readonly) {
-		switch(item->type) {
-		case MENUITEM_TYPE_EV:
-			if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
-					*item->parm.menuitem_ev.value = 0x00;
-			else
-				*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
-			break;
-		case MENUITEM_TYPE_AV:
-			*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
-			break;
-		case MENUITEM_TYPE_TV:
-			if (item->parm.menuitem_tv.bulb)
-				*item->parm.menuitem_tv.value = tv_prev(*item->parm.menuitem_tv.value);
-			else
-				*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
-			break;
-		case MENUITEM_TYPE_ISO:
-			if (item->parm.menuitem_iso.full)
-				*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
-			else
-				*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
-			break;
-		case MENUITEM_TYPE_INT:
-			*item->parm.menuitem_int.value -= item->parm.menuitem_int.small_step;
-			*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
-			break;
-		case MENUITEM_TYPE_ENUM:
-			if (*item->parm.menuitem_enum.value == 0) {
-				if (item->parm.menuitem_enum.cycle)
-					*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
-			} else
-				*item->parm.menuitem_enum.value -= 1;
-			break;
-		default:
-			break;
-		}
-
-		menu_event_change();
-		menu_refresh();
-	}
-}
-
-void menu_left_repeat() {
-	type_MENUITEM *item = get_current_item();
-
-	if (item && !item->readonly) {
-		switch(item->type) {
-		case MENUITEM_TYPE_EV:
-			if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
-					*item->parm.menuitem_ev.value = 0x00;
-			else
-				*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
-			break;
-		case MENUITEM_TYPE_AV:
-			*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
-			break;
-		case MENUITEM_TYPE_TV:
-			if (item->parm.menuitem_tv.bulb)
-				*item->parm.menuitem_tv.value = tv_prev(*item->parm.menuitem_tv.value);
-			else
-				*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
-			break;
-		case MENUITEM_TYPE_ISO:
-			*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
-			break;
-		case MENUITEM_TYPE_INT:
-			*item->parm.menuitem_int.value -= item->parm.menuitem_int.big_step;
-			*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
-			break;
-		case MENUITEM_TYPE_ENUM:
-			if (*item->parm.menuitem_enum.value == 0) {
-				if (item->parm.menuitem_enum.cycle)
-					*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
-			} else
-				*item->parm.menuitem_enum.value -= 1;
-			break;
-		default:
-			break;
-		}
-
-		menu_event_change();
-		menu_refresh();
-	}
-}
-
-void menu_cycle_first() {
-	type_MENUITEM *item = get_current_item();
-
-	if (item && !item->readonly) {
-		switch(item->type) {
-		case MENUITEM_TYPE_EV:
-			if (!item->parm.menuitem_ev.zero_means_off)
-				*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
-			break;
-		case MENUITEM_TYPE_ISO:
-			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
-			break;
-		case MENUITEM_TYPE_INT:
-			*item->parm.menuitem_int.value += item->parm.menuitem_int.small_step;
-			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-			break;
-		case MENUITEM_TYPE_ENUM:
-			if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1)
-				*item->parm.menuitem_enum.value = 0;
-			else
-				*item->parm.menuitem_enum.value += 1;
-			break;
-		default:
-			break;
-		}
-
-		menu_event_change();
-		menu_refresh();
-	}
-}
-
-void menu_cycle_repeat() {
-	type_MENUITEM *item = get_current_item();
-
-	if (item && !item->readonly) {
-		switch(item->type) {
-		case MENUITEM_TYPE_EV:
-			if (!item->parm.menuitem_ev.zero_means_off)
-				*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
-			break;
-		case MENUITEM_TYPE_ISO:
-			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
-			break;
-		case MENUITEM_TYPE_INT:
-			*item->parm.menuitem_int.value += item->parm.menuitem_int.big_step;
-			*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-			break;
-		case MENUITEM_TYPE_ENUM:
-			if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1)
-				*item->parm.menuitem_enum.value = 0;
-			else
-				*item->parm.menuitem_enum.value += 1;
-			break;
-		default:
-			break;
-		}
+	if (item && !item->readonly && item->cycle) {
+		item->cycle(item, repeating);
 
 		menu_event_change();
 		menu_refresh();
