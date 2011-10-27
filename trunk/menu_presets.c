@@ -109,6 +109,7 @@ type_MENUPAGE menupage_preset_1 = {
 	length : LENGTH(preset_1_items),
 	items  : preset_1_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -121,6 +122,7 @@ type_MENUPAGE menupage_preset_2 = {
 	length : LENGTH(preset_2_items),
 	items  : preset_2_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -133,6 +135,7 @@ type_MENUPAGE menupage_preset_3 = {
 	length : LENGTH(preset_3_items),
 	items  : preset_3_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -145,6 +148,7 @@ type_MENUPAGE menupage_preset_4 = {
 	length : LENGTH(preset_4_items),
 	items  : preset_4_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -157,6 +161,7 @@ type_MENUPAGE menupage_preset_5 = {
 	length : LENGTH(preset_5_items),
 	items  : preset_5_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -169,6 +174,7 @@ type_MENUPAGE menupage_preset_6 = {
 	length : LENGTH(preset_6_items),
 	items  : preset_6_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -181,6 +187,7 @@ type_MENUPAGE menupage_preset_7 = {
 	length : LENGTH(preset_7_items),
 	items  : preset_7_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -193,6 +200,7 @@ type_MENUPAGE menupage_preset_8 = {
 	length : LENGTH(preset_8_items),
 	items  : preset_8_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
@@ -205,6 +213,7 @@ type_MENUPAGE menupage_preset_9 = {
 	length : LENGTH(preset_9_items),
 	items  : preset_9_items,
 	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
