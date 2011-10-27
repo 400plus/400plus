@@ -152,8 +152,3 @@ void menuitem_left_enum(const type_MENUITEM *item, const int repeating) {
 	} else
 		*item->parm.menuitem_enum.value -= 1;
 }
-
-void menuitem_cycle_ev(const type_MENUITEM *item, const int repeating) {
-	if (!item->parm.menuitem_ev.zero_means_off)
-		*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
-}

@@ -82,7 +82,6 @@ struct MENUITEM {
 	void (*display)(const type_MENUITEM *item, const char *buffer);
 	void (*right)  (const type_MENUITEM *item, const int repeating);
 	void (*left)   (const type_MENUITEM *item, const int repeating);
-	void (*cycle)  (const type_MENUITEM *item, const int repeating);
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
@@ -108,7 +107,6 @@ OPTIONLIST_DEC(logfile)
 	display : menuitem_display_ev, \
 	right   : menuitem_right_ev, \
 	left    : menuitem_left_ev, \
-	cycle   : menuitem_cycle_ev, \
 }
 
 #define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -273,15 +271,5 @@ extern void menuitem_left_tv  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_left_iso (const type_MENUITEM *item, const int repeating);
 extern void menuitem_left_int (const type_MENUITEM *item, const int repeating);
 extern void menuitem_left_enum(const type_MENUITEM *item, const int repeating);
-extern void menuitem_left_sub (const type_MENUITEM *item, const int repeating);
-
-extern void menuitem_cycle_ev  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_cycle_av  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_cycle_tv  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_cylce_iso (const type_MENUITEM *item, const int repeating);
-extern void menuitem_cycle_int (const type_MENUITEM *item, const int repeating);
-extern void menuitem_cycle_enum(const type_MENUITEM *item, const int repeating);
-extern void menuitem_cycle_sub (const type_MENUITEM *item, const int repeating);
-
 
 #endif /* MENUITEM_H_ */

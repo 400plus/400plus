@@ -96,8 +96,6 @@ extern void menu_down();
 extern void menu_right();
 extern void menu_left();
 
-extern void menu_cycle();
-
 extern void menu_drag_drop();
 
 extern void menu_page_next();

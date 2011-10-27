@@ -32,7 +32,7 @@ type_MENUPAGE autoiso_page = {
 	length   : LENGTH(autoiso_items),
 	items    : autoiso_items,
 	tasks    : {
-		[MENU_EVENT_SET]  = menu_return,
+		[MENU_EVENT_AV]   = menu_return,
 		[MENU_EVENT_NEXT] = menu_void,
 		[MENU_EVENT_PREV] = menu_void,
 		[MENU_EVENT_IN]   = menu_void,
