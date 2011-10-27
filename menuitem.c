@@ -117,7 +117,7 @@ void menuitem_right_sub(const type_MENUITEM *item, const int repeating) {
 
 void menuitem_left_ev(const type_MENUITEM *item, const int repeating) {
 	if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
-		*item->parm.menuitem_ev.value = 0x00;
+		*item->parm.menuitem_ev.value = item->parm.menuitem_ev.can_do_zero ? 0x00 : (cameraMode->cf_explevel_inc_third ? 0x04 : 0x03);
 	else
 		*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
 }

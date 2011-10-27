@@ -26,6 +26,7 @@ typedef void(*type_MENUITEM_TASK)(type_MENUITEM *item);
 
 typedef struct {
 	int  *value;
+	int   can_do_zero;
 	int   zero_means_off;
 } type_MENUITEM_EV;
 
@@ -93,10 +94,11 @@ OPTIONLIST_DEC(flash)
 OPTIONLIST_DEC(action)
 OPTIONLIST_DEC(logfile)
 
-#define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_, _ON_CHANGE_) { \
+#define MENUITEM_EV(_NAME_, _VALUE_, _CDZ_, _ZMO_, _ON_CHANGE_) { \
 	name  : _NAME_, \
 	parm  : { menuitem_ev : { \
 		value          : _VALUE_, \
+		can_do_zero    : _CDZ_, \
 		zero_means_off : _ZMO_, \
 	}}, \
 	tasks : { \
@@ -217,8 +219,9 @@ OPTIONLIST_DEC(logfile)
 	right   : menuitem_right_sub, \
 }
 
-#define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, _ON_CHANGE_)
-#define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  _ON_CHANGE_)
+#define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  FALSE, _ON_CHANGE_)
+#define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  TRUE,  _ON_CHANGE_)
+#define MENUITEM_EVEAEB(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, TRUE,  _ON_CHANGE_)
 
 #define MENUITEM_BASEISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, FALSE, _ON_CHANGE_)
 #define MENUITEM_FULLISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, TRUE , _ON_CHANGE_)
