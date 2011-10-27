@@ -47,10 +47,6 @@ type_MENUPAGE scripts_page = {
 	items  : scripts_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -60,10 +56,6 @@ type_MENUPAGE presets_page = {
 	items  : presets_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -74,10 +66,6 @@ type_MENUPAGE pages_page = {
 	ordering : settings.main_order,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -91,10 +79,11 @@ type_MENUITEM menu_settings_items[] = {
 };
 
 type_MENUPAGE menupage_settings = {
-	name        : LP_WORD(L_SETTINGS),
-	length      : LENGTH(menu_settings_items),
-	items       : menu_settings_items,
-	ordering    : settings.settings_order,
+	name      : LP_WORD(L_SETTINGS),
+	sibilings : TRUE,
+	length    : LENGTH(menu_settings_items),
+	items     : menu_settings_items,
+	ordering  : settings.settings_order,
 };
 
 void menu_settings_apply_cf_safety_shift(type_MENUITEM *item) {

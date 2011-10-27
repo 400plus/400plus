@@ -33,10 +33,6 @@ type_MENUPAGE autoiso_page = {
 	items    : autoiso_items,
 	tasks    : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -51,10 +47,11 @@ type_MENUITEM menupage_params_items[] = {
 };
 
 type_MENUPAGE menupage_params = {
-	name     : "Parameters",
-	length   : LENGTH(menupage_params_items),
-	items    : menupage_params_items,
-	ordering : settings.params_order,
+	name      : "Parameters",
+	sibilings : TRUE,
+	length    : LENGTH(menupage_params_items),
+	items     : menupage_params_items,
+	ordering  : settings.params_order,
 };
 
 void menu_params_apply_autoiso_miniso(type_MENUITEM *item) {

@@ -54,10 +54,6 @@ type_MENUPAGE wave_page = {
 	items  : wave_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -67,10 +63,6 @@ type_MENUPAGE timer_page = {
 	items  : timer_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -80,10 +72,6 @@ type_MENUPAGE eaeb_page = {
 	items  : eaeb_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -93,10 +81,6 @@ type_MENUPAGE interval_page = {
 	items  : interval_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -108,10 +92,11 @@ type_MENUITEM menupage_scripts_items[] = {
 };
 
 type_MENUPAGE menupage_scripts = {
-	name        : "Scripts",
-	length      : LENGTH(menupage_scripts_items),
-	items       : menupage_scripts_items,
-	ordering    : settings.scripts_order,
+	name      : "Scripts",
+	sibilings : TRUE,
+	length    : LENGTH(menupage_scripts_items),
+	items     : menupage_scripts_items,
+	ordering  : settings.scripts_order,
 };
 
 void menu_scripts_apply_eaeb_tvmin(type_MENUITEM *item) {

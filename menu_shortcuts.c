@@ -23,11 +23,11 @@ type_MENUITEM menu_shortcut_items[] = {
 };
 
 type_MENUPAGE menupage_shortcuts = {
-	name        : LP_WORD(L_SHORTCUTS),
-	//color       : MENU_COLOR_YELLOW_AND_GREEN,
-	length      : LENGTH(menu_shortcut_items),
-	items       : menu_shortcut_items,
-	ordering    : settings.shortcuts_order,
+	name      : LP_WORD(L_SHORTCUTS),
+	sibilings : TRUE,
+	length    : LENGTH(menu_shortcut_items),
+	items     : menu_shortcut_items,
+	ordering  : settings.shortcuts_order,
 };
 
 void menu_shortcuts_apply_cf_emit_aux(type_MENUITEM *item) {

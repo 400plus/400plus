@@ -41,10 +41,11 @@ type_MENUITEM menu_developer_items[] = {
 };
 
 type_MENUPAGE menupage_developer = {
-	name        : LP_WORD(L_DEVELOPERS_MENU),
-	length      : LENGTH(menu_developer_items),
-	items       : menu_developer_items,
-	ordering    : settings.developer_order,
+	name      : LP_WORD(L_DEVELOPERS_MENU),
+	sibilings : TRUE,
+	length    : LENGTH(menu_developer_items),
+	items     : menu_developer_items,
+	ordering  : settings.developer_order,
 };
 
 static int test_dialog_btn_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
