@@ -36,7 +36,7 @@ type_MENUITEM timer_items[] = {
 type_MENUITEM eaeb_items[] = {
 	MENUITEM_DELAY  (LP_WORD(L_DELAY),     &settings.eaeb_delay,  NULL),
 	MENUITEM_BRACKET(LP_WORD(L_FRAMES),    &settings.eaeb_frames, NULL),
-	MENUITEM_EVSEP  (LP_WORD(L_STEP_EV),   &settings.eaeb_ev,     NULL),
+	MENUITEM_EVEAEB (LP_WORD(L_STEP_EV),   &settings.eaeb_ev,     NULL),
 	MENUITEM_BULB   (LP_WORD(L_MANUAL_L),  &settings.eaeb_tv_min, menu_scripts_apply_eaeb_tvmin),
 	MENUITEM_BULB   (LP_WORD(L_MANUAL_R),  &settings.eaeb_tv_max, menu_scripts_apply_eaeb_tvmax)
 };
