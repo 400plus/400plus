@@ -183,11 +183,17 @@ void menu_display() {
 
 	int i;
 
-	int len  = strlen(current_page->name);
-	int pad1 = (    MENU_WIDTH - 2 - len) / 2;
-	int pad2 = (1 + MENU_WIDTH - 4 - len) / 2;
+	int pad1, pad2, len  = strlen(current_page->name);
 
-	sprintf(buffer, "<<%*s%s%*s>>", pad1, "", current_page->name, pad2, "");
+	if (current_page->sibilings) {
+		pad1 = (    MENU_WIDTH - 2 - len) / 2;
+		pad2 = (1 + MENU_WIDTH - 4 - len) / 2;
+		sprintf(buffer, "<<%*s%s%*s>>", pad1, "", current_page->name, pad2, "");
+	} else {
+		pad1 = (    MENU_WIDTH - 0 - len) / 2;
+		pad2 = (1 + MENU_WIDTH - 2 - len) / 2;
+		sprintf(buffer, "%*s%s%*s", pad1, "", current_page->name, pad2, "");
+	}
 
 	dialog_set_property_str(menu_handler, 8, buffer);
 
@@ -279,21 +285,25 @@ void menu_drag_drop() {
 }
 
 void menu_page_next() {
-	if (current_page_id == current_menu->length - 1)
-		current_page_id = 0;
-	else
-		current_page_id++;
+	if (current_page->sibilings) {
+		if (current_page_id == current_menu->length - 1)
+			current_page_id = 0;
+		else
+			current_page_id++;
 
-	menu_return();
+		menu_return();
+	}
 }
 
 void menu_page_prev() {
-	if (current_page_id == 0)
-		current_page_id = current_menu->length - 1;
-	else
-		current_page_id--;
+	if (current_page->sibilings) {
+		if (current_page_id == 0)
+			current_page_id = current_menu->length - 1;
+		else
+			current_page_id--;
 
-	menu_return();
+		menu_return();
+	}
 }
 
 void menu_repeat(void (*action)(const int repeating)){

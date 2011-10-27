@@ -18,6 +18,7 @@ type_MENUITEM menupage_info_items[] = {
 
 type_MENUPAGE menupage_info = {
 	name        : "Info",
+	sibilings   : TRUE,
 	length      : LENGTH(menupage_info_items),
 	items       : menupage_info_items,
 	ordering    : settings.info_order,

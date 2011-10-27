@@ -7,6 +7,7 @@ typedef void(*type_MENUPAGE_TASK)(type_MENUPAGE *page);
 
 struct MENUPAGE {
 	char               *name;
+	int                 sibilings;
 	int                 length;
 	type_MENUITEM      *items;
 	type_MENUPAGE_TASK  tasks[MENU_EVENT_COUNT];

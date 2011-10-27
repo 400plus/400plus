@@ -110,10 +110,6 @@ type_MENUPAGE menupage_preset_1 = {
 	items  : preset_1_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -123,10 +119,6 @@ type_MENUPAGE menupage_preset_2 = {
 	items  : preset_2_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -136,10 +128,6 @@ type_MENUPAGE menupage_preset_3 = {
 	items  : preset_3_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -149,10 +137,6 @@ type_MENUPAGE menupage_preset_4 = {
 	items  : preset_4_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -162,10 +146,6 @@ type_MENUPAGE menupage_preset_5 = {
 	items  : preset_5_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -175,10 +155,6 @@ type_MENUPAGE menupage_preset_6 = {
 	items  : preset_6_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -188,10 +164,6 @@ type_MENUPAGE menupage_preset_7 = {
 	items  : preset_7_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -201,10 +173,6 @@ type_MENUPAGE menupage_preset_8 = {
 	items  : preset_8_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -214,10 +182,6 @@ type_MENUPAGE menupage_preset_9 = {
 	items  : preset_9_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
-		[MENU_EVENT_NEXT] = menu_void,
-		[MENU_EVENT_PREV] = menu_void,
-		[MENU_EVENT_IN]   = menu_void,
-		[MENU_EVENT_OUT]  = menu_void,
 	}
 };
 
@@ -234,12 +198,13 @@ type_MENUITEM preset_items[] = {
 };
 
 type_MENUPAGE menupage_presets = {
-	name        : "Presets",
-	length      : LENGTH(preset_items),
-	items       : preset_items,
-	rename      : TRUE,
-	ordering    : presets_config.order,
-	tasks       : {
+	name      : "Presets",
+	sibilings : TRUE,
+	length    : LENGTH(preset_items),
+	items     : preset_items,
+	rename    : TRUE,
+	ordering  : presets_config.order,
+	tasks     : {
 		[MENU_EVENT_OPEN] = menu_preset_open,
 	}
 };
