@@ -75,108 +75,85 @@ void menuitem_print(const char *buffer, const char *name, const char *parameter)
 	sprintf(buffer, "%-*.*s %s", pad, pad, name, parameter);
 }
 
-void menuitem_right(const type_MENUITEM *item, const int repeating) {
-	switch(item->type) {
-	case MENUITEM_TYPE_EV:
-		*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
-		break;
-	case MENUITEM_TYPE_AV:
-		*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
-		break;
-	case MENUITEM_TYPE_TV:
-		if (repeating || item->parm.menuitem_tv.bulb)
-			*item->parm.menuitem_tv.value = tv_next(*item->parm.menuitem_tv.value);
-		else
-			*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
-		break;
-	case MENUITEM_TYPE_ISO:
-		if (repeating || item->parm.menuitem_iso.full)
-			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
-		else
-			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
-		break;
-	case MENUITEM_TYPE_INT:
-		*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-		*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-		break;
-	case MENUITEM_TYPE_ENUM:
-		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
-			if (item->parm.menuitem_enum.cycle)
-				*item->parm.menuitem_enum.value = 0;
-		} else
-			(*item->parm.menuitem_enum.value)++;
-		break;
-	case MENUITEM_TYPE_SUBMENU:
-		if (!repeating)
-			menu_set_page(item->parm.menuitem_submenu.page);
-		break;
-	default:
-		break;
-	}
+void menuitem_right_ev(const type_MENUITEM *item, const int repeating) {
+	*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
 }
 
-void menuitem_left(const type_MENUITEM *item, const int repeating) {
-	switch(item->type) {
-	case MENUITEM_TYPE_EV:
-		if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
-			*item->parm.menuitem_ev.value = 0x00;
-		else
-			*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
-		break;
-	case MENUITEM_TYPE_AV:
-		*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
-		break;
-	case MENUITEM_TYPE_TV:
-		if (repeating || item->parm.menuitem_tv.bulb)
-			*item->parm.menuitem_tv.value = tv_prev(*item->parm.menuitem_tv.value);
-		else
-			*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
-		break;
-	case MENUITEM_TYPE_ISO:
-		if (repeating || item->parm.menuitem_iso.full)
-			*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
-		else
-			*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
-		break;
-	case MENUITEM_TYPE_INT:
-		*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-		*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
-		break;
-	case MENUITEM_TYPE_ENUM:
-		if (*item->parm.menuitem_enum.value == 0) {
-			if (item->parm.menuitem_enum.cycle)
-				*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
-		} else
-			*item->parm.menuitem_enum.value -= 1;
-		break;
-	default:
-		break;
-	}
+void menuitem_right_av(const type_MENUITEM *item, const int repeating) {
+	*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
 }
 
-void menuitem_cycle(const type_MENUITEM *item, const int repeating) {
-	switch(item->type) {
-	case MENUITEM_TYPE_EV:
-		if (!item->parm.menuitem_ev.zero_means_off)
-			*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
-		break;
-	case MENUITEM_TYPE_ISO:
-		if (repeating)
-			*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
-		else
-			*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
-		break;
-	case MENUITEM_TYPE_INT:
-		*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
-		*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
-		break;
-	case MENUITEM_TYPE_ENUM:
-		if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1)
+void menuitem_right_tv(const type_MENUITEM *item, const int repeating) {
+	if (repeating || item->parm.menuitem_tv.bulb)
+		*item->parm.menuitem_tv.value = tv_next(*item->parm.menuitem_tv.value);
+	else
+		*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
+}
+
+void menuitem_right_iso(const type_MENUITEM *item, const int repeating) {
+	if (repeating || item->parm.menuitem_iso.full)
+		*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
+	else
+		*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
+}
+
+void menuitem_right_int(const type_MENUITEM *item, const int repeating) {
+	*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+	*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
+}
+
+void menuitem_right_enum(const type_MENUITEM *item, const int repeating) {
+	if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
+		if (item->parm.menuitem_enum.cycle)
 			*item->parm.menuitem_enum.value = 0;
-		else
-			*item->parm.menuitem_enum.value += 1;
-		break;
-	default:
-		break;
-	}
+	} else
+		(*item->parm.menuitem_enum.value)++;
+}
+
+void menuitem_right_sub(const type_MENUITEM *item, const int repeating) {
+	if (!repeating)
+		menu_set_page(item->parm.menuitem_submenu.page);
+}
+
+void menuitem_left_ev(const type_MENUITEM *item, const int repeating) {
+	if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
+		*item->parm.menuitem_ev.value = 0x00;
+	else
+		*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
+}
+
+void menuitem_left_av(const type_MENUITEM *item, const int repeating) {
+	*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
+}
+
+void menuitem_left_tv(const type_MENUITEM *item, const int repeating) {
+	if (repeating || item->parm.menuitem_tv.bulb)
+		*item->parm.menuitem_tv.value = tv_prev(*item->parm.menuitem_tv.value);
+	else
+		*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
+}
+
+void menuitem_left_iso(const type_MENUITEM *item, const int repeating) {
+	if (repeating || item->parm.menuitem_iso.full)
+		*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
+	else
+		*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
+}
+
+void menuitem_left_int(const type_MENUITEM *item, const int repeating) {
+	*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+	*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
+}
+
+void menuitem_left_enum(const type_MENUITEM *item, const int repeating) {
+	if (*item->parm.menuitem_enum.value == 0) {
+		if (item->parm.menuitem_enum.cycle)
+			*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
+	} else
+		*item->parm.menuitem_enum.value -= 1;
+}
+
+void menuitem_cycle_ev(const type_MENUITEM *item, const int repeating) {
+	if (!item->parm.menuitem_ev.zero_means_off)
+		*item->parm.menuitem_ev.value = ev_sgn(*item->parm.menuitem_ev.value);
 }
