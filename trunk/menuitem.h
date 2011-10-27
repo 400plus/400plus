@@ -76,7 +76,6 @@ typedef union {
 struct MENUITEM {
 	char *name;
 	int   readonly;
-	type_MENUITEM_TYPE  type;
 	type_MENUITEM_PARM  parm;
 	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
 	void (*display)(const type_MENUITEM *item, const char *buffer, const int length);
@@ -96,7 +95,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_EV(_NAME_, _VALUE_, _ZMO_, _ON_CHANGE_) { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_EV, \
 	parm  : { menuitem_ev : { \
 		value          : _VALUE_, \
 		zero_means_off : _ZMO_, \
@@ -111,7 +109,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_AV, \
 	parm  : { menuitem_av : { \
 			value : _VALUE_, \
 	}}, \
@@ -125,7 +122,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_TV, \
 	parm  : { menuitem_tv : { \
 		value : _VALUE_, \
 		bulb  : FALSE, \
@@ -140,7 +136,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_TV, \
 	parm  : { menuitem_tv : { \
 		value : _VALUE_, \
 		bulb  : TRUE, \
@@ -155,7 +150,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_)  { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_ISO, \
 	parm  : { menuitem_iso : { \
 		value : _VALUE_, \
 		full  : _FULL_, \
@@ -170,7 +164,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) { \
 	name     : _NAME_, \
-	type     : MENUITEM_TYPE_INT, \
 	readonly : _RO_, \
 	parm     : {menuitem_int : { \
 		value                : _VALUE_, \
@@ -191,7 +184,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_)  { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_ENUM, \
 	parm  : { menuitem_enum : { \
 		value : _VALUE_, \
 		cycle : _CYCLE_, \
@@ -207,7 +199,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_LAUNCH, \
 	tasks : { \
 		[MENU_EVENT_SET] = _ACTION_, \
 	}, \
@@ -216,7 +207,6 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_SUBMENU(_NAME_, _PAGE_, _ACTION_) { \
 	name  : _NAME_, \
-	type  : MENUITEM_TYPE_SUBMENU, \
 	parm  : { menuitem_submenu : { \
 		page : _PAGE_, \
 	}}, \
