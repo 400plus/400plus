@@ -42,7 +42,6 @@ extern void  sprintf(const char*, const char*, ...);
 extern int   isspace(int c);
 extern int   Run_UnicodeString_Dataset_c(char *dest, const char *src, size_t size);
 
-
 // Queue management
 
 extern int *CreateMessageQueue(const char *nameMessageQueue, int param);
@@ -97,7 +96,6 @@ extern int   fputs (const char * s, FILE * fp);
 //extern int   fgetpos(FILE *fp, fpos_t *pos);
 //extern int   fsetpos(FILE *iop, const fpos_t * pos);
 //extern int   fioFormatV(const char *fmt, va_list vaList, FUNCPTR outRoutine, int outarg); // convert a format string
-
 
 // Time functions
 
@@ -175,13 +173,12 @@ extern int InfoCreativeAppProc(type_DIALOG * dialog, int r1, gui_event_t event, 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 
 extern int PaletteChange(int color);
-/* @todo: 0xAF: implement the highlighting with this routines, do not call the canons handlers for moving up/down
-DEF(GUI_Select_Item, 0xFF914F94)        // GUI_Select_Item(void *menu_handle, int menu_item)
-DEF(GUI_Highlight_Sub, 0xFF838714)  // opens submenu in menu dialog template or highlights item. GUI_Highlight_Sub(void *menu_handle,
-int menu_item, bool enable);
-DEF(GUI_Disable_Item, 0xFF838748)       // GUI_Disable_Item(void *menu_handle, int menu_item, bool enable);
 
-PaletteChange(1); //changes menu to blue
+extern void GUI_Select_Item  (void *menu_handle, int menu_item);
+extern void GUI_Highlight_Sub(void *menu_handle, int menu_item, int enable);
+extern void GUI_Disable_Item (void *menu_handle, int menu_item, int enable);
+
+/*PaletteChange(1); //changes menu to blue
 // 0 red
 // 1 blue
 // 2 yelolw
@@ -199,7 +196,6 @@ extern int hDbgMgr;
 // the 3rd arg is the level - 0 == max, 0xff == min
 extern int dmSetPrintLevel(int DbgMgr, int dwFlag, int dwLevel);
 extern int dmSetStoreLevel(int DbgMgr, int dwFlag, int dwLevel);
-
 
 extern int ioGlobalStdSet(int handle, int file);
 
@@ -240,6 +236,7 @@ extern int * hMainMessQueue;
 extern int * hMainDataQueue;
 extern int GetMainPreserveData_field_1C();
 extern void task_MainCtrl();
+
 // task_MainCtrl
 extern int err_MC_T;
 extern void sub_FF825078();
@@ -252,6 +249,7 @@ extern int  ChangeNotifyCallback_MC();
 extern char aMainCannotPowo[];
 extern char aMainCtrl[];
 extern char aMonoSem[];
+
 // mc_button
 extern char asw04d04d[];
 extern int PowerFlag;
@@ -275,7 +273,5 @@ extern int sub_FF92AFD8();
 extern int sub_FF92AF58();
 extern int GUIWindowInstanceProc();
 extern int GUI_IDLEHandler();
-
-
 
 #endif /* FIRMWARE_H_ */

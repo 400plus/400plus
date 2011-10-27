@@ -17288,3 +17288,8 @@ DEF(unk_258A0,    0x000258A0)
 // for lens
 DEF(some_with_lens_name, 0xFF95AEA0)
 
+
+// Some menu functions, from Sergei
+DEF(GUI_Select_Item,   0xFF914F94) // GUI_Select_Item(void *menu_handle, int menu_item)
+DEF(GUI_Highlight_Sub, 0xFF838714) // GUI_Highlight_Sub(void *menu_handle, int menu_item, bool enable) opens submenu in menu dialog template or highlights item.
+DEF(GUI_Disable_Item,  0xFF838748) // GUI_Disable_Item(void *menu_handle, int menu_item, bool enable)
