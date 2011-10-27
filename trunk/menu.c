@@ -130,8 +130,23 @@ pass_event:
 }
 
 void menu_set_page(type_MENUPAGE *page) {
+//	int line;
+
 	current_page = page;
-	current_item = current_line;
+
+	current_line = 0;
+	current_item = 0;
+
+	item_grabbed = FALSE;
+
+	GUI_Select_Item(menu_handler, 1);
+	GUI_Highlight_Sub(menu_handler, 1, FALSE);
+
+/**
+ * Works, but inactive lines look ugly
+ */
+//	for (line = 0; line < MENU_HEIGHT; line++)
+//		GUI_Disable_Item(menu_handler, line + 1, line >= page->length);
 
 	menu_display();
 }
@@ -198,12 +213,7 @@ void menu_refresh() {
 }
 
 void menu_return() {
-	item_grabbed = FALSE;
-
-	current_page = get_current_page();
-	current_item = current_line;
-
-	menu_display();
+	menu_set_page(get_current_page());
 }
 
 void menu_up() {
