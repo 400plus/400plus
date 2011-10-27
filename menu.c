@@ -26,8 +26,8 @@ type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_event_jump}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {menu_event_trash}},
-	{GUI_BUTTON_UP,             FALSE, FALSE, {menu_event_up}},
-	{GUI_BUTTON_DOWN,           FALSE, FALSE, {menu_event_down}},
+	{GUI_BUTTON_UP,             FALSE, TRUE,  {menu_event_up}},
+	{GUI_BUTTON_DOWN,           FALSE, TRUE,  {menu_event_down}},
 	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_event_out}},
 	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_event_in}},
 	END_OF_LIST
@@ -41,6 +41,8 @@ int menu_button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3,
 void menu_set_page();
 void menu_display();
 void menu_refresh();
+
+void menu_highlight(const int line);
 
 void menu_repeat(void (*action)(const int repeating));
 
@@ -130,8 +132,6 @@ pass_event:
 }
 
 void menu_set_page(type_MENUPAGE *page) {
-//	int line;
-
 	current_page = page;
 
 	current_line = 0;
@@ -139,15 +139,7 @@ void menu_set_page(type_MENUPAGE *page) {
 
 	item_grabbed = FALSE;
 
-	GUI_Select_Item(menu_handler, 1);
-	GUI_Highlight_Sub(menu_handler, 1, FALSE);
-
-/**
- * Works, but inactive lines look ugly
- */
-//	for (line = 0; line < MENU_HEIGHT; line++)
-//		GUI_Disable_Item(menu_handler, line + 1, line >= page->length);
-
+	menu_highlight(current_line);
 	menu_display();
 }
 
@@ -212,6 +204,13 @@ void menu_refresh() {
 	dialog_redraw(menu_handler);
 }
 
+void menu_highlight(const int line) {
+	GUI_Select_Item  (menu_handler, line + 1);
+	GUI_Highlight_Sub(menu_handler, line + 1, FALSE);
+
+	dialog_redraw(menu_handler);
+}
+
 void menu_return() {
 	menu_set_page(get_current_page());
 }
@@ -228,19 +227,22 @@ void menu_up() {
 		}
 	}
 
-	if (current_line != 0)
+	if (current_line > 0) {
 		current_line--;
-	else
+		menu_highlight(current_line);
+	} else {
 		display = TRUE;
+	}
 
 	if (display)
 		menu_display();
 }
 
 void menu_down() {
+	const int height = MIN(MENU_HEIGHT, current_page->length) - 1;
 	int display = FALSE;
 
-	if (current_page->length > MENU_HEIGHT || current_item < MENU_HEIGHT - 1) {
+	if (current_page->length > MENU_HEIGHT || current_item < height) {
 		current_item++;
 
 		if (item_grabbed) {
@@ -249,10 +251,12 @@ void menu_down() {
 		}
 	}
 
-	if (current_line < MENU_HEIGHT - 1)
+	if (current_line < height) {
 		current_line++;
-	else
+		menu_highlight(current_line);
+	} else {
 		display = TRUE;
+	}
 
 	if (display)
 		menu_display();
@@ -312,7 +316,7 @@ void menu_repeat(void (*action)(const int repeating)){
 }
 
 void menu_repeat_right(const int repeating) {
-	type_MENUITEM *item = get_current_item();
+	const type_MENUITEM *item = get_current_item();
 
 	if (item && !item->readonly && item->right) {
 		item->right(item, repeating);
@@ -323,7 +327,7 @@ void menu_repeat_right(const int repeating) {
 }
 
 void menu_repeat_left(const int repeating) {
-	type_MENUITEM *item = get_current_item();
+	const type_MENUITEM *item = get_current_item();
 
 	if (item && !item->readonly && item->left) {
 		item->left(item, repeating);
@@ -362,11 +366,10 @@ void menu_display_line(int line) {
 }
 
 type_MENUPAGE *get_current_page() {
-	if (current_menu->ordering) {
+	if (current_menu->ordering)
 		return current_menu->pages[current_menu->ordering[current_page_id]];
-	} else {
+	else
 		return current_menu->pages[current_page_id];
-	}
 }
 
 type_MENUITEM *get_current_item() {
@@ -374,7 +377,7 @@ type_MENUITEM *get_current_item() {
 }
 
 type_MENUITEM *get_item(int item_pos) {
-	int item_id = get_real_id(item_pos);
+	const int item_id = get_real_id(item_pos);
 
 	return (item_id < current_page->length) ? &current_page->items[item_id] : NULL;
 }
@@ -387,8 +390,8 @@ int get_real_id(int item_pos) {
 }
 
 int get_item_id(int item_pos) {
-	int max_pos = MAX(current_page->length, MENU_HEIGHT);
-	int item_id = item_pos - max_pos * (item_pos / max_pos);
+	const int max_pos = MAX(current_page->length, MENU_HEIGHT);
+	const int item_id = item_pos - max_pos * (item_pos / max_pos);
 
 	return (item_id < 0) ? (item_id + max_pos) : item_id;
 }
