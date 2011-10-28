@@ -131,7 +131,7 @@ int menu_button_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r
 pass_event:
 	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 #ifdef ENABLE_DEBUG
-	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X]", &r1, &r3 );
+	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X], handler=[%08X]", *r1, *r3, *(int*)((int)dialog+0x7C) );
 #endif
 	return ret;
 }

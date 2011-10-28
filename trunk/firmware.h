@@ -151,7 +151,7 @@ extern int able_to_release(); // checks the "is_release_permitted" and "BurstCou
 // Display
 
 // Handler for buttons in dialogs
-// r1 and r3 are in halfwords... still dont know what they do
+// r3 seems to get 2 values in halfwords... still dont know what they do
 typedef int(*type_BTN_HANDLER)(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 extern type_DIALOG *CreateDialogBox(int parm1, int parm2, type_BTN_HANDLER, int template);

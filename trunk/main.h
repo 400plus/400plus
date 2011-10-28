@@ -514,6 +514,7 @@ typedef struct struct_DIALOG type_DIALOG;
 // reading from the memory where struct points, the first 4 bytes are pointing
 // to 0xFF914960 ("aDIALOG" from funclist), so i guess the first element of
 // the struct is "char *" with name of the dialog
+// the 0x7C element is a pointer to the button handler
 
 
 /*
