@@ -46,7 +46,7 @@ type_ACTION callbacks_rename[] = {
 void rename_initialize();
 void rename_destroy();
 
-int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+int rename_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 void rename_event(type_MENU_EVENT event);
 
@@ -93,7 +93,7 @@ void rename_destroy() {
 		DeleteDialogBox(handle);
 }
 
-int rename_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+int rename_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	type_ACTION *action;
 
 	// Loop over all the actions from this action chain

@@ -36,7 +36,7 @@ type_ACTION callbacks_standard[] = {
 void menu_initialize();
 void menu_destroy();
 
-int menu_button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code);
+int menu_button_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 void menu_set_page();
 void menu_display();
@@ -106,7 +106,8 @@ void menu_destroy() {
 	}
 }
 
-int menu_button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3, int r4, int r5, int r6, int code) {
+int menu_button_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
+	int ret;
 	type_ACTION *action;
 
 	// Loop over all the actions from this action chain
@@ -128,7 +129,11 @@ int menu_button_handler(type_DIALOG * dialog, int r1, gui_event_t event, int r3,
 	}
 
 pass_event:
-	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+#ifdef ENABLE_DEBUG
+	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X]", &r1, &r3 );
+#endif
+	return ret;
 }
 
 void menu_set_page(type_MENUPAGE *page) {
