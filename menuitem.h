@@ -167,7 +167,7 @@ OPTIONLIST_DEC(logfile)
 	}, \
 	display : menuitem_display_int,  \
 	right   : menuitem_right_int, \
-	left    : menuitem_left_iso, \
+	left    : menuitem_left_int, \
 }
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_)  { \
