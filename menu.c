@@ -36,7 +36,7 @@ type_ACTION callbacks_standard[] = {
 void menu_initialize();
 void menu_destroy();
 
-int menu_button_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
+int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 void menu_set_page();
 void menu_display();
@@ -68,7 +68,7 @@ void menu_create(type_MENU * menu) {
 	GUI_Lock();
 	GUI_PalleteInit();
 
-	menu_handler = dialog_create(22, menu_button_handler);
+	menu_handler = dialog_create(22, menu_event_handler);
 	PalettePush();
 
 	PaletteChange(current_menu->color);
@@ -106,9 +106,21 @@ void menu_destroy() {
 	}
 }
 
-int menu_button_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
+int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	int ret;
 	type_ACTION *action;
+
+// FW:FF915990 
+// this seems to be one of the addresses where the handler is called
+
+// standard menu 55-63
+#ifdef ENABLE_DEBUG
+	printf_log(1,6, "_BTN_ [%s][guimode:%08X]", debug_btn_name(event), FLAG_GUI_MODE);
+	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X], handler=[%08X]", *r1, *r3, *(int*)((int)dialog+0x7C) );
+	printf_log(1,6, "_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
+#endif
+
+*(int*)((int)dialog+0x90)=1;
 
 	// Loop over all the actions from this action chain
 	for (action = callbacks_standard; ! IS_EOL(action); action++) {
@@ -131,7 +143,7 @@ int menu_button_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r
 pass_event:
 	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 #ifdef ENABLE_DEBUG
-	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X], handler=[%08X]", *r1, *r3, *(int*)((int)dialog+0x7C) );
+	printf_log(1,6, "_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
 #endif
 	return ret;
 }

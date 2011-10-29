@@ -515,6 +515,8 @@ typedef struct struct_DIALOG type_DIALOG;
 // to 0xFF914960 ("aDIALOG" from funclist), so i guess the first element of
 // the struct is "char *" with name of the dialog
 // the 0x7C element is a pointer to the button handler
+// 0x14 is template
+// 0x10 probably indicates when the dialog has to be removed (calling DeleteDialogBox)
 
 
 /*

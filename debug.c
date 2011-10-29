@@ -59,7 +59,7 @@ const char * debug_btn_name(int btn) {
 	case MC_BUTTON_AV: return "MC_BUTTON_AV";
 	case MC_BUTTON_UNK2: return "MC_BUTTON_UNK2";
 	default:
-		sprintf(name, "0x08X", btn);
+		sprintf(name, "0x%08X", btn);
 		return name;
 	}
 }
