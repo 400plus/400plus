@@ -11,6 +11,7 @@ typedef enum {
 	DEBUG_SCP        = 0x09, // +SSMain
 	DEBUG_SDV        = 0x0A, // develop?
 	DEBUG_SRC        = 0x0B,
+	DEBUG_RSS        = 0x10, // maybe ??
 	DEBUG_GUI        = 0x18,
 
 } canon_debug_class_t;

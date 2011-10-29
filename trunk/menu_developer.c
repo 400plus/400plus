@@ -48,7 +48,7 @@ type_MENUPAGE menupage_developer = {
 	ordering  : settings.developer_order,
 };
 
-static int test_dialog_btn_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
+static int test_dialog_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	switch (event) {
 	case GUI_BUTTON_DISP:
 		if (template>=110) {
@@ -88,7 +88,7 @@ static void test_dialog_create() {
 		menu_handler = NULL;
 	}
 
-	menu_handler = dialog_create(template, test_dialog_btn_handler);
+	menu_handler = dialog_create(template, test_dialog_event_handler);
 
 	int i;
 	for (i = 0; i<255; i++) {
