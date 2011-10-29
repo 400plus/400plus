@@ -58,6 +58,7 @@ struct MENU {
 	type_MENUPAGE   **pages;
 	type_MENU_TASK    tasks[MENU_EVENT_COUNT];
 	int              *ordering;
+	int               current_posn;
 };
 
 extern type_CAMERA_MODE menu_cameraMode;

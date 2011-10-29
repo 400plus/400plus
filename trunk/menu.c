@@ -12,7 +12,6 @@
 type_CAMERA_MODE menu_cameraMode;
 
 void *menu_handler;
-int   current_page_id;
 int   item_grabbed;
 
 type_MENU     *current_menu;
@@ -85,11 +84,8 @@ void menu_close() {
 
 void menu_initialize() {
 	menu_handler = NULL;
-
-	current_page_id = 0;
-	current_page    = get_current_page();
-
-	item_grabbed   = FALSE;
+	current_page = get_current_page();
+	item_grabbed = FALSE;
 }
 
 void menu_destroy() {
@@ -295,10 +291,10 @@ void menu_drag_drop() {
 
 void menu_page_next() {
 	if (current_page->sibilings) {
-		if (current_page_id == current_menu->length - 1)
-			current_page_id = 0;
+		if (current_menu->current_posn == current_menu->length - 1)
+			current_menu->current_posn = 0;
 		else
-			current_page_id++;
+			current_menu->current_posn++;
 
 		menu_return();
 	}
@@ -306,10 +302,10 @@ void menu_page_next() {
 
 void menu_page_prev() {
 	if (current_page->sibilings) {
-		if (current_page_id == 0)
-			current_page_id = current_menu->length - 1;
+		if (current_menu->current_posn == 0)
+			current_menu->current_posn = current_menu->length - 1;
 		else
-			current_page_id--;
+			current_menu->current_posn--;
 
 		menu_return();
 	}
@@ -386,9 +382,9 @@ void menu_display_line(int line) {
 
 type_MENUPAGE *get_current_page() {
 	if (current_menu->ordering)
-		return current_menu->pages[current_menu->ordering[current_page_id]];
+		return current_menu->pages[current_menu->ordering[current_menu->current_posn]];
 	else
-		return current_menu->pages[current_page_id];
+		return current_menu->pages[current_menu->current_posn];
 }
 
 type_MENUITEM *get_current_item() {
