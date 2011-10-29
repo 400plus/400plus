@@ -15,6 +15,8 @@ struct MENUPAGE {
 	int                *ordering;
 	int                 highlight;
 	int                 highlighted_item;
+	int                 current_line;
+	int                 current_posn;
 };
 
 #endif /* MENU_H_ */

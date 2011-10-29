@@ -13,8 +13,6 @@ type_CAMERA_MODE menu_cameraMode;
 
 void *menu_handler;
 int   current_page_id;
-int   current_line;
-int   current_item;
 int   item_grabbed;
 
 type_MENU     *current_menu;
@@ -91,9 +89,6 @@ void menu_initialize() {
 	current_page_id = 0;
 	current_page    = get_current_page();
 
-	current_line = 0;
-	current_item = 0;
-
 	item_grabbed   = FALSE;
 }
 
@@ -151,12 +146,9 @@ pass_event:
 void menu_set_page(type_MENUPAGE *page) {
 	current_page = page;
 
-	current_line = 0;
-	current_item = 0;
-
 	item_grabbed = FALSE;
 
-	menu_highlight(current_line);
+	menu_highlight(current_page->current_line);
 	menu_display();
 }
 
@@ -219,11 +211,11 @@ void menu_display() {
 	for(i = 0; i < MENU_HEIGHT; i++)
 		menu_display_line(i);
 
-	dialog_redraw(menu_handler);
+	menu_highlight(current_page->current_line);
 }
 
 void menu_refresh() {
-	menu_display_line(current_line);
+	menu_display_line(current_page->current_line);
 	dialog_redraw(menu_handler);
 }
 
@@ -241,18 +233,18 @@ void menu_return() {
 void menu_up() {
 	int display = FALSE;
 
-	if (current_page->length > MENU_HEIGHT || current_item > 0) {
-		current_item--;
+	if (current_page->length > MENU_HEIGHT || current_page->current_posn > 0) {
+		current_page->current_posn--;
 
 		if (item_grabbed) {
-			INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item + 1)]);
+			INT_SWAP(current_page->ordering[get_item_id(current_page->current_posn)], current_page->ordering[get_item_id(current_page->current_posn + 1)]);
 			display = TRUE;
 		}
 	}
 
-	if (current_line > 0) {
-		current_line--;
-		menu_highlight(current_line);
+	if (current_page->current_line > 0) {
+		current_page->current_line--;
+		menu_highlight(current_page->current_line);
 	} else {
 		display = TRUE;
 	}
@@ -265,18 +257,18 @@ void menu_down() {
 	const int height = MIN(MENU_HEIGHT, current_page->length) - 1;
 	int display = FALSE;
 
-	if (current_page->length > MENU_HEIGHT || current_item < height) {
-		current_item++;
+	if (current_page->length > MENU_HEIGHT || current_page->current_posn < height) {
+		current_page->current_posn++;
 
 		if (item_grabbed) {
-			INT_SWAP(current_page->ordering[get_item_id(current_item)], current_page->ordering[get_item_id(current_item - 1)]);
+			INT_SWAP(current_page->ordering[get_item_id(current_page->current_posn)], current_page->ordering[get_item_id(current_page->current_posn - 1)]);
 			display = TRUE;
 		}
 	}
 
-	if (current_line < height) {
-		current_line++;
-		menu_highlight(current_line);
+	if (current_page->current_line < height) {
+		current_page->current_line++;
+		menu_highlight(current_page->current_line);
 	} else {
 		display = TRUE;
 	}
@@ -368,12 +360,12 @@ void menu_display_line(int line) {
 	int  i = 0;
 	char message[LP_MAX_WORD] = "";
 
-	int item_id = line + current_item - current_line;
+	int item_id = line + current_page->current_posn - current_page->current_line;
 
 	type_MENUITEM *item = get_item(item_id);
 
 	if (item) {
-		if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_item))
+		if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_page->current_posn))
 			message[i++] = '>';
 		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
 			message[i++] = '*';
@@ -400,7 +392,7 @@ type_MENUPAGE *get_current_page() {
 }
 
 type_MENUITEM *get_current_item() {
-	return get_item(current_item);
+	return get_item(current_page->current_posn);
 }
 
 type_MENUITEM *get_item(int item_pos) {
