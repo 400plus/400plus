@@ -65,7 +65,7 @@ struct MENUITEM {
 	int   readonly;
 	type_MENUITEM_PARM  parm;
 	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
-	void (*display)(const type_MENUITEM *item, const char *buffer, const int length);
+	void (*display)(const type_MENUITEM *item, char *buffer, const int length);
 	void (*right)  (const type_MENUITEM *item, const int repeating);
 	void (*left)   (const type_MENUITEM *item, const int repeating);
 };
@@ -227,14 +227,14 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_BREAK(_NAME_) MENUITEM_LAUNCH(_NAME_, NULL)
 
-extern void menuitem_display      (const type_MENUITEM *item, const char *buffer, const int length);
-extern void menuitem_display_ev   (const type_MENUITEM *item, const char *buffer, const int length);
-extern void menuitem_display_av   (const type_MENUITEM *item, const char *buffer, const int length);
-extern void menuitem_display_tv   (const type_MENUITEM *item, const char *buffer, const int length);
-extern void menuitem_display_iso  (const type_MENUITEM *item, const char *buffer, const int length);
-extern void menuitem_display_int  (const type_MENUITEM *item, const char *buffer, const int length);
-extern void menuitem_display_enum (const type_MENUITEM *item, const char *buffer, const int length);
-extern void menuitem_display_sub  (const type_MENUITEM *item, const char *buffer, const int length);
+extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_ev   (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_av   (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_tv   (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_iso  (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_int  (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_enum (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_sub  (const type_MENUITEM *item, char *buffer, const int length);
 
 extern void menuitem_right_ev  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_right_av  (const type_MENUITEM *item, const int repeating);
