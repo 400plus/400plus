@@ -98,16 +98,14 @@ extern void menu_event_close();
 
 extern void menu_event(type_MENU_EVENT);
 
-extern void menu_void();
+extern void menu_up   (type_MENU *menu);
+extern void menu_down (type_MENU *menu);
+extern void menu_right(type_MENU *menu);
+extern void menu_left (type_MENU *menu);
 
-extern void menu_up();
-extern void menu_down();
-extern void menu_right();
-extern void menu_left();
+extern void menu_drag_drop(type_MENU *menu);
 
-extern void menu_drag_drop();
-
-extern void menu_page_next();
-extern void menu_page_prev();
+extern void menu_page_next(type_MENU *menu);
+extern void menu_page_prev(type_MENU *menu);
 
 #endif /* MENU_H_ */
