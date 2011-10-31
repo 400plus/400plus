@@ -35,7 +35,8 @@ void menu_destroy();
 
 int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
-void menu_set_page();
+void menu_set_page(type_MENUPAGE *page);
+void menu_set_text(const int line, const char *text);
 void menu_display();
 void menu_refresh();
 
@@ -46,7 +47,7 @@ void menu_repeat(void (*action)(const int repeating));
 void menu_repeat_right(const int repeating);
 void menu_repeat_left (const int repeating);
 
-void menu_display_line(int line);
+void menu_display_line(const int line);
 
 type_MENUPAGE *get_current_page();
 type_MENUITEM *get_current_item();
@@ -74,7 +75,6 @@ void menu_create(type_MENU * menu) {
 
 	GUI_UnLock();
 	GUI_PalleteUnInit();
-
 }
 
 void menu_close() {
@@ -111,7 +111,7 @@ int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3
 	printf_log(1,6, "_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
 #endif
 
-*(int*)((int)dialog+0x90)=1;
+	*(int*)((int)dialog + 0x90) = 1;
 
 	// Loop over all the actions from this action chain
 	for (action = callbacks_standard; ! IS_EOL(action); action++) {
@@ -200,7 +200,7 @@ void menu_display() {
 		sprintf(buffer, "%*s%s%*s", pad1, "", current_page->name, pad2, "");
 	}
 
-	dialog_set_property_str(menu_handler, 8, buffer);
+	menu_set_text(7, buffer);
 
 	menu_event_open();
 
@@ -212,14 +212,22 @@ void menu_display() {
 
 void menu_refresh() {
 	menu_display_line(current_page->current_line);
+	menu_redraw();
+}
+
+void menu_redraw() {
 	dialog_redraw(menu_handler);
+}
+
+void menu_set_text(const int line, const char *text) {
+	dialog_set_property_str(menu_handler, line + 1, text);
 }
 
 void menu_highlight(const int line) {
 	GUI_Select_Item  (menu_handler, line + 1);
 	GUI_Highlight_Sub(menu_handler, line + 1, FALSE);
 
-	dialog_redraw(menu_handler);
+	menu_redraw();
 }
 
 void menu_return() {
@@ -352,7 +360,7 @@ void menu_repeat_left(const int repeating) {
 	}
 }
 
-void menu_display_line(int line) {
+void menu_display_line(const int line) {
 	int  i = 0;
 	char message[LP_MAX_WORD] = "";
 
@@ -377,7 +385,7 @@ void menu_display_line(int line) {
 			item->display(item, &message[i], MENU_WIDTH - i);
 	}
 
-	dialog_set_property_str(menu_handler, line + 1, message);
+	menu_set_text(line, message);
 }
 
 type_MENUPAGE *get_current_page() {
