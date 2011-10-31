@@ -38,7 +38,7 @@ extern long eventproc_EdLedBlink(void);
 
 extern int   strlen(const char *);
 extern char *strncpy(char *destination, const char *source, int length);
-extern void  sprintf(const char*, const char*, ...);
+extern void  sprintf(char*, const char*, ...);
 extern int   isspace(int c);
 extern int   Run_UnicodeString_Dataset_c(char *dest, const char *src, size_t size);
 
