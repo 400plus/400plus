@@ -207,7 +207,7 @@ void menu_event(type_MENU_EVENT event) {
 		current_menu->tasks[event](current_menu);
 }
 
-void menu_up() {
+void menu_up(type_MENU *menu) {
 	int display = FALSE;
 
 	if (current_page->length > MENU_HEIGHT || current_page->current_posn > 0) {
@@ -230,7 +230,7 @@ void menu_up() {
 		menu_display();
 }
 
-void menu_down() {
+void menu_down(type_MENU *menu) {
 	const int height = MIN(MENU_HEIGHT, current_page->length) - 1;
 	int display = FALSE;
 
@@ -254,15 +254,15 @@ void menu_down() {
 		menu_display();
 }
 
-void menu_right() {
+void menu_right(type_MENU *menu) {
 	menu_repeat(menu_repeat_right);
 }
 
-void menu_left() {
+void menu_left(type_MENU *menu) {
 	menu_repeat(menu_repeat_left);
 }
 
-void menu_drag_drop() {
+void menu_drag_drop(type_MENU *menu) {
 	if (current_page->ordering) {
 		item_grabbed = ! item_grabbed;
 		menu_event_change();
@@ -270,7 +270,7 @@ void menu_drag_drop() {
 	}
 }
 
-void menu_page_next() {
+void menu_page_next(type_MENU *menu) {
 	if (current_page->sibilings) {
 		if (current_menu->current_posn == current_menu->length - 1)
 			current_menu->current_posn = 0;
@@ -281,7 +281,7 @@ void menu_page_next() {
 	}
 }
 
-void menu_page_prev() {
+void menu_page_prev(type_MENU *menu) {
 	if (current_page->sibilings) {
 		if (current_menu->current_posn == 0)
 			current_menu->current_posn = current_menu->length - 1;
