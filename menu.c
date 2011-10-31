@@ -37,8 +37,6 @@ int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3
 
 void menu_set_page(type_MENUPAGE *page);
 void menu_set_text(const int line, const char *text);
-void menu_display();
-void menu_refresh();
 
 void menu_highlight(const int line);
 
@@ -47,11 +45,7 @@ void menu_repeat(void (*action)(const int repeating));
 void menu_repeat_right(const int repeating);
 void menu_repeat_left (const int repeating);
 
-void menu_display_line(const int line);
-
 type_MENUPAGE *get_current_page();
-type_MENUITEM *get_current_item();
-type_MENUITEM *get_item(int item_id);
 
 int get_item_id(int item_pos);
 int get_real_id(int item_pos);
@@ -139,13 +133,45 @@ pass_event:
 	return ret;
 }
 
+void menu_display() {
+	if (current_page->display)
+		current_page->display(current_page);
+	else
+		menupage_display(current_page);
+}
+
+void menu_refresh() {
+	if (current_page->refresh)
+		current_page->refresh(current_page);
+	else
+		menupage_refresh(current_page);
+}
+
+void menu_return() {
+	menu_set_page(get_current_page());
+}
+
 void menu_set_page(type_MENUPAGE *page) {
 	current_page = page;
 
 	item_grabbed = FALSE;
 
-	menu_highlight(current_page->current_line);
 	menu_display();
+}
+
+void menu_highlight(const int line) {
+	GUI_Select_Item  (menu_handler, line + 1);
+	GUI_Highlight_Sub(menu_handler, line + 1, FALSE);
+
+	menu_redraw();
+}
+
+void menu_redraw() {
+	dialog_redraw(menu_handler);
+}
+
+void menu_set_text(const int line, const char *text) {
+	dialog_set_property_str(menu_handler, line + 1, text);
 }
 
 void menu_event_menu()   { menu_event(MENU_EVENT_MENU);   };
@@ -169,69 +195,16 @@ void menu_event_change() { menu_event(MENU_EVENT_CHANGE); };
 void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);  };
 
 void menu_event(type_MENU_EVENT event) {
-	type_MENUITEM *item = get_current_item();
+	type_MENUITEM *item = get_current_item(current_page);
 
 	if (item && item->tasks && item->tasks[event])
 		item->tasks[event](item);
 
 	if (current_page->tasks && current_page->tasks[event])
 		current_page->tasks[event](current_page);
-	else if (current_menu->tasks && current_menu->tasks[event])
+
+	if (current_menu->tasks && current_menu->tasks[event])
 		current_menu->tasks[event](current_menu);
-}
-
-void menu_void() {
-}
-
-void menu_display() {
-	char buffer[LP_MAX_WORD];
-
-	int i;
-
-	int pad1, pad2, len  = strlen(current_page->name);
-
-	if (current_page->sibilings) {
-		pad1 = (    MENU_WIDTH - 2 - len) / 2;
-		pad2 = (1 + MENU_WIDTH - 4 - len) / 2;
-		sprintf(buffer, "<<%*s%s%*s>>", pad1, "", current_page->name, pad2, "");
-	} else {
-		pad1 = (    MENU_WIDTH - 0 - len) / 2;
-		pad2 = (1 + MENU_WIDTH - 2 - len) / 2;
-		sprintf(buffer, "%*s%s%*s", pad1, "", current_page->name, pad2, "");
-	}
-
-	menu_set_text(7, buffer);
-
-	menu_event_open();
-
-	for(i = 0; i < MENU_HEIGHT; i++)
-		menu_display_line(i);
-
-	menu_highlight(current_page->current_line);
-}
-
-void menu_refresh() {
-	menu_display_line(current_page->current_line);
-	menu_redraw();
-}
-
-void menu_redraw() {
-	dialog_redraw(menu_handler);
-}
-
-void menu_set_text(const int line, const char *text) {
-	dialog_set_property_str(menu_handler, line + 1, text);
-}
-
-void menu_highlight(const int line) {
-	GUI_Select_Item  (menu_handler, line + 1);
-	GUI_Highlight_Sub(menu_handler, line + 1, FALSE);
-
-	menu_redraw();
-}
-
-void menu_return() {
-	menu_set_page(get_current_page());
 }
 
 void menu_up() {
@@ -339,7 +312,7 @@ void menu_repeat(void (*action)(const int repeating)){
 }
 
 void menu_repeat_right(const int repeating) {
-	const type_MENUITEM *item = get_current_item();
+	const type_MENUITEM *item = get_current_item(current_page);
 
 	if (item && !item->readonly && item->right) {
 		item->right(item, repeating);
@@ -350,7 +323,7 @@ void menu_repeat_right(const int repeating) {
 }
 
 void menu_repeat_left(const int repeating) {
-	const type_MENUITEM *item = get_current_item();
+	const type_MENUITEM *item = get_current_item(current_page);
 
 	if (item && !item->readonly && item->left) {
 		item->left(item, repeating);
@@ -360,49 +333,11 @@ void menu_repeat_left(const int repeating) {
 	}
 }
 
-void menu_display_line(const int line) {
-	int  i = 0;
-	char message[LP_MAX_WORD] = "";
-
-	int item_id = line + current_page->current_posn - current_page->current_line;
-
-	type_MENUITEM *item = get_item(item_id);
-
-	if (item) {
-		if (current_page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(current_page->current_posn))
-			message[i++] = '>';
-		else if (current_page->highlight && current_page->highlighted_item == 1 + get_real_id(item_id))
-			message[i++] = '*';
-		else
-			message[i++] = ' ';
-
-		if (current_page->rename) {
-			message[i++] = '1' + get_real_id(item_id);
-			message[i++] = ' ';
-		}
-
-		if (item->display)
-			item->display(item, &message[i], MENU_WIDTH - i);
-	}
-
-	menu_set_text(line, message);
-}
-
 type_MENUPAGE *get_current_page() {
 	if (current_menu->ordering)
 		return current_menu->pages[current_menu->ordering[current_menu->current_posn]];
 	else
 		return current_menu->pages[current_menu->current_posn];
-}
-
-type_MENUITEM *get_current_item() {
-	return get_item(current_page->current_posn);
-}
-
-type_MENUITEM *get_item(int item_pos) {
-	const int item_id = get_real_id(item_pos);
-
-	return (item_id < current_page->length) ? &current_page->items[item_id] : NULL;
 }
 
 int get_real_id(int item_pos) {

@@ -64,8 +64,16 @@ struct MENU {
 extern type_CAMERA_MODE menu_cameraMode;
 
 extern void menu_create(type_MENU * menu);
-extern void menu_set_page(type_MENUPAGE *page);
 extern void menu_close();
+
+extern void menu_display();
+extern void menu_refresh();
+extern void menu_return ();
+
+extern void menu_set_page(type_MENUPAGE *page);
+
+extern void menu_redraw  ();
+extern void menu_set_text(const int line, const char *text);
 
 extern void menu_event_menu();
 extern void menu_event_disp();
@@ -90,9 +98,6 @@ extern void menu_event_close();
 extern void menu_event(type_MENU_EVENT);
 
 extern void menu_void();
-extern void menu_refresh();
-extern void menu_redraw();
-extern void menu_return();
 
 extern void menu_up();
 extern void menu_down();
