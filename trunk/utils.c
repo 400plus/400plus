@@ -196,7 +196,7 @@ int iso_dec(int iso) {
 	return MAX(iso, 0x48);
 }
 
-void ev_print(const char *dest, int ev) {
+void ev_print(char *dest, int ev) {
 	char dsp_sgn, dsp_int, *dsp_dec;
 
 	if (ev & 0x80) {
@@ -231,7 +231,7 @@ void ev_print(const char *dest, int ev) {
 	sprintf(dest, "%c%c%s", dsp_sgn, dsp_int, dsp_dec);
 }
 
-void av_print(const char *dest, int av) {
+void av_print(char *dest, int av) {
 	int base = (av >> 3) - 0x01;
 	int frac = 0;
 
@@ -252,7 +252,7 @@ void av_print(const char *dest, int av) {
 	sprintf(dest, "%s", av_strings[base][frac]);
 }
 
-void tv_print(const char *dest, int tv) {
+void tv_print(char *dest, int tv) {
 	int base = (tv >> 3) + 0x04;
 	int frac = 0;
 
@@ -273,7 +273,7 @@ void tv_print(const char *dest, int tv) {
 	sprintf(dest, "%s", tv_strings[base][frac]);
 }
 
-void iso_print(const char *string, int code) {
+void iso_print(char *dest, int code) {
 	int iso;
 
 	int base = ((code & 0x38) >> 3) - 1;
@@ -282,7 +282,7 @@ void iso_print(const char *string, int code) {
 	iso  = 100 * (1 << base);
 	iso += iso * mult / 8;
 
-	sprintf(string, "%d", iso);
+	sprintf(dest, "%d", iso);
 }
 
 void beep() {

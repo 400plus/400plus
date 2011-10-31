@@ -34,11 +34,11 @@ extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
 
-extern void ev_print(const char *dest, int ev);
-extern void av_print(const char *dest, int ev);
-extern void tv_print(const char *dest, int ev);
+extern void ev_print(char *dest, int ev);
+extern void av_print(char *dest, int ev);
+extern void tv_print(char *dest, int ev);
 
-extern void iso_print(const char *string, int code);
+extern void iso_print(char *dest, int code);
 
 extern void beep();
 
