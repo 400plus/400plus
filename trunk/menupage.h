@@ -17,6 +17,14 @@ struct MENUPAGE {
 	int                 highlighted_item;
 	int                 current_line;
 	int                 current_posn;
+	void (*display)(type_MENUPAGE *page);
+	void (*refresh)(type_MENUPAGE *page);
 };
+
+extern void menupage_display(type_MENUPAGE *page);
+extern void menupage_refresh(type_MENUPAGE *page);
+
+type_MENUITEM *get_current_item(type_MENUPAGE *page);
+type_MENUITEM *get_item        (type_MENUPAGE *page, int item_id);
 
 #endif /* MENU_H_ */
