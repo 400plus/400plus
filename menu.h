@@ -62,6 +62,7 @@ struct MENU {
 };
 
 extern type_CAMERA_MODE menu_cameraMode;
+extern int item_grabbed;
 
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
