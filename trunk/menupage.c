@@ -50,8 +50,7 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 	type_MENUITEM *item = get_item(page, item_id);
 
 	if (item) {
-		//		if (page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(page->current_posn)) @#@
-		if (page->ordering && FALSE && get_item_id(item_id) == get_item_id(page->current_posn))
+		if (page->ordering && item_grabbed && get_item_id(item_id) == get_item_id(page->current_posn))
 			message[i++] = '>';
 		else if (page->highlight && page->highlighted_item == 1 + get_real_id(item_id))
 			message[i++] = '*';
