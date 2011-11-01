@@ -54,17 +54,6 @@ type_ACTION actions_400plus[]  = {
 	END_OF_LIST
 };
 
-type_ACTION actions_rename[]  = {
-	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {rename_right}},
-	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {rename_left}},
-	{IC_BUTTON_AV,         TRUE,  TRUE,  {rename_cycle}},
-	{IC_BUTTON_SET,        FALSE, TRUE,  {rename_action}},
-	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {rename_prev}},
-	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE,  {rename_next}},
-	{IC_DIALOGOFF,         FALSE, FALSE, {rename_event_close}},
-	END_OF_LIST
-};
-
 type_ACTION actions_meter[] = {
 	{IC_BUTTON_DP,    FALSE, TRUE, {set_metering_spot}},
 	END_OF_LIST
@@ -102,7 +91,6 @@ type_CHAIN intercom_chains[] = {
 	{GUIMODE_OLC,       actions_main},
 	{GUIMODE_MAIN,      actions_main},
 	{GUIMODE_400PLUS,   actions_400plus},
-	{GUIMODE_RENAME,    actions_rename},
 	{GUIMODE_METER,     actions_meter},
 	{GUIMODE_WB,        actions_wb},
 	{GUIMODE_ISO,       actions_iso},

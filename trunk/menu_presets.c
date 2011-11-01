@@ -219,21 +219,13 @@ void menu_preset_open() {
 }
 
 void preset_save_1() { preset_save(1); }
-
 void preset_save_2() { preset_save(2); }
-
 void preset_save_3() { preset_save(3); }
-
 void preset_save_4() { preset_save(4); }
-
 void preset_save_5() { preset_save(5); }
-
 void preset_save_6() { preset_save(6); }
-
 void preset_save_7() { preset_save(7); }
-
 void preset_save_8() { preset_save(8); }
-
 void preset_save_9() { preset_save(9); }
 
 void preset_save(int id) {
@@ -246,21 +238,13 @@ void preset_save(int id) {
 }
 
 void preset_load_1() { preset_load(1); }
-
 void preset_load_2() { preset_load(2); }
-
 void preset_load_3() { preset_load(3); }
-
 void preset_load_4() { preset_load(4); }
-
 void preset_load_5() { preset_load(5); }
-
 void preset_load_6() { preset_load(6); }
-
 void preset_load_7() { preset_load(7); }
-
 void preset_load_8() { preset_load(8); }
-
 void preset_load_9() { preset_load(9); }
 
 void preset_load(int id) {
@@ -288,5 +272,5 @@ void preset_rename_8() { preset_rename(8); }
 void preset_rename_9() { preset_rename(9); }
 
 void preset_rename(int id) {
-	rename_create(presets_config.names[0], presets_write);
+	rename_create(presets_config.names[id - 1]);
 }
