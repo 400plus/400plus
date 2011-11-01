@@ -62,6 +62,9 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 			message[i++] = ' ';
 		}
 
+		if (item->tasks[MENU_EVENT_SET])
+			message[i++] = '!';
+
 		if (item->display)
 			item->display(item, &message[i], MENU_WIDTH - i);
 	}
