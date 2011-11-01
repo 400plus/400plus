@@ -1,8 +1,8 @@
 #ifndef MENU_RENAME_H_
 #define MENU_RENAME_H_
 
-#include "menu.h"
-
+void rename_create(char *filename);
+/*
 extern void rename_create(char *filename, type_TASK save);
 extern void rename_close();
 
@@ -21,5 +21,5 @@ extern void rename_clear();
 
 extern void rename_next();
 extern void rename_prev();
-
+*/
 #endif /* MENU_RENAME_H_ */
