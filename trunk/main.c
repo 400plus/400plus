@@ -49,7 +49,7 @@ type_ACTION actions_400plus[]  = {
 	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {menu_event_right}},
 	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {menu_event_left}},
 	{IC_BUTTON_DP,         FALSE, TRUE,  {menu_event_dp}},
-	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_event_av}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_event_av, menu_event_av_up}},
 	{IC_DIALOGOFF,         FALSE, FALSE, {menu_event_close}},
 	END_OF_LIST
 };
