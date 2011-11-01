@@ -122,6 +122,9 @@ int menu_get_changed() {
 }
 
 void list_display(type_MENU *menu) {
+	main_list.current_line = 2;
+	main_list.current_posn = menu->current_posn;
+
 	menu_set_page(&main_list);
 }
 
