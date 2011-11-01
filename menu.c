@@ -188,6 +188,7 @@ void menu_event_right()  { menu_event(MENU_EVENT_RIGHT);  };
 void menu_event_left()   { menu_event(MENU_EVENT_LEFT);   };
 void menu_event_dp()     { menu_event(MENU_EVENT_DP);     };
 void menu_event_av()     { menu_event(MENU_EVENT_AV);     };
+void menu_event_av_up()  { menu_event(MENU_EVENT_AV_UP);  };
 void menu_event_out()    { menu_event(MENU_EVENT_OUT);    };
 void menu_event_in()     { menu_event(MENU_EVENT_IN);     };
 void menu_event_open()   { menu_event(MENU_EVENT_OPEN);   };
