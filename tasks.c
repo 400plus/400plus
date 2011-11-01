@@ -192,3 +192,7 @@ void autoiso_disable() {
 		settings_write();
 	}
 }
+
+void emulate_menu_button() {
+	press_button(IC_BUTTON_MENU);
+}
