@@ -30,14 +30,6 @@ void list_up  (type_MENUPAGE *menupage);
 void list_down(type_MENUPAGE *menupage);
 void list_hide(type_MENUPAGE *menupage);
 
-void goto_params   (type_MENUITEM *item);
-void goto_shortcuts(type_MENUITEM *item);
-void goto_scripts  (type_MENUITEM *item);
-void goto_info     (type_MENUITEM *item);
-void goto_developer(type_MENUITEM *item);
-void goto_settngs  (type_MENUITEM *item);
-void goto_presets  (type_MENUITEM *item);
-
 type_MENUPAGE *menu_main_pages[] = {
 	&menupage_params,
 	&menupage_shortcuts,
@@ -69,13 +61,13 @@ type_MENU menu_main = {
 };
 
 type_MENUITEM main_list_items[] = {
-	MENUITEM_LAUNCH("Params",    goto_params),
-	MENUITEM_LAUNCH("Shortcuts", goto_shortcuts),
-	MENUITEM_LAUNCH("Scripts",   goto_scripts),
-	MENUITEM_LAUNCH("Info",      goto_info),
-	MENUITEM_LAUNCH("Developer", goto_developer),
-	MENUITEM_LAUNCH("Settings",  goto_settngs),
-	MENUITEM_LAUNCH("Presets",   goto_presets),
+	MENUITEM_BREAK("Params"),
+	MENUITEM_BREAK("Shortcuts"),
+	MENUITEM_BREAK("Scripts"),
+	MENUITEM_BREAK("Info"),
+	MENUITEM_BREAK("Developer"),
+	MENUITEM_BREAK("Settings"),
+	MENUITEM_BREAK("Presets"),
 };
 
 type_MENUPAGE main_list = {
@@ -83,8 +75,8 @@ type_MENUPAGE main_list = {
 	length   : LENGTH(main_list_items),
 	items    : main_list_items,
 	tasks    : {
-		[MENU_EVENT_NEXT]   = list_up,
-		[MENU_EVENT_PREV]   = list_down,
+		[MENU_EVENT_PREV]   = list_up,
+		[MENU_EVENT_NEXT]   = list_down,
 		[MENU_EVENT_AV_UP]  = list_hide,
 	},
 	ordering : settings.main_order,
@@ -138,36 +130,6 @@ void list_down(type_MENUPAGE *menupage) {
 }
 
 void list_hide(type_MENUPAGE *page) {
-	type_MENUITEM *item = get_current_item(page);
-
-	if (item && item->tasks[MENU_EVENT_SET])
-		item->tasks[MENU_EVENT_SET](item);
+	menu_set_posn(get_item_id(page->current_posn));
 }
 
-void goto_params(type_MENUITEM *item) {
-	menu_set_page(&menupage_params);
-}
-
-void goto_shortcuts(type_MENUITEM *item) {
-	menu_set_page(&menupage_shortcuts);
-}
-
-void goto_scripts(type_MENUITEM *item) {
-	menu_set_page(&menupage_scripts);
-}
-
-void goto_info(type_MENUITEM *item) {
-	menu_set_page(&menupage_info);
-}
-
-void goto_developer(type_MENUITEM *item) {
-	menu_set_page(&menupage_developer);
-}
-
-void goto_settngs(type_MENUITEM *item) {
-	menu_set_page(&menupage_settings);
-}
-
-void goto_presets(type_MENUITEM *item) {
-	menu_set_page(&menupage_presets);
-}

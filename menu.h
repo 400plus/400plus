@@ -72,6 +72,7 @@ extern void menu_display();
 extern void menu_refresh();
 extern void menu_return ();
 
+extern void menu_set_posn(int posn);
 extern void menu_set_page(type_MENUPAGE *page);
 
 extern void menu_redraw  ();

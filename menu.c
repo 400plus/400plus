@@ -151,6 +151,11 @@ void menu_return() {
 	menu_set_page(get_current_page());
 }
 
+void menu_set_posn(int posn) {
+	current_menu->current_posn = posn;
+	menu_set_page(current_menu->pages[current_menu->ordering[posn]]);
+}
+
 void menu_set_page(type_MENUPAGE *page) {
 	current_page = page;
 
