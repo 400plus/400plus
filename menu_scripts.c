@@ -101,12 +101,12 @@ type_MENUPAGE menupage_scripts = {
 
 void menu_scripts_apply_eaeb_tvmin(type_MENUITEM *item) {
 	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
-	menu_display();
+	menu_display(current_menu);
 }
 
 void menu_scripts_apply_eaeb_tvmax(type_MENUITEM *item) {
 	settings.eaeb_tv_min = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
-	menu_display();
+	menu_display(current_menu);
 }
 
 void menu_scripts_extended_aeb(type_MENUITEM *item) {

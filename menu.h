@@ -63,14 +63,16 @@ struct MENU {
 	type_MENUPAGE    *current_page;
 };
 
-extern type_CAMERA_MODE menu_cameraMode;
+extern type_CAMERA_MODE  menu_cameraMode;
+extern type_MENU        *current_menu;
+
 extern int item_grabbed;
 
 extern void menu_create(type_MENU * menu);
 extern void menu_close();
 
-extern void menu_display();
-extern void menu_refresh();
+extern void menu_display(type_MENU * menu);
+extern void menu_refresh(type_MENU * menu);
 extern void menu_return ();
 
 extern void menu_set_posn(int posn);

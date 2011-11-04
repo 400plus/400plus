@@ -9,10 +9,11 @@
 
 void menupage_display_line(type_MENUPAGE *page, const int line);
 
-void menupage_display(type_MENUPAGE *page) {
+void menupage_display(type_MENU *menu) {
+	int i;
 	char buffer[LP_MAX_WORD];
 
-	int i;
+	type_MENUPAGE *page = menu->current_page;
 
 	int pad1, pad2, len  = strlen(page->name);
 
@@ -36,7 +37,9 @@ void menupage_display(type_MENUPAGE *page) {
 	menu_highlight(page->current_line);
 }
 
-void menupage_refresh(type_MENUPAGE *page) {
+void menupage_refresh(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+
 	menupage_display_line(page, page->current_line);
 	menu_redraw();
 }

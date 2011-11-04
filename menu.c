@@ -67,7 +67,7 @@ void menu_create(type_MENU * menu) {
 
 	PaletteChange(current_menu->color);
 
-	menu_display();
+	menu_display(current_menu);
 
 	GUI_UnLock();
 	GUI_PalleteUnInit();
@@ -135,22 +135,22 @@ pass_event:
 	return ret;
 }
 
-void menu_display() {
-	type_MENUPAGE *page = current_menu->current_page;
+void menu_display(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
 
 	if (page->display)
-		page->display(page);
+		page->display(menu);
 	else
-		menupage_display(page);
+		menupage_display(menu);
 }
 
-void menu_refresh() {
-	type_MENUPAGE *page = current_menu->current_page;
+void menu_refresh(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
 
 	if (page->refresh)
-		page->refresh(page);
+		page->refresh(menu);
 	else
-		menupage_refresh(page);
+		menupage_refresh(menu);
 }
 
 void menu_return() {
@@ -171,7 +171,7 @@ void menu_set_page(type_MENUPAGE *page) {
 
 	item_grabbed = FALSE;
 
-	menu_display();
+	menu_display(current_menu);
 }
 
 void menu_highlight(const int line) {
@@ -244,7 +244,7 @@ void menu_up(type_MENU *menu) {
 	}
 
 	if (display)
-		menu_display();
+		menu_display(menu);
 }
 
 void menu_down(type_MENU *menu) {
@@ -270,7 +270,7 @@ void menu_down(type_MENU *menu) {
 	}
 
 	if (display)
-		menu_display();
+		menu_display(menu);
 }
 
 void menu_right(type_MENU *menu) {
@@ -287,7 +287,7 @@ void menu_drag_drop(type_MENU *menu) {
 	if (page->ordering) {
 		item_grabbed = ! item_grabbed;
 		menu_event_change();
-		menu_refresh();
+		menu_refresh(menu);
 	}
 }
 
@@ -344,7 +344,7 @@ void menu_repeat_right(const int repeating) {
 		item->right(item, repeating);
 
 		menu_event_change();
-		menu_refresh();
+		menu_refresh(current_menu);
 	}
 }
 
@@ -356,7 +356,7 @@ void menu_repeat_left(const int repeating) {
 		item->left(item, repeating);
 
 		menu_event_change();
-		menu_refresh();
+		menu_refresh(current_menu);
 	}
 }
 
