@@ -41,19 +41,19 @@ void rename_down();
 void rename_right  (const type_MENUITEM *item, const int repeating);
 void rename_left   (const type_MENUITEM *item, const int repeating);
 
-void rename_prev(type_MENUPAGE *page);
-void rename_next(type_MENUPAGE *page);
+void rename_prev(type_MENU *menu);
+void rename_next(type_MENU *menu);
 
 void rename_repeat_prev(const int repeating);
 void rename_repeat_next(const int repeating);
 
 void rename_action(type_MENUITEM *item);
 
-void rename_caps  (type_MENUPAGE *page);
-void rename_toggle(type_MENUPAGE *page);
-void rename_clear (type_MENUPAGE *page);
-void rename_return(type_MENUPAGE *page);
-void rename_close (type_MENUPAGE *page);
+void rename_caps  (type_MENU *menu);
+void rename_toggle(type_MENU *menu);
+void rename_clear (type_MENU *menu);
+void rename_return(type_MENU *menu);
+void rename_close (type_MENU *menu);
 
 void rename_display(type_MENUPAGE *page);
 void rename_refresh(type_MENUPAGE *page);
@@ -212,11 +212,11 @@ void rename_left(const type_MENUITEM *item, const int repeating) {
 	rename_refresh(&menupage_rename);
 }
 
-void rename_prev(type_MENUPAGE *page) {
+void rename_prev(type_MENU *menu) {
 	menu_repeat(rename_repeat_prev);
 }
 
-void rename_next(type_MENUPAGE *page) {
+void rename_next(type_MENU *meu) {
 	menu_repeat(rename_repeat_next);
 }
 
@@ -247,12 +247,16 @@ void rename_action(type_MENUITEM *item) {
 	rename_repeat_next(FALSE);
 }
 
-void rename_caps(type_MENUPAGE *page) {
+void rename_caps(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+
 	caps = !caps;
 	rename_display(page);
 }
 
-void rename_toggle(type_MENUPAGE *page) {
+void rename_toggle(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+
 	if ('a' <= rename_filename[z] && rename_filename[z] <= 'z')
 		rename_filename[z] += 'A' - 'a';
 	else if ('A' <= rename_filename[z] && rename_filename[z] <= 'Z')
@@ -262,8 +266,10 @@ void rename_toggle(type_MENUPAGE *page) {
 	menu_redraw();
 }
 
-void rename_clear(type_MENUPAGE *page) {
+void rename_clear(type_MENU *menu) {
 	int i;
+
+	type_MENUPAGE *page = menu->current_page;
 
 	for (i = z; i < 25; i++)
 		rename_filename[i] = ' ';
@@ -272,12 +278,12 @@ void rename_clear(type_MENUPAGE *page) {
 	menu_redraw();
 }
 
-void rename_return(type_MENUPAGE *page) {
-	rename_close(page);
+void rename_return(type_MENU *menu) {
+	rename_close(menu);
 	menu_return();
 }
 
-void rename_close(type_MENUPAGE *page) {
+void rename_close(type_MENU *menu) {
 	int i;
 
 	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)

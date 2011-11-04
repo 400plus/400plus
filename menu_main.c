@@ -24,11 +24,8 @@ void menu_save();
 void menu_set_changed();
 int  menu_get_changed();
 
-void list_display(type_MENU     *menu);
-
-void list_up  (type_MENUPAGE *menupage);
-void list_down(type_MENUPAGE *menupage);
-void list_hide(type_MENUPAGE *menupage);
+void list_display(type_MENU *menu);
+void list_hide   (type_MENU *menu);
 
 type_MENUPAGE *menu_main_pages[] = {
 	&menupage_params,
@@ -75,8 +72,8 @@ type_MENUPAGE main_list = {
 	length   : LENGTH(main_list_items),
 	items    : main_list_items,
 	tasks    : {
-		[MENU_EVENT_PREV]   = list_up,
-		[MENU_EVENT_NEXT]   = list_down,
+		[MENU_EVENT_PREV]   = menu_up,
+		[MENU_EVENT_NEXT]   = menu_down,
 		[MENU_EVENT_AV_UP]  = list_hide,
 	},
 	ordering : settings.main_order,
@@ -120,14 +117,8 @@ void list_display(type_MENU *menu) {
 	menu_set_page(&main_list);
 }
 
-void list_up(type_MENUPAGE *menupage) {
-	menu_up(&menu_main);
-}
+void list_hide(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
 
-void list_down(type_MENUPAGE *menupage) {
-	menu_down(&menu_main);
-}
-
-void list_hide(type_MENUPAGE *page) {
 	menu_set_posn(get_item_id(page->current_posn));
 }
