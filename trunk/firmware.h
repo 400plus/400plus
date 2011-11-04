@@ -10,8 +10,8 @@ extern /*unsigned*/ int   BodyID;
 extern unsigned short ModelID;
 
 extern int BurstCounter;  // remaining shots in burst mode (displayed in VF's bottom right corner)
-extern type_DIALOG * hInfoCreative; // dialog handle for info screen
-#define hMainDialog (type_DIALOG*)(*(int*)(0x47F0))
+extern dialog_t * hInfoCreative; // dialog handle for info screen
+#define hMainDialog (dialog_t*)(*(int*)(0x47F0))
 extern int FaceStatus;    // 0 = no face, 1 = face (disp off)... see #32, this could give some solution
 extern int GUIMode;       // Current GUI Mode
 extern int hFaMain;       // Factory Dialog
@@ -150,17 +150,13 @@ extern int able_to_release(); // checks the "is_release_permitted" and "BurstCou
 
 // Display
 
-// Handler for buttons in dialogs
-// r3 seems to get 2 values in halfwords... still dont know what they do
-typedef int(*type_EVENT_HANDLER)(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
+extern dialog_t *CreateDialogBox(int parm1, int parm2, type_EVENT_HANDLER, int template);
+extern int DeleteDialogBox(dialog_t *dialog);
 
-extern type_DIALOG *CreateDialogBox(int parm1, int parm2, type_EVENT_HANDLER, int template);
-extern int DeleteDialogBox(type_DIALOG *dialog);
+extern int do_some_with_dialog(dialog_t *dialog);
 
-extern int do_some_with_dialog(type_DIALOG *dialog);
-
-extern int sub_FF8382DC(type_DIALOG *dialog, const int code, const int   data);
-extern int sub_FF837FA8(type_DIALOG *dialog, const int code, const char *text);
+extern int sub_FF8382DC(dialog_t *dialog, const int code, const int   data);
+extern int sub_FF837FA8(dialog_t *dialog, const int code, const char *text);
 
 #define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template)
 
@@ -169,7 +165,7 @@ extern int sub_FF837FA8(type_DIALOG *dialog, const int code, const char *text);
 #define dialog_set_property_int sub_FF8382DC
 #define dialog_set_property_str sub_FF837FA8
 
-extern int InfoCreativeAppProc(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
+extern int InfoCreativeAppProc(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 

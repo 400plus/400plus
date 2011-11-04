@@ -33,7 +33,7 @@ type_ACTION callbacks_standard[] = {
 void menu_initialize();
 void menu_destroy();
 
-int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
+int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 void menu_set_page(type_MENUPAGE *page);
 void menu_set_text(const int line, const char *text);
@@ -61,6 +61,8 @@ void menu_create(type_MENU * menu) {
 	GUI_PalleteInit();
 
 	menu_handler = dialog_create(22, menu_event_handler);
+	//SET_TO_MEM(menu_handler+0x84, 0x005B4A98);
+
 	PalettePush();
 
 	PaletteChange(current_menu->color);
@@ -91,7 +93,7 @@ void menu_destroy() {
 	}
 }
 
-int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
+int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	int ret;
 	type_ACTION *action;
 
@@ -100,12 +102,12 @@ int menu_event_handler(type_DIALOG * dialog, int *r1, gui_event_t event, int *r3
 
 // standard menu 55-63
 #ifdef ENABLE_DEBUG
+	// print the dialog structure and diff the both cases of menu creation
 	printf_log(1,6, "_BTN_ [%s][guimode:%08X]", debug_btn_name(event), FLAG_GUI_MODE);
-	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X], handler=[%08X]", *r1, *r3, *(int*)((int)dialog+0x7C) );
+	printf_log(1,6, "_BTN_: 84=[%08X] 88=[%08X]", GET_FROM_MEM(menu_handler+0x84), GET_FROM_MEM(menu_handler+0x88) );
+	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X], 90=[%08X]", *r1, *r3, /* *(int*) */(*(int*)((int)dialog+0x90)) );
 	printf_log(1,6, "_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
 #endif
-
-	*(int*)((int)dialog + 0x90) = 1;
 
 	// Loop over all the actions from this action chain
 	for (action = callbacks_standard; ! IS_EOL(action); action++) {
