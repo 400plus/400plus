@@ -8,7 +8,7 @@ struct MENUPAGE {
 	int                 sibilings;
 	int                 length;
 	type_MENUITEM      *items;
-	type_MENU_TASK      tasks[MENU_EVENT_COUNT];
+	type_MENUTASK       tasks[MENU_EVENT_COUNT];
 	int                 rename;
 	int                *ordering;
 	int                 highlight;
