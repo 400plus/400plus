@@ -35,8 +35,8 @@ void rename_display_up4 (const type_MENUITEM *item, char *buffer, const int leng
 void rename_display_up  (const int id,              char *buffer, const int length);
 void rename_display_down(const type_MENUITEM *item, char *buffer, const int length);
 
-void rename_up  ();
-void rename_down();
+void rename_up  (type_MENU *menu);
+void rename_down(type_MENU *menu);
 
 void rename_right  (const type_MENUITEM *item, const int repeating);
 void rename_left   (const type_MENUITEM *item, const int repeating);
@@ -55,8 +55,8 @@ void rename_clear (type_MENU *menu);
 void rename_return(type_MENU *menu);
 void rename_close (type_MENU *menu);
 
-void rename_display(type_MENUPAGE *page);
-void rename_refresh(type_MENUPAGE *page);
+void rename_display(type_MENU *menu);
+void rename_refresh(type_MENU *menu);
 void rename_display_line(type_MENUPAGE *page, const int line);
 
 type_MENUITEM menupage_rename_items[] = {
@@ -170,25 +170,25 @@ void rename_display_down(const type_MENUITEM *item, char *buffer, const int leng
 	buffer[j] = '\0';
 }
 
-void rename_up(type_MENUPAGE *page) {
+void rename_up(type_MENU *menu) {
 	if (x > 0) {
 		x--;
 		menupage_rename.current_line = x;
 		menupage_rename.current_posn = x;
 
 		menu_highlight(x);
-		rename_display(page);
+		rename_display(menu);
 	}
 }
 
-void rename_down(type_MENUPAGE *page) {
+void rename_down(type_MENU *menu) {
 	if (x < MENU_HEIGHT - 2) {
 		x++;
 		menupage_rename.current_line = x;
 		menupage_rename.current_posn = x;
 
 		menu_highlight(x);
-		rename_display(page);
+		rename_display(menu);
 	}
 }
 
@@ -199,7 +199,7 @@ void rename_right(const type_MENUITEM *item, const int repeating) {
 		y++;
 	}
 
-	rename_refresh(&menupage_rename);
+	rename_refresh(current_menu);
 }
 
 void rename_left(const type_MENUITEM *item, const int repeating) {
@@ -209,7 +209,7 @@ void rename_left(const type_MENUITEM *item, const int repeating) {
 		y--;
 	}
 
-	rename_refresh(&menupage_rename);
+	rename_refresh(current_menu);
 }
 
 void rename_prev(type_MENU *menu) {
@@ -248,10 +248,8 @@ void rename_action(type_MENUITEM *item) {
 }
 
 void rename_caps(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-
 	caps = !caps;
-	rename_display(page);
+	rename_display(menu);
 }
 
 void rename_toggle(type_MENU *menu) {
@@ -292,24 +290,28 @@ void rename_close(type_MENU *menu) {
 	menu_event(MENU_EVENT_CHANGE);
 }
 
-void rename_display(type_MENUPAGE *page) {
+void rename_display(type_MENU *menu) {
 	int i;
 
+	type_MENUPAGE *page = menu->current_page;
+
 	for(i = 0; i < MENU_HEIGHT; i++)
-		rename_display_line(&menupage_rename, i);
+		rename_display_line(page, i);
 
 	menu_redraw();
 }
 
-void rename_refresh(type_MENUPAGE *page) {
-	rename_display_line(&menupage_rename, x);
+void rename_refresh(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+
+	rename_display_line(page, x);
 	menu_redraw();
 }
 
 void rename_display_line(type_MENUPAGE *page, const int line) {
 	char message[LP_MAX_WORD] = "";
 
-	type_MENUITEM *item = &menupage_rename.items[line];
+	type_MENUITEM *item = &page->items[line];
 
 	if (item && item->display)
 		item->display(item, message, 0);
