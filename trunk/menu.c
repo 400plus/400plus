@@ -15,7 +15,6 @@ void *menu_handler;
 int   item_grabbed;
 
 type_MENU     *current_menu;
-type_MENUPAGE *current_page;
 
 type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_event_menu}},
@@ -80,7 +79,7 @@ void menu_close() {
 
 void menu_initialize() {
 	menu_handler = NULL;
-	current_page = get_current_page();
+	current_menu->current_page = get_current_page();
 	item_grabbed = FALSE;
 }
 
@@ -136,17 +135,21 @@ pass_event:
 }
 
 void menu_display() {
-	if (current_page->display)
-		current_page->display(current_page);
+	type_MENUPAGE *page = current_menu->current_page;
+
+	if (page->display)
+		page->display(page);
 	else
-		menupage_display(current_page);
+		menupage_display(page);
 }
 
 void menu_refresh() {
-	if (current_page->refresh)
-		current_page->refresh(current_page);
+	type_MENUPAGE *page = current_menu->current_page;
+
+	if (page->refresh)
+		page->refresh(page);
 	else
-		menupage_refresh(current_page);
+		menupage_refresh(page);
 }
 
 void menu_return() {
@@ -163,7 +166,7 @@ void menu_set_posn(int posn) {
 }
 
 void menu_set_page(type_MENUPAGE *page) {
-	current_page = page;
+	current_menu->current_page = page;
 
 	item_grabbed = FALSE;
 
@@ -207,32 +210,34 @@ void menu_event_change() { menu_event(MENU_EVENT_CHANGE); };
 void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);  };
 
 void menu_event(type_MENU_EVENT event) {
-	type_MENUITEM *item = get_current_item(current_page);
+	type_MENUPAGE *page = current_menu->current_page;
+	type_MENUITEM *item = get_current_item(page);
 
 	if (item && item->tasks && item->tasks[event])
 		item->tasks[event](item);
 
-	if (current_page->tasks && current_page->tasks[event])
-		current_page->tasks[event](current_page);
+	if (page->tasks && page->tasks[event])
+		page->tasks[event](page);
 	else if (current_menu->tasks && current_menu->tasks[event])
 		current_menu->tasks[event](current_menu);
 }
 
 void menu_up(type_MENU *menu) {
 	int display = FALSE;
+	type_MENUPAGE *page = menu->current_page;
 
-	if (current_page->length > MENU_HEIGHT || current_page->current_posn > 0) {
-		current_page->current_posn--;
+	if (page->length > MENU_HEIGHT || page->current_posn > 0) {
+		page->current_posn--;
 
 		if (item_grabbed) {
-			INT_SWAP(current_page->ordering[get_item_id(current_page->current_posn)], current_page->ordering[get_item_id(current_page->current_posn + 1)]);
+			INT_SWAP(page->ordering[get_item_id(page->current_posn)], page->ordering[get_item_id(page->current_posn + 1)]);
 			display = TRUE;
 		}
 	}
 
-	if (current_page->current_line > 0) {
-		current_page->current_line--;
-		menu_highlight(current_page->current_line);
+	if (page->current_line > 0) {
+		page->current_line--;
+		menu_highlight(page->current_line);
 	} else {
 		display = TRUE;
 	}
@@ -242,21 +247,23 @@ void menu_up(type_MENU *menu) {
 }
 
 void menu_down(type_MENU *menu) {
-	const int height = MIN(MENU_HEIGHT, current_page->length) - 1;
+	type_MENUPAGE *page = menu->current_page;
+
+	const int height = MIN(MENU_HEIGHT, page->length) - 1;
 	int display = FALSE;
 
-	if (current_page->length > MENU_HEIGHT || current_page->current_posn < height) {
-		current_page->current_posn++;
+	if (page->length > MENU_HEIGHT || page->current_posn < height) {
+		page->current_posn++;
 
 		if (item_grabbed) {
-			INT_SWAP(current_page->ordering[get_item_id(current_page->current_posn)], current_page->ordering[get_item_id(current_page->current_posn - 1)]);
+			INT_SWAP(page->ordering[get_item_id(page->current_posn)], page->ordering[get_item_id(page->current_posn - 1)]);
 			display = TRUE;
 		}
 	}
 
-	if (current_page->current_line < height) {
-		current_page->current_line++;
-		menu_highlight(current_page->current_line);
+	if (page->current_line < height) {
+		page->current_line++;
+		menu_highlight(page->current_line);
 	} else {
 		display = TRUE;
 	}
@@ -274,7 +281,9 @@ void menu_left(type_MENU *menu) {
 }
 
 void menu_drag_drop(type_MENU *menu) {
-	if (current_page->ordering) {
+	type_MENUPAGE *page = menu->current_page;
+
+	if (page->ordering) {
 		item_grabbed = ! item_grabbed;
 		menu_event_change();
 		menu_refresh();
@@ -282,7 +291,9 @@ void menu_drag_drop(type_MENU *menu) {
 }
 
 void menu_page_next(type_MENU *menu) {
-	if (current_page->sibilings) {
+	type_MENUPAGE *page = menu->current_page;
+
+	if (page->sibilings) {
 		if (current_menu->current_posn == current_menu->length - 1)
 			current_menu->current_posn = 0;
 		else
@@ -293,11 +304,13 @@ void menu_page_next(type_MENU *menu) {
 }
 
 void menu_page_prev(type_MENU *menu) {
-	if (current_page->sibilings) {
-		if (current_menu->current_posn == 0)
-			current_menu->current_posn = current_menu->length - 1;
+	type_MENUPAGE *page = menu->current_page;
+
+	if (page->sibilings) {
+		if (menu->current_posn == 0)
+			menu->current_posn = menu->length - 1;
 		else
-			current_menu->current_posn--;
+			menu->current_posn--;
 
 		menu_return();
 	}
@@ -323,7 +336,8 @@ void menu_repeat(void (*action)(const int repeating)){
 }
 
 void menu_repeat_right(const int repeating) {
-	const type_MENUITEM *item = get_current_item(current_page);
+	type_MENUPAGE *page = current_menu->current_page;
+	type_MENUITEM *item = get_current_item(page);
 
 	if (item && !item->readonly && item->right) {
 		item->right(item, repeating);
@@ -334,7 +348,8 @@ void menu_repeat_right(const int repeating) {
 }
 
 void menu_repeat_left(const int repeating) {
-	const type_MENUITEM *item = get_current_item(current_page);
+	type_MENUPAGE *page = current_menu->current_page;
+	type_MENUITEM *item = get_current_item(page);
 
 	if (item && !item->readonly && item->left) {
 		item->left(item, repeating);
@@ -352,14 +367,18 @@ type_MENUPAGE *get_current_page() {
 }
 
 int get_real_id(int item_pos) {
-	if (current_page->ordering)
-		return current_page->ordering[get_item_id(item_pos)];
+	type_MENUPAGE *page = current_menu->current_page;
+
+	if (page->ordering)
+		return page->ordering[get_item_id(item_pos)];
 	else
 		return get_item_id(item_pos);
 }
 
 int get_item_id(int item_pos) {
-	const int max_pos = MAX(current_page->length, MENU_HEIGHT);
+	type_MENUPAGE *page = current_menu->current_page;
+
+	const int max_pos = MAX(page->length, MENU_HEIGHT);
 	const int item_id = item_pos - max_pos * (item_pos / max_pos);
 
 	return (item_id < 0) ? (item_id + max_pos) : item_id;
