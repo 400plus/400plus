@@ -11,7 +11,7 @@ void display_refresh_whitebalance();
 void display_refresh_flashcomp();
 void display_refresh_iso();
 
-static type_DIALOG *countdown_dialog = NULL;
+static dialog_t *countdown_dialog = NULL;
 
 void restore_display() {
 	SleepTask(100);
