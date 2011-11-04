@@ -217,7 +217,7 @@ void menu_event(type_MENU_EVENT event) {
 		item->tasks[event](item);
 
 	if (page->tasks && page->tasks[event])
-		page->tasks[event](page);
+		page->tasks[event](current_menu);
 	else if (current_menu->tasks && current_menu->tasks[event])
 		current_menu->tasks[event](current_menu);
 }
