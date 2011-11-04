@@ -6,6 +6,7 @@
 #include "menuitem.h"
 #include "presets.h"
 #include "utils.h"
+#include "debug.h"
 
 #include "menu.h"
 

@@ -4,6 +4,15 @@
 #include "firmware.h"
 #include "mainctrl.h"
 
+// this is the way canon checks the pointers
+// if (PTR_VALID(some_ptr)) { ... } else { ... }
+// this will check if the pointer is even and not 0
+// returns the pointer if it's valid, otherwise returns 0;
+#define PTR_VALID(x)  ((x&1)-1 & x)
+
+#define GET_FROM_MEM(mem) (*(int*)((int)(mem)))
+#define SET_TO_MEM(mem,x) *(int*)((int)(mem)) = x
+
 typedef enum {
 	DEBUG_GENERIC    = 0x00, // +SFACT
 	DEBUG_MAIN       = 0x01, // +MC +TEST

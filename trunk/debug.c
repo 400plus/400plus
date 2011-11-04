@@ -2,16 +2,6 @@
 #include "main.h"
 #include "mainctrl.h"
 
-// this is the way canon checks the pointers
-// if (PTR_VALID(some_ptr)) { ... } else { ... }
-// this will check if the pointer is even and not 0
-// returns the pointer if it's valid, otherwise returns 0;
-#define PTR_VALID(x)  ((x&1)-1 & x)
-
-#define GET_FROM_MEM(mem) (*(int*)((int)(mem)))
-#define SET_TO_MEM(mem,x) *(int*)((int)(mem)) = x
-
-
 #ifdef ENABLE_DEBUG
 
 const char * debug_mc_name(int event) {
