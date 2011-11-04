@@ -120,7 +120,6 @@ void list_display(type_MENU *menu) {
 	menu_set_page(&main_list);
 }
 
-
 void list_up(type_MENUPAGE *menupage) {
 	menu_up(&menu_main);
 }
@@ -132,4 +131,3 @@ void list_down(type_MENUPAGE *menupage) {
 void list_hide(type_MENUPAGE *page) {
 	menu_set_posn(get_item_id(page->current_posn));
 }
-
