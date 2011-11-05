@@ -517,7 +517,7 @@ typedef struct {
 	int jump_table; // 0x10 - pointer to a jumptable
 	int field_14;   // 0x14
 	int the_case;   // 0x18 - element from the jumptable to switch on it (in dlgItem_sub_FF917D00)
-	                // something like: goto jump_table[the_case];
+	//              // something like: goto jump_table[the_case];
 } dialog_item_t;
 
 
@@ -529,44 +529,46 @@ typedef struct struct_type_DIALOG dialog_t; // forward declaration
 typedef int(*type_EVENT_HANDLER)(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 struct struct_type_DIALOG {
-	char * pSignature;// 0x0000 - "DIALOG"
-	int field_0x0004; // 0x0004 - window ?
-	int field_0x0008; // 0x0008 - arg0 ?
-	int field_0x000C; // 0x000C
-	int close_dialog; // 0x0010 - when set to 1, DeleteDialogBox is called
-	int template_num; // 0x0014 - the number of the dialog template
-	int field_0x0018; // 0x0018
-	int field_0x001C; // 0x001C
-	int field_0x0020; // 0x0020
-	int field_0x0024; // 0x0024
-	int field_0x0028; // 0x0028
-	int field_0x002C; // 0x002C
-	int field_0x0030; // 0x0030
-	int field_0x0034; // 0x0034
-	int field_0x0038; // 0x0038
-	int field_0x003C; // 0x003C
-	int field_0x0040; // 0x0040
-	int field_0x0044; // 0x0044
-	int field_0x0048; // 0x0048
-	int field_0x004C; // 0x004C
-	int field_0x0050; // 0x0050
-	int field_0x0054; // 0x0054
-	int field_0x0058; // 0x0058
-	int field_0x005C; // 0x005C
-	int field_0x0060; // 0x0060
-	int field_0x0064; // 0x0064
-	int field_0x0068; // 0x0068
-	int field_0x006C; // 0x006C
-	int field_0x0070; // 0x0070
-	int field_0x0074; // 0x0074
-	int field_0x0078; // 0x0078
+	char * pSignature;   // 0x0000 - "DIALOG"
+	int field_0x0004;    // 0x0004
+	int window_struct;   // 0x0008 - window instance
+	int palette_struct;  // 0x000C - palette class
+	int close_dialog;    // 0x0010 - when set to 1, DeleteDialogBox is called
+	int template_num;    // 0x0014 - the number of the dialog template
+	int field_0x0018;    // 0x0018 - some resource for this dialog
+	int field_0x001C;    // 0x001C - another resource for the dialog
+	int field_0x0020;    // 0x0020
+	int field_0x0024;    // 0x0024
+	int field_0x0028;    // 0x0028
+	int field_0x002C;    // 0x002C
+	int field_0x0030;    // 0x0030
+	int field_0x0034;    // 0x0034
+	int field_0x0038;    // 0x0038
+	int field_0x003C;    // 0x003C
+	int field_0x0040;    // 0x0040
+	int field_0x0044;    // 0x0044
+	int field_0x0048;    // 0x0048
+	int field_0x004C;    // 0x004C
+	int field_0x0050;    // 0x0050
+	int field_0x0054;    // 0x0054
+	int central_handler; // 0x0058 - the central handler ( DIALOGHandler() )
+	int field_0x005C;    // 0x005C
+	int field_0x0060;    // 0x0060
+	int field_0x0064;    // 0x0064
+	int field_0x0068;    // 0x0068
+	int field_0x006C;    // 0x006C
+	int field_0x0070;    // 0x0070
+	int field_0x0074;    // 0x0074
+	int field_0x0078;    // 0x0078
 	type_EVENT_HANDLER *event_handler; // 0x007C
-	int arg2;         // 0x0080 - the second arg to the handler
+	int arg2;            // 0x0080 - the second arg to the handler
 	dialog_item_t * dlg_item; // 0x0084 - structure that holds some dialog_item stuff, probably the selected item
-	int field_0x0088; // 0x0088
-	int field_0x008C; // 0x008C
-	int field_0x0090; // 0x0090
-	// there are more
+	int field_0x0088;    // 0x0088
+	int field_0x008C;    // 0x008C
+	int field_0x0090;    // 0x0090
+	int field_0x0094;    // 0x0094
+	int brush_struct;    // 0x0098 - brush class
+	// there are more for sure (perhaps to 0x00B8)
 };
 
 

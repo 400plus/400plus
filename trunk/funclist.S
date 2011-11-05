@@ -14424,6 +14424,7 @@ DEF(hImgPropDisposeSem1, 0x0000E6D0)
 DEF(hImgPropDisposeSem2, 0x0000E6D4)
 DEF(hImpDestructor, 0x000176B0)
 DEF(hInfoAuto, 0x0000217C)
+DEF(hMainDialog, 0x47F0)
 DEF(hInfoCreative, 0x0000213C)
 DEF(hInterComQueue, 0x0000F468)
 DEF(hIntercomData, 0x00022910)
@@ -17293,3 +17294,5 @@ DEF(some_with_lens_name, 0xFF95AEA0)
 DEF(GUI_Select_Item,   0xFF914F94) // GUI_Select_Item(void *menu_handle, int menu_item)
 DEF(GUI_Highlight_Sub, 0xFF838714) // GUI_Highlight_Sub(void *menu_handle, int menu_item, bool enable) opens submenu in menu dialog template or highlights item.
 DEF(GUI_Disable_Item,  0xFF838748) // GUI_Disable_Item(void *menu_handle, int menu_item, bool enable)
+
+DEF(olc_event_handler, 0xFF85E91C) // the default event/button handler for OLC (the white) screen

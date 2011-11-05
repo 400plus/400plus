@@ -55,6 +55,9 @@ void start_up() {
 
 	// We are no longer booting up
 	status.booting = FALSE;
+
+	debug_log("maindlg @ 0x%08X, handler @ 0x%08X", hMainDialog, hMainDialog->event_handler);
+
 }
 
 void set_metering_spot() {
