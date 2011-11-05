@@ -44,6 +44,8 @@ typedef enum {
 	MENU_EVENT_OUT,
 	MENU_EVENT_IN,
 	MENU_EVENT_OPEN,
+	MENU_EVENT_DISPLAY,
+	MENU_EVENT_REFRESH,
 	MENU_EVENT_CHANGE,
 	MENU_EVENT_CLOSE,
 	MENU_EVENT_COUNT,
@@ -64,16 +66,12 @@ struct MENU {
 };
 
 extern type_CAMERA_MODE  menu_cameraMode;
-extern type_MENU        *current_menu;
 
 extern int item_grabbed;
 
 extern void menu_create(type_MENU * menu);
-extern void menu_close();
-
-extern void menu_display(type_MENU * menu);
-extern void menu_refresh(type_MENU * menu);
-extern void menu_return ();
+extern void menu_close ();
+extern void menu_return();
 
 extern void menu_set_posn(int posn);
 extern void menu_set_page(type_MENUPAGE *page);
@@ -99,6 +97,8 @@ extern void menu_event_av_up();
 extern void menu_event_out();
 extern void menu_event_in();
 extern void menu_event_open();
+extern void menu_event_display();
+extern void menu_event_refresh();
 extern void menu_event_change();
 extern void menu_event_close();
 

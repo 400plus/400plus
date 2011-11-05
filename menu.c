@@ -50,7 +50,7 @@ type_MENUPAGE *get_current_page();
 int get_item_id(int item_pos);
 int get_real_id(int item_pos);
 
-void menu_create(type_MENU * menu) {
+void menu_create(type_MENU *menu) {
 	current_menu = menu;
 	FLAG_GUI_MODE = GUIMODE_400PLUS;
 
@@ -67,7 +67,7 @@ void menu_create(type_MENU * menu) {
 
 	PaletteChange(current_menu->color);
 
-	menu_display(current_menu);
+	menu_event_display();
 
 	GUI_UnLock();
 	GUI_PalleteUnInit();
@@ -135,24 +135,6 @@ pass_event:
 	return ret;
 }
 
-void menu_display(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-
-	if (page->display)
-		page->display(menu);
-	else
-		menupage_display(menu);
-}
-
-void menu_refresh(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-
-	if (page->refresh)
-		page->refresh(menu);
-	else
-		menupage_refresh(menu);
-}
-
 void menu_return() {
 	menu_set_page(get_current_page());
 }
@@ -171,7 +153,7 @@ void menu_set_page(type_MENUPAGE *page) {
 
 	item_grabbed = FALSE;
 
-	menu_display(current_menu);
+	menu_event_display();
 }
 
 void menu_highlight(const int line) {
@@ -189,26 +171,28 @@ void menu_set_text(const int line, const char *text) {
 	dialog_set_property_str(menu_handler, line + 1, text);
 }
 
-void menu_event_menu()   { menu_event(MENU_EVENT_MENU);   };
-void menu_event_disp()   { menu_event(MENU_EVENT_DISP);   };
-void menu_event_jump()   { menu_event(MENU_EVENT_JUMP);   };
-void menu_event_play()   { menu_event(MENU_EVENT_PLAY);   };
-void menu_event_trash()  { menu_event(MENU_EVENT_TRASH);  };
-void menu_event_set()    { menu_event(MENU_EVENT_SET);    };
-void menu_event_prev()   { menu_event(MENU_EVENT_PREV);   };
-void menu_event_next()   { menu_event(MENU_EVENT_NEXT);   };
-void menu_event_up()     { menu_event(MENU_EVENT_UP);     };
-void menu_event_down()   { menu_event(MENU_EVENT_DOWN);   };
-void menu_event_right()  { menu_event(MENU_EVENT_RIGHT);  };
-void menu_event_left()   { menu_event(MENU_EVENT_LEFT);   };
-void menu_event_dp()     { menu_event(MENU_EVENT_DP);     };
-void menu_event_av()     { menu_event(MENU_EVENT_AV);     };
-void menu_event_av_up()  { menu_event(MENU_EVENT_AV_UP);  };
-void menu_event_out()    { menu_event(MENU_EVENT_OUT);    };
-void menu_event_in()     { menu_event(MENU_EVENT_IN);     };
-void menu_event_open()   { menu_event(MENU_EVENT_OPEN);   };
-void menu_event_change() { menu_event(MENU_EVENT_CHANGE); };
-void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);  };
+void menu_event_menu()   { menu_event(MENU_EVENT_MENU);    };
+void menu_event_disp()   { menu_event(MENU_EVENT_DISP);    };
+void menu_event_jump()   { menu_event(MENU_EVENT_JUMP);    };
+void menu_event_play()   { menu_event(MENU_EVENT_PLAY);    };
+void menu_event_trash()  { menu_event(MENU_EVENT_TRASH);   };
+void menu_event_set()    { menu_event(MENU_EVENT_SET);     };
+void menu_event_prev()   { menu_event(MENU_EVENT_PREV);    };
+void menu_event_next()   { menu_event(MENU_EVENT_NEXT);    };
+void menu_event_up()     { menu_event(MENU_EVENT_UP);      };
+void menu_event_down()   { menu_event(MENU_EVENT_DOWN);    };
+void menu_event_right()  { menu_event(MENU_EVENT_RIGHT);   };
+void menu_event_left()   { menu_event(MENU_EVENT_LEFT);    };
+void menu_event_dp()     { menu_event(MENU_EVENT_DP);      };
+void menu_event_av()     { menu_event(MENU_EVENT_AV);      };
+void menu_event_av_up()  { menu_event(MENU_EVENT_AV_UP);   };
+void menu_event_out()    { menu_event(MENU_EVENT_OUT);     };
+void menu_event_in()     { menu_event(MENU_EVENT_IN);      };
+void menu_event_open()   { menu_event(MENU_EVENT_OPEN);    };
+void menu_event_display(){ menu_event(MENU_EVENT_DISPLAY); };
+void menu_event_refresh(){ menu_event(MENU_EVENT_REFRESH); };
+void menu_event_change() { menu_event(MENU_EVENT_CHANGE);  };
+void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);   };
 
 void menu_event(type_MENU_EVENT event) {
 	type_MENUPAGE *page = current_menu->current_page;
@@ -244,7 +228,7 @@ void menu_up(type_MENU *menu) {
 	}
 
 	if (display)
-		menu_display(menu);
+		menu_event_display();
 }
 
 void menu_down(type_MENU *menu) {
@@ -270,7 +254,7 @@ void menu_down(type_MENU *menu) {
 	}
 
 	if (display)
-		menu_display(menu);
+		menu_event_display();
 }
 
 void menu_right(type_MENU *menu) {
@@ -287,7 +271,7 @@ void menu_drag_drop(type_MENU *menu) {
 	if (page->ordering) {
 		item_grabbed = ! item_grabbed;
 		menu_event_change();
-		menu_refresh(menu);
+		menu_event_refresh();
 	}
 }
 
@@ -344,7 +328,7 @@ void menu_repeat_right(const int repeating) {
 		item->right(item, repeating);
 
 		menu_event_change();
-		menu_refresh(current_menu);
+		menu_event_refresh();
 	}
 }
 
@@ -356,7 +340,7 @@ void menu_repeat_left(const int repeating) {
 		item->left(item, repeating);
 
 		menu_event_change();
-		menu_refresh(current_menu);
+		menu_event_refresh();
 	}
 }
 
