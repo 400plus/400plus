@@ -102,18 +102,18 @@ type_MENUPAGE menupage_rename = {
 	length    : LENGTH(menupage_rename_items),
 	items     : menupage_rename_items,
 	tasks     : {
-		[MENU_EVENT_UP]    = rename_up,
-		[MENU_EVENT_DOWN]  = rename_down,
-		[MENU_EVENT_OUT]   = rename_prev,
-		[MENU_EVENT_IN]    = rename_next,
-		[MENU_EVENT_MENU]  = rename_caps,
-		[MENU_EVENT_JUMP]  = rename_toggle,
-		[MENU_EVENT_TRASH] = rename_clear,
-		[MENU_EVENT_AV]    = rename_return,
-		[MENU_EVENT_CLOSE] = rename_close,
+		[MENU_EVENT_UP]      = rename_up,
+		[MENU_EVENT_DOWN]    = rename_down,
+		[MENU_EVENT_OUT]     = rename_prev,
+		[MENU_EVENT_IN]      = rename_next,
+		[MENU_EVENT_MENU]    = rename_caps,
+		[MENU_EVENT_JUMP]    = rename_toggle,
+		[MENU_EVENT_TRASH]   = rename_clear,
+		[MENU_EVENT_AV]      = rename_return,
+		[MENU_EVENT_DISPLAY] = rename_display,
+		[MENU_EVENT_REFRESH] = rename_refresh,
+		[MENU_EVENT_CLOSE]   = rename_close,
 	},
-	display   : rename_display,
-	refresh   : rename_refresh,
 };
 
 
@@ -199,7 +199,7 @@ void rename_right(const type_MENUITEM *item, const int repeating) {
 		y++;
 	}
 
-	rename_refresh(current_menu);
+	menu_event_refresh();
 }
 
 void rename_left(const type_MENUITEM *item, const int repeating) {
@@ -209,7 +209,7 @@ void rename_left(const type_MENUITEM *item, const int repeating) {
 		y--;
 	}
 
-	rename_refresh(current_menu);
+	menu_event_refresh();
 }
 
 void rename_prev(type_MENU *menu) {

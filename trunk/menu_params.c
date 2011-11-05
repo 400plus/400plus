@@ -56,12 +56,12 @@ type_MENUPAGE menupage_params = {
 
 void menu_params_apply_autoiso_miniso(type_MENUITEM *item) {
 	settings.autoiso_maxiso = MAX(settings.autoiso_miniso, settings.autoiso_maxiso);
-	menu_display(current_menu);
+	menu_event_display();
 }
 
 void menu_params_apply_autoiso_maxiso(type_MENUITEM *item) {
 	settings.autoiso_miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
-	menu_display(current_menu);
+	menu_event_display();
 }
 
 void menu_params_apply_iso(type_MENUITEM *item) {

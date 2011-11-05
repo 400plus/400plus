@@ -15,8 +15,6 @@ struct MENUPAGE {
 	int                 highlighted_item;
 	int                 current_line;
 	int                 current_posn;
-	void (*display)(type_MENU *menu);
-	void (*refresh)(type_MENU *menu);
 };
 
 extern void menupage_display(type_MENU *page);
