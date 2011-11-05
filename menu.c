@@ -50,9 +50,17 @@ type_MENUPAGE *get_current_page();
 int get_item_id(int item_pos);
 int get_real_id(int item_pos);
 
+int my_central_handler(dialog_t *dialog, int event, int r2, int r3) {
+	debug_log("CENTRAL!");
+	debug_log("central: dlg:0x%08X, ev:0x%08X, r2:0x%08X, r3:0x%08X", dialog, event, r2, r3);
+	return DIALOGHandler(dialog, event, r2, r3);
+}
+
 void menu_create(type_MENU *menu) {
 	beep();
 
+	//GUI_Command(4,0);
+	//press_button(IC_BUTTON_MENU);
 	SendToMC(6, 2, 0);
 	SleepTask(100);
 
@@ -67,7 +75,8 @@ void menu_create(type_MENU *menu) {
 	GUI_PalleteInit();
 
 	menu_handler = dialog_create(22, menu_event_handler);
-	//SET_TO_MEM(menu_handler+0x84, 0x005B4A98);
+	//*(int*)((int)(menu_handler+0x58)) = (int)my_central_handler;
+	//*(int*)((int)(menu_handler+0x7C)) = (int)menu_event_handler;
 
 	PalettePush();
 	PaletteChange(current_menu->color);
@@ -103,7 +112,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 	int ret;
 	type_ACTION *action;
 
-// FW:FF915990 
+// FW:FF915990
 // this seems to be one of the addresses where the handler is called
 
 // standard menu 55-63

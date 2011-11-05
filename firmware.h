@@ -11,7 +11,8 @@ extern unsigned short ModelID;
 
 extern int BurstCounter;  // remaining shots in burst mode (displayed in VF's bottom right corner)
 extern dialog_t * hInfoCreative; // dialog handle for info screen
-#define hMainDialog (dialog_t*)(*(int*)(0x47F0))
+extern dialog_t * hMainDialog; // the main OLC dialog (white screen)
+//#define hMainDialog (dialog_t*)(*(int*)(0x47F0))
 extern int FaceStatus;    // 0 = no face, 1 = face (disp off)... see #32, this could give some solution
 extern int GUIMode;       // Current GUI Mode
 extern int hFaMain;       // Factory Dialog
@@ -150,7 +151,7 @@ extern int able_to_release(); // checks the "is_release_permitted" and "BurstCou
 
 // Display
 
-extern dialog_t *CreateDialogBox(int parm1, int parm2, type_EVENT_HANDLER, int template);
+extern dialog_t *CreateDialogBox(int parm1, int parm2, type_EVENT_HANDLER, int template, int is_busy_maybe);
 extern int DeleteDialogBox(dialog_t *dialog);
 
 extern int do_some_with_dialog(dialog_t *dialog);
@@ -158,7 +159,7 @@ extern int do_some_with_dialog(dialog_t *dialog);
 extern int sub_FF8382DC(dialog_t *dialog, const int code, const int   data);
 extern int sub_FF837FA8(dialog_t *dialog, const int code, const char *text);
 
-#define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template)
+#define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template, 0)
 
 #define dialog_redraw do_some_with_dialog
 
@@ -166,6 +167,7 @@ extern int sub_FF837FA8(dialog_t *dialog, const int code, const char *text);
 #define dialog_set_property_str sub_FF837FA8
 
 extern int InfoCreativeAppProc(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
+extern int olc_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 extern char *sub_FF83A640(); // cf free space - reports wrong ?
 
