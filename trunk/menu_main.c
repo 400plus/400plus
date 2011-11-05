@@ -82,18 +82,7 @@ type_MENUPAGE main_list = {
 };
 
 void menu_main_start() {
-	beep();
-
-	//
-	//GUI_Command(4,0);
-	//press_button(IC_BUTTON_MENU);
-	//
-	SendToMC(6, 2, 0);
-	SleepTask(100);
-
-	changed         = FALSE;
-	menu_cameraMode = *cameraMode;
-
+	changed = FALSE;
 	menu_create(&menu_main);
 }
 
