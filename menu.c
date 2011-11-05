@@ -51,8 +51,14 @@ int get_item_id(int item_pos);
 int get_real_id(int item_pos);
 
 void menu_create(type_MENU *menu) {
-	current_menu = menu;
-	FLAG_GUI_MODE = GUIMODE_400PLUS;
+	beep();
+
+	SendToMC(6, 2, 0);
+	SleepTask(100);
+
+	current_menu    = menu;
+	menu_cameraMode = *cameraMode;
+	FLAG_GUI_MODE   = GUIMODE_400PLUS;
 
 	menu_destroy();
 	menu_initialize();
@@ -64,7 +70,6 @@ void menu_create(type_MENU *menu) {
 	//SET_TO_MEM(menu_handler+0x84, 0x005B4A98);
 
 	PalettePush();
-
 	PaletteChange(current_menu->color);
 
 	menu_event_display();
@@ -74,14 +79,15 @@ void menu_create(type_MENU *menu) {
 }
 
 void menu_close() {
-	// press_button(IC_BUTTON_DISP);
+	press_button(IC_BUTTON_DISP);
 	menu_destroy();
 }
 
 void menu_initialize() {
 	menu_handler = NULL;
-	current_menu->current_page = get_current_page();
 	item_grabbed = FALSE;
+
+	current_menu->current_page = get_current_page();
 }
 
 void menu_destroy() {
