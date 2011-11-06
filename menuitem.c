@@ -6,10 +6,10 @@
 
 #include "menuitem.h"
 
-OPTIONLIST_DEF(bool,     LP_WORD(L_NO), LP_WORD(L_YES))
-OPTIONLIST_DEF(flash,    LP_WORD(L_ENABLED), LP_WORD(L_DISABLED), LP_WORD(L_EXT_ONLY))
-OPTIONLIST_DEF(action,   LP_WORD(L_ONE_SHOT), LP_WORD(L_EXT_AEB), LP_WORD(L_INTERVAL))
-OPTIONLIST_DEF(logfile,  LP_WORD(L_OVERWRITE), LP_WORD(L_NEW), LP_WORD(L_APPEND));
+OPTIONLIST_DEF(bool,     LP_WORD(L_V_NO), LP_WORD(L_V_YES))
+OPTIONLIST_DEF(flash,    LP_WORD(L_V_ENABLED), LP_WORD(L_V_DISABLED), LP_WORD(L_V_EXT_ONLY))
+OPTIONLIST_DEF(action,   LP_WORD(L_V_ONE_SHOT), LP_WORD(L_V_EXT_AEB), LP_WORD(L_V_INTERVAL))
+OPTIONLIST_DEF(logfile,  LP_WORD(L_V_OVERWRITE), LP_WORD(L_V_NEW), LP_WORD(L_V_APPEND));
 
 void menuitem_print(char *buffer, const char *name, const char *parameter, const int length);
 
@@ -21,7 +21,7 @@ void menuitem_display_ev(const type_MENUITEM *item, char *buffer, const int leng
 	char value[LP_MAX_WORD];
 
 	if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0) {
-		menuitem_print(buffer, item->name, LP_WORD(L_OFF), length);
+		menuitem_print(buffer, item->name, LP_WORD(L_V_OFF), length);
 	} else {
 		ev_print(value, *item->parm.menuitem_ev.value);
 		menuitem_print(buffer, item->name, value, length);
@@ -53,7 +53,7 @@ void menuitem_display_int(const type_MENUITEM *item, char *buffer, const int len
 	char value[LP_MAX_WORD];
 
 	if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0) {
-		menuitem_print(buffer, item->name, LP_WORD(L_NO_LIMIT), length);
+		menuitem_print(buffer, item->name, LP_WORD(L_V_NO_LIMIT), length);
 	} else {
 		sprintf(value, item->parm.menuitem_int.format, *item->parm.menuitem_int.value);
 		menuitem_print(buffer, item->name, value, length);
