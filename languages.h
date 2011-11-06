@@ -30,6 +30,18 @@
 	LANG_PAIR( I_LOAD,               "Load"               ) \
 	LANG_PAIR( I_SAVE,               "Save"               ) \
 	LANG_PAIR( I_RENAME,             "Rename"             ) \
+	LANG_PAIR( S_AUTOISO,            "AutoISO"            ) \
+	LANG_PAIR( I_AUTOISO_ENABLE,     "Enable"             ) \
+	LANG_PAIR( I_AUTOISO_MINISO,     "Min ISO"            ) \
+	LANG_PAIR( I_AUTOISO_MAXISO,     "Max ISO"            ) \
+	LANG_PAIR( I_AUTOISO_MINTV,      "Min Tv"             ) \
+	LANG_PAIR( I_AUTOISO_MAXAV,      "Max Av"             ) \
+	LANG_PAIR( I_ISO,                "ISO"                ) \
+	LANG_PAIR( I_AV_COMP,            "AV comp."           ) \
+	LANG_PAIR( I_FLASH_COMP,         "Flash comp."        ) \
+	LANG_PAIR( I_USE_FLASH,          "Disable flash"      ) \
+	LANG_PAIR( I_AEB,                "AEB"                ) \
+	LANG_PAIR( I_COLOR_TEMP_K,       "Color temp. (K)"    ) \
 	LANG_PAIR( OFF,                "Off"                ) \
 	LANG_PAIR( YES,                "Yes"                ) \
 	LANG_PAIR( NO,                 "No"                 ) \
@@ -61,14 +73,9 @@
 	LANG_PAIR( TIME_S,             "Time (s)"           ) \
 	LANG_PAIR( EAEB,               "EAEB"               ) \
 	LANG_PAIR( SHOTS,              "Shots"              ) \
-	LANG_PAIR( AV_COMP,            "AV comp"            ) \
-	LANG_PAIR( FLASH_COMP,         "Flash comp"         ) \
-	LANG_PAIR( AEB,                "AEB"                ) \
 	LANG_PAIR( ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( SHORTCUTS_MENU,     "Shortcuts menu"     ) \
 	LANG_PAIR( SAFETY_SHIFT,       "Safety Shift"       ) \
-	LANG_PAIR( COLOR_TEMP_K,       "Color Temp. (K)"    ) \
-	LANG_PAIR( USE_FLASH,          "Disable flash"      ) \
 	LANG_PAIR( HANDWAVE,           "Handwave"           ) \
 	LANG_PAIR( TIMER_SPACES,       "Timer   "           ) \
 	LANG_PAIR( IR_REMOTE_ENABLE,   "IR remote enable"   ) \
@@ -76,7 +83,6 @@
 	LANG_PAIR( SCRIPTS_SPACES,     "Scripts "           ) \
 	LANG_PAIR( DIM_LCD_DOWN,       "LCD dim"            ) \
 	LANG_PAIR( KEEP_POWER_ON,      "APO dsbl"           ) \
-	LANG_PAIR( ISO,                "ISO"                ) \
 	LANG_PAIR( EXTENDED_AEB,       "Extended AEB"       ) \
 	LANG_PAIR( INTERVALOMETER,     "Intervalometer"     ) \
 	LANG_PAIR( HAND_WAVING,        "Hand Waving"        ) \
@@ -87,12 +93,6 @@
 	LANG_PAIR( PRESETS_SETTINGS,   "Settings"           ) \
 	LANG_PAIR( PRESETS_IMAGE,      "Image"              ) \
 	LANG_PAIR( PRESETS_CFN,        "Custom Fn"          ) \
-	LANG_PAIR( AUTOISO,            "AutoISO "           ) \
-	LANG_PAIR( AUTOISO_ENABLE,     "Enable"             ) \
-	LANG_PAIR( AUTOISO_MINISO,     "Min ISO"            ) \
-	LANG_PAIR( AUTOISO_MAXISO,     "Max ISO"            ) \
-	LANG_PAIR( AUTOISO_MINTV,      "Min Tv"             ) \
-	LANG_PAIR( AUTOISO_MAXAV,      "Max Av"             ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,
