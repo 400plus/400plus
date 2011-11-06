@@ -6,17 +6,23 @@
 #define LP_WORD(word) lang_pack_current[word]
 
 #define LANGUAGE_PAIRS                                    \
-	LANG_PAIR( P_400PLUS,          "400plus"            ) \
-	LANG_PAIR( P_PARAMS,           "Parameters"         ) \
-	LANG_PAIR( P_SHORTCUTS,        "Shortcuts"          ) \
-	LANG_PAIR( P_SETTINGS,         "Settings"           ) \
-	LANG_PAIR( P_SCRIPTS,          "Scripts"            ) \
-	LANG_PAIR( P_INFO,             "Info"               ) \
-	LANG_PAIR( P_DEVELOPERS,       "Developers' Menu"   ) \
-	LANG_PAIR( P_PRESETS,          "Presets"            ) \
-	LANG_PAIR( I_RELEASE_COUNT,    "Release count"      ) \
-	LANG_PAIR( I_BODY_ID,          "Body ID"            ) \
-	LANG_PAIR( I_VERSION,          "Version"            ) \
+	LANG_PAIR( P_400PLUS,            "400plus"            ) \
+	LANG_PAIR( P_PARAMS,             "Parameters"         ) \
+	LANG_PAIR( P_SHORTCUTS,          "Shortcuts"          ) \
+	LANG_PAIR( P_SETTINGS,           "Settings"           ) \
+	LANG_PAIR( P_SCRIPTS,            "Scripts"            ) \
+	LANG_PAIR( P_INFO,               "Info"               ) \
+	LANG_PAIR( P_DEVELOPERS,         "Developers' Menu"   ) \
+	LANG_PAIR( P_PRESETS,            "Presets"            ) \
+	LANG_PAIR( I_RELEASE_COUNT,      "Release count"      ) \
+	LANG_PAIR( I_BODY_ID,            "Body ID"            ) \
+	LANG_PAIR( I_VERSION,            "Version"            ) \
+	LANG_PAIR( I_DUMP_LOG_TO_FILE,   "Dump log to file"   ) \
+	LANG_PAIR( I_PRINT_INFO,         "Print info to log"  ) \
+	LANG_PAIR( I_ENTER_FACTORY_MODE, "Enter factory Mode" ) \
+	LANG_PAIR( I_EXIT_FACTORY_MODE,  "Exit  factory Mode" ) \
+	LANG_PAIR( I_DEBUG_ON_POWERON,   "Debug on PowerOn"   ) \
+	LANG_PAIR( I_LOGFILE_MODE,       "Log File Mode"      ) \
 	LANG_PAIR( OFF,                "Off"                ) \
 	LANG_PAIR( YES,                "Yes"                ) \
 	LANG_PAIR( NO,                 "No"                 ) \
@@ -34,14 +40,8 @@
 	LANG_PAIR( PRESET_NAME,        "Preset"             ) \
 	LANG_PAIR( DEVELOPER,          "Developer"          ) \
 	LANG_PAIR( TEST_DIALOGS,       "Test the dialogs"   ) \
-	LANG_PAIR( DUMP_LOG_TO_FILE,   "Dump log to file"   ) \
-	LANG_PAIR( PRINT_INFO,         "Print info to log"  ) \
-	LANG_PAIR( ENTER_FACTORY_MODE, "Enter factory Mode" ) \
-	LANG_PAIR( EXIT_FACTORY_MODE,  "Exit  factory Mode" ) \
-	LANG_PAIR( DEBUG_ON_POWERON,   "Debug on PowerOn"   ) \
-	LANG_PAIR( LOGFILE,            "Log File Mode"      ) \
-	LANG_PAIR( OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( NEW,                "New"                ) \
+	LANG_PAIR( OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( APPEND,             "Append"             ) \
 	LANG_PAIR( DELAY,              "Delay"              ) \
 	LANG_PAIR( ACTION,             "Action"             ) \
