@@ -12,9 +12,9 @@
 int version = VERSION;
 
 type_MENUITEM menupage_info_items[] = {
-	MENUITEM_INFO("Release count", &FLAG_RELEASE_COUNT),
-	MENUITEM_INFO("Body  ID     ", &BodyID),
-	MENUITEM_INFO("Version      ", &version),
+	MENUITEM_INFO(LP_WORD(L_I_RELEASE_COUNT), &FLAG_RELEASE_COUNT),
+	MENUITEM_INFO(LP_WORD(L_I_BODY_ID),       &BodyID),
+	MENUITEM_INFO(LP_WORD(L_I_VERSION),       &version),
 };
 
 type_MENUPAGE menupage_info = {
