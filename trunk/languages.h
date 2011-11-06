@@ -14,8 +14,9 @@
 	LANG_PAIR( P_INFO,             "Info"               ) \
 	LANG_PAIR( P_DEVELOPERS,       "Developers' Menu"   ) \
 	LANG_PAIR( P_PRESETS,          "Presets"            ) \
-	LANG_PAIR( FREE_SPACE,         "Free Space"         ) \
-	LANG_PAIR( RELEASE_COUNT,      "ReleaseCount"       ) \
+	LANG_PAIR( I_RELEASE_COUNT,    "Release count"      ) \
+	LANG_PAIR( I_BODY_ID,          "Body ID"            ) \
+	LANG_PAIR( I_VERSION,          "Version"            ) \
 	LANG_PAIR( OFF,                "Off"                ) \
 	LANG_PAIR( YES,                "Yes"                ) \
 	LANG_PAIR( NO,                 "No"                 ) \
