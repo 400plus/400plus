@@ -47,7 +47,7 @@ type_MENUITEM menupage_params_items[] = {
 };
 
 type_MENUPAGE menupage_params = {
-	name      : "Parameters",
+	name      : LP_WORD(L_P_PARAMS),
 	sibilings : TRUE,
 	length    : LENGTH(menupage_params_items),
 	items     : menupage_params_items,

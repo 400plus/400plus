@@ -92,7 +92,7 @@ type_MENUITEM menupage_scripts_items[] = {
 };
 
 type_MENUPAGE menupage_scripts = {
-	name      : "Scripts",
+	name      : LP_WORD(L_P_SCRIPTS),
 	sibilings : TRUE,
 	length    : LENGTH(menupage_scripts_items),
 	items     : menupage_scripts_items,

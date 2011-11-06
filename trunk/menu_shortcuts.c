@@ -23,7 +23,7 @@ type_MENUITEM menu_shortcut_items[] = {
 };
 
 type_MENUPAGE menupage_shortcuts = {
-	name      : LP_WORD(L_SHORTCUTS),
+	name      : LP_WORD(L_P_SHORTCUTS),
 	sibilings : TRUE,
 	length    : LENGTH(menu_shortcut_items),
 	items     : menu_shortcut_items,
