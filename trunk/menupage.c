@@ -15,7 +15,7 @@ void menupage_display(type_MENU *menu) {
 
 	type_MENUPAGE *page = menu->current_page;
 
-	int pad1, pad2, len  = strlen(page->name);
+	int pad1, pad2, len  = strlen_utf8(page->name);
 
 	if (page->sibilings) {
 		pad1 = (    MENU_WIDTH - 2 - len) / 2;

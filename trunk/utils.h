@@ -61,6 +61,8 @@ extern int display_off();
 
 extern void led_flash(int delay);
 
+extern int strlen_utf8(const char *);
+
 // convert string to upper case in-place
 extern void stoupper(char *s);
 
@@ -76,7 +78,5 @@ char * my_fgets_faster(char *s, int n, int fd);
 #define my_fgets_init() my_fgets_faster(NULL, 0, -1)
 #define my_fgets my_fgets_faster
 #endif
-
-
 
 #endif /* UTILS_H_ */

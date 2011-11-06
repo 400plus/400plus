@@ -458,6 +458,17 @@ void led_flash(int duration) {
 	SleepTask(EVENT_WAIT);
 }
 
+int strlen_utf8(const char *s) {
+  int i = 0, j = 0;
+
+  while (s[i]) {
+    if ((s[i++] & 0xc0) != 0x80)
+    	j++;
+  }
+
+  return j;
+}
+
 // convert string to upper case in-place
 void stoupper(char *s) {
 	while (*s) {
