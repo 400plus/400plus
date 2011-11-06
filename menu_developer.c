@@ -41,7 +41,7 @@ type_MENUITEM menu_developer_items[] = {
 };
 
 type_MENUPAGE menupage_developer = {
-	name      : LP_WORD(L_DEVELOPERS_MENU),
+	name      : LP_WORD(L_P_DEVELOPERS),
 	sibilings : TRUE,
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,

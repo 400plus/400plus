@@ -1,6 +1,7 @@
 #include "main.h"
 #include "firmware.h"
 
+#include "languages.h"
 #include "menu.h"
 #include "menupage.h"
 #include "menuitem.h"
@@ -17,7 +18,7 @@ type_MENUITEM menupage_info_items[] = {
 };
 
 type_MENUPAGE menupage_info = {
-	name        : "Info",
+	name        : LP_WORD(L_P_INFO),
 	sibilings   : TRUE,
 	length      : LENGTH(menupage_info_items),
 	items       : menupage_info_items,

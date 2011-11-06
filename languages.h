@@ -5,7 +5,15 @@
 #define LP_MAX_WORD 64 // this is valid for the keys and section names too
 #define LP_WORD(word) lang_pack_current[word]
 
-#define LANGUAGE_PAIRS                                        \
+#define LANGUAGE_PAIRS                                    \
+	LANG_PAIR( P_400PLUS,          "400plus"            ) \
+	LANG_PAIR( P_PARAMS,           "Parameters"         ) \
+	LANG_PAIR( P_SHORTCUTS,        "Shortcuts"          ) \
+	LANG_PAIR( P_SETTINGS,         "Settings"           ) \
+	LANG_PAIR( P_SCRIPTS,          "Scripts"            ) \
+	LANG_PAIR( P_INFO,             "Info"               ) \
+	LANG_PAIR( P_DEVELOPERS,       "Developers' Menu"   ) \
+	LANG_PAIR( P_PRESETS,          "Presets"            ) \
 	LANG_PAIR( FREE_SPACE,         "Free Space"         ) \
 	LANG_PAIR( RELEASE_COUNT,      "ReleaseCount"       ) \
 	LANG_PAIR( OFF,                "Off"                ) \
@@ -34,7 +42,6 @@
 	LANG_PAIR( OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( NEW,                "New"                ) \
 	LANG_PAIR( APPEND,             "Append"             ) \
-	LANG_PAIR( SETTINGS,           "Settings"           ) \
 	LANG_PAIR( DELAY,              "Delay"              ) \
 	LANG_PAIR( ACTION,             "Action"             ) \
 	LANG_PAIR( REPEAT,             "Repeat"             ) \
@@ -58,11 +65,9 @@
 	LANG_PAIR( TIMER_SPACES,       "Timer   "           ) \
 	LANG_PAIR( IR_REMOTE_ENABLE,   "IR remote enable"   ) \
 	LANG_PAIR( IR_REMOTE_DELAY,    "IR remote delay"    ) \
-	LANG_PAIR( DEVELOPERS_MENU,    "Developers Menu"    ) \
 	LANG_PAIR( SCRIPTS_SPACES,     "Scripts "           ) \
 	LANG_PAIR( DIM_LCD_DOWN,       "LCD dim"            ) \
 	LANG_PAIR( KEEP_POWER_ON,      "APO dsbl"           ) \
-	LANG_PAIR( SHORTCUTS,          "Shortcuts"          ) \
 	LANG_PAIR( ISO,                "ISO"                ) \
 	LANG_PAIR( EXTENDED_AEB,       "Extended AEB"       ) \
 	LANG_PAIR( INTERVALOMETER,     "Intervalometer"     ) \
@@ -71,7 +76,6 @@
 	LANG_PAIR( AF_FLASH,           "AF Flash"           ) \
 	LANG_PAIR( MIRROR_LOCKUP,      "Mirror Lockup"      ) \
 	LANG_PAIR( FLASH_2ND_CURT,     "Flash 2curt"        ) \
-	LANG_PAIR( PRESETS_SPACES,     "Presets "           ) \
 	LANG_PAIR( PRESETS_ADEP,       "Use A-DEP"          ) \
 	LANG_PAIR( PRESETS_CAMERA,     "Camera"             ) \
 	LANG_PAIR( PRESETS_400PLUS,    "400plus"            ) \

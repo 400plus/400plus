@@ -60,17 +60,17 @@ type_MENU menu_main = {
 };
 
 type_MENUITEM main_list_items[] = {
-	MENUITEM_BREAK("Params"),
-	MENUITEM_BREAK("Shortcuts"),
-	MENUITEM_BREAK("Scripts"),
-	MENUITEM_BREAK("Info"),
-	MENUITEM_BREAK("Developer"),
-	MENUITEM_BREAK("Settings"),
-	MENUITEM_BREAK("Presets"),
+	MENUITEM_BREAK(LP_WORD(L_P_PARAMS)),
+	MENUITEM_BREAK(LP_WORD(L_P_SHORTCUTS)),
+	MENUITEM_BREAK(LP_WORD(L_P_SCRIPTS)),
+	MENUITEM_BREAK(LP_WORD(L_P_INFO)),
+	MENUITEM_BREAK(LP_WORD(L_P_DEVELOPERS)),
+	MENUITEM_BREAK(LP_WORD(L_P_SETTINGS)),
+	MENUITEM_BREAK(LP_WORD(L_P_PRESETS)),
 };
 
 type_MENUPAGE main_list = {
-	name     : "400plus",
+	name     : LP_WORD(L_P_400PLUS),
 	length   : LENGTH(main_list_items),
 	items    : main_list_items,
 	tasks    : {

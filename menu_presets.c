@@ -198,7 +198,7 @@ type_MENUITEM preset_items[] = {
 };
 
 type_MENUPAGE menupage_presets = {
-	name      : "Presets",
+	name      : LP_WORD(L_P_PRESETS),
 	sibilings : TRUE,
 	length    : LENGTH(preset_items),
 	items     : preset_items,

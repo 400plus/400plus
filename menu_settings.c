@@ -30,13 +30,13 @@ type_MENUITEM presets_items[] = {
 };
 
 type_MENUITEM pages_items[] = {
-	MENUITEM_BREAK("Parameters"),
-	MENUITEM_BREAK(LP_WORD(L_SHORTCUTS)),
-	MENUITEM_BREAK("Scripts"),
-	MENUITEM_BREAK("Info"),
-	MENUITEM_BREAK(LP_WORD(L_DEVELOPERS_MENU)),
-	MENUITEM_BREAK(LP_WORD(L_SETTINGS)),
-	MENUITEM_BREAK("Presets"),
+	MENUITEM_BREAK(LP_WORD(L_P_PARAMS)),
+	MENUITEM_BREAK(LP_WORD(L_P_SHORTCUTS)),
+	MENUITEM_BREAK(LP_WORD(L_P_SCRIPTS)),
+	MENUITEM_BREAK(LP_WORD(L_P_INFO)),
+	MENUITEM_BREAK(LP_WORD(L_P_DEVELOPERS)),
+	MENUITEM_BREAK(LP_WORD(L_P_SETTINGS)),
+	MENUITEM_BREAK(LP_WORD(L_P_PRESETS)),
 };
 
 type_MENUPAGE scripts_page = {
@@ -49,7 +49,7 @@ type_MENUPAGE scripts_page = {
 };
 
 type_MENUPAGE presets_page = {
-	name   : LP_WORD(L_PRESETS_SPACES),
+	name   : LP_WORD(L_P_PRESETS),
 	length : LENGTH(presets_items),
 	items  : presets_items,
 	tasks  : {
@@ -77,7 +77,7 @@ type_MENUITEM menu_settings_items[] = {
 };
 
 type_MENUPAGE menupage_settings = {
-	name      : LP_WORD(L_SETTINGS),
+	name      : LP_WORD(L_P_SETTINGS),
 	sibilings : TRUE,
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
