@@ -42,10 +42,24 @@
 	LANG_PAIR( I_USE_FLASH,          "Disable flash"      ) \
 	LANG_PAIR( I_AEB,                "AEB"                ) \
 	LANG_PAIR( I_COLOR_TEMP_K,       "Color temp. (K)"    ) \
+	LANG_PAIR( I_DELAY,              "2s Delay"           ) \
+	LANG_PAIR( I_ACTION,             "Action"             ) \
+	LANG_PAIR( I_REPEAT,             "Repeat"             ) \
+	LANG_PAIR( I_INSTANT,            "Instant"            ) \
+	LANG_PAIR( I_FRAMES,             "Frames"             ) \
+	LANG_PAIR( I_STEP_EV,            "Step (EV)"          ) \
+	LANG_PAIR( I_MANUAL_L,           "Bulb min"           ) \
+	LANG_PAIR( I_MANUAL_R,           "Bulb max"           ) \
+	LANG_PAIR( I_TIME_S,             "Time (s)"           ) \
+	LANG_PAIR( I_EAEB,               "EAEB"               ) \
+	LANG_PAIR( I_SHOTS,              "Shots"              ) \
+	LANG_PAIR( S_EXT_AEB,            "Extended AEB"       ) \
+	LANG_PAIR( S_INTERVAL,           "Intervalometer"     ) \
+	LANG_PAIR( S_HANDWAVE,           "Handwaving"         ) \
+	LANG_PAIR( S_TIMER,              "Self-Timer"         ) \
 	LANG_PAIR( OFF,                "Off"                ) \
 	LANG_PAIR( YES,                "Yes"                ) \
 	LANG_PAIR( NO,                 "No"                 ) \
-	LANG_PAIR( 2S,                 "2s"                 ) \
 	LANG_PAIR( ENABLED,            "Enabled"            ) \
 	LANG_PAIR( DISABLED,           "Disabled"           ) \
 	LANG_PAIR( EXT_ONLY,           "Ext Only"           ) \
@@ -62,17 +76,6 @@
 	LANG_PAIR( NEW,                "New"                ) \
 	LANG_PAIR( OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( APPEND,             "Append"             ) \
-	LANG_PAIR( DELAY,              "Delay"              ) \
-	LANG_PAIR( ACTION,             "Action"             ) \
-	LANG_PAIR( REPEAT,             "Repeat"             ) \
-	LANG_PAIR( INSTANT,            "Instant"            ) \
-	LANG_PAIR( FRAMES,             "Frames"             ) \
-	LANG_PAIR( STEP_EV,            "Step (EV)"          ) \
-	LANG_PAIR( MANUAL_L,           "Bulb min"           ) \
-	LANG_PAIR( MANUAL_R,           "Bulb max"           ) \
-	LANG_PAIR( TIME_S,             "Time (s)"           ) \
-	LANG_PAIR( EAEB,               "EAEB"               ) \
-	LANG_PAIR( SHOTS,              "Shots"              ) \
 	LANG_PAIR( ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( SHORTCUTS_MENU,     "Shortcuts menu"     ) \
 	LANG_PAIR( SAFETY_SHIFT,       "Safety Shift"       ) \
