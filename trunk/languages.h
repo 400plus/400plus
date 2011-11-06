@@ -85,19 +85,7 @@
 	LANG_PAIR( V_NEW,                "New"                ) \
 	LANG_PAIR( V_OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( V_APPEND,             "Append"             ) \
-	LANG_PAIR( RENAME,             "Rename"             ) \
-	LANG_PAIR( LOAD_PRESETS,       "Load presets"       ) \
-	LANG_PAIR( SAVE_PRESETS,       "Save presets"       ) \
-	LANG_PAIR( PRESET_NAME,        "Preset"             ) \
-	LANG_PAIR( DEVELOPER,          "Developer"          ) \
-	LANG_PAIR( TEST_DIALOGS,       "Test the dialogs"   ) \
-	LANG_PAIR( SHORTCUTS_MENU,     "Shortcuts menu"     ) \
-	LANG_PAIR( HANDWAVE,           "Handwave"           ) \
-	LANG_PAIR( TIMER_SPACES,       "Timer   "           ) \
-	LANG_PAIR( EXTENDED_AEB,       "Extended AEB"       ) \
-	LANG_PAIR( INTERVALOMETER,     "Intervalometer"     ) \
-	LANG_PAIR( HAND_WAVING,        "Hand Waving"        ) \
-	LANG_PAIR( SELF_TIMER,         "Self Timer"         ) \
+	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,
