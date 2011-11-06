@@ -12,6 +12,7 @@
 	LANG_PAIR( P_SETTINGS,           "Settings"           ) \
 	LANG_PAIR( P_SCRIPTS,            "Scripts"            ) \
 	LANG_PAIR( P_INFO,               "Info"               ) \
+	LANG_PAIR( P_RENAME,             "Rename"             ) \
 	LANG_PAIR( P_DEVELOPERS,         "Developers' Menu"   ) \
 	LANG_PAIR( P_PRESETS,            "Presets"            ) \
 	LANG_PAIR( I_RELEASE_COUNT,      "Release count"      ) \
