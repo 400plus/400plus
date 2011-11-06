@@ -98,7 +98,7 @@ type_MENUITEM menupage_rename_items[] = {
 };
 
 type_MENUPAGE menupage_rename = {
-	name      : "Rename",
+	name      : LP_WORD(L_P_RENAME),
 	length    : LENGTH(menupage_rename_items),
 	items     : menupage_rename_items,
 	tasks     : {
