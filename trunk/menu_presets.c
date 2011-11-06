@@ -51,57 +51,57 @@ void preset_rename_9();
 void preset_rename(int id);
 
 type_MENUITEM preset_1_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_1),
-	MENUITEM_LAUNCH("Save",   preset_save_1),
-	MENUITEM_LAUNCH("Rename", preset_rename_1),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_1),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_1),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_1),
 };
 
 type_MENUITEM preset_2_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_2),
-	MENUITEM_LAUNCH("Save",   preset_save_2),
-	MENUITEM_LAUNCH("Rename", preset_rename_2),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_2),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_2),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_2),
 };
 
 type_MENUITEM preset_3_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_3),
-	MENUITEM_LAUNCH("Save",   preset_save_3),
-	MENUITEM_LAUNCH("Rename", preset_rename_3),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_3),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_3),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_3),
 };
 
 type_MENUITEM preset_4_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_4),
-	MENUITEM_LAUNCH("Save",   preset_save_4),
-	MENUITEM_LAUNCH("Rename", preset_rename_4),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_4),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_4),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_4),
 };
 
 type_MENUITEM preset_5_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_5),
-	MENUITEM_LAUNCH("Save",   preset_save_5),
-	MENUITEM_LAUNCH("Rename", preset_rename_5),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_5),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_5),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_5),
 };
 
 type_MENUITEM preset_6_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_6),
-	MENUITEM_LAUNCH("Save",   preset_save_6),
-	MENUITEM_LAUNCH("Rename", preset_rename_6),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_6),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_6),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_6),
 };
 
 type_MENUITEM preset_7_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_7),
-	MENUITEM_LAUNCH("Save",   preset_save_7),
-	MENUITEM_LAUNCH("Rename", preset_rename_7),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_7),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_7),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_7),
 };
 
 type_MENUITEM preset_8_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_8),
-	MENUITEM_LAUNCH("Save",   preset_save_8),
-	MENUITEM_LAUNCH("Rename", preset_rename_8),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_8),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_8),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_8),
 };
 
 type_MENUITEM preset_9_items[] = {
-	MENUITEM_LAUNCH("Load",   preset_load_9),
-	MENUITEM_LAUNCH("Save",   preset_save_9),
-	MENUITEM_LAUNCH("Rename", preset_rename_9),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_9),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_9),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_9),
 };
 
 type_MENUPAGE menupage_preset_1 = {
