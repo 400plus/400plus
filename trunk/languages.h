@@ -67,30 +67,30 @@
 	LANG_PAIR( I_PRESETS_CFN,        "Custom Fn"          ) \
 	LANG_PAIR( I_IR_REMOTE_ENABLE,   "IR remote enable"   ) \
 	LANG_PAIR( I_IR_REMOTE_DELAY,    "IR remote delay"    ) \
+	LANG_PAIR( I_ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"       ) \
 	LANG_PAIR( S_SCRIPTS,            "Config. Scripts"    ) \
 	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
 	LANG_PAIR( S_PAGES,              "Config. Pages"      ) \
-	LANG_PAIR( OFF,                "Off"                ) \
-	LANG_PAIR( YES,                "Yes"                ) \
-	LANG_PAIR( NO,                 "No"                 ) \
-	LANG_PAIR( ENABLED,            "Enabled"            ) \
-	LANG_PAIR( DISABLED,           "Disabled"           ) \
-	LANG_PAIR( EXT_ONLY,           "Ext Only"           ) \
-	LANG_PAIR( EXT_AEB,            "Ext. AEB"           ) \
-	LANG_PAIR( ONE_SHOT,           "One Shot"           ) \
-	LANG_PAIR( INTERVAL,           "Interval"           ) \
-	LANG_PAIR( NO_LIMIT,           "No Limit"           ) \
+	LANG_PAIR( V_OFF,                "Off"                ) \
+	LANG_PAIR( V_NO_LIMIT,           "No Limit"           ) \
+	LANG_PAIR( V_YES,                "Yes"                ) \
+	LANG_PAIR( V_NO,                 "No"                 ) \
+	LANG_PAIR( V_ENABLED,            "Enabled"            ) \
+	LANG_PAIR( V_DISABLED,           "Disabled"           ) \
+	LANG_PAIR( V_EXT_ONLY,           "Ext Only"           ) \
+	LANG_PAIR( V_EXT_AEB,            "Ext. AEB"           ) \
+	LANG_PAIR( V_ONE_SHOT,           "One Shot"           ) \
+	LANG_PAIR( V_INTERVAL,           "Interval"           ) \
+	LANG_PAIR( V_NEW,                "New"                ) \
+	LANG_PAIR( V_OVERWRITE,          "Overwrite"          ) \
+	LANG_PAIR( V_APPEND,             "Append"             ) \
 	LANG_PAIR( RENAME,             "Rename"             ) \
 	LANG_PAIR( LOAD_PRESETS,       "Load presets"       ) \
 	LANG_PAIR( SAVE_PRESETS,       "Save presets"       ) \
 	LANG_PAIR( PRESET_NAME,        "Preset"             ) \
 	LANG_PAIR( DEVELOPER,          "Developer"          ) \
 	LANG_PAIR( TEST_DIALOGS,       "Test the dialogs"   ) \
-	LANG_PAIR( NEW,                "New"                ) \
-	LANG_PAIR( OVERWRITE,          "Overwrite"          ) \
-	LANG_PAIR( APPEND,             "Append"             ) \
-	LANG_PAIR( ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( SHORTCUTS_MENU,     "Shortcuts menu"     ) \
 	LANG_PAIR( HANDWAVE,           "Handwave"           ) \
 	LANG_PAIR( TIMER_SPACES,       "Timer   "           ) \

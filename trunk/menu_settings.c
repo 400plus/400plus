@@ -71,7 +71,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_SAFETY_SHIFT),     &menu_cameraMode.cf_safety_shift, menu_settings_apply_cf_safety_shift),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_settings_apply_remote_delay),
-	MENUITEM_BOOLEAN(LP_WORD(L_ISO_IN_VF),          &settings.iso_in_viewfinder,      NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_ISO_IN_VF),        &settings.iso_in_viewfinder,      NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_SCRIPTS),          &scripts_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PRESETS),          &presets_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PAGES),            &pages_page,                      NULL),
