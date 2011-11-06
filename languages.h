@@ -57,6 +57,20 @@
 	LANG_PAIR( S_INTERVAL,           "Intervalometer"     ) \
 	LANG_PAIR( S_HANDWAVE,           "Handwaving"         ) \
 	LANG_PAIR( S_TIMER,              "Self-Timer"         ) \
+	LANG_PAIR( I_DIM_LCD_DOWN,       "Dim LCD down"       ) \
+	LANG_PAIR( I_KEEP_POWER_ON,      "Disable power-off"  ) \
+	LANG_PAIR( I_PRESETS_ADEP,       "Use A-DEP"          ) \
+	LANG_PAIR( I_PRESETS_CAMERA,     "Camera"             ) \
+	LANG_PAIR( I_PRESETS_400PLUS,    "400plus"            ) \
+	LANG_PAIR( I_PRESETS_SETTINGS,   "Settings"           ) \
+	LANG_PAIR( I_PRESETS_IMAGE,      "Image"              ) \
+	LANG_PAIR( I_PRESETS_CFN,        "Custom Fn"          ) \
+	LANG_PAIR( I_IR_REMOTE_ENABLE,   "IR remote enable"   ) \
+	LANG_PAIR( I_IR_REMOTE_DELAY,    "IR remote delay"    ) \
+	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"       ) \
+	LANG_PAIR( S_SCRIPTS,            "Config. Scripts"    ) \
+	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
+	LANG_PAIR( S_PAGES,              "Config. Pages"      ) \
 	LANG_PAIR( OFF,                "Off"                ) \
 	LANG_PAIR( YES,                "Yes"                ) \
 	LANG_PAIR( NO,                 "No"                 ) \
@@ -78,24 +92,12 @@
 	LANG_PAIR( APPEND,             "Append"             ) \
 	LANG_PAIR( ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( SHORTCUTS_MENU,     "Shortcuts menu"     ) \
-	LANG_PAIR( SAFETY_SHIFT,       "Safety Shift"       ) \
 	LANG_PAIR( HANDWAVE,           "Handwave"           ) \
 	LANG_PAIR( TIMER_SPACES,       "Timer   "           ) \
-	LANG_PAIR( IR_REMOTE_ENABLE,   "IR remote enable"   ) \
-	LANG_PAIR( IR_REMOTE_DELAY,    "IR remote delay"    ) \
-	LANG_PAIR( SCRIPTS_SPACES,     "Scripts "           ) \
-	LANG_PAIR( DIM_LCD_DOWN,       "LCD dim"            ) \
-	LANG_PAIR( KEEP_POWER_ON,      "APO dsbl"           ) \
 	LANG_PAIR( EXTENDED_AEB,       "Extended AEB"       ) \
 	LANG_PAIR( INTERVALOMETER,     "Intervalometer"     ) \
 	LANG_PAIR( HAND_WAVING,        "Hand Waving"        ) \
 	LANG_PAIR( SELF_TIMER,         "Self Timer"         ) \
-	LANG_PAIR( PRESETS_ADEP,       "Use A-DEP"          ) \
-	LANG_PAIR( PRESETS_CAMERA,     "Camera"             ) \
-	LANG_PAIR( PRESETS_400PLUS,    "400plus"            ) \
-	LANG_PAIR( PRESETS_SETTINGS,   "Settings"           ) \
-	LANG_PAIR( PRESETS_IMAGE,      "Image"              ) \
-	LANG_PAIR( PRESETS_CFN,        "Custom Fn"          ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,
