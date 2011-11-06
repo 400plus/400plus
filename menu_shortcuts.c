@@ -17,9 +17,9 @@ void menu_shortcuts_apply_cf_mirror_up_lock  (type_MENUITEM *item);
 void menu_shortcuts_apply_cf_flash_sync_rear (type_MENUITEM *item);
 
 type_MENUITEM menu_shortcut_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_MIRROR_LOCKUP), &menu_cameraMode.cf_mirror_up_lock,  menu_shortcuts_apply_cf_mirror_up_lock),
-	MENUITEM_BOOLEAN(LP_WORD(L_FLASH_2ND_CURT),&menu_cameraMode.cf_flash_sync_rear, menu_shortcuts_apply_cf_flash_sync_rear),
-	MENUITEM_AFFLASH(LP_WORD(L_AF_FLASH),      &menu_cameraMode.cf_emit_aux,        menu_shortcuts_apply_cf_emit_aux),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_MIRROR_LOCKUP), &menu_cameraMode.cf_mirror_up_lock,  menu_shortcuts_apply_cf_mirror_up_lock),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_FLASH_2ND_CURT),&menu_cameraMode.cf_flash_sync_rear, menu_shortcuts_apply_cf_flash_sync_rear),
+	MENUITEM_AFFLASH(LP_WORD(L_I_AF_FLASH),      &menu_cameraMode.cf_emit_aux,        menu_shortcuts_apply_cf_emit_aux),
 };
 
 type_MENUPAGE menupage_shortcuts = {
