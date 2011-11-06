@@ -24,6 +24,9 @@
 	LANG_PAIR( I_EXIT_FACTORY_MODE,  "Exit  factory Mode" ) \
 	LANG_PAIR( I_DEBUG_ON_POWERON,   "Debug on PowerOn"   ) \
 	LANG_PAIR( I_LOGFILE_MODE,       "Log File Mode"      ) \
+	LANG_PAIR( I_AF_FLASH,           "AF Flash"           ) \
+	LANG_PAIR( I_MIRROR_LOCKUP,      "Mirror Lockup"      ) \
+	LANG_PAIR( I_FLASH_2ND_CURT,     "Flash 2nd curtain"  ) \
 	LANG_PAIR( OFF,                "Off"                ) \
 	LANG_PAIR( YES,                "Yes"                ) \
 	LANG_PAIR( NO,                 "No"                 ) \
@@ -75,9 +78,6 @@
 	LANG_PAIR( INTERVALOMETER,     "Intervalometer"     ) \
 	LANG_PAIR( HAND_WAVING,        "Hand Waving"        ) \
 	LANG_PAIR( SELF_TIMER,         "Self Timer"         ) \
-	LANG_PAIR( AF_FLASH,           "AF Flash"           ) \
-	LANG_PAIR( MIRROR_LOCKUP,      "Mirror Lockup"      ) \
-	LANG_PAIR( FLASH_2ND_CURT,     "Flash 2curt"        ) \
 	LANG_PAIR( PRESETS_ADEP,       "Use A-DEP"          ) \
 	LANG_PAIR( PRESETS_CAMERA,     "Camera"             ) \
 	LANG_PAIR( PRESETS_400PLUS,    "400plus"            ) \
