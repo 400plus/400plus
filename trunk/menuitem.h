@@ -50,6 +50,10 @@ typedef struct {
 	type_MENUPAGE *page;
 } type_MENUITEM_SUBMENU;
 
+typedef struct {
+	int id;
+} type_MENUITEM_PAGE;
+
 typedef union {
 	type_MENUITEM_EV      menuitem_ev;
 	type_MENUITEM_AV      menuitem_av;
@@ -58,6 +62,7 @@ typedef union {
 	type_MENUITEM_INT     menuitem_int;
 	type_MENUITEM_ENUM    menuitem_enum;
 	type_MENUITEM_SUBMENU menuitem_submenu;
+	type_MENUITEM_PAGE    menuitem_page;
 } type_MENUITEM_PARM;
 
 struct MENUITEM {
