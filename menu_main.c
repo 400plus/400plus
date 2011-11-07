@@ -42,9 +42,9 @@ type_MENU menu_main = {
 	pages    : menu_main_pages,
 	ordering : settings.main_order,
 	tasks    : {
-		[MENU_EVENT_PLAY]    = menu_drag_drop,
-		[MENU_EVENT_UP]      = menu_up,
-		[MENU_EVENT_DOWN]    = menu_down,
+		[MENU_EVENT_PLAY]    = menupage_drag_drop,
+		[MENU_EVENT_UP]      = menupage_up,
+		[MENU_EVENT_DOWN]    = menupage_down,
 		[MENU_EVENT_LEFT]    = menu_left,
 		[MENU_EVENT_RIGHT]   = menu_right,
 		[MENU_EVENT_NEXT]    = menu_page_next,
@@ -74,8 +74,8 @@ type_MENUPAGE main_list = {
 	length   : LENGTH(main_list_items),
 	items    : main_list_items,
 	tasks    : {
-		[MENU_EVENT_PREV]   = menu_up,
-		[MENU_EVENT_NEXT]   = menu_down,
+		[MENU_EVENT_PREV]   = menupage_up,
+		[MENU_EVENT_NEXT]   = menupage_down,
 		[MENU_EVENT_AV_UP]  = list_hide,
 	},
 	ordering : settings.main_order,
