@@ -105,7 +105,7 @@ extern void menu_event(type_MENU_EVENT);
 extern void menu_right(type_MENU *menu);
 extern void menu_left (type_MENU *menu);
 
-extern void menu_page_next(type_MENU *menu);
-extern void menu_page_prev(type_MENU *menu);
+extern void menu_next(type_MENU *menu);
+extern void menu_prev(type_MENU *menu);
 
 #endif /* MENU_H_ */
