@@ -39,7 +39,8 @@ type_SETTINGS settings = {
 	keep_power_on    : TRUE,
 	debug_on_poweron : FALSE,
 	logfile_mode     : 0,
-	remote_enable    : FALSE
+	remote_enable    : FALSE,
+	developers_menu  : FALSE,
 };
 
 int settings_read() {

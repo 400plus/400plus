@@ -45,6 +45,7 @@ type_MENUPAGE menupage_developer = {
 	sibilings : TRUE,
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
+	active    : &settings.developers_menu,
 	ordering  : settings.developer_order,
 };
 

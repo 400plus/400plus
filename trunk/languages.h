@@ -68,6 +68,7 @@
 	LANG_PAIR( I_IR_REMOTE_ENABLE,   "IR remote enable"   ) \
 	LANG_PAIR( I_IR_REMOTE_DELAY,    "IR remote delay"    ) \
 	LANG_PAIR( I_ISO_IN_VF,          "ISO in viewfinder"  ) \
+	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"   ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"       ) \
 	LANG_PAIR( S_SCRIPTS,            "Config. Scripts"    ) \
 	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
