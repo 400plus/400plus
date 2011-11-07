@@ -44,7 +44,7 @@ void menu_repeat(void (*action)(const int repeating));
 void menu_repeat_right(const int repeating);
 void menu_repeat_left (const int repeating);
 
-type_MENUPAGE *get_current_page();
+type_MENUPAGE *get_selected_page();
 
 int my_central_handler(dialog_t *dialog, int event, int r2, int r3) {
 	debug_log("CENTRAL!");
@@ -90,7 +90,7 @@ void menu_close() {
 
 void menu_initialize() {
 	menu_handler = NULL;
-	menu_set_page(get_current_page());
+	menu_set_page(get_selected_page());
 }
 
 void menu_destroy() {
@@ -145,7 +145,7 @@ pass_event:
 }
 
 void menu_return() {
-	menu_set_page(get_current_page());
+	menu_set_page(get_selected_page());
 }
 
 void menu_set_posn(int posn) {
@@ -223,20 +223,20 @@ void menu_left(type_MENU *menu) {
 	menu_repeat(menu_repeat_left);
 }
 
-void menu_page_next(type_MENU *menu) {
+void menu_next(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->sibilings) {
-		if (current_menu->current_posn == current_menu->length - 1)
-			current_menu->current_posn = 0;
+		if (menu->current_posn == menu->length - 1)
+			menu->current_posn = 0;
 		else
-			current_menu->current_posn++;
+			menu->current_posn++;
 
 		menu_return();
 	}
 }
 
-void menu_page_prev(type_MENU *menu) {
+void menu_prev(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->sibilings) {
@@ -292,7 +292,7 @@ void menu_repeat_left(const int repeating) {
 	}
 }
 
-type_MENUPAGE *get_current_page() {
+type_MENUPAGE *get_selected_page() {
 	if (current_menu->ordering)
 		return current_menu->pages[current_menu->ordering[current_menu->current_posn]];
 	else
