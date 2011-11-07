@@ -1,6 +1,7 @@
 [Wiki Documentation]
   * For users
     * [AWordOfWarning A Word of Warning]
+    * [Credits Credits]
     * [FirmwareHackInstallation Firmware Hack Installation]
       * [InstallazioneHackFirmware Italian translation]
     * [UserGuide User's Guide]
