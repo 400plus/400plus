@@ -13,7 +13,6 @@
 type_CAMERA_MODE menu_cameraMode;
 
 void *menu_handler;
-int   item_grabbed;
 
 type_MENU     *current_menu;
 
@@ -46,9 +45,6 @@ void menu_repeat_right(const int repeating);
 void menu_repeat_left (const int repeating);
 
 type_MENUPAGE *get_current_page();
-
-int get_item_id(int item_pos);
-int get_real_id(int item_pos);
 
 int my_central_handler(dialog_t *dialog, int event, int r2, int r3) {
 	debug_log("CENTRAL!");
@@ -94,9 +90,7 @@ void menu_close() {
 
 void menu_initialize() {
 	menu_handler = NULL;
-	item_grabbed = FALSE;
-
-	current_menu->current_page = get_current_page();
+	menu_set_page(get_current_page());
 }
 
 void menu_destroy() {
@@ -166,8 +160,7 @@ void menu_set_posn(int posn) {
 void menu_set_page(type_MENUPAGE *page) {
 	current_menu->current_page = page;
 
-	item_grabbed = FALSE;
-
+	menupage_initialize(page);
 	menu_event_display();
 }
 
@@ -222,72 +215,12 @@ void menu_event(type_MENU_EVENT event) {
 		current_menu->tasks[event](current_menu);
 }
 
-void menu_up(type_MENU *menu) {
-	int display = FALSE;
-	type_MENUPAGE *page = menu->current_page;
-
-	if (page->length > MENU_HEIGHT || page->current_posn > 0) {
-		page->current_posn--;
-
-		if (item_grabbed) {
-			INT_SWAP(page->ordering[get_item_id(page->current_posn)], page->ordering[get_item_id(page->current_posn + 1)]);
-			display = TRUE;
-		}
-	}
-
-	if (page->current_line > 0) {
-		page->current_line--;
-		menu_highlight(page->current_line);
-	} else {
-		display = TRUE;
-	}
-
-	if (display)
-		menu_event_display();
-}
-
-void menu_down(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-
-	const int height = MIN(MENU_HEIGHT, page->length) - 1;
-	int display = FALSE;
-
-	if (page->length > MENU_HEIGHT || page->current_posn < height) {
-		page->current_posn++;
-
-		if (item_grabbed) {
-			INT_SWAP(page->ordering[get_item_id(page->current_posn)], page->ordering[get_item_id(page->current_posn - 1)]);
-			display = TRUE;
-		}
-	}
-
-	if (page->current_line < height) {
-		page->current_line++;
-		menu_highlight(page->current_line);
-	} else {
-		display = TRUE;
-	}
-
-	if (display)
-		menu_event_display();
-}
-
 void menu_right(type_MENU *menu) {
 	menu_repeat(menu_repeat_right);
 }
 
 void menu_left(type_MENU *menu) {
 	menu_repeat(menu_repeat_left);
-}
-
-void menu_drag_drop(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-
-	if (page->ordering) {
-		item_grabbed = ! item_grabbed;
-		menu_event_change();
-		menu_event_refresh();
-	}
 }
 
 void menu_page_next(type_MENU *menu) {
@@ -364,22 +297,4 @@ type_MENUPAGE *get_current_page() {
 		return current_menu->pages[current_menu->ordering[current_menu->current_posn]];
 	else
 		return current_menu->pages[current_menu->current_posn];
-}
-
-int get_real_id(int item_pos) {
-	type_MENUPAGE *page = current_menu->current_page;
-
-	if (page->ordering)
-		return page->ordering[get_item_id(item_pos)];
-	else
-		return get_item_id(item_pos);
-}
-
-int get_item_id(int item_pos) {
-	type_MENUPAGE *page = current_menu->current_page;
-
-	const int max_pos = MAX(page->length, MENU_HEIGHT);
-	const int item_id = item_pos - max_pos * (item_pos / max_pos);
-
-	return (item_id < 0) ? (item_id + max_pos) : item_id;
 }
