@@ -13,6 +13,9 @@ _It is designed specifically for the Canon 400D/XTi and will not work with other
 Some warning advice that everybody should read before doing anything else:
   * [AWordOfWarning A Word of Warning].
 
+See who is responsible for this great software:
+  * [Credits We wish to say thanks to these guys].
+
 Instructions on how to prepare your camera and install `400plus` in your CF cards:
   * [FirmwareHackInstallation Firmware Hack Installation]
     * [InstallazioneHackFirmware Italian translation]
