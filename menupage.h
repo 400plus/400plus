@@ -5,11 +5,12 @@
 
 struct MENUPAGE {
 	char               *name;
-	int                 sibilings;
 	int                 length;
 	type_MENUITEM      *items;
 	type_MENUTASK       tasks[MENU_EVENT_COUNT];
+	int                 sibilings;
 	int                 rename;
+	int                *active;
 	int                *ordering;
 	int                 highlight;
 	int                 highlighted_item;
@@ -27,7 +28,8 @@ extern void menupage_down (type_MENU *menu);
 
 extern void menupage_drag_drop(type_MENU *menu);
 
-type_MENUITEM *get_current_item(type_MENUPAGE *page);
-type_MENUITEM *get_item        (type_MENUPAGE *page, int item_id);
+extern int menupage_active (type_MENUPAGE *page);
+
+extern type_MENUITEM *get_current_item(type_MENUPAGE *page);
 
 #endif /* MENU_H_ */

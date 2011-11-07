@@ -14,6 +14,8 @@ void menupage_display_line(type_MENUPAGE *page, const int line);
 int get_item_id(type_MENUPAGE *page, int item_pos);
 int get_real_id(type_MENUPAGE *page, int item_pos);
 
+type_MENUITEM *get_item(type_MENUPAGE *page, int item_id);
+
 void menupage_initialize(type_MENUPAGE *page) {
 	item_grabbed = FALSE;
 }
@@ -142,6 +144,10 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 	}
 
 	menu_set_text(line, message);
+}
+
+int menupage_active (type_MENUPAGE *page) {
+	return !page->active || *page->active;
 }
 
 type_MENUITEM *get_current_item(type_MENUPAGE *page) {

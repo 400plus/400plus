@@ -77,16 +77,20 @@ type_MENUPAGE main_list = {
 };
 
 void menu_main_start() {
-	int i;
+	int i, j;
 
 	changed = FALSE;
 
-	for (i = 0; i < LENGTH(menu_main_pages); i++) {
-		main_list.items[i].parm.menuitem_page.id = i;
-		main_list_items[i].name    = menu_main_pages[i]->name;
-		main_list_items[i].display = menuitem_display;
+	for (i = 0, j = 0; i < LENGTH(menu_main_pages); i++) {
+		if (menupage_active(menu_main_pages[i])) {
+			main_list.items[j].parm.menuitem_page.id = i;
+			main_list_items[j].name    = menu_main_pages[i]->name;
+			main_list_items[j].display = menuitem_display;
+			j++;
+		}
 	}
 
+	main_list.length = j;
 	menu_create(&menu_main);
 }
 
