@@ -24,6 +24,9 @@ void menu_save();
 void menu_set_changed();
 int  menu_get_changed();
 
+void list_up     (type_MENU *menu);
+void list_down   (type_MENU *menu);
+
 void list_display(type_MENU *menu);
 void list_hide   (type_MENU *menu);
 
@@ -59,30 +62,31 @@ type_MENU menu_main = {
 	}
 };
 
-type_MENUITEM main_list_items[] = {
-	MENUITEM_BREAK(LP_WORD(L_P_PARAMS)),
-	MENUITEM_BREAK(LP_WORD(L_P_SHORTCUTS)),
-	MENUITEM_BREAK(LP_WORD(L_P_SCRIPTS)),
-	MENUITEM_BREAK(LP_WORD(L_P_INFO)),
-	MENUITEM_BREAK(LP_WORD(L_P_DEVELOPERS)),
-	MENUITEM_BREAK(LP_WORD(L_P_SETTINGS)),
-	MENUITEM_BREAK(LP_WORD(L_P_PRESETS)),
-};
+type_MENUITEM main_list_items[LENGTH(menu_main_pages)];
 
 type_MENUPAGE main_list = {
 	name     : LP_WORD(L_P_400PLUS),
 	length   : LENGTH(main_list_items),
 	items    : main_list_items,
 	tasks    : {
-		[MENU_EVENT_PREV]   = menupage_up,
-		[MENU_EVENT_NEXT]   = menupage_down,
+		[MENU_EVENT_PREV]   = list_up,
+		[MENU_EVENT_NEXT]   = list_down,
 		[MENU_EVENT_AV_UP]  = list_hide,
 	},
 	ordering : settings.main_order,
 };
 
 void menu_main_start() {
+	int i;
+
 	changed = FALSE;
+
+	for (i = 0; i < LENGTH(menu_main_pages); i++) {
+		main_list.items[i].parm.menuitem_page.id = i;
+		main_list_items[i].name    = menu_main_pages[i]->name;
+		main_list_items[i].display = menuitem_display;
+	}
+
 	menu_create(&menu_main);
 }
 
@@ -108,8 +112,25 @@ void list_display(type_MENU *menu) {
 	menu_set_page(&main_list);
 }
 
-void list_hide(type_MENU *menu) {
+void list_up(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
-	menu_set_posn(get_item_id(page->current_posn));
+	page->current_posn--;
+
+	menu_event_display();
+}
+
+void list_down(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+
+	page->current_posn++;
+
+	menu_event_display();
+}
+
+void list_hide(type_MENU *menu) {
+	type_MENUPAGE *page =  menu->current_page;
+	type_MENUITEM *item = &page->items[get_item_id(page, page->current_posn)];
+
+	menu_set_posn(item->parm.menuitem_page.id);
 }
