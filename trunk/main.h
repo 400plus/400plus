@@ -503,8 +503,8 @@ typedef enum { // GUIModes
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUIMODE_400PLUS = 0x2D,  // 400Plus mode
-	GUIMODE_FACE    = 0x2F	 // Face mode
+	GUIMODE_400PLUS = 0xFF,  // 400Plus mode
+	GUIMODE_FACE    = 0xFE	 // Face mode
 } type_GUIMODE;
 
 
@@ -593,6 +593,7 @@ typedef struct {
 typedef struct {
 	int       button_down;       // A button is down, and which one
 	int       script_running;    // A script is running
+	int       menu_running;      // A menu is running
 	int       iso_in_viewfinder; // ISO is being displayed in the viewfinder
 	int       afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int       main_dial_ae;      // AE mode selected in the main dial
