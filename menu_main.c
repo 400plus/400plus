@@ -95,6 +95,8 @@ void menu_main_start() {
 }
 
 void menu_save() {
+	status.menu_running = FALSE;
+
 	if (menu_get_changed()) {
 		settings_write();
 		presets_write();

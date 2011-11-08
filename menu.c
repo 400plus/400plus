@@ -60,9 +60,11 @@ void menu_create(type_MENU *menu) {
 	SendToMC(6, 2, 0);
 	SleepTask(100);
 
+	status.menu_running = TRUE;
+	FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
+
 	current_menu    = menu;
 	menu_cameraMode = *cameraMode;
-	FLAG_GUI_MODE   = GUIMODE_400PLUS;
 
 	menu_destroy();
 	menu_initialize();
