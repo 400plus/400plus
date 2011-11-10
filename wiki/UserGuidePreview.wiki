@@ -13,19 +13,17 @@
 
 This wiki page document will serve as the user guide for 400plus. It is assumed in this document that the user has installed 400plus prior to reading this guide and that it is working properly. For information about installing 400plus, please see [FirmwareHackInstallation].
 
-= The settings menu =
+= The menu =
 
-== Accessing the settings menu ==
+== Accessing the menu ==
 
-To enter the 400plus settings menu, press the `MENU` button (this will display the _standard_ camera menu) and then press the `DP` (`DIRECT PRINT`) button.  The 400plus settings menu should now be displayed on the camera LCD. To exit the 400plus settings menu, just half-press the shutter release button.  *NOTE*: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
+To access the 400plus menu, press the `DP` button from the main camera dialog. To exit the 400plus menu, just half-press the shutter release button. _NOTE_: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
 
-== Navigating the settings menu ==
+== Navigating the menu ==
 
-To navigate the settings menu, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons to move among items. Then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the current item (press and hold these buttons to change faster). On some items, the `Av` button can be used to change (roll) the value, or a portion of the value (like + and - signs).
+400plus features a multi-page menu, where each page is dedicated to a certain task. To navigate among pages, use the front wheel or the `ZOOM IN` / `ZOOM OUT` buttons (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now then use the front dial to select a page, and release the `AV` button to jump into it.
 
-== Navigating the sub-menus ==
-
-Sub-menus are displayed as "`ITEM>SUB-ITEM`"; use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to roll to the next or previous sub-item, then use the `LEFT` and `RIGHT` buttons to change the value of the selected item (press and hold these buttons to change faster). Both the `UP` and `DOWN` buttons can be used at any time to move to another item.
+To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons; then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (press and hold these buttons to change faster). Items with an exclamation mark '`!`' at the left perform an action; activate them with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
 == The items ==
 
