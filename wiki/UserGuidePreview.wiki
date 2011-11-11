@@ -11,7 +11,7 @@
 
 == What is 400plus? ==
 
-*400plus* is free firmware enhancement software which offers additional functionality and capabilities to your Canon 400D/XTi camera in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up to enhance the native camera firmware but is not a permanent firmware upgrade and can easily be removed. It is designed specifically for the Canon 400D/XTi and will not work with other camera models.
+*400plus* is a free firmware enhancement software which offers additional functionality and capabilities to your Canon 400D/XTi camera in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up to enhance the native camera firmware but is not a permanent firmware upgrade and can easily be removed. It is designed specifically for the Canon 400D/XTi and will not work with other camera models.
 
 == User guide ==
 
@@ -168,31 +168,34 @@ When this option is not enabled, then when the A-DEP position is selected with t
 
 = AutoISO =
 
+`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value acordingly. The behiviour of AutoISO is different for each creative mode, but the idea is roughtly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
+
 To enable AutoISO for the creative modes, activate it at the settings menu, or pres `DP` at the ISO selection dialog; to disable it, use the settings menu or select any ISO value at the ISO selection dialog. 
 
 == AutoISO and Av mode ==
 
-The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur; probably, this is the mode where AutoISO makes more sense.
+The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur.
 
-In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, 400plus will always select the lowest possible ISO (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, 400plus will raise the ISO (up to "Max ISO") as needed.
+In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` sill always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will authomaticaly raise the ISO value (up to "Max ISO") as needed.
 
-If safety shift is enabled, to maintain correct exposure in AV mode, the shutter speed could drop below "Min Tv" if "Max ISO" is exceeded.
+Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
 
 == AutoISO and Tv mode ==
+In Tv mode, the intention of AutoISO is to use the lowest possible ISO that ensures an acceptable depth of field.
 
-In this case, the intention is to use the lowest possible ISO that ensures an acceptable depth of field: AutoISO will raise the ISO when the aperture becomes larger than a configured value ("Max Av").
+In Tv mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an apperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
 
-You must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is F4.0-F5.6, "Max Av" should be set no lower than 4.5. Otherwise, AutoISO will not function in TV mode.
+Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using; for example, if your lens is F4.0-F5.6, "Max Av" should be set no lower than 4.5. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shif and AutoISO at Av mode applies at Tv mode, too.
 
 == AutoISO and P mode ==
 
-In P mode, AutoISO _tries_ to behave just like in Av mode; but, as the camera decides both aperture and shutter speed, there is no guarantee that raising the ISO will increase shutter speed: it tends to work OK for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead.
+In P mode, AutoISO _tries_ to behave just like in Av mode, and raises the ISO value to keep a minimum shutter speed; but, as the camera decides both aperture and shutter speed in this mode, there is no guarantee that raising the ISO will increase shutter speed: it tends to work correctly for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead of selecting a faster shutter speed.
 
 == AutoISO and M mode ==
 
-In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects the aperture and shutter speed, and 400plus will decide the right ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
+In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
 
-While looking at the viewfinder, use the `LEFT` and `RIGHT` keys to change the exposure compensation.
+To change the exposure compensation in M mode, use the `LEFT` and `RIGHT` keys while looking through the viewfinder.
 
 = The AF-Pattern point selection =
 
