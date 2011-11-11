@@ -25,45 +25,75 @@ To access the 400plus menu, press the `DP` button from the main camera dialog. T
 
 To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons; then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (press and hold these buttons to change faster). Items with an exclamation mark '`!`' at the left perform an action; activate them with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
-== The items ==
+== Configuring the menu ==
 
- * _*Av comp*_: Same as the _standard_ "Av compensation", but extends the range from -6 to +6 EV.
- * _*Flash comp*_: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
- * _*Disable flash*_: Force the deactivation of the camera flash even if the flash has already been raised.
- * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
- * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
- * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
- * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote.  When set to No, this feature is disabled.
- * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
- * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
+While in any page within the menu, you have the ability to change the order of the items for your own personal preference. To do this, just press the `PLAY` button to "grab" an item (a small ">" will be displayed at the left of the item). Now use the `UP` or `DOWN` buttons to position the menu item where you would like it to reside (you will see the menu item move to a new position). Finish the process by pressing the `PLAY` button again to save your changes.
+
+== Pages ==
+
+=== Parameters ===
+
  * _*AutoISO*_: This sub-menu configures the behavior of [#AutoISO AutoISO].
     * Enabled: when active (set to Yes), AutoISO is enabled.
     * Min ISO: minimum ISO value that AutoISO will use.
     * Max ISO: maximum ISO value that AutoISO will use.
     * Min Tv : minimum shutter speed that AutoISO will try to maintain.
     * Max Av : maximum diaphragm aperture that AutoISO will try to maintain.
- * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
-    * LCD dim: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life.  The value is restored after the script has completed.
-    * APO dsbl: when active (set to Yes), the Auto power-off option of the camera is disabled.  The value is restored after the script has completed.
- * _*Handwave*_: This sub-menu configures the [#Hand_Waving Hand Waving] script:
+ * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
+ * _*Av comp*_: Same as the _standard_ "Av compensation", but extends the range from -6 to +6 EV.
+ * _*Flash comp*_: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
+ * _*Disable flash*_: Force the deactivation of the camera flash even if the flash has already been raised.
+ * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
+ * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
+
+=== Shortcuts Page ===
+
+ * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
+ * _*Flash 2curt (rear curtain flash)*_: Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
+ * _*AF Flash (assist beam)*_: Enable or disable the activation of the flash (during the AF phase), even if it has been raised.  Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
+
+=== Scripts Page ===
+
+ * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
     * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
     * Repeat: if active (set to Yes), the script will restart itself after is has completed.  This allows you to wave your hand repeatedly to continue using the script.
     * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
- * _*Ext. AEB*_: This sub-menu configures the [#Extended_AEB Extended AEB] script:
+ * _*Ext. AEB*_: This item launches and configures the [#Extended_AEB Extended AEB] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Frames: the number of frames (shots) the script should take.  Values range from 1 to 9.
     * Step (EV): the separation in EV (exposure value) between each frame (shot).  Values range from 0 (Off) to +-6EV.
     * Bulb min: the minimum shutter speed in `BULB` mode.  Values range from  1/4000th of a second to 16 minutes.
     * Bulb max: the maximum shutter speed in `BULB` mode.  Values range from  1/4000th of a second to 16 minutes.
- * _*Interval*_: This sub-menu configures the [#Intervalometer Intervalometer] script:
+ * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Time (s): the interval time (in seconds) between each shot.  Values range from 0 to 250.
     * EAEB: select whether the [#Extended_AEB Extended AEB] script should be used for each shot.
     * Shots: the total number of frames (shots) the script will take.  Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
- * _*Timer*_: This sub-menu configures the [#Self_Timer Self Timer] script:
+ * _*Timer*_: This item launches and configures the [#Self_Timer Self Timer] script:
     * Delay (s): the time (in seconds) that the script should wait before shooting.  Values range from 0 to 250.
     * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
+
+=== Info Page ===
+
+=== Developers Page ===
+
+*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it.
+
+_This Page Is Intentionally Left Blank._
+
+*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
+
+=== Settings Page ===
+
+ * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
+ * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote.  When set to No, this feature is disabled.
+ * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
+ * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
+ * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
+ * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
+    * LCD dim: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life.  The value is restored after the script has completed.
+    * APO dsbl: when active (set to Yes), the Auto power-off option of the camera is disabled.  The value is restored after the script has completed.
  * _*Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
     * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets].  See [#The_A-DEP_mode the A-DEP mode] for more information.
     * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
@@ -71,27 +101,9 @@ To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons; then 
     * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
     * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
     * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
- * _*Developers Menu*_: Press the `SET` button while this entry is highlighted to enter [#The_developers_menu the developers menu].
+ * _*Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
 
-= The shortcuts menu =
-
-To access the shortcuts menu, press the `DP` button from the main LCD dialog (only valid if the "Shortcuts menu" value is set to "Yes" from the 400plus settings menu).  Navigate this menu like a normal menu.  Press the `SET` button to launch a script:
-
- * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
- * _*Color Temp. (K)*_: Same as in [#The_settings_menu the settings menu].
- * _*Extended AEB*_: Start the [#Extended_AEB Extended AEB] script.
- * _*Intervalometer*_: Start the [#Intervalometer Intervalometer] script.
- * _*Hand Waving*_: Start the [#Hand_Waving Hand Waving] script.
- * _*Self Timer*_: Start the [#Self_Timer Self Timer] script.
- * _*AF Flash (assist beam)*_: Enable or disable the activation of the flash (during the AF phase), even if it has been raised.  Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
- * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
- * _*Flash 2curt (rear curtain flash)*_: Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
-
-To exit the shortcuts menu, half-press the shutter release button.
-
-== Configuring the shortcuts menu ==
-
-While in the shortcuts menu, you have the ability to change the order of the menu items for your own personal preference.  To do this, while in the shortcuts menu, press the `PLAY` button to "grab" an item (a small ">" will be displayed at the left of the item).  Now use the `UP` or `DOWN` buttons to position the menu item where you would like it to reside (you will see the menu item move to a new position).  Finish the process by pressing the `PLAY` button again to save your changes.
+=== Presets Page ===
 
 = The scripts =
 
@@ -223,18 +235,6 @@ Use the `SET`, `LEFT` or `RIGHT` buttons to change which item to display.
 While looking through the viewfinder, the `ISO` and `WB` buttons become inactive.  This is done to prevent accidental changes to camera settings from pressing your nose (or cheek) up against the camera body.
 
 == The developers menu ==
-
-*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
-
-To enter the Developers menu from the 400plus settings menu, scroll down to the "Developers menu" selection and press the `SET` button.  The options available are:
-  * _*Enter factory mode*_: Puts the camera into "factory mode"; also activates the "factory menu".
-  * _*Exit factory mode*_: Puts the camera back into "normal mode".
-  * _*Debug on Power-On*_: (Yes, No): the camera will begin debug mode upon power-on and will log information to the CF card in developer specified log files.
-  * _*Log File Mode*_: (Overwrite, New, Append): Developer specified log files will either be: overwritten, created new each time, or appended to if existing already during debug logging.
-
-*NOTE*: After entering "factory mode", the "factory menu" will remain available until the camera is powered down.  Exiting the "factory mode" will not disable the "factory menu".
-
-*NOTE*: Remember to exit "factory mode" before using the camera, as photographs cannot be downloaded to a computer while the camera is in factory mode.
 
 == Multi-language support ==
 
