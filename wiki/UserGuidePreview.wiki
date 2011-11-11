@@ -76,6 +76,10 @@ While in any page within the menu, you have the ability to change the order of t
 
 === Info Page ===
 
+ * _*Release count*_: The total number of shots (actuations) made by this camera body.
+ * _*Body ID*_: The "BodyID" of the camera body (an internal number, unique to each camera).
+ * _*Version*_: The version number of the 400plus software currently installed.
+
 === Developers Page ===
 
 *NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it.
@@ -105,9 +109,19 @@ _This Page Is Intentionally Left Blank._
 
 === Presets Page ===
 
-= The scripts =
+Use this page to load, save, and rename [#The_presets presets]; the procedure to rename a preset is :
 
-All scripts are activated from the [#The_shortcuts_menu Shortcuts Menu].  Therefore to execute a script make sure and set the "Shortcuts menu:" value to "Yes" in the 400plus settings menu.
+ * Select the "Rename" option in the presets sub-menu.
+ * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a value.
+ * Use the `MENU` button to toggle between lowercase / numbers and uppercase / symbols.
+ * Use the `JUMP` button to change the case of the selected value on the name (bottom line).
+ * Use the `SET` button to use the selected value in the name and advance the cursor to the next position.
+ * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the preset name line (bottom line).
+ * Press the `AV` button again to save your changes and return to the previous menu.
+
+Notice that there is always a number displayed on the left of each preset. This feature is handy when you want to copy presets to and from multiple CF cards and need to know the file names for each of your presets: the number on the left of a feature matches the number of the file created in the CF card.
+
+= The scripts =
 
 When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second).
 
@@ -136,39 +150,21 @@ This script simply adds a configurable pause before firing the camera.  This scr
 
 = The presets =
 
-A "preset" is a complete snapshot containing all of the camera settings and configuration parameters.  Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting.
-
-Presets are stored on the CF card itself.  Up to 9 presets can be stored.  The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
-
-To store (save) a preset, press the `DP` button while in [#The_settings_menu the settings menu]; then select a preset slot and press the `SET` button (if the slot has been previously used, its contents will be overwritten).  To load (recover) a preset, press the `DP` button while in the [#The_shortcuts_menu the shortcuts menu]; (the shortcuts menu setting must be set to "Yes" to use this feature) then select your desired preset and press the `SET` button.  Once activated, the preset settings and parameters for the selected preset will be restored and become immediately active (if the slot is empty, nothing happens).
+A "preset" is a complete snapshot containing all of the camera settings and configuration parameters.  Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Presets are stored on the CF card itself.  Up to 9 presets can be stored.  The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
 
 == The A-DEP mode ==
 
-Under normal circumstances, when a preset is loaded (recovered) all camera parameters are changed, even the AE mode (unless otherwise specified in the [#The_settings_menu the settings menu], obviously). Take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected with the mode dial. Yet when the camera is powered off and back on, it will revert to the actual AE mode that the mode dial is set to.
+Under normal circumstances, when a preset is loaded (recovered) all camera parameters are changed, even the AE mode. Take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected with the mode dial. Yet when the camera is powered off and back on, it will revert to the actual AE mode that the mode dial is set to.
 
-To solve this issue, there is an option at [#The_settings_menu the settings menu] to hijack the (mostly unused) A-DEP mode.  When this option is active (Presets>Use A-DEP: Yes), the following changes will take place:
+To solve this issue, there is an option to hijack the (mostly unused) A-DEP mode; when this option is active, the following changes will take place:
  * Presets can only be loaded when the camera is in A-DEP mode.  Envision the word "Presets" instead of "A-DEP" on the mode dial.
  * When the camera is powered on in A-DEP mode, or when the user moves the mode dial to the A-DEP position, the last preset used is automatically loaded (recalled).
- * When this option is not enabled (Presets>Use A-DEP: No), then when the A-DEP position is selected with the mode dial the camera will use the A-DEP mode as it normally would.
 
-== Configuring the presets menu ==
-
-Similar to [#The_shortcuts_menu the shortcuts menu] the presets menus will also allow you to change the order of the items to your own personal liking.  To do this, while in the "Load presets" or "Save presets" menu, press the `PLAY` button to "grab" an item (a small ">" will be displayed at the left of the item).  Now use the `UP` or `DOWN` buttons to position the menu item where you would like it to reside (you will see the menu item move to a new position).  Finish the process by pressing the `PLAY` button again to save your changes.
-
-In addition to changing the order of the presets, you are also able to rename the preset names from the default names of "Preset 1", "Preset 2", etc.  To do this follow these steps while in the "Load presets" or "Save presets" menu:
- * Press the `JUMP` button to enter the rename menu.
- * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a value.
- * Use the `MENU` button to toggle between lowercase / numbers and uppercase / symbols.
- * Use the `Av` button to change the case of the selected value on the Preset name line (bottom line).
- * Use the `SET` button to use the selected value in the name and advance the cursor to the next position.
- * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the preset name line (bottom line).
- * Press the `JUMP` button again to save your changes and return to the previous preset menu.
-
-Another nice feature included with presets is the ability to toggle the view of the presets back and forth between preset names and preset file names (as saved on the CF card).  This feature is handy when you want to copy presets to and from multiple CF cards and need to know the file names for each of your presets.  To use this feature, press the `MENU` button while in either the "Load presets" or "Save presets" menu to toggle.
+When this option is not enabled, then when the A-DEP position is selected with the mode dial the camera will use the A-DEP mode as it normally would.
 
 = AutoISO =
 
-To enable AutoISO for the creative modes, activate it at [#The_settings_menu the settings menu], or pres `DP` at the ISO selection dialog; to disable it, use [#The_settings_menu the settings menu] or select any ISO value at the ISO selection dialog. 
+To enable AutoISO for the creative modes, activate it at the settings menu, or pres `DP` at the ISO selection dialog; to disable it, use the settings menu or select any ISO value at the ISO selection dialog. 
 
 == AutoISO and Av mode ==
 
@@ -219,22 +215,9 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 
 Other changes to the camera behavior, not described above.
 
-== Extended info ==
-
-On the "camera settings" screen (press the `DISP.` button from the _standard_ camera menu), the last info line now displays the following information (instead of the CF card's free space):
-  * The total number of shots (actuations) made by this camera body.
-  * The version number of the 400plus software currently installed.
-  * The "BodyID" of the camera body (an internal number, unique to each camera).
-
-Use the `SET`, `LEFT` or `RIGHT` buttons to change which item to display.
-
-*NOTE*: This feature is only available when the camera is in a creative zone mode (P, Tv, Av, M, A-DEP).
-
 == The nose affair ==
 
 While looking through the viewfinder, the `ISO` and `WB` buttons become inactive.  This is done to prevent accidental changes to camera settings from pressing your nose (or cheek) up against the camera body.
-
-== The developers menu ==
 
 == Multi-language support ==
 
@@ -268,4 +251,4 @@ The following relevant bugs have been reported and confirmed:
 
  * Issue  #15: Exposure changes during EAEB.
  * Issue #130: Config not restored if camera shut down while script is running.
- * Issue #156: 	Autofocus Assist Beam not fired from 430EX when using extended AF patterns.
+ * Issue #156: Autofocus Assist Beam not fired from 430EX when using extended AF patterns.
