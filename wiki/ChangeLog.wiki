@@ -1,5 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20111111-0*_
+ * New multi-page menus.
+ * Improved reliability of scripts.
+
 _*20110904-1*_
  * Updated Spanish translation (thanks JmTD at Canonistas).
 
