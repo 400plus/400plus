@@ -3,11 +3,15 @@
 
 *WARNING: This document is a _preview_ and may document features not yet released.*
 
+= Table of Contents= 
+
+<wiki:toc max_depth="1" />
+
 = Introduction =
 
 == What is 400plus? ==
 
-*400plus* is free firmware enhancement software which offers additional functionality and capabilities to your Canon 400D/XTi camera in both a non-destructive, and non-permanent way.  It works by loading into your camera's memory automatically upon boot-up to enhance the native camera firmware but is not a permanent firmware upgrade and can easily be removed.  It is designed specifically for the Canon 400D/XTi and will not work with other camera models.
+*400plus* is free firmware enhancement software which offers additional functionality and capabilities to your Canon 400D/XTi camera in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up to enhance the native camera firmware but is not a permanent firmware upgrade and can easily be removed. It is designed specifically for the Canon 400D/XTi and will not work with other camera models.
 
 == User guide ==
 
@@ -50,28 +54,28 @@ While in any page within the menu, you have the ability to change the order of t
 
  * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
  * _*Flash 2curt (rear curtain flash)*_: Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
- * _*AF Flash (assist beam)*_: Enable or disable the activation of the flash (during the AF phase), even if it has been raised.  Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
+ * _*AF Flash (assist beam)*_: Enable or disable the activation of the flash (during the AF phase), even if it has been raised. Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
 
 === Scripts Page ===
 
  * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
     * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
-    * Repeat: if active (set to Yes), the script will restart itself after is has completed.  This allows you to wave your hand repeatedly to continue using the script.
+    * Repeat: if active (set to Yes), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.
     * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Ext. AEB*_: This item launches and configures the [#Extended_AEB Extended AEB] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Frames: the number of frames (shots) the script should take.  Values range from 1 to 9.
-    * Step (EV): the separation in EV (exposure value) between each frame (shot).  Values range from 0 (Off) to +-6EV.
-    * Bulb min: the minimum shutter speed in `BULB` mode.  Values range from  1/4000th of a second to 16 minutes.
-    * Bulb max: the maximum shutter speed in `BULB` mode.  Values range from  1/4000th of a second to 16 minutes.
+    * Frames: the number of frames (shots) the script should take. Values range from 1 to 9.
+    * Step (EV): the separation in EV (exposure value) between each frame (shot). Values range from 0 (Off) to +-6EV.
+    * Bulb min: the minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 16 minutes.
+    * Bulb max: the maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 16 minutes.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Time (s): the interval time (in seconds) between each shot.  Values range from 0 to 250.
+    * Time (s): the interval time (in seconds) between each shot. Values range from 0 to 250.
     * EAEB: select whether the [#Extended_AEB Extended AEB] script should be used for each shot.
-    * Shots: the total number of frames (shots) the script will take.  Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
+    * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
  * _*Timer*_: This item launches and configures the [#Self_Timer Self Timer] script:
-    * Delay (s): the time (in seconds) that the script should wait before shooting.  Values range from 0 to 250.
+    * Delay (s): the time (in seconds) that the script should wait before shooting. Values range from 0 to 250.
     * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
 
 === Info Page ===
@@ -91,15 +95,15 @@ _This Page Is Intentionally Left Blank._
 === Settings Page ===
 
  * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
- * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote.  When set to No, this feature is disabled.
+ * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote. When set to No, this feature is disabled.
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), and if in `P` or `Tv` mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
  * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
-    * LCD dim: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life.  The value is restored after the script has completed.
-    * APO dsbl: when active (set to Yes), the Auto power-off option of the camera is disabled.  The value is restored after the script has completed.
+    * Dim LCD down: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life. The value is restored after the script has completed.
+    * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
  * _*Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
-    * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets].  See [#The_A-DEP_mode the A-DEP mode] for more information.
+    * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
     * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
     * 400plus: when active (set to Yes), loading a preset recalls 400plus' own settings (scripts, ...).
     * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
@@ -134,30 +138,30 @@ This script performs the same task as the _standard_ AEB option from the camera,
  * The separation between shots is configurable up to +-6 EV.
  * The camera will take all the shots in a sequence, automatically.
 
-In 'M' mode with the aperture value set to `BULB`, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value.  Notice also that exposure times as long as 16 minutes can be used in this mode.
+In 'M' mode with the aperture value set to `BULB`, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 16 minutes can be used in this mode.
 
 == Intervalometer ==
 
-This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots.  Use this script to create _stop-motion_ movies.  For example: Set "EAEB" to "Yes" to run the [#Extended_AEB Extended AEB] script on each shot.
+This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots. Use this script to create _stop-motion_ movies. For example: Set "EAEB" to "Yes" to run the [#Extended_AEB Extended AEB] script on each shot.
 
 == Hand Waving ==
 
-This script will fire the camera when the display-off sensor (at the rear of the camera) is triggered.  Use this script to fire the camera without the need of a remote to help reduce camera shake.  This script can execute the [#Extended_AEB Extended AEB] or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, this script will wait until something (like your hand or finger) blocks the sensor and is then removed to fire the camera.  However, if the "Instant" option is enabled, the script will fire the camera as soon as the sensor becomes blocked.
+This script will fire the camera when the display-off sensor (at the rear of the camera) is triggered. Use this script to fire the camera without the need of a remote to help reduce camera shake. This script can execute the [#Extended_AEB Extended AEB] or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, this script will wait until something (like your hand or finger) blocks the sensor and is then removed to fire the camera. However, if the "Instant" option is enabled, the script will fire the camera as soon as the sensor becomes blocked.
 
 == Self Timer ==
 
-This script simply adds a configurable pause before firing the camera.  This script can execute the [#Extended_AEB Extended AEB], or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value.
+This script simply adds a configurable pause before firing the camera. This script can execute the [#Extended_AEB Extended AEB], or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value.
 
 = The presets =
 
-A "preset" is a complete snapshot containing all of the camera settings and configuration parameters.  Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Presets are stored on the CF card itself.  Up to 9 presets can be stored.  The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
+A "preset" is a complete snapshot containing all of the camera settings and configuration parameters. Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Presets are stored on the CF card itself. Up to 9 presets can be stored. The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
 
 == The A-DEP mode ==
 
 Under normal circumstances, when a preset is loaded (recovered) all camera parameters are changed, even the AE mode. Take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected with the mode dial. Yet when the camera is powered off and back on, it will revert to the actual AE mode that the mode dial is set to.
 
 To solve this issue, there is an option to hijack the (mostly unused) A-DEP mode; when this option is active, the following changes will take place:
- * Presets can only be loaded when the camera is in A-DEP mode.  Envision the word "Presets" instead of "A-DEP" on the mode dial.
+ * Presets can only be loaded when the camera is in A-DEP mode. Envision the word "Presets" instead of "A-DEP" on the mode dial.
  * When the camera is powered on in A-DEP mode, or when the user moves the mode dial to the A-DEP position, the last preset used is automatically loaded (recalled).
 
 When this option is not enabled, then when the A-DEP position is selected with the mode dial the camera will use the A-DEP mode as it normally would.
@@ -192,9 +196,9 @@ While looking at the viewfinder, use the `LEFT` and `RIGHT` keys to change the e
 
 = The AF-Pattern point selection =
 
-400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera.  These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
+400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
 
-To use the additional AF-Pattern point selections during shooting, press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog, then press the `ZOOM IN` button again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the different AF selection patterns available.  Half-press the shutter release button to exit the dialog.
+To use the additional AF-Pattern point selections during shooting, press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog, then press the `ZOOM IN` button again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the different AF selection patterns available. Half-press the shutter release button to exit the dialog.
 
 = The goodies =
 
@@ -217,7 +221,7 @@ Other changes to the camera behavior, not described above.
 
 == The nose affair ==
 
-While looking through the viewfinder, the `ISO` and `WB` buttons become inactive.  This is done to prevent accidental changes to camera settings from pressing your nose (or cheek) up against the camera body.
+While looking through the viewfinder, the `ISO` and `WB` buttons become inactive. This is done to prevent accidental changes to camera settings from pressing your nose (or cheek) up against the camera body.
 
 == Multi-language support ==
 
@@ -229,7 +233,7 @@ Currently 400plus supports five (5) languages:
   * Italian
   * Spanish
 
-The desire is to have 400plus be supported in as many languages as possible!  If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts.  Let us know by making a request via the forum!
+The desire is to have 400plus be supported in as many languages as possible! If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
 
 = Notes =
 
@@ -243,7 +247,7 @@ Please, notice that the camera will not always display the correct ISO value; fo
 
 == Spot metering mode ==
 
-The spot metering mode is similar to the _standard_ "partial metering" mode, but the area included in the metering is smaller (approx. 3.5% of the center of the viewfinder vs. partial metering at approx. 9% of the center of the viewfinder).  It works quite well when needed.
+The spot metering mode is similar to the _standard_ "partial metering" mode, but the area included in the metering is smaller (approx. 3.5% of the center of the viewfinder vs. partial metering at approx. 9% of the center of the viewfinder). It works quite well when needed.
 
 = Known bugs =
 
@@ -252,3 +256,4 @@ The following relevant bugs have been reported and confirmed:
  * Issue  #15: Exposure changes during EAEB.
  * Issue #130: Config not restored if camera shut down while script is running.
  * Issue #156: Autofocus Assist Beam not fired from 430EX when using extended AF patterns.
+ * Issue #153: Standard menu flashes before shortcuts menu.
