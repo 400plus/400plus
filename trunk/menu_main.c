@@ -21,8 +21,8 @@
 int  changed;
 
 void menu_save();
-void menu_set_changed();
-int  menu_get_changed();
+void menu_set_changed(type_MENU *menu);
+int  menu_get_changed(type_MENU *menu);
 
 void list_up     (type_MENU *menu);
 void list_down   (type_MENU *menu);
@@ -57,7 +57,6 @@ type_MENU menu_main = {
 		[MENU_EVENT_OUT]     = menu_next,
 		[MENU_EVENT_DISPLAY] = menupage_display,
 		[MENU_EVENT_REFRESH] = menupage_refresh,
-		[MENU_EVENT_CHANGE]  = menu_set_changed,
 		[MENU_EVENT_CLOSE]   = menu_save,
 		[MENU_EVENT_AV]      = list_display,
 	}
@@ -95,21 +94,13 @@ void menu_main_start() {
 	menu_create(&menu_main);
 }
 
-void menu_save() {
+void menu_save(type_MENU *menu) {
 	status.menu_running = FALSE;
 
-	if (menu_get_changed()) {
+	if (menu->changed) {
 		settings_write();
 		presets_write();
 	}
-}
-
-void menu_set_changed() {
-	changed = TRUE;
-}
-
-int menu_get_changed() {
-	return changed;
 }
 
 void list_display(type_MENU *menu) {

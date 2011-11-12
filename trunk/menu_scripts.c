@@ -11,8 +11,8 @@
 
 #include "menu_scripts.h"
 
-void menu_scripts_apply_eaeb_tvmin      (type_MENUITEM *item);
-void menu_scripts_apply_eaeb_tvmax      (type_MENUITEM *item);
+void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
+void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
 
 void menu_scripts_extended_aeb (const type_MENUITEM *item);
 void menu_scripts_interval     (const type_MENUITEM *item);
@@ -99,12 +99,12 @@ type_MENUPAGE menupage_scripts = {
 	ordering  : settings.scripts_order,
 };
 
-void menu_scripts_apply_eaeb_tvmin(type_MENUITEM *item) {
+void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
 	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
 	menu_event_display();
 }
 
-void menu_scripts_apply_eaeb_tvmax(type_MENUITEM *item) {
+void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 	settings.eaeb_tv_min = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
 	menu_event_display();
 }

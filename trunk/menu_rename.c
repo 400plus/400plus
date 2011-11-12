@@ -47,7 +47,7 @@ void rename_next(type_MENU *menu);
 void rename_repeat_prev(const int repeating);
 void rename_repeat_next(const int repeating);
 
-void rename_action(type_MENUITEM *item);
+void rename_action(const type_MENUITEM *item);
 
 void rename_caps  (type_MENU *menu);
 void rename_toggle(type_MENU *menu);
@@ -61,36 +61,28 @@ void rename_display_line(type_MENUPAGE *page, const int line);
 
 type_MENUITEM menupage_rename_items[] = {
 	{
-		tasks   : {
-			[MENU_EVENT_SET] = rename_action,
-		},
 		display : rename_display_up1,
 		inc     : rename_right,
 		dec     : rename_left,
+		action  : rename_action,
 	},
 	{
-		tasks   : {
-			[MENU_EVENT_SET] = rename_action,
-		},
 		display : rename_display_up2,
 		inc     : rename_right,
 		dec     : rename_left,
+		action  : rename_action,
 	},
 	{
-		tasks   : {
-			[MENU_EVENT_SET] = rename_action,
-		},
 		display : rename_display_up3,
 		inc     : rename_right,
 		dec     : rename_left,
+		action  : rename_action,
 	},
 	{
-		tasks   : {
-			[MENU_EVENT_SET] = rename_action,
-		},
 		display : rename_display_up4,
 		inc     : rename_right,
 		dec     : rename_left,
+		action  : rename_action,
 	},
 	{
 		display : rename_display_down,
@@ -242,7 +234,7 @@ void rename_repeat_next(const int repeating) {
 	}
 }
 
-void rename_action(type_MENUITEM *item) {
+void rename_action(const type_MENUITEM *item) {
 	rename_filename[z] = letters[caps][x][y];
 	rename_repeat_next(FALSE);
 }
@@ -287,7 +279,7 @@ void rename_close(type_MENU *menu) {
 	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)
 		rename_filename[i] = '\0';
 
-	menu_event(MENU_EVENT_CHANGE);
+	menu->changed = TRUE;
 }
 
 void rename_display(type_MENU *menu) {
