@@ -76,8 +76,8 @@ struct MENUITEM {
 	type_MENUITEM_PARM  parm;
 	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
 	void (*display)(const type_MENUITEM *item, char *buffer, const int length);
-	void (*right)  (const type_MENUITEM *item, const int repeating);
-	void (*left)   (const type_MENUITEM *item, const int repeating);
+	void (*inc)    (const type_MENUITEM *item, const int repeating);
+	void (*dec)    (const type_MENUITEM *item, const int repeating);
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
@@ -101,8 +101,8 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
 	display : menuitem_display_ev, \
-	right   : menuitem_right_ev, \
-	left    : menuitem_left_ev, \
+	inc     : menuitem_inc_ev, \
+	dec     : menuitem_dec_ev, \
 }
 
 #define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -114,8 +114,8 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
 	display : menuitem_display_av, \
-	right   : menuitem_right_av, \
-	left    : menuitem_left_av, \
+	inc     : menuitem_inc_av, \
+	dec     : menuitem_dec_av, \
 }
 
 #define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -128,8 +128,8 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
 	display : menuitem_display_tv, \
-	right   : menuitem_right_tv, \
-	left    : menuitem_left_tv, \
+	inc     : menuitem_inc_tv, \
+	dec     : menuitem_dec_tv, \
 }
 
 #define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) { \
@@ -142,8 +142,8 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
 	display : menuitem_display_tv,  \
-	right   : menuitem_right_tv, \
-	left    : menuitem_left_tv, \
+	inc     : menuitem_inc_tv, \
+	dec     : menuitem_dec_tv, \
 }
 
 #define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_)  { \
@@ -156,8 +156,8 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
 	display : menuitem_display_iso, \
-	right   : menuitem_right_iso, \
-	left    : menuitem_left_iso, \
+	inc     : menuitem_inc_iso, \
+	dec     : menuitem_dec_iso, \
 }
 
 #define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) { \
@@ -176,8 +176,8 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
 	display : menuitem_display_int, \
-	right   : menuitem_right_int, \
-	left    : menuitem_left_int, \
+	inc     : menuitem_inc_int, \
+	dec     : menuitem_dec_int, \
 }
 
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_)  { \
@@ -191,8 +191,8 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
 	display : menuitem_display_enum, \
-	right   : menuitem_right_enum, \
-	left    : menuitem_left_enum, \
+	inc     : menuitem_inc_enum, \
+	dec     : menuitem_dec_enum, \
 }
 
 #define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \
@@ -212,7 +212,7 @@ OPTIONLIST_DEC(logfile)
 		[MENU_EVENT_SET] = _ACTION_, \
 	}, \
 	display : menuitem_display_sub, \
-	right   : menuitem_right_sub, \
+	inc     : menuitem_inc_sub, \
 }
 
 #define MENUITEM_INFO(_NAME_, _VALUE_) { \
@@ -252,19 +252,19 @@ extern void menuitem_display_enum (const type_MENUITEM *item, char *buffer, cons
 extern void menuitem_display_info (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_sub  (const type_MENUITEM *item, char *buffer, const int length);
 
-extern void menuitem_right_ev  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_right_av  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_right_tv  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_right_iso (const type_MENUITEM *item, const int repeating);
-extern void menuitem_right_int (const type_MENUITEM *item, const int repeating);
-extern void menuitem_right_enum(const type_MENUITEM *item, const int repeating);
-extern void menuitem_right_sub (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_ev   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_av   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_tv   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_iso  (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_int  (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_enum (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_sub  (const type_MENUITEM *item, const int repeating);
 
-extern void menuitem_left_ev  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_left_av  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_left_tv  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_left_iso (const type_MENUITEM *item, const int repeating);
-extern void menuitem_left_int (const type_MENUITEM *item, const int repeating);
-extern void menuitem_left_enum(const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_ev   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_av   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_tv   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_iso  (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_int  (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_enum (const type_MENUITEM *item, const int repeating);
 
 #endif /* MENUITEM_H_ */

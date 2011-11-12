@@ -65,32 +65,32 @@ type_MENUITEM menupage_rename_items[] = {
 			[MENU_EVENT_SET] = rename_action,
 		},
 		display : rename_display_up1,
-		right   : rename_right,
-		left    : rename_left,
+		inc     : rename_right,
+		dec     : rename_left,
 	},
 	{
 		tasks   : {
 			[MENU_EVENT_SET] = rename_action,
 		},
 		display : rename_display_up2,
-		right   : rename_right,
-		left    : rename_left,
+		inc     : rename_right,
+		dec     : rename_left,
 	},
 	{
 		tasks   : {
 			[MENU_EVENT_SET] = rename_action,
 		},
 		display : rename_display_up3,
-		right   : rename_right,
-		left    : rename_left,
+		inc     : rename_right,
+		dec     : rename_left,
 	},
 	{
 		tasks   : {
 			[MENU_EVENT_SET] = rename_action,
 		},
 		display : rename_display_up4,
-		right   : rename_right,
-		left    : rename_left,
+		inc     : rename_right,
+		dec     : rename_left,
 	},
 	{
 		display : rename_display_down,
