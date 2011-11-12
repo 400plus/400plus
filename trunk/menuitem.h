@@ -78,6 +78,7 @@ struct MENUITEM {
 	void (*display)(const type_MENUITEM *item, char *buffer, const int length);
 	void (*inc)    (const type_MENUITEM *item, const int repeating);
 	void (*dec)    (const type_MENUITEM *item, const int repeating);
+	void (*action) (const type_MENUITEM *item);
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
@@ -197,10 +198,8 @@ OPTIONLIST_DEC(logfile)
 
 #define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \
 	name  : _NAME_, \
-	tasks : { \
-		[MENU_EVENT_SET] = _ACTION_, \
-	}, \
 	display : menuitem_display,  \
+	action  : _ACTION_, \
 }
 
 #define MENUITEM_SUBMENU(_NAME_, _PAGE_, _ACTION_) { \
@@ -208,11 +207,9 @@ OPTIONLIST_DEC(logfile)
 	parm  : { menuitem_submenu : { \
 		page : _PAGE_, \
 	}}, \
-	tasks : { \
-		[MENU_EVENT_SET] = _ACTION_, \
-	}, \
 	display : menuitem_display_sub, \
 	inc     : menuitem_inc_sub, \
+	action  : _ACTION_, \
 }
 
 #define MENUITEM_INFO(_NAME_, _VALUE_) { \

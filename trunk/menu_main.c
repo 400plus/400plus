@@ -48,6 +48,7 @@ type_MENU menu_main = {
 		[MENU_EVENT_PLAY]    = menupage_drag_drop,
 		[MENU_EVENT_UP]      = menupage_up,
 		[MENU_EVENT_DOWN]    = menupage_down,
+		[MENU_EVENT_SET]     = menu_set,
 		[MENU_EVENT_LEFT]    = menu_left,
 		[MENU_EVENT_RIGHT]   = menu_right,
 		[MENU_EVENT_NEXT]    = menu_next,
