@@ -102,8 +102,8 @@ void menupage_drag_drop(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->ordering) {
-		item_grabbed = ! item_grabbed;
-		menu_event_change();
+		item_grabbed  = ! item_grabbed;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }

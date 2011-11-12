@@ -39,10 +39,10 @@ void menu_set_text(const int line, const char *text);
 
 void menu_highlight(const int line);
 
-void menu_repeat(void (*action)(const int repeating));
+void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating));
 
-void menu_repeat_right(const int repeating);
-void menu_repeat_left (const int repeating);
+void menu_repeat_right(type_MENU *menu, const int repeating);
+void menu_repeat_left (type_MENU *menu, const int repeating);
 
 type_MENUPAGE *get_selected_page();
 
@@ -201,20 +201,16 @@ void menu_event_in()     { menu_event(MENU_EVENT_IN);      };
 void menu_event_open()   { menu_event(MENU_EVENT_OPEN);    };
 void menu_event_display(){ menu_event(MENU_EVENT_DISPLAY); };
 void menu_event_refresh(){ menu_event(MENU_EVENT_REFRESH); };
-void menu_event_change() { menu_event(MENU_EVENT_CHANGE);  };
 void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);   };
 
 void menu_event(type_MENU_EVENT event) {
-	type_MENUPAGE *page = current_menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
-
-	if (item && item->tasks && item->tasks[event])
-		item->tasks[event](item);
+	type_MENU     *menu = current_menu;
+	type_MENUPAGE *page = menu->current_page;
 
 	if (page->tasks && page->tasks[event])
-		page->tasks[event](current_menu);
-	else if (current_menu->tasks && current_menu->tasks[event])
-		current_menu->tasks[event](current_menu);
+		page->tasks[event](menu);
+	else if (menu->tasks && menu->tasks[event])
+		menu->tasks[event](menu);
 }
 
 void menu_set(type_MENU *menu) {
@@ -226,11 +222,11 @@ void menu_set(type_MENU *menu) {
 }
 
 void menu_right(type_MENU *menu) {
-	menu_repeat(menu_repeat_right);
+	menu_repeat(menu, menu_repeat_right);
 }
 
 void menu_left(type_MENU *menu) {
-	menu_repeat(menu_repeat_left);
+	menu_repeat(menu, menu_repeat_left);
 }
 
 void menu_next(type_MENU *menu) {
@@ -266,45 +262,51 @@ void menu_prev(type_MENU *menu) {
 	}
 }
 
-void menu_repeat(void (*action)(const int repeating)){
+void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating)){
 	int delay;
 	int button = status.button_down;
 
 	SleepTask(50);
 
-	action(FALSE);
+	action(menu, FALSE);
 	delay = AUTOREPEAT_DELAY_LONG;
 
 	do {
 		SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 		if (--delay == 0) {
-			action(TRUE);
+			action(menu, TRUE);
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
 }
 
-void menu_repeat_right(const int repeating) {
-	type_MENUPAGE *page = current_menu->current_page;
+void menu_repeat_right(type_MENU *menu, const int repeating) {
+	type_MENUPAGE *page = menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
 	if (item && !item->readonly && item->inc) {
 		item->inc(item, repeating);
 
-		menu_event_change();
+		if (item->change)
+			item->change(item);
+
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }
 
-void menu_repeat_left(const int repeating) {
-	type_MENUPAGE *page = current_menu->current_page;
+void menu_repeat_left(type_MENU *menu, const int repeating) {
+	type_MENUPAGE *page = menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
 	if (item && !item->readonly && item->dec) {
 		item->dec(item, repeating);
 
-		menu_event_change();
+		if (item->change)
+			item->change(item);
+
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }

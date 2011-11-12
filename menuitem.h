@@ -74,11 +74,11 @@ struct MENUITEM {
 	char *name;
 	int   readonly;
 	type_MENUITEM_PARM  parm;
-	type_MENUITEM_TASK  tasks[MENU_EVENT_COUNT];
 	void (*display)(const type_MENUITEM *item, char *buffer, const int length);
 	void (*inc)    (const type_MENUITEM *item, const int repeating);
 	void (*dec)    (const type_MENUITEM *item, const int repeating);
 	void (*action) (const type_MENUITEM *item);
+	void (*change) (const type_MENUITEM *item);
 };
 
 #define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
@@ -91,77 +91,67 @@ OPTIONLIST_DEC(flash)
 OPTIONLIST_DEC(action)
 OPTIONLIST_DEC(logfile)
 
-#define MENUITEM_EV(_NAME_, _VALUE_, _CDZ_, _ZMO_, _ON_CHANGE_) { \
+#define MENUITEM_EV(_NAME_, _VALUE_, _CDZ_, _ZMO_, _CHANGE_) { \
 	name  : _NAME_, \
 	parm  : { menuitem_ev : { \
 		value          : _VALUE_, \
 		can_do_zero    : _CDZ_, \
 		zero_means_off : _ZMO_, \
 	}}, \
-	tasks : { \
-		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	}, \
 	display : menuitem_display_ev, \
 	inc     : menuitem_inc_ev, \
 	dec     : menuitem_dec_ev, \
+	change  : _CHANGE_ \
 }
 
-#define MENUITEM_AV(_NAME_, _VALUE_, _ON_CHANGE_) { \
+#define MENUITEM_AV(_NAME_, _VALUE_, _CHANGE_) { \
 	name  : _NAME_, \
 	parm  : { menuitem_av : { \
 			value : _VALUE_, \
 	}}, \
-	tasks : { \
-		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	}, \
 	display : menuitem_display_av, \
 	inc     : menuitem_inc_av, \
 	dec     : menuitem_dec_av, \
+	change  : _CHANGE_ \
 }
 
-#define MENUITEM_TV(_NAME_, _VALUE_, _ON_CHANGE_) { \
+#define MENUITEM_TV(_NAME_, _VALUE_, _CHANGE_) { \
 	name  : _NAME_, \
 	parm  : { menuitem_tv : { \
 		value : _VALUE_, \
 		bulb  : FALSE, \
 	}}, \
-	tasks : { \
-		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	}, \
 	display : menuitem_display_tv, \
 	inc     : menuitem_inc_tv, \
 	dec     : menuitem_dec_tv, \
+	change  : _CHANGE_ \
 }
 
-#define MENUITEM_BULB(_NAME_, _VALUE_, _ON_CHANGE_) { \
+#define MENUITEM_BULB(_NAME_, _VALUE_, _CHANGE_) { \
 	name  : _NAME_, \
 	parm  : { menuitem_tv : { \
 		value : _VALUE_, \
 		bulb  : TRUE, \
 	}}, \
-	tasks : { \
-		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	}, \
 	display : menuitem_display_tv,  \
 	inc     : menuitem_inc_tv, \
 	dec     : menuitem_dec_tv, \
+	change  : _CHANGE_ \
 }
 
-#define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _ON_CHANGE_)  { \
+#define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _CHANGE_)  { \
 	name  : _NAME_, \
 	parm  : { menuitem_iso : { \
 		value : _VALUE_, \
 		full  : _FULL_, \
 	}}, \
-	tasks : { \
-		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	}, \
 	display : menuitem_display_iso, \
 	inc     : menuitem_inc_iso, \
 	dec     : menuitem_dec_iso, \
+	change  : _CHANGE_ \
 }
 
-#define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _ON_CHANGE_) { \
+#define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _CHANGE_) { \
 	name     : _NAME_, \
 	readonly : _RO_, \
 	parm     : {menuitem_int : { \
@@ -173,27 +163,23 @@ OPTIONLIST_DEC(logfile)
 		zero_means_unlimited : _ZMU_, \
 		format               : _FORMAT_, \
 	}}, \
-	tasks    : { \
-		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	}, \
 	display : menuitem_display_int, \
 	inc     : menuitem_inc_int, \
 	dec     : menuitem_dec_int, \
+	change  : _CHANGE_ \
 }
 
-#define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _ON_CHANGE_)  { \
+#define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _CHANGE_)  { \
 	name  : _NAME_, \
 	parm  : { menuitem_enum : { \
 		value : _VALUE_, \
 		cycle : _CYCLE_, \
 		list  : _TEXTS_, \
 	}}, \
-	tasks : { \
-		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
-	}, \
 	display : menuitem_display_enum, \
 	inc     : menuitem_inc_enum, \
 	dec     : menuitem_dec_enum, \
+	change  : _CHANGE_ \
 }
 
 #define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \

@@ -10,14 +10,14 @@
 
 #include "menu_params.h"
 
-void menu_params_apply_autoiso_miniso (type_MENUITEM *item);
-void menu_params_apply_autoiso_maxiso (type_MENUITEM *item);
-void menu_params_apply_iso            (type_MENUITEM *item);
-void menu_params_apply_av_comp        (type_MENUITEM *item);
-void menu_params_apply_efcomp         (type_MENUITEM *item);
-void menu_params_apply_cf_emit_flash  (type_MENUITEM *item);
-void menu_params_apply_ae_bkt         (type_MENUITEM *item);
-void menu_params_apply_color_temp     (type_MENUITEM *item);
+void menu_params_apply_autoiso_miniso (const type_MENUITEM *item);
+void menu_params_apply_autoiso_maxiso (const type_MENUITEM *item);
+void menu_params_apply_iso            (const type_MENUITEM *item);
+void menu_params_apply_av_comp        (const type_MENUITEM *item);
+void menu_params_apply_efcomp         (const type_MENUITEM *item);
+void menu_params_apply_cf_emit_flash  (const type_MENUITEM *item);
+void menu_params_apply_ae_bkt         (const type_MENUITEM *item);
+void menu_params_apply_color_temp     (const type_MENUITEM *item);
 
 type_MENUITEM autoiso_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
@@ -54,37 +54,37 @@ type_MENUPAGE menupage_params = {
 	ordering  : settings.params_order,
 };
 
-void menu_params_apply_autoiso_miniso(type_MENUITEM *item) {
+void menu_params_apply_autoiso_miniso(const type_MENUITEM *item) {
 	settings.autoiso_maxiso = MAX(settings.autoiso_miniso, settings.autoiso_maxiso);
 	menu_event_display();
 }
 
-void menu_params_apply_autoiso_maxiso(type_MENUITEM *item) {
+void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
 	settings.autoiso_miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
 	menu_event_display();
 }
 
-void menu_params_apply_iso(type_MENUITEM *item) {
+void menu_params_apply_iso(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_ISO, 2, *item->parm.menuitem_iso.value);
 }
 
-void menu_params_apply_av_comp(type_MENUITEM *item) {
+void menu_params_apply_av_comp(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_AV_COMP, 1, *item->parm.menuitem_ev.value);
 }
 
-void menu_params_apply_efcomp(type_MENUITEM *item) {
+void menu_params_apply_efcomp(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_EFCOMP, 1, *item->parm.menuitem_ev.value);
 }
 
-void menu_params_apply_cf_emit_flash(type_MENUITEM *item) {
+void menu_params_apply_cf_emit_flash(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, *item->parm.menuitem_enum.value);
 }
 
-void menu_params_apply_ae_bkt(type_MENUITEM *item) {
+void menu_params_apply_ae_bkt(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_AE_BKT, 1, *item->parm.menuitem_ev.value);
 }
 
-void menu_params_apply_color_temp(type_MENUITEM *item) {
+void menu_params_apply_color_temp(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_WB,         1, WB_MODE_COLORTEMP);
 	send_to_intercom(IC_SET_COLOR_TEMP, 2, *item->parm.menuitem_int.value);
 }

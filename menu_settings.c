@@ -11,9 +11,9 @@
 
 #include "menu_settings.h"
 
-void menu_settings_apply_cf_safety_shift (type_MENUITEM *item);
-void menu_settings_apply_remote_enable   (type_MENUITEM *item);
-void menu_settings_apply_remote_delay    (type_MENUITEM *item);
+void menu_settings_apply_cf_safety_shift (const type_MENUITEM *item);
+void menu_settings_apply_remote_enable   (const type_MENUITEM *item);
+void menu_settings_apply_remote_delay    (const type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DIM_LCD_DOWN),  &settings.dim_lcd_down,  NULL),
@@ -86,18 +86,18 @@ type_MENUPAGE menupage_settings = {
 	ordering  : settings.settings_order,
 };
 
-void menu_settings_apply_cf_safety_shift(type_MENUITEM *item) {
+void menu_settings_apply_cf_safety_shift(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);
 }
 
-void menu_settings_apply_remote_enable(type_MENUITEM *item) {
+void menu_settings_apply_remote_enable(const type_MENUITEM *item) {
 	if(*item->parm.menuitem_enum.value){
 		remote_on();
 	} else {
 		remote_off();
 	}
 }
-void menu_settings_apply_remote_delay(type_MENUITEM *item) {
+void menu_settings_apply_remote_delay(const type_MENUITEM *item) {
 	if(*item->parm.menuitem_enum.value){
 		RemReleaseSelfMax = 4500;
 		RemReleaseInstMin = 5560;
