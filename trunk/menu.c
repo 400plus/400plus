@@ -281,8 +281,8 @@ void menu_repeat_right(const int repeating) {
 	type_MENUPAGE *page = current_menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
-	if (item && !item->readonly && item->right) {
-		item->right(item, repeating);
+	if (item && !item->readonly && item->inc) {
+		item->inc(item, repeating);
 
 		menu_event_change();
 		menu_event_refresh();
@@ -293,8 +293,8 @@ void menu_repeat_left(const int repeating) {
 	type_MENUPAGE *page = current_menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
-	if (item && !item->readonly && item->left) {
-		item->left(item, repeating);
+	if (item && !item->readonly && item->dec) {
+		item->dec(item, repeating);
 
 		menu_event_change();
 		menu_event_refresh();
