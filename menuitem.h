@@ -47,6 +47,10 @@ typedef struct {
 } type_MENUITEM_ENUM;
 
 typedef struct {
+	char *value;
+} type_MENUITEM_INFO;
+
+typedef struct {
 	type_MENUPAGE *page;
 } type_MENUITEM_SUBMENU;
 
@@ -61,6 +65,7 @@ typedef union {
 	type_MENUITEM_ISO     menuitem_iso;
 	type_MENUITEM_INT     menuitem_int;
 	type_MENUITEM_ENUM    menuitem_enum;
+	type_MENUITEM_INFO    menuitem_info;
 	type_MENUITEM_SUBMENU menuitem_submenu;
 	type_MENUITEM_PAGE    menuitem_page;
 } type_MENUITEM_PARM;
@@ -108,7 +113,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display_av,  \
+	display : menuitem_display_av, \
 	right   : menuitem_right_av, \
 	left    : menuitem_left_av, \
 }
@@ -122,7 +127,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display_tv,  \
+	display : menuitem_display_tv, \
 	right   : menuitem_right_tv, \
 	left    : menuitem_left_tv, \
 }
@@ -150,7 +155,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display_iso,  \
+	display : menuitem_display_iso, \
 	right   : menuitem_right_iso, \
 	left    : menuitem_left_iso, \
 }
@@ -170,7 +175,7 @@ OPTIONLIST_DEC(logfile)
 	tasks    : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display_int,  \
+	display : menuitem_display_int, \
 	right   : menuitem_right_int, \
 	left    : menuitem_left_int, \
 }
@@ -185,7 +190,7 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_CHANGE] = _ON_CHANGE_, \
 	}, \
-	display : menuitem_display_enum,  \
+	display : menuitem_display_enum, \
 	right   : menuitem_right_enum, \
 	left    : menuitem_left_enum, \
 }
@@ -206,8 +211,16 @@ OPTIONLIST_DEC(logfile)
 	tasks : { \
 		[MENU_EVENT_SET] = _ACTION_, \
 	}, \
-	display : menuitem_display_sub,  \
+	display : menuitem_display_sub, \
 	right   : menuitem_right_sub, \
+}
+
+#define MENUITEM_INFO(_NAME_, _VALUE_) { \
+	name  : _NAME_, \
+	parm  : { menuitem_info : { \
+		value : _VALUE_, \
+	}}, \
+	display : menuitem_display_info, \
 }
 
 #define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  FALSE, _ON_CHANGE_)
@@ -227,9 +240,7 @@ OPTIONLIST_DEC(logfile)
 #define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
 #define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,     9,   2,   2, FALSE, "%1u", _ON_CHANGE_)
 
-#define MENUITEM_INFO(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE, 0, 0, 0, 0, FALSE, "%u", NULL)
-
-#define MENUITEM_BREAK(_NAME_) MENUITEM_LAUNCH(_NAME_, NULL)
+#define MENUITEM_PARAM(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE, 0, 0, 0, 0, FALSE, "%u", NULL)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_ev   (const type_MENUITEM *item, char *buffer, const int length);
@@ -238,6 +249,7 @@ extern void menuitem_display_tv   (const type_MENUITEM *item, char *buffer, cons
 extern void menuitem_display_iso  (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_int  (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_enum (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_info (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_sub  (const type_MENUITEM *item, char *buffer, const int length);
 
 extern void menuitem_right_ev  (const type_MENUITEM *item, const int repeating);
