@@ -14,10 +14,10 @@
 void menu_scripts_apply_eaeb_tvmin      (type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax      (type_MENUITEM *item);
 
-void menu_scripts_extended_aeb (type_MENUITEM *item);
-void menu_scripts_interval     (type_MENUITEM *item);
-void menu_scripts_wave         (type_MENUITEM *item);
-void menu_scripts_self_timer   (type_MENUITEM *item);
+void menu_scripts_extended_aeb (const type_MENUITEM *item);
+void menu_scripts_interval     (const type_MENUITEM *item);
+void menu_scripts_wave         (const type_MENUITEM *item);
+void menu_scripts_self_timer   (const type_MENUITEM *item);
 
 void menu_scripts_launch (type_TASK script);
 
@@ -109,19 +109,19 @@ void menu_scripts_apply_eaeb_tvmax(type_MENUITEM *item) {
 	menu_event_display();
 }
 
-void menu_scripts_extended_aeb(type_MENUITEM *item) {
+void menu_scripts_extended_aeb(const type_MENUITEM *item) {
 	menu_scripts_launch(script_extended_aeb);
 }
 
-void menu_scripts_interval(type_MENUITEM *item) {
+void menu_scripts_interval(const type_MENUITEM *item) {
 	menu_scripts_launch(script_interval);
 }
 
-void menu_scripts_wave(type_MENUITEM *item) {
+void menu_scripts_wave(const type_MENUITEM *item) {
 	menu_scripts_launch(script_wave);
 }
 
-void menu_scripts_self_timer(type_MENUITEM *item) {
+void menu_scripts_self_timer(const type_MENUITEM *item) {
 	menu_scripts_launch(script_self_timer);
 }
 

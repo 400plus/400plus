@@ -217,6 +217,14 @@ void menu_event(type_MENU_EVENT event) {
 		current_menu->tasks[event](current_menu);
 }
 
+void menu_set(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+	type_MENUITEM *item = get_current_item(page);
+
+	if (item && item->action)
+		item->action(item);
+}
+
 void menu_right(type_MENU *menu) {
 	menu_repeat(menu_repeat_right);
 }

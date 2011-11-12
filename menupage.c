@@ -136,7 +136,7 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 			message[i++] = ' ';
 		}
 
-		if (item->tasks[MENU_EVENT_SET])
+		if (item->action)
 			message[i++] = '!';
 
 		if (item->display)
