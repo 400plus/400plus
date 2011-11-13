@@ -54,6 +54,7 @@ void rename_toggle(type_MENU *menu);
 void rename_clear (type_MENU *menu);
 void rename_return(type_MENU *menu);
 void rename_close (type_MENU *menu);
+void rename_save  (type_MENU *menu);
 
 void rename_display(type_MENU *menu);
 void rename_refresh(type_MENU *menu);
@@ -269,11 +270,16 @@ void rename_clear(type_MENU *menu) {
 }
 
 void rename_return(type_MENU *menu) {
-	rename_close(menu);
+	rename_save(menu);
 	menu_return();
 }
 
 void rename_close(type_MENU *menu) {
+	rename_save(menu);
+	menu_save(menu);
+}
+
+void rename_save(type_MENU *menu) {
 	int i;
 
 	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)
