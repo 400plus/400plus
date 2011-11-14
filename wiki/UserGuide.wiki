@@ -64,7 +64,7 @@ While in any page within the menu, you have the ability to change the order of t
  * _*Ext. AEB*_: This item launches and configures the [#Extended_AEB Extended AEB] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Frames: the number of frames (shots) the script should take. Values range from 1 to 9.
-    * Step (EV): the separation in EV (exposure value) between each frame (shot). Values range from 0 (Off) to +-6EV.
+    * Step (EV): the separation in EV (exposure value) between each frame (shot). Values range from +1/3EV to +6EV.
     * Bulb min: the minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
     * Bulb max: the maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
