@@ -202,13 +202,13 @@ Por favor, ten en cuenta que debes establecer "Max Av", en general,justo por enc
 
 == AutoISO y modo P ==
 
-En el modo P, AutoISO trata de comportarse como en el modo Av, pero, dado que la cámara decide tanto la apertura como la velocidad de obturación, no hay garantías de que aumentar la ISO incremente la velocidad de obturación: tiende a funcionar bien para valores pequeños de "Min Tv", pero para valores más grandes la cámara habitualmente decide cerrar el diafragma en su lugar.
+En el modo P, AutoISO _trata de_ comportarse como en el modo Av e incrementa el valor ISO para mantener una mínima velocidad del obturador; pero, dado que la cámara decide tanto la apertura como la velocidad de obturación, no hay garantías de que aumentar la ISO incremente la velocidad de obturación: tiende a funcionar bien para valores pequeños de "Min Tv", pero para valores más grandes la cámara habitualmente decide cerrar el diafragma en lugar de seleccionar una velocidad de obturación más rápida.
 
 == AutoISO y modo M ==
 
-En el modo M, el comportamiento del AutoISO es totalmente diferente a los otros modos: en este caso el usuario selecciona la apertura y la velocidad de obturación, y 400plus decidirá el ISO correcto para ajustar la escena. Ninguno de los parámetros de configuración afectan al AutoISO en el modo M, y este es el único modo en el que se utilizan valores intermedios de ISO.
+En el modo M, el comportamiento del AutoISO es totalmente diferente a los otros modos: en este caso el usuario selecciona tanto la apertura como la velocidad de obturación, de modo que 400plus decidirá el ISO correcto para ajustar la escena. Ninguno de los parámetros de configuración afectan al AutoISO en el modo M, y este es el único modo en el que se utilizan valores intermedios de ISO.
 
-Utiliza las teclas IZQUIERDA y DERECHA mientras miras por el visor para cambiar la compensación de la exposición.
+Para cambiar la compensación de la exposición en el modo M, utiliza las teclas IZQUIERDA y DERECHA mientras miras por el visor.
 
 = Seleccion del patron AF =
 
