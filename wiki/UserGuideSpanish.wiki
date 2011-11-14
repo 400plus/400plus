@@ -7,18 +7,18 @@ Spanish translation provided by Jmtd.
 = Tabla de Contenidos =
 
  * [UserGuideSpanish#Tabla_de_Contenidos Tabla de Contenidos]
- * [UserGuideSpanish#Introducción Introducción]
+ * [UserGuideSpanish#Introduccion Introduccion]
  * [UserGuideSpanish#El_menu_de_ajustes El menu de ajustes]
  * [UserGuideSpanish#Los_guiones Los guiones]
  * [UserGuideSpanish#Los_preajustes_(presets) Los preajustes (presets)]
  * [UserGuideSpanish#AutoISO AutoISO]
- * [UserGuideSpanish#Selección_del_patrón_AF Selección del Patrón AF]
+ * [UserGuideSpanish#Seleccion_del_patron_AF Selección del Patrón AF]
  * [UserGuideSpanish#Los_extras Los extras]
  * [UserGuideSpanish#Otros_regalos Otros regalos]
  * [UserGuideSpanish#Notas Notas]
  * [UserGuideSpanish#Errores_conocidos Errores conocidos] 
 
-= Introducción =
+= Introduccion =
 
 == Qué es 400plus? ==
 
