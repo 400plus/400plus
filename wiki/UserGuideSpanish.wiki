@@ -186,18 +186,19 @@ Para habilitar AutoISO para los modos creativos, se debe activar en el menú de 
 
 == AutoISO y modo Av ==
 
-La intención del AutoISO en el modo Av es usar el ISO más bajo posible para asegurar que no se produzca desenfoque por movimiento; este es, probablemente, el modo en el que el AutoISO tiene más sentido.
-
+La intención del AutoISO en el modo Av es usar el ISO más bajo posible para asegurar que no se produzca desenfoque por movimiento.
  
-En el modo Av normal el usuario selecciona ISO y apertura, y la cámara decide la velocidad de obturación de acuerdo a la escena. Sin embargo, cuando AutoISO está activo, la 400plus seleccionará siempre el ISO más bajo posible (según se haya configurado "Min ISO"), a no ser que la velocidad de obturación sea demasiado baja (según se haya configurado "Min Tv"); cuando esto ocurre, la cámara incrementará el ISO (hasta "Max ISO") según necesite.
+En el modo Av normal el usuario selecciona ISO y apertura, y la cámara decide la velocidad de obturación de acuerdo a la escena. Sin embargo, cuando AutoISO está activo, la 400plus seleccionará siempre el ISO más bajo posible (según se haya configurado "Min ISO"), a no ser que la velocidad de obturación sea demasiado baja (según se haya configurado "Min Tv"); cuando esto ocurre, la cámara incrementará automáticamente el valor ISO (hasta "Max ISO") según necesite.
 
-Si Desplazamiento de Seguridad está activado, para mantener la exposición correcta en el modo AV, la velocidad del obturador podría caer por debajo de "Min Tv" si se sobrepasa "Max ISO".
+Ten en cuenta que cuando ambos Desplazamiento de Seguridad y AutoISO están habilitados, para mantener la exposición correcta en el modo AV, la velocidad del obturador podría caer por debajo de "Min Tv" si se sobrepasa "Max ISO".
 
 == AutoISO y modo Tv ==
 
-En el modo Tv la intención es usar el ISO más bajo posible para asegurar una aceptable profundidad de campo: AutoISO incrementará la ISO cuando la apertura sea mayor que el valor configurado "Max Av".
+En el modo Tv la intención es usar el ISO más bajo posible para asegurar una aceptable profundidad de campo.
 
-Debes establecer "Max Av", en general, justo por encima de la máxima apertura de la lente que estás usando. Por ejemplo, si tu lente es F4.0-F5.6, "Max Av" se debe establecer no inferior a 4.5, de lo contrario, AutoISO no funcionará en el modo de Tv.
+En el modo TV, AutoISO tratará de mantener la ISO tan baja como sea posible (tal como está configurada en "Min ISO"), a menos que la escena requiera una apertura mayor que la deseada (como se ha configurado en "Max Av"); por tanto, AutoISO elevará el valor ISO (hasta "Max ISO") según sea necesario.
+
+Por favor, ten en cuenta que debes establecer "Max Av", en general,justo por encima de la máxima apertura de la lente que estás utilizando. Por ejemplo si tu lente es F4.0-F5.6, "Max Av" se debe establecer no inferior a 4.5. De lo contrario, AutoISO no funcionará adecuadamente en el modo de Tv. Además, el comentario sobre Desplazamiento de Seguridad y AutoISO en el modo Av se aplica también al modo Tv.
 
 == AutoISO y modo P ==
 
