@@ -36,7 +36,7 @@ Para entrar en el menú 400plus, pulsa el botón de IMPRESIÓN DIRECTA desde el 
 
 == Navegación por el menú de ajustes ==
 
-400plus presenta ahora un menú de varias páginas, donde cada página está dedicada a una tarea determinada. Para navegar a través de las páginas, utiliza la rueda delantera o los botones ZOOM IN / ZOOM OUT (fíjate que aparece <<  y  >> en la cabecera). También existe un método para acceder rápidamente a cualquier página: presiona y mantén presionado el botón AV y aparecerá una lista de todas las páginas disponibles; a continuación, utiliza el dial frontal para seleccionar una página, y suelta el botón AV para saltar a ella.
+400plus presenta ahora un menú de varias páginas, donde cada página está dedicada a una tarea determinada. Para navegar a través de las páginas, utiliza la rueda delantera o los botones ZOOM + / ZOOM - (fíjate que aparece <<  y  >> en la cabecera). También existe un método para acceder rápidamente a cualquier página: presiona y mantén presionado el botón AV y aparecerá una lista de todas las páginas disponibles; a continuación, utiliza el dial frontal para seleccionar una página, y suelta el botón AV para saltar a ella.
 
 Para navegar dentro de una página, utiliza los botones ARRIBA (ISO) y ABAJO (WB); a continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (AF) para cambiar el valor del elemento seleccionado (presiona y mantén presionado estos botones para cambiar más rápido). Los elementos que presentan a la izquierda un signo de exclamación "!" realizan una acción; puedes activarlos con el botón SET. Y los elementos con un signo ">" a la derecha son los sub-menús; puedes entrar en ellos con el botón DERECHA, y volver a la página principal con el botón AV. Ten en cuenta que algunos ítems pueden tanto realizar una acción como tener un sub-menú.
 
@@ -122,12 +122,25 @@ _Esta página se ha dejado deliberadamente en blanco_.
   * Funciones personalizables: cuando está activo (puesto en "Sí"), la carga de un preset reclama las funciones personalizables C.Fn (bloqueo de espejo, reducción de ruido a larga exposición,...).
  * _*Páginas*_: Utiliza este sub-menú para configurar el orden en que se deben mostrar las páginas.
 
-=== Página de Preajustes (presets) ===
+=== Página de Presets ===
 
 Utiliza esta página para cargar, guardar y renombrar los preajustes. El procedimiento para renombrar un preset es:
 
-Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA desde la pantalla principal. Navega por este menú como en un menú normal, y presiona el botón SET para lanzar un guión:
+ * Selecciona la opción "Renombra" en el sub-menú presets.
+ * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar un valor.
+ * Utiliza el botón MENU para alternar entre minúsculas/números y mayúsculas/símbolos.
+ * Utiliza el botón JUMP para cambiar la letra del valor seleccionado en el nombre (línea inferior). 
+ * Utiliza el botón SET para usar el valor seleccionado en el nombre y avanzar el cursor a la siguiente posición.
+ * Utiliza el dial frontal o los botones de ZOOM + /ZOOM - para mover el cursor en la línea de nombre del preset (ínea inferior).
+ * Presiona el botón AV para guardar tus cambios y volver al menú previo.
 
+Fíjate que siempre hay un número que aparece a la izquierda de cada preset. Esta característica es útil cuando quieras copiar presets a y desde varias tarjetas CF y necesitas saber los nombres de archivo para cada uno de tus presets: el número a la izquierda de un elemento coincide con el número del archivo creado en la tarjeta CF.
+
+= Los Guiones =
+
+Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y, al tiempo que el guión se ejecuta, el botón de IMPRESIÓN DIRECTA parpadea (dos veces por segundo, aproximadamente).
+
+Para detener una secuencia de comandos en ejecución, presiona el botón de IMPRESIÓN DIRECTA de nuevo; a veces la cámara no puede parar de inmediato, entonces presiona y mantén presionado el botón de IMPRESIÓN DIRECTA hasta que oigas el beep que indica el final efectivo del guión.
 
  * _*Temp. color (K)*_: Igual que en el [UserGuideSpanish#El_menu_de_ajustes menú de ajustes]. 
  * _*AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
@@ -147,9 +160,9 @@ Estando en el menú de accesos directos, tienes la posibilidad de cambiar el ord
 
 Todos los guiones se activan desde el [UserGuideSpanish#El_menu_de_accesos_directos menú de accesos directos].
 
-Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y, al tiempo que el guión se ejecuta, el botón de IMPRESIÓN DIRECTA parpadea (dos veces por segundo, aproximadamente).
 
-Para detener una secuencia de comandos en ejecución, presiona el botón de IMPRESIÓN DIRECTA de nuevo; a veces la cámara no puede parar de inmediato, entonces presiona y mantén presionado el botón de IMPRESIÓN DIRECTA hasta que oigas el beep que indica el final efectivo del guión.
+
+
 
 
 == AEB Extendido ==
@@ -197,11 +210,7 @@ Para resolver este asunto, hay una opción en [UserGuideSpanish#El_menu_de_ajust
 Podemos reordenar los presets, al igual que en [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]. Para hacer esto, mientras estás en los menús carga PRESET o guarda PRESET, presiona PLAY para seleccionar el ítem (aparecerá a la izquierda del mismo el signo ">") y ARRIBA / ABAJO para moverlo a la posición deseada. Finaliza el proceso presionando PLAY de nuevo para guardar tus cambios.
 Además los podemos renombrar, pulsando el botón JUMP (desde los menús carga PRESET o guarda PRESET) para entrar en el menú para cambio de nombre:
 
- * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar una letra.
- * Utiliza MENU para alternar entre minúsculas/números y mayúsculas/símbolos; presiona AV para cambiar el tipo de la letra seleccionada en la línea inferior. 
- * Utiliza SET para usar una letra en el nombre y avanzar el cursor a la siguiente posición.
- * Utiliza el dial frontal o los botones de ZOOM +/- para mover el cursor.
- * Presiona JUMP para guardar tus cambios y volver al menú presets.
+
 
 Otra característica interesante incluida es la capacidad de cambiar la vista de los presets hacia atrás y hacia delante entre los nombres de los presets y los nombres de los archivos de presets (guardados en la tarjeta CF). Esta característica es útil cuando deseas copiar presets a y desde varias tarjetas CF y necesitas conocer los nombres de archivo de cada uno de tus presets. Para utilizar esta función pulsa el botón MENU mientras te encuentras en cualquiera de los menús carga PRESET o guarda PRESET.   
 
