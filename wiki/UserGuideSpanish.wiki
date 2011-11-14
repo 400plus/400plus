@@ -54,11 +54,22 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Max ISO: máximo valor ISO que AutoISO usará.
   * Min Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
   * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener. 
+ * _*ISO*_: Cambia los ISOs intermedios. Los valores oscilan entre 100 y 3000.
  * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV. 
  * _*Comp. flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
  * _*Bloquea Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
- * _*Temp. color (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos WB a 'personalizado'. 
- * _*AEB_*: Igual que la función "AEB", pero puede ir de -6 a +6 EV.
+ * _*AEB_*: Igual que la función "AEB", pero extiende el rango desde -6 a +6 EV.
+ * _*Temp. color (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos WB a 'personalizado'.
+
+=== Página de Accesos directos ===
+
+ * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo. (similar a la función persanalizada C.Fn 07).
+ * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla. (similar a la función persanalizada C.Fn 09).
+ * _*Flash AF*_: Activa o desactiva el flash (durante la fase de AF), aunque se haya elevado. Los valores son "activo", "inactivo" o "sólo ext" (similar a la función persanalizada C.Fn 05).
+
+=== Página de Guiones ===
+
+
  * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva. 
  * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos. 
@@ -98,15 +109,14 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA desde la pantalla principal. Navega por este menú como en un menú normal, y presiona el botón SET para lanzar un guión:
 
- * _*ISO*_: Cambia los ISOs intermedios. Los valores oscilan entre 100 y 3000.
+
  * _*Temp. color (K)*_: Igual que en el [UserGuideSpanish#El_menu_de_ajustes menú de ajustes]. 
  * _*AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
  * _*Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
  * _*Toma por Visor*_: Inicia el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
  * _*Temporizador*_: Inicia el [UserGuideSpanish#Temporizador Temporizador].
- * _*Flash AF*_: Activa o desactiva el flash (durante la fase de AF), aunque se haya elevado. Los valores son "activo", "inactivo" o "sólo ext" (similar a la función persanalizada C.Fn 05).
- * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo. (similar a la función persanalizada C.Fn 07).
- * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla. (similar a la función persanalizada C.Fn 09).
+
+
 
 Para salir del menú de accesos directos, presiona hasta la mitad el botón disparador.
 
