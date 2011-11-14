@@ -169,66 +169,20 @@ Un "preset" (preajuste) es una instantánea completa que contiene todos los ajus
 
 == El modo A-DEP ==
 
+Bajo circunstancias normales, cuando se recupera un preajuste todos los parámetros de la cámara se cambian, incluso el modo AE. Ten en cuenta que la cámara puede entonces operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal. Pero si se apaga la cámara y se vuelve a encender, se volverá al modo de AE real seleccionado en el dial principal.
 
-
-
-
-
- * _*Temp. color (K)*_: Igual que en el [UserGuideSpanish#El_menu_de_ajustes menú de ajustes]. 
- * _*AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
- * _*Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
- * _*Toma por Visor*_: Inicia el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
- * _*Temporizador*_: Inicia el [UserGuideSpanish#Temporizador Temporizador].
-
-
-
-Para salir del menú de accesos directos, presiona hasta la mitad el botón disparador.
-
-== Configurar el menú de accesos directos ==
-
-Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aparecen los ítems según tus preferencias. Presiona PLAY para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo donde quieras y de nuevo PLAY cuando hayas acabado para grabar los cambios.
-
-
-Todos los guiones se activan desde el [UserGuideSpanish#El_menu_de_accesos_directos menú de accesos directos].
-
-
-
-
-
-
-
-
-
-= Los preajustes (presets) =
-
-
-
-
-
-Para guardar un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estás en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]; a continuación, selecciona una ranura de preajuste y pulsa SET (si la ranura ha sido utilizada anteriormente, su contenido se sobrescribe). Para cargar (recuperar) un preajuste, presiona el botón de IMPRESIÓN DIRECTA mientras estés en [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]; a continuación, selecciona el preajuste deseado y pulsa el botón SET. Una vez activado, los parámetros y ajustes del preset seleccionado se activan inmediatamente (si la posición está vacía, no ocurrirá nada).
-
-== El modo A-DEP ==
-
-Bajo circunstancias normales, cuando se recupera un preajuste todos los parámetros de la cámara se cambian, incluso el modo AE (a menos que, obviamente, se haya especificado lo contrario en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes]). Ten en cuenta que la cámara puede entonces operar en un modo de AE que es diferente del modo AE actualmente seleccionado en el dial principal. Pero si se apaga la cámara y se vuelve a encender, se volverá al modo de AE real seleccionado en el dial principal.
-
-Para resolver este asunto, hay una opción en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] para secuestrar el modo A-DEP (mayormente inutilizado). Cuando esa opción está activa (Presets>usa A-DEP: "Sí"), ocurrirán los cambios siguientes:
+Para resolver este asunto, hay una opción para secuestrar el modo A-DEP (mayormente inutilizado). Cuando esa opción está activa (Presets>usa A-DEP: "Sí"), ocurrirán los cambios siguientes:
 
  * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. Se visualiza la palabra "Presets" en lugar de "A-DEP" en el dial de modo. 
  * Cuando la cámara se enciende en el modo A-DEP, o cuando el usuario mueve el dial principal al modo A-DEP, se carga el último preset utilizado.
- * Si la opción no está activada (Presets>usa A-DEP: "No"), cuando se selecciona la posición A-DEP en el dial de modo, la cámara usará el modo A-DEP como lo haría normalmente.
-  
-== Configurar el menú presets ==
 
-Podemos reordenar los presets, al igual que en [UserGuideSpanish#El_menu_de_accesos_directos el menú de accesos directos]. Para hacer esto, mientras estás en los menús carga PRESET o guarda PRESET, presiona PLAY para seleccionar el ítem (aparecerá a la izquierda del mismo el signo ">") y ARRIBA / ABAJO para moverlo a la posición deseada. Finaliza el proceso presionando PLAY de nuevo para guardar tus cambios.
-Además los podemos renombrar, pulsando el botón JUMP (desde los menús carga PRESET o guarda PRESET) para entrar en el menú para cambio de nombre:
-
-
-
-Otra característica interesante incluida es la capacidad de cambiar la vista de los presets hacia atrás y hacia delante entre los nombres de los presets y los nombres de los archivos de presets (guardados en la tarjeta CF). Esta característica es útil cuando deseas copiar presets a y desde varias tarjetas CF y necesitas conocer los nombres de archivo de cada uno de tus presets. Para utilizar esta función pulsa el botón MENU mientras te encuentras en cualquiera de los menús carga PRESET o guarda PRESET.   
+Si la opción no está activada (Presets>usa A-DEP: "No"), cuando se selecciona la posición A-DEP en el dial de modo, la cámara usará el modo A-DEP como lo haría normalmente.
 
 = AutoISO =
 
-Para activar el AutoISO para los modos creativos, hazlo en [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes], o presiona el botón de IMPRESIÓN DIRECTA en el diálogo de selección de ISO. Para desactivarlo, utiliza [UserGuideSpanish#El_menu_de_ajustes el menú de ajustes] o selecciona cualquier valor ISO en el diálogo de selección de ISO.
+400plus soporta AutoISO en los modos creativos, utilizando nuestros propios algoritmos. Funciona mediante la lectura de las mediciones que la cámara hace cuando presionas hasta la mitad el botón de disparo, y cambiando el valor ISO en consecuencia. El comportamiento del AutoISO es diferente para cada modo creativo, pero la idea es llanamente la misma: utilizar la ISO más baja posible para mantener una adecuada velocidad o apertura.
+
+Para habilitar AutoISO para los modos creativos, se debe activar en el menú de ajustes, o presionar el botón de IMPRESIÓN DIRECTA en el cuadro de diálogo de selección de ISO; para desactivarla, utiliza el menú de ajustes o selecciona cualquier valor ISO en el cuadro de diálogo de selección de ISO.
 
 == AutoISO y modo Av ==
 
