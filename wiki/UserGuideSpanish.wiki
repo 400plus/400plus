@@ -163,7 +163,7 @@ Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" (
 
 Este guión simplemente añade una pausa configurable antes de disparar la cámara. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
 
-= Los guiones =
+= Los preajustes (presets) =
 
 Un "preset" (preajuste) es una instantánea completa que contiene todos los ajustes de la cámara y los parámetros de configuración. Los presets se pueden utilizar para pre-configurar la cámara para una situación específica de disparo (como "paisaje", "retrato", "poca luz", "pájaros en vuelo", etc.), y te permiten tener un acceso rápido a estas configuraciones después. Los preajustes son almacenados en la tarjeta CF en sí. Se pueden almacenar hasta 9 preajustes. Sin embargo, el número de preajustes es ilimitado si tenemos en cuenta que puedes utilizar múltiples tarjetas CF cada una de ellas conteniendo hasta 9 preajustes diferentes.
 
