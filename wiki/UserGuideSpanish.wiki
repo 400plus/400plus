@@ -12,7 +12,7 @@ Spanish translation provided by Jmtd.
  * [UserGuideSpanish#Los_guiones Los guiones]
  * [UserGuideSpanish#Los_preajustes_(presets) Los preajustes (presets)]
  * [UserGuideSpanish#AutoISO AutoISO]
- * [UserGuideSpanish#Seleccion_del_patron_AF Selección del Patrón AF]
+ * [UserGuideSpanish#Seleccion_del_patron_AF Seleccion del Patron AF]
  * [UserGuideSpanish#Los_extras Los extras]
  * [UserGuideSpanish#Otros_regalos Otros regalos]
  * [UserGuideSpanish#Notas Notas]
@@ -201,7 +201,7 @@ En el modo M, el comportamiento del AutoISO es totalmente diferente a los otros 
 
 Utiliza las teclas IZQUIERDA y DERECHA mientras miras por el visor para cambiar la compensación de la exposición.
 
-= Selección del patrón AF =
+= Seleccion del patron AF =
 
 400plus ofrece un rango adicional de selección de puntos del patrón AF, en vez de los sólo dos (selección manual del punto AF y selección automática) que vienen con la cámara estándar. Este modo adicional permite una amplia gama de patrones de selección de puntos múltiples usando diferentes combinaciones de los 9 puntos de enfoque.
 
