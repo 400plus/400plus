@@ -77,9 +77,9 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*AEB ext.*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
   * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
   * Marcos: número de tomas a disparar. Los valores van de 1 a 9. 
-  * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde 0 (Off) hasta +-6EV.
-  * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
-  * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
+  * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +-01/3  hasta +-6EV.
+  * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
+  * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
  * _*Interval.*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
   * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
   * Tiempo (s): tiempo (en segundos) entre cada disparo. Los valores van desde 0 a 250.
@@ -149,7 +149,7 @@ Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar d
  * La separación entre las tomas se puede configurar hasta +-6 EV. 
  * La cámara tomará todas las fotos en una secuencia, de forma automática.
 
-En el modo M con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb mín:" hasta el valor "Bulb máx:", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
+En el modo M con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb mín:" hasta el valor "Bulb máx:", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 32 minutos.
 
 == Intervalometro ==
 
