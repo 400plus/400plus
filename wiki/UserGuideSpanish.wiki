@@ -9,7 +9,7 @@ Spanish translation provided by Jmtd.
  * [UserGuideSpanish#Tabla_de_Contenidos Tabla de Contenidos]
  * [UserGuideSpanish#Introduccion Introduccion]
  * [UserGuideSpanish#El_menu_de_ajustes El menu de ajustes]
- * [UserGuideSpanish#Los_guiones Los guiones]
+ * [UserGuideSpanish#Los_Guiones Los Guiones]
  * [UserGuideSpanish#Los_preajustes_(presets) Los preajustes (presets)]
  * [UserGuideSpanish#AutoISO AutoISO]
  * [UserGuideSpanish#Seleccion_del_patron_AF Seleccion del Patron AF]
