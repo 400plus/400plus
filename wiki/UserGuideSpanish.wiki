@@ -48,6 +48,12 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Parámetros ===
 
+ * _*AutoISO*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#AutoISO AutoISO].
+  * Activo: cuando está puesto en "Sí", el AutoISO está activo.
+  * Min ISO: mínimo valor ISO que AutoISO usará.
+  * Max ISO: máximo valor ISO que AutoISO usará.
+  * Min Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
+  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener. 
  * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV. 
  * _*Comp. flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
  * _*Bloquea Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
@@ -57,12 +63,6 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva. 
  * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos. 
  * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
- * _*AutoISO*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#AutoISO AutoISO].
-  * Activo: cuando está puesto en "Sí", el AutoISO está activo.
-  * Min ISO: mínimo valor ISO que AutoISO usará.
-  * Max ISO: máximo valor ISO que AutoISO usará.
-  * Min Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
-  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener. 
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones]. 
   * LCD bajo: cuando está activado (puesto en "Sí"), la pantalla se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado. 
   * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado. 
