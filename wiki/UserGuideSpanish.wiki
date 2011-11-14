@@ -32,13 +32,15 @@ Este documento hará las funciones de guía de usuario para 400plus. Se supone q
 
 == Acceso al menú de ajustes ==
 
-Para entrar en el menú 400plus, pulsa MENU (esto mostrará el menú estándar de la cámara) y a continuación el botón de IMPRESIÓN DIRECTA (se mostrará en pantalla el nuevo menú 400plus). Para salir del menú 400plus presiona hasta la mitad el botón disparador.
+Para entrar en el menú 400plus, pulsa el botón de IMPRESIÓN DIRECTA desde el menú principal de la cámara. Para salir del menú 400plus presiona hasta la mitad el botón disparador. NOTA: el botón de IMPRESIÓN DIRECTA se encuentra en la parte posterior de la cámara a la izquierda del visor (al lado del icono de la impresora de color azul con la línea de la flecha ondulada).
 
 == Navegación por el menú de ajustes ==
 
-Para navegar por el menú, utiliza ARRIBA (ISO) y ABAJO (WB) para desplazarte entre los elementos. A continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (MODO AF) para cambiar el valor del elemento actual (presiona y mantén presionado estos botones para cambiar más rápido). En algunos elementos, el botón AV se puede utilizar para cambiar el valor, o una parte del valor (como los signos + y -).
+400plus presenta ahora un menú de varias páginas, donde cada página está dedicada a una tarea determinada. Para navegar a través de las páginas, utiliza la rueda delantera o los botones ZOOM IN / ZOOM OUT (fíjate que aparece << y >> en la cabecera). También existe un método para acceder rápidamente a cualquier página: presiona y mantén presionado el botón AV y aparecerá una lista de todas las páginas disponibles; a continuación, utiliza el dial frontal para seleccionar una página, y suelta el botón AV para saltar a ella.
 
-== Navegación por los sub-menús ==
+ Para navegar dentro de una página, utiliza los botones ARRIBA (ISO) y ABAJO (WB); a continuación, utiliza los botones IZQUIERDA (MODO DE MEDICIÓN) y DERECHA (AF) para cambiar el valor del elemento seleccionado (presiona y mantén presionado estos botones para cambiar más rápido). Los elementos que presentan a la izquierda un signo de exclamación "!" realizar una acción; puedes activarlos con el botón SET. Y elementos con un signo de la derecha ">" son los sub-menús; puedes entrar en ellos con el botón DERECHA, y volver a la página principal con el botón AV. Ten en cuenta que algunos ítems se pueden tanto realizar una acción como tener un sub-menú.
+
+== Configuración del menú ==
 
 Los sub-menús se muestran como "ITEM>SUB·ÍTEM"; utiliza el dial frontal o los botones de ZOOM +/- para pasar al siguiente sub·ítem, y a continuación IZQUIERDA y DERECHA para cambiar el valor del ítem seleccionado (mantén pulsada la tecla para cambiar más rápido). Los botones ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro ítem.
 
