@@ -142,6 +142,33 @@ Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y, al 
 
 Para detener una secuencia de comandos en ejecución, presiona el botón de IMPRESIÓN DIRECTA de nuevo; a veces la cámara no puede parar de inmediato, entonces presiona y mantén presionado el botón de IMPRESIÓN DIRECTA hasta que oigas el beep que indica el final efectivo del guión.
 
+== AEB Extendido ==
+
+Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias: 
+ * Se pueden especificar hasta 9 tomas. 
+ * La separación entre las tomas se puede configurar hasta +-6 EV. 
+ * La cámara tomará todas las fotos en una secuencia, de forma automática.
+
+En el modo M con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb mín:" hasta el valor "Bulb máx:", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 16 minutos.
+
+== Intervalometro ==
+
+Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas. Úsalo para crear películas de stop-motion. Por ejemplo: ajusta "EAEB" a "Sí" para ejecutar el guión de [UserGuideSpanish#AEB_Extendido AEB Extendido] en cada disparo.
+
+== Toma por Visor (ondeo) ==
+
+Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" (en la parte posterior de la cámara) se active. Úsalo para disparar la cámara sin un control remoto y evitar trepidciones. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que puedas realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (como tu mano o tu dedo) bloquee el sensor y luego se retire; sin embargo, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
+
+== Temporizador ==
+
+Este guión simplemente añade una pausa configurable antes de disparar la cámara. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
+
+= Los guiones =
+
+
+
+
+
  * _*Temp. color (K)*_: Igual que en el [UserGuideSpanish#El_menu_de_ajustes menú de ajustes]. 
  * _*AEB Extendido*_: Inicia el guión [UserGuideSpanish#AEB_Extendido AEB Extendido].
  * _*Intervalómetro*_: Inicia el guión de [UserGuideSpanish#Intervalometro Intervalómetro].
@@ -156,7 +183,6 @@ Para salir del menú de accesos directos, presiona hasta la mitad el botón disp
 
 Estando en el menú de accesos directos, tienes la posibilidad de cambiar el orden en el que aparecen los ítems según tus preferencias. Presiona PLAY para "seleccionar" un ítem (aparecerá el signo ">" a la izquierda de ese ítem); a continuación pulsa ARRIBA / ABAJO para posicionarlo donde quieras y de nuevo PLAY cuando hayas acabado para grabar los cambios.
 
-= Los guiones =
 
 Todos los guiones se activan desde el [UserGuideSpanish#El_menu_de_accesos_directos menú de accesos directos].
 
@@ -165,26 +191,7 @@ Todos los guiones se activan desde el [UserGuideSpanish#El_menu_de_accesos_direc
 
 
 
-== AEB Extendido ==
 
-Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias: 
- * Se pueden especificar hasta 9 tomas. 
- * La separación entre las tomas se puede configurar hasta +-6 EV. 
- * La cámara tomará todas las fotos en una secuencia, de forma automática.
-
-En el modo M con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb mín" hasta el valor "Bulb máx", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 32 minutos.
-
-== Intervalometro ==
-
-Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas; úsalo, por ejemplo, para crear películas de stop-motion. Ajusta "EAEB" a "Sí" para ejecutar el guión de [UserGuideSpanish#AEB_Extendido AEB Extendido] en cada disparo.
-
-== Toma por Visor (ondeo) ==
-
-Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" en la parte posterior de la cámara se active; úsalo para disparar la cámara sin un control remoto y evitar trepidciones. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que pueda realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (como tu mano o tu dedo) bloquee el sensor y luego se retire; sin embargo, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
-
-== Temporizador ==
-
-Este guión simplemente añade una pausa configurable antes de disparar la cámara; se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
 
 
 = Los preajustes (presets) =
