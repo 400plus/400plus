@@ -97,30 +97,34 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Página Desarrolladores ===
 
+_*NOTA*_: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Configuración antes de acceder a ella.
 
+_Esta página se ha dejado deliberadamente en blanco_.
 
+*ADVERTENCIA*: Estas opciones deben usarse con sumo cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
 
- * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
+=== Página de Ajustes ===
+
+ * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijados por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva. 
  * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos. 
- * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), y si estamos en los modos P o Tv, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor.
+ * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), y si estamos en cualquiera de los modos creativos, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor. En los modos Tv y M, el nuevo valor ISO también se muestra en el visor (sobre la velocidad de obturación).
+ * _*Menú de desarrolladores*_: Cuando se activa (puesto en "Sí"), el menú será accesible como una página.
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones]. 
-  * LCD bajo: cuando está activado (puesto en "Sí"), la pantalla se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado. 
+  * LCD bajo: cuando está activado (puesto en "Sí"), el brillo de la pantalla LCD se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado. 
   * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado. 
-
-
-
-  
  * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
-  * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]; por favor, lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
+  * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]. Lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
   * 400plus: cuando está activo (puesto en "Sí"), la carga de un preset reclama los propios ajustes 400plus (guiones,...).
   * Ajustes: cuando está activo (puesto en "Sí"), la carga de un preset reclama los ajustes rara vez cambiados (lenguaje, sistema de video,...).
   * Imagen: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros relativos a la imagen (RAW/JPEG, calidad,...).
   * Funciones personalizables: cuando está activo (puesto en "Sí"), la carga de un preset reclama las funciones personalizables C.Fn (bloqueo de espejo, reducción de ruido a larga exposición,...).
- * _*Menú de desarrolladores*_: Presiona el botón SET mientras está resaltada esta opción para entrar en [UserGuideSpanish#El_menu_de_desarrolladores el menú de desarrolladores].
+ * _*Páginas*_: Utiliza este sub-menú para configurar el orden en que se deben mostrar las páginas.
 
-= El menu de accesos directos =
+=== Página de Preajustes (presets) ===
+
+Utiliza esta página para cargar, guardar y renombrar los preajustes. El procedimiento para renombrar un preset es:
 
 Para entrar en el menú de accesos directos sólo tienes que pulsar el botón de IMPRESIÓN DIRECTA desde la pantalla principal. Navega por este menú como en un menú normal, y presiona el botón SET para lanzar un guión:
 
