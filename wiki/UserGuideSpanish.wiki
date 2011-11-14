@@ -44,7 +44,9 @@ Para navegar dentro de una página, utiliza los botones ARRIBA (ISO) y ABAJO (WB
 
 Estando en cualquier página del menú, tienes la posibilidad de cambiar el orden de los elementos según tu propia preferencia personal. Para ello, basta con pulsar el botón PLAY para "agarrar" un elemento (un pequeño ">" aparecerá a la izquierda del ítem). Ahora usa los botones ARRIBA o ABAJO para colocar el elemento del menú en el lugar que te gustaría que ocupara (verás que el ítem se ha movido a la nueva posición). Finaliza el proceso pulsando de nuevo el botón PLAY para guardar los cambios.
 
-== Los items ==
+== Páginas ==
+
+=== Parámetros ===
 
  * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV. 
  * _*Comp. flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
