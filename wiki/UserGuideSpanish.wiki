@@ -4,11 +4,27 @@
 
 Spanish translation provided by Jmtd.
 
-= Qué es 400plus? =
+= Tabla de Contenidos =
+
+ * Tabla de Contenidos 
+ * Introducción 
+ * El menu de ajustes 
+ * Los guiones
+ * Los preajustes (presets)
+ * AutoISO
+ * Selección del patrón AF
+ * Los extras
+ * Otros regalos
+ * Notas
+ * Errores conocidos 
+
+= Introducción =
+
+== Qué es 400plus? ==
 
 400plus es un software libre de mejora del firmware que ofrece funcionalidades adicionales para tu cámara Canon 400D/XTi de manera tanto no destructiva como no permanente. Funciona cargándose automáticamente en la memoria de tu cámara en el arranque para mejorar el firmware original de la cámara, pero no es una actualización permanente del firmware y se puede quitar fácilmente. Está diseñado específicamente para la Canon EOS 400D/XTi y no funciona con otros modelos de cámara.
 
-= Guía del Usuario =
+== Guía del Usuario ==
 
 Este documento contiene las instrucciones de uso para 400plus. Se supone que, antes de leer esta guía, el usuario ha instalado 400plus y funciona correctamente. Para más información acerca de la instalación de 400plus, ver [http://code.google.com/p/400plus/wiki/FirmwareHackInstallation FirmwareHackInstallation].
 
@@ -191,7 +207,7 @@ Utiliza las teclas IZQUIERDA y DERECHA mientras miras por el visor para cambiar 
 
 Para usar la selección adicional de puntos del patrón AF durante el disparo, pulsa el botón de ZOOM + para entrar en "Selección del punto AF" estándar; a continuación pulsa ZOOM + de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los diferentes patrones disponibles, y pulsa hasta la mitad el botón del obturador para salir del diálogo. 
 
-== Los extras==
+= Los extras =
 
 Se han agregado a la cámara los siguientes extras: 
 
