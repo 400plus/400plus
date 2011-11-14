@@ -6,17 +6,17 @@ Spanish translation provided by Jmtd.
 
 = Tabla de Contenidos =
 
- * Tabla de Contenidos 
- * Introducción 
- * El menu de ajustes 
- * Los guiones
- * Los preajustes (presets)
- * AutoISO
- * Selección del patrón AF
- * Los extras
- * Otros regalos
- * Notas
- * Errores conocidos 
+ * Tabla de Contenidos  [UserGuideSpanish#Tabla_de_Contenidos Tabla de Contenidos]
+ * Introducción  [UserGuideSpanish#Introducción]
+ * El menu de ajustes  [UserGuideSpanish#El_menu_de_ajustes]
+ * Los guiones [UserGuideSpanish#Los_guiones]
+ * Los preajustes (presets) [UserGuideSpanish#Los_preajustes_(presets)]
+ * AutoISO [UserGuideSpanish#AutoISO]
+ * Selección del patrón AF [UserGuideSpanish#Selección_del_patrón_AF]
+ * Los extras [UserGuideSpanish#Los_extras]
+ * Otros regalos [UserGuideSpanish#Otros_regalos]
+ * Notas [UserGuideSpanish#Notas]
+ * Errores conocidos [UserGuideSpanish#Errores_conocidos] 
 
 = Introducción =
 
