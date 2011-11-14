@@ -29,7 +29,7 @@ type_MENUITEM wave_items[] = {
 };
 
 type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT(LP_WORD(L_I_DELAY),  &settings.timer_timeout, NULL),
+	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S), &settings.timer_timeout, NULL),
 	MENUITEM_ACTION (LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
