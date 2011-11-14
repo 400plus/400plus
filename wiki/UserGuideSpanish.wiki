@@ -69,6 +69,36 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Página de Guiones ===
 
+ * _*Toma por Visor*_: Este sub-menú lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
+  * Demora: selecciona el disparo inmediato, o una demora de 2 segundos. 
+  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro). 
+  * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
+  * Instantánea: si se selecciona (puesto en "Sí"), se produce la toma tan pronto como se detecta una mano; de lo contrario, el guión va a esperar hasta que la mano se retira.
+ * _*AEB ext.*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
+  * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
+  * Marcos: número de tomas a disparar. Los valores van de 1 a 9. 
+  * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde 0 (Off) hasta +-6EV.
+  * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
+  * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 16 minutos a 1/4000 segundo). 
+ * _*Interval.*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
+  * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
+  * Tiempo (s): tiempo (en segundos) entre cada disparo. Los valores van desde 0 a 250.
+  * EAEB: selecciona si [UserGuideSpanish#AEB_Extendido AEB Extendido] se debe utilizar en cada disparo. 
+  * Tomas: el número total de disparos a hacer. Los valores van desde 1 a 250, o selecciona "sin límite" para disparar sin cesar.
+ * _*Temporizador*_: Este sub-menú lanza y configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador]. 
+  * Demora (s): tiempo (en segundos) que el guión debe esperar antes de disparar. Los valores van desde 0 a 250. 
+  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro).
+
+=== Página de Información ===
+
+ * _*Contador de disparos*_: El número total de disparos hechos por la cámara. 
+ * _*Número de cuerpo*_: El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara). 
+ * _*Versión*_: El número de la versión del software 400plus actualmente instalado.
+
+=== Página Desarrolladores ===
+
+
+
 
  * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijado por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva. 
@@ -77,25 +107,10 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones]. 
   * LCD bajo: cuando está activado (puesto en "Sí"), la pantalla se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado. 
   * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado. 
- * _*Toma por Visor*_: Este sub-menú configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
-  * Demora: selecciona el disparo inmediato, o una demora de 2 segundos. 
-  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro). 
-  * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
-  * Instantánea: si se selecciona (puesto en "Sí"), se produce la toma tan pronto como se detecta una mano; de lo contrario, el guión va a esperar hasta que la mano se retira.
- * _*AEB ext.*_: Este sub-menú configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
-  * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
-  * Marcos: número de tomas a disparar. Los valores van de 1 a 9. 
-  * Paso (EV): separación en EV entre cada disparo. Los valores van desde 0 (Off) hasta +-6EV.
-  * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
-  * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
- * _*Interval.*_: Este sub-menú configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
-  * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
-  * Tiempo: tiempo (en segundos) entre cada disparo. Los valores van desde 0 a 250.
-  * EAEB: selecciona si [UserGuideSpanish#AEB_Extendido AEB Extendido] se debe utilizar en cada disparo. 
-  * Tomas: el número de disparos a hacer. Los valores van desde 1 a 250, o selecciona "sin límite" para disparar sin cesar.
- * _*Temporizador*_: Este sub-menú configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador]. 
-  * Demora: tiempo (en segundos) que el guión debe esperar antes de disparar. Los valores van desde 0 a 250. 
-  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro).  
+
+
+
+  
  * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
   * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]; por favor, lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
@@ -244,9 +259,7 @@ Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 == Información extendida ==
 
 En la pantalla de "ajustes de la cámara" (presionar DISP en el menú estándar de la cámara), la última línea ahora muestra la siguiente información (en vez del espacio libre de la tarjeta CF):
- * El número total de disparos hechos por la cámara. 
- * El número de la versión del software 400plus actualmente instalado.
- * El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara). 
+
 Utiliza SET e IZQUIERDA / DERECHA para cambiar el ítem a mostrar.
 
 NOTA: Esta función sólo está disponible cuando la cámara se encuentra en los modos de zona creativa (P, Tv, Av, M, A-DEP).
