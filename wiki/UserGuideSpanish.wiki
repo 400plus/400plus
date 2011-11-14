@@ -42,7 +42,7 @@ Para navegar dentro de una página, utiliza los botones ARRIBA (ISO) y ABAJO (WB
 
 == Configuración del menú ==
 
-Los sub-menús se muestran como "ITEM>SUB·ÍTEM"; utiliza el dial frontal o los botones de ZOOM +/- para pasar al siguiente sub·ítem, y a continuación IZQUIERDA y DERECHA para cambiar el valor del ítem seleccionado (mantén pulsada la tecla para cambiar más rápido). Los botones ARRIBA y ABAJO se puede utilizar en cualquier momento para pasar a otro ítem.
+Estando en cualquier página del menú, tienes la posibilidad de cambiar el orden de los elementos según tu propia preferencia personal. Para ello, basta con pulsar el botón PLAY para "agarrar" un elemento (un pequeño ">" aparecerá a la izquierda del ítem). Ahora usa los botones ARRIBA o ABAJO para colocar el elemento del menú en el lugar que te gustaría que ocupara (verás que el ítem se ha movido a la nueva posición). Finaliza el proceso pulsando de nuevo el botón PLAY para guardar los cambios.
 
 == Los items ==
 
