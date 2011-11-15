@@ -87,7 +87,6 @@ C_OBJS = init.o           \
 OBJS   = $(S_OBJS) $(C_OBJS)
 
 all: $(PROJECT).BIN
-	echo $(VERSION)
 
 release: clean
 	@mkdir $(RELNAME)
