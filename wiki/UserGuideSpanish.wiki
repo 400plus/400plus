@@ -77,7 +77,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*AEB ext.*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
   * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
   * Marcos: número de tomas a disparar. Los valores van de 1 a 9. 
-  * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +-01/3  hasta +-6EV.
+  * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +01/3  hasta +6EV.
   * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
   * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
  * _*Interval.*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
