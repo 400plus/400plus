@@ -12,6 +12,7 @@
 
 void menu_params_apply_autoiso_miniso (const type_MENUITEM *item);
 void menu_params_apply_autoiso_maxiso (const type_MENUITEM *item);
+void menu_params_apply_autoiso_maxav  (const type_MENUITEM *item);
 void menu_params_apply_iso            (const type_MENUITEM *item);
 void menu_params_apply_av_comp        (const type_MENUITEM *item);
 void menu_params_apply_efcomp         (const type_MENUITEM *item);
@@ -24,7 +25,7 @@ type_MENUITEM autoiso_items[] = {
 	MENUITEM_BASEISO(LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso, menu_params_apply_autoiso_miniso),
 	MENUITEM_BASEISO(LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso, menu_params_apply_autoiso_maxiso),
 	MENUITEM_TV     (LP_WORD(L_I_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL),
-	MENUITEM_AV     (LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
+	MENUITEM_AV     (LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  menu_params_apply_autoiso_maxav),
 };
 
 type_MENUPAGE autoiso_page = {
@@ -62,6 +63,16 @@ void menu_params_apply_autoiso_miniso(const type_MENUITEM *item) {
 void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
 	settings.autoiso_miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
 	menu_event_display();
+}
+
+void menu_params_apply_autoiso_maxav(const type_MENUITEM *item) {
+	int min = MAX(cameraMode->avo,   0x08);
+	int max = MIN(cameraMode->avmax, 0x67);
+
+	settings.autoiso_maxav = MAX(settings.autoiso_maxav, min);
+	settings.autoiso_maxav = MIN(settings.autoiso_maxav, max);
+
+	menu_event_refresh();
 }
 
 void menu_params_apply_iso(const type_MENUITEM *item) {
