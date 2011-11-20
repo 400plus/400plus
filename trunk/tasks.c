@@ -194,3 +194,13 @@ void autoiso_disable() {
 		settings_write();
 	}
 }
+
+void button_jump_task() {
+	switch (settings.button_jump) {
+	case BUTTON_ACTION_ISO:
+		set_intermediate_iso();
+		break;
+	default:
+		break;
+	}
+}

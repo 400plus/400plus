@@ -17,7 +17,11 @@ void menu_settings_apply_remote_delay    (const type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DIM_LCD_DOWN),  &settings.dim_lcd_down,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_KEEP_POWER_ON), &settings.keep_power_on, NULL)
+	MENUITEM_BOOLEAN(LP_WORD(L_I_KEEP_POWER_ON), &settings.keep_power_on, NULL),
+};
+
+type_MENUITEM buttons_items[] = {
+	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_JUMP), &settings.button_jump, NULL),
 };
 
 type_MENUITEM presets_items[] = {
@@ -26,7 +30,7 @@ type_MENUITEM presets_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_400PLUS),  &presets_config.recall_400plus,  NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_SETTINGS), &presets_config.recall_settings, NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_IMAGE),    &presets_config.recall_image,    NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_CFN),      &presets_config.recall_cfn,      NULL)
+	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_CFN),      &presets_config.recall_cfn,      NULL),
 };
 
 type_MENUITEM pages_items[] = {
@@ -43,6 +47,15 @@ type_MENUPAGE scripts_page = {
 	name   : LP_WORD(L_S_SCRIPTS),
 	length : LENGTH(scripts_items),
 	items  : scripts_items,
+	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
+type_MENUPAGE buttons_page = {
+	name   : LP_WORD(L_S_BUTTONS),
+	length : LENGTH(buttons_items),
+	items  : buttons_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -72,10 +85,11 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_ISO_IN_VF),        &settings.iso_in_viewfinder,      NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu,        NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_SCRIPTS),          &scripts_page,                    NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_BUTTONS),          &buttons_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PRESETS),          &presets_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PAGES),            &pages_page,                      NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu,        NULL),
 };
 
 type_MENUPAGE menupage_settings = {

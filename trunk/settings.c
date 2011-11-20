@@ -41,6 +41,7 @@ type_SETTINGS settings = {
 	logfile_mode     : 0,
 	remote_enable    : FALSE,
 	developers_menu  : FALSE,
+	button_jump      : BUTTON_ACTION_ISO,
 };
 
 int settings_read() {

@@ -13,6 +13,14 @@ typedef enum {
 	SHOT_ACTION_LAST  = SHOT_ACTION_COUNT - 1
 } type_SHOT_ACTION;
 
+typedef enum {
+	BUTTON_ACTION_NONE,
+	BUTTON_ACTION_ISO,
+	BUTTON_ACTION_COUNT,
+	BUTTON_ACTION_FIRST = 0,
+	BUTTON_ACTION_LAST  = BUTTON_ACTION_COUNT - 1
+} type_BUTTON_ACTION;
+
 typedef struct {
 	int iso_in_viewfinder;
 	int autoiso_enable;
@@ -49,6 +57,7 @@ typedef struct {
 	int logfile_mode;
 	int remote_enable;
 	int developers_menu;
+	int button_jump;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;
