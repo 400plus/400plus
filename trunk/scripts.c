@@ -31,6 +31,8 @@ void script_extended_aeb() {
 		script_shot(SHOT_ACTION_EAEB);
 
 	script_stop();
+
+	status.last_script = SCRIPT_EAEB;
 }
 
 void script_interval() {
@@ -43,6 +45,8 @@ void script_interval() {
 		script_shot(SHOT_ACTION_INTERVAL);
 
 	script_stop();
+
+	status.last_script = SCRIPT_INTERVAL;
 }
 
 void script_wave() {
@@ -73,6 +77,8 @@ void script_wave() {
 	} while (status.script_running && settings.wave_repeat);
 
 	script_stop();
+
+	status.last_script = SCRIPT_WAVE;
 }
 
 void script_self_timer() {
@@ -84,6 +90,8 @@ void script_self_timer() {
 		script_shot(settings.timer_action);
 
 	script_stop();
+
+	status.last_script = SCRIPT_TIMER;
 }
 
 void script_start() {

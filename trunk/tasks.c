@@ -4,6 +4,7 @@
 #include "display.h"
 #include "languages.h"
 #include "presets.h"
+#include "scripts.h"
 #include "settings.h"
 #include "utils.h"
 #include "debug.h"
@@ -12,7 +13,7 @@
 #include "tasks.h"
 
 void set_intermediate_iso();
-int img_setting;
+void repeat_last_script();
 
 void start_up() {
 	// Wait for camera to settle down
@@ -195,10 +196,32 @@ void autoiso_disable() {
 	}
 }
 
+void repeat_last_script() {
+	switch (status.last_script) {
+	case SCRIPT_EAEB:
+		script_extended_aeb();
+		break;
+	case SCRIPT_INTERVAL:
+		script_interval();
+		break;
+	case SCRIPT_WAVE:
+		script_wave();
+		break;
+	case SCRIPT_TIMER:
+		script_self_timer();
+		break;
+	default:
+		break;
+	}
+}
+
 void button_jump_task() {
 	switch (settings.button_jump) {
 	case BUTTON_ACTION_ISO:
 		set_intermediate_iso();
+		break;
+	case BUTTON_ACTION_SCRIPT:
+		repeat_last_script();
 		break;
 	default:
 		break;

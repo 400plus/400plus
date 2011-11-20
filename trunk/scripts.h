@@ -12,6 +12,17 @@
 #define SCRIPT_DELAY_REPEAT   4
 #define SCRIPT_DELAY_TIME   250
 
+typedef enum {
+	SCRIPT_NONE,
+	SCRIPT_EAEB,
+	SCRIPT_INTERVAL,
+	SCRIPT_WAVE,
+	SCRIPT_TIMER,
+	SCRIPT_COUNT,
+	SCRIPT_FIRST = 0,
+	SCRIPT_LAST  = SCRIPT_COUNT - 1
+} type_SCRIPT;
+
 extern void script_extended_aeb();
 extern void script_interval();
 extern void script_wave();
