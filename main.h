@@ -571,7 +571,6 @@ struct struct_type_DIALOG {
 	// there are more for sure (perhaps to 0x00B8)
 };
 
-
 // Action definitions
 typedef void(*type_TASK)();
 

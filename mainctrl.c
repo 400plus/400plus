@@ -83,7 +83,7 @@ void my_MC_T_Button(mc_table_t * event) {
 		switch (FLAG_GUI_MODE) {
 			case GUIMODE_MAIN:
 			case GUIMODE_OLC:
-				ENQUEUE_TASK(set_intermediate_iso);
+				ENQUEUE_TASK(button_jump_task);
 				break;
 			default:
 				MC_T_Button(event);
