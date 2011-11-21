@@ -1,5 +1,5 @@
 PROJECT = AUTOEXEC
-ADDRESS = 0x7F0000
+ADDRESS = 0x7E0000
 
 ifdef RELEASE
 	VERSION = V-$(RELEASE)
@@ -17,9 +17,11 @@ COMMON_FLAGS =\
 	-nostdlib                         \
 	-fno-builtin                      \
 	-mcpu=arm946e-s                   \
+	-fPIE                             \
 	-DVERSION='"$(VERSION)"'          \
 
-	#-mlong-calls \
+	#-Werror              \
+	#-mlong-calls         \
 	#-fomit-frame-pointer \
 	#-fno-strict-aliasing \
 
