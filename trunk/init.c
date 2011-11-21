@@ -13,10 +13,20 @@ void my_task_Startup();
 int  my_InitializeIntercom();
 
 void COPY() {
+	// AF: it seems we need to move away from the default entry point 0x800000,
+	// which is called by the BootLoader (BL), since after a short time the very
+	// same BL overwrites this first addresses of 0x800000.
+	// So we make our entry point at 0x7E0000 by instructing the linker.
+	// After the camera starts it jumps to 0x800000, then we copy our code to 0x7E0000
+	// and continue the execution from there.
+	// At 0x7E0000 we have 128kb of space to use.
+	// The one thing I do not understand is why if we copy more than 16kb (0x4000)
+	// of our code the camera is hanging, and how is our code working if we didn't copied
+	// all of our code. (perhaps the BL does the magic)
 	int i;
 
 	long *from = (long*) 0x800000;
-	long *to   = (long*) 0x7F0000;
+	long *to   = (long*) 0x7E0000;
 
 	for (i = 0; i < 0x4000; i++) {
 		to[i] = from[i];
@@ -122,7 +132,7 @@ usrRoot_failed:
 }
 
 void my_taskcreate_Startup() {
-	CreateMainHeap(0x200000, 0x800000 - 0x10000); // in end of MainHeap - own code - 64 Kb
+	CreateMainHeap(0x200000, 0x800000 - 0x20000); // in end of MainHeap - own code - 128 Kb
 
 	sub_FFB0FF74();
 	sub_FFB2E108(0x386D4380);

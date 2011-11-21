@@ -1,5 +1,5 @@
 SECTIONS {
-	first 0x7F0000 :
+	first 0x7E0000 :
 	{
 		entry.o;
 		funclist.o;
