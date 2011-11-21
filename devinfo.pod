@@ -1,0 +1,68 @@
+=begin comment
+vim: ft=pod ts=4 sw=4 cc=80 spell:
+
+I will stick to the POD format for now, as it's easily converted to other
+formats with pod2* tools.
+For more info: http://en.wikipedia.org/wiki/Plain_Old_Documentation
+
+to read this file:
+perldoc ./devinfo.pod
+
+to read how to format this file:
+man perlpod
+
+=end comment
+
+
+=head1 NAME
+
+devinfo.pod - the
+L<< POD|http://en.wikipedia.org/wiki/Plain_Old_Documentation >> file for
+the devs of L<< 400Plus|http://code.google.com/p/400plus >> project.
+
+
+=head1 DESCRIPTION
+
+Here one should be able to find some of our discoveries in the path of
+development and reverse engineering.
+
+=head2 Acronyms
+
+=over
+
+=item B<BL> = BootLoader
+
+=item B<OFW> = Original FirmWare (The original Canon's firmware)
+
+=back
+
+=head2 Boot procedure
+
+It seems the B<BL> loads our I<AUTOEXEC.BIN> into I<0x800000> address,
+then jumps there. Unfortunately the B<OFW> will overwrite this area short
+after booting, so we need to move away from this address. The first thing
+we do when we are called by the B<BL> is to call the C<COPY()> [I<init.c>]
+routine. This routine will copy the code from I<0x800000> to I<0x7E0000>.
+We use this range I<0x7E0000 - 0x800000> for our code (I<128kb>).
+You will see this address in our I<linker.script> and I<Makefile>.
+While we are in our C<my_taskcreate_Startup()> [I<init.c>] you will see that
+the call to C<CreateMainHeap(from, to)> have C<0x800000 - 0x20000> for the
+I<to> argument. This will keep us safe from B<OFW> and ours heap allocations.
+
+
+=head2 PTP
+
+Still nothing to document here, just some stuff i've spotted around.
+
+=over 1
+
+=item PTP_Actions()
+	@ 0xFF9E584C
+
+=item PTP_Actions()
+	@ 0xFF9E584C
+
+=back
+
+
+=cut
