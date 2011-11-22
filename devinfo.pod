@@ -1,68 +1,228 @@
-=begin comment
-vim: ft=pod ts=4 sw=4 cc=80 spell:
+=cut
 
-I will stick to the POD format for now, as it's easily converted to other
+I will stick to the POD format for now, as it's easily convertable to other
 formats with pod2* tools.
-For more info: http://en.wikipedia.org/wiki/Plain_Old_Documentation
 
 to read this file:
 perldoc ./devinfo.pod
 
-to read how to format this file:
+more info on POD formating:
 man perlpod
+http://en.wikipedia.org/wiki/Plain_Old_Documentation
 
-=end comment
 
+###############################################################################
+
+=pod
 
 =head1 NAME
 
-devinfo.pod - the
-L<< POD|http://en.wikipedia.org/wiki/Plain_Old_Documentation >> file for
-the devs of L<< 400Plus|http://code.google.com/p/400plus >> project.
-
+devinfo.pod - a
+L<POD|http://en.wikipedia.org/wiki/Plain_Old_Documentation> file for
+the devs of L<400Plus|http://code.google.com/p/400plus> project.
 
 =head1 DESCRIPTION
 
 Here one should be able to find some of our discoveries in the path of
 development and reverse engineering.
 
-=head2 Acronyms
+=cut
+
+###############################################################################
+
+=pod
+
+=head1 ACRONYMS
+
+=head2 Acronyms used in this documentation
 
 =over
 
-=item B<BL> = BootLoader
+=item B<BL>  = BootLoader
 
 =item B<OFW> = Original FirmWare (The original Canon's firmware)
 
+=item B<WDT> = WatchDogTimer
+
+=item B<RO>  = Read Only
+
 =back
+
+=cut
+
+###############################################################################
+
+=pod
+
+=head2 Acronyms used by B<Canon> in the B<OFW>
+
+=over
+
+=item B<FIO> = FileIO
+
+=back
+
+=cut
+
+###############################################################################
+
+=pod
+
+=head1 INFORMATION
 
 =head2 Boot procedure
 
-It seems the B<BL> loads our I<AUTOEXEC.BIN> into I<0x800000> address,
+It seems the B<BL> loads our F<AUTOEXEC.BIN> into I<0x800000> address,
 then jumps there. Unfortunately the B<OFW> will overwrite this area short
 after booting, so we need to move away from this address. The first thing
-we do when we are called by the B<BL> is to call the C<COPY()> [I<init.c>]
-routine. This routine will copy the code from I<0x800000> to I<0x7E0000>.
-We use this range I<0x7E0000 - 0x800000> for our code (I<128kb>).
-You will see this address in our I<linker.script> and I<Makefile>.
-While we are in our C<my_taskcreate_Startup()> [I<init.c>] you will see that
-the call to C<CreateMainHeap(from, to)> have C<0x800000 - 0x20000> for the
-I<to> argument. This will keep us safe from B<OFW> and ours heap allocations.
+we do when we are called by the B<BL> is to call the C<COPY()> [F<init.c>]
+routine (see [F<entry.S>]). This routine will copy the code from I<0x800000>
+to I<0x7E0000>. We use this range I<0x7E0000> - I<0x800000> for
+our code (I<128kb>).You will see this address in our F<linker.script>
+and F<Makefile>.  While we are in our C<my_taskcreate_Startup()> [F<init.c>]
+you will see that the call to C<CreateMainHeap(from, to)> have
+(C<0x800000 - 0x20000>) for the I<to> argument. This will keep us safe
+from B<OFW>'s and ours heap allocations (C<malloc()>).
 
+note: There is something I do not understand. In the C<COPY()> routine we
+copy only I<0x4000> bytes (I<16kb>) from I<0x800000> to I<0x7E0000>. If I
+try to copy more bytes the camera hangs. I cannot understand why/how our code
+is working if we copy only 16kb of the hack.
 
-=head2 PTP
+=cut
 
-Still nothing to document here, just some stuff i've spotted around.
+###############################################################################
 
-=over 1
+=pod
 
-=item PTP_Actions()
-	@ 0xFF9E584C
+=head1 IDEAS
 
-=item PTP_Actions()
-	@ 0xFF9E584C
+=head2 Doxygen comments in code
+
+Comment the code with doxygen comments.
+
+=head2 Temporarily disable the hack
+
+=over
+
+=item 1. write a temp file to the CF
+
+=item 2. C<reboot()> or use the B<WDT> routines to block the B<WDT> pings
+and get rebooted.
+
+=item 3. find the B<BL>'s B<FIO> routines (atleast C<open()>) and check
+for the temp file existence.
+
+=item 4. remove the file if exists.
+
+=item 5. call B<OFW>'s init procedure if the temp file was there.
+(start normally, skip the hack)
 
 =back
 
+=head2 Auto-Protect option
+
+Check if it's possible to make the files I<Read-Only> (with B<RO> attribute)
+on-the-fly. This will protect them from deleting with
+I<Erase> and I<Erase all>. I suppose the B<OFW> protect works the same way.
+
+=head2 Separate folders for photos
+
+The High-End cameras (5d2) have this option. One can change the folder where
+the photos are saved.
+See L<DCF|http://en.wikipedia.org/wiki/Design_rule_for_Camera_File_system>
+
+=head2 Separate folder for 400Plus stuff
+
+It would be nice to have our files in separate folder. See the previous idea.
+
+=head2 Lens info
+
+Continue investigation on lens info structures and tables.
+This info can be useful for I<Presets> based on attached lens.
+
+=head2 PTP - Picture Transfer Protocol
+
+Investigate on PTP stuff, the ultimate goal is to be able to upload the
+F<AUTOEXEC.BIN> into the camera via the PTP (USB).
+See L<PTP|http://en.wikipedia.org/wiki/Picture_Transfer_Protocol>
+
+=head2 Help messages
+
+Short help messages for every menu. Either as pop-up message (C<StartTimer()>
+can be used), or with B<HELP> button.
 
 =cut
+
+###############################################################################
+
+=pod
+
+=head1 ROUTINES
+
+=head2 Useful routines
+
+=over
+
+=item StartTimer(int time, void *proc, void *proc, int);
+
+Canon uses this to schedule a proc for starting.
+In the both proc arguments they are giving the same pointer.
+Last arg is 0
+
+
+=back
+
+=head2 Routines which needs more attention
+
+=over
+
+=item eventproc_SetCustomFunc
+
+=item eventproc_ExportToEventProcedure
+
+=item eventproc_CreateProxyOfEventProcedure
+
+=item eventproc_ShutDownAndRestartAfter
+
+=item eventproc_ShutDownAndRestartWhen
+
+=item eventproc_BlockUntilAfterTimeout
+
+=item PTPRspnd.StartTransportLog
+
+=item eventproc_SpecyficToPartnerEvent
+
+=item eventproc_ShowMemBlock
+
+=item eventproc_ResetMem
+
+=item eventproc_EnableBootDisk
+
+=item eventproc_DisableBootDisk
+
+=item eventproc_EnableDigitalGain
+
+=item eventproc_DisableDigitalGain
+
+=item eventproc_EnableLinearOffsetCorrect
+
+=item eventproc_DisableLinearOffsetCorrect
+
+=item eventproc_TransferNormalScreen - normal
+
+=item eventproc_TransferUpsideDownScreen - upside-down
+
+=item eventproc_TransferMirrorScreen - mirror
+
+=item eventproc_TransferRotateScreen - rotate
+
+=item PTP_Actions
+
+=item register_ptp_handler
+
+=back
+
+=cut
+
+vim: ft=pod ts=4 sw=4 cc=80 spell:
