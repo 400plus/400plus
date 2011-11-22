@@ -17,7 +17,6 @@ COMMON_FLAGS =\
 	-nostdlib                         \
 	-fno-builtin                      \
 	-mcpu=arm946e-s                   \
-	-fPIE                             \
 	-DVERSION='"$(VERSION)"'          \
 
 	#-Werror              \

@@ -61,7 +61,7 @@ void menu_create(type_MENU *menu) {
 	SleepTask(100);
 
 	status.menu_running = TRUE;
-	FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
+	//FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
 
 	current_menu    = menu;
 	menu_cameraMode = *cameraMode;
@@ -114,10 +114,10 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 // standard menu 55-63
 #ifdef ENABLE_DEBUG
 	// print the dialog structure and diff the both cases of menu creation
-	printf_log(1,6, "_BTN_ [%s][guimode:%08X]", debug_btn_name(event), FLAG_GUI_MODE);
-	printf_log(1,6, "_BTN_: 84=[%08X] 88=[%08X]", GET_FROM_MEM(menu_handler+0x84), GET_FROM_MEM(menu_handler+0x88) );
-	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X], 90=[%08X]", *r1, *r3, /* *(int*) */(*(int*)((int)dialog+0x90)) );
-	printf_log(1,6, "_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
+	debug_log("_BTN_ [%s][guimode:%08X]", debug_btn_name(event), FLAG_GUI_MODE);
+	//debug_log("_BTN_: 84=[%08X] 88=[%08X]", GET_FROM_MEM(menu_handler+0x84), GET_FROM_MEM(menu_handler+0x88) );
+	//debug_log("_BTN_: r1=[%08X], r3=[%08X], 90=[%08X]", *r1, *r3, /* *(int*) */(*(int*)((int)dialog+0x90)) );
+	//debug_log("_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
 #endif
 
 	// Loop over all the actions from this action chain

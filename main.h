@@ -15,6 +15,16 @@
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
+// from ML's compiler.h
+/** Compile time failure if a structure is not sized correctly */
+#define SIZE_CHECK_STRUCT( struct_name, size ) \
+	static int __attribute__((unused)) \
+	__size_check_##struct_name[ \
+		sizeof( struct struct_name ) == size ? 0 : -1 \
+	]
+
+
+
 // Events for SendToIntercom
 typedef enum {
 	IC_SET_AE                      = 0x01, //
@@ -239,7 +249,8 @@ typedef enum {
 	GUI_UNKNOWN2                   = 0x1000003E, // related to btns that repeats (AV, 1/2-SHUT) may be ?
 } gui_event_t;
 
-typedef struct {                 // [*] Used and tested, others unknown
+// DigiProp Data Structure
+struct struct_dpr_data_t {           // [*] Used and tested, others unknown
 	int ae;                      // 0x0000 [*] [1]
 	int metering;                // 0x0004 [*] [2]
 	int efcomp;                  // 0x0008 [*] [K]
@@ -341,8 +352,11 @@ typedef struct {                 // [*] Used and tested, others unknown
 	int cf_tft_on_power_on;      // 0x0188
 	int field_18C;               // 0x018c
 	int field_190;               // 0x0190
-} type_CAMERA_MODE;
+};
+SIZE_CHECK_STRUCT( struct_dpr_data_t, 0x194 );
+//  0x194 is the number in the FW when it comes to DPR (as it's 0x198 too, they go together always)
 
+typedef struct struct_dpr_data_t type_CAMERA_MODE;
 extern type_CAMERA_MODE *cameraMode;
 
 // [1] Values for "ae"
@@ -528,7 +542,7 @@ typedef struct struct_type_DIALOG dialog_t; // forward declaration
 
 // Handler for events/buttons in dialogs
 // r3 seems to get 2 values in halfwords... still dont know what they do
-typedef int(*type_EVENT_HANDLER)(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
+typedef int(*event_handler_t)(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 struct struct_type_DIALOG {
 	char * pSignature;   // 0x0000 - "DIALOG"
@@ -562,7 +576,7 @@ struct struct_type_DIALOG {
 	int field_0x0070;    // 0x0070
 	int field_0x0074;    // 0x0074
 	int field_0x0078;    // 0x0078
-	type_EVENT_HANDLER *event_handler; // 0x007C
+	event_handler_t *event_handler; // 0x007C
 	int arg2;            // 0x0080 - the second arg to the handler
 	dialog_item_t * dlg_item; // 0x0084 - structure that holds some dialog_item stuff, probably the selected item
 	int field_0x0088;    // 0x0088
