@@ -57,7 +57,21 @@ void start_up() {
 	// We are no longer booting up
 	status.booting = FALSE;
 
+#if 0
 	debug_log("maindlg @ 0x%08X, handler @ 0x%08X", hMainDialog, hMainDialog->event_handler);
+
+	debug_log("dumping");
+	long *addr   = (long*) 0x7F0000;
+
+	int file = FIO_OpenFile("A:/dump.bin", O_CREAT | O_WRONLY , 644);
+
+	if (file != -1) {
+		FIO_WriteFile(file, addr, 0xFFFF);
+		FIO_CloseFile(file);
+		beep();
+	}
+#endif
+
 
 }
 

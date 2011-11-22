@@ -67,7 +67,7 @@ void my_GUIInit() {
 
 	hGUIWindowInstance = CreateWindowInstance(0, 0, var1, var2, GUIWindowInstanceProc, GetBrushFromSystemColor(3));
 
-	some_do_with_window_instance(hGUIWindowInstance);
+	window_instance_redraw(hGUIWindowInstance);
 	taskcreate_GuiMainTask();
 	CreateGUIPubInstance();
 	taskcreate_tGraphics();
