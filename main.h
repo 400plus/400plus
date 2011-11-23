@@ -626,10 +626,10 @@ typedef struct {
 } type_STATUS;
 
 // Main message queue
-extern int *message_queue;
+extern int *task_queue;
 
 // Inline code
-#define ENQUEUE_TASK(task) TryPostMessageQueue(message_queue, (task), FALSE);
+#define ENQUEUE_TASK(task) TryPostMessageQueue(task_queue, (task), FALSE);
 
 #define END_OF_LIST  {_eol_ : TRUE}
 #define IS_EOL(item) (item->_eol_)
