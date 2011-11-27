@@ -233,7 +233,6 @@ void preset_save(int id) {
 		status.last_preset = id;
 
 		beep();
-		menu_close();
 	}
 }
 
