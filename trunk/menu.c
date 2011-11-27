@@ -61,7 +61,7 @@ void menu_create(type_MENU *menu) {
 	SleepTask(100);
 
 	status.menu_running = TRUE;
-	FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
+	//FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
 
 	current_menu    = menu;
 	menu_cameraMode = *cameraMode;
@@ -86,8 +86,18 @@ void menu_create(type_MENU *menu) {
 }
 
 void menu_close() {
-	press_button(IC_BUTTON_DISP);
-	menu_destroy();
+    GUI_Lock();
+    GUI_PalleteInit();
+
+	DeleteDialogBox(menu_handler);
+	menu_handler = NULL;
+
+	GUI_StartMode(GUIMODE_OLC);
+    CreateDialogBox_OlMain();
+    GUIMode = GUIMODE_OLC;
+
+    GUI_UnLock();
+    GUI_PalleteUnInit();
 }
 
 void menu_initialize() {
