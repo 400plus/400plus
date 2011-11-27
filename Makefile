@@ -1,5 +1,5 @@
-PROJECT = AUTOEXEC
-ADDRESS = 0x7E0000
+PROJECT := AUTOEXEC
+ADDRESS := 0x7E0000
 
 ifdef RELEASE
 	VERSION = V-$(RELEASE)
@@ -9,7 +9,7 @@ else
 	RELNAME = 400plus-$(shell date +'%Y%m%d')-0
 endif
 
-COMMON_FLAGS =\
+COMMON_FLAGS :=\
 	-Wall                             \
 	-Werror                           \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
@@ -34,8 +34,8 @@ COMMON_FLAGS =\
 	#-mstructure-size-boundary=32 \
 
 
-CC     = arm-elf-gcc
-CFLAGS+= $(COMMON_FLAGS)               \
+CC     := arm-elf-gcc
+CFLAGS += $(COMMON_FLAGS)              \
 	-Os                                \
 	-Wno-implicit-function-declaration \
 	-Wno-char-subscripts               \
@@ -46,17 +46,17 @@ CFLAGS+= $(COMMON_FLAGS)               \
 	#-Wno-unused-function  \
 
 
-AS      = arm-elf-as
-ASFLAGS = $(COMMON_FLAGS)
+AS      := arm-elf-as
+ASFLAGS := $(COMMON_FLAGS)
 
-LDFLAGS = -Wl,-Ttext,$(ADDRESS) -e _start
+LDFLAGS := -Wl,-Ttext,$(ADDRESS) -e _start
 
-OBJCOPY = arm-elf-objcopy
+OBJCOPY := arm-elf-objcopy
 
-S_OBJS = entry.o          \
+S_OBJS := entry.o          \
          funclist.o       \
 
-C_OBJS = init.o           \
+C_OBJS := init.o           \
          gui.o            \
          main.o           \
          mainctrl.o       \
@@ -85,7 +85,7 @@ C_OBJS = init.o           \
          af_patterns.o    \
          debug.o          \
 
-OBJS   = $(S_OBJS) $(C_OBJS)
+OBJS  := $(S_OBJS) $(C_OBJS)
 
 all: $(PROJECT).BIN
 
@@ -95,7 +95,7 @@ release: clean
 	@zip -9 -r $(RELNAME).src.zip $(RELNAME)
 
 	@mkdir $(RELNAME)/bin
-	@cd $(RELNAME)/src && make
+	@cd $(RELNAME)/src && CFLAGS="" make
 	@cp $(RELNAME)/src/AUTOEXEC.BIN $(RELNAME)/src/languages.ini $(RELNAME)/bin/
 	@zip -9 -r $(RELNAME).bin.zip $(RELNAME)/bin/
 
