@@ -117,6 +117,18 @@ int av_dec(int av) {
 	return MAX(av, 0x08); // f/1.0
 }
 
+int av_add(int ying, int yang) {
+	int av = ev_add(ying, yang);
+
+	return MIN(av, cameraMode->avmax);
+}
+
+int av_sub(int ying, int yang) {
+	int av = ev_sub(ying, yang);
+
+	return MAX(av, cameraMode->avo);
+}
+
 int tv_next(int tv) {
 	return MIN(tv + 0x08, 0x98);
 }
