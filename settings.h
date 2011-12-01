@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x28
+#define SETTINGS_VERSION  0x29
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -22,6 +22,15 @@ typedef enum {
 	BUTTON_ACTION_LAST  = BUTTON_ACTION_COUNT - 1
 } type_BUTTON_ACTION;
 
+typedef enum {
+	EAEB_DIRECTION_UP,
+	EAEB_DIRECTION_DOWN,
+	EAEB_DIRECTION_BOTH,
+	EAEB_DIRECTION_COUNT,
+	EAEB_DIRECTION_FIRST = 0,
+	EAEB_DIRECTION_LAST  = EAEB_DIRECTION_COUNT - 1
+} type_EAEB_DIRECTION;
+
 typedef struct {
 	int iso_in_viewfinder;
 	int autoiso_enable;
@@ -34,6 +43,7 @@ typedef struct {
 	int eaeb_ev;
 	int eaeb_tv_min;
 	int eaeb_tv_max;
+	int eaeb_direction;
 	int interval_delay;
 	int interval_time;
 	int interval_eaeb;

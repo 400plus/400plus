@@ -201,7 +201,7 @@ void sub_extended_aeb() {
 
 		// ...and do the rest ourselves
 		while(frames) {
-//			if (settings.eaeb_frames.direction == EAEB_DIRECTION_BOTH || settings.eaeb_frames.direction == EAEB_DIRECTION_UP) {
+			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
 				tv_inc = tv_add(tv_inc, tv_sep);
 				av_inc = av_add(av_inc, av_sep);
 
@@ -213,9 +213,9 @@ void sub_extended_aeb() {
 
 				if (!status.script_running)
 					break;
-//			}
+			}
 
-//			if (settings.eaeb_frames.direction == EAEB_DIRECTION_BOTH || settings.eaeb_frames.direction == EAEB_DIRECTION_DOWN) {
+			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
 				tv_dec = tv_sub(tv_dec, tv_sep);
 				av_dec = tv_sub(av_dec, av_sep);
 
@@ -227,7 +227,7 @@ void sub_extended_aeb() {
 
 				if (!status.script_running)
 					break;
-//			}
+			}
 		}
 
 		// Restore values

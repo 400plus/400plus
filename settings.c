@@ -17,6 +17,7 @@ type_SETTINGS settings = {
 	eaeb_ev          : 0x08, // 1EV
 	eaeb_tv_min      : 0x78, // 1/250s
 	eaeb_tv_max      : 0x68, // 1/60s
+	eaeb_direction   : EAEB_DIRECTION_BOTH,
 	interval_delay   : FALSE,
 	interval_time    : 2,
 	interval_eaeb    : FALSE,
