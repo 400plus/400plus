@@ -9,7 +9,7 @@ else
 	RELNAME = 400plus-$(shell date +'%Y%m%d')-0
 endif
 
-COMMON_FLAGS :=\
+COMMON_FLAGS =\
 	-Wall                             \
 	-Werror                           \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
