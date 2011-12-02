@@ -18,7 +18,7 @@ type_MENU     *current_menu;
 
 type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_event_menu}},
-	{GUI_BUTTON_DISP,           FALSE, FALSE, {menu_event_disp}},
+	{GUI_BUTTON_DISP,           FALSE, TRUE,  {menu_event_disp}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_event_jump}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {menu_event_trash}},
