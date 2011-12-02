@@ -33,7 +33,21 @@ void script_extended_aeb() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_EAEB;
+	status.last_script = SCRIPT_EXT_AEB;
+}
+
+void script_iso_aeb() {
+	script_start();
+
+	if (settings.eaeb_delay)
+		script_delay(2);
+
+	if (status.script_running)
+		sub_iso_aeb();
+
+	script_stop();
+
+	status.last_script = SCRIPT_ISO_AEB;
 }
 
 void script_interval() {
