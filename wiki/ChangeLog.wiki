@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20111111-1*_
+ * Minor bugfixes only.
+
 _*20111111-0*_
  * New multi-page menus.
  * Improved reliability of scripts.
