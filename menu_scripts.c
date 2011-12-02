@@ -11,13 +11,13 @@
 
 #include "menu_scripts.h"
 
-void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
-void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
+void menu_scripts_apply_eaeb_tvmin      (type_MENUITEM *item);
+void menu_scripts_apply_eaeb_tvmax      (type_MENUITEM *item);
 
-void menu_scripts_extended_aeb (const type_MENUITEM *item);
-void menu_scripts_interval     (const type_MENUITEM *item);
-void menu_scripts_wave         (const type_MENUITEM *item);
-void menu_scripts_self_timer   (const type_MENUITEM *item);
+void menu_scripts_extended_aeb (type_MENUITEM *item);
+void menu_scripts_interval     (type_MENUITEM *item);
+void menu_scripts_wave         (type_MENUITEM *item);
+void menu_scripts_self_timer   (type_MENUITEM *item);
 
 void menu_scripts_launch (type_TASK script);
 
@@ -34,10 +34,9 @@ type_MENUITEM timer_items[] = {
 };
 
 type_MENUITEM eaeb_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
-	MENUITEM_BRACKET(LP_WORD(L_I_FRAMES),    &settings.eaeb_frames,    NULL),
-	MENUITEM_EVEAEB (LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,        NULL),
-	MENUITEM_EAEBDIR(LP_WORD(L_I_DIRECTION), &settings.eaeb_direction, NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.eaeb_delay,  NULL),
+	MENUITEM_BRACKET(LP_WORD(L_I_FRAMES),    &settings.eaeb_frames, NULL),
+	MENUITEM_EVEAEB (LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,     NULL),
 	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min, menu_scripts_apply_eaeb_tvmin),
 	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max, menu_scripts_apply_eaeb_tvmax)
 };
@@ -100,29 +99,29 @@ type_MENUPAGE menupage_scripts = {
 	ordering  : settings.scripts_order,
 };
 
-void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
+void menu_scripts_apply_eaeb_tvmin(type_MENUITEM *item) {
 	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
 	menu_event_display();
 }
 
-void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
+void menu_scripts_apply_eaeb_tvmax(type_MENUITEM *item) {
 	settings.eaeb_tv_min = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
 	menu_event_display();
 }
 
-void menu_scripts_extended_aeb(const type_MENUITEM *item) {
+void menu_scripts_extended_aeb(type_MENUITEM *item) {
 	menu_scripts_launch(script_extended_aeb);
 }
 
-void menu_scripts_interval(const type_MENUITEM *item) {
+void menu_scripts_interval(type_MENUITEM *item) {
 	menu_scripts_launch(script_interval);
 }
 
-void menu_scripts_wave(const type_MENUITEM *item) {
+void menu_scripts_wave(type_MENUITEM *item) {
 	menu_scripts_launch(script_wave);
 }
 
-void menu_scripts_self_timer(const type_MENUITEM *item) {
+void menu_scripts_self_timer(type_MENUITEM *item) {
 	menu_scripts_launch(script_self_timer);
 }
 

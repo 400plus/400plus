@@ -20,8 +20,6 @@ extern int ev_sub(int ying, int yang);
 
 extern int av_inc(int ev);
 extern int av_dec(int ev);
-extern int av_add(int ying, int yang);
-extern int av_sub(int ying, int yang);
 
 extern int tv_next(int ev);
 extern int tv_prev(int ev);

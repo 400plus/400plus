@@ -31,8 +31,6 @@ void script_extended_aeb() {
 		script_shot(SHOT_ACTION_EAEB);
 
 	script_stop();
-
-	status.last_script = SCRIPT_EAEB;
 }
 
 void script_interval() {
@@ -45,8 +43,6 @@ void script_interval() {
 		script_shot(SHOT_ACTION_INTERVAL);
 
 	script_stop();
-
-	status.last_script = SCRIPT_INTERVAL;
 }
 
 void script_wave() {
@@ -77,8 +73,6 @@ void script_wave() {
 	} while (status.script_running && settings.wave_repeat);
 
 	script_stop();
-
-	status.last_script = SCRIPT_WAVE;
 }
 
 void script_self_timer() {
@@ -90,8 +84,6 @@ void script_self_timer() {
 		script_shot(settings.timer_action);
 
 	script_stop();
-
-	status.last_script = SCRIPT_TIMER;
 }
 
 void script_start() {
@@ -156,104 +148,75 @@ void script_shot(type_SHOT_ACTION action) {
 }
 
 void sub_extended_aeb() {
-	if (cameraMode->tv_val == TV_VAL_BULB) {
-		int tv_val;
+	if (cameraMode->ae == AE_MODE_M) {
+		if (cameraMode->tv_val == TV_VAL_BULB) {
+			int tv_val;
 
-		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
-			if (tv_val < 0x10) {
-				send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
-				shutter_release_bulb(1 << (1 - (tv_val >> 3)));
-			} else {
-				send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
+			for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
+				if (tv_val < 0x10) {
+					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
+					shutter_release_bulb(1 << (1 - (tv_val >> 3)));
+				} else {
+					send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
+					shutter_release();
+				}
+
+				if (!status.script_running)
+					break;
+			};
+		} else {
+			int i;
+
+			int tv_inc = cameraMode->tv_val;
+			int tv_dec = cameraMode->tv_val;
+
+			shutter_release();
+
+			for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
+				tv_inc = tv_add(tv_inc, settings.eaeb_ev);
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_inc);
 				shutter_release();
+
+				if (!status.script_running)
+					break;
+
+				tv_dec = tv_sub(tv_dec, settings.eaeb_ev);
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
+				shutter_release();
+
+				if (!status.script_running)
+					break;
 			}
+		}
+
+		send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
+	} else {
+		int i;
+
+		int av_inc = cameraMode->av_comp;
+		int av_dec = cameraMode->av_comp;
+
+		shutter_release();
+
+		for(i = 0; i < (settings.eaeb_frames - 1) / 2; i++) {
+			av_inc = ev_add(av_inc, settings.eaeb_ev);
+			send_to_intercom(IC_SET_AV_COMP, 1, av_inc);
+			shutter_release();
 
 			if (!status.script_running)
 				break;
-		};
 
-		send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
-	} else if (cameraMode->ae < AE_MODE_AUTO) {
-		int tv_inc, av_inc;
-		int tv_dec, av_dec;
-
-		int tv_sep = 0x00, av_sep = 0x00;
-		int frames = settings.eaeb_frames;
-
-		if (cameraMode->ae == AE_MODE_TV) {
-			// Fixed Tv, Variable Av
-			av_sep = settings.eaeb_ev;
-		} else {
-			// Variable Tv, Fixed Av
-			tv_sep = settings.eaeb_ev;
-		}
-
-		// First photo taken using default values
-		shutter_release();
-		frames--;
-
-		// Just hope the camera does not change these too quickly
-		tv_inc = tv_dec = status.measured_tv;
-		av_inc = av_dec = status.measured_av;
-
-		// Enter manual mode...
-		send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
-
-		// ...and do the rest ourselves
-		while(frames) {
-			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
-				tv_inc = tv_add(tv_inc, tv_sep);
-				av_inc = av_add(av_inc, av_sep);
-
-				send_to_intercom(IC_SET_TV_VAL, 1, tv_inc);
-				send_to_intercom(IC_SET_AV_VAL, 1, av_inc);
-
-				shutter_release();
-				frames--;
-
-				if (!status.script_running)
-					break;
-			}
-
-			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
-				tv_dec = tv_sub(tv_dec, tv_sep);
-				av_dec = tv_sub(av_dec, av_sep);
-
-				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
-				send_to_intercom(IC_SET_AV_VAL, 1, av_dec);
-
-				shutter_release();
-				frames--;
-
-				if (!status.script_running)
-					break;
-			}
-		}
-
-		// Restore values
-		send_to_intercom(IC_SET_AE,     1, st_cameraMode.ae);
-		send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
-		send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
-	}
-}
-
-/*
-void sub_iso_aeb() {
-	int i;
-
-	for (i = 0; i < 5; i++) {
-		if (settings.eaeb_iso[i]) {
-			send_to_intercom(IC_SET_ISO, 1, 1 << 3);
+			av_dec = ev_sub(av_dec, settings.eaeb_ev);
+			send_to_intercom(IC_SET_AV_COMP, 1, av_dec);
 			shutter_release();
 
 			if (!status.script_running)
 				break;
 		}
-	}
 
-	send_to_intercom(IC_SET_ISO, 1, st_cameraMode.iso);
+		send_to_intercom(IC_SET_AV_COMP, 1, st_cameraMode.av_comp);
+	}
 }
-*/
 
 void sub_interval() {
 	int i = 0;
