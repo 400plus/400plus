@@ -212,7 +212,7 @@ void autoiso_disable() {
 
 void repeat_last_script() {
 	switch (status.last_script) {
-	case SCRIPT_EAEB:
+	case SCRIPT_EXT_AEB:
 		script_extended_aeb();
 		break;
 	case SCRIPT_INTERVAL:

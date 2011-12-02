@@ -15,6 +15,7 @@ void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
 
 void menu_scripts_extended_aeb (const type_MENUITEM *item);
+void menu_scripts_iso_aeb      (const type_MENUITEM *item);
 void menu_scripts_interval     (const type_MENUITEM *item);
 void menu_scripts_wave         (const type_MENUITEM *item);
 void menu_scripts_self_timer   (const type_MENUITEM *item);
@@ -33,13 +34,21 @@ type_MENUITEM timer_items[] = {
 	MENUITEM_ACTION (LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
-type_MENUITEM eaeb_items[] = {
+type_MENUITEM ext_aeb_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
 	MENUITEM_BRACKET(LP_WORD(L_I_FRAMES),    &settings.eaeb_frames,    NULL),
 	MENUITEM_EVEAEB (LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,        NULL),
 	MENUITEM_EAEBDIR(LP_WORD(L_I_DIRECTION), &settings.eaeb_direction, NULL),
 	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min, menu_scripts_apply_eaeb_tvmin),
 	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max, menu_scripts_apply_eaeb_tvmax)
+};
+
+type_MENUITEM iso_aeb_items[] = {
+	MENUITEM_BOOLEAN(" 100", &settings.eaeb_iso[0], NULL),
+	MENUITEM_BOOLEAN(" 200", &settings.eaeb_iso[1], NULL),
+	MENUITEM_BOOLEAN(" 400", &settings.eaeb_iso[2], NULL),
+	MENUITEM_BOOLEAN(" 800", &settings.eaeb_iso[3], NULL),
+	MENUITEM_BOOLEAN("1600", &settings.eaeb_iso[4], NULL),
 };
 
 type_MENUITEM interval_items[] = {
@@ -67,10 +76,19 @@ type_MENUPAGE timer_page = {
 	}
 };
 
-type_MENUPAGE eaeb_page = {
+type_MENUPAGE ext_aeb_page = {
 	name   : LP_WORD(L_S_EXT_AEB),
-	length : LENGTH(eaeb_items),
-	items  : eaeb_items,
+	length : LENGTH(ext_aeb_items),
+	items  : ext_aeb_items,
+	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
+type_MENUPAGE iso_aeb_page = {
+	name   : LP_WORD(L_S_EXT_AEB),
+	length : LENGTH(iso_aeb_items),
+	items  : iso_aeb_items,
 	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -86,7 +104,8 @@ type_MENUPAGE interval_page = {
 };
 
 type_MENUITEM menupage_scripts_items[] = {
-	MENUITEM_SUBMENU(LP_WORD(L_S_EXT_AEB),  &eaeb_page,     menu_scripts_extended_aeb),
+	MENUITEM_SUBMENU(LP_WORD(L_S_EXT_AEB),  &ext_aeb_page,  menu_scripts_extended_aeb),
+	MENUITEM_SUBMENU(LP_WORD(L_S_ISO_AEB),  &iso_aeb_page,  menu_scripts_iso_aeb),
 	MENUITEM_SUBMENU(LP_WORD(L_S_INTERVAL), &interval_page, menu_scripts_interval),
 	MENUITEM_SUBMENU(LP_WORD(L_S_HANDWAVE), &wave_page,     menu_scripts_wave),
 	MENUITEM_SUBMENU(LP_WORD(L_S_TIMER),    &timer_page,    menu_scripts_self_timer),
@@ -112,6 +131,10 @@ void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 
 void menu_scripts_extended_aeb(const type_MENUITEM *item) {
 	menu_scripts_launch(script_extended_aeb);
+}
+
+void menu_scripts_iso_aeb(const type_MENUITEM *item) {
+	menu_scripts_launch(script_iso_aeb);
 }
 
 void menu_scripts_interval(const type_MENUITEM *item) {
