@@ -17,6 +17,7 @@ void script_feedback();
 
 void script_shot(type_SHOT_ACTION action);
 void sub_extended_aeb();
+void sub_iso_aeb();
 void sub_interval();
 
 void script_delay(int seconds);
@@ -237,13 +238,14 @@ void sub_extended_aeb() {
 	}
 }
 
-/*
+
 void sub_iso_aeb() {
 	int i;
 
 	for (i = 0; i < 5; i++) {
 		if (settings.eaeb_iso[i]) {
-			send_to_intercom(IC_SET_ISO, 1, 1 << 3);
+			send_to_intercom(IC_SET_ISO, 2, 0x40 | ((i + 1) << 3));
+			SleepTask(WAIT_USER_ACTION);
 			shutter_release();
 
 			if (!status.script_running)
@@ -251,9 +253,8 @@ void sub_iso_aeb() {
 		}
 	}
 
-	send_to_intercom(IC_SET_ISO, 1, st_cameraMode.iso);
+	send_to_intercom(IC_SET_ISO, 2, st_cameraMode.iso);
 }
-*/
 
 void sub_interval() {
 	int i = 0;
