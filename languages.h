@@ -86,9 +86,10 @@
 	LANG_PAIR( V_ENABLED,            "Enabled"            ) \
 	LANG_PAIR( V_DISABLED,           "Disabled"           ) \
 	LANG_PAIR( V_EXT_ONLY,           "Ext Only"           ) \
-	LANG_PAIR( V_EXT_AEB,            "Ext. AEB"           ) \
 	LANG_PAIR( V_ONE_SHOT,           "One Shot"           ) \
-	LANG_PAIR( V_INTERVAL,           "Interval"           ) \
+	LANG_PAIR( V_EXT_AEB,            "Ext. AEB"           ) \
+	LANG_PAIR( V_EFL_AEB,            "Flash AEB"          ) \
+	LANG_PAIR( V_ISO_AEB,            "ISO AEB"            ) \
 	LANG_PAIR( V_NEW,                "New"                ) \
 	LANG_PAIR( V_OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( V_APPEND,             "Append"             ) \

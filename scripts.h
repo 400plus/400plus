@@ -25,7 +25,7 @@ typedef enum {
 	SCRIPT_LAST  = SCRIPT_COUNT - 1
 } type_SCRIPT;
 
-extern void script_extended_aeb();
+extern void script_ext_aeb();
 extern void script_efl_aeb();
 extern void script_iso_aeb();
 extern void script_interval();

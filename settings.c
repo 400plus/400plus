@@ -25,7 +25,7 @@ type_SETTINGS settings = {
 	iso_aeb          : {TRUE, TRUE, TRUE, TRUE, TRUE},
 	interval_delay   : FALSE,
 	interval_time    : 2,
-	interval_eaeb    : FALSE,
+	interval_action  : SHOT_ACTION_FIRST,
 	interval_shots   : 0,
 	wave_delay       : FALSE,
 	wave_action      : SHOT_ACTION_FIRST,

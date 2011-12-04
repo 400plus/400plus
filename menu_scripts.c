@@ -14,7 +14,7 @@
 void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
 
-void menu_scripts_extended_aeb (const type_MENUITEM *item);
+void menu_scripts_ext_aeb      (const type_MENUITEM *item);
 void menu_scripts_efl_aeb      (const type_MENUITEM *item);
 void menu_scripts_iso_aeb      (const type_MENUITEM *item);
 void menu_scripts_interval     (const type_MENUITEM *item);
@@ -22,18 +22,6 @@ void menu_scripts_wave         (const type_MENUITEM *item);
 void menu_scripts_self_timer   (const type_MENUITEM *item);
 
 void menu_scripts_launch (type_TASK script);
-
-type_MENUITEM wave_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),   &settings.wave_delay,   NULL),
-	MENUITEM_ACTION (LP_WORD(L_I_ACTION),  &settings.wave_action,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_REPEAT),  &settings.wave_repeat,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_INSTANT), &settings.wave_instant, NULL)
-};
-
-type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S), &settings.timer_timeout, NULL),
-	MENUITEM_ACTION (LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
-};
 
 type_MENUITEM ext_aeb_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
@@ -60,28 +48,22 @@ type_MENUITEM iso_aeb_items[] = {
 };
 
 type_MENUITEM interval_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),    &settings.interval_delay, NULL),
-	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S),   &settings.interval_time,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_EAEB),     &settings.interval_eaeb,  NULL),
-	MENUITEM_COUNTER(LP_WORD(L_I_SHOTS),    &settings.interval_shots, NULL)
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),    &settings.interval_delay,  NULL),
+	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S),   &settings.interval_time,   NULL),
+	MENUITEM_ACTION (LP_WORD(L_I_ACTION),   &settings.interval_action, NULL),
+	MENUITEM_COUNTER(LP_WORD(L_I_SHOTS),    &settings.interval_shots,  NULL)
 };
 
-type_MENUPAGE wave_page = {
-	name   : LP_WORD(L_S_HANDWAVE),
-	length : LENGTH(wave_items),
-	items  : wave_items,
-	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
+type_MENUITEM wave_items[] = {
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),   &settings.wave_delay,   NULL),
+	MENUITEM_ACTION (LP_WORD(L_I_ACTION),  &settings.wave_action,  NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_REPEAT),  &settings.wave_repeat,  NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_INSTANT), &settings.wave_instant, NULL)
 };
 
-type_MENUPAGE timer_page = {
-	name   : LP_WORD(L_S_TIMER),
-	length : LENGTH(timer_items),
-	items  : timer_items,
-	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
+type_MENUITEM timer_items[] = {
+	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S), &settings.timer_timeout, NULL),
+	MENUITEM_ACTION (LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
 type_MENUPAGE ext_aeb_page = {
@@ -120,8 +102,26 @@ type_MENUPAGE interval_page = {
 	}
 };
 
+type_MENUPAGE wave_page = {
+	name   : LP_WORD(L_S_HANDWAVE),
+	length : LENGTH(wave_items),
+	items  : wave_items,
+	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
+type_MENUPAGE timer_page = {
+	name   : LP_WORD(L_S_TIMER),
+	length : LENGTH(timer_items),
+	items  : timer_items,
+	tasks  : {
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
 type_MENUITEM menupage_scripts_items[] = {
-	MENUITEM_SUBMENU(LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_extended_aeb),
+	MENUITEM_SUBMENU(LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
 	MENUITEM_SUBMENU(LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
 	MENUITEM_SUBMENU(LP_WORD(L_S_ISO_AEB),   &iso_aeb_page,   menu_scripts_iso_aeb),
 	MENUITEM_SUBMENU(LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
@@ -147,8 +147,8 @@ void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 	menu_event_display();
 }
 
-void menu_scripts_extended_aeb(const type_MENUITEM *item) {
-	menu_scripts_launch(script_extended_aeb);
+void menu_scripts_ext_aeb(const type_MENUITEM *item) {
+	menu_scripts_launch(script_ext_aeb);
 }
 
 void menu_scripts_efl_aeb(const type_MENUITEM *item) {
