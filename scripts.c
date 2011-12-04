@@ -17,6 +17,7 @@ void script_feedback();
 
 void script_shot(type_SHOT_ACTION action);
 void sub_extended_aeb();
+void sub_efl_aeb();
 void sub_iso_aeb();
 void sub_interval();
 
@@ -48,6 +49,20 @@ void script_iso_aeb() {
 	script_stop();
 
 	status.last_script = SCRIPT_ISO_AEB;
+}
+
+void script_efl_aeb() {
+	script_start();
+
+	if (settings.eaeb_delay)
+		script_delay(2);
+
+	if (status.script_running)
+		sub_efl_aeb();
+
+	script_stop();
+
+	status.last_script = SCRIPT_EFL_AEB;
 }
 
 void script_interval() {
@@ -257,7 +272,7 @@ void sub_iso_aeb() {
 	int i;
 
 	for (i = 0; i < 5; i++) {
-		if (settings.eaeb_iso[i]) {
+		if (settings.iso_aeb[i]) {
 			send_to_intercom(IC_SET_ISO, 2, 0x40 | ((i + 1) << 3));
 			SleepTask(WAIT_USER_ACTION);
 			shutter_release();
@@ -268,6 +283,42 @@ void sub_iso_aeb() {
 	}
 
 	send_to_intercom(IC_SET_ISO, 2, st_cameraMode.iso);
+}
+
+void sub_efl_aeb() {
+	int frames = settings.efl_aeb_frames;
+
+	int ef_inc = cameraMode->efcomp;
+	int ef_dec = cameraMode->efcomp;
+
+	shutter_release();
+	frames--;
+
+	while(frames) {
+		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
+			ef_inc = ev_add(ef_inc, settings.efl_aeb_ev);
+			send_to_intercom(IC_SET_EFCOMP, 1, ef_inc);
+
+			shutter_release();
+			frames--;
+
+			if (!status.script_running)
+				break;
+		}
+
+		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
+			ef_dec = ev_sub(ef_dec, settings.efl_aeb_ev);
+			send_to_intercom(IC_SET_EFCOMP, 1, ef_dec);
+
+			shutter_release();
+			frames--;
+
+			if (!status.script_running)
+				break;
+		}
+	}
+
+	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
 }
 
 void sub_interval() {

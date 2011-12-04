@@ -56,6 +56,7 @@
 	LANG_PAIR( I_SHOTS,              "Shots"              ) \
 	LANG_PAIR( I_DIRECTION,          "Direction"          ) \
 	LANG_PAIR( S_EXT_AEB,            "Extended AEB"       ) \
+	LANG_PAIR( S_EFL_AEB,            "Flash AEB"          ) \
 	LANG_PAIR( S_ISO_AEB,            "ISO AEB"            ) \
 	LANG_PAIR( S_INTERVAL,           "Intervalometer"     ) \
 	LANG_PAIR( S_HANDWAVE,           "Handwaving"         ) \

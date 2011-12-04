@@ -18,7 +18,11 @@ type_SETTINGS settings = {
 	eaeb_tv_min      : 0x78, // 1/250s
 	eaeb_tv_max      : 0x68, // 1/60s
 	eaeb_direction   : EAEB_DIRECTION_BOTH,
-	eaeb_iso         : {TRUE, TRUE, TRUE, TRUE, TRUE},
+	efl_aeb_frames   : 3,
+	efl_aeb_delay    : FALSE,
+	efl_aeb_ev       : 0x08, // 1EV
+	efl_aeb_direction: EAEB_DIRECTION_BOTH,
+	iso_aeb          : {TRUE, TRUE, TRUE, TRUE, TRUE},
 	interval_delay   : FALSE,
 	interval_time    : 2,
 	interval_eaeb    : FALSE,
