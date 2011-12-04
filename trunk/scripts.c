@@ -16,39 +16,24 @@ void script_stop();
 void script_feedback();
 
 void script_shot(type_SHOT_ACTION action);
-void sub_extended_aeb();
+void sub_ext_aeb();
 void sub_efl_aeb();
 void sub_iso_aeb();
-void sub_interval();
 
 void script_delay(int seconds);
 
-void script_extended_aeb() {
+void script_ext_aeb() {
 	script_start();
 
 	if (settings.eaeb_delay)
 		script_delay(2);
 
 	if (status.script_running)
-		script_shot(SHOT_ACTION_EAEB);
+		script_shot(SHOT_ACTION_EXT_AEB);
 
 	script_stop();
 
 	status.last_script = SCRIPT_EXT_AEB;
-}
-
-void script_iso_aeb() {
-	script_start();
-
-	if (settings.eaeb_delay)
-		script_delay(2);
-
-	if (status.script_running)
-		sub_iso_aeb();
-
-	script_stop();
-
-	status.last_script = SCRIPT_ISO_AEB;
 }
 
 void script_efl_aeb() {
@@ -58,21 +43,46 @@ void script_efl_aeb() {
 		script_delay(2);
 
 	if (status.script_running)
-		sub_efl_aeb();
+		script_shot(SHOT_ACTION_EFL_AEB);
 
 	script_stop();
 
 	status.last_script = SCRIPT_EFL_AEB;
 }
 
+void script_iso_aeb() {
+	script_start();
+
+	if (settings.eaeb_delay)
+		script_delay(2);
+
+	if (status.script_running)
+		script_shot(SHOT_ACTION_ISO_AEB);
+
+	script_stop();
+
+	status.last_script = SCRIPT_ISO_AEB;
+}
+
 void script_interval() {
+	int i = 0;
+
 	script_start();
 
 	if (settings.interval_delay)
 		script_delay(2);
 
-	if (status.script_running)
-		script_shot(SHOT_ACTION_INTERVAL);
+	for (;;) {
+		if (!status.script_running)
+			break;
+
+		script_shot(settings.interval_action);
+
+		if (++i < settings.interval_shots || settings.interval_shots == 0)
+			script_delay(settings.interval_time);
+		else
+			break;
+	}
 
 	script_stop();
 
@@ -172,11 +182,14 @@ void script_shot(type_SHOT_ACTION action) {
 	case SHOT_ACTION_SHOT:
 		shutter_release();
 		break;
-	case SHOT_ACTION_EAEB:
-		sub_extended_aeb();
+	case SHOT_ACTION_EXT_AEB:
+		sub_ext_aeb();
 		break;
-	case SHOT_ACTION_INTERVAL:
-		sub_interval();
+	case SHOT_ACTION_EFL_AEB:
+		sub_efl_aeb();
+		break;
+	case SHOT_ACTION_ISO_AEB:
+		sub_iso_aeb();
 		break;
 	default:
 		break;
@@ -185,7 +198,7 @@ void script_shot(type_SHOT_ACTION action) {
 	send_to_intercom(IC_SET_AE_BKT, 1, aeb);
 }
 
-void sub_extended_aeb() {
+void sub_ext_aeb() {
 	if (cameraMode->tv_val == TV_VAL_BULB) {
 		int tv_val;
 
@@ -319,25 +332,6 @@ void sub_efl_aeb() {
 	}
 
 	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
-}
-
-void sub_interval() {
-	int i = 0;
-
-	for (;;) {
-		if (!status.script_running)
-			break;
-
-		if (settings.interval_eaeb)
-			script_shot(SHOT_ACTION_EAEB);
-		else
-			shutter_release();
-
-		if (++i < settings.interval_shots || settings.interval_shots == 0)
-			script_delay(settings.interval_time);
-		else
-			break;
-	}
 }
 
 void script_delay(int seconds) {

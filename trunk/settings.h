@@ -2,12 +2,13 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x31
+#define SETTINGS_VERSION  0x32
 
 typedef enum {
 	SHOT_ACTION_SHOT,
-	SHOT_ACTION_EAEB,
-	SHOT_ACTION_INTERVAL,
+	SHOT_ACTION_EXT_AEB,
+	SHOT_ACTION_EFL_AEB,
+	SHOT_ACTION_ISO_AEB,
 	SHOT_ACTION_COUNT,
 	SHOT_ACTION_FIRST = 0,
 	SHOT_ACTION_LAST  = SHOT_ACTION_COUNT - 1
@@ -51,7 +52,7 @@ typedef struct {
 	int iso_aeb[5];
 	int interval_delay;
 	int interval_time;
-	int interval_eaeb;
+	int interval_action;
 	int interval_shots;
 	int wave_delay;
 	int wave_action;
