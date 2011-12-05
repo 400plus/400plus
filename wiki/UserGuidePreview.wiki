@@ -67,6 +67,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Frames: the number of frames (shots) the script should take. Values range from 1 to 9.
     * Step (EV): the separation in EV (exposure value) between each frame (shot). Values range from +1/3EV to +6EV.
+    * Direction: specifies the _direction_ of the EAEB sequence.
     * Bulb min: the minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
     * Bulb max: the maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
@@ -140,8 +141,14 @@ This script performs the same task as the _standard_ AEB option from the camera,
  * Up to 9 shots may be specified.
  * The separation between shots is configurable up to +-6 EV.
  * The camera will take all the shots in a sequence, automatically.
+ * User can specify the _direction_ of the sequence.
 
-In 'M' mode with the aperture value set to `BULB`, this script will fire the camera as many times as needed, with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 32 minutes can be used in this mode.
+Supposing a configuration of 5 shots at 1EV separation, this is how each _direction_ is supposed to work:
+ * `+/-` : One photo at current EV, and the rest above and below it: 0EV, +1EV, -1EV, +2EV, -2EV.
+ * ` + ` : One photo at current EV, and the rest above it: 0EV, +1EV, +2EV, +3EV, +4EV.
+ * ` - ` : One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.
+
+In 'M' mode with the aperture value set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 32 minutes can be used in this mode.
 
 == Intervalometer ==
 
