@@ -58,11 +58,6 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
 === Scripts Page ===
 
- * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
-    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
-    * Repeat: if active (set to Yes), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.
-    * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Ext. AEB*_: This item launches and configures the [#Extended_AEB Extended AEB] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Frames: the number of frames (shots) the script should take. Values range from 1 to 9.
@@ -75,11 +70,16 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Time (s): the interval time (in seconds) between each shot. Values range from 0 to 250.
-    * EAEB: select whether the [#Extended_AEB Extended AEB] script should be used for each shot.
+    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
     * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
+ * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
+    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
+    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
+    * Repeat: if active (set to Yes), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.
+    * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Timer*_: This item launches and configures the [#Self_Timer Self Timer] script:
     * Delay (s): the time (in seconds) that the script should wait before shooting. Values range from 0 to 250.
-    * Action: the action to be performed (Intervalometer, One Shot, Extended AEB).
+    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
 
 === Info Page ===
 
@@ -164,15 +164,15 @@ You probably want to set the camera to `M` mode prior to using this script.
 
 == Intervalometer ==
 
-This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots. Use this script to create _stop-motion_ movies. For example: Set "EAEB" to "Yes" to run the [#Extended_AEB Extended AEB] script on each shot.
+This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots. Use this script to create _stop-motion_ movies.
 
 == Hand Waving ==
 
-This script will fire the camera when the display-off sensor (at the rear of the camera) is triggered. Use this script to fire the camera without the need of a remote to help reduce camera shake. This script can execute the [#Extended_AEB Extended AEB] or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, this script will wait until something (like your hand or finger) blocks the sensor and is then removed to fire the camera. However, if the "Instant" option is enabled, the script will fire the camera as soon as the sensor becomes blocked.
+This script will fire the camera when the display-off sensor (at the rear of the camera) is triggered. Use this script to fire the camera without the need of a remote to help reduce camera shake. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, this script will wait until something (like your hand or finger) blocks the sensor and is then removed to fire the camera. However, if the "Instant" option is enabled, the script will fire the camera as soon as the sensor becomes blocked.
 
 == Self Timer ==
 
-This script simply adds a configurable pause before firing the camera. This script can execute the [#Extended_AEB Extended AEB], or the [#Intervalometer Intervalometer] script, if configured as the "Action" sub-item value.
+This script simply adds a configurable pause before firing the camera.
 
 = The presets =
 
