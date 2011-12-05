@@ -70,6 +70,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Direction: specifies the _direction_ of the EAEB sequence.
     * Bulb min: the minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
     * Bulb max: the maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
+ * _*Flash AEB*_: This item launches and configures the [#Flash_AEB Flash AEB] script:
  * _*ISO AEB*_: This item launches and configures the [#ISO_AEB ISO AEB] script; each item in the configuration sub-menu indicates whether the camera must fire a shot for that ISO value.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
@@ -150,6 +151,10 @@ Supposing a configuration of 5 shots at 1EV separation, this is how each _direct
  * ` - ` : One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.
 
 In 'M' mode with the aperture value set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 32 minutes can be used in this mode.
+
+== Flash AEB ==
+
+Similar to the [#Extended_AEB Extended AEB] script, but only the flash exposure compensation will change.
 
 == ISO AEB ==
 
