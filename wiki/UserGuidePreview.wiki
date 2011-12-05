@@ -99,17 +99,20 @@ _This Page Is Intentionally Left Blank._
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), and if in any creative mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder. On Tv and M mode, the new ISO value is also displayed on the viewfinder (over the shutter speed).
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
- * _*Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
+ * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Dim LCD down: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life. The value is restored after the script has completed.
     * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
- * _*Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
+ * _*Config. Buttons*:_ In this sub-menu, users can configure the behavior of some special buttons (currently, only the JUMP button, while the camera is in the main dialog, is configurable); the following actions can be assigned to each button:
+    * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
+    * Repeat last script: repeat last script executed.
+ * _*Config. Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
     * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
     * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
     * 400plus: when active (set to Yes), loading a preset recalls 400plus' own settings (scripts, ...).
     * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
     * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
     * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
- * _*Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
+ * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
 
 === Presets Page ===
 
@@ -214,7 +217,6 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 
 == In the creative zone ==
 
-  * Use the `JUMP` button to toggle between extended ISOs: you can fine-tune the value with 1/8 EV increments (see [#Extended_ISOs Notes / Extended ISOs]).
   * In the ISO selection dialog, press `DP` to activate [#AutoISO AutoISO]); select any ISO value to deactivate it.
   * In the Metering mode selection dialog, press `DP` to set Spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
   * In the White balance selection dialog, press `DP` to set the user-defined white balance kelvin temperature.
