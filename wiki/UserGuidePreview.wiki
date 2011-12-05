@@ -40,7 +40,7 @@ While in any page within the menu, you have the ability to change the order of t
     * Min ISO: minimum ISO value that AutoISO will use.
     * Max ISO: maximum ISO value that AutoISO will use.
     * Min Tv : minimum shutter speed that AutoISO will try to maintain.
-    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain [*].
+    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain `[*]`.
  * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
  * _*Av comp*_: Same as the _standard_ "Av compensation", but extends the range from -6 to +6 EV.
  * _*Flash comp*_: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
@@ -48,7 +48,7 @@ While in any page within the menu, you have the ability to change the order of t
  * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
  * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
 
-_[*] Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
+_`[*]` Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
 
 === Shortcuts Page ===
 
