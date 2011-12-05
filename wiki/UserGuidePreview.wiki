@@ -265,7 +265,6 @@ The spot metering mode is similar to the _standard_ "partial metering" mode, but
 
 The following relevant bugs have been reported and confirmed:
 
- * Issue  #15: Exposure changes during EAEB.
  * Issue #130: Config not restored if camera shut down while script is running.
  * Issue #156: Autofocus Assist Beam not fired from 430EX when using extended AF patterns.
  * Issue #153: Standard menu flashes before shortcuts menu.
