@@ -1,4 +1,4 @@
-#summary [Guide][English][Preview] User Guide for 400plus - preview
+#summary [Guide][English][Preview] User Guide for 400plus
 #labels Featured
 
 = Table of Contents= 
