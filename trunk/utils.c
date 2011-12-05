@@ -273,6 +273,13 @@ void tv_print(char *dest, int tv) {
 	sprintf(dest, "%s", tv_strings[base][frac]);
 }
 
+/**
+ * For intermediate ISOs, we are doing a linear approximation
+ * between two base ISOs; as pointed out by Sergei, we should
+ * use an exponential calculation, but I decided to keep this 
+ * version, as the correct algorithm yields _uglier_ numbers.
+ */
+
 void iso_print(char *dest, int code) {
 	int iso;
 
