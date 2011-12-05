@@ -40,13 +40,15 @@ While in any page within the menu, you have the ability to change the order of t
     * Min ISO: minimum ISO value that AutoISO will use.
     * Max ISO: maximum ISO value that AutoISO will use.
     * Min Tv : minimum shutter speed that AutoISO will try to maintain.
-    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain.
+    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain [*].
  * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
  * _*Av comp*_: Same as the _standard_ "Av compensation", but extends the range from -6 to +6 EV.
  * _*Flash comp*_: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
  * _*Disable flash*_: Force the deactivation of the camera flash even if the flash has already been raised.
  * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
  * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
+
+_[*] Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
 
 === Shortcuts Page ===
 
@@ -179,11 +181,12 @@ In _normal_ Av mode, the user selects ISO and aperture, and the camera decides t
 Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
 
 == AutoISO and Tv mode ==
+
 In Tv mode, the intention of AutoISO is to use the lowest possible ISO that ensures an acceptable depth of field.
 
 In Tv mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an apperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
 
-Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using; for example, if your lens is F4.0-F5.6, "Max Av" should be set no lower than 4.5. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shif and AutoISO at Av mode applies at Tv mode, too.
+Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shif and AutoISO at Av mode applies at Tv mode, too.
 
 == AutoISO and P mode ==
 
