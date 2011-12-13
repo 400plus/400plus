@@ -137,13 +137,22 @@ void my_task_MainCtrl() {
 			} else {
 				MC_T_1_5(event);
 			}
+		/* OFW: this was the original call, i've separated it to next 2 IFs
 		} else if (event->t < 8) {
-			// AF: if (6): debug the display_mode params
+			MC_T_6_7(event);
+		*/
+		} else if (event->t == 6) {
+			// interesting for dialogs:
+			// StartMnBgApp and look for similars
+			//
+			// TODO:debug the display_mode params
 			// when the MENU btn is pressed
 			// SendToMC(MC_DISPLAY_MODE, MENU_MODE(2), 0); happens
 			// or when leaving IDLE_MODE(0) is sent
 			// also debug DPData before and after SendToMC(...)
-			MC_T_6_7(event);
+			MC_T_DISPLAY_MODE(event->sw, event->arg);
+		} else if (event->t == 7) {
+			MC_T_START_MODE(event->sw);
 		} else if (event->t < 21) {
 			MC_T_8_20(event);
 		} else if (event->t < 26) {
