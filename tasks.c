@@ -58,6 +58,9 @@ void start_up() {
 	status.booting = FALSE;
 
 #if 0
+	debug_log("=== DUMPING DDD ===");
+	printf_DDD_log( (void*)(int)(0x00007604+0x38) );
+
 	debug_log("maindlg @ 0x%08X, handler @ 0x%08X", hMainDialog, hMainDialog->event_handler);
 
 	debug_log("dumping");

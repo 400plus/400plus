@@ -151,6 +151,8 @@ typedef enum {
 
 	//GUI_IDC_DBN_OK                 = 0x6, // ?
 	//GUI_IDC_DBN_CANCEL             = 0x7, // ?
+	GUI_UNKNOWN_0x01               = 0x01, // Call DeleteDialogBox and return 0
+	GUI_UNKNOWN_0x02               = 0x02, // Call [GUI_]Lock(),PaletteInit(),DisplayMode(),delete_child_dialog,DeleteDialogBox(),Unlock(),PaletteUnInit() and return 0; (probably deletes the dialog and it's childs)
 	GUI_GOT_TOP_OF_CONTROL         = 0x800,
 	GUI_LOST_TOP_OF_CONTROL        = 0x801,
 	GUI_INITIALIZE_CONTROLLER      = 0x802,
