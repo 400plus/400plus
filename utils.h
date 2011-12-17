@@ -50,10 +50,10 @@ extern void start_debug_mode();
 extern void dump_log();
 extern void print_info();
 
-extern int  send_to_intercom(int message, int length, int parm);
-extern int  shutter_release();
-extern int  shutter_release_bulb(int time_ms);
-extern int  press_button(int button);
+extern int send_to_intercom(int message, int length, int parm);
+extern int shutter_release();
+extern int shutter_release_bulb(int time);
+extern int press_button(int button);
 
 extern int remote_on();
 extern int remote_off();
