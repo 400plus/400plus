@@ -402,13 +402,15 @@ int shutter_release() {
 	return result;
 }
 
-int shutter_release_bulb(int time_ms) {
+int shutter_release_bulb(int time) {
 	while (! able_to_release())
 		SleepTask(RELEASE_WAIT);
 
 	press_button(0xB6);
-	SleepTask(60 * 1000 * time_ms);
+	SleepTask(60 * 1000 * time);
+
 	press_button(0xB6);
+	SleepTask(RELEASE_WAIT);
 
 	return 0;
 }
