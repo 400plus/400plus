@@ -400,8 +400,10 @@ int shutter_release_bulb(int time_ms) {
 		SleepTask(RELEASE_WAIT);
 
 	press_button(0xB6);
-	SleepTask(60 * 1000 * time_ms);
+	SleepTask(60 * 1000 * time_ms / 15);
+
 	press_button(0xB6);
+	SleepTask(RELEASE_WAIT);
 
 	return 0;
 }
