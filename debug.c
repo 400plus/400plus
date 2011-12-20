@@ -162,7 +162,6 @@ const char * debug_gui_name(int event) {
 	}
 }
 
-#ifdef ENABLE_DEBUG_DPR_DATA
 void dump_dpr_data() {
 	printf("\n\nDUMPING DPR_DATA\n\n");
 	printf("\t%24s : 0x%08X [%d]\n", "ae", cameraMode->ae, cameraMode->ae);
@@ -269,6 +268,5 @@ void dump_dpr_data() {
 
 	printf("\n\nEND\n\n");
 }
-#endif // ENABLE_DEBUG_DPR_DATA
 
 #endif

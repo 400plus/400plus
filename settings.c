@@ -17,15 +17,9 @@ type_SETTINGS settings = {
 	eaeb_ev          : 0x08, // 1EV
 	eaeb_tv_min      : 0x78, // 1/250s
 	eaeb_tv_max      : 0x68, // 1/60s
-	eaeb_direction   : EAEB_DIRECTION_BOTH,
-	efl_aeb_frames   : 3,
-	efl_aeb_delay    : FALSE,
-	efl_aeb_ev       : 0x08, // 1EV
-	efl_aeb_direction: EAEB_DIRECTION_BOTH,
-	iso_aeb          : {TRUE, TRUE, TRUE, TRUE, TRUE},
 	interval_delay   : FALSE,
 	interval_time    : 2,
-	interval_action  : SHOT_ACTION_FIRST,
+	interval_eaeb    : FALSE,
 	interval_shots   : 0,
 	wave_delay       : FALSE,
 	wave_action      : SHOT_ACTION_FIRST,
@@ -47,7 +41,6 @@ type_SETTINGS settings = {
 	logfile_mode     : 0,
 	remote_enable    : FALSE,
 	developers_menu  : FALSE,
-	button_jump      : BUTTON_ACTION_ISO,
 };
 
 int settings_read() {

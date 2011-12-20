@@ -13,11 +13,10 @@ void my_task_Startup();
 int  my_InitializeIntercom();
 
 void COPY() {
-	// AF: check the devinfo for more details
 	int i;
 
 	long *from = (long*) 0x800000;
-	long *to   = (long*) 0x7E0000;
+	long *to   = (long*) 0x7F0000;
 
 	for (i = 0; i < 0x4000; i++) {
 		to[i] = from[i];
@@ -123,7 +122,7 @@ usrRoot_failed:
 }
 
 void my_taskcreate_Startup() {
-	CreateMainHeap(0x200000, 0x800000 - 0x20000); // in end of MainHeap - own code - 128 Kb
+	CreateMainHeap(0x200000, 0x800000 - 0x10000); // in end of MainHeap - own code - 64 Kb
 
 	sub_FFB0FF74();
 	sub_FFB2E108(0x386D4380);

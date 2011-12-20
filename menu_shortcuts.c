@@ -12,9 +12,9 @@
 
 void menu_shortcuts_close();
 
-void menu_shortcuts_apply_cf_emit_aux        (const type_MENUITEM *item);
-void menu_shortcuts_apply_cf_mirror_up_lock  (const type_MENUITEM *item);
-void menu_shortcuts_apply_cf_flash_sync_rear (const type_MENUITEM *item);
+void menu_shortcuts_apply_cf_emit_aux        (type_MENUITEM *item);
+void menu_shortcuts_apply_cf_mirror_up_lock  (type_MENUITEM *item);
+void menu_shortcuts_apply_cf_flash_sync_rear (type_MENUITEM *item);
 
 type_MENUITEM menu_shortcut_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_MIRROR_LOCKUP), &menu_cameraMode.cf_mirror_up_lock,  menu_shortcuts_apply_cf_mirror_up_lock),
@@ -30,14 +30,14 @@ type_MENUPAGE menupage_shortcuts = {
 	ordering  : settings.shortcuts_order,
 };
 
-void menu_shortcuts_apply_cf_emit_aux(const type_MENUITEM *item) {
+void menu_shortcuts_apply_cf_emit_aux(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_EMIT_AUX, 1, *item->parm.menuitem_enum.value);
 }
 
-void menu_shortcuts_apply_cf_mirror_up_lock(const type_MENUITEM *item) {
+void menu_shortcuts_apply_cf_mirror_up_lock(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, *item->parm.menuitem_enum.value);
 }
 
-void menu_shortcuts_apply_cf_flash_sync_rear(const type_MENUITEM *item) {
+void menu_shortcuts_apply_cf_flash_sync_rear(type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, *item->parm.menuitem_enum.value);
 }

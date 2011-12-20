@@ -156,6 +156,7 @@ void preset_apply_full() {
 		send_to_intercom(IC_SET_EFCOMP,     1, preset.camera_mode.efcomp);
 		send_to_intercom(IC_SET_DRIVE,      1, preset.camera_mode.drive);
 		send_to_intercom(IC_SET_WB,         1, preset.camera_mode.wb);
+		send_to_intercom(IC_SET_AF,         1, preset.camera_mode.af);
 		send_to_intercom(IC_SET_AF_POINT,   2, preset.camera_mode.af_point);
 		send_to_intercom(IC_SET_TV_VAL,     1, preset.camera_mode.tv_val);
 		send_to_intercom(IC_SET_AV_VAL,     1, preset.camera_mode.av_val);
@@ -168,13 +169,6 @@ void preset_apply_full() {
 		send_to_intercom(IC_SET_COLOR_TEMP, 2, preset.camera_mode.color_temp);
 		send_to_intercom(IC_SET_WBCOMP_GM,  1, preset.camera_mode.wbcomp_gm);
 		send_to_intercom(IC_SET_WBCOMP_AB,  1, preset.camera_mode.wbcomp_ab);
-
-		/**
-		 *  We cannot switch AF off when loading a preset,
-		 *  because the switch on the lens could be set to on.
-		 */
-		if (preset.camera_mode.af)
-			send_to_intercom(IC_SET_AF, 1, preset.camera_mode.af);
 	}
 
 	if (presets_config.recall_settings) {

@@ -151,17 +151,20 @@ extern int able_to_release(); // checks the "is_release_permitted" and "BurstCou
 
 // Display
 
-extern dialog_t *CreateDialogBox(int parm1, int parm2, event_handler_t, int template, int is_busy_maybe);
+extern dialog_t *CreateDialogBox(int parm1, int parm2, type_EVENT_HANDLER, int template, int is_busy_maybe);
 extern int DeleteDialogBox(dialog_t *dialog);
-extern int dialog_redraw(dialog_t *dialog);
 
-extern int dialog_item_set_int(dialog_t *dialog, const int code, const int   data);
-extern int dialog_item_set_str(dialog_t *dialog, const int code, const char *text);
+extern int do_some_with_dialog(dialog_t *dialog);
+
+extern int sub_FF8382DC(dialog_t *dialog, const int code, const int   data);
+extern int sub_FF837FA8(dialog_t *dialog, const int code, const char *text);
 
 #define dialog_create(template, handler) CreateDialogBox(0, 0, handler, template, 0)
 
-#define dialog_set_property_int dialog_item_set_int
-#define dialog_set_property_str dialog_item_set_str
+#define dialog_redraw do_some_with_dialog
+
+#define dialog_set_property_int sub_FF8382DC
+#define dialog_set_property_str sub_FF837FA8
 
 extern int InfoCreativeAppProc(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 extern int olc_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
