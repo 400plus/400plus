@@ -4,7 +4,6 @@
 #include "display.h"
 #include "languages.h"
 #include "presets.h"
-#include "scripts.h"
 #include "settings.h"
 #include "utils.h"
 #include "debug.h"
@@ -13,7 +12,7 @@
 #include "tasks.h"
 
 void set_intermediate_iso();
-void repeat_last_script();
+int img_setting;
 
 void start_up() {
 	// Wait for camera to settle down
@@ -57,24 +56,7 @@ void start_up() {
 	// We are no longer booting up
 	status.booting = FALSE;
 
-#if 0
-	debug_log("=== DUMPING DDD ===");
-	printf_DDD_log( (void*)(int)(0x00007604+0x38) );
-
 	debug_log("maindlg @ 0x%08X, handler @ 0x%08X", hMainDialog, hMainDialog->event_handler);
-
-	debug_log("dumping");
-	long *addr   = (long*) 0x7F0000;
-
-	int file = FIO_OpenFile("A:/dump.bin", O_CREAT | O_WRONLY , 644);
-
-	if (file != -1) {
-		FIO_WriteFile(file, addr, 0xFFFF);
-		FIO_CloseFile(file);
-		beep();
-	}
-#endif
-
 
 }
 
@@ -213,40 +195,6 @@ void autoiso_disable() {
 	}
 }
 
-void repeat_last_script() {
-	switch (status.last_script) {
-	case SCRIPT_EXT_AEB:
-		script_ext_aeb();
-		break;
-	case SCRIPT_EFL_AEB:
-		script_efl_aeb();
-		break;
-	case SCRIPT_ISO_AEB:
-		script_iso_aeb();
-		break;
-	case SCRIPT_INTERVAL:
-		script_interval();
-		break;
-	case SCRIPT_WAVE:
-		script_wave();
-		break;
-	case SCRIPT_TIMER:
-		script_self_timer();
-		break;
-	default:
-		break;
-	}
-}
-
-void button_jump_task() {
-	switch (settings.button_jump) {
-	case BUTTON_ACTION_ISO:
-		set_intermediate_iso();
-		break;
-	case BUTTON_ACTION_SCRIPT:
-		repeat_last_script();
-		break;
-	default:
-		break;
-	}
+void emulate_menu_button() {
+	press_button(IC_BUTTON_MENU);
 }

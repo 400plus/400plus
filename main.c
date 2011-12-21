@@ -16,8 +16,8 @@
 // Camera data
 type_CAMERA_MODE *cameraMode = (type_CAMERA_MODE*)&DPData;
 
-// Main queues
-int *task_queue;
+// Main message queue
+int *message_queue;
 
 // Global status
 type_STATUS status = {
@@ -100,10 +100,9 @@ type_CHAIN intercom_chains[] = {
 };
 
 void task_dispatcher();
-void message_logger (char *message);
 
 void initialize() {
-	task_queue = (int*)CreateMessageQueue("task_queue", 0x40);
+	message_queue = (int*)CreateMessageQueue("message_queue", 0x40);
 	CreateTask("Task Dispatcher", 25, 0x2000, task_dispatcher, 0);
 
 	ENQUEUE_TASK(start_up);
@@ -122,10 +121,6 @@ void intercom_proxy(const int handler, char *message) {
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
-
-#ifdef ENABLE_DEBUG
-	message_logger(message);
-#endif
 
 	// Status-independent events and special cases
 	switch (event) {
@@ -265,18 +260,8 @@ void task_dispatcher () {
 
 	// Loop while receiving messages
 	for (;;) {
-		ReceiveMessageQueue(task_queue, &task, FALSE);
+		ReceiveMessageQueue(message_queue, &task, 0);
 		task();
 	}
 }
 
-void message_logger(char *message) {
-	int i;
-	char text[256];
-	static int id = 0;
-
-	for (i = 0; i < message[0]; i++)
-		sprintf(text + 3 * i, "%02X ", message[i]);
-
-	printf_log(8, 8, "[400plus-MSG%04d]: %s", id++, text);
-}

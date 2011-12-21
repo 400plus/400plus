@@ -21,6 +21,6 @@ extern void autoiso();
 extern void autoiso_enable();
 extern void autoiso_disable();
 
-extern void button_jump_task();
+extern void emulate_menu_button();
 
 #endif /* TASKS_H_ */

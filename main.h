@@ -1,8 +1,6 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#include "scripts.h"
-
 #define NULL 0
 
 #define TRUE  1
@@ -14,16 +12,6 @@
 #define INT_SWAP(x, y) do {int _SWAP_; _SWAP_=(x); (x)=(y); (y)=_SWAP_;} while(0)
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
-
-// from ML's compiler.h
-/** Compile time failure if a structure is not sized correctly */
-#define SIZE_CHECK_STRUCT( struct_name, size ) \
-	static int __attribute__((unused)) \
-	__size_check_##struct_name[ \
-		sizeof( struct struct_name ) == size ? 0 : -1 \
-	]
-
-
 
 // Events for SendToIntercom
 typedef enum {
@@ -151,8 +139,6 @@ typedef enum {
 
 	//GUI_IDC_DBN_OK                 = 0x6, // ?
 	//GUI_IDC_DBN_CANCEL             = 0x7, // ?
-	GUI_UNKNOWN_0x01               = 0x01, // Call DeleteDialogBox and return 0
-	GUI_UNKNOWN_0x02               = 0x02, // Call [GUI_]Lock(),PaletteInit(),DisplayMode(),delete_child_dialog,DeleteDialogBox(),Unlock(),PaletteUnInit() and return 0; (probably deletes the dialog and it's childs)
 	GUI_GOT_TOP_OF_CONTROL         = 0x800,
 	GUI_LOST_TOP_OF_CONTROL        = 0x801,
 	GUI_INITIALIZE_CONTROLLER      = 0x802,
@@ -251,8 +237,7 @@ typedef enum {
 	GUI_UNKNOWN2                   = 0x1000003E, // related to btns that repeats (AV, 1/2-SHUT) may be ?
 } gui_event_t;
 
-// DigiProp Data Structure
-struct struct_dpr_data_t {           // [*] Used and tested, others unknown
+typedef struct {                 // [*] Used and tested, others unknown
 	int ae;                      // 0x0000 [*] [1]
 	int metering;                // 0x0004 [*] [2]
 	int efcomp;                  // 0x0008 [*] [K]
@@ -354,11 +339,8 @@ struct struct_dpr_data_t {           // [*] Used and tested, others unknown
 	int cf_tft_on_power_on;      // 0x0188
 	int field_18C;               // 0x018c
 	int field_190;               // 0x0190
-};
-SIZE_CHECK_STRUCT( struct_dpr_data_t, 0x194 );
-//  0x194 is the number in the FW when it comes to DPR (as it's 0x198 too, they go together always)
+} type_CAMERA_MODE;
 
-typedef struct struct_dpr_data_t type_CAMERA_MODE;
 extern type_CAMERA_MODE *cameraMode;
 
 // [1] Values for "ae"
@@ -544,7 +526,7 @@ typedef struct struct_type_DIALOG dialog_t; // forward declaration
 
 // Handler for events/buttons in dialogs
 // r3 seems to get 2 values in halfwords... still dont know what they do
-typedef int(*event_handler_t)(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
+typedef int(*type_EVENT_HANDLER)(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 struct struct_type_DIALOG {
 	char * pSignature;   // 0x0000 - "DIALOG"
@@ -578,7 +560,7 @@ struct struct_type_DIALOG {
 	int field_0x0070;    // 0x0070
 	int field_0x0074;    // 0x0074
 	int field_0x0078;    // 0x0078
-	event_handler_t *event_handler; // 0x007C
+	type_EVENT_HANDLER *event_handler; // 0x007C
 	int arg2;            // 0x0080 - the second arg to the handler
 	dialog_item_t * dlg_item; // 0x0084 - structure that holds some dialog_item stuff, probably the selected item
 	int field_0x0088;    // 0x0088
@@ -588,6 +570,7 @@ struct struct_type_DIALOG {
 	int brush_struct;    // 0x0098 - brush class
 	// there are more for sure (perhaps to 0x00B8)
 };
+
 
 // Action definitions
 typedef void(*type_TASK)();
@@ -608,30 +591,29 @@ typedef struct {
 
 // Global status
 typedef struct {
-	int         button_down;       // A button is down, and which one
-	int         script_running;    // A script is running
-	int         menu_running;      // A menu is running
-	int         iso_in_viewfinder; // ISO is being displayed in the viewfinder
-	int         afp_dialog;        // The last active dialog was the AF Point selection dialog
-	int         main_dial_ae;      // AE mode selected in the main dial
-	type_TASK   button_up_task;    // Task that must be executed when the current button is released
-	int         button_up_block;   // Response when the current button is released
-	int         last_preset;       // Last preset used
-	int         ignore_ae_change;  // Ignore next AE change
-	int         booting;           // Camera is still booting up
-	int         measuring;         // Camera is measuring the scene
-	int         measured_tv;       // Shutter speed as proposed by the metering
-	int         measured_av;       // Aperture as proposed by the metering
-	int         measured_ev;       // Exposure deviation as measured by the camera
-	int         ev_comp;           // Exposure compensation for AutoISO + M
-	type_SCRIPT last_script;       // Last executed script
+	int       button_down;       // A button is down, and which one
+	int       script_running;    // A script is running
+	int       menu_running;      // A menu is running
+	int       iso_in_viewfinder; // ISO is being displayed in the viewfinder
+	int       afp_dialog;        // The last active dialog was the AF Point selection dialog
+	int       main_dial_ae;      // AE mode selected in the main dial
+	type_TASK button_up_task;    // Task that must be executed when the current button is released
+	int       button_up_block;   // Response when the current button is released
+	int       last_preset;       // Last preset used
+	int       ignore_ae_change;  // Ignore next AE change
+	int       booting;           // Camera is still booting up
+	int       measuring;         // Camera is measuring the scene
+	int       measured_tv;       // Shutter speed as proposed by the metering
+	int       measured_av;       // Aperture as proposed by the metering
+	int       measured_ev;       // Exposure deviation as measured by the camera
+	int       ev_comp;           // Exposure compensation for AutoISO + M
 } type_STATUS;
 
 // Main message queue
-extern int *task_queue;
+extern int *message_queue;
 
 // Inline code
-#define ENQUEUE_TASK(task) TryPostMessageQueue(task_queue, (task), FALSE);
+#define ENQUEUE_TASK(task) TryPostMessageQueue(message_queue, (task), FALSE);
 
 #define END_OF_LIST  {_eol_ : TRUE}
 #define IS_EOL(item) (item->_eol_)

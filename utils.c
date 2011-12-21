@@ -9,18 +9,16 @@
 int ev_normalize(int ev);
 
 static char *av_strings[][4] = {
-	{"1.0", "1.1", "1.2", "1.3"},
-	{"1.4", "1.5", "1.7", "1.8"},
-	{"2.0", "2.2", "2.4", "2.6"},
-	{"2.8", "3.2", "3.4", "3.7"},
-	{"4.0", "4.8", "4.8", "5.2"},
-	{"5.6", "6.2", "6.7", "7.3"},
-	{"8.0", "8.7", "9.5",  "10"},
-	{ "11",  "12",  "14",  "15"},
-	{ "16",  "17",  "19",  "21"},
+	{"1.0", "1.1", "1.2", "1.2"},
+	{"1.4", "1.6", "1.7", "1.8"},
+	{"2.0", "2.2", "2.4", "2.5"},
+	{"2.8", "3.2", "3.3", "3.5"},
+	{"4.0", "4.5", "4.8", "5.0"},
+	{"5.6", "6.3", "6.7", "7.1"},
+	{"8.0", "9.0", "9.5",  "10"},
+	{ "11",  "13",  "13",  "14"},
+	{ "16",  "18",  "19",  "20"},
 	{ "22",  "25",  "27",  "29"},
-	{ "32",  "34",  "36",  "42"},
-	{ "45",  "48",  "52",  "60"},
 };
 
 static char *tv_strings[][4] = {
@@ -103,7 +101,7 @@ int av_inc(int av) {
 	else
 		av = ev_add(av, 0x03); // +0 1/3
 
-	return MIN(av, 0x67); // f/60.0
+	return MIN(av, 0x55); // f/29.0
 }
 
 int av_dec(int av) {
@@ -115,18 +113,6 @@ int av_dec(int av) {
 		av = ev_add(av, 0xFD); // -0 1/3
 
 	return MAX(av, 0x08); // f/1.0
-}
-
-int av_add(int ying, int yang) {
-	int av = ev_add(ying, yang);
-
-	return MIN(av, cameraMode->avmax);
-}
-
-int av_sub(int ying, int yang) {
-	int av = ev_sub(ying, yang);
-
-	return MAX(av, cameraMode->avo);
 }
 
 int tv_next(int tv) {
@@ -247,7 +233,21 @@ void ev_print(char *dest, int ev) {
 
 void av_print(char *dest, int av) {
 	int base = (av >> 3) - 0x01;
-	int frac = (av & 0x07) >> 1;
+	int frac = 0;
+
+	switch (av & 0x07) {
+	case 0x03:
+		frac = 1;
+		break;
+	case 0x04:
+		frac = 2;
+		break;
+	case 0x05:
+		frac = 3;
+		break;
+	default:
+		break;
+	}
 
 	sprintf(dest, "%s", av_strings[base][frac]);
 }
@@ -272,13 +272,6 @@ void tv_print(char *dest, int tv) {
 
 	sprintf(dest, "%s", tv_strings[base][frac]);
 }
-
-/**
- * For intermediate ISOs, we are doing a linear approximation
- * between two base ISOs; as pointed out by Sergei, we should
- * use an exponential calculation, but I decided to keep this 
- * version, as the correct algorithm yields _uglier_ numbers.
- */
 
 void iso_print(char *dest, int code) {
 	int iso;
@@ -402,12 +395,12 @@ int shutter_release() {
 	return result;
 }
 
-int shutter_release_bulb(int time) {
+int shutter_release_bulb(int time_ms) {
 	while (! able_to_release())
 		SleepTask(RELEASE_WAIT);
 
 	press_button(0xB6);
-	SleepTask(60 * 1000 * time);
+	SleepTask(60 * 1000 * time_ms);
 
 	press_button(0xB6);
 	SleepTask(RELEASE_WAIT);

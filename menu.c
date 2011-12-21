@@ -18,7 +18,7 @@ type_MENU     *current_menu;
 
 type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_event_menu}},
-	{GUI_BUTTON_DISP,           FALSE, TRUE,  {menu_event_disp}},
+	{GUI_BUTTON_DISP,           FALSE, FALSE, {menu_event_disp}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_event_jump}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {menu_event_trash}},
@@ -39,10 +39,10 @@ void menu_set_text(const int line, const char *text);
 
 void menu_highlight(const int line);
 
-void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating));
+void menu_repeat(void (*action)(const int repeating));
 
-void menu_repeat_right(type_MENU *menu, const int repeating);
-void menu_repeat_left (type_MENU *menu, const int repeating);
+void menu_repeat_right(const int repeating);
+void menu_repeat_left (const int repeating);
 
 type_MENUPAGE *get_selected_page();
 
@@ -59,10 +59,9 @@ void menu_create(type_MENU *menu) {
 	//press_button(IC_BUTTON_MENU);
 	SendToMC(6, 2, 0);
 	SleepTask(100);
-	
+
 	status.menu_running = TRUE;
-	//FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
-	//cameraMode->gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
+	FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
 
 	current_menu    = menu;
 	menu_cameraMode = *cameraMode;
@@ -87,18 +86,8 @@ void menu_create(type_MENU *menu) {
 }
 
 void menu_close() {
-    GUI_Lock();
-    GUI_PalleteInit();
-
-	DeleteDialogBox(menu_handler);
-	menu_handler = NULL;
-
-	GUI_StartMode(GUIMODE_OLC);
-    CreateDialogBox_OlMain();
-    GUIMode = GUIMODE_OLC;
-
-    GUI_UnLock();
-    GUI_PalleteUnInit();
+	press_button(IC_BUTTON_DISP);
+	menu_destroy();
 }
 
 void menu_initialize() {
@@ -125,10 +114,10 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 // standard menu 55-63
 #ifdef ENABLE_DEBUG
 	// print the dialog structure and diff the both cases of menu creation
-	debug_log("_BTN_ [%s][guimode:%08X]", debug_btn_name(event), FLAG_GUI_MODE);
-	//debug_log("_BTN_: 84=[%08X] 88=[%08X]", GET_FROM_MEM(menu_handler+0x84), GET_FROM_MEM(menu_handler+0x88) );
-	//debug_log("_BTN_: r1=[%08X], r3=[%08X], 90=[%08X]", *r1, *r3, /* *(int*) */(*(int*)((int)dialog+0x90)) );
-	//debug_log("_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
+	printf_log(1,6, "_BTN_ [%s][guimode:%08X]", debug_btn_name(event), FLAG_GUI_MODE);
+	printf_log(1,6, "_BTN_: 84=[%08X] 88=[%08X]", GET_FROM_MEM(menu_handler+0x84), GET_FROM_MEM(menu_handler+0x88) );
+	printf_log(1,6, "_BTN_: r1=[%08X], r3=[%08X], 90=[%08X]", *r1, *r3, /* *(int*) */(*(int*)((int)dialog+0x90)) );
+	printf_log(1,6, "_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
 #endif
 
 	// Loop over all the actions from this action chain
@@ -212,32 +201,28 @@ void menu_event_in()     { menu_event(MENU_EVENT_IN);      };
 void menu_event_open()   { menu_event(MENU_EVENT_OPEN);    };
 void menu_event_display(){ menu_event(MENU_EVENT_DISPLAY); };
 void menu_event_refresh(){ menu_event(MENU_EVENT_REFRESH); };
+void menu_event_change() { menu_event(MENU_EVENT_CHANGE);  };
 void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);   };
 
 void menu_event(type_MENU_EVENT event) {
-	type_MENU     *menu = current_menu;
-	type_MENUPAGE *page = menu->current_page;
-
-	if (page->tasks && page->tasks[event])
-		page->tasks[event](menu);
-	else if (menu->tasks && menu->tasks[event])
-		menu->tasks[event](menu);
-}
-
-void menu_set(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
+	type_MENUPAGE *page = current_menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
-	if (item && item->action)
-		item->action(item);
+	if (item && item->tasks && item->tasks[event])
+		item->tasks[event](item);
+
+	if (page->tasks && page->tasks[event])
+		page->tasks[event](current_menu);
+	else if (current_menu->tasks && current_menu->tasks[event])
+		current_menu->tasks[event](current_menu);
 }
 
 void menu_right(type_MENU *menu) {
-	menu_repeat(menu, menu_repeat_right);
+	menu_repeat(menu_repeat_right);
 }
 
 void menu_left(type_MENU *menu) {
-	menu_repeat(menu, menu_repeat_left);
+	menu_repeat(menu_repeat_left);
 }
 
 void menu_next(type_MENU *menu) {
@@ -273,51 +258,45 @@ void menu_prev(type_MENU *menu) {
 	}
 }
 
-void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating)){
+void menu_repeat(void (*action)(const int repeating)){
 	int delay;
 	int button = status.button_down;
 
 	SleepTask(50);
 
-	action(menu, FALSE);
+	action(FALSE);
 	delay = AUTOREPEAT_DELAY_LONG;
 
 	do {
 		SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 		if (--delay == 0) {
-			action(menu, TRUE);
+			action(TRUE);
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
 }
 
-void menu_repeat_right(type_MENU *menu, const int repeating) {
-	type_MENUPAGE *page = menu->current_page;
+void menu_repeat_right(const int repeating) {
+	type_MENUPAGE *page = current_menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
-	if (item && !item->readonly && item->inc) {
-		item->inc(item, repeating);
+	if (item && !item->readonly && item->right) {
+		item->right(item, repeating);
 
-		if (item->change)
-			item->change(item);
-
-		menu->changed = TRUE;
+		menu_event_change();
 		menu_event_refresh();
 	}
 }
 
-void menu_repeat_left(type_MENU *menu, const int repeating) {
-	type_MENUPAGE *page = menu->current_page;
+void menu_repeat_left(const int repeating) {
+	type_MENUPAGE *page = current_menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
-	if (item && !item->readonly && item->dec) {
-		item->dec(item, repeating);
+	if (item && !item->readonly && item->left) {
+		item->left(item, repeating);
 
-		if (item->change)
-			item->change(item);
-
-		menu->changed = TRUE;
+		menu_event_change();
 		menu_event_refresh();
 	}
 }
