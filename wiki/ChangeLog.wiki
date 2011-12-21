@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20111111-3*_
+ * Removed some debugging code.
+
 _*20111111-2*_
  * Fixed EAEB for long (>30") exposures.
 
