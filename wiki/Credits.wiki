@@ -44,6 +44,20 @@ We (the devs and the users) are grateful to these people:
   '*0xAF*' - that would be me.
   
 ----
+===Current and past translators===
+  '*Speedy*' - German translation
+
+  '*TomBStonE*' - French translation
+
+  '*scrax*' aka '*scrizza*' - Italian translation
+
+  '*Jm TD*' - Spanish translation
+
+  '*Drpr0*' - Russian translation
+
+  '*Ordinary*' - Chinese (Simplified) translation
+
+----
 ===Some notes (*0xAF*)===
   I've tried to narrow down the all ppl who worked on this hack from the beginning,
   if i've missed someone, please let me know.
