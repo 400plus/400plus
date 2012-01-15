@@ -57,6 +57,8 @@ We (the devs and the users) are grateful to these people:
 
   '*Ordinary*' - Chinese (Simplified) translation
 
+Note: _Please add a comment for those I've missed..._
+
 ----
 ===Some notes (*0xAF*)===
   I've tried to narrow down the all ppl who worked on this hack from the beginning,
