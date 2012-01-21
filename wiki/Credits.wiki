@@ -55,7 +55,7 @@ We (the devs and the users) are grateful to these people:
 
   '*Drpr0*' - Russian translation
 
-  '*Ordinary*' - Chinese (Simplified) translation
+  '*Toni Lähdekorpi*' - Finnish translation
 
 Note: _Please add a comment for those I've missed..._
 
