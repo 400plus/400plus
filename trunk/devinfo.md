@@ -1,8 +1,10 @@
 
-
 # devinfo.md
-This is a [MarkDown][] info file intended for [400Plus][] project
-developers.
+This is a [MarkDown][] info file intended for [400Plus][] project developers.  
+There are some browser extensions to beautify [MarkDown][] files
+if you do not have a way to render it and do not want to read it in plain text.  
+This file should be available directly from the
+[Project Repository on the Web](http://400plus.googlecode.com/svn/trunk/devinfo.md)
 
   [MarkDown]: http://daringfireball.net/projects/markdown/syntax
   [400Plus]: http://code.google.com/p/400plus
@@ -28,24 +30,23 @@ development and reverse engineering. _(if I succeed in writing this file)_
 
 # INFORMATION
 ## Boot procedure
-It seems the __BL__ loads our _AUTOEXEC.BIN_ into _0x800000_ address,
-then jumps there. Unfortunately the __OFW__ will overwrite the beginning of
-this area shortly after booting, so we need to move away from this addresses.
+So the __BL__ loads our _AUTOEXEC.BIN_ into _0x800000_ address, then jumps
+there to execute our code.  
+Unfortunately the __OFW__ will overwrite the beginning (or the whole maybe?)
+of this area shortly after booting while we are executed from there. So we need
+to move away from this addresses as soon as possible.  
 The first thing we do when we are called by the __BL__ is to call our
-__`COPY()`__ [_init.c_] routine (see [_entry.S_]).
-This routine will copy some part (_`0x4000`_/_16kb_) of the code from
-_`0x800000`_ to _`0x7E0000`_. As we are not compiled with __PIC__, our code is
-linked to run from _`0x7E0000`_.  See this address in the _linker.script_
-and _Makefile_ files.  Actually we should be using this range
-(_`0x7E0000`_:_`0x800000`_) for our hack (_128kb_).
-This is what I (_0xAF_) do not understand: Why/How we run from _`0x7E0000`_,
-when we only copied _16kb_ out of _128kb_ from our hack ? Moreover if I try
-to copy more than _16kb_ in our __`COPY()`__ routine, the camera hangs.
-Anyway, while we are in our __`my_taskcreate_Startup()`__ [_init.c_] you will
-see that the call to __`CreateMainHeap(from, to)`__ have "`0x800000 - 0x20000`"
-for the "_to_" argument. This is to keep the last _0x20000_ bytes (_128kb_) out
-of the heap space.  This way we should be safe from __OFW__'s and ours heap
-allocations (__`malloc()`__).
+__`COPY()`__ [_init.c_] routine (see [_entry.S_]). This routine will copy our
+hack from _`0x800000`_ to _`0x7E0000`_.  
+As we are not compiled with __PIC__, our code is linked to run from
+_`0x7E0000`_.  You can see this address in the _linker.script_ and _Makefile_
+files.  
+Additionally while we are in our __`my_taskcreate_Startup()`__ [_init.c_]
+we've changed the "_to_" argument of the __`CreateMainHeap(from, to)`__ call,
+from "`0x800000`" to "`0x800000 - 0x20000`".  
+This is so to keep the last _0x20000_ bytes (_128kb_), our hack, out of the
+heap space, and this way to be safe from __OFW__'s and our heap allocations
+(__`malloc()`__).
 
 ---
 
