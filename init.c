@@ -13,13 +13,13 @@ void my_task_Startup();
 int  my_InitializeIntercom();
 
 void COPY() {
-	// AF: check the devinfo for more details
+	// AF: check the devinfo for more details on why this routine is needed
 	int i;
 
 	long *from = (long*) 0x800000;
 	long *to   = (long*) 0x7E0000;
 
-	for (i = 0; i < 0x4000; i++) {
+	for (i = 0; i < 0x8000; i++) {
 		to[i] = from[i];
 	}
 }
