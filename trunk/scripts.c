@@ -26,7 +26,7 @@ void script_ext_aeb() {
 	script_start();
 
 	if (settings.eaeb_delay)
-		script_delay(2);
+		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
 		script_shot(SHOT_ACTION_EXT_AEB);
@@ -40,7 +40,7 @@ void script_efl_aeb() {
 	script_start();
 
 	if (settings.eaeb_delay)
-		script_delay(2);
+		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
 		script_shot(SHOT_ACTION_EFL_AEB);
@@ -54,7 +54,7 @@ void script_iso_aeb() {
 	script_start();
 
 	if (settings.eaeb_delay)
-		script_delay(2);
+		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
 		script_shot(SHOT_ACTION_ISO_AEB);
@@ -70,7 +70,7 @@ void script_interval() {
 	script_start();
 
 	if (settings.interval_delay)
-		script_delay(2);
+		script_delay(SCRIPT_DELAY_START);
 
 	for (;;) {
 		if (!status.script_running)
@@ -79,7 +79,7 @@ void script_interval() {
 		script_shot(settings.interval_action);
 
 		if (++i < settings.interval_shots || settings.interval_shots == 0)
-			script_delay(settings.interval_time);
+			script_delay(settings.interval_time * SCRIPT_DELAY_RESOLUTION);
 		else
 			break;
 	}
@@ -109,7 +109,7 @@ void script_wave() {
 
 		// Do the optional delay
 		if (settings.wave_delay)
-			script_delay(2);
+			script_delay(SCRIPT_DELAY_START);
 
 		// And finally fire the camera
 		if (status.script_running)
@@ -124,7 +124,7 @@ void script_wave() {
 void script_self_timer() {
 	script_start();
 
-	script_delay(settings.timer_timeout);
+	script_delay(settings.timer_timeout * SCRIPT_DELAY_RESOLUTION);
 
 	if (status.script_running)
 		script_shot(settings.timer_action);
@@ -334,17 +334,16 @@ void sub_efl_aeb() {
 	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
 }
 
-void script_delay(int seconds) {
-	int i;
+void script_delay(int delay) {
+	while(delay > SCRIPT_DELAY_TIME) {
+		SleepTask(SCRIPT_DELAY_TIME);
 
-	while (seconds--) {
-		for (i = 0; i < SCRIPT_DELAY_REPEAT; i++) {
-			SleepTask(SCRIPT_DELAY_TIME);
-			if (!status.script_running)
-				return;
-		}
+		if (!status.script_running)
+			return;
 
+		delay -= SCRIPT_DELAY_TIME;
 	}
 
-	SleepTask(SCRIPT_DELAY_TIME);
+	if (delay > 0)
+		SleepTask(delay);
 }

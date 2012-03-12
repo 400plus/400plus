@@ -8,9 +8,14 @@
 #define FEEDBACK_LENGTH    25
 #define FEEDBACK_INTERVAL 475
 
-// One second while delaying script
-#define SCRIPT_DELAY_REPEAT   4
-#define SCRIPT_DELAY_TIME   250
+// Pooling time while delaying script
+#define SCRIPT_DELAY_TIME 250
+
+// 1s resolution
+#define SCRIPT_DELAY_RESOLUTION 1000
+
+// Standard delay before starting (2s)
+#define SCRIPT_DELAY_START 2 * SCRIPT_DELAY_RESOLUTION
 
 typedef enum {
 	SCRIPT_NONE,
