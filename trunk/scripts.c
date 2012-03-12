@@ -337,21 +337,14 @@ void sub_efl_aeb() {
 void script_delay(int seconds) {
 	int i;
 
-	display_countdown_dialog_create();
-
 	while (seconds--) {
-		display_countdown(1 + seconds);
 		for (i = 0; i < SCRIPT_DELAY_REPEAT; i++) {
 			SleepTask(SCRIPT_DELAY_TIME);
 			if (!status.script_running)
-				goto end;
+				return;
 		}
 
 	}
 
-	display_countdown(0);
 	SleepTask(SCRIPT_DELAY_TIME);
-
-end:
-	display_countdown_dialog_destroy();
 }
