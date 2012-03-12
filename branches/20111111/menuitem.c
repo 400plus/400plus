@@ -61,7 +61,10 @@ void menuitem_display_int(const type_MENUITEM *item, char *buffer, const int len
 }
 
 void menuitem_display_enum(const type_MENUITEM *item, char *buffer, const int length) {
-	menuitem_print(buffer, item->name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value], length);
+	if (*item->parm.menuitem_enum.value >= 0 && *item->parm.menuitem_enum.value < item->parm.menuitem_enum.list->length)
+		menuitem_print(buffer, item->name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value], length);
+	else
+		menuitem_print(buffer, item->name, "?", length);
 }
 
 void menuitem_display_sub(const type_MENUITEM *item, char *buffer, const int length) {
@@ -102,8 +105,8 @@ void menuitem_right_int(const type_MENUITEM *item, const int repeating) {
 }
 
 void menuitem_right_enum(const type_MENUITEM *item, const int repeating) {
-	if (*item->parm.menuitem_enum.value == item->parm.menuitem_enum.list->length - 1) {
-		if (item->parm.menuitem_enum.cycle)
+	if (*item->parm.menuitem_enum.value >= item->parm.menuitem_enum.list->length - 1) {
+		if (item->parm.menuitem_enum.cycle || *item->parm.menuitem_enum.value > item->parm.menuitem_enum.list->length - 1)
 			*item->parm.menuitem_enum.value = 0;
 	} else
 		(*item->parm.menuitem_enum.value)++;
@@ -145,9 +148,9 @@ void menuitem_left_int(const type_MENUITEM *item, const int repeating) {
 }
 
 void menuitem_left_enum(const type_MENUITEM *item, const int repeating) {
-	if (*item->parm.menuitem_enum.value == 0) {
-		if (item->parm.menuitem_enum.cycle)
+	if (*item->parm.menuitem_enum.value <= 0) {
+		if (item->parm.menuitem_enum.cycle || *item->parm.menuitem_enum.value < 0)
 			*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
 	} else
-		*item->parm.menuitem_enum.value -= 1;
+		(*item->parm.menuitem_enum.value)--;
 }
