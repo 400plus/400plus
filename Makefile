@@ -94,7 +94,7 @@ release: clean
 	@sed -i "s/^VERSION\s*=.*/VERSION = $(CDATE)/" 400plus-$(RELVER)/src/Makefile
 	@zip -9 -r 400plus-$(RELVER).src.zip 400plus-$(RELVER)
 	@cd 400plus-$(RELVER)/src && make
-	@cp 400plus-$(RELVER)/src/AUTOEXEC.BIN 400plus-$(RELVER)/bin
+	@cp 400plus-$(RELVER)/src/AUTOEXEC.BIN languages.ini 400plus-$(RELVER)/bin
 	@rm -rf 400plus-$(RELVER)/src
 	@zip -9 -r 400plus-$(RELVER).bin.zip 400plus-$(RELVER)
 	@echo
