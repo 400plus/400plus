@@ -276,7 +276,7 @@ void tv_print(char *dest, int tv) {
 /**
  * For intermediate ISOs, we are doing a linear approximation
  * between two base ISOs; as pointed out by Sergei, we should
- * use an exponential calculation, but I decided to keep this 
+ * use an exponential calculation, but I decided to keep this
  * version, as the correct algorithm yields _uglier_ numbers.
  */
 
@@ -392,9 +392,13 @@ int shutter_release_disasm() {
 }
 #endif
 
-int shutter_release() {
+void wait_for_camera() {
 	while (! able_to_release())
 		SleepTask(RELEASE_WAIT);
+}
+
+int shutter_release() {
+	wait_for_camera();
 
 	int result = eventproc_Release();
 	SleepTask(EVENT_WAIT);
@@ -403,8 +407,7 @@ int shutter_release() {
 }
 
 int shutter_release_bulb(int time) {
-	while (! able_to_release())
-		SleepTask(RELEASE_WAIT);
+	wait_for_camera();
 
 	press_button(0xB6);
 	SleepTask(60 * 1000 * time);
@@ -468,14 +471,13 @@ void led_flash(int duration) {
 }
 
 int strlen_utf8(const char *s) {
-  int i = 0, j = 0;
+	int i = 0, j = 0;
 
-  while (s[i]) {
-    if ((s[i++] & 0xc0) != 0x80)
-    	j++;
-  }
+	while (s[i])
+		if ((s[i++] & 0xc0) != 0x80)
+			j++;
 
-  return j;
+	return j;
 }
 
 // convert string to upper case in-place
@@ -486,6 +488,22 @@ void stoupper(char *s) {
 		}
 		s++;
 	}
+}
+
+int timestamp() {
+	static long long base = 0;
+	struct timespec now_ts;
+	long long now_ms;
+
+	clock_gettime(0, &now_ts);
+
+	now_ms = (long long)now_ts.tv_sec * 1000LL + (long long)now_ts.tv_nsec / 1000000LL;
+
+	if (base == 0) {
+		base = now_ms;
+	}
+
+	return (int)(now_ms - base);
 }
 
 // so basically this is a speed-up version which reads 255 bytes at a time
@@ -559,4 +577,3 @@ char * my_fgets_simple_but_slow(char *s, int n, int fd) {
 	return s;
 }
 #endif
-

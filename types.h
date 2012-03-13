@@ -14,10 +14,12 @@ typedef long FILE;
 typedef long unsigned int size_t;
 
 typedef unsigned int time_t;
+
 struct timespec {
 	time_t tv_sec;   /* seconds */
-	time_t tv_nsec;  /* nanoseconds */
+	long   tv_nsec;  /* nanoseconds */
 };
+
 struct tm {
 	int tm_sec;         /* seconds */
 	int tm_min;         /* minutes */
@@ -37,4 +39,5 @@ struct lens_info {
 	short not_used;
 	char *name;
 } __attribute__((packed));
+
 #endif // TYPES_H_

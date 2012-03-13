@@ -65,23 +65,41 @@ void script_iso_aeb() {
 }
 
 void script_interval() {
-	int i = 0;
+	int i;
+	int target, gap = 0, pause = 0, jump = 0;
+	int delay = settings.interval_time * SCRIPT_DELAY_RESOLUTION;
 
 	script_start();
 
 	if (settings.interval_delay)
 		script_delay(SCRIPT_DELAY_START);
 
-	for (;;) {
-		if (!status.script_running)
-			break;
+	target = timestamp();
+
+	for (i = 0; i < settings.interval_shots || settings.interval_shots == 0; i++) {
+		if (i > 0) {
+			wait_for_camera();
+
+			if (!status.script_running)
+				break;
+
+			gap    = target - timestamp();
+
+            pause  = gap % delay;
+            pause += pause > 0 ? 0 : delay;
+
+            script_delay(pause);
+
+			if (!status.script_running)
+				break;
+		}
 
 		script_shot(settings.interval_action);
 
-		if (++i < settings.interval_shots || settings.interval_shots == 0)
-			script_delay(settings.interval_time * SCRIPT_DELAY_RESOLUTION);
-		else
-			break;
+        jump    = (pause % delay) - gap;
+        jump   += jump > delay ? 0 : delay;
+
+        target += jump;
 	}
 
 	script_stop();
