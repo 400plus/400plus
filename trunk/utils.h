@@ -51,6 +51,8 @@ extern void dump_log();
 extern void print_info();
 
 extern int send_to_intercom(int message, int length, int parm);
+
+extern void wait_for_camera();
 extern int shutter_release();
 extern int shutter_release_bulb(int time);
 extern int press_button(int button);
@@ -67,6 +69,8 @@ extern int strlen_utf8(const char *);
 
 // convert string to upper case in-place
 extern void stoupper(char *s);
+
+extern int timestamp();
 
 #ifdef FGETS_USE_SLOW
 // this version will read byte-by-byte ... it is slow
