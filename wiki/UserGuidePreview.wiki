@@ -69,7 +69,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*ISO AEB*_: This item launches and configures the [#ISO_AEB ISO AEB] script; each item in the configuration sub-menu indicates whether the camera must fire a shot for that ISO value.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Time (s): the interval time (in seconds) between each shot. Values range from 0 to 250.
+    * Time (s): the interval time (in seconds) between each shot (or group of shots). Values range from 0 to 250.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
     * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
  * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
@@ -164,7 +164,9 @@ You probably want to set the camera to `M` mode prior to using this script.
 
 == Intervalometer ==
 
-This script will fire the camera as many times as configured (or endlessly), waiting the specified time between shots. Use this script to create _stop-motion_ movies.
+This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example.
+
+Notice that `400plus` will always try to maintain a constant cadence of shots, independent of the exposure time: if configured to shot at 15s intervals, for example, then one shot will be taken exactly every 15s, even if the exposure is 10s. If one shot in the sequence has an exposure time longer than the configured interval time, `400plus` will skip as many shots as needed and reschedule the sequence. This comment is also true when the intervalometer is configured to fire any multi-shot action.
 
 == Hand Waving ==
 
