@@ -246,6 +246,9 @@ void button_jump_task() {
 	case BUTTON_ACTION_SCRIPT:
 		repeat_last_script();
 		break;
+	case BUTTON_ACTION_HACK_MENU:
+		menu_main_start();
+		break;
 	default:
 		break;
 	}

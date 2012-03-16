@@ -96,6 +96,7 @@
 	LANG_PAIR( V_NONE,               "None"               ) \
 	LANG_PAIR( V_INTISO,             "Intermediate ISO"   ) \
 	LANG_PAIR( V_REPEAT,             "Repeat last script" ) \
+	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"  ) \
 	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
 
 enum LANG_WORDS_ENUM {
