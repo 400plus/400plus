@@ -59,9 +59,9 @@ void menu_create(type_MENU *menu) {
 	//press_button(IC_BUTTON_MENU);
 	SendToMC(6, 2, 0);
 	SleepTask(100);
-	
+
 	status.menu_running = TRUE;
-	//FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
+	FLAG_GUI_MODE = 0x2D; // Just a temporary value solution
 	//cameraMode->gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
 
 	current_menu    = menu;
