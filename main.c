@@ -146,7 +146,7 @@ void intercom_proxy(const int handler, char *message) {
 				}
 			}
 		}
-
+		goto pass_message;
 	case IC_SETTINGS_3: // Settings changed (end of sequence)
 		// Restore display
 		ENQUEUE_TASK(restore_display);
