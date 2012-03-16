@@ -10,8 +10,6 @@
 
 #include "menu_shortcuts.h"
 
-void menu_shortcuts_close();
-
 void menu_shortcuts_apply_cf_emit_aux        (const type_MENUITEM *item);
 void menu_shortcuts_apply_cf_mirror_up_lock  (const type_MENUITEM *item);
 void menu_shortcuts_apply_cf_flash_sync_rear (const type_MENUITEM *item);
