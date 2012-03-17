@@ -37,4 +37,6 @@ extern void script_interval();
 extern void script_wave();
 extern void script_self_timer();
 
+extern void script_restore();
+
 #endif /* SCRIPTS_H_ */
