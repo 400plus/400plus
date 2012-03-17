@@ -159,6 +159,7 @@ void script_start() {
 	st_cameraMode = *cameraMode;
 
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
+	send_to_intercom(IC_SET_AE_BKT,            1, 0x00);
 
 	if (settings.dim_lcd_down)
 		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
@@ -176,9 +177,17 @@ void script_stop() {
 	beep();
 	status.script_running = FALSE;
 
-	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_cameraMode.auto_power_off);
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_AE_BKT,            1, st_cameraMode.ae_bkt);
+
 	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
+	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_cameraMode.auto_power_off);
+
+	send_to_intercom(IC_SET_AE,     1, st_cameraMode.ae);
+	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
+	send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
+	send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
+	send_to_intercom(IC_SET_ISO,    2, st_cameraMode.iso);
 }
 
 void script_feedback() {
@@ -193,9 +202,6 @@ void script_feedback() {
 }
 
 void script_shot(type_SHOT_ACTION action) {
-	int aeb = cameraMode->ae_bkt;
-	send_to_intercom(IC_SET_AE_BKT, 1, 0x00);
-
 	switch (action) {
 	case SHOT_ACTION_SHOT:
 		shutter_release();
@@ -212,8 +218,6 @@ void script_shot(type_SHOT_ACTION action) {
 	default:
 		break;
 	}
-
-	send_to_intercom(IC_SET_AE_BKT, 1, aeb);
 }
 
 void sub_ext_aeb() {
@@ -290,11 +294,6 @@ void sub_ext_aeb() {
 					break;
 			}
 		}
-
-		// Restore values
-		send_to_intercom(IC_SET_AE,     1, st_cameraMode.ae);
-		send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
-		send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
 	}
 }
 
@@ -312,8 +311,6 @@ void sub_iso_aeb() {
 				break;
 		}
 	}
-
-	send_to_intercom(IC_SET_ISO, 2, st_cameraMode.iso);
 }
 
 void sub_efl_aeb() {
@@ -348,8 +345,6 @@ void sub_efl_aeb() {
 				break;
 		}
 	}
-
-	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
 }
 
 void script_delay(int delay) {
