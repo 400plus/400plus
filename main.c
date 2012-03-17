@@ -129,6 +129,10 @@ void intercom_proxy(const int handler, char *message) {
 
 	// Status-independent events and special cases
 	switch (event) {
+	case IC_SHUTDOWN: // Camera has shut down
+		if (status.script_running)
+			script_restore();
+		goto pass_message;
 	case IC_SETTINGS_0: // Settings changed (begin of sequence)
 		if (status.ignore_ae_change) {
 			// Ignore first AE change after loading a preset, as it generates this same event

@@ -176,7 +176,10 @@ void script_start() {
 void script_stop() {
 	beep();
 	status.script_running = FALSE;
+	script_restore();
+}
 
+void script_restore() {
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
 	send_to_intercom(IC_SET_AE_BKT,            1, st_cameraMode.ae_bkt);
 
