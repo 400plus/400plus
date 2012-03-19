@@ -51,7 +51,7 @@
 	LANG_PAIR( I_STEP_EV,            "Step (EV)"          ) \
 	LANG_PAIR( I_MANUAL_L,           "Bulb min"           ) \
 	LANG_PAIR( I_MANUAL_R,           "Bulb max"           ) \
-	LANG_PAIR( I_TIME_S,             "Time (s)"           ) \
+	LANG_PAIR( I_TIME_S,             "Time"               ) \
 	LANG_PAIR( I_EAEB,               "EAEB"               ) \
 	LANG_PAIR( I_SHOTS,              "Shots"              ) \
 	LANG_PAIR( I_DIRECTION,          "Direction"          ) \
@@ -61,6 +61,7 @@
 	LANG_PAIR( S_INTERVAL,           "Intervalometer"     ) \
 	LANG_PAIR( S_HANDWAVE,           "Handwaving"         ) \
 	LANG_PAIR( S_TIMER,              "Self-Timer"         ) \
+	LANG_PAIR( S_LEXP,               "Long exposures"     ) \
 	LANG_PAIR( I_DIM_LCD_DOWN,       "Dim LCD down"       ) \
 	LANG_PAIR( I_KEEP_POWER_ON,      "Disable power-off"  ) \
 	LANG_PAIR( I_BTN_JUMP,           "Jump"               ) \
@@ -90,6 +91,7 @@
 	LANG_PAIR( V_EXT_AEB,            "Ext. AEB"           ) \
 	LANG_PAIR( V_EFL_AEB,            "Flash AEB"          ) \
 	LANG_PAIR( V_ISO_AEB,            "ISO AEB"            ) \
+	LANG_PAIR( V_LEXP,               "Long exp."          ) \
 	LANG_PAIR( V_NEW,                "New"                ) \
 	LANG_PAIR( V_OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( V_APPEND,             "Append"             ) \

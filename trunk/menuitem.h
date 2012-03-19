@@ -244,7 +244,8 @@ OPTIONLIST_DEC(direction)
 
 #define MENUITEM_PARAM(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE, 0, 0, 0, 0, FALSE, "%u", NULL)
 
-#define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, FALSE,    0,   300,   1,  10, _ON_CHANGE_)
+#define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, FALSE,    1,   300,   1,  10, _ON_CHANGE_)
+#define MENUITEM_LONGEXP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, FALSE,   15,  6000,  15,  60, _ON_CHANGE_)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_ev   (const type_MENUITEM *item, char *buffer, const int length);

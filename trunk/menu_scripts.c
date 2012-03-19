@@ -20,6 +20,7 @@ void menu_scripts_iso_aeb      (const type_MENUITEM *item);
 void menu_scripts_interval     (const type_MENUITEM *item);
 void menu_scripts_wave         (const type_MENUITEM *item);
 void menu_scripts_self_timer   (const type_MENUITEM *item);
+void menu_scripts_long_exp     (const type_MENUITEM *item);
 
 void menu_scripts_launch (type_TASK script);
 
@@ -67,12 +68,17 @@ type_MENUITEM timer_items[] = {
 	MENUITEM_ACTION (LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
+type_MENUITEM lexp_items[] = {
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),    &settings.lexp_delay, NULL),
+	MENUITEM_LONGEXP(LP_WORD(L_I_TIME_S),   &settings.lexp_time,  NULL)
+};
+
 type_MENUPAGE ext_aeb_page = {
 	name   : LP_WORD(L_S_EXT_AEB),
 	length : LENGTH(ext_aeb_items),
 	items  : ext_aeb_items,
 	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
+		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
@@ -81,7 +87,7 @@ type_MENUPAGE efl_aeb_page = {
 	length : LENGTH(efl_aeb_items),
 	items  : efl_aeb_items,
 	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
+		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
@@ -90,7 +96,7 @@ type_MENUPAGE iso_aeb_page = {
 	length : LENGTH(iso_aeb_items),
 	items  : iso_aeb_items,
 	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
+		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
@@ -99,7 +105,7 @@ type_MENUPAGE interval_page = {
 	length : LENGTH(interval_items),
 	items  : interval_items,
 	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
+		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
@@ -108,7 +114,7 @@ type_MENUPAGE wave_page = {
 	length : LENGTH(wave_items),
 	items  : wave_items,
 	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
+		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
@@ -117,10 +123,18 @@ type_MENUPAGE timer_page = {
 	length : LENGTH(timer_items),
 	items  : timer_items,
 	tasks  : {
-		[MENU_EVENT_AV]   = menu_return,
+		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
+type_MENUPAGE lexp_page = {
+	name   : LP_WORD(L_S_LEXP),
+	length : LENGTH(lexp_items),
+	items  : lexp_items,
+	tasks  : {
+		[MENU_EVENT_AV] = menu_return,
+	}
+};
 type_MENUITEM menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
 	MENUITEM_SUBMENU(LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
@@ -128,6 +142,7 @@ type_MENUITEM menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
 	MENUITEM_SUBMENU(LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
 	MENUITEM_SUBMENU(LP_WORD(L_S_TIMER),     &timer_page,     menu_scripts_self_timer),
+	MENUITEM_SUBMENU(LP_WORD(L_S_LEXP),      &lexp_page,      menu_scripts_long_exp),
 };
 
 type_MENUPAGE menupage_scripts = {
@@ -170,6 +185,10 @@ void menu_scripts_wave(const type_MENUITEM *item) {
 
 void menu_scripts_self_timer(const type_MENUITEM *item) {
 	menu_scripts_launch(script_self_timer);
+}
+
+void menu_scripts_long_exp(const type_MENUITEM *item) {
+	menu_scripts_launch(script_long_exp);
 }
 
 void menu_scripts_launch(type_TASK script) {

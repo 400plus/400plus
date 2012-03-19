@@ -25,6 +25,7 @@ typedef enum {
 	SCRIPT_INTERVAL,
 	SCRIPT_WAVE,
 	SCRIPT_TIMER,
+	SCRIPT_LONG_EXP,
 	SCRIPT_COUNT,
 	SCRIPT_FIRST = 0,
 	SCRIPT_LAST  = SCRIPT_COUNT - 1
@@ -36,6 +37,7 @@ extern void script_iso_aeb();
 extern void script_interval();
 extern void script_wave();
 extern void script_self_timer();
+extern void script_long_exp();
 
 extern void script_restore();
 

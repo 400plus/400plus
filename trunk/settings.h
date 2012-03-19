@@ -2,13 +2,14 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x33
+#define SETTINGS_VERSION  0x34
 
 typedef enum {
 	SHOT_ACTION_SHOT,
 	SHOT_ACTION_EXT_AEB,
 	SHOT_ACTION_EFL_AEB,
 	SHOT_ACTION_ISO_AEB,
+	SHOT_ACTION_LONG_EXP,
 	SHOT_ACTION_COUNT,
 	SHOT_ACTION_FIRST = 0,
 	SHOT_ACTION_LAST  = SHOT_ACTION_COUNT - 1
@@ -60,6 +61,8 @@ typedef struct {
 	int wave_action;
 	int wave_repeat;
 	int wave_instant;
+	int lexp_delay;
+	int lexp_time;
 	int remote_delay;
 	int timer_timeout;
 	int timer_action;
