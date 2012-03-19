@@ -12,16 +12,17 @@ type_SETTINGS settings = {
 	autoiso_maxiso   : 0x68, // ISO1600
 	autoiso_mintv    : 0x68, // 1/60s
 	autoiso_maxav    : 0x28, // f/4.0
-	eaeb_frames      : 3,
 	eaeb_delay       : FALSE,
+	eaeb_frames      : 3,
 	eaeb_ev          : 0x08, // 1EV
 	eaeb_tv_min      : 0x78, // 1/250s
 	eaeb_tv_max      : 0x68, // 1/60s
 	eaeb_direction   : EAEB_DIRECTION_BOTH,
-	efl_aeb_frames   : 3,
 	efl_aeb_delay    : FALSE,
+	efl_aeb_frames   : 3,
 	efl_aeb_ev       : 0x08, // 1EV
 	efl_aeb_direction: EAEB_DIRECTION_BOTH,
+	iso_aeb_delay    : FALSE,
 	iso_aeb          : {TRUE, TRUE, TRUE, TRUE, TRUE},
 	interval_delay   : FALSE,
 	interval_time    : 2,
