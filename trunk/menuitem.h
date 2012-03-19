@@ -171,6 +171,22 @@ OPTIONLIST_DEC(direction)
 	change  : _CHANGE_ \
 }
 
+#define MENUITEM_TIME(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _CHANGE_) { \
+	name     : _NAME_, \
+	readonly : _RO_, \
+	parm     : {menuitem_int : { \
+		value                : _VALUE_, \
+		min                  : _MIN_, \
+		max                  : _MAX_, \
+		small_step           : _SMALL_, \
+		big_step             : _BIG_, \
+	}}, \
+	display : menuitem_display_time, \
+	inc     : menuitem_inc_int, \
+	dec     : menuitem_dec_int, \
+	change  : _CHANGE_ \
+}
+
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _CHANGE_)  { \
 	name  : _NAME_, \
 	parm  : { menuitem_enum : { \
@@ -223,11 +239,12 @@ OPTIONLIST_DEC(direction)
 #define MENUITEM_EAEBDIR( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE, OPTIONLIST_REF(direction), _ON_CHANGE_)
 
 #define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE, 1800, 11000, 100, 500, FALSE, "%5u", _ON_CHANGE_)
-#define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, FALSE, "%3u", _ON_CHANGE_)
 #define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
 #define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,     9,   2,   2, FALSE, "%1u", _ON_CHANGE_)
 
 #define MENUITEM_PARAM(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE, 0, 0, 0, 0, FALSE, "%u", NULL)
+
+#define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, FALSE,    0,   300,   1,  10, _ON_CHANGE_)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_ev   (const type_MENUITEM *item, char *buffer, const int length);
@@ -235,6 +252,7 @@ extern void menuitem_display_av   (const type_MENUITEM *item, char *buffer, cons
 extern void menuitem_display_tv   (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_iso  (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_int  (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_time (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_enum (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_info (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_sub  (const type_MENUITEM *item, char *buffer, const int length);
