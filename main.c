@@ -71,7 +71,7 @@ type_ACTION actions_iso[] = {
 };
 
 type_ACTION actions_face[] = {
-	{IC_BUTTON_UP,    TRUE, TRUE, {}},
+	{IC_BUTTON_UP,    TRUE, TRUE, {viewfinder_up,    viewfinder_end}},
 	{IC_BUTTON_DOWN,  TRUE, TRUE, {}},
 	{IC_BUTTON_RIGHT, TRUE, TRUE, {viewfinder_right, viewfinder_end}},
 	{IC_BUTTON_LEFT,  TRUE, TRUE, {viewfinder_left,  viewfinder_end}},
