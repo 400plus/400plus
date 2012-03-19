@@ -40,11 +40,12 @@ type_MENUITEM efl_aeb_items[] = {
 };
 
 type_MENUITEM iso_aeb_items[] = {
-	MENUITEM_BOOLEAN(" 100", &settings.iso_aeb[0], NULL),
-	MENUITEM_BOOLEAN(" 200", &settings.iso_aeb[1], NULL),
-	MENUITEM_BOOLEAN(" 400", &settings.iso_aeb[2], NULL),
-	MENUITEM_BOOLEAN(" 800", &settings.iso_aeb[3], NULL),
-	MENUITEM_BOOLEAN("1600", &settings.iso_aeb[4], NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY), &settings.iso_aeb_delay, NULL),
+	MENUITEM_BOOLEAN(" 100",             &settings.iso_aeb[0],    NULL),
+	MENUITEM_BOOLEAN(" 200",             &settings.iso_aeb[1],    NULL),
+	MENUITEM_BOOLEAN(" 400",             &settings.iso_aeb[2],    NULL),
+	MENUITEM_BOOLEAN(" 800",             &settings.iso_aeb[3],    NULL),
+	MENUITEM_BOOLEAN("1600",             &settings.iso_aeb[4],    NULL),
 };
 
 type_MENUITEM interval_items[] = {

@@ -39,7 +39,7 @@ void script_ext_aeb() {
 void script_efl_aeb() {
 	script_start();
 
-	if (settings.eaeb_delay)
+	if (settings.efl_aeb_delay)
 		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
@@ -53,7 +53,7 @@ void script_efl_aeb() {
 void script_iso_aeb() {
 	script_start();
 
-	if (settings.eaeb_delay)
+	if (settings.iso_aeb_delay)
 		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
