@@ -81,6 +81,7 @@ typedef struct {
 	int developers_menu;
 	int button_jump;
 	int button_disp;
+	int language;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;
