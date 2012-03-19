@@ -32,6 +32,8 @@ type_SETTINGS settings = {
 	wave_action      : SHOT_ACTION_FIRST,
 	wave_repeat      : FALSE,
 	wave_instant     : FALSE,
+	lexp_delay       : FALSE,
+	lexp_time        : 60,
 	remote_delay     : FALSE,
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_FIRST,

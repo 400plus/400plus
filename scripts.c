@@ -19,6 +19,7 @@ void script_action(type_SHOT_ACTION action);
 void action_ext_aeb();
 void action_efl_aeb();
 void action_iso_aeb();
+void action_long_exp();
 
 void script_delay(int seconds);
 
@@ -156,6 +157,21 @@ void script_self_timer() {
 	status.last_script = SCRIPT_TIMER;
 }
 
+
+void script_long_exp() {
+	script_start();
+
+	if (settings.lexp_delay)
+		script_delay(SCRIPT_DELAY_START);
+
+	if (status.script_running)
+		script_action(SHOT_ACTION_LONG_EXP);
+
+	script_stop();
+
+	status.last_script = SCRIPT_LONG_EXP;
+}
+
 void script_start() {
 	beep();
 	status.script_running = TRUE;
@@ -222,6 +238,9 @@ void script_action(type_SHOT_ACTION action) {
 	case SHOT_ACTION_ISO_AEB:
 		action_iso_aeb();
 		break;
+	case SHOT_ACTION_LONG_EXP:
+		action_long_exp();
+		break;
 	default:
 		break;
 	}
@@ -234,7 +253,7 @@ void action_ext_aeb() {
 		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
 			if (tv_val < 0x10) {
 				send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
-				shutter_release_bulb(1 << (1 - (tv_val >> 3)));
+				shutter_release_bulb(60 * (1 << (1 - (tv_val >> 3))));
 			} else {
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
 				shutter_release();
@@ -304,7 +323,6 @@ void action_ext_aeb() {
 	}
 }
 
-
 void action_iso_aeb() {
 	int i;
 
@@ -352,6 +370,13 @@ void action_efl_aeb() {
 				break;
 		}
 	}
+}
+
+void action_long_exp() {
+	send_to_intercom(IC_SET_AE,     1, AE_MODE_M);
+	send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
+
+	shutter_release_bulb(settings.lexp_time);
 }
 
 void script_delay(int delay) {
