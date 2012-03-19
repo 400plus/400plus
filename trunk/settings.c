@@ -51,6 +51,7 @@ type_SETTINGS settings = {
 	remote_enable    : FALSE,
 	developers_menu  : FALSE,
 	button_jump      : BUTTON_ACTION_ISO,
+	button_disp      : FALSE,
 };
 
 int settings_read() {

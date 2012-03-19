@@ -39,6 +39,7 @@ type_ACTION actions_main[]  = {
 	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
 	{IC_BUTTON_DP,    FALSE, TRUE,   {menu_main_start}},
 	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_img_format}},
+	{IC_BUTTON_DISP,  FALSE, TRUE,   {display_brightness}},
 	END_OF_LIST
 };
 
