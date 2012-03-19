@@ -15,10 +15,10 @@ void script_start();
 void script_stop();
 void script_feedback();
 
-void script_shot(type_SHOT_ACTION action);
-void sub_ext_aeb();
-void sub_efl_aeb();
-void sub_iso_aeb();
+void script_action(type_SHOT_ACTION action);
+void action_ext_aeb();
+void action_efl_aeb();
+void action_iso_aeb();
 
 void script_delay(int seconds);
 
@@ -29,7 +29,7 @@ void script_ext_aeb() {
 		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
-		script_shot(SHOT_ACTION_EXT_AEB);
+		script_action(SHOT_ACTION_EXT_AEB);
 
 	script_stop();
 
@@ -43,7 +43,7 @@ void script_efl_aeb() {
 		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
-		script_shot(SHOT_ACTION_EFL_AEB);
+		script_action(SHOT_ACTION_EFL_AEB);
 
 	script_stop();
 
@@ -57,7 +57,7 @@ void script_iso_aeb() {
 		script_delay(SCRIPT_DELAY_START);
 
 	if (status.script_running)
-		script_shot(SHOT_ACTION_ISO_AEB);
+		script_action(SHOT_ACTION_ISO_AEB);
 
 	script_stop();
 
@@ -74,31 +74,35 @@ void script_interval() {
 	if (settings.interval_delay)
 		script_delay(SCRIPT_DELAY_START);
 
+	// "target" is the timestamp when we are supposed to shot
 	target = timestamp();
 
 	for (i = 0; i < settings.interval_shots || settings.interval_shots == 0; i++) {
+		// We pause before each shot, after waiting for the camera to finish the previous one
 		if (i > 0) {
 			wait_for_camera();
 
 			if (!status.script_running)
 				break;
 
+			// Calculate how much time is left until target, and wait;
+			// automatically aim for the next target, if already missed this
 			gap    = target - timestamp();
-
             pause  = gap % delay;
             pause += pause > 0 ? 0 : delay;
 
             script_delay(pause);
-
-			if (!status.script_running)
-				break;
 		}
 
-		script_shot(settings.interval_action);
+		if (!status.script_running)
+			break;
 
+		script_action(settings.interval_action);
+
+		// Recalculate the next target,
+		// but considering we may have already missed it
         jump    = (pause % delay) - gap;
         jump   += jump > delay ? 0 : delay;
-
         target += jump;
 	}
 
@@ -131,7 +135,7 @@ void script_wave() {
 
 		// And finally fire the camera
 		if (status.script_running)
-			script_shot(settings.wave_action);
+			script_action(settings.wave_action);
 	} while (status.script_running && settings.wave_repeat);
 
 	script_stop();
@@ -145,7 +149,7 @@ void script_self_timer() {
 	script_delay(settings.timer_timeout * SCRIPT_DELAY_RESOLUTION);
 
 	if (status.script_running)
-		script_shot(settings.timer_action);
+		script_action(settings.timer_action);
 
 	script_stop();
 
@@ -204,26 +208,26 @@ void script_feedback() {
 	}
 }
 
-void script_shot(type_SHOT_ACTION action) {
+void script_action(type_SHOT_ACTION action) {
 	switch (action) {
 	case SHOT_ACTION_SHOT:
 		shutter_release();
 		break;
 	case SHOT_ACTION_EXT_AEB:
-		sub_ext_aeb();
+		action_ext_aeb();
 		break;
 	case SHOT_ACTION_EFL_AEB:
-		sub_efl_aeb();
+		action_efl_aeb();
 		break;
 	case SHOT_ACTION_ISO_AEB:
-		sub_iso_aeb();
+		action_iso_aeb();
 		break;
 	default:
 		break;
 	}
 }
 
-void sub_ext_aeb() {
+void action_ext_aeb() {
 	if (cameraMode->tv_val == TV_VAL_BULB) {
 		int tv_val;
 
@@ -301,7 +305,7 @@ void sub_ext_aeb() {
 }
 
 
-void sub_iso_aeb() {
+void action_iso_aeb() {
 	int i;
 
 	for (i = 0; i < 5; i++) {
@@ -316,7 +320,7 @@ void sub_iso_aeb() {
 	}
 }
 
-void sub_efl_aeb() {
+void action_efl_aeb() {
 	int frames = settings.efl_aeb_frames;
 
 	int ef_inc = cameraMode->efcomp;
