@@ -89,7 +89,7 @@ type_ACTION actions_af[] = {
 
 type_CHAIN intercom_chains[] = {
 	{GUIMODE_OLC,       actions_main},
-	{GUIMODE_MAIN,      actions_main},
+	{GUIMODE_OFF,       actions_main},
 	{GUIMODE_400PLUS,   actions_400plus},
 	{GUIMODE_METER,     actions_meter},
 	{GUIMODE_WB,        actions_wb},
@@ -213,7 +213,7 @@ void intercom_proxy(const int handler, char *message) {
 	}
 
 	// Use fictitious GUI modes so everything else fits nicely
-	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUIMODE_MAIN)
+	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUIMODE_OFF)
 		gui_mode = GUIMODE_FACE;
 	else if(status.menu_running)
 		gui_mode = GUIMODE_400PLUS;

@@ -487,7 +487,7 @@ extern type_CAMERA_MODE *cameraMode;
 
 #define FLAG_GUI_MODE       GUIMode
 typedef enum { // GUIModes
-	GUIMODE_MAIN,            // 0x00 - main screen (white one)
+	GUIMODE_OFF,             // 0x00 - main screen off
 	GUIMODE_REVIEW,          // 0x01 - review photos mode (activated with play btn)
 	GUIMODE_MENU,            // 0x02 - main menu
 	GUIMODE_RTCSET,          // 0x03 - Set internal clock from MENU
@@ -504,7 +504,7 @@ typedef enum { // GUIModes
 	GUIMODE_UNKNOWN_1,       // 0x0E - ?
 	GUIMODE_DRIVE,           // 0x0F - Drive mode
 	GUIMODE_AFPATTERN,       // 0x10 - AF zones select
-	GUIMODE_OLC,             // 0x11 - Main screen (the white one)
+	GUIMODE_OLC,             // 0x11 - Main screen (white one)
 	GUIMODE_BULBCOUNT,       // 0x12 - Bulb counter screen
 	GUIMODE_CFFULL,          // 0x13 - CF is full
 	GUIMODE_ERRCF_ERROR,     // 0x14 - CF Error ?

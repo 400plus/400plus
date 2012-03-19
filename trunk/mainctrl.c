@@ -81,7 +81,7 @@ void my_MC_T_Button(mc_table_t * event) {
 
 	case MC_BUTTON_JUMP: // 162+0 = 162 // btn JUMP
 		switch (FLAG_GUI_MODE) {
-			case GUIMODE_MAIN:
+			case GUIMODE_OFF:
 			case GUIMODE_OLC:
 				ENQUEUE_TASK(button_jump_task);
 				break;
