@@ -52,6 +52,7 @@ type_SETTINGS settings = {
 	developers_menu  : FALSE,
 	button_jump      : BUTTON_ACTION_ISO,
 	button_disp      : FALSE,
+	language         : 0,
 };
 
 int settings_read() {
