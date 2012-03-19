@@ -8,4 +8,6 @@ extern void display_countdown_dialog_create();
 extern void display_countdown_dialog_destroy();
 extern void display_countdown(int seconds);
 
+extern void display_brightness();
+
 #endif /* DISPLAY_H_ */
