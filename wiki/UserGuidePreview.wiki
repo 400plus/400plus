@@ -70,16 +70,19 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
     * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:00 to 05:00.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
+    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
     * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
  * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
+    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
     * Repeat: if active (set to Yes), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.
     * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Timer*_: This item launches and configures the [#Self_Timer Self Timer] script:
     * Delay: the time (in minutes:seconds) that the script should wait before shooting. Values range from 00:00 to 05:00.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
+    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
+ * _*Long exposure*_: This item launches and configures the [#Long_Exposure Long Exposure] script:
+    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
+    * Time: the length (in minutes:seconds) of the exposure. Values range from 00:00 to 100:00.
 
 === Info Page ===
 
@@ -175,6 +178,12 @@ This script will fire the camera when the display-off sensor (at the rear of the
 == Self Timer ==
 
 This script simply adds a configurable pause before firing the camera.
+
+== Long Exposure ==
+
+Just that, a configurable long exposure, from 15 seconds to 100 minutes.
+
+Notice that the camera has to be in M + BULB mode to take a long exposure; this script will set the camera for you, but configuring a suitable aperture is the responsibility of the user.
 
 = The presets =
 
