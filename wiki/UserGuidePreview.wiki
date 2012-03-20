@@ -104,6 +104,7 @@ _This Page Is Intentionally Left Blank._
  * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote. When set to No, this feature is disabled.
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viefinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
+ * _*Better DISP button*_: When active (set to Yes), the `DISP` button will change the display brightness in small increments, instead of just switch it on/off.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Dim LCD down: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life. The value is restored after the script has completed.
