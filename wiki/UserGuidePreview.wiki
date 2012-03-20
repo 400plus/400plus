@@ -103,7 +103,7 @@ _This Page Is Intentionally Left Blank._
  * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
  * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote. When set to No, this feature is disabled.
  * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
- * _*ISO in viewfinder*_: When active (set to Yes), and if in any creative mode, use the `LEFT` and `RIGHT` buttons to change the ISO while looking through the viewfinder. On Tv and M mode, the new ISO value is also displayed on the viewfinder (over the shutter speed).
+ * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viefinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Dim LCD down: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life. The value is restored after the script has completed.
@@ -230,6 +230,15 @@ In P mode, AutoISO _tries_ to behave just like in Av mode, and raises the ISO va
 In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
 
 To change the exposure compensation in M mode, use the `LEFT` and `RIGHT` keys while looking through the viewfinder.
+
+= ISO in viewfinder =
+
+When this option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on Tv and M mode, the new ISO value is also displayed on the viewfinder:
+
+ * Set the camera to M or Tv mode.
+ * Look through the viewfinder, and half-press the shutter button; you should see the current measurement (shutter speed, aperture, ...).
+ * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or UP just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
+ * In P and Av modes, ISO can also be changed, but it is not displayed.
 
 = The AF-Pattern point selection =
 
