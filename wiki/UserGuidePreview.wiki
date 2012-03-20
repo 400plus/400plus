@@ -69,7 +69,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*ISO AEB*_: This item launches and configures the [#ISO_AEB ISO AEB] script; each item in the configuration sub-menu indicates whether the camera must fire a shot for that ISO value.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Time (s): the interval time (in seconds) between each shot (or group of shots). Values range from 0 to 250.
+    * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:00 to 05:00.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
     * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
  * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
@@ -78,7 +78,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Repeat: if active (set to Yes), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.
     * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
  * _*Timer*_: This item launches and configures the [#Self_Timer Self Timer] script:
-    * Delay (s): the time (in seconds) that the script should wait before shooting. Values range from 0 to 250.
+    * Delay: the time (in minutes:seconds) that the script should wait before shooting. Values range from 00:00 to 05:00.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB).
 
 === Info Page ===
