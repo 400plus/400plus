@@ -4,6 +4,7 @@
 #include "debug.h"
 
 #include "languages.h"
+#include "utils.h"
 #include "ini.h"
 
 // put the language keys to the ROM, we need them to match the keys in languages.ini file

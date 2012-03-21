@@ -31,5 +31,6 @@ extern void menupage_drag_drop(type_MENU *menu);
 extern int menupage_active (type_MENUPAGE *page);
 
 extern type_MENUITEM *get_current_item(type_MENUPAGE *page);
+extern int            get_item_id(type_MENUPAGE *page, int item_pos);
 
 #endif /* MENU_H_ */
