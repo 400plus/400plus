@@ -20,8 +20,6 @@ extern int ev_sub(int ying, int yang);
 
 extern int av_inc(int ev);
 extern int av_dec(int ev);
-extern int av_add(int ying, int yang);
-extern int av_sub(int ying, int yang);
 
 extern int tv_next(int ev);
 extern int tv_prev(int ev);
@@ -50,12 +48,10 @@ extern void start_debug_mode();
 extern void dump_log();
 extern void print_info();
 
-extern int send_to_intercom(int message, int length, int parm);
-
-extern void wait_for_camera();
-extern int shutter_release();
-extern int shutter_release_bulb(int time);
-extern int press_button(int button);
+extern int  send_to_intercom(int message, int length, int parm);
+extern int  shutter_release();
+extern int  shutter_release_bulb(int time_ms);
+extern int  press_button(int button);
 
 extern int remote_on();
 extern int remote_off();
@@ -69,8 +65,6 @@ extern int strlen_utf8(const char *);
 
 // convert string to upper case in-place
 extern void stoupper(char *s);
-
-extern int timestamp();
 
 #ifdef FGETS_USE_SLOW
 // this version will read byte-by-byte ... it is slow

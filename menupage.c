@@ -102,8 +102,8 @@ void menupage_drag_drop(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->ordering) {
-		item_grabbed  = ! item_grabbed;
-		menu->changed = TRUE;
+		item_grabbed = ! item_grabbed;
+		menu_event_change();
 		menu_event_refresh();
 	}
 }
@@ -136,7 +136,7 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 			message[i++] = ' ';
 		}
 
-		if (item->action)
+		if (item->tasks[MENU_EVENT_SET])
 			message[i++] = '!';
 
 		if (item->display)

@@ -7,9 +7,7 @@
 
 type_CAMERA_MODE vf_cameraMode;
 
-void viewfinder_change_iso (const int iso);
-void viewfinder_display_iso(const int iso);
-
+void viewfinder_change_iso(const int iso);
 void viewfinder_change_evc(const int av_comp);
 
 void viewfinder_right() {
@@ -36,18 +34,6 @@ void viewfinder_left() {
 	}
 }
 
-void viewfinder_up() {
-	if (settings.autoiso_enable) {
-		// AutoISO + M => reset exposure compensation
-		if (cameraMode->ae == AE_MODE_M)
-			viewfinder_change_evc(0x00);
-	} else if (settings.iso_in_viewfinder) {
-		// Only for creative modes
-		if (cameraMode->ae < AE_MODE_AUTO)
-			viewfinder_display_iso(cameraMode->iso);
-	}
-}
-
 void viewfinder_end() {
 	// Only if being displayed
 	if (status.iso_in_viewfinder) {
@@ -61,29 +47,24 @@ void viewfinder_end() {
 }
 
 void viewfinder_change_iso(const int iso) {
-	// Set new ISO
-	send_to_intercom(IC_SET_ISO, 2, iso);
-
-	// Display new ISO
-	viewfinder_display_iso(iso);
-}
-
-void viewfinder_display_iso(const int iso) {
 	// Display new ISO only in M and Tv modes
 	if (cameraMode->ae == AE_MODE_M || cameraMode->ae == AE_MODE_TV) {
 		// Save current state
 		vf_cameraMode = *cameraMode;
 
 		// Change to Tv=ISO, no flash
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, TRUE);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, 1);
 		send_to_intercom(IC_SET_TV_VAL,        1, iso + 0x25);
 
 		// Set flag to restore viewfinder later
 		status.iso_in_viewfinder = TRUE;
 	}
+
+	// Set new ISO
+	send_to_intercom(IC_SET_ISO, 2, iso);
 }
 
 void viewfinder_change_evc(const int ev_comp) {
-	if (((ev_comp & 0x80) && ev_comp >= 0xF0) || ev_comp <= 0x10)
+	if ((ev_comp & 0x80 && ev_comp >= 0xF0) || ev_comp <= 0x10)
 		status.ev_comp = ev_comp;
 }

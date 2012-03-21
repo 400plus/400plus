@@ -16,8 +16,8 @@
 // Camera data
 type_CAMERA_MODE *cameraMode = (type_CAMERA_MODE*)&DPData;
 
-// Main queues
-int *task_queue;
+// Main message queue
+int *message_queue;
 
 // Global status
 type_STATUS status = {
@@ -39,7 +39,6 @@ type_ACTION actions_main[]  = {
 	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
 	{IC_BUTTON_DP,    FALSE, TRUE,   {menu_main_start}},
 	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_img_format}},
-	{IC_BUTTON_DISP,  FALSE, TRUE,   {display_brightness}},
 	END_OF_LIST
 };
 
@@ -72,7 +71,7 @@ type_ACTION actions_iso[] = {
 };
 
 type_ACTION actions_face[] = {
-	{IC_BUTTON_UP,    TRUE, TRUE, {viewfinder_up,    viewfinder_end}},
+	{IC_BUTTON_UP,    TRUE, TRUE, {}},
 	{IC_BUTTON_DOWN,  TRUE, TRUE, {}},
 	{IC_BUTTON_RIGHT, TRUE, TRUE, {viewfinder_right, viewfinder_end}},
 	{IC_BUTTON_LEFT,  TRUE, TRUE, {viewfinder_left,  viewfinder_end}},
@@ -90,7 +89,7 @@ type_ACTION actions_af[] = {
 
 type_CHAIN intercom_chains[] = {
 	{GUIMODE_OLC,       actions_main},
-	{GUIMODE_OFF,       actions_main},
+	{GUIMODE_MAIN,      actions_main},
 	{GUIMODE_400PLUS,   actions_400plus},
 	{GUIMODE_METER,     actions_meter},
 	{GUIMODE_WB,        actions_wb},
@@ -101,10 +100,9 @@ type_CHAIN intercom_chains[] = {
 };
 
 void task_dispatcher();
-void message_logger (char *message);
 
 void initialize() {
-	task_queue = (int*)CreateMessageQueue("task_queue", 0x40);
+	message_queue = (int*)CreateMessageQueue("message_queue", 0x40);
 	CreateTask("Task Dispatcher", 25, 0x2000, task_dispatcher, 0);
 
 	ENQUEUE_TASK(start_up);
@@ -124,16 +122,8 @@ void intercom_proxy(const int handler, char *message) {
 	type_CHAIN  *chain;
 	type_ACTION *action;
 
-#ifdef ENABLE_DEBUG
-	message_logger(message);
-#endif
-
 	// Status-independent events and special cases
 	switch (event) {
-	case IC_SHUTDOWN: // Camera has shut down
-		if (status.script_running)
-			script_restore();
-		goto pass_message;
 	case IC_SETTINGS_0: // Settings changed (begin of sequence)
 		if (status.ignore_ae_change) {
 			// Ignore first AE change after loading a preset, as it generates this same event
@@ -151,7 +141,7 @@ void intercom_proxy(const int handler, char *message) {
 				}
 			}
 		}
-		goto pass_message;
+
 	case IC_SETTINGS_3: // Settings changed (end of sequence)
 		// Restore display
 		ENQUEUE_TASK(restore_display);
@@ -214,7 +204,7 @@ void intercom_proxy(const int handler, char *message) {
 	}
 
 	// Use fictitious GUI modes so everything else fits nicely
-	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUIMODE_OFF)
+	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUIMODE_MAIN)
 		gui_mode = GUIMODE_FACE;
 	else if(status.menu_running)
 		gui_mode = GUIMODE_400PLUS;
@@ -270,18 +260,8 @@ void task_dispatcher () {
 
 	// Loop while receiving messages
 	for (;;) {
-		ReceiveMessageQueue(task_queue, &task, FALSE);
+		ReceiveMessageQueue(message_queue, &task, 0);
 		task();
 	}
 }
 
-void message_logger(char *message) {
-	int i;
-	char text[256];
-	static int id = 0;
-
-	for (i = 0; i < message[0]; i++)
-		sprintf(text + 3 * i, "%02X ", message[i]);
-
-	printf_log(8, 8, "[400plus-MSG%04d]: %s", id++, text);
-}

@@ -9,7 +9,6 @@ _start:
                 STR     R1, [R0]        // turn on blue led
 
                 BL      COPY
-                //BL      COPY2
 
                 LDR     R0, =0xC0100000
                 LDR     R1, =0x4D3

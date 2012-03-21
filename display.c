@@ -117,26 +117,3 @@ void display_countdown(int seconds) {
 	dialog_set_property_str(countdown_dialog, 1, buffer);
 	dialog_redraw(countdown_dialog);
 }
-
-void display_brightness() {
-	if (settings.button_disp)
-		switch(FLAG_GUI_MODE) {
-		case GUIMODE_OFF:
-			send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
-			press_button(IC_BUTTON_DISP);
-			break;
-
-		case GUIMODE_OLC:
-			if (cameraMode->lcd_brightness < 7)
-				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1 + cameraMode->lcd_brightness);
-			else
-				press_button(IC_BUTTON_DISP);
-			break;
-
-		default:
-			press_button(IC_BUTTON_DISP);
-			break;
-		}
-	else
-		press_button(IC_BUTTON_DISP);
-}

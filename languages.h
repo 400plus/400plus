@@ -51,20 +51,15 @@
 	LANG_PAIR( I_STEP_EV,            "Step (EV)"          ) \
 	LANG_PAIR( I_MANUAL_L,           "Bulb min"           ) \
 	LANG_PAIR( I_MANUAL_R,           "Bulb max"           ) \
-	LANG_PAIR( I_TIME_S,             "Time"               ) \
+	LANG_PAIR( I_TIME_S,             "Time (s)"           ) \
 	LANG_PAIR( I_EAEB,               "EAEB"               ) \
 	LANG_PAIR( I_SHOTS,              "Shots"              ) \
-	LANG_PAIR( I_DIRECTION,          "Direction"          ) \
 	LANG_PAIR( S_EXT_AEB,            "Extended AEB"       ) \
-	LANG_PAIR( S_EFL_AEB,            "Flash AEB"          ) \
-	LANG_PAIR( S_ISO_AEB,            "ISO AEB"            ) \
 	LANG_PAIR( S_INTERVAL,           "Intervalometer"     ) \
 	LANG_PAIR( S_HANDWAVE,           "Handwaving"         ) \
 	LANG_PAIR( S_TIMER,              "Self-Timer"         ) \
-	LANG_PAIR( S_LEXP,               "Long exposures"     ) \
 	LANG_PAIR( I_DIM_LCD_DOWN,       "Dim LCD down"       ) \
 	LANG_PAIR( I_KEEP_POWER_ON,      "Disable power-off"  ) \
-	LANG_PAIR( I_BTN_JUMP,           "Jump"               ) \
 	LANG_PAIR( I_PRESETS_ADEP,       "Use A-DEP"          ) \
 	LANG_PAIR( I_PRESETS_CAMERA,     "Camera"             ) \
 	LANG_PAIR( I_PRESETS_400PLUS,    "400plus"            ) \
@@ -74,11 +69,9 @@
 	LANG_PAIR( I_IR_REMOTE_ENABLE,   "IR remote enable"   ) \
 	LANG_PAIR( I_IR_REMOTE_DELAY,    "IR remote delay"    ) \
 	LANG_PAIR( I_ISO_IN_VF,          "ISO in viewfinder"  ) \
-	LANG_PAIR( I_BUTTON_DISP,        "Better DISP button" ) \
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"   ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"       ) \
 	LANG_PAIR( S_SCRIPTS,            "Config. Scripts"    ) \
-	LANG_PAIR( S_BUTTONS,            "Config. Buttons"    ) \
 	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
 	LANG_PAIR( S_PAGES,              "Config. Pages"      ) \
 	LANG_PAIR( V_OFF,                "Off"                ) \
@@ -88,18 +81,12 @@
 	LANG_PAIR( V_ENABLED,            "Enabled"            ) \
 	LANG_PAIR( V_DISABLED,           "Disabled"           ) \
 	LANG_PAIR( V_EXT_ONLY,           "Ext Only"           ) \
-	LANG_PAIR( V_ONE_SHOT,           "One Shot"           ) \
 	LANG_PAIR( V_EXT_AEB,            "Ext. AEB"           ) \
-	LANG_PAIR( V_EFL_AEB,            "Flash AEB"          ) \
-	LANG_PAIR( V_ISO_AEB,            "ISO AEB"            ) \
-	LANG_PAIR( V_LEXP,               "Long exp."          ) \
+	LANG_PAIR( V_ONE_SHOT,           "One Shot"           ) \
+	LANG_PAIR( V_INTERVAL,           "Interval"           ) \
 	LANG_PAIR( V_NEW,                "New"                ) \
 	LANG_PAIR( V_OVERWRITE,          "Overwrite"          ) \
 	LANG_PAIR( V_APPEND,             "Append"             ) \
-	LANG_PAIR( V_NONE,               "None"               ) \
-	LANG_PAIR( V_INTISO,             "Intermediate ISO"   ) \
-	LANG_PAIR( V_REPEAT,             "Repeat last script" ) \
-	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"  ) \
 	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
 
 enum LANG_WORDS_ENUM {

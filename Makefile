@@ -1,27 +1,23 @@
-PROJECT := AUTOEXEC
-ADDRESS := 0x7E0000
+PROJECT = AUTOEXEC
+ADDRESS = 0x7F0000
 
-ifdef RELEASE
-	VERSION = V-$(RELEASE)
-	RELNAME = 400plus-$(RELEASE)
-	W_FLAGS = -Werror -Wno-implicit-function-declaration
-else
-	VERSION = $(shell [[ -d .svn ]] && echo "R-`svn info | fgrep Revision | cut -d' ' -f2 `" || echo "B-`date +'%Y%m%d'`")
-	RELNAME = 400plus-$(shell date +'%Y%m%d')-0
-	W_FLAGS =
+ifndef VERSION
+VERSION = $(shell [[ -d .svn ]] && svn info | grep Revision | cut -d' ' -f2 || date +'%Y%m%d')
 endif
 
-COMMON_FLAGS =\
-	-Wall                             \
-	-Wp,-MMD,$(dir $@).$(notdir $@).d \
-	-Wp,-MT,$@                        \
-	-nostdlib                         \
-	-fno-builtin                      \
-	-mcpu=arm946e-s                   \
-	-DVERSION='"$(VERSION)"'          \
+# make release VERSION=YYYYMMDD RELEASE=XX   - to make a release package
 
-	#-Werror              \
-	#-mlong-calls         \
+COMMON_FLAGS =\
+	-Wall                \
+	-Werror              \
+	-Wp,-MMD,$(dir $@).$(notdir $@).d \
+	-Wp,-MT,$@           \
+	-nostdlib            \
+	-fno-builtin         \
+	-mcpu=arm946e-s      \
+	-DVERSION=$(VERSION) \
+
+	#-mlong-calls \
 	#-fomit-frame-pointer \
 	#-fno-strict-aliasing \
 
@@ -34,9 +30,11 @@ COMMON_FLAGS =\
 # this fixes them, keep it here in case we need it
 	#-mstructure-size-boundary=32 \
 
-CC     := arm-elf-gcc
-CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
+
+CC     = arm-elf-gcc
+CFLAGS+= $(COMMON_FLAGS)               \
 	-Os                                \
+	-Wno-implicit-function-declaration \
 	-Wno-char-subscripts               \
 
 	#-fomit-frame-pointer  \
@@ -44,17 +42,18 @@ CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 	#-Wno-unused-parameter \
 	#-Wno-unused-function  \
 
-AS      := arm-elf-as
-ASFLAGS := $(COMMON_FLAGS)
 
-LDFLAGS := -Wl,-Ttext,$(ADDRESS) -e _start
+AS      = arm-elf-as
+ASFLAGS = $(COMMON_FLAGS)
 
-OBJCOPY := arm-elf-objcopy
+LDFLAGS = -Wl,-Ttext,$(ADDRESS) -e _start
 
-S_OBJS := entry.o          \
+OBJCOPY = arm-elf-objcopy
+
+S_OBJS = entry.o          \
          funclist.o       \
 
-C_OBJS := init.o           \
+C_OBJS = init.o           \
          gui.o            \
          main.o           \
          mainctrl.o       \
@@ -83,28 +82,29 @@ C_OBJS := init.o           \
          af_patterns.o    \
          debug.o          \
 
-OBJS  := $(S_OBJS) $(C_OBJS)
+OBJS   = $(S_OBJS) $(C_OBJS)
 
 all: $(PROJECT).BIN
 
+RELVER := $(VERSION)-$(RELEASE)
+
 release: clean
-	@mkdir $(RELNAME)
-	@svn export . $(RELNAME)/src
-	@zip -9 -r $(RELNAME).src.zip $(RELNAME)
-
-	@mkdir $(RELNAME)/bin
-	@cd $(RELNAME)/src && CFLAGS="" make
-	@cp $(RELNAME)/src/AUTOEXEC.BIN $(RELNAME)/src/languages.ini $(RELNAME)/bin/
-	@zip -9 -r $(RELNAME).bin.zip $(RELNAME)/bin/
-
+	@mkdir -p 400plus-$(RELVER)/bin
+	@svn export . 400plus-$(RELVER)/src
+	@sed -i "s/^VERSION\s*=.*/VERSION = $(CDATE)/" 400plus-$(RELVER)/src/Makefile
+	@zip -9 -r 400plus-$(RELVER).src.zip 400plus-$(RELVER)
+	@cd 400plus-$(RELVER)/src && make
+	@cp 400plus-$(RELVER)/src/AUTOEXEC.BIN languages.ini 400plus-$(RELVER)/bin
+	@rm -rf 400plus-$(RELVER)/src
+	@zip -9 -r 400plus-$(RELVER).bin.zip 400plus-$(RELVER)
 	@echo
-	@rm -rf $(RELNAME)
-	@ls -l $(RELNAME).src.zip $(RELNAME).bin.zip
+	@rm -rf 400plus-$(RELVER)
+	@ls -l 400plus-$(RELVER).src.zip 400plus-$(RELVER).bin.zip
 
 $(PROJECT).BIN: $(PROJECT).arm.elf
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
 	rm -f $(PROJECT).arm.elf
-	@echo; echo; ls -l AUTOEXEC.BIN
+	@echo;echo;ls -l AUTOEXEC.BIN
 
 $(PROJECT).arm.elf: $(OBJS) link.script
 	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^
