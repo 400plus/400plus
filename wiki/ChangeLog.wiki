@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20111111-4*_
+ * Fix a rare occurrence of an out-of-limis value.
+
 _*20111111-3*_
  * Removed some debugging code.
 
