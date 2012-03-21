@@ -19,10 +19,7 @@
 
 #include "menu_main.h"
 
-int  changed;
-
-void menu_set_changed(type_MENU *menu);
-int  menu_get_changed(type_MENU *menu);
+int changed;
 
 void list_up     (type_MENU *menu);
 void list_down   (type_MENU *menu);
