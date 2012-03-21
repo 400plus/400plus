@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "menupage.h"
 #include "menuitem.h"
+#include "menu_main.h"
 #include "utils.h"
 
 #include "menu_rename.h"
@@ -44,8 +45,8 @@ void rename_left   (const type_MENUITEM *item, const int repeating);
 void rename_prev(type_MENU *menu);
 void rename_next(type_MENU *menu);
 
-void rename_repeat_prev(const int repeating);
-void rename_repeat_next(const int repeating);
+void rename_repeat_prev(type_MENU *menu, const int repeating);
+void rename_repeat_next(type_MENU *menu, const int repeating);
 
 void rename_action(const type_MENUITEM *item);
 
@@ -206,14 +207,14 @@ void rename_left(const type_MENUITEM *item, const int repeating) {
 }
 
 void rename_prev(type_MENU *menu) {
-	menu_repeat(rename_repeat_prev);
+	menu_repeat(menu, rename_repeat_prev);
 }
 
-void rename_next(type_MENU *meu) {
-	menu_repeat(rename_repeat_next);
+void rename_next(type_MENU *menu) {
+	menu_repeat(menu, rename_repeat_next);
 }
 
-void rename_repeat_prev(const int repeating) {
+void rename_repeat_prev(type_MENU *menu, const int repeating) {
 	if (z != 0) {
 		z--;
 		rename_display_line(&menupage_rename, 4);
@@ -221,7 +222,7 @@ void rename_repeat_prev(const int repeating) {
 	}
 }
 
-void rename_repeat_next(const int repeating) {
+void rename_repeat_next(type_MENU *menu, const int repeating) {
 	if (z != 24) {
 		z++;
 
@@ -237,7 +238,7 @@ void rename_repeat_next(const int repeating) {
 
 void rename_action(const type_MENUITEM *item) {
 	rename_filename[z] = letters[caps][x][y];
-	rename_repeat_next(FALSE);
+	menu_event_in();
 }
 
 void rename_caps(type_MENU *menu) {
@@ -276,7 +277,7 @@ void rename_return(type_MENU *menu) {
 
 void rename_close(type_MENU *menu) {
 	rename_save(menu);
-	menu_save(menu);
+	menu_main_save(menu);
 }
 
 void rename_save(type_MENU *menu) {

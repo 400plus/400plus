@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "debug.h"
 #include "memspy.h"
+#include "menu_main.h"
 
 #include "tasks.h"
 

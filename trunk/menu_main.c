@@ -7,6 +7,7 @@
 #include "menuitem.h"
 #include "menu_developer.h"
 #include "menu_info.h"
+#include "menupage.h"
 #include "menu_params.h"
 #include "menu_presets.h"
 #include "menu_scripts.h"
@@ -20,7 +21,6 @@
 
 int  changed;
 
-void menu_save();
 void menu_set_changed(type_MENU *menu);
 int  menu_get_changed(type_MENU *menu);
 
@@ -57,7 +57,7 @@ type_MENU menu_main = {
 		[MENU_EVENT_OUT]     = menu_next,
 		[MENU_EVENT_DISPLAY] = menupage_display,
 		[MENU_EVENT_REFRESH] = menupage_refresh,
-		[MENU_EVENT_CLOSE]   = menu_save,
+		[MENU_EVENT_CLOSE]   = menu_main_save,
 		[MENU_EVENT_AV]      = list_display,
 	}
 };
@@ -94,7 +94,7 @@ void menu_main_start() {
 	menu_create(&menu_main);
 }
 
-void menu_save(type_MENU *menu) {
+void menu_main_save(type_MENU *menu) {
 	status.menu_running = FALSE;
 
 	if (menu->changed) {

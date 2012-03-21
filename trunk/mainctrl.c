@@ -2,6 +2,7 @@
 #include "mainctrl.h"
 #include "firmware.h"
 #include "tasks.h"
+#include "utils.h"
 #include "debug.h"
 
 typedef struct MC_Table_entry_struct {

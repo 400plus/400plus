@@ -74,8 +74,9 @@ extern void menu_return();
 extern void menu_set_posn(int posn);
 extern void menu_set_page(type_MENUPAGE *page);
 
-extern void menu_redraw  ();
-extern void menu_set_text(const int line, const char *text);
+extern void menu_highlight();
+extern void menu_redraw   ();
+extern void menu_set_text (const int line, const char *text);
 
 extern void menu_event_menu();
 extern void menu_event_disp();
@@ -107,5 +108,7 @@ extern void menu_left (type_MENU *menu);
 
 extern void menu_next(type_MENU *menu);
 extern void menu_prev(type_MENU *menu);
+
+extern void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating));
 
 #endif /* MENU_H_ */
