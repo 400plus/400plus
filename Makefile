@@ -4,14 +4,15 @@ ADDRESS := 0x7E0000
 ifdef RELEASE
 	VERSION = V-$(RELEASE)
 	RELNAME = 400plus-$(RELEASE)
+	W_FLAGS = -Werror -Wno-implicit-function-declaration
 else
 	VERSION = $(shell [[ -d .svn ]] && echo "R-`svn info | fgrep Revision | cut -d' ' -f2 `" || echo "B-`date +'%Y%m%d'`")
 	RELNAME = 400plus-$(shell date +'%Y%m%d')-0
+	W_FLAGS =
 endif
 
 COMMON_FLAGS =\
 	-Wall                             \
-	-Werror                           \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
 	-Wp,-MT,$@                        \
 	-nostdlib                         \
@@ -33,18 +34,15 @@ COMMON_FLAGS =\
 # this fixes them, keep it here in case we need it
 	#-mstructure-size-boundary=32 \
 
-
 CC     := arm-elf-gcc
-CFLAGS += $(COMMON_FLAGS)              \
+CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 	-Os                                \
-	-Wno-implicit-function-declaration \
 	-Wno-char-subscripts               \
 
 	#-fomit-frame-pointer  \
 	#-fno-strict-aliasing  \
 	#-Wno-unused-parameter \
 	#-Wno-unused-function  \
-
 
 AS      := arm-elf-as
 ASFLAGS := $(COMMON_FLAGS)
