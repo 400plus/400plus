@@ -23,7 +23,7 @@ To access the 400plus menu, press the `DP` button from the main camera dialog. T
 
 == Navigating the menu ==
 
-400plus features a multi-page menu, where each page is dedicated to a certain task. To navigate among pages, use the front wheel or the `ZOOM IN` / `ZOOM OUT` buttons (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now then use the front dial to select a page, and release the `AV` button to jump into it.
+400plus features a multi-page menu, where each page is dedicated to a certain task. To navigate among pages, use the front wheel (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now then use the front dial to select a page, and release the `AV` button to jump into it.
 
 To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons; then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (press and hold these buttons to change faster). Items with an exclamation mark '`!`' at the left perform an action; activate them with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
