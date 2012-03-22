@@ -1,0 +1,35 @@
+SECTIONS {
+	first 0x7E0000 :
+	{
+		entry.o;
+		funclist.o;
+		gui.o;
+		mainctrl.o;
+		init.o;
+		main.o;
+		tasks.o;
+		ini.o;
+		languages.o;
+		utils.o;
+		memspy.o;
+		menu.o;
+		menupage.o;
+		menuitem.o;
+		menu_info.o;
+		menu_main.o;
+		menu_params.o;
+		menu_presets.o;
+		menu_rename.o;
+		menu_scripts.o;
+		menu_settings.o;
+		menu_developer.o;
+		menu_shortcuts.o;
+		display.o;
+		settings.o;
+		presets.o;
+		scripts.o;
+		viewfinder.o;
+		af_patterns.o;
+		debug.o;
+	}
+}
