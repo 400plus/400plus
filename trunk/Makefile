@@ -51,10 +51,10 @@ LDFLAGS := -Wl,-Ttext,$(ADDRESS) -e _start
 
 OBJCOPY := arm-elf-objcopy
 
-S_OBJS := entry.o          \
+S_OBJS := entry.o         \
          funclist.o       \
 
-C_OBJS := init.o           \
+C_OBJS := init.o          \
          gui.o            \
          main.o           \
          mainctrl.o       \

@@ -11,6 +11,7 @@
 #define EVENT_WAIT        5
 #define RELEASE_WAIT    100
 
+#define SHUTTER_LAG     500
 
 extern int ev_sgn(int ev);
 extern int ev_inc(int ev);

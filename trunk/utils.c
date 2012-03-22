@@ -410,7 +410,7 @@ int shutter_release_bulb(int time) {
 	wait_for_camera();
 
 	press_button(IC_BUTTON_HALF_SHUTTER);
-	SleepTask(1000 * time);
+	SleepTask(1000 * time + SHUTTER_LAG);
 
 	press_button(IC_BUTTON_HALF_SHUTTER);
 	SleepTask(RELEASE_WAIT);
