@@ -108,7 +108,7 @@ void menuitem_inc_tv(const type_MENUITEM *item, const int repeating) {
 
 void menuitem_inc_iso(const type_MENUITEM *item, const int repeating) {
 	if (repeating || item->parm.menuitem_iso.full)
-		*item->parm.menuitem_iso.value = iso_next(*item->parm.menuitem_iso.value);
+		*item->parm.menuitem_iso.value = MAX(*item->parm.menuitem_iso.value, iso_next(*item->parm.menuitem_iso.value));
 	else
 		*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
 }

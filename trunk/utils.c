@@ -187,25 +187,25 @@ int iso_roll(int iso) {
 }
 
 int iso_next(int iso) {
-	iso = iso + 0x01;
-
-	return MIN(iso, 0x6F);
-}
-
-int iso_prev(int iso) {
-	iso = iso - 0x01;
-
-	return MAX(iso, 0x48);
-}
-
-int iso_inc(int iso) {
 	iso = (iso & 0xF8) + 0x08;
 
 	return MIN(iso, 0x68);
 }
 
-int iso_dec(int iso) {
+int iso_prev(int iso) {
 	iso = (iso & 0xF8) - 0x08;
+
+	return MAX(iso, 0x48);
+}
+
+int iso_inc(int iso) {
+	iso = iso + 0x01;
+
+	return MIN(iso, 0x6F);
+}
+
+int iso_dec(int iso) {
+	iso = iso - 0x01;
 
 	return MAX(iso, 0x48);
 }
