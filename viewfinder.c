@@ -20,7 +20,7 @@ void viewfinder_right() {
 	} else if (settings.iso_in_viewfinder) {
 		// Only for creative modes
 		if (cameraMode->ae < AE_MODE_AUTO)
-			viewfinder_change_iso(iso_inc(cameraMode->iso));
+			viewfinder_change_iso(iso_next(cameraMode->iso));
 	}
 }
 
@@ -32,7 +32,7 @@ void viewfinder_left() {
 	} else if (settings.iso_in_viewfinder) {
 		// Only for creative modes
 		if (cameraMode->ae < AE_MODE_AUTO)
-			viewfinder_change_iso(iso_dec(cameraMode->iso));
+			viewfinder_change_iso(iso_prev(cameraMode->iso));
 	}
 }
 
@@ -76,7 +76,7 @@ void viewfinder_display_iso(const int iso) {
 
 		// Change to Tv=ISO, no flash
 		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, TRUE);
-		send_to_intercom(IC_SET_TV_VAL,        1, iso + 0x25);
+		send_to_intercom(IC_SET_TV_VAL,        1, (iso & 0xF8) + 0x25);
 
 		// Set flag to restore viewfinder later
 		status.iso_in_viewfinder = TRUE;
