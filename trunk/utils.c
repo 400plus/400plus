@@ -211,7 +211,8 @@ int iso_dec(int iso) {
 }
 
 void ev_print(char *dest, int ev) {
-	char dsp_sgn, dsp_int, *dsp_dec;
+	char dsp_sgn, *dsp_dec;
+	int  dsp_int;
 
 	if (ev & 0x80) {
 		dsp_sgn = '-';
@@ -222,11 +223,11 @@ void ev_print(char *dest, int ev) {
 		dsp_sgn = ' ';
 	}
 
-	dsp_int = '0' + ((ev & 0x78) >> 3);
+	dsp_int = ((ev & 0x78) >> 3);
 
 	switch (ev & 0x07) {
 	case 0x00:
-		dsp_dec = "";
+		dsp_dec = " ·/·";
 		break;
 	case 0x03:
 		dsp_dec = " 1/3";
@@ -238,11 +239,11 @@ void ev_print(char *dest, int ev) {
 		dsp_dec = " 2/3";
 		break;
 	default:
-		dsp_dec = " - ";
+		dsp_dec = " ?/?";
 		break;
 	}
 
-	sprintf(dest, "%c%c%s", dsp_sgn, dsp_int, dsp_dec);
+	sprintf(dest, "%c%i%s", dsp_sgn, dsp_int, dsp_dec);
 }
 
 void av_print(char *dest, int av) {
