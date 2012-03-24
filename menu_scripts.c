@@ -14,6 +14,8 @@
 
 int menu_scripts_ev = 0x00;
 
+void menu_lexp_calc_open ();
+
 void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
 void menu_scripts_apply_calc_av    (const type_MENUITEM *item);
@@ -87,7 +89,8 @@ type_MENUPAGE lexp_calc_page = {
 	length : LENGTH(lexp_calc_items),
 	items  : lexp_calc_items,
 	tasks  : {
-		[MENU_EVENT_AV] = menu_return,
+		[MENU_EVENT_OPEN] = menu_lexp_calc_open,
+		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
@@ -176,6 +179,18 @@ type_MENUPAGE menupage_scripts = {
 	items     : menupage_scripts_items,
 	ordering  : settings.scripts_order,
 };
+
+void menu_lexp_calc_open () {
+	// Copy current parameters from camera to menu
+	menu_cameraMode.iso    = cameraMode->iso;
+	menu_cameraMode.tv_val = cameraMode->tv_val;
+	menu_cameraMode.av_val = cameraMode->av_val;
+
+	// Clear sub-stop exposure time, as we still do not support it
+	menu_scripts_ev = menu_cameraMode.tv_val & 0x07;
+	menu_cameraMode.tv_val &= 0xF8;
+}
+
 
 void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
 	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
