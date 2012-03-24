@@ -93,17 +93,18 @@ OPTIONLIST_DEC(logfile)
 OPTIONLIST_DEC(btnactn)
 OPTIONLIST_DEC(direction)
 
-#define MENUITEM_EV(_NAME_, _VALUE_, _CDZ_, _ZMO_, _CHANGE_) { \
-	name  : _NAME_, \
-	parm  : { menuitem_ev : { \
+#define MENUITEM_EV(_NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
+	name     : _NAME_, \
+	readonly : _RO_, \
+	parm     : { menuitem_ev : { \
 		value          : _VALUE_, \
 		can_do_zero    : _CDZ_, \
 		zero_means_off : _ZMO_, \
 	}}, \
-	display : menuitem_display_ev, \
-	inc     : menuitem_inc_ev, \
-	dec     : menuitem_dec_ev, \
-	change  : _CHANGE_ \
+	display  : menuitem_display_ev, \
+	inc      : menuitem_inc_ev, \
+	dec      : menuitem_dec_ev, \
+	change   : _CHANGE_ \
 }
 
 #define MENUITEM_AV(_NAME_, _VALUE_, _CHANGE_) { \
@@ -224,9 +225,10 @@ OPTIONLIST_DEC(direction)
 	display : menuitem_display_info, \
 }
 
-#define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  FALSE, _ON_CHANGE_)
-#define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  TRUE,  _ON_CHANGE_)
-#define MENUITEM_EVEAEB(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, TRUE,  _ON_CHANGE_)
+#define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, TRUE,  FALSE, _ON_CHANGE_)
+#define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, TRUE,  TRUE,  _ON_CHANGE_)
+#define MENUITEM_EVEAEB(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, FALSE, FALSE, TRUE,  _ON_CHANGE_)
+#define MENUITEM_EVINFO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, TRUE,  TRUE,  FALSE, _ON_CHANGE_)
 
 #define MENUITEM_BASEISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, TRUE,  _ON_CHANGE_)
 #define MENUITEM_FULLISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, FALSE, _ON_CHANGE_)

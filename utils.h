@@ -11,13 +11,16 @@
 #define EVENT_WAIT        5
 #define RELEASE_WAIT    100
 
-#define SHUTTER_LAG     107
+#define SHUTTER_LAG     125
 
+extern int ev_normalize(int ev);
 extern int ev_sgn(int ev);
 extern int ev_inc(int ev);
 extern int ev_dec(int ev);
 extern int ev_add(int ying, int yang);
 extern int ev_sub(int ying, int yang);
+
+extern int ev_normalize(int ev);
 
 extern int av_inc(int ev);
 extern int av_dec(int ev);
