@@ -8,11 +8,17 @@
 #include "menuitem.h"
 #include "settings.h"
 #include "scripts.h"
+#include "utils.h"
 
 #include "menu_scripts.h"
 
+int menu_scripts_ev = 0x00;
+
 void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
+void menu_scripts_apply_calc_av    (const type_MENUITEM *item);
+void menu_scripts_apply_calc_ev    (const type_MENUITEM *item);
+void menu_scripts_apply_calc       (const type_MENUITEM *item);
 
 void menu_scripts_ext_aeb      (const type_MENUITEM *item);
 void menu_scripts_efl_aeb      (const type_MENUITEM *item);
@@ -68,9 +74,27 @@ type_MENUITEM timer_items[] = {
 	MENUITEM_ACTION (LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
+type_MENUITEM lexp_calc_items[] = {
+	MENUITEM_BASEISO(LP_WORD(L_I_ISO),    &menu_cameraMode.iso,    menu_scripts_apply_calc_ev),
+	MENUITEM_BULB   (LP_WORD(L_I_TV_VAL), &menu_cameraMode.tv_val, menu_scripts_apply_calc_ev),
+	MENUITEM_AV     (LP_WORD(L_I_AV_VAL), &menu_cameraMode.av_val, menu_scripts_apply_calc_av),
+	MENUITEM_EVINFO (LP_WORD(L_I_EV_VAL), &menu_scripts_ev,        NULL),
+	MENUITEM_LAUNCH (LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
+};
+
+type_MENUPAGE lexp_calc_page = {
+	name   : LP_WORD(L_S_CALCULATOR),
+	length : LENGTH(lexp_calc_items),
+	items  : lexp_calc_items,
+	tasks  : {
+		[MENU_EVENT_AV] = menu_return,
+	}
+};
+
 type_MENUITEM lexp_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),    &settings.lexp_delay, NULL),
-	MENUITEM_LONGEXP(LP_WORD(L_I_TIME_S),   &settings.lexp_time,  NULL)
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),      &settings.lexp_delay, NULL),
+	MENUITEM_LONGEXP(LP_WORD(L_I_TIME_S),     &settings.lexp_time,  NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_CALCULATOR), &lexp_calc_page,      NULL),
 };
 
 type_MENUPAGE ext_aeb_page = {
@@ -160,6 +184,33 @@ void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
 
 void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 	settings.eaeb_tv_min = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
+	menu_event_display();
+}
+
+void menu_scripts_apply_calc_av(const type_MENUITEM *item) {
+	int min = MAX(cameraMode->avo,   0x08);
+	int max = MIN(cameraMode->avmax, 0x67);
+
+	menu_cameraMode.av_val = MAX(menu_cameraMode.av_val, min);
+	menu_cameraMode.av_val = MIN(menu_cameraMode.av_val, max);
+
+	menu_scripts_apply_calc_ev(item);
+}
+
+void menu_scripts_apply_calc(const type_MENUITEM *item) {
+	if (menu_cameraMode.tv_val < 0x10) {
+		settings.lexp_time = 60 * (1 << (1 - (menu_cameraMode.tv_val >> 3)));
+
+		send_to_intercom(IC_SET_AV_VAL, 1, menu_cameraMode.av_val);
+		send_to_intercom(IC_SET_ISO,    2, menu_cameraMode.iso);
+
+		menu_scripts_ev = 0x00;
+		menu_return();
+	}
+}
+
+void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
+	menu_scripts_ev = ev_normalize((menu_cameraMode.iso - cameraMode->iso) - ev_sub(menu_cameraMode.tv_val, cameraMode->tv_val) - ev_sub(menu_cameraMode.av_val, cameraMode->av_val));
 	menu_event_display();
 }
 

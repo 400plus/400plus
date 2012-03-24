@@ -62,6 +62,7 @@
 	LANG_PAIR( S_HANDWAVE,           "Handwaving"         ) \
 	LANG_PAIR( S_TIMER,              "Self-Timer"         ) \
 	LANG_PAIR( S_LEXP,               "Long exposures"     ) \
+	LANG_PAIR( S_CALCULATOR,         "Calculator"         ) \
 	LANG_PAIR( I_DIM_LCD_DOWN,       "Dim LCD down"       ) \
 	LANG_PAIR( I_KEEP_POWER_ON,      "Disable power-off"  ) \
 	LANG_PAIR( I_BTN_JUMP,           "Jump"               ) \
@@ -77,6 +78,10 @@
 	LANG_PAIR( I_BUTTON_DISP,        "Better DISP button" ) \
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"   ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"       ) \
+	LANG_PAIR( I_TV_VAL,             "Tv"                 ) \
+	LANG_PAIR( I_AV_VAL,             "Av"                 ) \
+	LANG_PAIR( I_EV_VAL,             "Ev"                 ) \
+	LANG_PAIR( I_APPLY,              "Apply"              ) \
 	LANG_PAIR( S_SCRIPTS,            "Config. Scripts"    ) \
 	LANG_PAIR( S_BUTTONS,            "Config. Buttons"    ) \
 	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
