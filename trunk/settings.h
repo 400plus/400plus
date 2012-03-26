@@ -72,7 +72,7 @@ typedef struct {
 	int scripts_order[10];
 	int info_order[10];
 	int developer_order[10];
-	int settings_order[10];
+	int settings_order[15];
 	int dim_lcd_down;
 	int keep_power_on;
 	int debug_on_poweron;

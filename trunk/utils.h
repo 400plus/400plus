@@ -78,6 +78,8 @@ extern void stoupper(char *s);
 
 extern int timestamp();
 
+char* strncpy0(char* dest, const char* src, size_t size);
+
 #ifdef FGETS_USE_SLOW
 // this version will read byte-by-byte ... it is slow
 char * my_fgets_simple_but_slow(char *s, int n, int fd);

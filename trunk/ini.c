@@ -4,9 +4,6 @@ inih is released under the New BSD license (see LICENSE.txt). Go to the project
 home page for more info:
 
 http://code.google.com/p/inih/
-
-@todo: 0xAF - make a routine to parse only specified section, we do not need to parse all sections
-
 */
 
 //#include <stdio.h>
@@ -17,10 +14,6 @@ http://code.google.com/p/inih/
 #include "utils.h"
 #include "debug.h"
 #include "languages.h"
-
-#define MAX_LINE 100
-#define MAX_SECTION LP_MAX_WORD /*32*/
-#define MAX_NAME    LP_MAX_WORD /*32*/
 
 /* Strip whitespace chars off end of given string, in place. Return s. */
 static char* rstrip(char* s) {
@@ -47,13 +40,6 @@ static char* find_char_or_comment(const char* s, char c) {
 		s++;
 	}
 	return (char*)s;
-}
-
-/* Version of strncpy that ensures dest (size bytes) is null-terminated. */
-static char* strncpy0(char* dest, const char* src, size_t size) {
-	strncpy(dest, src, size);
-	dest[size - 1] = '\0';
-	return dest;
 }
 
 /* See documentation in header file. */

@@ -507,6 +507,14 @@ int timestamp() {
 	return (int)(now_ms - base);
 }
 
+// comes from ini.c
+/* Version of strncpy that ensures dest (size bytes) is null-terminated. */
+char* strncpy0(char* dest, const char* src, size_t size) {
+	strncpy(dest, src, size);
+	dest[size - 1] = '\0';
+	return dest;
+}
+
 // so basically this is a speed-up version which reads 255 bytes at a time
 // and use local buffer and local position pointer, sort of mmap'ed part of file.
 // the benefit is obvious: speed

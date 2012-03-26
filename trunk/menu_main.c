@@ -97,6 +97,7 @@ void menu_main_save(type_MENU *menu) {
 	if (menu->changed) {
 		settings_write();
 		presets_write();
+		lang_pack_config();
 	}
 }
 
