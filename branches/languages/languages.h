@@ -10,7 +10,7 @@
 // * I_ are menu items.
 // * V_ are item values.
 // * S_ are sub-menus.
-#define LANGUAGE_PAIRS                                    \
+#define LANGUAGE_PAIRS    	                                \
 	LANG_PAIR( P_400PLUS,            "400plus"            ) \
 	LANG_PAIR( P_PARAMS,             "Parameters"         ) \
 	LANG_PAIR( P_SHORTCUTS,          "Shortcuts"          ) \
@@ -81,6 +81,7 @@
 	LANG_PAIR( I_ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( I_BUTTON_DISP,        "Better DISP button" ) \
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"   ) \
+	LANG_PAIR( I_LANGUAGE,           "Language"           ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"       ) \
 	LANG_PAIR( S_SCRIPTS,            "Config. Scripts"    ) \
 	LANG_PAIR( S_BUTTONS,            "Config. Buttons"    ) \

@@ -4,6 +4,7 @@
 #include "debug.h"
 
 #include "languages.h"
+#include "settings.h"
 #include "utils.h"
 #include "ini.h"
 
@@ -43,6 +44,7 @@ int lang_pack_sections(void *user, int lineno, const char *section) {
 
 void lang_pack_init() {
 	int res = 0;
+	strncpy0(languages_found[languages_found_last++], "Camera", LP_MAX_WORD-1);
 	languages_found[languages_found_last][0] = NULL;
 
 	res = ini_parse("A:/languages.ini", NULL, NULL, lang_pack_sections, NULL);
@@ -68,6 +70,7 @@ int lang_pack_loader(void* user, int lineno, const char* section, const char* na
 		if (!strncmp(lang_pack_keys[i], name, LP_MAX_WORD-1)) {
 			// this is our id
 			strncpy(lang_pack_current[i], value, LP_MAX_WORD-1);
+			//debug_log("LANG: setting key [%s]: [%s]", lang_pack_keys[i], lang_pack_current[i]);
 			lang_pack_current[i][LP_MAX_WORD-1] = 0;
 			lang_pack_keys_loaded++;
 		}
@@ -78,23 +81,29 @@ int lang_pack_loader(void* user, int lineno, const char* section, const char* na
 
 void lang_pack_config() {
 	int  i;
-	static char lang[32];
+	static char lang[LP_MAX_WORD];
 
 	// XXX
 	GetLanguageStr(cameraMode->language, lang);
-	debug_log("Setting language to [%d] - '%s'", cameraMode->language, lang);
+	if (settings.language != 0) {
+		debug_log("Discarding camera language: [%s]", lang);
+		strncpy0(lang, languages_found[settings.language], LP_MAX_WORD);
+	}
+	debug_log("Setting language to: [%s] <%s>", lang, (settings.language ? "forced" : "camera"));
 
 	// load English always, so we overwrite previous language if there is any
 	for (i = L_FIRST; i < L_COUNT; i++) {
 		if (lang_pack_english[i] != NULL) {
 			strncpy(lang_pack_current[i], lang_pack_english[i], LP_MAX_WORD);
+			//debug_log("LANG: setting ENG key [%d]: [%s]", i, lang_pack_current[i]);
 		} else {
+			debug_log("BUG: missing ENG key: [%s][%d]", lang_pack_keys[i], i);
 			strncpy(lang_pack_current[i], "*NULL*", LP_MAX_WORD);
 		}
 	}
 
 	// if we need non-english language, load it from languages.ini
-	if (cameraMode->language > 0 /* ENGLISH */) {
+	if (settings.language != 0 || cameraMode->language > 0 /* ENGLISH */) {
 		int res;
 		stoupper(lang); // convert to upper case
 		lang_pack_keys_loaded=0;
