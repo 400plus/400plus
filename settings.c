@@ -43,7 +43,7 @@ type_SETTINGS settings = {
 	scripts_order    : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	info_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	developer_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	settings_order   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	settings_order   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ,13, 14},
 	dim_lcd_down     : TRUE,
 	keep_power_on    : TRUE,
 	debug_on_poweron : FALSE,

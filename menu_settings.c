@@ -11,6 +11,11 @@
 
 #include "menu_settings.h"
 
+extern char languages_found[MAX_LANGUAGES][LP_MAX_WORD];
+
+void menu_settings_open();
+
+void reload_language_and_refresh         (const type_MENUITEM *item);
 void menu_settings_apply_cf_safety_shift (const type_MENUITEM *item);
 void menu_settings_apply_remote_enable   (const type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (const type_MENUITEM *item);
@@ -81,6 +86,7 @@ type_MENUPAGE pages_page = {
 };
 
 type_MENUITEM menu_settings_items[] = {
+	MENUITEM_LANG   (LP_WORD(L_I_LANGUAGE),         &settings.language,               reload_language_and_refresh),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_SAFETY_SHIFT),     &menu_cameraMode.cf_safety_shift, menu_settings_apply_cf_safety_shift),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_settings_apply_remote_enable),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_settings_apply_remote_delay),
@@ -99,7 +105,24 @@ type_MENUPAGE menupage_settings = {
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
 	ordering  : settings.settings_order,
+	tasks     : {
+		[MENU_EVENT_OPEN] = menu_settings_open,
+	}
 };
+
+void reload_language_and_refresh(const type_MENUITEM *item) {
+	lang_pack_config();
+	menu_event_display();
+}
+
+void menu_settings_open() {
+	int i;
+
+	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != NULL && languages_found[i][0] != NULL; i++) {
+		menupage_settings.items[0].parm.menuitem_enum.list->length  = i + 1;
+		menupage_settings.items[0].parm.menuitem_enum.list->data[i] = languages_found[i];
+	}
+}
 
 void menu_settings_apply_cf_safety_shift(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);

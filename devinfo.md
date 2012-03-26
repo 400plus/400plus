@@ -51,6 +51,29 @@ heap space, and this way to be safe from __OFW__'s and our heap allocations
 ---
 
 # IDEAS
+## Help translators
+make a perl script to extract the lang keys and put them in the end of the
+languages.ini as comments
+
+## HELP messages
+make them show on key press (when over some menu item) zoom-in btn is good
+candidate.
+use dialog 64 (best), or 91 (or it was 98?), or 101
+
+## MEMSPY - usability
+Make memspy more usable, perhaps a menu for it would be nice.
+
+## DPData debug
+Catch changes to DPData with memspy or make a separate routine to catch the
+changes... i.e. a copy of DPData (though there is one from canon) and a routine
+which checks for differences between the original and the copy, then reports
+them and update the copy buffer.
+
+## try to get the booting logs from the beginning
+Use the blinking driver for vxworks from owerlord as base.
+Probably make another driver, which just stores messages to big buffer
+(32/64kb) then at the __`task_Startup()`__ write the booting log to the CF.
+
 ## Doxygen comments in code
 Comment the code with doxygen comments.
 
@@ -63,7 +86,6 @@ for the temp file existence.
 4. remove the file if exists.
 5. call __OFW__'s init procedure if the temp file was there.
 (start normally, skip the hack)
-
 
 ## Auto-Protect option
 Check if it's possible to make the files _Read-Only_ (with __RO__ attribute)
@@ -124,4 +146,5 @@ Short help messages for every menu. Either as pop-up message
 * `PTP_Actions`
 * `register_ptp_handler`
 
-<!-- vim: ft=markdown ts=4 sw=4 cc=80 spell: -->
+
+vim: ft=markdown ts=4 sw=4 cc=80 spell:

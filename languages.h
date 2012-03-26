@@ -4,8 +4,13 @@
 // we need MAX_WORD==32, but we use 64, because the UTF8 (cyrrilic langs) is 2 bytes per char
 #define LP_MAX_WORD 64 // this is valid for the keys and section names too
 #define LP_WORD(word) lang_pack_current[word]
+#define MAX_LANGUAGES 30 // max languages we can choose from
 
-#define LANGUAGE_PAIRS                                    \
+// * P_ are page names.
+// * I_ are menu items.
+// * V_ are item values.
+// * S_ are sub-menus.
+#define LANGUAGE_PAIRS    	                                \
 	LANG_PAIR( P_400PLUS,            "400plus"            ) \
 	LANG_PAIR( P_PARAMS,             "Parameters"         ) \
 	LANG_PAIR( P_SHORTCUTS,          "Shortcuts"          ) \
@@ -77,6 +82,7 @@
 	LANG_PAIR( I_ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( I_BUTTON_DISP,        "Better DISP button" ) \
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"   ) \
+	LANG_PAIR( I_LANGUAGE,           "Language"           ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"       ) \
 	LANG_PAIR( I_TV_VAL,             "Tv"                 ) \
 	LANG_PAIR( I_AV_VAL,             "Av"                 ) \

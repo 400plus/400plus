@@ -17,6 +17,12 @@ extern "C" {
 
 //#include <stdio.h> // 0xAF
 #include "firmware.h"
+#include "languages.h"
+
+#define MAX_LINE 100
+#define MAX_SECTION LP_MAX_WORD /*32*/
+#define MAX_NAME    LP_MAX_WORD /*32*/
+
 
 typedef int (*ini_line_handler)(void* user, int lineno, const char* section, const char* name, const char* value);
 typedef int (*ini_section_handler)(void* user, int lineno, const char* section);
