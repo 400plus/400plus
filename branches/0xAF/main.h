@@ -456,7 +456,7 @@ typedef enum { // GUIModes
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 
 // Fictitious modes
-	GUIMODE_400PLUS = 0x2D,  // 400Plus mode - XXX should be 0x20 !
+	GUIMODE_400PLUS = 0x2D,  // 400Plus mode
 	GUIMODE_RENAME  = 0x2E,  // 400Plus rename
 	GUIMODE_FACE    = 0x2F	  // Face mode
 } type_GUIMODE;
