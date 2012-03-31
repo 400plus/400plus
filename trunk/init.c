@@ -51,6 +51,7 @@ int my_usrInit(int startType) {
 
 	workQInit();
 
+	/* sysMemTop() - returns the LogBuffer address, the buffer is 1.5mb */
 	kernelInit(my_usrRoot, 0x4000, &bss_end, sysMemTop(), 0xC00, 0);
 
 	return 0;

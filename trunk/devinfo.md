@@ -51,6 +51,10 @@ heap space, and this way to be safe from __OFW__'s and our heap allocations
 ---
 
 # IDEAS
+## force MF for lens (may be)
+we can try setting cameraMode->ef\_lens\_exist=0 to force, not sure if it works.
+if it works, it could be useful for bracketing...
+
 ## Help translators
 make a perl script to extract the lang keys and put them in the end of the
 languages.ini as comments

@@ -317,6 +317,46 @@ void dump_log() {
 	beep();
 }
 
+void dump_memory() {
+	char filename[20] = "A:/12345678.MEM";
+	time_t t;
+	struct tm tm;
+
+	time(&t);
+	localtime_r(&t, &tm);
+
+	sprintf(filename, "A:/%02d%02d%02d%02d.MEM", tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
+	debug_log("Dumping memory to %s.\n", filename);
+	int file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644);
+
+	if (file == -1) {
+		debug_log("ERROR: can't open file for writing (%s)", filename);
+		beep();
+		beep();
+	} else {
+		int addr=0;
+		int power_off_state = cameraMode->auto_power_off;
+
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
+
+		while (addr<0x800000) { // dump 8MB of RAM
+			char buf[0x400];
+			// i don't know why, but if we try to pass the mem address (addr) directly to
+			// FIO_WriteFile, we get zero-filled file... so we need local buffer as a proxy
+			// note: do not increase the size of the local buffer too much, because it is in the stack
+			LEDBLUE ^= 2;
+			memcpy(buf, (void*)addr, 0x400);
+			FIO_WriteFile(file, buf, 0x400);
+			addr += 0x400;
+		}
+		FIO_CloseFile(file);
+
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, power_off_state);
+	}
+	beep();
+}
+
 void print_info() {
 	// print some info to the log
 	eventproc_RiseEvent("about");

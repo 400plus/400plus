@@ -1,7 +1,9 @@
-// To enable the developers' menu, compile 400plus with -DBREAK_CAMERA enabled;
-// to enable dialogs testing, add -DTEST_DIALOGS too.
+// to enable specific functionality compile with the following flags:
+// -DBREAK_CAMERA   - enable "factory mode" menus
+// -DTEST_DIALOGS   - enable dialogs testing menu
+// -DMEM_DUMP       - enable memory dump menu
 
-// When enter the dialogs test mode
+// dialogs testing navigation:
 // DISPLAY -> next dialog
 // MENU -> exit test mode
 // JUMP -> change color palette (some dialogs are seen in special palettes)
@@ -29,8 +31,11 @@ static void test_dialog_create();
 type_MENUITEM menu_developer_items[] = {
 	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
 	MENUITEM_LAUNCH(LP_WORD(L_I_PRINT_INFO),          print_info),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DEBUG_ON_POWERON),  &settings.debug_on_poweron, NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
 	MENUITEM_LOGFILE(LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
+#ifdef MEM_DUMP
+	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_MEMORY),         dump_memory),
+#endif
 #ifdef BREAK_CAMERA
 	MENUITEM_LAUNCH(LP_WORD(L_I_ENTER_FACTORY_MODE),  enter_factory_mode),
 	MENUITEM_LAUNCH(LP_WORD(L_I_EXIT_FACTORY_MODE),   exit_factory_mode),

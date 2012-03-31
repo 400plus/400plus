@@ -4,6 +4,11 @@
 #include "firmware.h"
 #include "mainctrl.h"
 
+#define LEDRED (*((int*)0xC02200A0))
+#define LEDBLUE (*((int*)0xC0220000))
+#define LEDON   0x46
+#define LEDOFF  0x44
+
 // this is the way canon checks the pointers
 // if (PTR_VALID(some_ptr)) { ... } else { ... }
 // this will check if the pointer is even and not 0
@@ -30,11 +35,6 @@ typedef enum {
 
 #define debug_log(f, p...) printf_log(8, 8, "[400Plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
 #define debug_printf(f, p...) printf("\n[400Plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
-
-#define LEDRED (*((int*)0xC02200A0))
-#define LEDBLUE (*((int*)0xC0220000))
-#define LEDON   0x46
-#define LEDOFF  0x44
 
 #define blink_cycles 1000000
 #define blink_red() do { int i; LEDRED=LEDON; for (i=0;i<blink_cycles; i++); LEDRED=LEDOFF; for (i=0;i<blink_cycles; i++); } while (0)
