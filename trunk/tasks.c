@@ -33,6 +33,21 @@ void start_up() {
 	CreateTask("memspy", 0x1e, 0x1000, memspy_task, 0);
 #endif
 
+	float f1 = 22.f;
+	float f2 = 7.f;
+	float fp = (float)((float)(f1)/(float)(f2));
+	// so, the printf from vxworks/canon does not support %f format,
+	// actually there are no floats in the original fw, so there is no need for %f.
+	// btw, we have the printf() routine address, and we can replace it (hijack) with our routine, then call the original.
+	debug_log("FPU-TEST: %d/%d=%d.%d", (int)f1, (int)f2,
+		(int)fp/*3*/,
+		(int)(  
+			(int)( fp*100 /*314.xxx*/ )
+			%
+			(int)( ((int)fp/*3*/) * 100/*300*/ )
+		)
+	);
+
 	// enable IR remote
 	// i'm not sure where to call this? perhaps this isnt the right place.
 	if (settings.remote_enable) {

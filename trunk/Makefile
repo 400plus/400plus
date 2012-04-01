@@ -18,6 +18,8 @@ COMMON_FLAGS =\
 	-nostdlib                         \
 	-fno-builtin                      \
 	-mcpu=arm946e-s                   \
+	-mfloat-abi=soft                  \
+	-msoft-float                      \
 	-DVERSION='"$(VERSION)"'          \
 
 	#-Werror              \
@@ -25,10 +27,6 @@ COMMON_FLAGS =\
 	#-fomit-frame-pointer \
 	#-fno-strict-aliasing \
 
-# check if this fixes the problems with FPA
-# i get those compiler misunderstanding sometimes, when i import new ASM code
-	#-mthumb-interwork \
-	#-msoft-float \
 
 # alex had issues with struct alignment (gcc-4.6.0, -Os) in ML
 # this fixes them, keep it here in case we need it
