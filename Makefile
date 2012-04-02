@@ -102,7 +102,7 @@ NORM="\033[0m"
 ECHO="/bin/echo"
 
 
-all: $(PROJECT).BIN
+all: langs $(PROJECT).BIN
 
 release: clean
 	@mkdir $(RELNAME)
@@ -137,6 +137,11 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 clean:
 	rm -f $(OBJS) .*.o.d
 	rm -f $(PROJECT).arm.elf
+
+langs:
+	@$(ECHO) -e $(BOLD)[GEN]$(NORM) languages.ini, new_lang.ini
+	@./languages/lang_tool.pl -q -f languages -l languages.h -o languages.ini
+	@./languages/lang_tool.pl -q -f languages -l languages.h -g `svn info languages.h | grep "Last Changed Rev" | cut -d ':' -f2`
 
 -include .*.d
 
