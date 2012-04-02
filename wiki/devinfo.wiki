@@ -8,8 +8,39 @@ useful information for developers wanting to compile the code.<br>
 <br>
 ----
 = toolchains =
-== chroot in gentoo32 from gentoo64 or perhaps any other bitness/distro  ==
-_thanks to *vatoz* for the first version of the howto_<br>
+== summon-arm-toolchain *(this is the latest)* ==
+I'm using summon-arm-toolchain script initially written by Uwe Hermann, modified by Piotr Esden-Tempski<br>
+and forked by Magic-Lantern guys. The toolchain needs to be compiled for soft-floats, <br>
+the ML's script will compile it correctly. Please read the *32bit vs 64bit toolchain*, it's important.
+
+here is some short code to help you:
+{{{
+cd /tmp
+hg clone https://bitbucket.org/hudson/magic-lantern
+hg update unified
+cd magic-lantern/toolchain
+./summon-arm
+}}}
+in the end you should have the arm toolchain in it's own folder.
+
+
+== 32bit vs 64bit toolchain ==
+So it turns out that when your host system is 64bit and you have the toolchain compiled there,<br>
+it will produce some rellocation errors on linking phase, unless you put -mlong-calls to the CFLAGS.<br>
+Adding -mlong-calls to the CFLAGS will fix the rellocation problems on 64bit host toolchain,<br>
+but unfortunately will add about ~10kb to the AUTOEXEC.BIN. We prefer to spend this 10kb in another extras,<br>
+instead of loosing them to the broken linker.<br>
+
+So Edu came with the solution: <br>
+you need 32bit toolchain to get rid of the rellocation errors and the -mlong-calls (which adds 10kb)<br>
+for that purpose you should use the chroot method below, or install a 32bit linux in a virtual machine.<br>
+then make compile the toolchain there, and transfer it to your 64bit host<br>
+(in my case i had to transfer a few extra libs with the toolchain and use LD_LIBRARY_PATH=/path/to/extra/libs)<br>
+
+another solution would be to stay in the chroot/VM and compile 400Plus there.
+
+
+== chroot in 32bit linux (gentoo) from 64bit linux host ==
 this should be straight forward (copy/paste) howto.<br>
 Read [http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=2 this documentation] for more details.<br>
 follow these steps to create and enter your cross environment.
@@ -20,7 +51,7 @@ wget $url/`curl $url/latest-stage3-i686.txt | tail -1`
 mkdir /mnt/gentoo32
 cd /mnt/gentoo32/
 tar -xvjpf /tmp/stage3-i686-*.tar.bz2 
-# ### DO THE NEXT LINE ONLY IF YOUR HOST IS _NOT_ GENTOO ### #
+# ### UNCOMMENT THE NEXT LINE ONLY IF YOUR HOST IS _NOT_ GENTOO ### #
 # wget http://distfiles.gentoo.org/snapshots/portage-latest.tar.bz2 && tar xjf portage-lat* -C usr/
 cp -L /etc/resolv.conf /mnt/gentoo32/etc/
 $EDITOR /mnt/gentoo32/etc/make.conf #can be skipped
@@ -32,15 +63,11 @@ chmod +x ~/chroot-gentoo32.sh
 if you can't download chroot-gentoo32 script for some reason, see the end of this document for the source code.
 
 You should be in working 32bit chroot now..<br>
-You can read [http://magiclantern.wikia.com/wiki/Build_instructions/550D magic lantern 550d build instructions] for details on the next steps.<br>
-{{{
-cd /tmp
-wget "http://panora.ma/dev/summon-arm-toolchain"
-bash ./summon-arm-toolchain
-}}}
 
-next you need to get the [http://code.google.com/p/400plus/downloads/list 400plus sources] somewhere in the chroot.<br>
-if you want the current svn sources, you'll need to install subversion<br>
+Now compile the toolchain (see above)... and use it in the chroot, or copy it to your host system.
+
+next you need to get the [http://code.google.com/p/400plus/downloads/list 400plus sources].<br>
+if you want the current svn sources in your chroot, you'll need to install subversion first:<br>
 {{{
 emerge -av subversion
 }}}
