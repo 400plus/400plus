@@ -15,15 +15,28 @@ COMMON_FLAGS =\
 	-Wall                             \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
 	-Wp,-MT,$@                        \
-	-nostdlib                         \
-	-fno-builtin                      \
 	-mcpu=arm946e-s                   \
+	-DVERSION='"$(VERSION)"'          \
 	-mfloat-abi=soft                  \
 	-msoft-float                      \
-	-DVERSION='"$(VERSION)"'          \
+	-fno-builtin                      \
+	-nostdinc                         \
+	-nostdlib                         \
+	-fomit-frame-pointer              \
+	-fno-strict-aliasing              \
+	-mfpu=fpa
+
+
+	#-fno-builtin-puts                 \
+	#-fno-builtin-sprintf              \
+	#-fno-builtin-bzero                \
+	#-fno-builtin-memset               \
+	#-fno-builtin-printf               \
+
+	# -mlong-calls or -fPIC will fix the rellocation problems with the linker on 64bit toolchain
+	#-mlong-calls                      \
 
 	#-Werror              \
-	#-mlong-calls         \
 	#-fomit-frame-pointer \
 	#-fno-strict-aliasing \
 
@@ -45,7 +58,8 @@ CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 AS      := arm-elf-as
 ASFLAGS := $(COMMON_FLAGS)
 
-LDFLAGS := -Wl,-Ttext,$(ADDRESS) -e _start
+LD      := arm-elf-ld
+LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
 
 OBJCOPY := arm-elf-objcopy
 
@@ -83,6 +97,11 @@ C_OBJS := init.o          \
 
 OBJS  := $(S_OBJS) $(C_OBJS)
 
+BOLD="\033[1m"
+NORM="\033[0m"
+ECHO="/bin/echo"
+
+
 all: $(PROJECT).BIN
 
 release: clean
@@ -105,13 +124,15 @@ $(PROJECT).BIN: $(PROJECT).arm.elf
 	@echo; echo; ls -l AUTOEXEC.BIN
 
 $(PROJECT).arm.elf: $(OBJS) link.script
-	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^
+	$(CC) $(CFLAGS) -Wl,-T,link.script -lgcc -o $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	@$(ECHO) -e $(BOLD)[C]:$(NORM) $<
+	@$(CC) $(CFLAGS) -c $<
 
 %.o: %.S
-	$(CC) $(ASFLAGS) -c -o $@ $<
+	@$(ECHO) -e $(BOLD)[ASM]:$(NORM) $<
+	@$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
 	rm -f $(OBJS) .*.o.d
