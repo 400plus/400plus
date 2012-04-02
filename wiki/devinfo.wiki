@@ -26,10 +26,11 @@ in the end you should have the arm toolchain in it's own folder.
 
 == 32bit vs 64bit toolchain ==
 So it turns out that when your host system is 64bit and you have the toolchain compiled there,<br>
-it will produce some rellocation errors on linking phase, unless you put -mlong-calls to the CFLAGS.<br>
-Adding -mlong-calls to the CFLAGS will fix the rellocation problems on 64bit host toolchain,<br>
-but unfortunately will add about ~10kb to the AUTOEXEC.BIN. We prefer to spend this 10kb in another extras,<br>
-instead of loosing them to the broken linker.<br>
+it will produce some rellocation errors on linking phase, when linking 400plus.<br>
+Adding -mlong-calls (or -fPIC) to the CFLAGS will fix the rellocation problems on 64bit host toolchain,<br>
+but unfortunately will add about ~8kb (~11kb with -fPIC) to the AUTOEXEC.BIN. <br>
+We prefer to spend this extra KB into another features, instead of loosing them to the linker.<br>
+(_note_: please if someone find a way to compile the toolchain in 64bit linux and get rid of rellocation errors and -mlong-call, DO TELL US PLEASE !)
 
 So Edu came with the solution: <br>
 you need 32bit toolchain to get rid of the rellocation errors and the -mlong-calls (which adds 10kb)<br>
