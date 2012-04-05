@@ -222,7 +222,7 @@ void menu_lexp_calc_open (type_MENU *menu) {
 }
 
 void menu_dof_calc_open (type_MENU *menu) {
-	menu_scripts_calc_dof();
+	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_cameraMode.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 }
 
 void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
@@ -274,32 +274,8 @@ void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_dof(const type_MENUITEM *item) {
-	menu_scripts_calc_dof();
+	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_cameraMode.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 	menu_event_display();
-}
-
-void menu_scripts_calc_dof() {
-    float fl =    1.0f * menu_scripts_fl;    // Focal length (mm)
-    float fd = 1000.0f * menu_scripts_fd;    // Focus distance (mm)
-
-    float fn  = 2.828f; // F-Number
-    float cof = 0.019f; // Circle of confusion
-
-    // Hyperfocal
-    float hf  = fl + fl * fl / (fn * cof);
-    float aux = fd * (hf - fl) / 1000.0f;
-
-    // Min distance
-    int dmin = (int)(aux / (hf + fd - 2.0f * fl));
-    sprintf(menu_scripts_dof_min, "%i", MIN(dmin, 9999));
-
-    // Max distance
-    if (hf >= fd) {
-        int dmax = (int)(aux / (hf - fd));
-       	sprintf(menu_scripts_dof_max, "%i", MIN(dmax, 9999));
-    } else {
-    	sprintf(menu_scripts_dof_max, "%s", "INF");
-    }
 }
 
 void menu_scripts_ext_aeb(const type_MENUITEM *item) {

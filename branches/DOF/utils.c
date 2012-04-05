@@ -293,6 +293,30 @@ void iso_print(char *dest, int code) {
 	sprintf(dest, "%d", iso);
 }
 
+void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max) {
+    float fl =    1.0f * focal_length;
+    float fd = 1000.0f * focus_distance;
+
+    float fn  = 2.828f; // F-Number
+    float cof = 0.019f; // Circle of confusion
+
+    // Hyperfocal
+    float hf  = fl + fl * fl / (fn * cof);
+    float aux = fd * (hf - fl) / 1000.0f;
+
+    // Min distance
+    int dmin = (int)(aux / (hf + fd - 2.0f * fl));
+    sprintf(min, "%i", MIN(dmin, 9999));
+
+    // Max distance
+    if (hf >= fd) {
+        int dmax = (int)(aux / (hf - fd));
+       	sprintf(max, "%i", MIN(dmax, 9999));
+    } else {
+    	sprintf(max, "%s", "INF");
+    }
+}
+
 void beep() {
 	if (cameraMode->beep) {
 		eventproc_RiseEvent("RequestBuzzer");

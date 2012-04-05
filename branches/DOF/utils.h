@@ -46,6 +46,8 @@ extern void tv_print(char *dest, int ev);
 
 extern void iso_print(char *dest, int code);
 
+extern void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max);
+
 extern void beep();
 
 extern void enter_factory_mode();
