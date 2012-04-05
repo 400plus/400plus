@@ -1,7 +1,8 @@
 #include "main.h"
 #include "firmware.h"
-#include "settings.h"
 
+#include "languages.h"
+#include "settings.h"
 #include "utils.h"
 
 #include "debug.h"
@@ -331,7 +332,7 @@ void calculate_dof(int focal_length, int focus_distance, int av, char *min, char
     if (hf >= fd) {
         display_float(max, aux / (hf - fd));
     } else {
-    	sprintf(max, "%s", "INF");
+    	sprintf(max, "%s", LP_WORD(L_S_INFINITE));
     }
 }
 

@@ -118,6 +118,7 @@
 	LANG_PAIR( V_REPEAT,             "Repeat last script" ) \
 	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"  ) \
 	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
+	LANG_PAIR( S_INFINITE,           "INF!"               ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,
