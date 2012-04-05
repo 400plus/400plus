@@ -103,7 +103,7 @@ su -c "yum -y install gcc mpfr-devel libmpc-devel"
 
 === Install the cross-compiler ===
 
-Once you have your 32bit machine up and running, simply follow the instructions at [toolchains].
+Once you have your 32bit machine up and running, simply follow the instructions at [#toolchains toolchains].
 
 === Compile 400plus ===
 
