@@ -29,7 +29,8 @@ void menu_scripts_apply_calc       (const type_MENUITEM *item);
 
 void menu_scripts_apply_dof_av(const type_MENUITEM *item);
 void menu_scripts_apply_dof   (const type_MENUITEM *item);
-void menu_scripts_calc_dof(const type_MENUITEM *item);
+
+void menu_scripts_calc_dof();
 
 void menu_scripts_ext_aeb      (const type_MENUITEM *item);
 void menu_scripts_efl_aeb      (const type_MENUITEM *item);
@@ -221,10 +222,7 @@ void menu_lexp_calc_open (type_MENU *menu) {
 }
 
 void menu_dof_calc_open (type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
-
-	menu_scripts_calc_dof(item);
+	menu_scripts_calc_dof();
 }
 
 void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
@@ -276,32 +274,29 @@ void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_dof(const type_MENUITEM *item) {
-	menu_scripts_calc_dof(item);
+	menu_scripts_calc_dof();
 	menu_event_display();
 }
 
-void menu_scripts_calc_dof(const type_MENUITEM *item) {
-    float fl =    1.0f * menu_scripts_fl;    // Focal length
-    float fd = 1000.0f * menu_scripts_fd;    // Focus distance
+void menu_scripts_calc_dof() {
+    float fl =    1.0f * menu_scripts_fl;    // Focal length (mm)
+    float fd = 1000.0f * menu_scripts_fd;    // Focus distance (mm)
 
-    float fn  =  2828.0f; // 1000 * F-Number
-    float cof = 52631.0f; // 1 / Circle of confusion
+    float fn  = 2.828f; // F-Number
+    float cof = 0.019f; // Circle of confusion
 
-    float hf = (float)fl + (float)fl * (float)fl * (float)cof / (float)fn;
+    // Hyperfocal
+    float hf  = fl + fl * fl / (fn * cof);
+    float aux = fd * (hf - fl) / 1000.0f;
 
-    float aux = (float)fd * (float)((float)hf - (float)fl) ;
+    // Min distance
+    int dmin = (int)(aux / (hf + fd - 2.0f * fl));
+    sprintf(menu_scripts_dof_min, "%i", MIN(dmin, 9999));
 
-    int dmin = (int)((float)aux / (float)((float)hf + (float)fd - 2.0f * (float)fl) / 1000.0f);
-    sprintf(menu_scripts_dof_min, "%i", dmin);
-
+    // Max distance
     if (hf >= fd) {
-        int dmax = (int)((float)aux / (float)((float)hf - (float)fd) / 1000.0f);
-
-        if (dmax > 9999) {
-        	sprintf(menu_scripts_dof_max, "%s", "MAX");
-        } else {
-        	sprintf(menu_scripts_dof_max, "%i", dmax);
-        }
+        int dmax = (int)(aux / (hf - fd));
+       	sprintf(menu_scripts_dof_max, "%i", MIN(dmax, 9999));
     } else {
     	sprintf(menu_scripts_dof_max, "%s", "INF");
     }
