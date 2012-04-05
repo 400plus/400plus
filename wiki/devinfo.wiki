@@ -77,16 +77,13 @@ then checkout
 cd && svn checkout http://400plus.googlecode.com/svn/trunk/ 400plus-read-only
 }}}
 
-----
-<br>
+== Fedora 16 in a Virtual Machine ==
 
-== Fedora 14 in a Virtual Machine ==
-
-This guide explains how to prepare a 32bit environment to cross-compile the source code; I had to follow this procedure as compilation was reporting inexplicable errors on my 64bit machine. If you are already working in a 32bit machine, skip down to "Install the cross-compiler".
+This guide explains how to prepare a 32bit environment to cross-compile the source code; I had to follow this procedure as compilation was reporting inexplicable errors on my 64bit machine.
 
 === Create a VM ===
 
-I used Fedora 13 (64 bits) as the "host" OS, and Fedora 14 (32 bits) as the "guest" OS, for no other particular reason that it is what I am used to run; I downloaded the [http://fedoraproject.org/en/get-fedora-options Fedora 14 Desktop Edition (32 bit CD ISO)].
+I used Fedora 16 (64 bits) as the "host" OS, and Fedora 16 (32 bits) as the "guest" OS, for no other particular reason that it is what I am used to run; I downloaded the [http://fedoraproject.org/en/get-fedora-options Fedora 16 Desktop Edition (32 bit CD ISO)].
 
 Basically, I followed the [http://fedoraproject.org/wiki/Virtualization_Quick_Start Virtualization Quick Start guide] to create the virtual machine. Most relevant parameters for the emulation were: 4GB of disk space, 512 MB of RAM, 1 CPU. Select an i686 architecture (should work with a 64b arch, as long as you install a 32b OS) and use KVM if your processor supports it (it is way faster than the non-KVM alternative). Boot the VM, using the ISO downloaded previously, and install it to the (virtual) disk drive
 (there are no critical parameters here, just follow the installation assistant).
@@ -106,50 +103,7 @@ su -c "yum -y install gcc mpfr-devel libmpc-devel"
 
 === Install the cross-compiler ===
 
-I mostly followed the procedure outlined at
-http://chdk.wikia.com/wiki/Compiling_CHDK_under_Linux and
-http://chdk.wikia.com/wiki/Gcc433 , with some minor variations
-(installed to "/opt/arm-elf", and changed some parameters to avoid a bug in GCC):
-
-Create the destination directory:
-{{{
-su -c "mkdir /opt/arm-elf".
-}}}
-
-==== Install binutils ====
-
-{{{
-wget "ftp://ftp.gnu.org/gnu/binutils/binutils-2.21.tar.bz2"
-tar xvjf binutils-2.21.tar.bz2
-mkdir binutils-2.21-arm-elf
-cd binutils-2.21-arm-elf/
-../binutils-2.21/configure --srcdir=../binutils-2.21/ --target=arm-elf --prefix=/opt/arm-elf/
-make
-su -c "make install"
-}}}
-
-==== Install gcc ====
-
-{{{
-wget "ftp://ftp.gnu.org/gnu/gcc/gcc-4.5.2/gcc-4.5.2.tar.bz2"
-tar -xvjf gcc-4.5.2.tar.bz2
-}}}
-
-Now edit the file "gcc-4.5.2/gcc/config/arm/t-arm-elf" and uncomment the following lines:
-{{{
-MULTILIB_OPTIONS    += mno-thumb-interwork/mthumb-interwork
-MULTILIB_DIRNAMES   += normal interwork
-}}}
-
-We can continue the installation:
-{{{
-mkdir gcc-4.5.2-arm-elf
-cd gcc-4.5.2-arm-elf/
-../gcc-4.5.2/configure --srcdir=../gcc-4.5.2 --target=arm-elf --enable-languages=c \
---enable-clocale=gnu --disable-libm --disable-libc --disable-threads --disable-nls \
---disable-libssp --disable-intl --with-dpu=arm9 --with-newlib --prefix=/opt/arm-elf/
-su -c "make install"
-}}}
+Once you have your 32bit machine up and running, simply follow the instructions at [toolchains].
 
 === Compile 400plus ===
 
