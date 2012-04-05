@@ -68,6 +68,8 @@ static float f_number[][8] = {
 	{64.000f, 66.834f, 69.792f, 72.882f, 76.109f, 79.479f, 82.998f, 86.672f}
 };
 
+void display_float(char *dest, float value);
+
 int ev_sgn(int ev) {
 	return 0x100 - ev;
 }
@@ -323,16 +325,27 @@ void calculate_dof(int focal_length, int focus_distance, int av, char *min, char
     float aux = fd * (hf - fl) / 1000.0f;
 
     // Min distance
-    int dmin = (int)(aux / (hf + fd - 2.0f * fl));
-    sprintf(min, "%i", MIN(dmin, 9999));
+    display_float(min, aux / (hf + fd - 2.0f * fl));
 
     // Max distance
     if (hf >= fd) {
-        int dmax = (int)(aux / (hf - fd));
-       	sprintf(max, "%i", MIN(dmax, 9999));
+        display_float(max, aux / (hf - fd));
     } else {
     	sprintf(max, "%s", "INF");
     }
+}
+
+void display_float(char *dest, float value) {
+	if (value > 9999.0f)
+		sprintf(dest, "%i.",     9999);
+	else if (value > 999.9f)
+		sprintf(dest, "%i.",     (int)value);
+	else if (value > 99.99f)
+		sprintf(dest, "%i.%01i", (int)value, (int)(10.0f * value) % 10);
+	else if (value > 9.999f)
+		sprintf(dest, "%i.%02i", (int)value, (int)(100.0f * value) % 100);
+	else
+		sprintf(dest, "%i.%03i", (int)value, (int)(1000.0f * value) % 1000);
 }
 
 void beep() {
