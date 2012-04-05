@@ -268,7 +268,7 @@ void av_print(char *dest, int av) {
 	int base = (av >> 3) - 0x01;
 	int frac = (av & 0x07) >> 1;
 
-	sprintf(dest, "%s", av_strings[base][frac]);
+	sprintf(dest, "f/%s", av_strings[base][frac]);
 }
 
 void tv_print(char *dest, int tv) {

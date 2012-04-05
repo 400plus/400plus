@@ -189,6 +189,18 @@ OPTIONLIST_DEC(languages)
 	change  : _CHANGE_ \
 }
 
+#define MENUITEM_FLENGTH(_NAME_, _VALUE_, _CHANGE_) { \
+	name     : _NAME_, \
+	parm     : {menuitem_int : { \
+		value                : _VALUE_, \
+		format               : "%i", \
+	}}, \
+	display : menuitem_display_int, \
+	inc     : menuitem_inc_flen, \
+	dec     : menuitem_dec_flen, \
+	change  : _CHANGE_ \
+}
+
 #define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _CHANGE_)  { \
 	name  : _NAME_, \
 	parm  : { menuitem_enum : { \
@@ -245,8 +257,7 @@ OPTIONLIST_DEC(languages)
 #define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE, 1800, 11000, 100, 500, FALSE, "%5u", _ON_CHANGE_)
 #define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
 #define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    3,     9,   2,   2, FALSE, "%1u", _ON_CHANGE_)
-#define MENUITEM_FLENGTH(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,   10,   300,   5,  25, FALSE, "%3u", _ON_CHANGE_)
-#define MENUITEM_FDIST(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,  1000,   5,   5, FALSE, "%4u", _ON_CHANGE_)
+#define MENUITEM_FDIST(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    1,  1000,   1,  10, FALSE, "%4u", _ON_CHANGE_)
 
 #define MENUITEM_PARAM(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, TRUE, 0, 0, 0, 0, FALSE, "%u", NULL)
 
@@ -269,6 +280,7 @@ extern void menuitem_inc_av   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_tv   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_iso  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_int  (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_flen (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_enum (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_sub  (const type_MENUITEM *item, const int repeating);
 
@@ -277,6 +289,7 @@ extern void menuitem_dec_av   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_tv   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_iso  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_int  (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_flen (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_enum (const type_MENUITEM *item, const int repeating);
 
 #endif /* MENUITEM_H_ */

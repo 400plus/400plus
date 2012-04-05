@@ -30,8 +30,6 @@ void menu_scripts_apply_calc       (const type_MENUITEM *item);
 void menu_scripts_apply_dof_av(const type_MENUITEM *item);
 void menu_scripts_apply_dof   (const type_MENUITEM *item);
 
-void menu_scripts_calc_dof();
-
 void menu_scripts_ext_aeb      (const type_MENUITEM *item);
 void menu_scripts_efl_aeb      (const type_MENUITEM *item);
 void menu_scripts_iso_aeb      (const type_MENUITEM *item);

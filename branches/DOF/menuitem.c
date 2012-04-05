@@ -14,8 +14,8 @@ OPTIONLIST_DEF(logfile,   LP_WORD(L_V_OVERWRITE), LP_WORD(L_V_NEW), LP_WORD(L_V_
 OPTIONLIST_DEF(btnactn,   LP_WORD(L_V_NONE), LP_WORD(L_V_INTISO), LP_WORD(L_V_REPEAT), LP_WORD(L_V_HACK_MENU));
 OPTIONLIST_DEF(direction, "+", "-", "+/-");
 OPTIONLIST_DEF(languages, "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
-		                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-		                "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"); // place holders
+                          "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                          "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"); // place holders
 
 void menuitem_print(char *buffer, const char *name, const char *parameter, const int length);
 
@@ -121,6 +121,21 @@ void menuitem_inc_int(const type_MENUITEM *item, const int repeating) {
 	*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 }
 
+void menuitem_inc_flen(const type_MENUITEM *item, const int repeating) {
+	if (*item->parm.menuitem_int.value < 10)
+		*item->parm.menuitem_int.value += 1;
+	else if (*item->parm.menuitem_int.value < 20)
+		*item->parm.menuitem_int.value += 2;
+	else if (*item->parm.menuitem_int.value < 100)
+		*item->parm.menuitem_int.value += 5;
+	else if (*item->parm.menuitem_int.value < 200)
+		*item->parm.menuitem_int.value += 25;
+	else if (*item->parm.menuitem_int.value < 600)
+		*item->parm.menuitem_int.value += 100;
+	else if (*item->parm.menuitem_int.value < 1200)
+		*item->parm.menuitem_int.value += 200;
+}
+
 void menuitem_inc_enum(const type_MENUITEM *item, const int repeating) {
 	if (*item->parm.menuitem_enum.value >= item->parm.menuitem_enum.list->length - 1) {
 		if (item->parm.menuitem_enum.cycle || *item->parm.menuitem_enum.value > item->parm.menuitem_enum.list->length - 1)
@@ -162,6 +177,21 @@ void menuitem_dec_iso(const type_MENUITEM *item, const int repeating) {
 void menuitem_dec_int(const type_MENUITEM *item, const int repeating) {
 	*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
 	*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
+}
+
+void menuitem_dec_flen(const type_MENUITEM *item, const int repeating) {
+	if (*item->parm.menuitem_int.value > 600)
+		*item->parm.menuitem_int.value -= 200;
+	else if (*item->parm.menuitem_int.value > 200)
+		*item->parm.menuitem_int.value -= 100;
+	else if (*item->parm.menuitem_int.value > 100)
+		*item->parm.menuitem_int.value -= 25;
+	else if (*item->parm.menuitem_int.value > 20)
+		*item->parm.menuitem_int.value -= 5;
+	else if (*item->parm.menuitem_int.value > 10)
+		*item->parm.menuitem_int.value -= 2;
+	else if (*item->parm.menuitem_int.value > 5)
+		*item->parm.menuitem_int.value -= 1;
 }
 
 void menuitem_dec_enum(const type_MENUITEM *item, const int repeating) {
