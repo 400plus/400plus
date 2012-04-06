@@ -225,14 +225,6 @@ void menu_event(type_MENU_EVENT event) {
 		menu->tasks[event](menu);
 }
 
-void menu_help(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
-
-	if (item && item->help)
-		debug_log("HELP: [%s] %s", item->name, item->help);
-}
-
 void menu_set(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
