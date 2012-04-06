@@ -174,8 +174,16 @@ int tv_sub(int ying, int yang) {
 int ev_normalize(int ev) {
 	if (cameraMode->cf_explevel_inc_third)
 		ev &= 0xFC;
-	else if ((ev & 0x07) && !(ev & 0x03))
-		ev -= 0x01;
+	else switch (ev & 0x07) {
+	case 0x01:
+	case 0x02:
+		ev = (ev & 0xF8) | 0x03;
+		break;
+	case 0x06:
+	case 0x07:
+		ev = (ev & 0xF8) | 0x05;
+		break;
+	}
 
 	return ev;
 }
