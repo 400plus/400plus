@@ -102,6 +102,7 @@ extern void menu_event_close();
 
 extern void menu_event(type_MENU_EVENT);
 
+extern void menu_help (type_MENU *menu);
 extern void menu_set  (type_MENU *menu);
 extern void menu_right(type_MENU *menu);
 extern void menu_left (type_MENU *menu);

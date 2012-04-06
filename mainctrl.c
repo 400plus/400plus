@@ -5,6 +5,31 @@
 #include "utils.h"
 #include "debug.h"
 
+/*
+
+MC_T_Action looks at simple table with routines to handle the actions:
+
+FW:FF827A64 ActProcs:
+code(0x80)	.long Act_80_sub_FF827C44
+code(0x81)	.long Act_81_SendOlcChangeOlcInfo
+code(0x82)	.long Act_82_change_disable_ui_lock2
+code(0x83)	.long Act_83_call_BulbCountToGUI
+code(0x84)	.long Act_84_change_disable_ui_lock
+code(0x85)	.long Act_85_sub_FF8278F0
+code(0x86)	.long Act_86_nullsub
+code(0x87)	.long Act_87_sub_FF827D84
+code(0x88)	.long Act_88_sub_FF827DDC
+code(0x80)	.long Act_89_change_ef_lens_exist_avo_avomax @ (char in[3])
+code(0x8A)	.long Act_8A_TryPostShootMainMessQueue_0x1A_0
+code(0x8B)	.long Act_8B_sub_FF827EC8
+code(0x8C)	.long Act_8C_OlcTimerCounter
+code(0x8D)	.long Act_8D_PostStageEvent
+code(0x8E)	.long Act_8E_sub_FF827F60
+code(0x8F)	.long Act_8F_UnknownCommand
+
+*/
+
+
 typedef struct MC_Table_entry_struct {
 	mc_event_t t;
 	int sw;
