@@ -14,13 +14,21 @@
 
 int menu_scripts_ev = 0x00;
 
-void menu_lexp_calc_open ();
+int menu_scripts_fl =  50;
+int menu_scripts_fd =  10;
+char menu_scripts_dof_min[LP_MAX_WORD], menu_scripts_dof_max[LP_MAX_WORD];
+
+void menu_lexp_calc_open(type_MENU *menu);
+void menu_dof_calc_open (type_MENU *menu);
 
 void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
 void menu_scripts_apply_calc_av    (const type_MENUITEM *item);
 void menu_scripts_apply_calc_ev    (const type_MENUITEM *item);
 void menu_scripts_apply_calc       (const type_MENUITEM *item);
+
+void menu_scripts_apply_dof_av(const type_MENUITEM *item);
+void menu_scripts_apply_dof   (const type_MENUITEM *item);
 
 void menu_scripts_ext_aeb      (const type_MENUITEM *item);
 void menu_scripts_efl_aeb      (const type_MENUITEM *item);
@@ -82,6 +90,14 @@ type_MENUITEM lexp_calc_items[] = {
 	MENUITEM_AV     (LP_WORD(L_I_AV_VAL), &menu_cameraMode.av_val, menu_scripts_apply_calc_av),
 	MENUITEM_EVINFO (LP_WORD(L_I_EV_VAL), &menu_scripts_ev,        NULL),
 	MENUITEM_LAUNCH (LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
+};
+
+type_MENUITEM dof_calc_items[] = {
+	MENUITEM_FLENGTH(LP_WORD(L_I_FLENGTH), &menu_scripts_fl,        menu_scripts_apply_dof),
+	MENUITEM_AV     (LP_WORD(L_I_AV_VAL),  &menu_cameraMode.av_val, menu_scripts_apply_dof_av),
+	MENUITEM_FDIST  (LP_WORD(L_I_FDIST),   &menu_scripts_fd,        menu_scripts_apply_dof),
+	MENUITEM_INFO   (LP_WORD(L_I_DOFMIN),   menu_scripts_dof_min),
+	MENUITEM_INFO   (LP_WORD(L_I_DOFMAX),   menu_scripts_dof_max),
 };
 
 type_MENUPAGE lexp_calc_page = {
@@ -162,6 +178,17 @@ type_MENUPAGE lexp_page = {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
+
+type_MENUPAGE dof_calc_page = {
+	name   : LP_WORD(L_S_DOF_CALC),
+	length : LENGTH(dof_calc_items),
+	items  : dof_calc_items,
+	tasks  : {
+		[MENU_EVENT_OPEN] = menu_dof_calc_open,
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
 type_MENUITEM menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
 	MENUITEM_SUBMENU(LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
@@ -170,6 +197,7 @@ type_MENUITEM menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
 	MENUITEM_SUBMENU(LP_WORD(L_S_TIMER),     &timer_page,     menu_scripts_self_timer),
 	MENUITEM_SUBMENU(LP_WORD(L_S_LEXP),      &lexp_page,      menu_scripts_long_exp),
+	MENUITEM_SUBMENU(LP_WORD(L_S_DOF_CALC),  &dof_calc_page,  NULL),
 };
 
 type_MENUPAGE menupage_scripts = {
@@ -180,7 +208,7 @@ type_MENUPAGE menupage_scripts = {
 	ordering  : settings.scripts_order,
 };
 
-void menu_lexp_calc_open () {
+void menu_lexp_calc_open (type_MENU *menu) {
 	// Copy current parameters from camera to menu
 	menu_cameraMode.iso    = cameraMode->iso;
 	menu_cameraMode.tv_val = cameraMode->tv_val;
@@ -191,6 +219,9 @@ void menu_lexp_calc_open () {
 	menu_cameraMode.tv_val &= 0xF8;
 }
 
+void menu_dof_calc_open (type_MENU *menu) {
+	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_cameraMode.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
+}
 
 void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
 	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
@@ -212,6 +243,11 @@ void menu_scripts_apply_calc_av(const type_MENUITEM *item) {
 	menu_scripts_apply_calc_ev(item);
 }
 
+void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
+	menu_scripts_ev = ev_normalize((menu_cameraMode.iso - cameraMode->iso) - ev_sub(menu_cameraMode.tv_val, cameraMode->tv_val) - ev_sub(menu_cameraMode.av_val, cameraMode->av_val));
+	menu_event_display();
+}
+
 void menu_scripts_apply_calc(const type_MENUITEM *item) {
 	if (menu_cameraMode.tv_val < 0x10) {
 		settings.lexp_time = 60 * (1 << (1 - (menu_cameraMode.tv_val >> 3)));
@@ -224,8 +260,19 @@ void menu_scripts_apply_calc(const type_MENUITEM *item) {
 	}
 }
 
-void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
-	menu_scripts_ev = ev_normalize((menu_cameraMode.iso - cameraMode->iso) - ev_sub(menu_cameraMode.tv_val, cameraMode->tv_val) - ev_sub(menu_cameraMode.av_val, cameraMode->av_val));
+void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
+	int min = MAX(cameraMode->avo,   0x08);
+	int max = MIN(cameraMode->avmax, 0x67);
+
+	*item->parm.menuitem_av.value = MAX(*item->parm.menuitem_av.value, min);
+	*item->parm.menuitem_av.value = MIN(*item->parm.menuitem_av.value, max);
+
+	send_to_intercom(IC_SET_AV_VAL, 1, *item->parm.menuitem_av.value);
+	menu_scripts_apply_dof(item);
+}
+
+void menu_scripts_apply_dof(const type_MENUITEM *item) {
+	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_cameraMode.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 	menu_event_display();
 }
 
