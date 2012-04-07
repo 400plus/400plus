@@ -84,6 +84,12 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
     * Time: the length (in minutes:seconds) of the exposure. Values range from 00:00 to 100:00.
     * Calculator: enter [#Long_Exposure_Calculator the long exposure calculator].
+ * _*DOF Calculator*_: This item launches the [#DOF_Calculator DOF Calculator]:
+    * Focal length (mm): Len's focal length, in millimeters.
+    * Av: Lens aperture.
+    * Focus distance (m): Focusing distance.
+    * Min. DOF (m): Near distance of acceptable sharpness (informative only).
+    * Max. DOF (m): Far distance of acceptable sharpness (informative only).
 
 === Info Page ===
 
@@ -198,6 +204,14 @@ But we can temporarily select a high sensitivity and large aperture (ISO1600 and
 NOTE: The long exposure calculator will only apply the values presented on the display when the exposure time (Tv) is one minute or longer; for shorter exposure times, the "Apply" button will simply be inactive.
 
 TIP: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
+
+=== DOF Calculator ===
+
+The DOF Calculator can help determine the depth of field of a scene, or the range of distances that will be photographed as sharp; for more information about this concept, please visit [http://www.dofmaster.com/index.html DOF Master].
+
+After entering the DOF Calculator, set the focal length of your lens, the aperture you are using, and the distance from the camera to the subject. The script will then display the near and far distances of acceptable sharpness. You can now change the aperture and / or the focusing distance until the depth of field displayed matches the part of your scene that you deem as important and want to remain in-focus.
+
+When the "Max. DOF (m)" entry displays "INF!", the hyperfocal distance has been reached, and thus everything from the near distance of acceptable focus up to the infinity will be sharp.
 
 = The presets =
 
