@@ -69,7 +69,12 @@ void menuitem_display_int(const type_MENUITEM *item, char *buffer, const int len
 void menuitem_display_time(const type_MENUITEM *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
-	sprintf(value, "%02i:%02i", *item->parm.menuitem_int.value / 60, *item->parm.menuitem_int.value % 60);
+	if (*item->parm.menuitem_int.value < 3600) {
+		sprintf(value, "%02i:%02i", *item->parm.menuitem_int.value / 60, *item->parm.menuitem_int.value % 60);
+	} else {
+		sprintf(value, "%02i:%02i:%02i", *item->parm.menuitem_int.value / 3600, (*item->parm.menuitem_int.value % 3600) / 60, *item->parm.menuitem_int.value % 60);
+	}
+
 	menuitem_print(buffer, item->name, value, length);
 }
 
