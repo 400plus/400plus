@@ -93,6 +93,7 @@ OPTIONLIST_DEC(logfile)
 OPTIONLIST_DEC(btnactn)
 OPTIONLIST_DEC(direction)
 OPTIONLIST_DEC(languages)
+OPTIONLIST_DEC(vformat)
 
 #define MENUITEM_EV(_NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
 	name     : _NAME_, \
@@ -253,6 +254,7 @@ OPTIONLIST_DEC(languages)
 #define MENUITEM_BTNACTN( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE, OPTIONLIST_REF(btnactn),   _ON_CHANGE_)
 #define MENUITEM_EAEBDIR( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE, OPTIONLIST_REF(direction), _ON_CHANGE_)
 #define MENUITEM_LANG(    _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE, OPTIONLIST_REF(languages), _ON_CHANGE_)
+#define MENUITEM_VFORMAT( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, TRUE, OPTIONLIST_REF(vformat),   _ON_CHANGE_)
 
 #define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE, 1800, 11000, 100, 500, FALSE, "%5u", _ON_CHANGE_)
 #define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, FALSE,    0,   250,   1,  10, TRUE,  "%3u", _ON_CHANGE_)
@@ -263,6 +265,7 @@ OPTIONLIST_DEC(languages)
 
 #define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, FALSE,    1,   300,   1,  10, _ON_CHANGE_)
 #define MENUITEM_LONGEXP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, FALSE,   15,  6000,  15,  60, _ON_CHANGE_)
+#define MENUITEM_INFTIME(_NAME_, _VALUE_)              MENUITEM_TIME(_NAME_, _VALUE_, TRUE,     1,   100,   1,   5, NULL)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_ev   (const type_MENUITEM *item, char *buffer, const int length);
