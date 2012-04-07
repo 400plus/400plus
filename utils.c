@@ -1,7 +1,8 @@
 #include "main.h"
 #include "firmware.h"
-#include "settings.h"
 
+#include "languages.h"
+#include "settings.h"
 #include "utils.h"
 
 #include "debug.h"
@@ -49,6 +50,26 @@ static char *tv_strings[][4] = {
 	{"1/2000", "1/2500", "1/3000", "1/3200"},
 	{"1/4000",  "",            "",       ""},
 };
+
+
+// Precise F numbers, 1/8 EV resolution, F=2^(n/2)
+static float f_number[][8] = {
+	{ 1.000f,  1.044f,  1.091f,  1.139f,  1.189f,  1.242f,  1.297f,  1.354f},
+	{ 1.414f,  1.477f,  1.542f,  1.610f,  1.682f,  1.756f,  1.834f,  1.915f},
+	{ 2.000f,  2.089f,  2.181f,  2.278f,  2.378f,  2.484f,  2.594f,  2.709f},
+	{ 2.828f,  2.954f,  3.084f,  3.221f,  3.364f,  3.513f,  3.668f,  3.830f},
+	{ 4.000f,  4.177f,  4.362f,  4.555f,  4.757f,  4.967f,  5.187f,  5.417f},
+	{ 5.657f,  5.907f,  6.169f,  6.442f,  6.727f,  7.025f,  7.336f,  7.661f},
+	{ 8.000f,  8.354f,  8.724f,  9.110f,  9.514f,  9.935f, 10.375f, 10.834f},
+	{11.314f, 11.815f, 12.338f, 12.884f, 13.454f, 14.050f, 14.672f, 15.322f},
+	{16.000f, 16.708f, 17.448f, 18.221f, 19.027f, 19.870f, 20.749f, 21.668f},
+	{22.627f, 23.629f, 24.675f, 25.768f, 26.909f, 28.100f, 29.344f, 30.643f},
+	{32.000f, 33.417f, 34.896f, 36.441f, 38.055f, 39.739f, 41.499f, 43.336f},
+	{45.255f, 47.258f, 49.351f, 51.536f, 53.817f, 56.200f, 58.688f, 61.287f},
+	{64.000f, 66.834f, 69.792f, 72.882f, 76.109f, 79.479f, 82.998f, 86.672f}
+};
+
+void display_float(char *dest, float value);
 
 int ev_sgn(int ev) {
 	return 0x100 - ev;
@@ -258,7 +279,7 @@ void av_print(char *dest, int av) {
 	int base = (av >> 3) - 0x01;
 	int frac = (av & 0x07) >> 1;
 
-	sprintf(dest, "%s", av_strings[base][frac]);
+	sprintf(dest, "f/%s", av_strings[base][frac]);
 }
 
 void tv_print(char *dest, int tv) {
@@ -299,6 +320,41 @@ void iso_print(char *dest, int code) {
 	iso += iso * mult / 8;
 
 	sprintf(dest, "%d", iso);
+}
+
+void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max) {
+    float fl =    1.0f * focal_length;
+    float fd = 1000.0f * focus_distance;
+
+    float fn  = f_number[(av >> 3) - 1][av & 0x07]; // F-Number
+    float cof = 0.019f; // Circle of confusion
+
+    // Hyperfocal
+    float hf  = fl + fl * fl / (fn * cof);
+    float aux = fd * (hf - fl) / 1000.0f;
+
+    // Min distance
+    display_float(min, aux / (hf + fd - 2.0f * fl));
+
+    // Max distance
+    if (hf >= fd) {
+        display_float(max, aux / (hf - fd));
+    } else {
+    	sprintf(max, "%s", LP_WORD(L_S_INFINITE));
+    }
+}
+
+void display_float(char *dest, float value) {
+	if (value > 9999.0f)
+		sprintf(dest, "%i.",     9999);
+	else if (value > 999.9f)
+		sprintf(dest, "%i.",     (int)value);
+	else if (value > 99.99f)
+		sprintf(dest, "%i.%01i", (int)value, (int)(10.0f * value) % 10);
+	else if (value > 9.999f)
+		sprintf(dest, "%i.%02i", (int)value, (int)(100.0f * value) % 100);
+	else
+		sprintf(dest, "%i.%03i", (int)value, (int)(1000.0f * value) % 1000);
 }
 
 void beep() {

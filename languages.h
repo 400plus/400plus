@@ -69,6 +69,7 @@
 	LANG_PAIR( S_TIMER,              "Self-Timer"         ) \
 	LANG_PAIR( S_LEXP,               "Long exposures"     ) \
 	LANG_PAIR( S_CALCULATOR,         "Calculator"         ) \
+	LANG_PAIR( S_DOF_CALC,           "DOF Calculator"     ) \
 	LANG_PAIR( I_DIM_LCD_DOWN,       "Dim LCD down"       ) \
 	LANG_PAIR( I_KEEP_POWER_ON,      "Disable power-off"  ) \
 	LANG_PAIR( I_BTN_JUMP,           "Jump"               ) \
@@ -89,6 +90,10 @@
 	LANG_PAIR( I_AV_VAL,             "Av"                 ) \
 	LANG_PAIR( I_EV_VAL,             "Ev"                 ) \
 	LANG_PAIR( I_APPLY,              "Apply"              ) \
+	LANG_PAIR( I_FLENGTH,            "Focal length (mm)"  ) \
+	LANG_PAIR( I_FDIST,              "Focus distance (m)" ) \
+	LANG_PAIR( I_DOFMIN,             "Min. DOF (m)"       ) \
+	LANG_PAIR( I_DOFMAX,             "Max. DOF (m)"       ) \
 	LANG_PAIR( S_SCRIPTS,            "Config. Scripts"    ) \
 	LANG_PAIR( S_BUTTONS,            "Config. Buttons"    ) \
 	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
@@ -113,6 +118,7 @@
 	LANG_PAIR( V_REPEAT,             "Repeat last script" ) \
 	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"  ) \
 	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
+	LANG_PAIR( S_INFINITE,           "INF!"               ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,

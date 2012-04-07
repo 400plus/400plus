@@ -24,9 +24,7 @@ COMMON_FLAGS =\
 	-nostdlib                         \
 	-fomit-frame-pointer              \
 	-fno-strict-aliasing              \
-
-	#-mfpu=fpa
-
+	-mfpu=fpa
 
 	#-fno-builtin-puts                 \
 	#-fno-builtin-sprintf              \
@@ -60,8 +58,7 @@ AS      := arm-elf-as
 ASFLAGS := $(COMMON_FLAGS)
 
 LD      := arm-elf-ld
-#LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
-LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start
+LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
 
 OBJCOPY := arm-elf-objcopy
 
@@ -102,7 +99,6 @@ OBJS  := $(S_OBJS) $(C_OBJS)
 BOLD="\033[1m"
 NORM="\033[0m"
 ECHO="/bin/echo"
-
 
 all: langs $(PROJECT).BIN
 
