@@ -18,6 +18,9 @@ int menu_scripts_fl =  50;
 int menu_scripts_fd =  10;
 char menu_scripts_dof_min[LP_MAX_WORD], menu_scripts_dof_max[LP_MAX_WORD];
 
+int menu_scripts_vformat = VIDEO_FORMAT_25FPS;
+int menu_scripts_rectime = 0, menu_scripts_playtime = 0;
+
 void menu_lexp_calc_open(type_MENU *menu);
 void menu_dof_calc_open (type_MENU *menu);
 
@@ -29,6 +32,10 @@ void menu_scripts_apply_calc       (const type_MENUITEM *item);
 
 void menu_scripts_apply_dof_av(const type_MENUITEM *item);
 void menu_scripts_apply_dof   (const type_MENUITEM *item);
+
+void menu_scripts_open_timelapse  (type_MENU *menu);
+void menu_scripts_update_timelapse(const type_MENUITEM *item);
+void menu_scripts_calc_timelapse  ();
 
 void menu_scripts_ext_aeb      (const type_MENUITEM *item);
 void menu_scripts_efl_aeb      (const type_MENUITEM *item);
@@ -67,9 +74,12 @@ type_MENUITEM iso_aeb_items[] = {
 
 type_MENUITEM interval_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),    &settings.interval_delay,  NULL),
-	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S),   &settings.interval_time,   NULL),
 	MENUITEM_ACTION (LP_WORD(L_I_ACTION),   &settings.interval_action, NULL),
-	MENUITEM_COUNTER(LP_WORD(L_I_SHOTS),    &settings.interval_shots,  NULL)
+	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S),   &settings.interval_time,   menu_scripts_update_timelapse),
+	MENUITEM_COUNTER(LP_WORD(L_I_SHOTS),    &settings.interval_shots,  menu_scripts_update_timelapse),
+	MENUITEM_VFORMAT(LP_WORD(L_I_VFORMAT),  &menu_scripts_vformat,     menu_scripts_update_timelapse),
+	MENUITEM_INFTIME(LP_WORD(L_I_RECTIME),  &menu_scripts_rectime),
+	MENUITEM_INFTIME(LP_WORD(L_I_PLAYTIME), &menu_scripts_playtime),
 };
 
 type_MENUITEM wave_items[] = {
@@ -148,7 +158,8 @@ type_MENUPAGE interval_page = {
 	length : LENGTH(interval_items),
 	items  : interval_items,
 	tasks  : {
-		[MENU_EVENT_AV] = menu_return,
+		[MENU_EVENT_OPEN] = menu_scripts_open_timelapse,
+		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
@@ -274,6 +285,37 @@ void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
 void menu_scripts_apply_dof(const type_MENUITEM *item) {
 	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_cameraMode.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 	menu_event_display();
+}
+
+void menu_scripts_open_timelapse(type_MENU *menu) {
+	menu_scripts_calc_timelapse();
+}
+
+void menu_scripts_update_timelapse(const type_MENUITEM *item) {
+	menu_scripts_calc_timelapse();
+	menu_event_display();
+}
+
+void menu_scripts_calc_timelapse() {
+	menu_scripts_rectime  = settings.interval_shots * settings.interval_time;
+
+	switch (menu_scripts_vformat) {
+	case VIDEO_FORMAT_25FPS:
+		menu_scripts_playtime = settings.interval_shots / 25;
+		break;
+	case VIDEO_FORMAT_30FPS:
+		menu_scripts_playtime = settings.interval_shots / 30;
+		break;
+	case VIDEO_FORMAT_50FPS:
+		menu_scripts_playtime = settings.interval_shots / 50;
+		break;
+	case VIDEO_FORMAT_60FPS:
+		menu_scripts_playtime = settings.interval_shots / 60;
+		break;
+	default:
+		menu_scripts_playtime = 0;
+		break;
+	}
 }
 
 void menu_scripts_ext_aeb(const type_MENUITEM *item) {

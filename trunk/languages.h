@@ -60,6 +60,9 @@
 	LANG_PAIR( I_TIME_S,             "Time"               ) \
 	LANG_PAIR( I_EAEB,               "EAEB"               ) \
 	LANG_PAIR( I_SHOTS,              "Shots"              ) \
+	LANG_PAIR( I_VFORMAT,            "Video format (fps)" ) \
+	LANG_PAIR( I_RECTIME,            "Recording time"     ) \
+	LANG_PAIR( I_PLAYTIME,           "Plaback time"       ) \
 	LANG_PAIR( I_DIRECTION,          "Direction"          ) \
 	LANG_PAIR( S_EXT_AEB,            "Extended AEB"       ) \
 	LANG_PAIR( S_EFL_AEB,            "Flash AEB"          ) \
