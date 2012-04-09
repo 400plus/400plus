@@ -6,7 +6,7 @@
 
 // Feedback timing
 #define FEEDBACK_LENGTH    25
-#define FEEDBACK_INTERVAL 475
+#define FEEDBACK_INTERVAL 500
 
 // Pooling time while delaying script
 #define SCRIPT_DELAY_TIME 250

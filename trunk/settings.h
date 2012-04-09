@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x35
+#define SETTINGS_VERSION  0x36
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -33,6 +33,16 @@ typedef enum {
 	EAEB_DIRECTION_FIRST = 0,
 	EAEB_DIRECTION_LAST  = EAEB_DIRECTION_COUNT - 1
 } type_EAEB_DIRECTION;
+
+typedef enum {
+	SCRIPT_INDICATOR_NONE,
+	SCRIPT_INDICATOR_SLOW,
+	SCRIPT_INDICATOR_MEDIUM,
+	SCRIPT_INDICATOR_FAST,
+	SCRIPT_INDICATOR_COUNT,
+	SCRIPT_INDICATOR_FIRST = 0,
+	SCRIPT_INDICATOR_LAST  = SCRIPT_INDICATOR_COUNT - 1
+} type_SCRIPT_INDICATOR;
 
 typedef struct {
 	int iso_in_viewfinder;
@@ -75,6 +85,7 @@ typedef struct {
 	int settings_order[15];
 	int dim_lcd_down;
 	int keep_power_on;
+	int script_indicator;
 	int debug_on_poweron;
 	int logfile_mode;
 	int remote_enable;

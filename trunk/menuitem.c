@@ -17,6 +17,7 @@ OPTIONLIST_DEF(languages, "00", "01", "02", "03", "04", "05", "06", "07", "08", 
                           "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
                           "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"); // place holders
 OPTIONLIST_DEF(vformat,   "25", "30", "50", "60");
+OPTIONLIST_DEF(scrind,    LP_WORD(L_V_NONE), LP_WORD(L_V_SLOW), LP_WORD(L_V_MEDIUM), LP_WORD(L_V_FAST));
 
 void menuitem_print(char *buffer, const char *name, const char *parameter, const int length);
 
