@@ -116,6 +116,7 @@ _This Page Is Intentionally Left Blank._
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Dim LCD down: when active (set to Yes), the LCD brightness value is dimmed to preserve battery life. The value is restored after the script has completed.
     * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
+    * Indicator: configure the blinking frequency of the blue LED while a script is running..
  * _*Config. Buttons*:_ In this sub-menu, users can configure the behavior of some special buttons (currently, only the JUMP button, while the camera is in the main dialog, is configurable); the following actions can be assigned to each button:
     * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
     * Repeat last script: repeat last script executed.
