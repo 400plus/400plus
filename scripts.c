@@ -187,10 +187,12 @@ void script_start() {
 	if (settings.keep_power_on)
 		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
 
-	if (feedback_task == NULL)
-		feedback_task = CreateTask("Feedback", 5, 0x2000, script_feedback, 0);
-	else
-		UnSuspendTask(feedback_task);
+	if (settings.script_indicator != SCRIPT_INDICATOR_NONE) {
+		if (feedback_task == NULL)
+			feedback_task = CreateTask("Feedback", 5, 0x2000, script_feedback, 0);
+		else
+			UnSuspendTask(feedback_task);
+	}
 }
 
 void script_stop() {
@@ -214,10 +216,33 @@ void script_restore() {
 }
 
 void script_feedback() {
+	int cycles, counter;
+
 	for (;;) {
+		switch (settings.script_indicator) {
+		case SCRIPT_INDICATOR_SLOW:
+			cycles = 10;
+			break;
+		case SCRIPT_INDICATOR_MEDIUM:
+			cycles = 5;
+			break;
+		case SCRIPT_INDICATOR_FAST:
+			cycles = 1;
+			break;
+		default:
+			cycles = 0;
+			break;
+		}
+
+		counter = 0;
+
 		while (status.script_running) {
-			led_flash(FEEDBACK_LENGTH);
 			SleepTask(FEEDBACK_INTERVAL);
+
+			if (++counter == cycles) {
+				led_flash(FEEDBACK_LENGTH);
+				counter = 0;
+			}
 		}
 
 		SuspendTask(feedback_task);

@@ -46,6 +46,7 @@ type_SETTINGS settings = {
 	settings_order   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ,13, 14},
 	dim_lcd_down     : TRUE,
 	keep_power_on    : TRUE,
+	script_indicator : SCRIPT_INDICATOR_MEDIUM,
 	debug_on_poweron : FALSE,
 	logfile_mode     : 0,
 	remote_enable    : FALSE,
