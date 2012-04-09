@@ -21,8 +21,8 @@ void menu_settings_apply_remote_enable   (const type_MENUITEM *item);
 void menu_settings_apply_remote_delay    (const type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DIM_LCD_DOWN),  &settings.dim_lcd_down,     NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_KEEP_POWER_ON), &settings.keep_power_on,    NULL),
+	MENUITEM_SCRLCD( LP_WORD(L_I_LCD_SCRIPT),    &settings.script_lcd,       NULL),
 	MENUITEM_SCRIND( LP_WORD(L_I_INDICATOR),     &settings.script_indicator, NULL),
 };
 

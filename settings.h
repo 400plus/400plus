@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x36
+#define SETTINGS_VERSION  0x37
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -44,6 +44,15 @@ typedef enum {
 	SCRIPT_INDICATOR_LAST  = SCRIPT_INDICATOR_COUNT - 1
 } type_SCRIPT_INDICATOR;
 
+typedef enum {
+	SCRIPT_LCD_KEEP,
+	SCRIPT_LCD_DIM,
+	SCRIPT_LCD_OFF,
+	SCRIPT_LCD_COUNT,
+	SCRIPT_LCD_FIRST = 0,
+	SCRIPT_LCD_LAST  = SCRIPT_LCD_COUNT - 1
+} type_SCRIPT_LCD;
+
 typedef struct {
 	int iso_in_viewfinder;
 	int autoiso_enable;
@@ -83,8 +92,8 @@ typedef struct {
 	int info_order[10];
 	int developer_order[10];
 	int settings_order[15];
-	int dim_lcd_down;
 	int keep_power_on;
+	int script_lcd;
 	int script_indicator;
 	int debug_on_poweron;
 	int logfile_mode;
