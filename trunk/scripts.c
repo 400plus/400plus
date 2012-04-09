@@ -181,11 +181,19 @@ void script_start() {
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
 	send_to_intercom(IC_SET_AE_BKT,            1, 0x00);
 
-	if (settings.dim_lcd_down)
-		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
-
 	if (settings.keep_power_on)
 		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
+
+	switch (settings.script_lcd) {
+	case SCRIPT_LCD_DIM:
+		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
+		break;
+	case SCRIPT_LCD_OFF:
+		display_off();
+		break;
+	default:
+		break;
+	}
 
 	if (settings.script_indicator != SCRIPT_INDICATOR_NONE) {
 		if (feedback_task == NULL)
@@ -213,6 +221,8 @@ void script_restore() {
 	send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
 	send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
 	send_to_intercom(IC_SET_ISO,    2, st_cameraMode.iso);
+
+	display_on();
 }
 
 void script_feedback() {

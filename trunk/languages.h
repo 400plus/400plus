@@ -73,9 +73,9 @@
 	LANG_PAIR( S_LEXP,               "Long exposures"     ) \
 	LANG_PAIR( S_CALCULATOR,         "Calculator"         ) \
 	LANG_PAIR( S_DOF_CALC,           "DOF Calculator"     ) \
-	LANG_PAIR( I_DIM_LCD_DOWN,       "Dim LCD down"       ) \
 	LANG_PAIR( I_KEEP_POWER_ON,      "Disable power-off"  ) \
 	LANG_PAIR( I_INDICATOR,          "Indicator"          ) \
+	LANG_PAIR( I_LCD_SCRIPT,         "LCD display"        ) \
 	LANG_PAIR( I_BTN_JUMP,           "Jump"               ) \
 	LANG_PAIR( I_PRESETS_ADEP,       "Use A-DEP"          ) \
 	LANG_PAIR( I_PRESETS_CAMERA,     "Camera"             ) \
@@ -121,6 +121,8 @@
 	LANG_PAIR( V_SLOW,               "Slow"               ) \
 	LANG_PAIR( V_MEDIUM,             "Medium"             ) \
 	LANG_PAIR( V_FAST,               "Fast"               ) \
+	LANG_PAIR( V_KEEP,               "Keep"               ) \
+	LANG_PAIR( V_DIM,                "Dim down"           ) \
 	LANG_PAIR( V_INTISO,             "Intermediate ISO"   ) \
 	LANG_PAIR( V_REPEAT,             "Repeat last script" ) \
 	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"  ) \
