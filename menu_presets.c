@@ -6,7 +6,6 @@
 #include "menuitem.h"
 #include "menu_rename.h"
 #include "menu_settings.h"
-#include "menu_shortcuts.h"
 #include "presets.h"
 #include "utils.h"
 

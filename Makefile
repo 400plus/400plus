@@ -85,7 +85,6 @@ C_OBJS := init.o          \
          menu_scripts.o   \
          menu_settings.o  \
          menu_developer.o \
-         menu_shortcuts.o \
          display.o        \
          settings.o       \
          presets.o        \

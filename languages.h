@@ -13,7 +13,6 @@
 #define LANGUAGE_PAIRS    	                                \
 	LANG_PAIR( P_400PLUS,            "400plus"            ) \
 	LANG_PAIR( P_PARAMS,             "Parameters"         ) \
-	LANG_PAIR( P_SHORTCUTS,          "Shortcuts"          ) \
 	LANG_PAIR( P_SETTINGS,           "Settings"           ) \
 	LANG_PAIR( P_SCRIPTS,            "Scripts"            ) \
 	LANG_PAIR( P_INFO,               "Info"               ) \
@@ -43,6 +42,8 @@
 	LANG_PAIR( I_AUTOISO_MAXISO,     "Max ISO"            ) \
 	LANG_PAIR( I_AUTOISO_MINTV,      "Min Tv"             ) \
 	LANG_PAIR( I_AUTOISO_MAXAV,      "Max Av"             ) \
+	LANG_PAIR( S_FLASH,              "Flash"              ) \
+	LANG_PAIR( S_IR,                 "Infrared Remote"    ) \
 	LANG_PAIR( I_ISO,                "ISO"                ) \
 	LANG_PAIR( I_AV_COMP,            "AV comp."           ) \
 	LANG_PAIR( I_FLASH_COMP,         "Flash comp."        ) \
