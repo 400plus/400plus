@@ -16,9 +16,6 @@ extern char languages_found[MAX_LANGUAGES][LP_MAX_WORD];
 void menu_settings_open();
 
 void reload_language_and_refresh         (const type_MENUITEM *item);
-void menu_settings_apply_cf_safety_shift (const type_MENUITEM *item);
-void menu_settings_apply_remote_enable   (const type_MENUITEM *item);
-void menu_settings_apply_remote_delay    (const type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_KEEP_POWER_ON), &settings.keep_power_on,    NULL),
@@ -41,7 +38,6 @@ type_MENUITEM presets_items[] = {
 
 type_MENUITEM pages_items[] = {
 	MENUITEM_INFO(LP_WORD(L_P_PARAMS),     NULL),
-	MENUITEM_INFO(LP_WORD(L_P_SHORTCUTS),  NULL),
 	MENUITEM_INFO(LP_WORD(L_P_SCRIPTS),    NULL),
 	MENUITEM_INFO(LP_WORD(L_P_INFO),       NULL),
 	MENUITEM_INFO(LP_WORD(L_P_DEVELOPERS), NULL),
@@ -88,9 +84,6 @@ type_MENUPAGE pages_page = {
 
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_LANG   (LP_WORD(L_I_LANGUAGE),         &settings.language,               reload_language_and_refresh),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_SAFETY_SHIFT),     &menu_cameraMode.cf_safety_shift, menu_settings_apply_cf_safety_shift),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_settings_apply_remote_enable),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_settings_apply_remote_delay),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_ISO_IN_VF),        &settings.iso_in_viewfinder,      NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_BUTTON_DISP),      &settings.button_disp,            NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_SCRIPTS),          &scripts_page,                    NULL),
@@ -122,26 +115,5 @@ void menu_settings_open() {
 	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != NULL && languages_found[i][0] != NULL; i++) {
 		menupage_settings.items[0].parm.menuitem_enum.list->length  = i + 1;
 		menupage_settings.items[0].parm.menuitem_enum.list->data[i] = languages_found[i];
-	}
-}
-
-void menu_settings_apply_cf_safety_shift(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);
-}
-
-void menu_settings_apply_remote_enable(const type_MENUITEM *item) {
-	if(*item->parm.menuitem_enum.value){
-		remote_on();
-	} else {
-		remote_off();
-	}
-}
-void menu_settings_apply_remote_delay(const type_MENUITEM *item) {
-	if(*item->parm.menuitem_enum.value){
-		RemReleaseSelfMax = 4500;
-		RemReleaseInstMin = 5560;
-	} else {
-		RemReleaseSelfMax = 6160;
-		RemReleaseInstMin = 7410;
 	}
 }

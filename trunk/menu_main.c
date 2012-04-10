@@ -12,7 +12,6 @@
 #include "menu_presets.h"
 #include "menu_scripts.h"
 #include "menu_settings.h"
-#include "menu_shortcuts.h"
 #include "presets.h"
 #include "settings.h"
 #include "utils.h"
@@ -29,12 +28,11 @@ void list_hide   (type_MENU *menu);
 
 type_MENUPAGE *menu_main_pages[] = {
 	&menupage_params,
-	&menupage_shortcuts,
 	&menupage_scripts,
 	&menupage_info,
-	&menupage_developer,
 	&menupage_settings,
 	&menupage_presets,
+	&menupage_developer,
 };
 
 type_MENU menu_main = {
@@ -125,7 +123,7 @@ void list_down(type_MENU *menu) {
 }
 
 void list_hide(type_MENU *menu) {
-	type_MENUPAGE *page =  menu->current_page;
+	type_MENUPAGE *page = menu->current_page;
 	type_MENUITEM *item = &page->items[get_item_id(page, page->current_posn)];
 
 	menu_set_posn(item->parm.menuitem_page.id);
