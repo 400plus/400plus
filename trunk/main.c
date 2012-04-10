@@ -23,6 +23,7 @@ int *task_queue;
 type_STATUS status = {
 	button_down       : FALSE,
 	script_running    : FALSE,
+	script_stopping   : FALSE,
 	iso_in_viewfinder : FALSE,
 	afp_dialog        : FALSE,
 	last_preset       : FALSE,
@@ -177,7 +178,7 @@ void intercom_proxy(const int handler, char *message) {
 	case IC_BUTTON_DP: // DP Button while a script is running
 		// TODO: Use a special status and take this out of here
 		if (status.script_running) {
-			status.script_running = FALSE;
+			status.script_stopping = TRUE;
 			goto block_message;
 		}
 		break;
