@@ -23,13 +23,15 @@ void action_long_exp();
 
 void script_delay(int seconds);
 
+int can_continue();
+
 void script_ext_aeb() {
 	script_start();
 
 	if (settings.eaeb_delay)
 		script_delay(SCRIPT_DELAY_START);
 
-	if (!status.script_stopping)
+	if (can_continue())
 		script_action(SHOT_ACTION_EXT_AEB);
 
 	script_stop();
@@ -43,7 +45,7 @@ void script_efl_aeb() {
 	if (settings.efl_aeb_delay)
 		script_delay(SCRIPT_DELAY_START);
 
-	if (!status.script_stopping)
+	if (can_continue())
 		script_action(SHOT_ACTION_EFL_AEB);
 
 	script_stop();
@@ -57,7 +59,7 @@ void script_iso_aeb() {
 	if (settings.iso_aeb_delay)
 		script_delay(SCRIPT_DELAY_START);
 
-	if (!status.script_stopping)
+	if (can_continue())
 		script_action(SHOT_ACTION_ISO_AEB);
 
 	script_stop();
@@ -83,7 +85,7 @@ void script_interval() {
 		if (i > 0) {
 			wait_for_camera();
 
-			if (status.script_stopping)
+			if (!can_continue())
 				break;
 
 			// Calculate how much time is left until target, and wait;
@@ -95,7 +97,7 @@ void script_interval() {
             script_delay(pause);
 		}
 
-		if (status.script_stopping)
+		if (!can_continue())
 			break;
 
 		script_action(settings.interval_action);
@@ -116,17 +118,17 @@ void script_wave() {
 	script_start();
 
 	// First, wait for the sensor to be free, just in case
-	while (!status.script_stopping && FLAG_FACE_SENSOR)
+	while (can_continue() && FLAG_FACE_SENSOR)
 		SleepTask(WAIT_USER_ACTION);
 
 	do {
 		// Now, wait until something blocks the sensor
-		while (!status.script_stopping && !FLAG_FACE_SENSOR)
+		while (can_continue() && !FLAG_FACE_SENSOR)
 			SleepTask(WAIT_USER_ACTION);
 
 		// If instant not activated, wait until sensor is free again
 		if (!settings.wave_instant) {
-			while (!status.script_stopping && FLAG_FACE_SENSOR)
+			while (can_continue() && FLAG_FACE_SENSOR)
 				SleepTask(WAIT_USER_ACTION);
 		}
 
@@ -135,9 +137,9 @@ void script_wave() {
 			script_delay(SCRIPT_DELAY_START);
 
 		// And finally fire the camera
-		if (!status.script_stopping)
+		if (can_continue())
 			script_action(settings.wave_action);
-	} while (!status.script_stopping && settings.wave_repeat);
+	} while (can_continue() && settings.wave_repeat);
 
 	script_stop();
 
@@ -149,7 +151,7 @@ void script_self_timer() {
 
 	script_delay(settings.timer_timeout * SCRIPT_DELAY_RESOLUTION);
 
-	if (!status.script_stopping)
+	if (can_continue())
 		script_action(settings.timer_action);
 
 	script_stop();
@@ -164,7 +166,7 @@ void script_long_exp() {
 	if (settings.lexp_delay)
 		script_delay(SCRIPT_DELAY_START);
 
-	if (!status.script_stopping)
+	if (can_continue())
 		script_action(SHOT_ACTION_LONG_EXP);
 
 	script_stop();
@@ -251,7 +253,7 @@ void script_feedback() {
 
 		counter = 0;
 
-		while (!status.script_stopping) {
+		while (can_continue()) {
 			SleepTask(FEEDBACK_INTERVAL);
 
 			if (++counter == cycles) {
@@ -299,7 +301,7 @@ void action_ext_aeb() {
 				shutter_release();
 			}
 
-			if (status.script_stopping)
+			if (!can_continue())
 				break;
 		};
 
@@ -342,7 +344,7 @@ void action_ext_aeb() {
 				shutter_release();
 				frames--;
 
-				if (status.script_stopping)
+				if (!can_continue())
 					break;
 			}
 
@@ -356,7 +358,7 @@ void action_ext_aeb() {
 				shutter_release();
 				frames--;
 
-				if (status.script_stopping)
+				if (!can_continue())
 					break;
 			}
 		}
@@ -372,7 +374,7 @@ void action_iso_aeb() {
 			SleepTask(WAIT_USER_ACTION);
 			shutter_release();
 
-			if (status.script_stopping)
+			if (!can_continue())
 				break;
 		}
 	}
@@ -395,7 +397,7 @@ void action_efl_aeb() {
 			shutter_release();
 			frames--;
 
-			if (status.script_stopping)
+			if (!can_continue())
 				break;
 		}
 
@@ -406,7 +408,7 @@ void action_efl_aeb() {
 			shutter_release();
 			frames--;
 
-			if (status.script_stopping)
+			if (!can_continue())
 				break;
 		}
 	}
@@ -423,7 +425,7 @@ void script_delay(int delay) {
 	while(delay > SCRIPT_DELAY_TIME) {
 		SleepTask(SCRIPT_DELAY_TIME);
 
-		if (status.script_stopping)
+		if (!can_continue())
 			return;
 
 		delay -= SCRIPT_DELAY_TIME;
@@ -431,4 +433,8 @@ void script_delay(int delay) {
 
 	if (delay > 0)
 		SleepTask(delay);
+}
+
+int can_continue() {
+	return ! (status.script_stopping || cameraMode->avail_shot < SCRIPT_MIN_SHOTS);
 }

@@ -17,6 +17,9 @@
 // Standard delay before starting (2s)
 #define SCRIPT_DELAY_START 2 * SCRIPT_DELAY_RESOLUTION
 
+// Minimum number of shots available on card
+#define SCRIPT_MIN_SHOTS 3
+
 typedef enum {
 	SCRIPT_NONE,
 	SCRIPT_EXT_AEB,
