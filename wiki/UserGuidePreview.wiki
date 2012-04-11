@@ -113,6 +113,8 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * JUMP: Assign an action to the `JUMP` button while in the main dialog:
       * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
       * Repeat last script: repeat last script executed.
+      * Mirror lock-up: toggle the MLU option on / off.
+      * AEB: Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).
     * TRASH: Same as the JUMP button.
  * _*Config. Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
     * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
