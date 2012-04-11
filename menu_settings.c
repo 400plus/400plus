@@ -24,8 +24,9 @@ type_MENUITEM scripts_items[] = {
 };
 
 type_MENUITEM buttons_items[] = {
-	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_JUMP),  &settings.button_jump,  NULL),
-	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_TRASH), &settings.button_trash, NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_BUTTON_DISP), &settings.button_disp,  NULL),
+	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_JUMP),    &settings.button_jump,  NULL),
+	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_TRASH),   &settings.button_trash, NULL),
 };
 
 type_MENUITEM presets_items[] = {
@@ -86,7 +87,6 @@ type_MENUPAGE pages_page = {
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_LANG   (LP_WORD(L_I_LANGUAGE),         &settings.language,               reload_language_and_refresh),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_ISO_IN_VF),        &settings.iso_in_viewfinder,      NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_BUTTON_DISP),      &settings.button_disp,            NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_SCRIPTS),          &scripts_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_BUTTONS),          &buttons_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PRESETS),          &presets_page,                    NULL),

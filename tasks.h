@@ -8,6 +8,7 @@ extern void dp_action();
 extern void toggle_img_format();
 extern void toggle_CfMLU();
 extern void toggle_CfFlashSyncRear();
+extern void toggle_AEB();
 
 extern void restore_iso();
 extern void restore_wb();
