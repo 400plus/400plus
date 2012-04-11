@@ -136,6 +136,10 @@ void toggle_CfFlashSyncRear() {
 	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, cameraMode->cf_flash_sync_rear ^ 0x01);
 }
 
+void toggle_AEB() {
+	send_to_intercom(IC_SET_AE_BKT, 1, ((cameraMode->ae_bkt & 0xF8) + 0x08) % 0x18);
+}
+
 void restore_iso() {
 	send_to_intercom(IC_SET_ISO, 2, cameraMode->iso & 0xF8);
 }
@@ -256,6 +260,14 @@ void button_task(type_BUTTON_ACTION action) {
 		break;
 	case BUTTON_ACTION_SCRIPT:
 		repeat_last_script();
+		break;
+	case BUTTON_ACTION_MLU:
+		toggle_CfMLU();
+		beep();
+		break;
+	case BUTTON_ACTION_AEB:
+		toggle_AEB();
+		beep();
 		break;
 	case BUTTON_ACTION_HACK_MENU:
 		menu_main_start();
