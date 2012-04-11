@@ -16,6 +16,8 @@
 void set_intermediate_iso();
 void repeat_last_script();
 
+void button_task(type_BUTTON_ACTION action);
+
 void start_up() {
 	// Wait for camera to settle down
 	SleepTask(1000);
@@ -240,7 +242,15 @@ void repeat_last_script() {
 }
 
 void button_jump_task() {
-	switch (settings.button_jump) {
+	button_task(settings.button_jump);
+}
+
+void button_trash_task() {
+	button_task(settings.button_trash);
+}
+
+void button_task(type_BUTTON_ACTION action) {
+	switch (action) {
 	case BUTTON_ACTION_ISO:
 		set_intermediate_iso();
 		break;

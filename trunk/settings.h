@@ -2,7 +2,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x38
+#define SETTINGS_VERSION  0x39
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -99,6 +99,7 @@ typedef struct {
 	int remote_enable;
 	int developers_menu;
 	int button_jump;
+	int button_trash;
 	int button_disp;
 	int language;
 } type_SETTINGS;

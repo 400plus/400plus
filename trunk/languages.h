@@ -78,6 +78,7 @@
 	LANG_PAIR( I_INDICATOR,          "Indicator"          ) \
 	LANG_PAIR( I_LCD_SCRIPT,         "LCD display"        ) \
 	LANG_PAIR( I_BTN_JUMP,           "Jump"               ) \
+	LANG_PAIR( I_BTN_TRASH,          "Trash"              ) \
 	LANG_PAIR( I_PRESETS_ADEP,       "Use A-DEP"          ) \
 	LANG_PAIR( I_PRESETS_CAMERA,     "Camera"             ) \
 	LANG_PAIR( I_PRESETS_400PLUS,    "400plus"            ) \
