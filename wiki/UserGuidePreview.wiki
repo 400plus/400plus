@@ -145,9 +145,9 @@ Notice that there is always a number displayed on the left of each preset. This 
 
 = The scripts =
 
-When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second).
+When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second). To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
 
-To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so press and hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
+All scripts will check the card capacity before each shot; if the estimated number of shots available is lower than a fixed value (3), the scripts will stop executing.
 
 == Extended AEB ==
 
