@@ -24,7 +24,8 @@ type_MENUITEM scripts_items[] = {
 };
 
 type_MENUITEM buttons_items[] = {
-	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_JUMP), &settings.button_jump, NULL),
+	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_JUMP),  &settings.button_jump,  NULL),
+	MENUITEM_BTNACTN(LP_WORD(L_I_BTN_TRASH), &settings.button_trash, NULL),
 };
 
 type_MENUITEM presets_items[] = {
