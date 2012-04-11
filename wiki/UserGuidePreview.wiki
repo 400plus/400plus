@@ -102,6 +102,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
 === Settings Page ===
 
+ * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
  * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viefinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
