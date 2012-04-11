@@ -46,12 +46,11 @@ While in any page within the menu, you have the ability to change the order of t
  * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
  * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
  * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
-raised. Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
  * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
  * _*Flash*_: Flash related settings:
     * Flash comp: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
     * Disable flash: Force the deactivation of the camera flash even if the flash has already been raised.
-    * AF Flash (assist beam): Enable or disable the activation of the flash (during the AF phase), even if it has been  
+    * AF Flash (assist beam): Enable or disable the activation of the flash (during the AF phase), even if it has been raised. Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
     * Flash 2curt (rear curtain flash): Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
  * _*IR Remote*_: Infrared remote settings:
     * IR remote enable: When active (set to Yes), will allow the use of an IR remote. When set to No, this feature is disabled.
