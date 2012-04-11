@@ -43,18 +43,21 @@ While in any page within the menu, you have the ability to change the order of t
     * Max Av : maximum diaphragm aperture that AutoISO will try to maintain `[*]`.
  * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
  * _*Av comp*_: Same as the _standard_ "Av compensation", but extends the range from -6 to +6 EV.
- * _*Flash comp*_: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
- * _*Disable flash*_: Force the deactivation of the camera flash even if the flash has already been raised.
  * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
  * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
+ * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
+raised. Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
+ * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
+ * _*Flash*_: Flash related settings:
+    * Flash comp: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
+    * Disable flash: Force the deactivation of the camera flash even if the flash has already been raised.
+    * AF Flash (assist beam): Enable or disable the activation of the flash (during the AF phase), even if it has been  
+    * Flash 2curt (rear curtain flash): Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
+ * _*IR Remote*_: Infrared remote settings:
+    * IR remote enable: When active (set to Yes), will allow the use of an IR remote. When set to No, this feature is disabled.
+    * IR remote delay: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
 
 _`[*]` Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
-
-=== Shortcuts Page ===
-
- * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
- * _*Flash 2curt (rear curtain flash)*_: Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
- * _*AF Flash (assist beam)*_: Enable or disable the activation of the flash (during the AF phase), even if it has been raised. Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
 
 === Scripts Page ===
 
@@ -97,29 +100,20 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*Body ID*_: The "BodyID" of the camera body (an internal number, unique to each camera).
  * _*Version*_: The version number of the 400plus software currently installed.
 
-=== Developers Page ===
-
-*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it.
-
-_This Page Is Intentionally Left Blank._
-
-*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
-
 === Settings Page ===
 
- * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
- * _*IR remote enable*_: When active (set to Yes), will allow the use of an IR remote. When set to No, this feature is disabled.
- * _*IR remote delay*_: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
  * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viefinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
- * _*Better DISP button*_: When active (set to Yes), the `DISP` button will change the display brightness in small increments, instead of just switch it on/off.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
     * LCD display: configure the brightness of the LCD display while a script is running.
     * Indicator: configure the blinking frequency of the blue LED while a script is running..
- * _*Config. Buttons*:_ In this sub-menu, users can configure the behavior of some special buttons (currently, only the JUMP button, while the camera is in the main dialog, is configurable); the following actions can be assigned to each button:
-    * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
-    * Repeat last script: repeat last script executed.
+ * _*Config. Buttons*:_ In this sub-menu, users can configure the behavior of some special buttons:
+    * Better DISP button: When active (set to Yes), the `DISP` button will change the display brightness in small increments, instead of just switch it on/off.
+    * JUMP: Assign an action to the `JUMP` button while in the main dialog:
+      * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
+      * Repeat last script: repeat last script executed.
+    * TRASH: Same as the JUMP button.
  * _*Config. Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
     * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
     * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
@@ -142,6 +136,14 @@ Use this page to load, save, and rename [#The_presets presets]; the procedure to
  * Press the `AV` button again to save your changes and return to the previous menu.
 
 Notice that there is always a number displayed on the left of each preset. This feature is handy when you want to copy presets to and from multiple CF cards and need to know the file names for each of your presets: the number on the left of a feature matches the number of the file created in the CF card.
+
+=== Developers Page ===
+
+*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it.
+
+_This Page Is Intentionally Left Blank._
+
+*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
 = The scripts =
 
