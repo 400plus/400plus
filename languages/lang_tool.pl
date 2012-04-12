@@ -71,6 +71,7 @@ while (<HF>) {
 	debug(sprintf("%3d: %-22s: %s\n",scalar(keys %lang_keys), $k, $v));
 	$lang_keys{$k} = $v;
 }
+close(HF);
 info("Found [".(keys %lang_keys)."] keys in header file.\n");
 #}}}
 
@@ -220,7 +221,7 @@ lang_tool.pl [options]
     -c file, --check-lang-file file  - check language file for missing/extra keys
     -o file, --output file           - output file [default: ../languages.ini]
 
-When called w/o options this tool will output content for languages.ini.
+When called w/o options this tool will generate languages.ini from available languages.
 
 =head1 OPTIONS
 
@@ -255,9 +256,9 @@ Read the language keys from header B<file> (languages.h)
 =item B<--gen-new-lang> I<rev>
 
 Generate new_lang.ini file (with english language) and exit.
-This file is a base for new languages.
+This file is a base template for new languages.
 
-I<rev> is the current svn revision number. It's used for the Rev: comment in the file.
+I<rev> is the current svn revision number of the languages.h file. It's used for the Rev: comment in the file.
 
 =item B<--check-lang-file> I<file>
 
