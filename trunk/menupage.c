@@ -41,8 +41,6 @@ void menupage_display(type_MENU *menu) {
 
 	menu_set_text(7, buffer);
 
-	menu_event_open();
-
 	for(i = 0; i < MENU_HEIGHT; i++)
 		menupage_display_line(page, i);
 
