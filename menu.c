@@ -176,6 +176,7 @@ void menu_set_page(type_MENUPAGE *page) {
 
 	menupage_initialize(page);
 	menu_event_display();
+	menu_event_open();
 }
 
 void menu_highlight(const int line) {
