@@ -52,7 +52,8 @@ type_MENU menu_main = {
 		[MENU_EVENT_OUT]     = menu_next,
 		[MENU_EVENT_DISPLAY] = menupage_display,
 		[MENU_EVENT_REFRESH] = menupage_refresh,
-		[MENU_EVENT_CLOSE]   = menu_main_save,
+		[MENU_EVENT_FINISH]  = menu_finish,
+		[MENU_EVENT_SAVE]    = menu_main_save,
 		[MENU_EVENT_AV]      = list_display,
 	}
 };
@@ -90,8 +91,6 @@ void menu_main_start() {
 }
 
 void menu_main_save(type_MENU *menu) {
-	status.menu_running = FALSE;
-
 	if (menu->changed) {
 		settings_write();
 		presets_write();

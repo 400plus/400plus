@@ -106,7 +106,7 @@ type_MENUPAGE menupage_rename = {
 		[MENU_EVENT_AV]      = rename_return,
 		[MENU_EVENT_DISPLAY] = rename_display,
 		[MENU_EVENT_REFRESH] = rename_refresh,
-		[MENU_EVENT_CLOSE]   = rename_close,
+		[MENU_EVENT_SAVE]    = rename_close,
 	},
 };
 

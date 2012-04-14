@@ -60,8 +60,6 @@ void menu_create(type_MENU *menu) {
 	SendToMC(6, 2, 0);
 	SleepTask(100);
 
-	status.menu_running = TRUE;
-
 	FLAG_GUI_MODE = 0x2D; // In theory, we do not need this, but menu_close does not work properly without it...
 	//cameraMode->gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
 
@@ -88,13 +86,12 @@ void menu_create(type_MENU *menu) {
 }
 
 void menu_close() {
-	menu_event_close();
-
     GUI_Lock();
     GUI_PalleteInit();
 
 	DeleteDialogBox(menu_handler);
-	menu_handler = NULL;
+	menu_destroy();
+	menu_finish();
 
 	GUI_StartMode(GUIMODE_OLC);
     CreateDialogBox_OlMain();
@@ -105,8 +102,8 @@ void menu_close() {
 }
 
 void menu_initialize() {
-	menu_handler = NULL;
 	menu_set_page(get_selected_page());
+	status.menu_running = TRUE;
 }
 
 void menu_destroy() {
@@ -116,6 +113,11 @@ void menu_destroy() {
 		menu_handler = NULL;
 		GUI_ClearImage();
 	}
+}
+
+void menu_finish() {
+	menu_event_save();
+	status.menu_running = FALSE;
 }
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
@@ -217,7 +219,8 @@ void menu_event_in()     { menu_event(MENU_EVENT_IN);      };
 void menu_event_open()   { menu_event(MENU_EVENT_OPEN);    };
 void menu_event_display(){ menu_event(MENU_EVENT_DISPLAY); };
 void menu_event_refresh(){ menu_event(MENU_EVENT_REFRESH); };
-void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);   };
+void menu_event_finish() { menu_event(MENU_EVENT_FINISH);  };
+void menu_event_save()   { menu_event(MENU_EVENT_SAVE);    };
 
 void menu_event(type_MENU_EVENT event) {
 	type_MENU     *menu = current_menu;
