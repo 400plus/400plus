@@ -88,6 +88,8 @@ void menu_create(type_MENU *menu) {
 }
 
 void menu_close() {
+	menu_event_close();
+
     GUI_Lock();
     GUI_PalleteInit();
 
