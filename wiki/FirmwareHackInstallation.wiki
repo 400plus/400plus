@@ -1,6 +1,9 @@
 #summary [Install][English] Firmware Hack Installation
 #labels Featured
 
+= Table of contents =
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 This document describes the Installation procedure; if you need information on using the hack, please read the [http://code.google.com/p/400plus/wiki/UserGuide User Guide].
@@ -25,8 +28,8 @@ The following steps prepare your camera to execute `400plus` each time it start 
 The following steps prepare a card to contain `400plus``  and be recognized by the camera; this procedure must be done for each card:
 
   #. This step depends on your OS and CF Card, but first insert CF into the camera and format it.<br>_,,[NOTE: You can format it on the PC too],,_
-    * Windows: use [http://pel.hu/down/EOScard.exe EOScard] by [http://chdk.setepontos.com/index.php?topic=4214.msg58253#msg58253 pelican], you need to check EOS_DEVELOP and BOOTDISK like shown [http://chdk.wikia.com/wiki/EOScard here].<br>_,,[NOTE: Some Win7 users reported that no method was working for them; install VirtualBox with Linux LiveCD running on it, and use the Linux method, after attaching the card reader to the VM],,_
-    * Mac: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool (not compatible with Lion).
+    * Windows: use [http://pel.hu/down/EOScard.exe EOScard] by [http://chdk.setepontos.com/index.php?topic=4214.msg58253#msg58253 pelican], you need to check EOS_DEVELOP and BOOTDISK like shown [http://chdk.wikia.com/wiki/EOScard here].<br>_,,[NOTE: Some Win7 users reported that no method was working for them; install VirtualBox with Linux LiveCD or WinXP running in it, and use the appropriate method inside the VM, after attaching the card reader to the VM],,_
+    * Mac: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
     * Linux: use the direct method (below) or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version).
     * Direct method for Linux, Mac, and Windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
       * FAT12 / FAT16 (CF Card <= 4GB)
