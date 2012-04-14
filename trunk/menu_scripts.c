@@ -347,7 +347,6 @@ void menu_scripts_long_exp(const type_MENUITEM *item) {
 }
 
 void menu_scripts_launch(type_TASK script) {
-	ENQUEUE_TASK(menu_event_close);
 	ENQUEUE_TASK(menu_close);
 	ENQUEUE_TASK(restore_display);
 	ENQUEUE_TASK(script);
