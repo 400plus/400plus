@@ -1,5 +1,27 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-0*_
+ * Usability improvements
+  * New language system: now 400plus can be translated to languages not supported by the camera.
+  * Menus have been reordered, everything should be easier to find now.
+  * JUMP and TRASH buttons are now configurable (on the main dialog).
+  * DISP button can be used to change brightness in small increments.
+  * Use UP to display current ISO in the viewfinder (without changing it).
+ * New scripts
+  * Long exposure script, with long exposure calculator included.
+  * Depth-of-field and hyperfocal calculator.
+  * ISO and Flash AEB.
+ * Enhancements to scripts
+  * Strict scheduling and time-lapse calculator added to the intervalometer.
+  * Bracketing direction configurable for EAEB.
+  * LCD brightness and blinking LED during scripts are now configurable.
+  * Restore camera before shut down, and check for card space before each shot.
+ * New and updated translations
+  * Finnish.
+  * Russian.
+  * Polish.
+  * The translation procedure has also been made easier.
+
 _*20111111-4*_
  * Fix a rare occurrence of an out-of-limis value.
 
@@ -53,7 +75,7 @@ _*20110615-0*_
 _*20110517-0*_
  * Multi-language support (only English and German right now).
  * Presets have been improved, there are more options related to them, and now they can be renamed and reordered.
- * Some enhancements for the scripts: 
+ * Some enhancements for the scripts:
     * Disable MLU and auto power-off during the execution of a script.
     * Dim LCD down during the execution of a script.
     * EAEB exposures up to 16 minutes.

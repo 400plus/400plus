@@ -1,6 +1,10 @@
 #summary [Guide][English][Preview] User Guide for 400plus - preview
 #labels Preview
 
+<font color="red">
+*WARNING*: This guide refers to the _next_ major version, and may contain information about features not yet implemented in the official release.
+</font>
+
 = Table of Contents=
 
 <wiki:toc max_depth="1" />

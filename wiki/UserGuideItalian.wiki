@@ -1,6 +1,10 @@
 #summary [Guide][Italian] Manuale Utente 400D+.
 #labels Italian
 
+<font color="red">
+*WARNING*: This guide is at least one major version behind the latest official release, and thus may contain inaccuracies or outdated information.
+</font>
+
 == Translation ==
 Italian translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63149#msg63149 ataru] updated and revised by Scrizza.
 
@@ -20,7 +24,7 @@ Per accedere al menu delle impostazioni di 400D+, premere il tasto MENU (verrà 
 
 == Navigazione nel menu delle impostazioni ==
 
-Per navigare all'interno del menu delle impostazioni, utilizzare i tasti `SU` (`ISO`) e `GIU'` (`WB`) per spostarsi tra le voci. Quindi utilizzare il `SINISTRA` (`MISURAZIONE`) e `DESTRA` (`AF`) per cambiarne il valore (premere e tenere premuto questi tasti per cambiare più velocemente). Su alcune voci del menu, il tasto `AV` può essere utilizzato per cambiare (scorrere) i valori, o una parte di essi (come il segno + e -). 
+Per navigare all'interno del menu delle impostazioni, utilizzare i tasti `SU` (`ISO`) e `GIU'` (`WB`) per spostarsi tra le voci. Quindi utilizzare il `SINISTRA` (`MISURAZIONE`) e `DESTRA` (`AF`) per cambiarne il valore (premere e tenere premuto questi tasti per cambiare più velocemente). Su alcune voci del menu, il tasto `AV` può essere utilizzato per cambiare (scorrere) i valori, o una parte di essi (come il segno + e -).
 
 == Navigazione nel sotto-menu ==
 
@@ -28,15 +32,15 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
 
 == Le voci del menu ==
 
- * _*Compensazione AV*_: la stessa funzione della "compensazione AV" standard, ma estende l'escursione tra -6 e +6 EV. 
- * _*Compensaz. Flash*_: la stessa funzione della "compensazione Flash" standard, ma estende l'escursione tra -6 e +6 EV. 
+ * _*Compensazione AV*_: la stessa funzione della "compensazione AV" standard, ma estende l'escursione tra -6 e +6 EV.
+ * _*Compensaz. Flash*_: la stessa funzione della "compensazione Flash" standard, ma estende l'escursione tra -6 e +6 EV.
  * _*Disattiva  Flash*_: forza la disattivazione del flash, anche se il flash è stato alzato e attivato.
- * _*Temp. Colore (K)*_: permette di impostare una temperatura di colore in gradi Kelvin definita dall'utente e attiva automaticamente il bilanciamento del bianco personalizzato. 
- * _*AEB_*: la stessa funzione della "AEB" standard, ma estende l'escursione tra -6 e +6 EV. 
+ * _*Temp. Colore (K)*_: permette di impostare una temperatura di colore in gradi Kelvin definita dall'utente e attiva automaticamente il bilanciamento del bianco personalizzato.
+ * _*AEB_*: la stessa funzione della "AEB" standard, ma estende l'escursione tra -6 e +6 EV.
  * _*Safety Shift*_: Quando è attivo (impostato su Si), e se in Tv (risp. Av), la fotocamera cambierà la velocità dell'otturatore (risp. apertura del diaframma) impostati dall'utente per evitare una sotto/sovraesposizione, se il valore è troppo piccolo/grande per la scena.
  * _*Abilita com.IR_*: attiva sempre telecomando a raggi infrarossi. *<--NEW*
- * _*Ritardo com.IR_*: seleziona se la telecamera debba scattare immediatamente oppure aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi. 
- * _*ISO nel mirino*_: Quando è attivo (impostato su Si), e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino. 
+ * _*Ritardo com.IR_*: seleziona se la telecamera debba scattare immediatamente oppure aspettare 2 secondi quando viene azionato da un telecomando a raggi infrarossi.
+ * _*ISO nel mirino*_: Quando è attivo (impostato su Si), e se in modalità P o Tv, è possibile utilizzare i pulsanti SINISTRA e DESTRA per modificare il valore ISO guardando attraverso il mirino.
  * _*Accesso Diretto*_: Quando è attivo (impostato su Si), la pressione del tasto `DIRECT PRINT` nella finestra principale porterà al [#Menu_di_accesso_diretto menu di accesso diretto]; se impostato su "No", il tasto`DP` cambierà (scorrerà) il valore `ISO` tra i valori intermedi.
  * _*AutoISO*_: Questoi sottomenu configura il comportamento dell'[#AutoISO AutoISO].
     * Enabled: quando è attivo (impostato si Sì), l'AutoISO è abilitato.
@@ -47,25 +51,25 @@ I sotto-menu vengono visualizzati come "`OGGETTO>OPZIONE`"; utilizzare la rotell
  * _*Script*_: Questo menu configura il comportamento degli [#Gli_script script].
   * Oscura LCD: se attivato (impostato su Si), la luminosità dello schermo LCD viene abbassata durante lo script, per aumentare la durata della batteria, il valore iniziale viene reimpostato al termine dell'esecuzione dello script.
   * No AutoOFF: se attivato (impostato su Si), la funzione di auto spegnimento della camera viene disabilitata durante l'esecuzione dello script. Viene riattivata al termine dell'esecuzione.
-  * HandWave: questo sottomenu configura lo script [#Hand_Wave Hand Wave]. 
-  * Ritardo: seleziona se questo script debba effettuare lo scatto subito o attendere 2 secondi. 
-  * Azione: l'azione da eseguire (Intervallometro, Scatto singolo, AEB Esteso). 
+  * HandWave: questo sottomenu configura lo script [#Hand_Wave Hand Wave].
+  * Ritardo: seleziona se questo script debba effettuare lo scatto subito o attendere 2 secondi.
+  * Azione: l'azione da eseguire (Intervallometro, Scatto singolo, AEB Esteso).
   * Ripeti: se attivo (impostato su Si), lo script ri riavvierà dopo l'esecuzione, in modo da rimanere attivo e consentire un nuovo scatto col movimento della mano.
   * Subito: se attivo (impostato su Si), lo script scatta appena rileva la mano; altrimenti, lo script aspetterà che la mano venga tolta da davanti il sensore.
- * _*AEB Est.*_: Questo sottomenu configura lo script [#AEB_Esteso AEB Esteso]: 
-  * Ritardo: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi. 
-  * Immagini: numero di fotogrammi che lo script deve scattare. Può essere impostato un valore tra 1 e 9. 
-  * Stop/EV: la differenza in EV tra ogni scatto. Può essere impostato un valore tra 0 (spento) e +/-6EV 
-  * Bulb min: velocità minima dell’otturatore in modalità `BULB`. Può essere impostato un valore compreso tra 1/4000 di secondo e 16 minuti ). 
-  * Bulb max: velocità massima dell'otturatore in modalità `BULB`. Può essere impostato un valore compreso tra 1/4000 di secondo e 16 minuti ). 
- * _*Interval.*_: Questo sottomenu consente di configurare lo script [#Intervallometro Intervallometro]: 
-  * Ritardo: seleziona se questo script debba effettuare lo scatto immediatamente o attendere 2 secondi. 
+ * _*AEB Est.*_: Questo sottomenu configura lo script [#AEB_Esteso AEB Esteso]:
+  * Ritardo: seleziona se questo script debba effettuare lo scatto subito, o attendere 2 secondi.
+  * Immagini: numero di fotogrammi che lo script deve scattare. Può essere impostato un valore tra 1 e 9.
+  * Stop/EV: la differenza in EV tra ogni scatto. Può essere impostato un valore tra 0 (spento) e +/-6EV
+  * Bulb min: velocità minima dell’otturatore in modalità `BULB`. Può essere impostato un valore compreso tra 1/4000 di secondo e 16 minuti ).
+  * Bulb max: velocità massima dell'otturatore in modalità `BULB`. Può essere impostato un valore compreso tra 1/4000 di secondo e 16 minuti ).
+ * _*Interval.*_: Questo sottomenu consente di configurare lo script [#Intervallometro Intervallometro]:
+  * Ritardo: seleziona se questo script debba effettuare lo scatto immediatamente o attendere 2 secondi.
   * Tempo (s): intervallo (in secondi) tra gli scatti. Può essere impostato un valore tra 0 e 250.
-  * AEB Est.: seleziona se lo script [#AEB_Esteso AEB Esteso] debba essere utilizzato su ogni scatto. 
+  * AEB Est.: seleziona se lo script [#AEB_Esteso AEB Esteso] debba essere utilizzato su ogni scatto.
   * Scatti: numero di scatti da eseguire. Può essere impostato un valore tra 0 e 250, oppure il valore "X" per scattare all'infinito.
- * _*Autoscat.*_: Questo sottomenu configura lo script [#Autoscatto Autoscatto]: 
+ * _*Autoscat.*_: Questo sottomenu configura lo script [#Autoscatto Autoscatto]:
   * Ritardo: il tempo (in secondi) che lo script deve aspettare prima di eseguire lo scatto. Può essere impostato un valore tra 0 e 250.
-  * Azione: l'azione da eseguire (Intervallometro, Scatto singolo, AEB Esteso). 
+  * Azione: l'azione da eseguire (Intervallometro, Scatto singolo, AEB Esteso).
  * _*Preset*_: Questo sottomenu configura il comportamento delle [#Le_preselezioni preselezioni]:
   * UsaA-DEP: se attivo (impostato su Si), viene utilizzata la modalità `A-DEP` solo per le [#Le_preselezioni preselezioni]. Consultare la sezione [#La_modalit%C3%A0_A-DEP Modalità A-DEP] per maggiori informazioni.
   * Fotocam.: se attivo (impostato su Si), richiamando una preselezione verranno richiamati i parametri di scatto della fotocamera (velocità di scatto, apertura, ISO, ...).
@@ -104,9 +108,9 @@ Quando si avvia o si ferma uno script, si sentirà un _bip_, e mentre uno script
 
 == AEB Esteso ==
 
-Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, ma aggiunge alcune migliorie: 
-  * Possono essere effettuati fino a 9 scatti. 
-  * La differenza tra gli scatti può essere configurata fino a +-6 EV. 
+Questo script esegue la stessa attività dell'opzione standard AEB dalla macchina fotografica, ma aggiunge alcune migliorie:
+  * Possono essere effettuati fino a 9 scatti.
+  * La differenza tra gli scatti può essere configurata fino a +-6 EV.
   * La fotocamera effettuerà tutti i colpi in sequenza, automaticamente.
 In modalità `M` col tempo impostato a `BULB`, questo script farà scattare la fotocamera tutte le volte che servono, con tempi di scatto vanno dal valore "Bulb min" al valore "Bulb max", e separando ogni scatto in base al valore "Step (EV)". Da notare anche che in questa modalità possono essere usati tempi di esposizione lunghi fino a 16 minuti.
 
@@ -134,7 +138,7 @@ Per salvare una preselezione, bisogna premere `DP` nel [#Il_menu_delle_impostazi
 
 == La modalità A-DEP ==
 
-In circostanze normali, quando viene richiamata una preselezione, vengono modificati tutti i parametri della fotocamera, anche la modalità di scatto (AE mode), se non specificato diversamente nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400D+]; bisogna tener conto che la fotocamera potrebbe operare in una modalità di scatto diversa da quella selezionata con la ghiera di selezione. 
+In circostanze normali, quando viene richiamata una preselezione, vengono modificati tutti i parametri della fotocamera, anche la modalità di scatto (AE mode), se non specificato diversamente nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400D+]; bisogna tener conto che la fotocamera potrebbe operare in una modalità di scatto diversa da quella selezionata con la ghiera di selezione.
 Però, quando la fotocamera viene spenta e poi riaccesa, si reimposterà sulla modalità di scatto selezionata dalla ghiera di selezione.
 
 Per ovviare a questo problema, nel [#Il_menu_delle_impostazioni menu delle impostazioni di 400D+] è presente un'opzione per utilizzare la (pressoché inutile) modalità A-DEP; quando questa opzione è abilitata (Preset>UsaA-DEP: Si), si avranno i seguenti cambiamenti:
@@ -157,7 +161,7 @@ Inoltre, è anche possibile cambiare il nome delle preselezioni rispetto agli st
 
 = AutoISO =
 
-Per abilitare l'AutoISO nelle modalità creative, bisogna attivarlo nel [#Il_menu_delle_impostazioni menu delle impostazioni], oppure si può premere il tasto `DP` nel menu di selezione degli ISO; si può disabilitare sempre tramite [#Il_menu_delle_impostazioni il menu delle impostazioni] o selezionando un qualsiasi valore nel menu di selezione degli ISO. 
+Per abilitare l'AutoISO nelle modalità creative, bisogna attivarlo nel [#Il_menu_delle_impostazioni menu delle impostazioni], oppure si può premere il tasto `DP` nel menu di selezione degli ISO; si può disabilitare sempre tramite [#Il_menu_delle_impostazioni il menu delle impostazioni] o selezionando un qualsiasi valore nel menu di selezione degli ISO.
 
 == AutoISO e modalità Av ==
 
@@ -185,7 +189,7 @@ Mentre si guarda nel mirino, è possibile utilizzare i tasti `SINISTRA` e `DESTR
 
 = La selezione dell’AF-Pattern =
 
-In fase di scatto, premere il tasto `ZOOM IN` per entrare nel menu "selezione punto AF" standard, quindi premere di nuovo il tasto `ZOOM IN` per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i vari pattern disponibili, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo (rimane impostato anche dopo aver riavviato con una card senza 400D+). 
+In fase di scatto, premere il tasto `ZOOM IN` per entrare nel menu "selezione punto AF" standard, quindi premere di nuovo il tasto `ZOOM IN` per entrare nel nuovo menu "selezione pattern AF". Usare i tasti SU, GIU, SINISTRA, DESTRA, e pulsanti SET per spostarsi tra i vari pattern disponibili, quindi premere a metà il pulsante di scatto per uscire dalla finestra di dialogo (rimane impostato anche dopo aver riavviato con una card senza 400D+).
 
 = Le chicche e altre funzioni=
 
@@ -198,11 +202,11 @@ Sono state aggiunte le seguenti *_chicche_* alla fotocamera assieme ad altre mod
 
 == Nella zona creativa ==
 
-Nella zona creativa le _chicche_ attivabili sono i seguenti: 
+Nella zona creativa le _chicche_ attivabili sono i seguenti:
  * Il pulsante `JUMP` serve per commutare tra ISO estesi con la ossibilità di incrmentare i valori di 1/8EV stop (vedi [#Estensione_ISO Estensione ISO]). *<--NEW*
- * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per attivare Auto ISO (vedi [#AutoISO AutoISO]); select any ISO value to deactivate it.. 
+ * Nella finestra di dialogo di selezione ISO, premere il tasto `DP` per attivare Auto ISO (vedi [#AutoISO AutoISO]); select any ISO value to deactivate it..
  * Nella finestra di selezione della modalità di misurazione, premere `DP` per impostare la misurazione spot (vedi [#Modalit%C3%A0_di_misurazione_spot Note / modalità di misurazione spot]).
- * Nella finestra di dialogo di selezione del bilanciamento bianco, premere `DP` per impostare la temperatura del colore definito dall'utente. 
+ * Nella finestra di dialogo di selezione del bilanciamento bianco, premere `DP` per impostare la temperatura del colore definito dall'utente.
 
 == Informazioni aggiuntive ==
 
@@ -216,7 +220,7 @@ L'uso dei tasti `SET`, `SINISTRA` o `DESTRA` per cambiare il valore visualizzato
 
 == Il problema "naso" ==
 
-Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi, per prevenire modifiche accidentali con il naso dell'utente. 
+Mentre si guarda attraverso il mirino, i pulsanti ISO e WB non sono più attivi, per prevenire modifiche accidentali con il naso dell'utente.
 
 == Il menu degli sviluppatori ==
 
@@ -233,7 +237,7 @@ Per entrare nel menu degli sviluppatori dal menu 400D+, andare giù sulla voce "
 *NOTA*: Ricordati di uscire dal "factory mode" prima di usare la fotocamera, poiché le fotografie non possono essere scaricate su un computer mentre la fotocamera è in questa modalità.
 
 == Supporto Multilingua ==
- 
+
 Attualmente 400D+ è tradotto in cinque (5) lingue:
 
  * Francese  *<--NEW*
@@ -246,7 +250,7 @@ La conversione in altre lingue è possibile e caldeggiata. Se vuoi fornire assis
 
 = Note =
 
-Alcune note e commenti. 
+Alcune note e commenti.
 
 == Estensione ISO ==
 

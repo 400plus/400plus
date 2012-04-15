@@ -1,7 +1,7 @@
 #summary [Guide][German] 400plus UserGuide in German (updated to r703)
 
 <font color="red">
-DA ICH MOMENTAN LEIDER KEINE ZEIT HABE, SPIEGELT DIESES NICHT DEN AKTUELLEN SOFTWARESTAND WIDER.
+*WARNING*: This guide is at least one major version behind the latest official release, and thus may contain inaccuracies or outdated information.
 </font>
 
 = Translation =
@@ -10,7 +10,7 @@ German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.
 = Einleitung =
 
 == Was ist 400plus? ==
-*400plus* ist eine frei verfügbare Firmware Erweiterung, welche Ihrer Canon 400D/XTi durch nicht dauerhafte Änderungen zusätzliche Funktionalitäten hinzufügt. 
+*400plus* ist eine frei verfügbare Firmware Erweiterung, welche Ihrer Canon 400D/XTi durch nicht dauerhafte Änderungen zusätzliche Funktionalitäten hinzufügt.
 
 Sie funktioniert, indem sie sich automatisch in den Speicher der Kamera lädt, wenn diese eingeschaltet wird um die Herstellerfirmware zu erweitern, ist jedoch kein dauerhaftes Firmwareupgrade und kann daher sehr einfach wieder entfernt werden.
 
@@ -18,7 +18,7 @@ Sie wurde speziell für die Canon 400D/XTi entworfen und funktioniert nicht mit 
 
 == Benutzerhandbuch ==
 
-Diese Wikiseite dient als Hadbuch für 400plus. 
+Diese Wikiseite dient als Hadbuch für 400plus.
 
 In diesem Dokument wird davon ausgegangen, dass der Benutzer 400plus zuvor bereits installiert hat, und dass dieses erwartungsgemäß funktioniert.
 
@@ -27,7 +27,7 @@ Für Information, wie 400plus installiert wird, lesen Sie bitte [FirmwareHackIns
 = Das Einstellungsmenü =
 
 == Zugriff auf das Einstellungsmenü ==
-  
+
 Um in das 400plus Einstellungsmenü zu gelangen, drücken Sie die `MENU`-Taste (dies wird Ihnen das _Standard_ Kameramenü anzeigen);
 drücken Sie nun die ´DP´-Taste (DirectPrint).
 Das 400plus Einstellungsmenü sollte nun auf dem Kameradisplay agezeigt werden.
@@ -39,17 +39,17 @@ Um das Einstellungsmenü zu verlassenm drücken Sie einfach den Auslöser halb d
 
 Um im Einstellungsmenü zu navigieren, benutzen Sie die `HOCH`- und `RUNTER`-Tasten um zwischen Punkten zu wechseln.
 
-Benutzen Sie dann die `LINKS`- und `RECHTS`-Tasten um den Wert des gewählten Punktes zu ändern (halten Sie diese Tasten gedrückt, um schneller zu wechseln). 
+Benutzen Sie dann die `LINKS`- und `RECHTS`-Tasten um den Wert des gewählten Punktes zu ändern (halten Sie diese Tasten gedrückt, um schneller zu wechseln).
 
 Bei manchen Punkten kann die `AV`-Taste genutzt werden um zwischen einzelnen Werten, oder Teilen (wie + und -) zu wechseln.
 
 == Navigation in den Untermenüs ==
 
-Untermenüs werden angezeigt als "Punkt>Unterpunkt"; 
+Untermenüs werden angezeigt als "Punkt>Unterpunkt";
 
-benutzen Sie das `Hauptwahl-Rad` oder die `ZOOM IN` / `ZOOM OUT` -Tasten um zum nächsten oder vorherigen Unterpunkt zu gelangen, 
+benutzen Sie das `Hauptwahl-Rad` oder die `ZOOM IN` / `ZOOM OUT` -Tasten um zum nächsten oder vorherigen Unterpunkt zu gelangen,
 
-drücken Sie `LINKS` oder `RECHTS` um den Wert des angezeigten Unterpunktes zu ändern (drücken und halten Sie um schneller zu ändern). 
+drücken Sie `LINKS` oder `RECHTS` um den Wert des angezeigten Unterpunktes zu ändern (drücken und halten Sie um schneller zu ändern).
 
 Sowohl die `HOCH`-, als auch die `RUNTER`-Taste können jederzeit genutzt werden um zu einem anderen Punkt zu wechseln.
 
@@ -70,7 +70,7 @@ Sowohl die `HOCH`-, als auch die `RUNTER`-Taste können jederzeit genutzt werden
     * Action: Wählen Sie hier die auszuführende Aktion.
     * Repeat: Wenn ausgewählt, startet das Skript nach jeder Aufnahme neu, so dass auch die nächste Aufnahme durch ein Winken gestartet werden kann.
     * Instant: wenn ausgewählt, löst das Skript die Aufnahme aus, sobald eine Hand bemerkt wird; falls nicht ausgewählt wartet das Skript solange ab, bis die Hand wieder weggenommen wird.
- * _*Ext. AEB*_: Dieses Untermenü stellt das [#Extended_AEB Extended AEB]-Skript ein:    
+ * _*Ext. AEB*_: Dieses Untermenü stellt das [#Extended_AEB Extended AEB]-Skript ein:
     * Delay: Wählt aus, ob die Aufnahme sofort oder mit 2 Sek. Verzögerung erfolgen soll.
     * Frames: Anzahl der zu schießenden Bilder (1 bis 9).
     * Step (EV): EV-Abstand zwischen einzelnen Aufnahmen (von 0 bis +-6 EV).
@@ -99,26 +99,26 @@ Sowohl die `HOCH`-, als auch die `RUNTER`-Taste können jederzeit genutzt werden
 Um Zugriff auf das Shortcutmenü zu erhalten drücken Sie die `DIRECT PRINT`-Taste aus dem Hauptdialog heraus (nur, falls die "Shortcutmenü"-Einstellung im 400plus Einstellungsmenü aktiviert ist); navigieren Sie in diesem Menü wie in einem normalen Menü und drücken Sie `SET` um ein Skript zu starten:
 
  * _* Intermediate ISO*_: Rollen Sie mit dem Hauptrad durch die ISO-Zwischenwerte (100-3200).
- * _* Extended AEB*_: Startet das [#Extended_AEB Extended AEB] Skript. 
+ * _* Extended AEB*_: Startet das [#Extended_AEB Extended AEB] Skript.
  * _* Intervalometer*_: Startet das[#Intervalometer Intervalometer] Skript.
  * _* Hand waving*_: Startet das [#Hand_Waving Hand Waving] Skript.
  * _* Self timer*_: Startet das [#Self_Timer Self Timer] Skript.
  * _*AF assist beam*_: Nichtbenutzung des Blitzes während des Autofokussierens erzwingen, selbst wenn dieser ausgeklappt ist.
  * _*Mirror lock-up*_: De-/aktiviert die Individualfunktion 'Spiegelverriegelung'
- * _*Rear curtain flash*_: De-/aktiviert die Individualfunktion 'Verschluss-Synchronisation' mit dem 2.Verschlussvorhang 
+ * _*Rear curtain flash*_: De-/aktiviert die Individualfunktion 'Verschluss-Synchronisation' mit dem 2.Verschlussvorhang
 
 Um das Shortcutmenü zu verlassen drücken Sie den Auslöser halb durch.
 
 == Das Shortcutmenü einstellen ==
-  
+
 Wenn Sie sich im Shortcutmenü befinden, haben Sie die Möglichkeit die Reihenfolge der Menüeinträge zu ändern. Drücken Sie `PLAY` um ein Objekt zu "greifen" (ein kleines ">" wird nun an der linken Seite des Objekts angezeigt); benutzen Sie nun `HOCH` / `RUNTER` um es zu platzieren, und drücken Sie `PLAY` erneut, wenn Sie fertig sind.
-  
+
 = Die Skripte =
 
-Alle Skripte werden über das [#Das_Shortcutmen%FC Shortcutmenü] aktiviert. 
+Alle Skripte werden über das [#Das_Shortcutmen%FC Shortcutmenü] aktiviert.
 
 Um dort ein Skript auszuführen, setzen Sie dessen Einstellung "shortcuts menu:" auf "Yes" im 400plus Einstellungsmenü.
-Wenn ein Skript gestartet oder gestoppt wird erklingt ein Ton; während ein Skript läuft, blinkt die `DIRECT PRINT`-Taste (circa zweimal pro Sekunde). 
+Wenn ein Skript gestartet oder gestoppt wird erklingt ein Ton; während ein Skript läuft, blinkt die `DIRECT PRINT`-Taste (circa zweimal pro Sekunde).
 
 Um ein laufendes Skript zu beenden drücken Sie erneut die `DIRECT PRINT`-Taste; es kann passieren, dass das Skript sich nicht sofort beendet, von daher sollten Sie die `DIRECT PRINT`-Taste solange halten, bis Sie einen Ton wahrnehmen, welcher die Beendigung des Skripts signalisiert.
 
@@ -134,13 +134,13 @@ Beachten Sie bitte, dass in diesem Modus Belichtungszeiten von bis zu 16 Minuten
 
 == Intervalometer ==
 
-Dieses Skript wird die Kamera so oft auslösen wie eingestellt wurde (oder endlos oft), wobei  zwischen den einzelnen Aufnahmen der eingestellte Zeitraum gewartet wird; benutzen Sie dieses Skript um z.B. Stop-motion Filme zu erstellen. 
+Dieses Skript wird die Kamera so oft auslösen wie eingestellt wurde (oder endlos oft), wobei  zwischen den einzelnen Aufnahmen der eingestellte Zeitraum gewartet wird; benutzen Sie dieses Skript um z.B. Stop-motion Filme zu erstellen.
 
 Stellen Sie "EAEB" auf "yes" um das Extended AEB-Skript bei jeder Aufnahme zu benutzen.
 
 == Hand Waving ==
 
-Dieses Skript wird die Kamera automatisch auslösen wenn der "Display-Aus Sensor" auf der Rückseite der Kamera ausgelöst wird; benutzen Sie dieses Skript um die Kamera ohne Fernauslöser zu benutzen. 
+Dieses Skript wird die Kamera automatisch auslösen wenn der "Display-Aus Sensor" auf der Rückseite der Kamera ausgelöst wird; benutzen Sie dieses Skript um die Kamera ohne Fernauslöser zu benutzen.
 
 Dieses Skript kann das [#Extended_AEB Extended AEB] -  oder das [#Intervalometer Intervalometer] -Skript ausführen, wenn dies in der "Action" Unter-Einstellung festgelegt wird. Falls die „repeat“-Einstellung aktiviert ist, wird das Skript nach Auslösung nicht mehr beendet, sondern wird sich neustarten, um weitere Aufnahmen mit dem Skript machen zu können.
 
@@ -148,26 +148,26 @@ Standardmäßig wird das Skript warten, bis etwas den Sensor  verdeckt und wiede
 
 == Self Timer ==
 
-Dieses Skript fügt eine konfigurierbare Pause ein, beor die Kamera ausgelöst wird; 
+Dieses Skript fügt eine konfigurierbare Pause ein, beor die Kamera ausgelöst wird;
 
 ieses Skript kann das [#Extended_AEB Extended AEB] oder das [#Intervalometer Intervalometer] Skript starten, wenn diese im "Action" Unterpunkt eingestellt wurden.
-  
+
 = Die Presets =
 
-Ein "Preset" ist ein komplettes Abbild Ihrer Einstellungen, es enthält ein komplettes Abbild der Kameraeinstellungen. 
+Ein "Preset" ist ein komplettes Abbild Ihrer Einstellungen, es enthält ein komplettes Abbild der Kameraeinstellungen.
 
-Presets können benutzt werden um die Kamera für bestimmte Aufnahmesituationen vorzukonfigurieren (wie z.B. "Landschaft", "Portrait","Low Light", Vögel im Flug", usw.), 
+Presets können benutzt werden um die Kamera für bestimmte Aufnahmesituationen vorzukonfigurieren (wie z.B. "Landschaft", "Portrait","Low Light", Vögel im Flug", usw.),
 
 und erlauben es Ihnen während der Aufnahmen schnellen Zugriff auf diese Konfigurationen zu haben.
 
-Presets werden auf der CF-Speicherkarte gesichert. Bis zu 9 Presets können so gespeichert werden. 
+Presets werden auf der CF-Speicherkarte gesichert. Bis zu 9 Presets können so gespeichert werden.
 
 Die Gesamtanzahl der Presets allerdings ist unbegrenzt, da auf jeder CF-Speicherkarte 9 verschiedene Presets gespeichert werden können.
 
-Um ein Preset zu speichern, drücken Sie die `DP`-Taste, während Sie sich im [#Das_Men%FC 400plus Menü] befinden; wählen Sie einen Speicherplatz aus und drücken Sie die `SET`-Taste (falls in dem gewählten Slot bereits ein Preset gesichert ist, wird dieses überschrieben).  
+Um ein Preset zu speichern, drücken Sie die `DP`-Taste, während Sie sich im [#Das_Men%FC 400plus Menü] befinden; wählen Sie einen Speicherplatz aus und drücken Sie die `SET`-Taste (falls in dem gewählten Slot bereits ein Preset gesichert ist, wird dieses überschrieben).
 
 Um ein Preset abzurufen, drücken Sie die `DP`-Taste, während Sie sich im [#Das_Shortcutmen%FC Shortcutmenü] befinden
-(die entsprechende Einstellung im Shortcutmenü muss auf "Yes" stehen, um dieses Feature zu benutzen), dann wählen Sie das gewünschte Preset und drücken die `SET`-Taste.  
+(die entsprechende Einstellung im Shortcutmenü muss auf "Yes" stehen, um dieses Feature zu benutzen), dann wählen Sie das gewünschte Preset und drücken die `SET`-Taste.
 
 Einmal aktiviert, werden die Preseteinstellungen des gewählten Presets geladen und sind sofort aktiv (falls der gewählte Speicherplatz leer ist passiert nichts).
 
@@ -175,7 +175,7 @@ Einmal aktiviert, werden die Preseteinstellungen des gewählten Presets geladen 
 
 Normalerweise werden, wenn ein Preset aufgerufen wird, alle Kameraeinstellungen geändert; selbst der AE Modus.
 
-(es sei denn dies wurde in [#Das_Einstellungsmen%FC dem Einstellungsmenü] anders eingestellt). 
+(es sei denn dies wurde in [#Das_Einstellungsmen%FC dem Einstellungsmenü] anders eingestellt).
 
 Beachten Sie in diesem Fall, dass die Kamera sich in einem anderen AE-Modus befinden kann, als dem aktuell am Hauptwahlrad ausgewählten.
 
@@ -209,13 +209,13 @@ Dies kann insbesondere praktisch sein, wenn Sie vorhaben einzelne Presets auf an
 
 = Die AF-Felder Auswahl =
 
-400plus bietet eine Vielzahl an zusätzlichen AF-Mustern anstelle der zwei Muster, welche die Kamera ab Werk bietet (Manuelle AF Auswahl, automatische Auswahl).  
+400plus bietet eine Vielzahl an zusätzlichen AF-Mustern anstelle der zwei Muster, welche die Kamera ab Werk bietet (Manuelle AF Auswahl, automatische Auswahl).
 
 Diese zusätzlichen Muster bieten eine große Auswahl an Mehrfeldmustern, welche verschiedene Kombinationen der 9 Fokuspunkte benutzen.
 
-Um diese zusätzlichen AF-Muster während einer Aufnahme zu nutzen, 
+Um diese zusätzlichen AF-Muster während einer Aufnahme zu nutzen,
 
-drücken Sie die `ZOOM IN`-taste um den _Standard_ "AF-Point Auswahl"-Dialog anzuzeigen und drücken Sie dann die `ZOOM IN`-Taste erneut für den neuen "AF-Muster Auswahl"-Dialog. 
+drücken Sie die `ZOOM IN`-taste um den _Standard_ "AF-Point Auswahl"-Dialog anzuzeigen und drücken Sie dann die `ZOOM IN`-Taste erneut für den neuen "AF-Muster Auswahl"-Dialog.
 
 Benutzen Sie die `HOCH`-, `RUNTER`-, `LINKS`-, `RECHTS`-, und `SET`-Tasten um zwischen den verschiedenen Mustern zu wechseln.
 
@@ -262,7 +262,7 @@ Wenn Sie sich im 400plus-Menü befinden navigieren Sie herunter bis zum "Develop
   * _*Enter factory mode*_: Versetzt die Kamera in den "factory mode"; aktiviert außerdem das "factory menu".
   * _*Exit factory mode*_: Versetzt die Kamera zurück in den "normal mode".
   * _*Start debug mode*_: die Kamera wird sehr viele Debugging-Informationen in zwei Dateien namens ‚STDOUT.TXT‘ und ‚STDERR.TXT‘ auf der Speicherkarte sichern.
- 
+
 *Anmerkung*: Nach dem aktivieren des "factory mode", bleibt das "factory menu" verfügbar, bis die Kamera ausgeschaltet wird; ein Verlassen des "factory mode" schaltet nicht das "factory menu" aus.
 
 *Anmerkung*: Denken Sie daran den "factory mode" zu verlassen bevor Sie die Kamera benutzen, da Sie keine Fotografien auf Ihren Rechner von der Kamera herunterladen können, solange die Kamera sich in diesem Modus befindet.
@@ -270,7 +270,7 @@ Wenn Sie sich im 400plus-Menü befinden navigieren Sie herunter bis zum "Develop
 == Multi-language Support ==
 
 Momentan unterstützt 400plus 5 Sprachen:
- 
+
 * Englisch
 * Französisch
 * Deutsch
@@ -280,20 +280,20 @@ Momentan unterstützt 400plus 5 Sprachen:
 Das Ziel ist, dass 400plus so viele Sprachen wie möglich unterstützt.
 Wenn Sie interessiert daran sind uns bei Übersetzungen zu helfen, wären wir darüber sehr glücklich.
 In diesem Fall melden Sie sich bitte in unserem Forum.
-  
+
 = Anmerkungen =
 
 Siehe Anmerkungen und Kommentare.
 
 == Erweiterte ISO-Werte ==
 
-_Nicht-Standard_ ISO-Werte sind “software-only” berechnete Werte und erzielen kaum bis keinen technischen Gewinn gegenüber einer Aufnahme im _Basis_-ISO-Wert und späterer digitaler Nachbearbeitung („Post-processing“); dies schließt ISO-3200 mit ein. 
+_Nicht-Standard_ ISO-Werte sind “software-only” berechnete Werte und erzielen kaum bis keinen technischen Gewinn gegenüber einer Aufnahme im _Basis_-ISO-Wert und späterer digitaler Nachbearbeitung („Post-processing“); dies schließt ISO-3200 mit ein.
 
 Die Verwendung von ISO-3200 bietet sich allerdings in Low Light-Situationen an, wenn nichts anderes Ihnen eine ordentliche Aufnahme ermöglicht.
 
 == Punktmessungs-Modus ==
 
-Der Punktmessungs-Modus ist der Selektivmessung ähnlich. 
+Der Punktmessungs-Modus ist der Selektivmessung ähnlich.
 Der Messbereich ist jedoch kleiner (ca. 3.5%  des Zentrums des Suchers, Selektivmessung ca. 9%).
 
 = Bekannte Fehler =

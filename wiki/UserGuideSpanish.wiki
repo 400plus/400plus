@@ -1,5 +1,9 @@
 #summary [Guide][Spanish] Guía del Usuario 400plus.
 
+<font color="red">
+*WARNING*: This guide is at least one major version behind the latest official release, and thus may contain inaccuracies or outdated information.
+</font>
+
 = Translation =
 
 Spanish translation provided by Jmtd.
@@ -16,7 +20,7 @@ Spanish translation provided by Jmtd.
  * [UserGuideSpanish#Los_extras Los extras]
  * [UserGuideSpanish#Otros_regalos Otros regalos]
  * [UserGuideSpanish#Notas Notas]
- * [UserGuideSpanish#Errores_conocidos Errores conocidos] 
+ * [UserGuideSpanish#Errores_conocidos Errores conocidos]
 
 = Introduccion =
 
@@ -53,9 +57,9 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Min ISO: mínimo valor ISO que AutoISO usará.
   * Max ISO: máximo valor ISO que AutoISO usará.
   * Min Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
-  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener. 
+  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener.
  * _*ISO*_: Cambia los ISOs intermedios. Los valores oscilan entre 100 y 3000.
- * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV. 
+ * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV.
  * _*Comp. flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
  * _*Bloquea Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
  * _*AEB_*: Igual que la función "AEB", pero extiende el rango desde -6 a +6 EV.
@@ -69,30 +73,30 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Página de Guiones ===
 
- * _*Toma por Visor*_: Este sub-menú lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)]. 
-  * Demora: selecciona el disparo inmediato, o una demora de 2 segundos. 
-  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro). 
+ * _*Toma por Visor*_: Este sub-menú lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
+  * Demora: selecciona el disparo inmediato, o una demora de 2 segundos.
+  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro).
   * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
   * Instantánea: si se selecciona (puesto en "Sí"), se produce la toma tan pronto como se detecta una mano; de lo contrario, el guión va a esperar hasta que la mano se retira.
- * _*AEB ext.*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido]. 
-  * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos. 
-  * Marcos: número de tomas a disparar. Los valores van de 1 a 9. 
+ * _*AEB ext.*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido].
+  * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos.
+  * Marcos: número de tomas a disparar. Los valores van de 1 a 9.
   * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +01/3  hasta +6EV.
-  * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
-  * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo). 
- * _*Interval.*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro]. 
-  * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos. 
+  * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo).
+  * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 32 minutos a 1/4000 segundo).
+ * _*Interval.*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro].
+  * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos.
   * Tiempo (s): tiempo (en segundos) entre cada disparo. Los valores van desde 0 a 250.
-  * EAEB: selecciona si [UserGuideSpanish#AEB_Extendido AEB Extendido] se debe utilizar en cada disparo. 
+  * EAEB: selecciona si [UserGuideSpanish#AEB_Extendido AEB Extendido] se debe utilizar en cada disparo.
   * Tomas: el número total de disparos a hacer. Los valores van desde 1 a 250, o selecciona "sin límite" para disparar sin cesar.
- * _*Temporizador*_: Este sub-menú lanza y configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador]. 
-  * Demora (s): tiempo (en segundos) que el guión debe esperar antes de disparar. Los valores van desde 0 a 250. 
+ * _*Temporizador*_: Este sub-menú lanza y configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador].
+  * Demora (s): tiempo (en segundos) que el guión debe esperar antes de disparar. Los valores van desde 0 a 250.
   * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro).
 
 === Página de Información ===
 
- * _*Contador de disparos*_: El número total de disparos hechos por la cámara. 
- * _*Número de cuerpo*_: El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara). 
+ * _*Contador de disparos*_: El número total de disparos hechos por la cámara.
+ * _*Número de cuerpo*_: El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara).
  * _*Versión*_: El número de la versión del software 400plus actualmente instalado.
 
 === Página Desarrolladores ===
@@ -106,13 +110,13 @@ _Esta página se ha dejado deliberadamente en blanco_.
 === Página de Ajustes ===
 
  * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijados por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
- * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva. 
- * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos. 
+ * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
+ * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
  * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), y si estamos en cualquiera de los modos creativos, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor. En los modos Tv y M, el nuevo valor ISO también se muestra en el visor (sobre la velocidad de obturación).
  * _*Menú de desarrolladores*_: Cuando se activa (puesto en "Sí"), el menú será accesible como una página.
- * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones]. 
-  * LCD bajo: cuando está activado (puesto en "Sí"), el brillo de la pantalla LCD se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado. 
-  * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado. 
+ * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones].
+  * LCD bajo: cuando está activado (puesto en "Sí"), el brillo de la pantalla LCD se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado.
+  * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado.
  * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
   * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]. Lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
@@ -129,7 +133,7 @@ Utiliza esta página para cargar, guardar y renombrar los preajustes. El procedi
  * Selecciona la opción "Renombra" en el sub-menú presets.
  * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar un valor.
  * Utiliza el botón MENU para alternar entre minúsculas/números y mayúsculas/símbolos.
- * Utiliza el botón JUMP para cambiar la letra del valor seleccionado en el nombre (línea inferior). 
+ * Utiliza el botón JUMP para cambiar la letra del valor seleccionado en el nombre (línea inferior).
  * Utiliza el botón SET para usar el valor seleccionado en el nombre y avanzar el cursor a la siguiente posición.
  * Utiliza el dial frontal o los botones de ZOOM + /ZOOM - para mover el cursor en la línea de nombre del preset (ínea inferior).
  * Presiona el botón AV para guardar tus cambios y volver al menú previo.
@@ -144,9 +148,9 @@ Para detener una secuencia de comandos en ejecución, presiona el botón de IMPR
 
 == AEB Extendido ==
 
-Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias: 
- * Se pueden especificar hasta 9 tomas. 
- * La separación entre las tomas se puede configurar hasta +-6 EV. 
+Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias:
+ * Se pueden especificar hasta 9 tomas.
+ * La separación entre las tomas se puede configurar hasta +-6 EV.
  * La cámara tomará todas las fotos en una secuencia, de forma automática.
 
 En el modo M con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb mín:" hasta el valor "Bulb máx:", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 32 minutos.
@@ -173,7 +177,7 @@ Bajo circunstancias normales, cuando se recupera un preajuste todos los parámet
 
 Para resolver este asunto, hay una opción para secuestrar el modo A-DEP (mayormente inutilizado). Cuando esa opción está activa (Presets>usa A-DEP: "Sí"), ocurrirán los cambios siguientes:
 
- * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. Se visualiza la palabra "Presets" en lugar de "A-DEP" en el dial de modo. 
+ * Los presets sólo pueden cargarse cuando la cámara está en el modo A-DEP. Se visualiza la palabra "Presets" en lugar de "A-DEP" en el dial de modo.
  * Cuando la cámara se enciende en el modo A-DEP, o cuando el usuario mueve el dial principal al modo A-DEP, se carga el último preset utilizado.
 
 Si la opción no está activada (Presets>usa A-DEP: "No"), cuando se selecciona la posición A-DEP en el dial de modo, la cámara usará el modo A-DEP como lo haría normalmente.
@@ -187,7 +191,7 @@ Para habilitar AutoISO para los modos creativos, se debe activar en el menú de 
 == AutoISO y modo Av ==
 
 La intención del AutoISO en el modo Av es usar el ISO más bajo posible para asegurar que no se produzca desenfoque por movimiento.
- 
+
 En el modo Av normal el usuario selecciona ISO y apertura, y la cámara decide la velocidad de obturación de acuerdo a la escena. Sin embargo, cuando AutoISO está activo, la 400plus seleccionará siempre el ISO más bajo posible (según se haya configurado "Min ISO"), a no ser que la velocidad de obturación sea demasiado baja (según se haya configurado "Min Tv"); cuando esto ocurre, la cámara incrementará automáticamente el valor ISO (hasta "Max ISO") según necesite.
 
 Ten en cuenta que cuando ambos Desplazamiento de Seguridad y AutoISO están habilitados, para mantener la exposición correcta en el modo AV, la velocidad del obturador podría caer por debajo de "Min Tv" si se sobrepasa "Max ISO".
@@ -214,11 +218,11 @@ Para cambiar la compensación de la exposición en el modo M, utiliza las teclas
 
 400plus ofrece un rango adicional de selección de puntos del patrón AF, en vez de los sólo dos (selección manual del punto AF y selección automática) que vienen estándar en la cámara. Este modo adicional permite una amplia gama de patrones de selección de puntos múltiples usando diferentes combinaciones de los 9 puntos de enfoque.
 
-Para usar la selección adicional de puntos del patrón AF durante el disparo, pulsa el botón de ZOOM + para entrar en "Selección del punto AF" estándar; a continuación pulsa ZOOM + de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los diferentes patrones disponibles, y pulsa hasta la mitad el botón disparador para salir del diálogo. 
+Para usar la selección adicional de puntos del patrón AF durante el disparo, pulsa el botón de ZOOM + para entrar en "Selección del punto AF" estándar; a continuación pulsa ZOOM + de nuevo para entrar en el nuevo diálogo "Selección del patrón AF". Usa los botones ARRIBA, ABAJO, IZQUIERDA, DERECHA y SET para desplazarte por los diferentes patrones disponibles, y pulsa hasta la mitad el botón disparador para salir del diálogo.
 
 = Los extras =
 
-Se han agregado a la cámara los siguientes extras: 
+Se han agregado a la cámara los siguientes extras:
 
 === En la zona básica ===
 
@@ -227,9 +231,9 @@ Se han agregado a la cámara los siguientes extras:
 === En la zona creativa ===
 
  * Utiliza el botón JUMP para alternar entre ISOS extendidos: puedes ajustar el valor con incrementos de 1/8 EV (ver [UserGuideSpanish#ISOs_Extendidos Notas / ISOs Extendidos]).
- * En la pantalla de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para activar el [UserGuideSpanish#AutoISO AutoISO]. Selecciona cualquier valor ISO para desactivarlo.  
+ * En la pantalla de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para activar el [UserGuideSpanish#AutoISO AutoISO]. Selecciona cualquier valor ISO para desactivarlo.
  * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver [UserGuideSpanish#Modo_de_medicion_puntual Notas / Modo de medición puntual]).
- * En el cuadro de diálogo de selección del balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario. 
+ * En el cuadro de diálogo de selección del balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario.
 
 = Otros regalos =
 
@@ -237,7 +241,7 @@ Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 
 == El asunto de la nariz (ojo zurdo) ==
 
-Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar la nariz o la mejilla del usuario contra el cuerpo de la cámara. 
+Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar la nariz o la mejilla del usuario contra el cuerpo de la cámara.
 
 = Soporte mult-idioma =
 
@@ -253,7 +257,7 @@ El deseo es tener 400plus en tantos idiomas como sea posible! Si estás interesa
 
 = Notas =
 
-Algunas notas y comentarios. 
+Algunas notas y comentarios.
 
 == ISOs Extendidos ==
 
@@ -272,4 +276,4 @@ Se han comunicado y confirmado los siguientes errores relevantes:
  * Issue #15: La exposición cambia durante EAEB.
  * Issue #130: La configuración no se restaura si la cámara se apaga mientras se ejecuta un guión.
  * Issue #156: La ayuda al autofoco no se dispara desde 430EX cuando se utilizan patrones de AF extendidos.
- * Issue #153: El menú estándar parpadea ántes del menú de accesos directos.  
+ * Issue #153: El menú estándar parpadea ántes del menú de accesos directos.
