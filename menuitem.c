@@ -89,7 +89,7 @@ void menuitem_display_enum(const type_MENUITEM *item, char *buffer, const int le
 }
 
 void menuitem_display_info(const type_MENUITEM *item, char *buffer, const int length) {
-	menuitem_print(buffer, item->name, item->parm.menuitem_info.value, length);
+	menuitem_print(buffer, item->name, item->parm.menuitem_info.value ? item->parm.menuitem_info.value : "", length);
 }
 
 void menuitem_display_sub(const type_MENUITEM *item, char *buffer, const int length) {
