@@ -32,13 +32,13 @@ The following steps prepare a card to contain `400plus``  and be recognized by t
     * Mac: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
     * Linux: use the direct method (below) or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version).
     * Direct method for Linux, Mac, and Windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
-      * FAT12 / FAT16 (CF Card <= 4GB)
+      * FAT12 / FAT16 (CF cards up to 2GB)
 {{{
   dev=/dev/sdX1 # replace sdX1 with your CF device (first partition)
   echo EOS_DEVELOP | dd of="$dev" bs=1 seek=43 count=11
   echo BOOTDISK | dd of="$dev" bs=1 seek=64 count=8
 }}}
-      * FAT32
+      * FAT32 (CF cards 4GB or larger)
 {{{
   dev=/dev/sdX1 # replace sdX1 with your CF device (first partition)
   echo EOS_DEVELOP | dd of="$dev" bs=1 seek=71 count=11
