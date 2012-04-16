@@ -1,5 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-1*_
+ * Updated Russian translation.
+ * Fixed a bug in the page reordering submenu.
+
 _*20120415-0*_
  * Usability improvements
   * New language system: now 400plus can be translated to languages not supported by the camera.
