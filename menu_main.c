@@ -7,7 +7,6 @@
 #include "menuitem.h"
 #include "menu_developer.h"
 #include "menu_info.h"
-#include "menupage.h"
 #include "menu_params.h"
 #include "menu_presets.h"
 #include "menu_scripts.h"
@@ -32,7 +31,6 @@ type_MENUPAGE *menu_main_pages[] = {
 	&menupage_info,
 	&menupage_settings,
 	&menupage_presets,
-	&menupage_developer,
 };
 
 type_MENU menu_main = {
@@ -55,6 +53,7 @@ type_MENU menu_main = {
 		[MENU_EVENT_FINISH]  = menu_finish,
 		[MENU_EVENT_SAVE]    = menu_main_save,
 		[MENU_EVENT_AV]      = list_display,
+		[MENU_EVENT_TRASH]   = menupage_developer_start,
 	}
 };
 
