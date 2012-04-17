@@ -141,11 +141,11 @@ Notice that there is always a number displayed on the left of each preset. This 
 
 === Developers Page ===
 
-*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it.
+*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button, while in the menu, to enter the developers' page.
 
 _This Page Is Intentionally Left Blank._
 
-*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
+*WARNING*: The options contained in this page should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
 = The scripts =
 
