@@ -303,12 +303,16 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 
 == Multi-language support ==
 
-Currently 400plus supports five (5) languages:
+Currently 400plus supports five (9) languages:
 
   * English
+  * Finnish
   * French
   * German
   * Italian
+  * Polish
+  * Russian
+  * Simplified Chinese
   * Spanish
 
 The desire is to have 400plus be supported in as many languages as possible! If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
