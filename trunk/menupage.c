@@ -145,10 +145,6 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 	menu_set_text(line, message);
 }
 
-int menupage_active (type_MENUPAGE *page) {
-	return !page->active || *page->active;
-}
-
 type_MENUITEM *get_current_item(type_MENUPAGE *page) {
 	return get_item(page, page->current_posn);
 }
