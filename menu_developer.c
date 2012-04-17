@@ -47,12 +47,19 @@ type_MENUITEM menu_developer_items[] = {
 
 type_MENUPAGE menupage_developer = {
 	name      : LP_WORD(L_P_DEVELOPERS),
-	sibilings : TRUE,
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
-	active    : &settings.developers_menu,
 	ordering  : settings.developer_order,
+	tasks  : {
+		[MENU_EVENT_AV] = menu_return,
+	}
 };
+
+void menupage_developer_start(type_MENU *menu) {
+	if (settings.developers_menu) {
+		menu_set_page(&menupage_developer);
+	}
+}
 
 static int test_dialog_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	switch (event) {

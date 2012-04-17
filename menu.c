@@ -102,7 +102,7 @@ void menu_close() {
 }
 
 void menu_initialize() {
-	menu_set_page(get_selected_page());
+	menu_return();
 	status.menu_running = TRUE;
 }
 
@@ -252,16 +252,12 @@ void menu_next(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->sibilings) {
-		do {
-			if (menu->current_posn == menu->length - 1)
-				menu->current_posn = 0;
-			else
-				menu->current_posn++;
+		if (menu->current_posn == menu->length - 1)
+			menu->current_posn = 0;
+		else
+			menu->current_posn++;
 
-			page = get_selected_page();
-		} while (!menupage_active(page));
-
-		menu_set_page(page);
+		menu_return();
 	}
 }
 
@@ -269,15 +265,12 @@ void menu_prev(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->sibilings) {
-		do {
-			if (menu->current_posn == 0)
-				menu->current_posn = menu->length - 1;
-			else
-				menu->current_posn--;
-			page = get_selected_page();
-		} while (!menupage_active(page));
+		if (menu->current_posn == 0)
+			menu->current_posn = menu->length - 1;
+		else
+			menu->current_posn--;
 
-		menu_set_page(page);
+		menu_return();
 	}
 }
 
