@@ -303,7 +303,7 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 
 == Multi-language support ==
 
-Currently 400plus supports five (9) languages:
+Currently 400plus supports nine (9) languages:
 
   * English
   * Finnish
