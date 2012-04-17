@@ -54,10 +54,6 @@ typedef struct {
 	type_MENUPAGE *page;
 } type_MENUITEM_SUBMENU;
 
-typedef struct {
-	int id;
-} type_MENUITEM_PAGE;
-
 typedef union {
 	type_MENUITEM_EV      menuitem_ev;
 	type_MENUITEM_AV      menuitem_av;
@@ -67,7 +63,6 @@ typedef union {
 	type_MENUITEM_ENUM    menuitem_enum;
 	type_MENUITEM_INFO    menuitem_info;
 	type_MENUITEM_SUBMENU menuitem_submenu;
-	type_MENUITEM_PAGE    menuitem_page;
 } type_MENUITEM_PARM;
 
 struct MENUITEM {
@@ -231,6 +226,11 @@ OPTIONLIST_DEC(scrlcd)
 	display : menuitem_display_sub, \
 	inc     : menuitem_inc_sub, \
 	action  : _ACTION_, \
+}
+
+#define MENUITEM_PAGE(_NAME_) { \
+	name    : _NAME_, \
+	display : menuitem_display, \
 }
 
 #define MENUITEM_INFO(_NAME_, _VALUE_) { \
