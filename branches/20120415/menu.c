@@ -102,7 +102,7 @@ void menu_close() {
 }
 
 void menu_initialize() {
-	menu_set_page(get_selected_page());
+	menu_return();
 	status.menu_running = TRUE;
 }
 
@@ -257,7 +257,7 @@ void menu_next(type_MENU *menu) {
 		else
 			menu->current_posn++;
 
-		menu_set_page(get_selected_page());
+		menu_return();
 	}
 }
 
@@ -270,7 +270,7 @@ void menu_prev(type_MENU *menu) {
 		else
 			menu->current_posn--;
 
-		menu_set_page(get_selected_page());
+		menu_return();
 	}
 }
 
