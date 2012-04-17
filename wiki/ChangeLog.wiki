@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-2*_
+ * Fixed a bug in the page navigation.
+
 _*20120415-1*_
  * Updated Russian translation.
  * Fixed a bug in the page reordering submenu.
