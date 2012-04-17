@@ -50,6 +50,9 @@ type_MENUPAGE menupage_developer = {
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
 	ordering  : settings.developer_order,
+	tasks  : {
+		[MENU_EVENT_AV] = menu_return,
+	}
 };
 
 void menupage_developer_start(type_MENU *menu) {
