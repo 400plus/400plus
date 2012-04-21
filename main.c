@@ -86,6 +86,7 @@ type_ACTION actions_af[] = {
 	{IC_BUTTON_DOWN,  TRUE,  TRUE, {afp_bottom}},
 	{IC_BUTTON_RIGHT, TRUE,  TRUE, {afp_right}},
 	{IC_BUTTON_LEFT,  TRUE,  TRUE, {afp_left}},
+	{IC_BUTTON_DISP,  FALSE, TRUE, {}},
 	END_OF_LIST
 };
 
@@ -284,5 +285,5 @@ void message_logger(char *message) {
 	for (i = 0; i < message[0]; i++)
 		sprintf(text + 3 * i, "%02X ", message[i]);
 
-	printf_log(8, 8, "[400plus-MSG%04d]: %s", id++, text);
+	printf_log(8, 8, "[400plus-MSG%04d-%02X]: %s", id++, FLAG_GUI_MODE, text);
 }
