@@ -103,6 +103,7 @@ void menu_close() {
 */
     press_button(IC_BUTTON_DISP);
 	menu_destroy();
+	menu_finish();
 }
 
 void menu_initialize() {
