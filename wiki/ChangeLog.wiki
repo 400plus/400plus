@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-4*_
+ * Fixed a bug (options not being saved when leaving the menu) introduced in 20120415-3.
+
 _*20120415-3*_
  * Fixed a typo.
  * Fixed a bug when closing the menu.
