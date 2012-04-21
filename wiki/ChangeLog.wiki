@@ -1,5 +1,10 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-3*_
+ * Fixed a typo.
+ * Fixed a bug when closing the menu.
+ * Fixed the AF dialog when pressing DISP.
+
 _*20120415-2*_
  * Fixed a bug in the page navigation.
 
