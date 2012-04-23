@@ -48,9 +48,28 @@ This is so to keep the last _0x20000_ bytes (_128kb_), our hack, out of the
 heap space, and this way to be safe from __OFW__'s and our heap allocations
 (__`malloc()`__).
 
+## DP Led blink
+	eventproc_EdLedBlink();
+	// or
+	(*((int*)0xC0220000)) = 0x48; // led on (blink state)
+	(*((int*)0xC0210014)) = 3; // make it blink
+
+
 ---
 
 # IDEAS
+## MMIO for buttons
+we should be able to see the buttons on MMIO ports
+the a540 camera (which is vxworks) sees them at:
+
+	volatile long *mmio0 = (void*)0xc0220200;
+	volatile long *mmio1 = (void*)0xc0220204;
+	volatile long *mmio2 = (void*)0xc0220208;
+
+	dst[0] = *mmio0;
+	dst[1] = *mmio1;
+	dst[2] = *mmio2 & 0xffff;
+
 ## force MF for lens (may be)
 we can try setting cameraMode->ef\_lens\_exist=0 to force, not sure if it works.
 if it works, it could be useful for bracketing...

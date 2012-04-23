@@ -52,7 +52,7 @@ type_ACTION actions_400plus[]  = {
 	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {menu_event_left}},
 	{IC_BUTTON_DP,         FALSE, TRUE,  {menu_event_dp}},
 	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_event_av, menu_event_av_up}},
-	{IC_DIALOGOFF,         FALSE, FALSE, {menu_event_close}},
+	{IC_DIALOGOFF,         FALSE, FALSE, {menu_event_finish}},
 	END_OF_LIST
 };
 
@@ -86,6 +86,7 @@ type_ACTION actions_af[] = {
 	{IC_BUTTON_DOWN,  TRUE,  TRUE, {afp_bottom}},
 	{IC_BUTTON_RIGHT, TRUE,  TRUE, {afp_right}},
 	{IC_BUTTON_LEFT,  TRUE,  TRUE, {afp_left}},
+	{IC_BUTTON_DISP,  FALSE, TRUE, {}},
 	END_OF_LIST
 };
 
@@ -217,7 +218,7 @@ void intercom_proxy(const int handler, char *message) {
 	// Use fictitious GUI modes so everything else fits nicely
 	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUIMODE_OFF)
 		gui_mode = GUIMODE_FACE;
-	else if(status.menu_running && FLAG_GUI_MODE != 0x30) // 0x30 is help dialog
+	else if(status.menu_running && FLAG_GUI_MODE != GUIMODE_HELP)
 		gui_mode = GUIMODE_400PLUS;
 	else
 		gui_mode = FLAG_GUI_MODE;
@@ -284,5 +285,5 @@ void message_logger(char *message) {
 	for (i = 0; i < message[0]; i++)
 		sprintf(text + 3 * i, "%02X ", message[i]);
 
-	printf_log(8, 8, "[400plus-MSG%04d]: %s", id++, text);
+	printf_log(8, 8, "[400plus-MSG%04d-%02X]: %s", id++, FLAG_GUI_MODE, text);
 }

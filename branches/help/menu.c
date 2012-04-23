@@ -19,7 +19,7 @@ type_MENU     *current_menu;
 
 type_ACTION callbacks_standard[] = {
 	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_event_menu}},
-	{GUI_BUTTON_DISP,           FALSE, TRUE,  {menu_event_disp}},
+//	{GUI_BUTTON_DISP,           FALSE, TRUE,  {menu_event_disp}},
 	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_event_jump}},
 	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
 	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {menu_event_trash}},
@@ -61,15 +61,14 @@ void menu_create(type_MENU *menu) {
 	SendToMC(6, 2, 0);
 	SleepTask(100);
 
-	status.menu_running = TRUE;
-
-	//FLAG_GUI_MODE = 0x2D; // In theory, we do not need this, but menu_close does not work properly without it...
-	FLAG_GUI_MODE = GUIMODE_400PLUS; // In theory, we do not need this, but menu_close does not work properly without it...
+	FLAG_GUI_MODE = 0x2D; // In theory, we do not need this, but menu_close does not work properly without it...
+	//FLAG_GUI_MODE = GUIMODE_400PLUS; // In theory, we do not need this, but menu_close does not work properly without it...
 	//cameraMode->gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
 
 	current_menu    = menu;
 	menu_cameraMode = *cameraMode;
 
+	help_dlg_destroy();
 	menu_destroy();
 	menu_initialize();
 
@@ -90,32 +89,48 @@ void menu_create(type_MENU *menu) {
 }
 
 void menu_close() {
+/*
 	GUI_Lock();
 	GUI_PalleteInit();
 
 	DeleteDialogBox(menu_handler);
-	menu_handler = NULL;
+	menu_destroy();
+	menu_finish();
 
 	GUI_StartMode(GUIMODE_OLC);
 	CreateDialogBox_OlMain();
-	GUIMode = GUIMODE_OLC;
+	FLAG_GUI_MODE = GUIMODE_OLC;
 
 	GUI_UnLock();
 	GUI_PalleteUnInit();
+*/
+	press_button(IC_BUTTON_DISP);
+	menu_destroy();
+	menu_finish();
+
+	debug_log("MENU: menu_close();");
+	help_dlg_destroy();
 }
 
 void menu_initialize() {
-	menu_handler = NULL;
-	menu_set_page(get_selected_page());
+	menu_return();
+	status.menu_running = TRUE;
 }
 
 void menu_destroy() {
+	debug_log("MENU: menu_destroy();");
 	if (menu_handler != NULL) {
+		debug_log("MENU: menu_destroy() - destroing.");
 		PalettePop();
 		DeleteDialogBox(menu_handler);
 		menu_handler = NULL;
 		GUI_ClearImage();
 	}
+}
+
+void menu_finish() {
+	menu_event_save();
+	status.menu_running = FALSE;
 }
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
@@ -155,7 +170,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 pass_event:
 	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 #ifdef ENABLE_DEBUG
-	printf_log(1,6, "_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
+	//printf_log(1,6, "_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
 #endif
 	return ret;
 }
@@ -177,8 +192,9 @@ void menu_set_page(type_MENUPAGE *page) {
 	current_menu->current_page = page;
 
 	menupage_initialize(page);
-	menu_event_display();
+
 	menu_event_open();
+	menu_event_display();
 }
 
 void menu_highlight(const int line) {
@@ -216,7 +232,8 @@ void menu_event_in()     { menu_event(MENU_EVENT_IN);      };
 void menu_event_open()   { menu_event(MENU_EVENT_OPEN);    };
 void menu_event_display(){ menu_event(MENU_EVENT_DISPLAY); };
 void menu_event_refresh(){ menu_event(MENU_EVENT_REFRESH); };
-void menu_event_close()  { menu_event(MENU_EVENT_CLOSE);   };
+void menu_event_finish() { menu_event(MENU_EVENT_FINISH);  };
+void menu_event_save()   { menu_event(MENU_EVENT_SAVE);    };
 
 void menu_event(type_MENU_EVENT event) {
 	type_MENU     *menu = current_menu;
@@ -235,10 +252,11 @@ void menu_help(type_MENU *menu) {
 	if (item && item->name) {
 		char * help_str = help_get_str(item->name);
 		if (help_str) {
-			help_dlg_create(help_str);
 			debug_log("HELP: [%s] %s", item->name, help_str);
+			help_dlg_create(help_str);
 		} else {
 			debug_log("HELP: [%s] NOT FOUND", item->name);
+			help_dlg_create("NO HELP AVAILABLE");
 		}
 	}
 }
@@ -263,16 +281,12 @@ void menu_next(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->sibilings) {
-		do {
-			if (menu->current_posn == menu->length - 1)
-				menu->current_posn = 0;
-			else
-				menu->current_posn++;
+		if (menu->current_posn == menu->length - 1)
+			menu->current_posn = 0;
+		else
+			menu->current_posn++;
 
-			page = get_selected_page();
-		} while (!menupage_active(page));
-
-		menu_set_page(page);
+		menu_return();
 	}
 }
 
@@ -280,15 +294,12 @@ void menu_prev(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->sibilings) {
-		do {
-			if (menu->current_posn == 0)
-				menu->current_posn = menu->length - 1;
-			else
-				menu->current_posn--;
-			page = get_selected_page();
-		} while (!menupage_active(page));
+		if (menu->current_posn == 0)
+			menu->current_posn = menu->length - 1;
+		else
+			menu->current_posn--;
 
-		menu_set_page(page);
+		menu_return();
 	}
 }
 

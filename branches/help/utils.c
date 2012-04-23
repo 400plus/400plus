@@ -344,25 +344,25 @@ void iso_print(char *dest, int code) {
 }
 
 void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max) {
-    float fl =    1.0f * focal_length;
-    float fd = 1000.0f * focus_distance;
+	float fl =    1.0f * focal_length;
+	float fd = 1000.0f * focus_distance;
 
-    float fn  = f_number[(av >> 3) - 1][av & 0x07]; // F-Number
-    float cof = 0.019f; // Circle of confusion
+	float fn  = f_number[(av >> 3) - 1][av & 0x07]; // F-Number
+	float cof = 0.019f; // Circle of confusion
 
-    // Hyperfocal
-    float hf  = fl + fl * fl / (fn * cof);
-    float aux = fd * (hf - fl) / 1000.0f;
+	// Hyperfocal
+	float hf  = fl + fl * fl / (fn * cof);
+	float aux = fd * (hf - fl) / 1000.0f;
 
-    // Min distance
-    display_float(min, aux / (hf + fd - 2.0f * fl));
+	// Min distance
+	display_float(min, aux / (hf + fd - 2.0f * fl));
 
-    // Max distance
-    if (hf >= fd) {
-        display_float(max, aux / (hf - fd));
-    } else {
-    	sprintf(max, "%s", LP_WORD(L_S_INFINITE));
-    }
+	// Max distance
+	if (hf >= fd) {
+		display_float(max, aux / (hf - fd));
+	} else {
+		sprintf(max, "%s", LP_WORD(L_S_INFINITE));
+	}
 }
 
 void display_float(char *dest, float value) {
@@ -711,3 +711,46 @@ char * my_fgets_simple_but_slow(char *s, int n, int fd) {
 	return s;
 }
 #endif
+
+/*
+ * split the <src> string at the <split> point or the whitespace before it
+ * and put the requested splitted line <line_no> into <dest> buffer
+ * <line_no> starts from 1, cannot be 0.
+ * return current_line on success, 0 when there is no line.
+ * when called with <line_no> == 0, does not fill <dest>, but returns maximum lines to be parsed
+ */
+int get_splitted_line(char * dest, char * src, int split, int line_no) {
+	int slen = strlen(src);
+	int current_line = 0;
+	char * eol = 0;
+	char * line = src;
+
+	while (line < src+slen) {
+		int z;
+		int llen = strlen(line);
+		current_line++;
+
+		// set the end of the line at the required split point, or at the end of the src string
+		// then walk backwards until whitespace is found
+		for (eol = line + MIN(llen, split); !isspace(*eol) && eol > line; eol--);
+
+		// if no whitespace was found, or the split point is outside the string,
+		// go to the end of the line again
+		if (eol == line || (slen < split)) eol = line + MIN(llen, split);
+
+		// copy the resulting line into dest buffer
+		if (current_line == line_no) {
+			for (z=0; z < eol-line; z++) dest[z] = line[z];
+			dest[z] = 0;
+			return current_line;
+		}
+
+		line = eol;
+		if (isspace(*line)) line++;
+	}
+
+	if (line_no == 0) return current_line;
+	return 0;
+}
+
+

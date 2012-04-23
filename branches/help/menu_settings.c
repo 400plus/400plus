@@ -15,7 +15,7 @@ extern char languages_found[MAX_LANGUAGES][LP_MAX_WORD];
 
 void menu_settings_open();
 
-void reload_language_and_refresh         (const type_MENUITEM *item);
+void reload_language_and_refresh(const type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_KEEP_POWER_ON), &settings.keep_power_on,    NULL),
@@ -42,7 +42,6 @@ type_MENUITEM pages_items[] = {
 	MENUITEM_INFO(LP_WORD(L_P_PARAMS),     NULL),
 	MENUITEM_INFO(LP_WORD(L_P_SCRIPTS),    NULL),
 	MENUITEM_INFO(LP_WORD(L_P_INFO),       NULL),
-	MENUITEM_INFO(LP_WORD(L_P_DEVELOPERS), NULL),
 	MENUITEM_INFO(LP_WORD(L_P_SETTINGS),   NULL),
 	MENUITEM_INFO(LP_WORD(L_P_PRESETS),    NULL),
 };

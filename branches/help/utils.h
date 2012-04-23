@@ -96,4 +96,7 @@ char * my_fgets_faster(char *s, int n, int fd);
 #define my_fgets my_fgets_faster
 #endif
 
+int get_splitted_line(char * dest, char * src, int split, int line_no);
+
+
 #endif /* UTILS_H_ */

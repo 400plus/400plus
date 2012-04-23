@@ -7,7 +7,6 @@
 #include "menuitem.h"
 #include "menu_developer.h"
 #include "menu_info.h"
-#include "menupage.h"
 #include "menu_params.h"
 #include "menu_presets.h"
 #include "menu_scripts.h"
@@ -32,7 +31,6 @@ type_MENUPAGE *menu_main_pages[] = {
 	&menupage_info,
 	&menupage_settings,
 	&menupage_presets,
-	&menupage_developer,
 };
 
 type_MENU menu_main = {
@@ -48,17 +46,25 @@ type_MENU menu_main = {
 		[MENU_EVENT_RIGHT]   = menu_right,
 		[MENU_EVENT_NEXT]    = menu_next,
 		[MENU_EVENT_PREV]    = menu_prev,
-		[MENU_EVENT_IN]      = menu_prev,
-		[MENU_EVENT_OUT]     = menu_next,
+		[MENU_EVENT_IN]      = menu_next,
+		[MENU_EVENT_OUT]     = menu_prev,
 		[MENU_EVENT_DISPLAY] = menupage_display,
 		[MENU_EVENT_REFRESH] = menupage_refresh,
-		[MENU_EVENT_CLOSE]   = menu_main_save,
+		[MENU_EVENT_FINISH]  = menu_finish,
+		[MENU_EVENT_SAVE]    = menu_main_save,
 		[MENU_EVENT_AV]      = list_display,
+		[MENU_EVENT_TRASH]   = menupage_developer_start,
 		[MENU_EVENT_DP]      = menu_help,
 	}
 };
 
-type_MENUITEM main_list_items[LENGTH(menu_main_pages)];
+type_MENUITEM main_list_items[] = {
+	MENUITEM_PAGE(LP_WORD(L_P_PARAMS)),
+	MENUITEM_PAGE(LP_WORD(L_P_SCRIPTS)),
+	MENUITEM_PAGE(LP_WORD(L_P_INFO)),
+	MENUITEM_PAGE(LP_WORD(L_P_SETTINGS)),
+	MENUITEM_PAGE(LP_WORD(L_P_PRESETS)),
+};
 
 type_MENUPAGE main_list = {
 	name     : LP_WORD(L_P_400PLUS),
@@ -73,26 +79,10 @@ type_MENUPAGE main_list = {
 };
 
 void menu_main_start() {
-	int i, j;
-
-	changed = FALSE;
-
-	for (i = 0, j = 0; i < LENGTH(menu_main_pages); i++) {
-		if (menupage_active(menu_main_pages[i])) {
-			main_list.items[j].parm.menuitem_page.id = i;
-			main_list_items[j].name    = menu_main_pages[i]->name;
-			main_list_items[j].display = menuitem_display;
-			j++;
-		}
-	}
-
-	main_list.length = j;
 	menu_create(&menu_main);
 }
 
 void menu_main_save(type_MENU *menu) {
-	status.menu_running = FALSE;
-
 	if (menu->changed) {
 		settings_write();
 		presets_write();
@@ -125,7 +115,6 @@ void list_down(type_MENU *menu) {
 
 void list_hide(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = &page->items[get_item_id(page, page->current_posn)];
 
-	menu_set_posn(item->parm.menuitem_page.id);
+	menu_set_posn(get_item_id(page, page->current_posn));
 }

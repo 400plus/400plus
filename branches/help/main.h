@@ -522,7 +522,8 @@ typedef enum { // GUIModes
 
 // Fictitious modes
 	GUIMODE_400PLUS = 0xFF,  // 400Plus mode
-	GUIMODE_FACE    = 0xFE	 // Face mode
+	GUIMODE_FACE    = 0xFE,	 // Face mode
+	GUIMODE_HELP    = 0xFD,	 // Help Dialog
 } type_GUIMODE;
 
 

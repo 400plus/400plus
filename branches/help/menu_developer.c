@@ -27,8 +27,40 @@ static int   template     = 1;
 static int   curr_palette = 0;
 
 static void test_dialog_create();
+void test_0xaf() {
+	(*((int*)0xC0220000)) = 0x46;
+	(*((int*)0xC0220048)) = 0x46;
+	SleepTask(300);
+	(*((int*)0xC0220000)) = 0x44;
+	(*((int*)0xC0220048)) = 0x44;
+	SleepTask(300);
+	(*((int*)0xC0220000)) = 0x46;
+	(*((int*)0xC0220048)) = 0x46;
+	SleepTask(300);
+	(*((int*)0xC0220000)) = 0x44;
+	(*((int*)0xC0220048)) = 0x44;
+	SleepTask(300);
+
+
+	volatile long *mmio0 = (void*)0xc0220200;
+	volatile long *mmio1 = (void*)0xc0220204;
+	volatile long *mmio2 = (void*)0xc0220208;
+
+	debug_log("MMIO: %08X %08X %08X", *mmio0, *mmio1, *mmio2);
+
+	int lensbtn = *mmio1;
+	lensbtn &= 0x0000FF00;
+	lensbtn >>= 8;
+
+	if (lensbtn == 0x1000)
+		debug_log("LENS BTN PRESSED");
+	else
+		debug_log("MMIO: %08X", lensbtn);
+
+}
 
 type_MENUITEM menu_developer_items[] = {
+	MENUITEM_LAUNCH("test",    test_0xaf),
 	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
 	MENUITEM_LAUNCH(LP_WORD(L_I_PRINT_INFO),          print_info),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
@@ -47,12 +79,19 @@ type_MENUITEM menu_developer_items[] = {
 
 type_MENUPAGE menupage_developer = {
 	name      : LP_WORD(L_P_DEVELOPERS),
-	sibilings : TRUE,
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
-	active    : &settings.developers_menu,
 	ordering  : settings.developer_order,
+	tasks  : {
+		[MENU_EVENT_AV] = menu_return,
+	}
 };
+
+void menupage_developer_start(type_MENU *menu) {
+	if (settings.developers_menu) {
+		menu_set_page(&menupage_developer);
+	}
+}
 
 static int test_dialog_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	switch (event) {

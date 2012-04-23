@@ -5,5 +5,6 @@
 
 char * help_get_str(char * key);
 void help_dlg_create(char * key);
+void help_dlg_destroy();
 
 #endif // HELP_H_

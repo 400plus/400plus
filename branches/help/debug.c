@@ -4,6 +4,129 @@
 
 #ifdef ENABLE_DEBUG
 
+const char * debug_ic_name(int event) {
+	static char name[20];
+
+	switch (event) {
+	case IC_SET_AE: return "IC_SET_AE";
+	case IC_SET_METERING: return "IC_SET_METERING";
+	case IC_SET_EFCOMP: return "IC_SET_EFCOMP";
+	case IC_SET_DRIVE: return "IC_SET_DRIVE";
+	case IC_SET_WB: return "IC_SET_WB";
+	case IC_SET_AF: return "IC_SET_AF";
+	case IC_SET_AF_POINT: return "IC_SET_AF_POINT";
+	case IC_SET_TV_VAL: return "IC_SET_TV_VAL";
+	case IC_SET_AV_VAL: return "IC_SET_AV_VAL";
+	case IC_SET_AV_COMP: return "IC_SET_AV_COMP";
+	case IC_SET_ISO: return "IC_SET_ISO";
+	case IC_SET_RED_EYE: return "IC_SET_RED_EYE";
+	case IC_SET_AE_BKT: return "IC_SET_AE_BKT";
+	case IC_SET_WB_BKT: return "IC_SET_WB_BKT";
+	case IC_SET_BEEP: return "IC_SET_BEEP";
+	case IC_SET_COLOR_TEMP: return "IC_SET_COLOR_TEMP";
+	case IC_SET_AUTO_POWER_OFF: return "IC_SET_AUTO_POWER_OFF";
+	case IC_SET_VIEW_TYPE: return "IC_SET_VIEW_TYPE";
+	case IC_SET_REVIEW_TIME: return "IC_SET_REVIEW_TIME";
+	case IC_SET_AUTO_ROTATE: return "IC_SET_AUTO_ROTATE";
+	case IC_SET_LCD_BRIGHTNESS: return "IC_SET_LCD_BRIGHTNESS";
+	case IC_SET_DATE_TIME: return "IC_SET_DATE_TIME";
+	case IC_SET_FILE_NUMBERING: return "IC_SET_FILE_NUMBERING";
+	case IC_SET_LANGUAGE: return "IC_SET_LANGUAGE";
+	case IC_SET_VIDEO_SYSTEM: return "IC_SET_VIDEO_SYSTEM";
+	case IC_SET_HISTOGRAM: return "IC_SET_HISTOGRAM";
+	case IC_SET_COLOR_SPACE: return "IC_SET_COLOR_SPACE";
+	case IC_SET_IMG_FORMAT: return "IC_SET_IMG_FORMAT";
+	case IC_SET_IMG_SIZE: return "IC_SET_IMG_SIZE";
+	case IC_SET_IMG_QUALITY: return "IC_SET_IMG_QUALITY";
+	case IC_SET_WBCOMP_GM: return "IC_SET_WBCOMP_GM";
+	case IC_SET_WBCOMP_AB: return "IC_SET_WBCOMP_AB";
+	case IC_SET_CF_SET_BUTTON_FUNC: return "IC_SET_CF_SET_BUTTON_FUNC";
+	case IC_SET_CF_NR_FOR_LONG_EXPOSURE: return "IC_SET_CF_NR_FOR_LONG_EXPOSURE";
+	case IC_SET_CF_EFAV_FIX_X: return "IC_SET_CF_EFAV_FIX_X";
+	case IC_SET_CF_AFAEL_ACTIVE_BUTTON: return "IC_SET_CF_AFAEL_ACTIVE_BUTTON";
+	case IC_SET_CF_EMIT_AUX: return "IC_SET_CF_EMIT_AUX";
+	case IC_SET_CF_EXPLEVEL_INC_THIRD: return "IC_SET_CF_EXPLEVEL_INC_THIRD";
+	case IC_SET_CF_EMIT_FLASH: return "IC_SET_CF_EMIT_FLASH";
+	case IC_SET_CF_EXTEND_ISO: return "IC_SET_CF_EXTEND_ISO";
+	case IC_SET_CF_AEB_SEQUENCE: return "IC_SET_CF_AEB_SEQUENCE";
+	case IC_SET_CF_SI_INDICATE: return "IC_SET_CF_SI_INDICATE";
+	case IC_SET_CF_MENU_POS: return "IC_SET_CF_MENU_POS";
+	case IC_SET_CF_MIRROR_UP_LOCK: return "IC_SET_CF_MIRROR_UP_LOCK";
+	case IC_SET_CF_FPSEL_METHOD: return "IC_SET_CF_FPSEL_METHOD";
+	case IC_SET_CF_FLASH_METERING: return "IC_SET_CF_FLASH_METERING";
+	case IC_SET_CF_FLASH_SYNC_REAR: return "IC_SET_CF_FLASH_SYNC_REAR";
+	case IC_SET_CF_SAFETY_SHIFT: return "IC_SET_CF_SAFETY_SHIFT";
+	case IC_SET_CF_LENS_BUTTON: return "IC_SET_CF_LENS_BUTTON";
+	case IC_SET_CF_ORIGINAL_EVAL: return "IC_SET_CF_ORIGINAL_EVAL";
+	case IC_SET_CF_QR_MAGNIFY: return "IC_SET_CF_QR_MAGNIFY";
+	case IC_SET_CF_TFT_ON_POWER_ON: return "IC_SET_CF_TFT_ON_POWER_ON";
+	case IC_DIALOGON: return "IC_DIALOGON";
+	case IC_DIALOGOFF: return "IC_DIALOGOFF";
+	case IC_SHUTDOWN: return "IC_SHUTDOWN";
+	case IC_RELEASE: return "IC_RELEASE";
+	case IC_RELEASE_INHIBIT: return "IC_RELEASE_INHIBIT";
+	case IC_RELEASE_PERMIT: return "IC_RELEASE_PERMIT";
+	case IC_RESET_SETTINGS: return "IC_RESET_SETTINGS";
+	case IC_ENTERFACTORYMODE: return "IC_ENTERFACTORYMODE";
+	case IC_EXITFACTORYMODE: return "IC_EXITFACTORYMODE";
+	case IC_UILOCK: return "IC_UILOCK";
+	case IC_GUILOCK: return "IC_GUILOCK";
+	case IC_FIRMUP: return "IC_FIRMUP";
+	case IC_BAT_TYPE: return "IC_BAT_TYPE";
+	case IC_BC_LEVEL: return "IC_BC_LEVEL";
+	case IC_CARD_FULL_MSG_IN_VF: return "IC_CARD_FULL_MSG_IN_VF";
+	case IC_CHANGE_BAT_AND_OTHER_DIALOGS: return "IC_CHANGE_BAT_AND_OTHER_DIALOGS";
+	case IC_SET_BURST_COUNTER: return "IC_SET_BURST_COUNTER";
+	case IC_POWER_FLAG: return "IC_POWER_FLAG";
+	case IC_BUZZER: return "IC_BUZZER";
+	case IC_TEMP: return "IC_TEMP";
+	case IC_MEASURING: return "IC_MEASURING";
+	case IC_MEASUREMENT: return "IC_MEASUREMENT";
+	case IC_TIMERCOUNTER: return "IC_TIMERCOUNTER";
+	case IC_SETTINGS_0: return "IC_SETTINGS_0";
+	case IC_SETTINGS_1: return "IC_SETTINGS_1";
+	case IC_SETTINGS_2: return "IC_SETTINGS_2";
+	case IC_SETTINGS_3: return "IC_SETTINGS_3";
+	case IC_BUTTON_MENU: return "IC_BUTTON_MENU";
+	case IC_BUTTON_DISP: return "IC_BUTTON_DISP";
+	case IC_BUTTON_JUMP: return "IC_BUTTON_JUMP";
+	case IC_BUTTON_PLAY: return "IC_BUTTON_PLAY";
+	case IC_BUTTON_TRASH: return "IC_BUTTON_TRASH";
+	case IC_BUTTON_SET: return "IC_BUTTON_SET";
+	case IC_AFPDLGOFF: return "IC_AFPDLGOFF";
+	case IC_BUTTON_DIAL: return "IC_BUTTON_DIAL";
+	case IC_BUTTON_DIAL1: return "IC_BUTTON_DIAL1";
+	case IC_BUTTON_DIAL_LEFT: return "IC_BUTTON_DIAL_LEFT";
+	case IC_BUTTON_DIAL_RIGHT: return "IC_BUTTON_DIAL_RIGHT";
+	case IC_BUTTON_CARD_DOOR: return "IC_BUTTON_CARD_DOOR";
+	case IC_BUTTON_UNK1: return "IC_BUTTON_UNK1";
+	case IC_BUTTON_POWER: return "IC_BUTTON_POWER";
+	case IC_BUTTON_BATTERY_DOOR: return "IC_BUTTON_BATTERY_DOOR";
+	case IC_BUTTON_UP: return "IC_BUTTON_UP";
+	case IC_BUTTON_DOWN: return "IC_BUTTON_DOWN";
+	case IC_BUTTON_RIGHT: return "IC_BUTTON_RIGHT";
+	case IC_BUTTON_LEFT: return "IC_BUTTON_LEFT";
+	case IC_BUTTON_HALF_SHUTTER: return "IC_BUTTON_HALF_SHUTTER";
+	case IC_BUTTON_FULL_SHUTTER: return "IC_BUTTON_FULL_SHUTTER";
+	case IC_BUTTON_DP: return "IC_BUTTON_DP";
+	case IC_AFPDLGON: return "IC_AFPDLGON";
+	case IC_BUTTON_DRIVE: return "IC_BUTTON_DRIVE";
+	case IC_BUTTON_AV: return "IC_BUTTON_AV";
+	case IC_BUTTON_UNK2: return "IC_BUTTON_UNK2";
+	case IC_MONOPEN: return "IC_MONOPEN";
+	case IC_MONCLOSE: return "IC_MONCLOSE";
+	case IC_MONREAD: return "IC_MONREAD";
+	case IC_MONWRITE: return "IC_MONWRITE";
+	case IC_MONCALL: return "IC_MONCALL";
+	case IC_SET_REALTIME_ISO_0: return "IC_SET_REALTIME_ISO_0";
+	case IC_SET_REALTIME_ISO_1: return "IC_SET_REALTIME_ISO_1";
+	case IC_EXIT_MCELL_TEST: return "IC_EXIT_MCELL_TEST";
+	default:
+		sprintf(name, "0x%08X", event);
+		return name;
+	}
+}
+
 const char * debug_mc_name(int event) {
 	static char name[20];
 

@@ -40,6 +40,7 @@ typedef enum {
 #define blink_red() do { int i; LEDRED=LEDON; for (i=0;i<blink_cycles; i++); LEDRED=LEDOFF; for (i=0;i<blink_cycles; i++); } while (0)
 #define blink_blue() do { int i; LEDBLUE=LEDON; for (i=0;i<blink_cycles; i++); LEDBLUE=LEDOFF; for (i=0;i<blink_cycles; i++); } while(0)
 
+const char * debug_ic_name(int event);
 const char * debug_mc_name(int event);
 const char * debug_btn_name(int btn);
 const char * debug_gui_name(int event);

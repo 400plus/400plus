@@ -3,4 +3,6 @@
 
 extern type_MENUPAGE menupage_developer;
 
+void menupage_developer_start();
+
 #endif /* MENU_DEVELOPER_H_ */
