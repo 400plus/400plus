@@ -107,7 +107,11 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Tiempo: la duración (en minutos:segundos) de la exposición. Los valores van desde 00:00 hasta 100:00.
   * Calculador: entra en el [UserGuideSpanish#Calculador_Larga_Exposicion Calculador Larga Exposición]. 
  * _*Calculador DOF*_: Este ítem lanza el [UserGuideSpanish#Calculador_DOF Calculador DOF].
-
+  * Long. Focal (mm): longitud focal de la lente, en milímetros. 
+  * Av: apertura de la lente. 
+  * Distancia Focal (m): distancia focal.
+  * Min. DOF (m): distancia próxima de nitidez aceptable (sólo informativo).
+  * Max. DOF (m): distancia de fondo de nitidez aceptable (sólo informativo).
 
 
 === Página de Información ===
