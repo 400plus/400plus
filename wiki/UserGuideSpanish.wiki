@@ -71,17 +71,13 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Flash AF: Activa o desactiva el flash (durante la fase de AF), aunque se haya elevado. Los valores son "activo", "inactivo" o "sólo ext" (similar a la función persanalizada C.Fn 05).  
   * Flash de cortinilla trasera: Activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla. (similar a la función persanalizada C.Fn 09).
  * _*IR Remoto*_: Ajustes del control remoto por infrarrojos.
-  * IR Activo*: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
-  * Retardo infrarrojos*: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
+  * IR Activo: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
+  * Retardo infrarrojos: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
 
 `[*]`_Ten en cuenta que el rango de valores que admite este parámetro está limitado por las capacidades físicas de tu lente; en una lente zoom, la apertura máxima del objetivo puede ser diferente para cada posición del zoom. Por favor, ten este hecho en cuenta al establecer este valor._
 
 
 
-=== Página de Accesos directos ===
-
-
- 
 === Página de Guiones ===
 
  * _*Toma por Visor*_: Este sub-menú lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
