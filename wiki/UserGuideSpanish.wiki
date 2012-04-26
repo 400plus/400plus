@@ -132,9 +132,12 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
    * Indicador: configura la frecuencia de parpadeo del LED azul, mientras el guión se ejecuta.  
  * _*Botones*_: En este sub-menú, el usuario puede configurar el comportamiento de algunos botones especiales.
    * DISP: Cuando se activa (puesto en "Sí"), el botón DISP cambiará el brillo de la pantalla en pequeños incrementos, en vez de simplemente encender/apagar.
-   * JUMP: Asigna una acción al botón JUMP mientras que en el cuadro de diálogo principal
-.
-   * Indicador: configura la frecuencia de parpadeo del LED azul, mientras el guión se ejecuta.  
+   * JUMP: Asigna una acción al botón JUMP desde el menú principal de la cámara.
+    * ISO intermedio: cambia ISO 1/8EV (ver Notas/ISOs Extendidos).
+    * Repetir guión: repite el último guión ejecutado.
+    * Bloqueo espejo: conmuta entre bloqueo de espejo encendido/apagado.
+    * AEB: modifica la separación AEB desde 0EV a 1EV, 2EV, y de nuevo a 0EV (apagado).  
+   * Papelera: igual que el botón JUMP.  
 
  * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
   * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]. Lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
@@ -152,10 +155,10 @@ Utiliza esta página para cargar, guardar y renombrar los preajustes. El procedi
  * Selecciona la opción "Renombra" en el sub-menú presets.
  * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar un valor.
  * Utiliza el botón MENU para alternar entre minúsculas/números y mayúsculas/símbolos.
- * Utiliza el botón JUMP para cambiar la letra del valor seleccionado en el nombre (línea inferior).
+ * Utiliza el botón JUMP para cambiar el tipo de letra del valor seleccionado en el nombre (línea inferior).
  * Utiliza el botón SET para usar el valor seleccionado en el nombre y avanzar el cursor a la siguiente posición.
- * Utiliza el dial frontal o los botones de ZOOM + /ZOOM - para mover el cursor en la línea de nombre del preset (ínea inferior).
- * Presiona el botón AV para guardar tus cambios y volver al menú previo.
+ * Utiliza el dial frontal o los botones de ZOOM + /ZOOM - para mover el cursor en la línea de nombre del preset (línea inferior).
+ * Presiona el botón AV para guardar tus cambios y volver al menú anterior.
 
 Fíjate que siempre hay un número que aparece a la izquierda de cada preset. Esta característica es útil cuando quieras copiar presets a y desde varias tarjetas CF y necesitas saber los nombres de archivo para cada uno de tus presets: el número a la izquierda de un elemento coincide con el número del archivo creado en la tarjeta CF.
 
