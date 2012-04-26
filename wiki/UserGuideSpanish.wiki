@@ -164,27 +164,35 @@ Fíjate que siempre hay un número que aparece a la izquierda de cada preset. Es
 
 === Página Desarrolladores ===
 
- *NOTA*: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Ajustes antes de acceder a ella. Además, la página de desarrolladores queda fuera de la navegación normal de la página: presiona el botón de la Papelera, estando en el menú, para entrar en la página de los desarrolladores.
+*NOTA*: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Ajustes antes de acceder a ella. Además, la página de desarrolladores queda fuera de la navegación normal de la página: presiona el botón de la Papelera, estando en el menú, para entrar en la página de los desarrolladores.
 
 _Esta página se ha dejado deliberadamente en blanco._
 
-*ADVERTENCIA*: Las opciones contenidas en esta página deben usarse con sumo cuidado, probablemente hay poco que ver aquí, a no ser que quieras desarrollar tu propio hack.
+*ADVERTENCIA*: Las opciones contenidas en esta página deben usarse con sumo cuidado; probablemente hay poco que ver aquí, a no ser que quieras desarrollar tu propio hack.
 
 
 = Los Guiones =
 
-Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y, al tiempo que el guión se ejecuta, el botón de IMPRESIÓN DIRECTA parpadea (dos veces por segundo, aproximadamente).
+Cuando una secuencia de comandos se inicia o se detiene, se oirá un beep y, al tiempo que el guión se ejecuta, el botón de IMPRESIÓN DIRECTA parpadea (dos veces por segundo, aproximadamente). Para detener una secuencia de comandos en ejecución, presiona el botón de IMPRESIÓN DIRECTA de nuevo; a veces la cámara no puede parar de inmediato, entonces presiona y mantén presionado el botón de IMPRESIÓN DIRECTA hasta que oigas el beep que indica el final efectivo del guión.
 
-Para detener una secuencia de comandos en ejecución, presiona el botón de IMPRESIÓN DIRECTA de nuevo; a veces la cámara no puede parar de inmediato, entonces presiona y mantén presionado el botón de IMPRESIÓN DIRECTA hasta que oigas el beep que indica el final efectivo del guión.
+Todas las secuencias de comandos comprobarán la capacidad de la tarjeta antes de cada disparo; si el número estimado de disparos disponibles es inferior a un valor fijo (3), los guiones dejarán de ejecutarse.
 
 == AEB Extendido ==
 
-Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias:
- * Se pueden especificar hasta 9 tomas.
- * La separación entre las tomas se puede configurar hasta +-6 EV.
- * La cámara tomará todas las fotos en una secuencia, de forma automática.
+Esta secuencia de comandos realiza la misma tarea que la opción AEB estándar de la cámara, pero con algunas diferencias interesantes:
 
-En el modo M con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario, con velocidades de obturación que van desde el valor "Bulb mín:" hasta el valor "Bulb máx:", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 32 minutos.
+ * Se pueden especificar hasta 9 tomas.
+ * La separación entre las tomas se puede configurar hasta +-6EV.
+ * La cámara tomará todas las fotos en una secuencia, de forma automática.
+ * El usuario puede especificar la _dirección_ de la secuencia.  
+
+Suponiendo una configuración de 5 disparos con una separación de 1EV, así es como cada dirección se supone que funciona:
+
+ * +/-: Una foto al EV actual, y el resto por encima y por debajo de él: 0EV, +1EV, -1EV, +2EV,-2EV.
+ * +: Una foto al EV actual, y el resto por encima de él: 0EV, +1EV, +2EV, +3EV, +4EV.
+ * -: Una foto al EV actual, y el resto por debajo de él: 0EV, -1EV, -2EV, -3EV, -4EV.
+
+En el modo 'M' con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario (en este modo, el número de disparos configurado es irrelevante), con velocidades de obturación que van desde el valor "Bulb mín:" hasta el valor "Bulb máx:", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 32 minutos.
 
 == Intervalometro ==
 
