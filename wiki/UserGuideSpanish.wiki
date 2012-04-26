@@ -16,6 +16,7 @@ Spanish translation provided by Jmtd.
  * [UserGuideSpanish#Los_Guiones Los Guiones]
  * [UserGuideSpanish#Los_preajustes_(presets) Los preajustes (presets)]
  * [UserGuideSpanish#AutoISO AutoISO]
+ * [UserGuideSpanish#ISO en visor]
  * [UserGuideSpanish#Seleccion_del_patron_AF Seleccion del Patron AF]
  * [UserGuideSpanish#Los_extras Los extras]
  * [UserGuideSpanish#Otros_regalos Otros regalos]
@@ -57,20 +58,30 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Min ISO: mínimo valor ISO que AutoISO usará.
   * Max ISO: máximo valor ISO que AutoISO usará.
   * Min Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
-  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener.
+  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener [*].
  * _*ISO*_: Cambia los ISOs intermedios. Los valores oscilan entre 100 y 3000.
  * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV.
- * _*Comp. flash*_: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
- * _*Bloquea Flash*_: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
  * _*AEB_*: Igual que la función "AEB", pero extiende el rango desde -6 a +6 EV.
  * _*Temp. color (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos WB a 'personalizado'.
+ * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo. (similar a la función persanalizada C.Fn 07).
+ * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijados por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
+* _*Flash*_: Ajustes del Flash.
+  * Comp. flash: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
+  * Bloquea Flash: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
+  * Flash AF: Activa o desactiva el flash (durante la fase de AF), aunque se haya elevado. Los valores son "activo", "inactivo" o "sólo ext" (similar a la función persanalizada C.Fn 05).  
+  * Flash de cortinilla trasera: Activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla. (similar a la función persanalizada C.Fn 09).
+* _*IR Remoto*_: Ajustes del control remoto por infrarrojos.
+  * IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
+  * Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
+
+[*]_Ten en cuenta que el rango de valores que admite este parámetro está limitado por las capacidades físicas de tu lente; en una lente zoom, la apertura máxima del objetivo puede ser diferente para cada posición del zoom. Por favor, ten este hecho en cuenta al establecer este valor._
+
+
 
 === Página de Accesos directos ===
 
- * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo. (similar a la función persanalizada C.Fn 07).
- * _*Flash de cortinilla trasera*_: activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla. (similar a la función persanalizada C.Fn 09).
- * _*Flash AF*_: Activa o desactiva el flash (durante la fase de AF), aunque se haya elevado. Los valores son "activo", "inactivo" o "sólo ext" (similar a la función persanalizada C.Fn 05).
 
+ 
 === Página de Guiones ===
 
  * _*Toma por Visor*_: Este sub-menú lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
@@ -109,7 +120,6 @@ _Esta página se ha dejado deliberadamente en blanco_.
 
 === Página de Ajustes ===
 
- * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijados por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
  * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
  * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), y si estamos en cualquiera de los modos creativos, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor. En los modos Tv y M, el nuevo valor ISO también se muestra en el visor (sobre la velocidad de obturación).
