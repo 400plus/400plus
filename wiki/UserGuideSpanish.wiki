@@ -80,7 +80,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Página de Guiones ===
 
-* _*AEB ext.*_: Este ítem lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido].
+ * _*AEB ext.*_: Este ítem lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido].
   * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos.
   * Marcos: número de tomas a disparar. Los valores van de 1 a 9.
   * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +1/3  hasta +6EV.
