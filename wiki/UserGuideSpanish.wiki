@@ -164,11 +164,11 @@ Fíjate que siempre hay un número que aparece a la izquierda de cada preset. Es
 
 === Página Desarrolladores ===
 
-_*NOTA*_: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Configuración antes de acceder a ella.
+ *NOTA*: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Ajustes antes de acceder a ella. Además, la página de desarrolladores queda fuera de la navegación normal de la página: presiona el botón de la Papelera, estando en el menú, para entrar en la página de los desarrolladores.
 
-_Esta página se ha dejado deliberadamente en blanco_.
+_Esta página se ha dejado deliberadamente en blanco._
 
-*ADVERTENCIA*: Estas opciones deben usarse con sumo cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
+*ADVERTENCIA*: Las opciones contenidas en esta página deben usarse con sumo cuidado, probablemente hay poco que ver aquí, a no ser que quieras desarrollar tu propio hack.
 
 
 = Los Guiones =
