@@ -194,7 +194,17 @@ Suponiendo una configuración de 5 disparos con una separación de 1EV, así es 
 
 En el modo 'M' con el valor de apertura fijado en BULB, este guión disparará la cámara tantas veces como sea necesario (en este modo, el número de disparos configurado es irrelevante), con velocidades de obturación que van desde el valor "Bulb mín:" hasta el valor "Bulb máx:", separando cada disparo de acuerdo con el valor del "Paso (EV)". Recuerda que en este modo podemos usar tiempos de exposición de hasta 32 minutos.
 
-== Intervalometro ==
+== Flash AEB ==
+
+Igual que en el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido], pero sólo la compensación de la exposición del flash va a cambiar.
+
+== ISO AEB ==
+
+La cámara hace una fotografía para cada ISO configurado.
+
+Es posible que desees configurar la cámara para al modo M antes de usar este guión.
+
+== Intervalometro ==  >>>>> HASTA AQUÍ LA TRADUCCIÓN DE MOMENTO <<<<<
 
 Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas. Úsalo para crear películas de stop-motion. Por ejemplo: ajusta "EAEB" a "Sí" para ejecutar el guión de [UserGuideSpanish#AEB_Extendido AEB Extendido] en cada disparo.
 
