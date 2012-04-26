@@ -120,19 +120,11 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*Número de cuerpo*_: El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara).
  * _*Versión*_: El número de la versión del software 400plus actualmente instalado.
 
-=== Página Desarrolladores ===
-
-_*NOTA*_: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Configuración antes de acceder a ella.
-
-_Esta página se ha dejado deliberadamente en blanco_.
-
-*ADVERTENCIA*: Estas opciones deben usarse con sumo cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
 
 === Página de Ajustes ===
 
- * _*IR Activo*_: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
- * _*Retardo infrarrojos*_: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
- * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), y si estamos en cualquiera de los modos creativos, utiliza los botones IZQUIERDA y DERECHA para cambiar la ISO mientras miras por el visor. En los modos Tv y M, el nuevo valor ISO también se muestra en el visor (sobre la velocidad de obturación).
+ * _*Lenguaje*_: Ajuste el idioma de los menús de 400plus, dejar como "Cámara", para usar el mismo idioma configurado en los menús de la cámara.
+ * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), utiliza los botones del pad para mostrar y cambiar el ISO mientras miras por el visor. Véase [UserGuideSpanish#ISO_en_visor ISO en visor] para más información.
  * _*Menú de desarrolladores*_: Cuando se activa (puesto en "Sí"), el menú será accesible como una página.
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones].
   * LCD bajo: cuando está activado (puesto en "Sí"), el brillo de la pantalla LCD se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado.
@@ -159,6 +151,15 @@ Utiliza esta página para cargar, guardar y renombrar los preajustes. El procedi
  * Presiona el botón AV para guardar tus cambios y volver al menú previo.
 
 Fíjate que siempre hay un número que aparece a la izquierda de cada preset. Esta característica es útil cuando quieras copiar presets a y desde varias tarjetas CF y necesitas saber los nombres de archivo para cada uno de tus presets: el número a la izquierda de un elemento coincide con el número del archivo creado en la tarjeta CF.
+
+=== Página Desarrolladores ===
+
+_*NOTA*_: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Configuración antes de acceder a ella.
+
+_Esta página se ha dejado deliberadamente en blanco_.
+
+*ADVERTENCIA*: Estas opciones deben usarse con sumo cuidado, probablemente hay poco que ver aquí, a menos que quieras desarrollar tu propio hack.
+
 
 = Los Guiones =
 
