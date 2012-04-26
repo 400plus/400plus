@@ -202,7 +202,7 @@ Igual que en el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido], pero 
 
 La cámara hace una fotografía para cada ISO configurado.
 
-Es posible que desees configurar la cámara para al modo M antes de usar este guión.
+Probablemente desees configurar la cámara en el modo M antes de usar este guión.
 
 == Intervalometro ==  >>>>> HASTA AQUÍ LA TRADUCCIÓN DE MOMENTO <<<<<
 
