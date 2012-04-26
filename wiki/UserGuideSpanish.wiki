@@ -127,9 +127,11 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), utiliza los botones del pad para mostrar y cambiar el ISO mientras miras por el visor. Véase [UserGuideSpanish#ISO_en_visor ISO en visor] para más información.
  * _*Menú de desarrolladores*_: Cuando se activa (puesto en "Sí"), el menú será accesible como una página.
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_guiones Los Guiones].
-  * LCD bajo: cuando está activado (puesto en "Sí"), el brillo de la pantalla LCD se atenúa para preservar la vida de la batería. El valor se restaura después de que el guión se haya completado.
-  * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado.
- * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
+   * APO dsbl: apagado automático (Auto Power Off) desactivado; cuando está activo (puesto en "Sí"), la opción de auto-apagado de la cámara está desactivada. El valor se restaura después de que el guión se haya completado.
+   * LCD: configura el brillo de la pantalla LCD mientras el guíón se ejecuta.
+   * Indicador: configura la frecuencia de parpadeo del LED azul, mientras el guión se ejecuta.  
+
+* _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
   * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]. Lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
   * 400plus: cuando está activo (puesto en "Sí"), la carga de un preset reclama los propios ajustes 400plus (guiones,...).
