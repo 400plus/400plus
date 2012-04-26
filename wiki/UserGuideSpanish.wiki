@@ -83,25 +83,27 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*AEB ext.*_: Este ítem lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido].
   * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos.
   * Marcos: número de tomas a disparar. Los valores van de 1 a 9.
-  * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +1/3  hasta +6EV.
+  * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +1/3EV hasta +6EV.
   * Direccion: especifica la dirección de la secuencia EAEB. 
   * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 1/4000 de segundo hasta 32 minutos).
   * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 1/4000 de segundo hasta 32 minutos).
- 
-
-* _*Toma por Visor*_: Este sub-menú lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
-  * Demora: selecciona el disparo inmediato, o una demora de 2 segundos.
-  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro).
-  * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de cada disparo, por lo que puedes mover la mano de nuevo para hacer otra toma.
-  * Instantánea: si se selecciona (puesto en "Sí"), se produce la toma tan pronto como se detecta una mano; de lo contrario, el guión va a esperar hasta que la mano se retira.
-  * _*Interval.*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro].
+ * _*Flash AEB*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#Flash_AEB Flash AEB]. 
+ * _*ISO AEB*_: Este ítem lanza y configura el guión del [UserGuideSpanish#ISO_AEB ISO AEB]; cada elemento en el submenú de configuración indica si la cámara debe disparar una toma para ese valor ISO. 
+ * _*Interval.*_: Este ítem lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro].
   * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos.
-  * Tiempo (s): tiempo (en segundos) entre cada disparo. Los valores van desde 0 a 250.
-  * EAEB: selecciona si [UserGuideSpanish#AEB_Extendido AEB Extendido] se debe utilizar en cada disparo.
-  * Tomas: el número total de disparos a hacer. Los valores van desde 1 a 250, o selecciona "sin límite" para disparar sin cesar.
+  * Tiempo: el intervalo de tiempo (en minutos:segundos) entre cada disparo (o grupo de disparos). Los valores van desde 00:00 hasta 05:00.
+  * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
+  * Tomas: el número total de disparos a hacer. Los valores van desde 1 a 250, e incluye también el valor "sin límite" para disparar sin cesar.
+ * _*Toma por Visor*_: Este ítem lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
+  * Demora: selecciona el disparo inmediato, o una demora de 2 segundos.
+  * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
+  * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de haberse completado, por lo que puedes mover la mano de nuevo para continuar usando el guión.
+  * Instantánea: si se selecciona (puesto en "Sí"), se produce la toma tan pronto como se detecta una mano; de lo contrario, el guión va a esperar hasta que la mano se retira.
  * _*Temporizador*_: Este sub-menú lanza y configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador].
-  * Demora (s): tiempo (en segundos) que el guión debe esperar antes de disparar. Los valores van desde 0 a 250.
-  * Acción: la acción a realizar (una toma, AEB extendido, Intervalómetro).
+  * Demora: tiempo (en minutos:segundos) que el guión debe esperar antes de disparar. Los valores van desde 00:00 hasta 05:00.
+  * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
+ * _*Larga Exposición*_: Este sub-menú lanza y configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador].
+
 
 === Página de Información ===
 
