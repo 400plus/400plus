@@ -206,15 +206,22 @@ Probablemente desees configurar la cámara en el modo M antes de usar este guió
 
 == Intervalometro ==  >>>>> HASTA AQUÍ LA TRADUCCIÓN DE MOMENTO <<<<<
 
-Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), esperando el tiempo especificado entre las tomas. Úsalo para crear películas de stop-motion. Por ejemplo: ajusta "EAEB" a "Sí" para ejecutar el guión de [UserGuideSpanish#AEB_Extendido AEB Extendido] en cada disparo.
+Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), con una demora configurable entre disparos. Úsalo, por ejemplo, para crear películas de _stop-motion_.
+
+Ten en cuenta que 400plus siempre tratará de mantener una cadencia constante de disparos, independientemente del tiempo de exposición: si está configurada para disparar, por ejemplo, a intervalos de 15s, entonces hará una fotografía exactamente cada 15 segundos, incluso si la exposición es de 10s. Si un disparo en la secuencia tiene un tiempo de exposición más largo que el intervalo de tiempo configurado, 400plus se saltará tantos disparos como sea necesario y reprogramará la secuencia. Esto también ocurrirá cuando el intervalómetro esté configurado para disparar cualquier acción multi-disparo.
 
 == Toma por Visor (ondeo) ==
 
-Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" (en la parte posterior de la cámara) se active. Úsalo para disparar la cámara sin un control remoto y evitar trepidciones. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si están configurados en el sub-menú "Acción". Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que puedas realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (como tu mano o tu dedo) bloquee el sensor y luego se retire; sin embargo, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
+Este guión disparará la cámara cuando el "sensor de apagado de la pantalla" (en la parte posterior de la cámara) se active. Úsalo para disparar la cámara sin la necesidad de un control remoto y evitar así trepidaciones. Si la opción "Repetición" está activada, el guión no terminará después de ser disparado, sino que se repetirá de nuevo para que puedas realizar más tomas. De forma predeterminada, el guión esperará hasta que algo (como tu mano o tu dedo) bloquee el sensor y luego se retire para disparar la cámara. Sin embargo, cuando esté activada la opción " Instantánea", se disparará la cámara tan pronto como se bloquee el sensor.
 
 == Temporizador ==
 
-Este guión simplemente añade una pausa configurable antes de disparar la cámara. Se puede ejecutar el [UserGuideSpanish#AEB_Extendido AEB Extendido] o el [UserGuideSpanish#Intervalometro Intervalómetro], si está configurado en el sub-menú "Acción".
+Este guión simplemente añade una pausa configurable antes de disparar la cámara.
+
+== Larga Exposición ==
+
+Exactamente eso, una larga exposición configurable desde 15 segundos hasta 100 minutos.
+ 
 
 = Los preajustes (presets) =
 
