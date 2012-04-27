@@ -240,9 +240,9 @@ SUGERENCIA: Si planeas usar un filtro de densidad neutra, puedes medir la escena
 
 La Calculadora DOF puede ayudar a determinar la profundidad de campo de una escena, o el rango de distancias que serán fotografiados en foco; para obtener más información acerca de este concepto, por favor visita [http://www.dofmaster.com/index.html].
 
-Después de entrar en la calculadora de DOF, ajustar la distancia focal de la lente, la abertura que está utilizando, y la distancia desde la cámara al sujeto. La secuencia de comandos mostrará las distancias cercanas y lejanas de una nitidez aceptable. Ahora puede cambiar la apertura y / o la distancia de enfoque hasta que la profundidad de campo que se muestra coincide con la parte de la escena que usted considere importante y queremos seguir siendo el foco.
+Después de entrar en la calculadora DOF, ajusta la distancia focal de la lente, la apertura que estás utilizando, y la distancia desde la cámara al sujeto. El guión mostrará entonces las distancias próxima y lejana de nitidez aceptable. Ahora puedes cambiar la apertura y/o la distancia de enfoque hasta que la profundidad de campo que se muestra coincida con la parte de la escena que tú consideres importante y quieras que permanezca detro de foco.
 
-Cuando el "Max. DOF (m) Por" entrada muestra "INF", la distancia hiperfocal se ha alcanzado, y por lo tanto de todo, desde la distancia cercana de enfoque aceptable hasta el infinito será aguda.
+Cuando la entrada "Max. DOF (m)" muestra "INF!", se ha alcanzado la distancia hiperfocal, y por lo tanto todo, desde la distancia próxima de enfoque aceptable hasta el infinito estará enfocado.
 
 = Los preajustes (presets) =
 
