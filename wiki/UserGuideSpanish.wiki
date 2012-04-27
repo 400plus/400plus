@@ -221,7 +221,21 @@ Este guión simplemente añade una pausa configurable antes de disparar la cáma
 == Larga Exposición ==
 
 Exactamente eso, una larga exposición configurable desde 15 segundos hasta 100 minutos.
+
+Ten en cuenta que la cámara tiene que estar en el modo M + BULB para hacer una exposición larga; este guión ajustará la cámara por tí, pero la configuración de la abertura adecuada es responsabilidad del usuario.
  
+== Calculador Larga Exposición ==
+
+El calculador de larga exposición es una herramienta creada para ayudar al fotógrafo a determinar rápidamente el tiempo de exposición requerido por una escena en particular. La idea que hay detrás del calculador es que puedas medir rápidamente una escena usando una alta sensibilidad ISO y una gran apertura, para luego bajar el valor ISO y reducir la abertura, pero aumentando el tiempo de exposición en consecuencia.
+
+Por ejemplo, supongamos que queremos fotografiar una escena nocturna; decidimos utilizar la sensibilidad más baja posible (100 ISO) para evitar el ruido, y una apertura relativamente cerrada (f/8), para obtener la profundidad de campo que necesitamos. Utilizando estos parámetros, el tiempo de exposición necesario puede fácilmente sobrepasar los 30 segundos, y por ello no podemos usar la cámara para hacer una medición fiable.
+
+Pero podemos seleccionar temporalmente una alta sensibilidad y una gran apertura (por ejemplo ISO1600 y f/2.8), medir la escena, y determinar que necesitaríamos una exposición de 15 segundos con esos parámetros. Luego entramos en el calculador de larga exposición, reducimos el valor ISO a 100, y cerramos el diafragma a f/8; el indicador de Ev mostrará un valor de -9, lo que significa que con los parámetros actuales la exposición es 9 pasos inferior al valor medido. Ahora podemos aumentar el tiempo de exposición hasta que el indicador Ev vuelve a 0, indicando así que los parámetros actuales resultarían en la misma exposición que teníamos al principio; en nuestro caso significa aumentar el tiempo de exposición desde 15 segundos a 32 minutos. Por último, sólo tienes que pulsar en "Aplicar" para configurar la cámara con estos parámetros, y poner en marcha el guión de larga exposición.
+
+NOTA: El calculador de larga exposición sólo aplicará los valores presentados en la pantalla cuando el tiempo de exposición (Tv) sea de un minuto o más; para tiempos de exposición más cortos, el botón "Aplicar" estará simplemente inactivo.
+
+TIP: Si usted planea usar un filtro ND, se puede medir la escena sin la ND, a continuación, entrar en el calculador de exposición largo y ajustar la exposición para obtener un resultado Ev inversa al valor del filtro ND. Por ejemplo, suponiendo que tenemos un filtro ND8 (8 pasos de la reducción de la luz): si la cámara mide 1/120s f/4.0 ISO1600 sin el filtro, a continuación, seleccione 2 'f/8.0 ISO100 para lograr un EV de 8.
+
 
 = Los preajustes (presets) =
 
