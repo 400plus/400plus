@@ -204,7 +204,7 @@ La cámara hace una fotografía para cada ISO configurado.
 
 Probablemente desees configurar la cámara en el modo M antes de usar este guión.
 
-== Intervalometro ==  >>>>> HASTA AQUÍ LA TRADUCCIÓN DE MOMENTO <<<<<
+== Intervalometro ==  
 
 Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), con una demora configurable entre disparos. Úsalo, por ejemplo, para crear películas de _stop-motion_.
 
@@ -244,7 +244,7 @@ Después de entrar en la calculadora DOF, ajusta la distancia focal de la lente,
 
 Cuando la entrada "Max. DOF (m)" muestra "INF!", se ha alcanzado la distancia hiperfocal, y por lo tanto todo, desde la distancia próxima de enfoque aceptable hasta el infinito estará enfocado.
 
-= Los preajustes (presets) =
+= Los preajustes (presets) = >>>>> HASTA AQUÍ LA TRADUCCIÓN DE MOMENTO <<<<<
 
 Un "preset" (preajuste) es una instantánea completa que contiene todos los ajustes de la cámara y los parámetros de configuración. Los presets se pueden utilizar para pre-configurar la cámara para una situación específica de disparo (como "paisaje", "retrato", "poca luz", "pájaros en vuelo", etc.), y te permiten tener un acceso rápido a estas configuraciones después. Los preajustes son almacenados en la tarjeta CF en sí. Se pueden almacenar hasta 9 preajustes. Sin embargo, el número de preajustes es ilimitado si tenemos en cuenta que puedes utilizar múltiples tarjetas CF cada una de ellas conteniendo hasta 9 preajustes diferentes.
 
