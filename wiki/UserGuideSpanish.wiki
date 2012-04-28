@@ -67,7 +67,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Comp. flash: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
   * Bloquea Flash: Fuerza la desactivación del flash durante el disparo actual, aunque se haya elevado el flash.
   * Flash AF: Activa o desactiva el flash (durante la fase de AF), aunque se haya elevado. Los valores son "activo", "inactivo" o "sólo ext" (similar a la función persanalizada C.Fn 05).  
-  * Flash de cortinilla trasera: Activa / desactiva la sincronización del flash a la función personalizable de segunda cortinilla. (similar a la función persanalizada C.Fn 09).
+  * Flash 2ª cortinilla: Activa / desactiva la sincronización del flash a la función personalizable de cortinilla trasera. (similar a la función persanalizada C.Fn 09).
  * _*IR Remoto*_: Ajustes del control remoto por infrarrojos.
   * IR Activo: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
   * Retardo infrarrojos: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
