@@ -78,11 +78,11 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Página de Guiones ===
 
- * _*AEB ext.*_: Este ítem lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido].
-  * Demora: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos.
+ * _*AEB extendido*_: Este ítem lanza y configura el guión del [UserGuideSpanish#AEB_Extendido AEB Extendido].
+  * Demora 2s: selecciona si el guión empieza a disparar inmediatamente o debe esperar 2 segundos.
   * Marcos: número de tomas a disparar. Los valores van de 1 a 9.
   * Paso (EV): separación en EV (valor de exposición) entre cada marco (disparo). Los valores van desde +1/3EV hasta +6EV.
-  * Direccion: especifica la dirección de la secuencia EAEB. 
+  * Dirección: especifica la dirección de la secuencia EAEB. 
   * Bulb min: velocidad mínima del obturador en modo BULB (puede ir desde 1/4000 de segundo hasta 32 minutos).
   * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 1/4000 de segundo hasta 32 minutos).
  * _*Flash AEB*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#Flash_AEB Flash AEB]. 
