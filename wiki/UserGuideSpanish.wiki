@@ -131,12 +131,11 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*Botones*_: En este sub-menú, el usuario puede configurar el comportamiento de algunos botones especiales.
    * DISP: Cuando se activa (puesto en "Sí"), el botón DISP cambiará el brillo de la pantalla en pequeños incrementos, en vez de simplemente encender/apagar.
    * JUMP: Asigna una acción al botón JUMP desde el menú principal de la cámara.
-    * ISO intermedio: cambia ISO 1/8EV (ver [UserGuideSpanish#Notas/ISOs_Extendidos Notas/ISOs Extendidos]).
+    * ISO intermedio: cambia ISO 1/8EV (ver [UserGuideSpanish#ISOs_Extendidos Notas/ISOs Extendidos]).
     * Repetir guión: repite el último guión ejecutado.
     * Bloqueo espejo: conmuta entre bloqueo de espejo encendido/apagado.
     * AEB: modifica la separación AEB desde 0EV a 1EV, 2EV, y de nuevo a 0EV (apagado).  
-   * Papelera: igual que el botón JUMP.  
-
+   * Papelera: igual que el botón JUMP.
  * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
   * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]. Lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
