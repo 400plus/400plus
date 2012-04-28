@@ -293,13 +293,12 @@ Para cambiar la compensación de la exposición en el modo M, utiliza las teclas
 
 = ISO en visor =
 
-Cuando esta opción está activa (puesta en "Sí"), y si la cámara está en cualquier modo creativo, puedes cambiar el valor ISO mientras miras por el visor; en los modos Tv y M, el nuevo valor de ISO también se muestra en el visor:
+Cuando esta opción está activa (puesta en "Sí"), y si la cámara está en cualquier modo creativo, puedes cambiar el valor ISO mientras miras por el visor; en los modos Tv y M, el nuevo valor ISO también se muestra en el visor:
 
  * Pon la cámara en el modo M o en el modo Tv.
- * Mira a través del visor, y presiona hasta la mitad el botón disparador; deberías ver a la medición actual (velocidad de obturación, apertura...).
- * A continuación, pulsa los botones IZQUIERDA y DERECHA para cambiar el valor ISO (o justo para que aparezca), el nuevo valor se visualiza en el visor, en el mismo lugar donde normalmente se muestra la velocidad de obturación, mientras que el botón está presionado.
-     * En los modos P y Av, ISO también se puede cambiar, pero no se muestra.
-
+ * Mira a través del visor, y presiona hasta la mitad el botón disparador; deberías ver la medición actual (velocidad de obturación, apertura...).
+ * A continuación, pulsa los botones IZQUIERDA y DERECHA para cambiar el valor ISO (o ARRIBA para que aparezca); el nuevo valor se visualiza en el visor, en el mismo lugar donde normalmente se muestra la velocidad de obturación, mientras que el botón esté presionado.
+ * En los modos P y Av, el valor ISO también se puede cambiar, pero no se muestra.
 
 = Seleccion del patron AF =
 
@@ -317,7 +316,6 @@ Se han agregado a la cámara los siguientes extras:
 
 === En la zona creativa ===
 
- * Utiliza el botón JUMP para alternar entre ISOS extendidos: puedes ajustar el valor con incrementos de 1/8 EV (ver [UserGuideSpanish#ISOs_Extendidos Notas / ISOs Extendidos]).
  * En la pantalla de selección de ISO, pulsa el botón de IMPRESIÓN DIRECTA para activar el [UserGuideSpanish#AutoISO AutoISO]. Selecciona cualquier valor ISO para desactivarlo.
  * En el cuadro de diálogo de selección del modo de medición, pulsa IMPRESIÓN DIRECTA para establecer la medición puntual (ver [UserGuideSpanish#Modo_de_medicion_puntual Notas / Modo de medición puntual]).
  * En el cuadro de diálogo de selección del balance de blancos, pulsa IMPRESIÓN DIRECTA para ajustar la temperatura de color definida por el usuario.
@@ -332,12 +330,16 @@ Mientras se mira por el visor, los botones de ISO y WB están inactivos, para pr
 
 = Soporte mult-idioma =
 
-Actualmente, 400plus soporta 5 idiomas:
+Actualmente, 400plus soporta 9 idiomas:
 
  * Inglés.
+ * Finlandés.
  * Francés.
  * Alemán.
  * Italiano.
+ * Polaco.
+ * Ruso.
+ * Chino simplificado.
  * Español.
 
 El deseo es tener 400plus en tantos idiomas como sea posible! Si estás interesado en ayudar en la conversión de 400plus a un idioma diferente, sin duda tu esfuerzo es bienvenido. Háznoslo saber mediante una solicitud a través del foro!
@@ -345,6 +347,12 @@ El deseo es tener 400plus en tantos idiomas como sea posible! Si estás interesa
 = Notas =
 
 Algunas notas y comentarios.
+
+== La _desparecida_ ISO-3200 ==
+
+Versiones anteriores de 400plus soportaban la ISO-3200; o más precisamente, parecían soportarla: mientras la cámara mostraba "3200" como valor ISO, las imágenes estaban realmente siendo disparadas a ISO-3000. Las últimas versiones de 400plus corrigen este error, y por lo tanto ahora sólo se muestran valores de hasta ISO-3000.
+
+Considera, por tanto, que una imagen tomada a ISO-3000 será exactamente la misma que si hubiera sido disparada con la vieja ISO-3200.
 
 == ISOs Extendidos ==
 
@@ -360,7 +368,5 @@ El modo de medición puntual es como el modo de "medición parcial" estándar, p
 
 Se han comunicado y confirmado los siguientes errores relevantes:
 
- * Issue #15: La exposición cambia durante EAEB.
- * Issue #130: La configuración no se restaura si la cámara se apaga mientras se ejecuta un guión.
- * Issue #156: La ayuda al autofoco no se dispara desde 430EX cuando se utilizan patrones de AF extendidos.
+ * Issue #156: La ayuda al autofoco no se dispara desde el 430EX cuando se utilizan patrones de AF extendidos.
  * Issue #153: El menú estándar parpadea ántes del menú de accesos directos.
