@@ -325,7 +325,7 @@ Otros cambios en el comportamiento de la cámara, no descritos anteriormente.
 
 Mientras se mira por el visor, los botones de ISO y WB están inactivos, para prevenir cambios accidentales en los ajustes de la cámara al presionar la nariz o la mejilla del usuario contra el cuerpo de la cámara.
 
-= Soporte mult-idioma =
+== Soporte mult-idioma ==
 
 Actualmente, 400plus soporta 9 idiomas:
 
