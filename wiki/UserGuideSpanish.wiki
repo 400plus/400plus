@@ -25,7 +25,7 @@ Traducción al español realizada por Jmtd.
 
 == Qué es 400plus? ==
 
-400plus es un software libre de mejora del firmware que ofrece funcionalidades adicionales para tu cámara Canon 400D/XTi de manera tanto no destructiva como no permanente. Funciona cargándose automáticamente en la memoria de tu cámara en el arranque para mejorar el firmware original de la cámara, pero no es una actualización permanente del firmware y se puede quitar fácilmente. Está diseñado específicamente para la Canon EOS 400D/XTi y no funciona con otros modelos de cámara.
+*400plus* es un software libre de mejora del firmware que ofrece funcionalidades adicionales para tu cámara Canon 400D/XTi de manera tanto no destructiva como no permanente. Funciona cargándose automáticamente en la memoria de tu cámara en el arranque para mejorar el firmware original de la cámara, pero no es una actualización permanente del firmware y se puede quitar fácilmente. Está diseñado específicamente para la Canon EOS 400D/XTi y no funciona con otros modelos de cámara.
 
 == Guía del Usuario ==
 
