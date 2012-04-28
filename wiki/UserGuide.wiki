@@ -84,7 +84,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
  * _*Long exposure*_: This item launches and configures the [#Long_Exposure Long Exposure] script:
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Time: the length (in minutes:seconds) of the exposure. Values range from 00:00 to 100:00.
+    * Time: the length (in minutes:seconds) of the exposure. Values range from 00:15 to 100:00.
     * Calculator: enter [#Long_Exposure_Calculator the long exposure calculator].
  * _*DOF Calculator*_: This item launches the [#DOF_Calculator DOF Calculator]:
     * Focal length (mm): Len's focal length, in millimeters.
