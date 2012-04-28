@@ -119,7 +119,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*Versión*_: El número de la versión del software 400plus actualmente instalado.
 
 
-=== Página de Ajustes ===
+=== Pagina de Ajustes ===
 
  * _*Lenguaje*_: Ajuste el idioma de los menús de 400plus, dejar como "Cámara", para usar el mismo idioma configurado en los menús de la cámara.
  * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), utiliza los botones del pad para mostrar y cambiar el ISO mientras miras por el visor. Véase [UserGuideSpanish#ISO_en_visor ISO en visor] para más información.
@@ -161,7 +161,7 @@ Fíjate que siempre hay un número que aparece a la izquierda de cada preset. Es
 
 === Página Desarrolladores ===
 
-*NOTA*: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la Página de Ajustes antes de acceder a ella. Además, la página de desarrolladores queda fuera de la navegación normal de la página: presiona el botón de la Papelera, estando en el menú, para entrar en la página de los desarrolladores.
+*NOTA*: La página de los desarrolladores está desactivada por defecto, y debe estar habilitada en la [UserGuideSpanish#Pagina_de_Ajustes Página de Ajustes] antes de acceder a ella. Además, la página de desarrolladores queda fuera de la navegación normal de la página: presiona el botón de la Papelera, estando en el menú, para entrar en la página de los desarrolladores.
 
 _Esta página se ha dejado deliberadamente en blanco._
 
