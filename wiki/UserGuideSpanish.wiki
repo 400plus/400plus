@@ -136,8 +136,8 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
     * Bloqueo espejo: conmuta entre bloqueo de espejo encendido/apagado.
     * AEB: modifica la separación AEB desde 0EV a 1EV, 2EV, y de nuevo a 0EV (apagado).  
    * Papelera: igual que el botón JUMP.
- * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes].
-  * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) Los Preajustes]. Lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
+ * _*Presets (Preajustes)*_: Este menú configura el comportamiento de [UserGuideSpanish#Los_preajustes_(presets) los Preajustes].
+  * Usa A-DEP: cuando está activo (puesto en "Sí"), el modo A-DEP es "secuestrado" por [UserGuideSpanish#Los_preajustes_(presets) los Preajustes]. Lee [UserGuideSpanish#El_modo_A-DEP El modo A-DEP] para más información.
   * Cámara: cuando está activo (puesto en "Sí"), la carga de un preset reclama los parámetros de disparo de la cámara (velocidad de obturación, apertura, ISO,...).
   * 400plus: cuando está activo (puesto en "Sí"), la carga de un preset reclama los propios ajustes 400plus (guiones,...).
   * Ajustes: cuando está activo (puesto en "Sí"), la carga de un preset reclama los ajustes rara vez cambiados (lenguaje, sistema de video,...).
@@ -147,7 +147,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Página de Presets ===
 
-Utiliza esta página para cargar, guardar y renombrar los preajustes. El procedimiento para renombrar un preset es:
+Utiliza esta página para cargar, guardar y renombrar [UserGuideSpanish#Los_preajustes_(presets) los Preajustes]. El procedimiento para renombrar un preset es:
 
  * Selecciona la opción "Renombra" en el sub-menú presets.
  * Utiliza ARRIBA / ABAJO / IZQUIERDA / DERECHA para seleccionar un valor.
