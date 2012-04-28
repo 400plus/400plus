@@ -102,7 +102,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
  * _*Larga Exposición*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Larga_Exposicion Larga Exposición].
   * Demora 2s: selecciona el disparo inmediato, o una demora de 2 segundos. 
-  * Tiempo: la duración (en minutos:segundos) de la exposición. Los valores van desde 00:00 hasta 100:00.
+  * Tiempo: la duración (en minutos:segundos) de la exposición. Los valores van desde 00:15 hasta 100:00.
   * Calculador: entra en el [UserGuideSpanish#Calculador_Larga_Exposicion Calculador Larga Exposición]. 
  * _*Calculadora DOF*_: Este ítem lanza el [UserGuideSpanish#Calculadora_DOF Calculadora DOF].
   * Long. Focal (mm): longitud focal de la lente, en milímetros. 
