@@ -121,7 +121,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Pagina de Ajustes ===
 
- * _*Lenguaje*_: Ajuste el idioma de los menús de 400plus, dejar como "Cámara", para usar el mismo idioma configurado en los menús de la cámara.
+ * _*Idioma*_: Ajuste el idioma de los menús de 400plus, dejar como "Cámara", para usar el mismo idioma configurado en los menús de la cámara.
  * _*ISO en visor*_: Cuando se activa (puesto en "Sí"), utiliza los botones del pad para mostrar y cambiar el ISO mientras miras por el visor. Véase [UserGuideSpanish#ISO_en_visor ISO en visor] para más información.
  * _*Menú de desarrolladores*_: Cuando se activa (puesto en "Sí"), el menú será accesible como una página.
  * _*Guiones*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#Los_Guiones Los Guiones].
