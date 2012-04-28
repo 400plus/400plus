@@ -53,10 +53,10 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
  * _*AutoISO*_: Este sub-menú configura el comportamiento de [UserGuideSpanish#AutoISO AutoISO].
   * Activo: cuando está puesto en "Sí", el AutoISO está activo.
-  * Min ISO: mínimo valor ISO que AutoISO usará.
-  * Max ISO: máximo valor ISO que AutoISO usará.
-  * Min Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
-  * Max Av: máxima apertura de diafragma que AutoISO tratará de mantener `[*]`.
+  * Mín ISO: mínimo valor ISO que AutoISO usará.
+  * Máx ISO: máximo valor ISO que AutoISO usará.
+  * Mín Tv: mínima velocidad de obturación que AutoISO tratará de mantener.
+  * Máx Av: máxima apertura de diafragma que AutoISO tratará de mantener `[*]`.
  * _*ISO*_: Cambia los ISOs intermedios. Los valores oscilan entre 100 y 3000.
  * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV.
  * _*AEB_*: Igual que la función "AEB", pero extiende el rango desde -6 a +6 EV.
