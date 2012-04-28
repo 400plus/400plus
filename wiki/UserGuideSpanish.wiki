@@ -72,7 +72,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * IR Activo: Cuando está en "Sí" permite el uso del control remoto por infrarrojos. Si se fija en "No" se desactiva.
   * Retardo infrarrojos: Selecciona si la cámara debe tomar la foto inmediatamente o esperar 2 segundos cuando se usa el control remoto por infrarrojos.
 
-`[*]`_Ten en cuenta que el rango de valores que admite este parámetro está limitado por las capacidades físicas de tu lente; en una lente zoom, la apertura máxima del objetivo puede ser diferente para cada posición del zoom. Por favor, ten este hecho en cuenta al establecer este valor._
+`[*]` _Ten en cuenta que el rango de valores que admite este parámetro está limitado por las capacidades físicas de tu lente; en una lente zoom, la apertura máxima del objetivo puede ser diferente para cada posición del zoom. Por favor, ten este hecho en cuenta al establecer este valor._
 
 
 
