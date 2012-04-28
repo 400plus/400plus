@@ -222,7 +222,7 @@ Exactamente eso, una larga exposición configurable desde 15 segundos hasta 100 
 
 Ten en cuenta que la cámara tiene que estar en el modo M + BULB para hacer una exposición larga; este guión ajustará la cámara por tí, pero la configuración de la abertura adecuada es responsabilidad del usuario.
  
-== Calculador Larga Exposición ==
+== Calculador Larga Exposicion ==
 
 El calculador de larga exposición es una herramienta creada para ayudar al fotógrafo a determinar rápidamente el tiempo de exposición requerido por una escena en particular. La idea que hay detrás del calculador es que puedas medir rápidamente una escena usando una alta sensibilidad ISO y una gran apertura, para luego bajar el valor ISO y reducir la abertura, pero aumentando el tiempo de exposición en consecuencia.
 
