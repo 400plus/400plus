@@ -16,7 +16,7 @@ Spanish translation provided by Jmtd.
  * [UserGuideSpanish#Los_Guiones Los Guiones]
  * [UserGuideSpanish#Los_preajustes_(presets) Los preajustes (presets)]
  * [UserGuideSpanish#AutoISO AutoISO]
- * [UserGuideSpanish#ISO_en_visor]
+ * [UserGuideSpanish#ISO_en_visor ISO en visor]
  * [UserGuideSpanish#Seleccion_del_patron_AF Seleccion del Patron AF]
  * [UserGuideSpanish#Los_extras Los extras]
  * [UserGuideSpanish#Otros_regalos Otros regalos]
