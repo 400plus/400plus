@@ -87,8 +87,8 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Bulb máx: velocidad máxima del obturador en modo BULB (puede ir desde 1/4000 de segundo hasta 32 minutos).
  * _*Flash AEB*_: Este sub-menú lanza y configura el guión del [UserGuideSpanish#Flash_AEB Flash AEB]. 
  * _*ISO AEB*_: Este ítem lanza y configura el guión del [UserGuideSpanish#ISO_AEB ISO AEB]; cada elemento en el submenú de configuración indica si la cámara debe disparar una toma para ese valor ISO. 
- * _*Interval.*_: Este ítem lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro].
-  * Demora: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos.
+ * _*Intervalómetro*_: Este ítem lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro].
+  * Demora 2s: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos.
   * Tiempo: el intervalo de tiempo (en minutos:segundos) entre cada disparo (o grupo de disparos). Los valores van desde 00:00 hasta 05:00.
   * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
   * Tomas: el número total de disparos a hacer. Los valores van desde 1 a 250, e incluye también el valor "sin límite" para disparar sin cesar.
@@ -98,7 +98,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de haberse completado, por lo que puedes mover la mano de nuevo para continuar usando el guión.
   * Instantánea: si se selecciona (puesto en "Sí"), se produce la toma tan pronto como se detecta una mano; de lo contrario, el guión va a esperar hasta que la mano se retira.
  * _*Temporizador*_: Este sub-menú lanza y configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador].
-  * Demora: tiempo (en minutos:segundos) que el guión debe esperar antes de disparar. Los valores van desde 00:00 hasta 05:00.
+  * Tiempo: tiempo (en minutos:segundos) que el guión debe esperar antes de disparar. Los valores van desde 00:00 hasta 05:00.
   * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
  * _*Larga Exposición*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Larga_Exposicion Larga Exposición].
   * Demora: selecciona el disparo inmediato, o una demora de 2 segundos. 
