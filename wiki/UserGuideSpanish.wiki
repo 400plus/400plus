@@ -305,7 +305,7 @@ Para usar la selección adicional de puntos del patrón AF durante el disparo, p
 
 = Los extras =
 
-Se han agregado a la cámara los siguientes extras:
+Se han agregado a la cámara los siguientes *extras*:
 
 === En la zona básica ===
 
