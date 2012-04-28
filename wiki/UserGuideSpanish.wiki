@@ -1,12 +1,10 @@
 #summary [Guide][Spanish] Guía del Usuario 400plus.
 
-<font color="red">
-*WARNING*: This guide is at least one major version behind the latest official release, and thus may contain inaccuracies or outdated information.
-</font>
 
 = Translation =
 
 Spanish translation provided by Jmtd.
+Traducción al español realizada por Jmtd.
 
 = Tabla de Contenidos =
 
