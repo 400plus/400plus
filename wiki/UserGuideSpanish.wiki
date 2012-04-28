@@ -114,8 +114,8 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
 
 === Página de Información ===
 
- * _*Contador de disparos*_: El número total de disparos hechos por la cámara.
- * _*Número de cuerpo*_: El "Body ID" del cuerpo de la cámara (un número interno, único de cada cámara).
+ * _*Disparos totales*_: El número total de disparos hechos por la cámara.
+ * _*ID del cuerpo*_: El número del cuerpo de la cámara (un número interno, único de cada cámara).
  * _*Versión*_: El número de la versión del software 400plus actualmente instalado.
 
 
