@@ -92,7 +92,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Tiempo: el intervalo de tiempo (en minutos:segundos) entre cada disparo (o grupo de disparos). Los valores van desde 00:00 hasta 05:00.
   * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
   * Tomas: el número total de disparos a hacer. Los valores van desde 1 a 250, e incluye también el valor "sin límite" para disparar sin cesar.
- * _*Toma por Visor*_: Este ítem lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
+ * _*Toma X Visor*_: Este ítem lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
   * Demora: selecciona el disparo inmediato, o una demora de 2 segundos.
   * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
   * Repetición: si se selecciona (puesto en "Sí"), el guión se reiniciará después de haberse completado, por lo que puedes mover la mano de nuevo para continuar usando el guión.
