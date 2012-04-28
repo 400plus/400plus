@@ -100,7 +100,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*Temporizador*_: Este sub-menú lanza y configura la secuencia de comandos del [UserGuideSpanish#Temporizador Temporizador].
   * Demora: tiempo (en minutos:segundos) que el guión debe esperar antes de disparar. Los valores van desde 00:00 hasta 05:00.
   * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
- * _*Larga Exposición*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Larga_Exposicion Larga Exposición].
+ * _*Larga Exposición*_: Este sub-menú lanza y configura la secuencia de comandos [UserGuideSpanish#Larga_Exposicion Larga Exposicion].
   * Demora: selecciona el disparo inmediato, o una demora de 2 segundos. 
   * Tiempo: la duración (en minutos:segundos) de la exposición. Los valores van desde 00:00 hasta 100:00.
   * Calculador: entra en el [UserGuideSpanish#Calculador_Larga_Exposicion Calculador Larga Exposición]. 
