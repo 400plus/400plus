@@ -61,7 +61,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*Comp. Av*_: Igual que la función "compensación AV", pero extiende su rango de -6 a +6 EV.
  * _*AEB_*: Igual que la función "AEB", pero extiende el rango desde -6 a +6 EV.
  * _*Temp. color (K)*_: Establece una temperatura de color definida por el usuario y cambia el balance de blancos WB a 'personalizado'.
- * _*Bloqueo de espejo*_: activa / desactiva la función personalizable de bloqueo de espejo. (similar a la función persanalizada C.Fn 07).
+ * _*Bloqueo espejo*_: activa / desactiva la función personalizable de bloqueo de espejo. (similar a la función persanalizada C.Fn 07).
  * _*Desplazamiento de Seguridad*_: Cuando está activo (puesto en "Sí"), y si estamos en los modos Tv (o Av), la cámara cambiará la velocidad de obturación (o la apertura del diafragma) fijados por el usuario para evitar una sub/sobre-exposición, si el valor es demasiado pequeño/grande para la escena.
  * _*Flash*_: Ajustes del Flash.
   * Comp. flash: Igual que la función "compensación del flash", pero puede ir de -6 a +6 EV.
