@@ -74,6 +74,9 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
     * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
+    * Video format (fps): intended playback frame-rate, if preparing a time-lapse.
+    * Recording time: estimated time that the camera will need to record the entire time-lapse (informative only).
+    * Playback time: estimated playback time of the resulting time-lapse (informative only).
  * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
@@ -183,6 +186,8 @@ You probably want to set the camera to `M` mode prior to using this script.
 This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example.
 
 Notice that `400plus` will always try to maintain a constant cadence of shots, independent of the exposure time: if configured to shot at 15s intervals, for example, then one shot will be taken exactly every 15s, even if the exposure is 10s. If one shot in the sequence has an exposure time longer than the configured interval time, `400plus` will skip as many shots as needed and reschedule the sequence. This comment is also true when the intervalometer is configured to fire any multi-shot action.
+
+If you pretend to make a time-lapse movie with the photographs taken with this script, you can specify an intended reproduction frame-rate, and the script will calculate the resulting reproduction time. These parameters are purely informative, and have no influence on the script.
 
 == Hand Waving ==
 
