@@ -108,8 +108,8 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
   * Long. Focal (mm): longitud focal de la lente, en milímetros. 
   * Av: apertura de la lente. 
   * Distancia Focal (m): distancia focal.
-  * Min. DOF (m): distancia próxima de nitidez aceptable (sólo informativo).
-  * Max. DOF (m): distancia de fondo de nitidez aceptable (sólo informativo).
+  * Mín. DOF (m): distancia próxima de nitidez aceptable (sólo informativo).
+  * Máx. DOF (m): distancia de fondo de nitidez aceptable (sólo informativo).
 
 
 === Página de Información ===
@@ -129,7 +129,7 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
    * LCD: configura el brillo de la pantalla LCD mientras el guíón se ejecuta.
    * Indicador: configura la frecuencia de parpadeo del LED azul, mientras el guión se ejecuta.  
  * _*Config. botones*_: En este sub-menú, el usuario puede configurar el comportamiento de algunos botones especiales.
-   * DISP: Cuando se activa (puesto en "Sí"), el botón DISP cambiará el brillo de la pantalla en pequeños incrementos, en vez de simplemente encender/apagar.
+   * Botón DISP: Cuando se activa (puesto en "Sí"), el botón DISP cambiará el brillo de la pantalla en pequeños incrementos, en vez de simplemente encender/apagar.
    * JUMP: Asigna una acción al botón JUMP desde el menú principal de la cámara.
     * ISO intermedio: cambia ISO 1/8EV (ver [UserGuideSpanish#ISOs_Extendidos Notas/ISOs Extendidos]).
     * Repetir guión: repite el último guión ejecutado.
