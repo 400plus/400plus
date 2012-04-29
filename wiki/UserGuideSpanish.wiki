@@ -89,8 +89,8 @@ Estando en cualquier página del menú, tienes la posibilidad de cambiar el orde
  * _*ISO AEB*_: Este ítem lanza y configura el guión del [UserGuideSpanish#ISO_AEB ISO AEB]; cada elemento en el submenú de configuración indica si la cámara debe disparar una toma para ese valor ISO. 
  * _*Intervalómetro*_: Este ítem lanza y configura la secuencia de comandos [UserGuideSpanish#Intervalometro Intervalómetro].
   * Demora 2s: selecciona si el guión debe empezar a disparar inmediatamente o esperar 2 segundos.
+  * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).  
   * Tiempo: el intervalo de tiempo (en minutos:segundos) entre cada disparo (o grupo de disparos). Los valores van desde 00:00 hasta 05:00.
-  * Acción: la acción a realizar (una toma, AEB extendido, Flash AEB, ISO AEB, Larga Exposición).
   * Tomas: el número total de disparos a hacer. Los valores van desde 1 a 250, e incluye también el valor "sin límite" para disparar sin cesar.
  * _*Toma X Visor*_: Este ítem lanza y configura el guión de la [UserGuideSpanish#Toma_por_Visor_(ondeo) Toma por Visor (ondeo)].
   * Demora: selecciona el disparo inmediato, o una demora de 2 segundos.
