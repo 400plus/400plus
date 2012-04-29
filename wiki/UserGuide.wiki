@@ -71,7 +71,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*ISO AEB*_: This item launches and configures the [#ISO_AEB ISO AEB] script; each item in the configuration sub-menu indicates whether the camera must fire a shot for that ISO value.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:00 to 05:00.
+    * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
     * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
  * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
