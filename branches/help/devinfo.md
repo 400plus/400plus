@@ -58,6 +58,12 @@ heap space, and this way to be safe from __OFW__'s and our heap allocations
 ---
 
 # IDEAS
+## VRAM or other buffers probably
+our vram is 720x360 as it seems, but the images are displayed in 720x240
+	0x412604-0x451A83 image playback vram(showed on display when playing photos)
+	// the size is 259200 bytes, which is 720x360
+	0x451A84 - probably inside the real image (not showed on display)
+
 ## bootflags, this is for the .fir enabler
 	// FFFF5720 read_bootflag
 	// FFFF5638 write_bootflag
