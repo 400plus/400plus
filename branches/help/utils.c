@@ -719,6 +719,7 @@ char * my_fgets_simple_but_slow(char *s, int n, int fd) {
  * return current_line on success, 0 when there is no line.
  * when called with <line_no> == 0, does not fill <dest>, but returns maximum lines to be parsed
  */
+// TODO: make it utf8 capable... double the size of the buffers
 int get_splitted_line(char * dest, char * src, int split, int line_no) {
 	int slen = strlen(src);
 	int current_line = 0;

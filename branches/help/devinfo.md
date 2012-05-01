@@ -58,6 +58,34 @@ heap space, and this way to be safe from __OFW__'s and our heap allocations
 ---
 
 # IDEAS
+## bootflags, this is for the .fir enabler
+	// FFFF5720 read_bootflag
+	// FFFF5638 write_bootflag
+
+	// diasble
+	read_bootflag(0, buf);
+	buf[1] = 0;
+	write_bootflag(0, buf);
+
+	// enable
+	read_bootflag(0, buf);
+	buf[1] = -1;
+	write_bootflag(0, buf);
+
+
+	// check the 350d bootflags enabler... their toggle routine is:
+	read_bootflag(buf1, buf2);
+	if (buf1[1] == 0)	buf1[1] = -1;
+	else				buf1[1] = 0;
+	write_bootflag(buf1, buf2);
+
+
+	// chat with andrew:
+	// if you study the 400d bootloader, the syntax is different
+	// arg0 is either 0 or 1, it sets different flags
+	// (always pass 0 though, didn't recognize the other flags)
+
+
 ## MMIO for buttons
 we should be able to see the buttons on MMIO ports
 the a540 camera (which is vxworks) sees them at:
