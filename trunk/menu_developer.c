@@ -34,7 +34,7 @@ type_MENUITEM menu_developer_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
 	MENUITEM_LOGFILE(LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
 #ifdef MEM_DUMP
-	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_MEMORY),         dump_memory),
+	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_MEMORY),         dump_memory_after_5s),
 #endif
 #ifdef BREAK_CAMERA
 	MENUITEM_LAUNCH(LP_WORD(L_I_ENTER_FACTORY_MODE),  enter_factory_mode),
@@ -114,6 +114,7 @@ static void test_dialog_create() {
 
 	dialog_redraw(menu_handler);
 }
+
 
 #if 0
 
