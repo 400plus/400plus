@@ -402,6 +402,7 @@ void dump_log() {
 	beep();
 }
 
+#ifdef MEM_DUMP
 void dump_memory() {
 	char filename[20] = "A:/12345678.MEM";
 	time_t t;
@@ -426,14 +427,14 @@ void dump_memory() {
 		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
 
 		while (addr<0x800000) { // dump 8MB of RAM
-			char buf[0x400];
+			char buf[0x800];
 			// i don't know why, but if we try to pass the mem address (addr) directly to
 			// FIO_WriteFile, we get zero-filled file... so we need local buffer as a proxy
 			// note: do not increase the size of the local buffer too much, because it is in the stack
 			LEDBLUE ^= 2;
-			memcpy(buf, (void*)addr, 0x400);
-			FIO_WriteFile(file, buf, 0x400);
-			addr += 0x400;
+			memcpy(buf, (void*)addr, 0x800);
+			FIO_WriteFile(file, buf, 0x800);
+			addr += 0x800;
 		}
 		FIO_CloseFile(file);
 
@@ -441,7 +442,22 @@ void dump_memory() {
 	}
 	beep();
 }
+static void mem_dumper_task() {
+	int i;
 
+	beep();
+
+	for (i=0; i<10; i++) {
+		LEDBLUE ^= 2;
+		SleepTask(500);
+	}
+
+	dump_memory();
+}
+void dump_memory_after_5s() {
+	CreateTask("memdumper", 0x1e, 0x1000, mem_dumper_task, 0);
+}
+#endif
 void print_info() {
 	// print some info to the log
 	eventproc_RiseEvent("about");
