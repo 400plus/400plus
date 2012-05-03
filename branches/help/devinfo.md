@@ -54,18 +54,25 @@ heap space, and this way to be safe from __OFW__'s and our heap allocations
 	(*((int*)0xC0220000)) = 0x48; // led on (blink state)
 	(*((int*)0xC0210014)) = 3; // make it blink
 
+## VRAM buffers
+Our display is 360x240. The buffers store YUV422 data.
+
+Image VRAM (the one which is used in image player) is located:
+	// from: 0x412604    to: 0x4AA404    size: 0x97E00 (622080)
+there are 2 buffers inside, with small data between...
+
+Menu VRAM (the one which will be used for menus, like in ML):
+	// from: 0x212D7C    to: 0x23D144    size: 0x2A3C8 (173000)
+
+	// it seems the usable region (360x240) of the menu vram is:
+	// from: 0x212D7C    to: 0x227EFC    size: 0x15180 (86400)
+	// then there is some small data
+	// and the buffer continues, (probably bmp buffer)
+	// from: 0x227FC4    to: 0x23D144    size: 0x15180 (86400)
 
 ---
 
 # IDEAS
-## VRAM or other buffers probably
-our vram is 720x360
-	0x412604-0x451A83 this is the image VRAM (can be used as temporary RAM)
-	// the size is 259200 bytes, which is 720x360, or not exactly...
-	// this buffer seems to be atleast double than that ...
-
-	// we need to find the menu VRAM
-
 ## bootflags, this is for the .fir enabler
 	// FFFF5720 read_bootflag
 	// FFFF5638 write_bootflag
