@@ -4,6 +4,10 @@ SECTIONS {
 		entry.o;
 		funclist.o;
 		gui.o;
+		font-large.o;
+		font-med.o;
+		font-small.o;
+		bmp.o;
 		mainctrl.o;
 		init.o;
 		main.o;

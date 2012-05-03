@@ -20,12 +20,12 @@ COMMON_FLAGS =\
 	-mfloat-abi=soft                  \
 	-msoft-float                      \
 	-fno-builtin                      \
-	-nostdinc                         \
 	-nostdlib                         \
 	-fomit-frame-pointer              \
 	-fno-strict-aliasing              \
 	-mfpu=fpa
 
+	#-nostdinc                         \
 	#-fno-builtin-puts                 \
 	#-fno-builtin-sprintf              \
 	#-fno-builtin-bzero                \
@@ -68,6 +68,10 @@ S_OBJS := entry.o         \
 C_OBJS := init.o          \
          gui.o            \
          main.o           \
+	 font-large.o     \
+	 font-med.o       \
+	 font-small.o     \
+	 bmp.o            \
          mainctrl.o       \
          tasks.o          \
          ini.o            \
