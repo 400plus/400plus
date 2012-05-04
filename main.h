@@ -24,6 +24,11 @@
 	]
 
 
+#define BTN_PRESSES     0x20
+#define BTN_NOT_PRESSES 0x21
+// button addresses
+#define BTN_ADDR_TRASH  0xC0220130
+#define BTN_ADDR_JUMP   0xC0220134
 
 // Events for SendToIntercom
 typedef enum {
