@@ -55,7 +55,6 @@ extern void exit_factory_mode();
 extern void start_debug_mode();
 extern void dump_log();
 extern void dump_memory();
-extern void dump_memory_after_5s();
 extern void print_info();
 
 extern int send_to_intercom(int message, int length, int parm);

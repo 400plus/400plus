@@ -48,80 +48,9 @@ This is so to keep the last _0x20000_ bytes (_128kb_), our hack, out of the
 heap space, and this way to be safe from __OFW__'s and our heap allocations
 (__`malloc()`__).
 
-## DP Led blink
-	eventproc_EdLedBlink();
-	// or
-	(*((int*)0xC0220000)) = 0x48; // led on (blink state)
-	(*((int*)0xC0210014)) = 3; // make it blink
-
-## VRAM buffers
-Our display is 360x240. The buffers store YUV422 data.
-
-Image VRAM (the one which is used in image player) is located:
-	// from: 0x412604    to: 0x4AA404    size: 0x97E00 (622080)
-there are 2 buffers inside, with small data between...
-
-Menu VRAM (the one which will be used for menus, like in ML):
-	// from: 0x212D7C    to: 0x23D144    size: 0x2A3C8 (173000)
-
-	// it seems the usable region (360x240) of the menu vram is:
-	// from: 0x212D7C    to: 0x227EFC    size: 0x15180 (86400)
-	// then there is some small data
-	// and the buffer continues, (probably bmp buffer)
-	// from: 0x227FC4    to: 0x23D144    size: 0x15180 (86400)
-
-## Button addresses (thanks Sergei)
-button pressed: 0x20
-button not pressed: 0x21
-
-JUMP: 0xC0220134
-TRASH: 0xC0220130
-
-
-
 ---
 
 # IDEAS
-## bootflags, this is for the .fir enabler
-	// FFFF5720 read_bootflag
-	// FFFF5638 write_bootflag
-
-	// diasble
-	read_bootflag(0, buf);
-	buf[1] = 0;
-	write_bootflag(0, buf);
-
-	// enable
-	read_bootflag(0, buf);
-	buf[1] = -1;
-	write_bootflag(0, buf);
-
-
-	// check the 350d bootflags enabler... their toggle routine is:
-	read_bootflag(buf1, buf2);
-	if (buf1[1] == 0)	buf1[1] = -1;
-	else				buf1[1] = 0;
-	write_bootflag(buf1, buf2);
-
-
-	// chat with andrew:
-	// if you study the 400d bootloader, the syntax is different
-	// arg0 is either 0 or 1, it sets different flags
-	// (always pass 0 though, didn't recognize the other flags)
-
-
-## MMIO for buttons
-we should be able to see the buttons on MMIO ports
-the a540 camera (which is vxworks) sees them at:
-
-	volatile long *mmio0 = (void*)0xc0220200;
-	volatile long *mmio1 = (void*)0xc0220204;
-	volatile long *mmio2 = (void*)0xc0220208;
-
-	dst[0] = *mmio0;
-	dst[1] = *mmio1;
-	dst[2] = *mmio2 & 0xffff;
-
 ## force MF for lens (may be)
 we can try setting cameraMode->ef\_lens\_exist=0 to force, not sure if it works.
 if it works, it could be useful for bracketing...
