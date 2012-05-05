@@ -15,6 +15,10 @@
 #include "vxworks.h"
 #include "firmware.h"
 
+#define vram_start (0x212D7C)
+#define vram_end   (0x212D7C + (360*240))
+#define vram_size  (vram_end - vram_start)
+
 static inline int * bmp_vram(void) {
 	int *x = (int*)0x212D7C;  //~ location of bmp buffer in 5dc.
 	return x;
@@ -27,89 +31,43 @@ static inline int * bmp_vram(void) {
 #define FONT_MED                0x00020000
 #define FONT_SMALL              0x00010000
 
-#define FONT(font,fg,bg)        ( 0 \
-| ((font) & FONT_MASK) \
-| ((bg) & 0xFF) << 8 \
-| ((fg) & 0xFF) << 0 \
+#define FONT(font,fg,bg) ( 0   \
+	| ((font) & FONT_MASK) \
+	| ((bg) & 0xFF) << 8   \
+	| ((fg) & 0xFF) << 0   \
 )
 
 #define FONT_BG(font) (((font) & 0xFF00) >> 8)
 #define FONT_FG(font) (((font) & 0x00FF) >> 0)
 
-static inline struct font *
-fontspec_font(
-              unsigned                fontspec
-              )
-{
-    switch( fontspec & FONT_MASK )
-    {
-        default:
-        case FONT_SMALL:        return &font_small;
-        case FONT_MED:          return &font_med;
-        case FONT_LARGE:        return &font_large;
-            //~ case FONT_HUGE:             return &font_huge;
-    }
+static inline struct font * fontspec_font(unsigned fontspec) {
+	switch( fontspec & FONT_MASK ) {
+	default:
+	case FONT_SMALL:	return &font_small;
+	case FONT_MED:		return &font_med;
+	case FONT_LARGE:	return &font_large;
+	//case FONT_HUGE:		return &font_huge;
+	}
 }
 
-
-static inline unsigned
-fontspec_fg(
-            unsigned                fontspec
-            )
-{
-    return (fontspec >> 0) & 0xFF;
+static inline unsigned fontspec_fg(unsigned fontspec) {
+	return (fontspec >> 0) & 0xFF;
 }
 
-static inline unsigned
-fontspec_bg(
-            unsigned                fontspec
-            )
-{
-    return (fontspec >> 8) & 0xFF;
+static inline unsigned fontspec_bg(unsigned fontspec) {
+	return (fontspec >> 8) & 0xFF;
 }
 
-
-
-static inline unsigned
-fontspec_height(
-                unsigned                fontspec
-                )
-{
-    return fontspec_font(fontspec)->height;
+static inline unsigned fontspec_height(unsigned fontspec) {
+	return fontspec_font(fontspec)->height;
 }
 
-
-extern void
-bmp_printf(
-           unsigned                fontspec,
-           unsigned                x,
-           unsigned                y,
-           const char *            fmt,
-           ...
-           ) __attribute__((format(printf,4,5)));
-
-
-extern void
-bmp_hexdump(
-            unsigned                fontspec,
-            unsigned                x,
-            unsigned                y,
-            const void *            buf,
-            int                     len
-            );
-
-
-extern void
-bmp_puts(
-         unsigned                fontspec,
-         unsigned *              x,
-         unsigned *              y,
-         const char *            s
-         );
+extern void bmp_printf(unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...) __attribute__((format(printf,4,5)));
+extern void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, int len);
+extern void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s);
 
 /** Fill the screen with a bitmap palette */
-extern void
-bmp_draw_palette( void );
+extern void bmp_draw_palette( void );
 
 
 /** Some selected colors */
