@@ -25,8 +25,7 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 	uint32_t        bg_color        = fontspec_bg( fontspec ) << 24;
 
 	// Special case -- fg=bg=0 => white on black
-	if( fg_color == 0 && bg_color == 0 )
-	{
+	if( fg_color == 0 && bg_color == 0 ) {
 		fg_color = COLOR_WHITE << 24;
 		bg_color = COLOR_BLACK << 24;
 	}
@@ -35,8 +34,7 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 	uint32_t *      front_row       = (uint32_t *) bmp_vram_row;
 
 	//uint32_t flags = cli();
-	for( i=0 ; i<font->height ; i++ )
-	{
+	for( i=0 ; i<font->height ; i++ ) {
 		// Start this scanline
 		uint32_t * row = front_row;
 
@@ -46,16 +44,19 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 		uint32_t pixels = font->bitmap[ c + (i << 7) ];
 		uint8_t pixel;
 
-		for( j=0 ; j<font->width/4 ; j++ )
-		{
+		for( j=0 ; j<font->width/4 ; j++ ) {
 			uint32_t bmp_pixels = 0;
-			for( pixel=0 ; pixel<4 ; pixel++, pixels <<=1 )
-			{
+			for( pixel=0 ; pixel<4 ; pixel++, pixels <<=1 ) {
 				bmp_pixels >>= 8;
 				bmp_pixels |= (pixels & 0x80000000) ? fg_color : bg_color;
 			}
 
-			*(row++) = bmp_pixels;
+			if ( (int)row < vram_end && (int)row >= vram_start ) {
+				*(row++) = bmp_pixels;
+			} else {
+				debug_log("VRAM: draw outside vram region (0x%08X)", row);
+				return;
+			}
 
 			// handle characters wider than 32 bits
 			if( j == 28/4 )
@@ -84,10 +85,8 @@ void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
 
 	const struct font * const font = fontspec_font( fontspec );
 
-	while( (c = *s++) )
-	{
-		if( c == '\n' )
-		{
+	while( (c = *s++) ) {
+		if( c == '\n' ) {
 			row = first_row += pitch * font->height;
 			(*y) += font->height;
 			(*x) = initial_x;
