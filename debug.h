@@ -17,6 +17,16 @@
 
 #define MEM(mem) (*(int*)((int)(mem)))
 
+// ((((int)(x)) & 0xF0000000) == 0xC0000000) ? shamem_read(x) : 
+
+#define MEMX(x) ( \
+	((((int)(x)) & 0xF0000000) == 0xE0000000) ? (int)0xDEADBEAF : \
+	((((int)(x)) & 0xF0000000) == 0x70000000) ? (int)0xDEADBEAF : \
+	((((int)(x)) & 0xF0000000) == 0x80000000) ? (int)0xDEADBEAF : \
+	*(int*)(x) \
+)
+
+
 typedef enum {
 	DEBUG_GENERIC    = 0x00, // +SFACT
 	DEBUG_MAIN       = 0x01, // +MC +TEST
