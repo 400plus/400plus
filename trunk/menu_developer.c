@@ -19,6 +19,7 @@
 #include "menu_settings.h"
 #include "utils.h"
 #include "settings.h"
+#include "memspy.h"
 
 #include "menu_developer.h"
 
@@ -35,6 +36,10 @@ type_MENUITEM menu_developer_items[] = {
 	MENUITEM_LOGFILE(LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
 #ifdef MEM_DUMP
 	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_MEMORY),         dump_memory_after_5s),
+#endif
+#ifdef MEMSPY
+	MENUITEM_LAUNCH(LP_WORD(L_I_MEMSPY_ENABLE),       memspy_enable),
+	MENUITEM_LAUNCH(LP_WORD(L_I_MEMSPY_DISABLE),      memspy_disable),
 #endif
 #ifdef BREAK_CAMERA
 	MENUITEM_LAUNCH(LP_WORD(L_I_ENTER_FACTORY_MODE),  enter_factory_mode),
