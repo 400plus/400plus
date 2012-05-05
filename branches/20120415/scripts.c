@@ -216,18 +216,20 @@ void script_stop() {
 	script_restore();
 }
 
+void script_restore_parameters() {
+	send_to_intercom(IC_SET_AE,     1, st_cameraMode.ae);
+	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
+	send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
+	send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
+	send_to_intercom(IC_SET_ISO,    2, st_cameraMode.iso);
+}
+
 void script_restore() {
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
 	send_to_intercom(IC_SET_AE_BKT,            1, st_cameraMode.ae_bkt);
 
 	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
 	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_cameraMode.auto_power_off);
-
-	send_to_intercom(IC_SET_AE,     1, st_cameraMode.ae);
-	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
-	send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
-	send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
-	send_to_intercom(IC_SET_ISO,    2, st_cameraMode.iso);
 
 	display_on();
 }
@@ -303,9 +305,7 @@ void action_ext_aeb() {
 
 			if (!can_continue())
 				break;
-		};
-
-		send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
+		}
 	} else if (cameraMode->ae < AE_MODE_AUTO) {
 		int tv_inc, av_inc;
 		int tv_dec, av_dec;
@@ -363,6 +363,8 @@ void action_ext_aeb() {
 			}
 		}
 	}
+
+	script_restore_parameters();
 }
 
 void action_iso_aeb() {
@@ -378,6 +380,8 @@ void action_iso_aeb() {
 				break;
 		}
 	}
+
+	script_restore_parameters();
 }
 
 void action_efl_aeb() {
@@ -412,6 +416,8 @@ void action_efl_aeb() {
 				break;
 		}
 	}
+
+	script_restore_parameters();
 }
 
 void action_long_exp() {
