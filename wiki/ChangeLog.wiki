@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-6*_
+ * Fixed a bug that broke all AEB scripts when launched from the intervalometer.
+
 _*20120415-5*_
  * Updated the Spanish translation (thanks JmTD!).
 
