@@ -77,7 +77,12 @@ button not pressed: 0x21
 JUMP: 0xC0220134
 TRASH: 0xC0220130
 
-
+## Message Queues
+CreateMessageQueue returns pointer to a structure pf this type i believe:
+	struct {
+		int messages_in_the_queue; // unread
+		char * name_of_the_queue;
+	}
 
 ---
 
