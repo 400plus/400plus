@@ -1,4 +1,3 @@
-
 # devinfo.md
 This is a [MarkDown][] info file intended for [400Plus][] project developers.  
 There are some browser extensions to beautify [MarkDown][] files
@@ -148,6 +147,49 @@ Catch changes to DPData with memspy or make a separate routine to catch the
 changes... i.e. a copy of DPData (though there is one from canon) and a routine
 which checks for differences between the original and the copy, then reports
 them and update the copy buffer.
+
+## Proxying unknown queues (just some untested food for thought)
+
+Let's suppose there is some _hMessageQueue_ we know about and want to 
+intercept, but we do not know what routine reads that queue, or just do not 
+want to dissasemble it. However, we can be pretty sure that the firmware will 
+do something similar to this (example extracted form _main_ctrl_):
+
+firmware_routine() {
+	while (TRUE) {
+		ReceiveMessageQueue(hMessageQueue, &message, 0);
+
+		// do something about "message"
+	}
+}
+
+Now, we coud insert a proxy, that will read all messages in that queue before 
+they reach _firmware_routine_, like this:
+
+proxy_routine() {
+	int *hOutputQueue = CreateMessageQueue("ProxyQueue", param); // [1]
+	int *hInputQueue  = hMessageQueue;
+
+	hMessageQueue  = hOutputQueue;
+	
+	while (TRUE) {
+		ReceiveMessageQueue(hInputQueue, &message, 0);
+		
+		// do something about "message"
+		
+		PostMessageQueue(hOutputQueue, message, forever); // [2]
+	}
+	
+	// [1] What's "param" here exactly?
+	// [2] Should "forever" be set to TRUE?
+}
+
+Obviously, that proxy should be launched as a separate task:
+
+hijack_routine() {
+	CreateTask("ProxyTask", prio, stack_size, proxy_routine, parm); //[3]
+	// [3] Decide values missing values
+}
 
 ## try to get the booting logs from the beginning
 Use the blinking driver for vxworks from owerlord as base.
