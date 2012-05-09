@@ -155,41 +155,61 @@ intercept, but we do not know what routine reads that queue, or just do not
 want to dissasemble it. However, we can be pretty sure that the firmware will 
 do something similar to this (example extracted form _main_ctrl_):
 
-firmware_routine() {
-	while (TRUE) {
-		ReceiveMessageQueue(hMessageQueue, &message, 0);
+	// code should be indented one tab right.
+	firmware_routine() {
+		while (TRUE) {
+			ReceiveMessageQueue(hMessageQueue, &message, 0);
 
-		// do something about "message"
+			// do something about "message"
+		}
 	}
-}
 
 Now, we coud insert a proxy, that will read all messages in that queue before 
 they reach _firmware_routine_, like this:
 
-proxy_routine() {
-	int *hOutputQueue = CreateMessageQueue("ProxyQueue", param); // [1]
-	int *hInputQueue  = hMessageQueue;
+	proxy_routine() {
+		int *hOutputQueue = CreateMessageQueue("ProxyQueue", param); // [1]
+		int *hInputQueue  = hMessageQueue;
 
-	hMessageQueue  = hOutputQueue;
-	
-	while (TRUE) {
-		ReceiveMessageQueue(hInputQueue, &message, 0);
-		
-		// do something about "message"
-		
-		PostMessageQueue(hOutputQueue, message, forever); // [2]
+		hMessageQueue  = hOutputQueue;
+
+		while (TRUE) {
+			ReceiveMessageQueue(hInputQueue, &message, 0);
+
+			// do something about "message"
+
+			PostMessageQueue(hOutputQueue, message, forever); // [2]
+		}
+
+		// [1] What's "param" here exactly?
+		// [2] Should "forever" be set to TRUE?
 	}
-	
-	// [1] What's "param" here exactly?
-	// [2] Should "forever" be set to TRUE?
-}
 
 Obviously, that proxy should be launched as a separate task:
 
-hijack_routine() {
-	CreateTask("ProxyTask", prio, stack_size, proxy_routine, parm); //[3]
-	// [3] Decide values missing values
-}
+	hijack_routine() {
+		CreateTask("ProxyTask", prio, stack_size, proxy_routine, parm); //[3]
+		// [3] Decide values missing values
+	}
+
+
+
+
+// 0xAF:
+Ok, I did not found a way to steal the queue, it just dont work, perhaps I'm
+not doing it in the right way.
+
+What I found so far is that there is no problem to ReceiveMessageQueue(someQ);
+in parallel with the original task.
+i.e.
+we start a separate task and call:
+	ReceiveMessageQueue(hMainMessQueue, &msg, 0);
+and we receive the same events as the original MainCtrl task.
+this is still a good way to catch if something is happening.
+
+i will continue my investigations...
+
+
 
 ## try to get the booting logs from the beginning
 Use the blinking driver for vxworks from owerlord as base.
