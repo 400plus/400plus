@@ -198,6 +198,10 @@ void intercom_proxy(const int handler, char *message) {
 				ENQUEUE_TASK(autoiso);
 		}
 		break;
+	case IC_SHOOTING:
+		status.last_shot_tv = message[2];
+		status.last_shot_av = message[3];
+		break;
 	}
 
 	// Check for button-up events, even if the current GUI mode does not match
