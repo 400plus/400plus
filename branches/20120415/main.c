@@ -130,12 +130,28 @@ void intercom_proxy(const int handler, char *message) {
 	message_logger(message);
 #endif
 
+	// Fast path for the case of a running script
+	if (status.script_running) {
+		switch(event) {
+		case IC_SHUTDOWN: // Camera has shut down
+			script_restore();
+			break;
+		case IC_BUTTON_DP: // DP Button stops the script
+			status.script_stopping = TRUE;
+			goto block_message;
+			break;
+		case IC_SHOOTING: // Shot taken while script is running
+			status.last_shot_tv = message[2];
+			status.last_shot_av = message[3];
+			break;
+		}
+
+		// Notice we jump to pass_message immediately
+		goto pass_message;
+	}
+
 	// Status-independent events and special cases
 	switch (event) {
-	case IC_SHUTDOWN: // Camera has shut down
-		if (status.script_running)
-			script_restore();
-		goto pass_message;
 	case IC_SETTINGS_0: // Settings changed (begin of sequence)
 		if (status.ignore_ae_change) {
 			// Ignore first AE change after loading a preset, as it generates this same event
@@ -176,13 +192,6 @@ void intercom_proxy(const int handler, char *message) {
 		event = (param & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
 		holds = FALSE;
 		break;
-	case IC_BUTTON_DP: // DP Button while a script is running
-		// TODO: Use a special status and take this out of here
-		if (status.script_running) {
-			status.script_stopping = TRUE;
-			goto block_message;
-		}
-		break;
 	case IC_MEASURING:
 		status.measuring = param;
 		ENQUEUE_TASK(restore_display);
@@ -197,10 +206,6 @@ void intercom_proxy(const int handler, char *message) {
 			if (settings.autoiso_enable)
 				ENQUEUE_TASK(autoiso);
 		}
-		break;
-	case IC_SHOOTING:
-		status.last_shot_tv = message[2];
-		status.last_shot_av = message[3];
 		break;
 	}
 
