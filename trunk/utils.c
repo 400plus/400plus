@@ -514,6 +514,7 @@ int send_to_intercom(int message, int length, int parm) {
 }
 
 #if 0
+// this is a disassembled version of eventproc_release()
 int shutter_release_disasm() {
 
 	extern char * aRelSem;
@@ -523,13 +524,13 @@ int shutter_release_disasm() {
 	}
 
 	SendToIntercom(IC_RELEASE, 0, 0);
-	SendToIntercom(0x6D, 1, 1);
+	SendToIntercom(0x6D, 1, 1); // set burst counter
 
 	TakeSemaphore(hRelSem, 30000);
 	DeleteSemaphore(hRelSem);
 	hRelSem = 0;
 
-	SleepTask(EVENT_WAIT);
+	SleepTask(EVENT_WAIT); // we added this
 	return 0;
 }
 #endif
@@ -543,6 +544,8 @@ int shutter_release() {
 	wait_for_camera();
 
 	int result = eventproc_Release();
+	//int result =  RIF_AsyncRemoteRelease();
+	//int result = PTP_RemoteRelease(); // not working
 	SleepTask(EVENT_WAIT);
 
 	return result;

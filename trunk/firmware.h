@@ -269,5 +269,16 @@ extern int sub_FF92AFD8();
 extern int sub_FF92AF58();
 extern int GUIWindowInstanceProc();
 extern int GUI_IDLEHandler();
+extern int * hGuiMainQueue;
+extern char aGuiMainQueue[];
+extern char aGuiMainTask[];
+extern void task_GuiMainTask();
+extern void OlcTftNotifyChange();
+extern int * hTurnDisplayEventFlag;
+extern char aTurndisplayeve[];
+extern char aTurndisplaytas[];
+extern void task_TurnDisplayTask();
+
+
 
 #endif /* FIRMWARE_H_ */
