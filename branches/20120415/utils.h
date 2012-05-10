@@ -60,6 +60,8 @@ extern void print_info();
 extern int send_to_intercom(int message, int length, int parm);
 
 extern void wait_for_camera();
+extern void wait_for_capture();
+
 extern int  shutter_release();
 extern int  shutter_release_bulb(int time);
 
