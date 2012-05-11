@@ -185,7 +185,27 @@ You probably want to set the camera to `M` mode prior to using this script.
 
 This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example.
 
-Notice that `400plus` will always try to maintain a constant cadence of shots, independent of the exposure time: if configured to shot at 15s intervals, for example, then one shot will be taken exactly every 15s, even if the exposure is 10s. If one shot in the sequence has an exposure time longer than the configured interval time, `400plus` will skip as many shots as needed and reschedule the sequence. This comment is also true when the intervalometer is configured to fire any multi-shot action.
+=== Strict scheduling ===
+
+Notice that `400plus` will always try to maintain a constant cadence of shots, independent of the exposure time: if configured to shot at 15s intervals, for example, then one shot will be taken exactly every 15s, even if the exposure is 10s. If one shot in the sequence has an exposure time longer than the configured interval time, `400plus` will skip as many shots as needed and reschedule the sequence accordingly. This comment is also true when the intervalometer is configured to fire any multi-shot action.
+
+For example, imagine an interval of 5 seconds, and exposures ranging between 1 and 4 seconds (let's suppose camera is in Av mode, and light conditions change during the script):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * *   *         * *
+}}}
+
+Notice how the length of pause between the end of an exposure and the beginning of the next one adapts to the exposure time, so photographs always start at regular intervals. Now, imagine that one of the exposures takes longer than 5 seconds (let's say 7):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * * * * *       * *
+}}}
+
+Notice that the third photograph does not take place 5 seconds after the second one, but at second 15.
+
+=== Time-lapse calculator ===
 
 If you pretend to make a time-lapse movie with the photographs taken with this script, you can specify an intended reproduction frame-rate, and the script will calculate the resulting reproduction time. These parameters are purely informative, and have no influence on the script.
 
