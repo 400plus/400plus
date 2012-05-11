@@ -207,7 +207,7 @@ Notice that the third photograph does not take place 5 seconds after the second 
 
 === Time-lapse calculator ===
 
-If you pretend to make a time-lapse movie with the photographs taken with this script, you can specify an intended reproduction frame-rate, and the script will calculate the resulting reproduction time. These parameters are purely informative, and have no influence on the script.
+If you plan to make a time-lapse movie with the photographs taken with this script, you can specify a desired reproduction frame-rate, and the script will calculate the resulting reproduction time. These parameters are purely informative, and have no influence on the script.
 
 == Hand Waving ==
 
