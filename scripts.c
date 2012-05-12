@@ -351,7 +351,7 @@ void action_ext_aeb() {
 
 			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
 				tv_dec = tv_sub(tv_dec, tv_sep);
-				av_dec = tv_sub(av_dec, av_sep);
+				av_dec = av_sub(av_dec, av_sep);
 
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
 				send_to_intercom(IC_SET_AV_VAL, 1, av_dec);
