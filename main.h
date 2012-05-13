@@ -24,11 +24,6 @@
 	]
 
 
-#define BTN_PRESSED     0x20
-#define BTN_NOT_PRESSED 0x21
-// button addresses
-#define BTN_ADDR_TRASH  0xC0220130
-#define BTN_ADDR_JUMP   0xC0220134
 
 // Events for SendToIntercom
 typedef enum {
@@ -109,6 +104,7 @@ typedef enum {
 	IC_TEMP                        = 0x74, //
 	IC_MEASURING                   = 0x80, //
 	IC_MEASUREMENT                 = 0x81, //
+	IC_SHOOTING                    = 0x83, // ?
 	IC_TIMERCOUNTER                = 0x8C, //
 	IC_SETTINGS_0                  = 0x90, //
 	IC_SETTINGS_1                  = 0x91, //
@@ -629,6 +625,8 @@ typedef struct {
 	int         measured_tv;       // Shutter speed as proposed by the metering
 	int         measured_av;       // Aperture as proposed by the metering
 	int         measured_ev;       // Exposure deviation as measured by the camera
+	int         last_shot_tv;      // Shutter speed of the last shot taken
+	int         last_shot_av;      // Aperture of the last shot taken
 	int         ev_comp;           // Exposure compensation for AutoISO + M
 	type_SCRIPT last_script;       // Last executed script
 } type_STATUS;
