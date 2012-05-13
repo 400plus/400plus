@@ -540,13 +540,18 @@ void wait_for_camera() {
 		SleepTask(RELEASE_WAIT);
 }
 
+void wait_for_capture() {
+	while (hRelSem)
+		SleepTask(RELEASE_WAIT);
+}
+
 int shutter_release() {
 	wait_for_camera();
 
 	int result = eventproc_Release();
-	//int result =  RIF_AsyncRemoteRelease();
-	//int result = PTP_RemoteRelease(); // not working
-	SleepTask(EVENT_WAIT);
+	SleepTask(RELEASE_WAIT);
+
+	wait_for_capture();
 
 	return result;
 }
@@ -559,6 +564,8 @@ int shutter_release_bulb(int time) {
 
 	press_button(IC_BUTTON_HALF_SHUTTER);
 	SleepTask(RELEASE_WAIT);
+
+	wait_for_capture();
 
 	return 0;
 }
