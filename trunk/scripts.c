@@ -323,11 +323,12 @@ void action_ext_aeb() {
 
 		// First photo taken using default values
 		shutter_release();
+		script_delay(100);
 		frames--;
 
-		// Just hope the camera does not change these too quickly
-		tv_inc = tv_dec = status.measured_tv;
-		av_inc = av_dec = status.measured_av;
+		// Grab the parameters used by the camera
+		tv_inc = tv_dec = status.last_shot_tv;
+		av_inc = av_dec = status.last_shot_av;
 
 		// Enter manual mode...
 		send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
@@ -350,7 +351,7 @@ void action_ext_aeb() {
 
 			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
 				tv_dec = tv_sub(tv_dec, tv_sep);
-				av_dec = tv_sub(av_dec, av_sep);
+				av_dec = av_sub(av_dec, av_sep);
 
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
 				send_to_intercom(IC_SET_AV_VAL, 1, av_dec);
