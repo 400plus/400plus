@@ -296,7 +296,9 @@ void action_ext_aeb() {
 
 		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
 			if (tv_val < 0x10) {
-				send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
+				if (cameraMode->tv_val != TV_VAL_BULB)
+					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
+
 				shutter_release_bulb(60 * (1 << (1 - (tv_val >> 3))));
 			} else {
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
@@ -331,7 +333,8 @@ void action_ext_aeb() {
 		av_inc = av_dec = status.last_shot_av;
 
 		// Enter manual mode...
-		send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
+		if (cameraMode->ae != AE_MODE_M)
+			send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
 
 		// ...and do the rest ourselves
 		while(frames) {
@@ -422,8 +425,11 @@ void action_efl_aeb() {
 }
 
 void action_long_exp() {
-	send_to_intercom(IC_SET_AE,     1, AE_MODE_M);
-	send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
+	if (cameraMode->ae != AE_MODE_M)
+		send_to_intercom(IC_SET_AE,     1, AE_MODE_M);
+
+	if (cameraMode->tv_val != TV_VAL_BULB)
+		send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
 	shutter_release_bulb(settings.lexp_time);
 }

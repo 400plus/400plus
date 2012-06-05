@@ -15,17 +15,8 @@
 // returns the pointer if it's valid, otherwise returns 0;
 #define PTR_VALID(x)  ((x&1)-1 & x)
 
-#define MEM(mem) (*(int*)((int)(mem)))
-
-// ((((int)(x)) & 0xF0000000) == 0xC0000000) ? shamem_read(x) : 
-
-#define MEMX(x) ( \
-	((((int)(x)) & 0xF0000000) == 0xE0000000) ? (int)0xDEADBEAF : \
-	((((int)(x)) & 0xF0000000) == 0x70000000) ? (int)0xDEADBEAF : \
-	((((int)(x)) & 0xF0000000) == 0x80000000) ? (int)0xDEADBEAF : \
-	*(int*)(x) \
-)
-
+#define GET_FROM_MEM(mem) (*(int*)((int)(mem)))
+#define SET_TO_MEM(mem,x) *(int*)((int)(mem)) = x
 
 typedef enum {
 	DEBUG_GENERIC    = 0x00, // +SFACT
