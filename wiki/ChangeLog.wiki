@@ -1,5 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-8*_
+ * Added Dutch translation (Alfred Vink).
+ * More stability fixes for scripts.
+
 _*20120415-7*_
  * All scripts should be more stable now.
  * Fixed a bug that made Av change during EAEB scripts.
