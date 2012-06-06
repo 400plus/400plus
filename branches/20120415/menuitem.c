@@ -97,9 +97,12 @@ void menuitem_display_sub(const type_MENUITEM *item, char *buffer, const int len
 }
 
 void menuitem_print(char *buffer, const char *name, const char *parameter, const int length) {
-	const int pad = length - strlen_utf8(name) - strlen_utf8(parameter) - 2;
+	const int pad = length - strlen_utf8(name) - strlen_utf8(parameter);
 
-	sprintf(buffer, "%s %*s %s", name, pad, "", parameter);
+	if (pad > 0)
+		sprintf(buffer, "%s%*s%s", name, pad, "", parameter);
+	else
+		sprintf(buffer, "%s %.*s.", name, strlen(parameter) + pad - 1, parameter);
 }
 
 void menuitem_inc_ev(const type_MENUITEM *item, const int repeating) {
