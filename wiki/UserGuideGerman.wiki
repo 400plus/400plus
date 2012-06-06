@@ -11,7 +11,7 @@ Based on english Wiki r1239
 
 == Was ist 400plus? ==
 
-*400plus* ist eine frei zugängliche Erweiterung der Firmware, welche zusätzliche FunktionalitÃ¤ten und Möglichkeiten für Ihre Canon 400D/XTi bietet;
+*400plus* ist eine frei zugängliche Erweiterung der Firmware, welche zusätzliche Funktionalitäten und Möglichkeiten für Ihre Canon 400D/XTi bietet;
 dies geschieht sowohl auf nicht zerstörerische, noch auf dauerhafte Art und Weise.
 Sie funktioniert, indem sie während des Startvorgangs automatisch in den Speicher der Kamera geschrieben wird um die eigentliche Firmware zu erweitern, ist aber kein dauerhaftes Firmwareupgrade und kann einfach wieder entfernt werden.
 Sie wurde speziell für die Canon 400D/XTi entwickelt und wird mit anderen Kameramodellen nicht funktionieren.
@@ -80,7 +80,7 @@ Bitte zie´hen Sie diesen Fakt in Betracht wenn Sie den Wert einstellen_.
 
 === Seite: Skripte ===
 
- * _*Erweitertes AEB*_: Diese Einstellung konfiguriert und startet das [#Erweiteretes_AEB Erweitertes AEB] Skript:
+ * _*Erweitertes AEB*_: Diese Einstellung konfiguriert und startet das [#Erweitertes_AEB Erweitertes AEB] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
     * Bilder: Die Anzahl der Aufnahmen die das Skript machen soll. Mögliche Werte liegen zwischen 1 und 9.
     * SchrittEV: Der EV-Abstand (Belichtungswert) zwischen jeder Aufnahme. Mögliche Werte liegen zwischen +1/3EV und +6EV.
@@ -137,7 +137,7 @@ Bitte zie´hen Sie diesen Fakt in Betracht wenn Sie den Wert einstellen_.
       * AEB: Rollt duch die AEB-Abstände von 0EV zu 1EV, dann 2EV, und wieder zurück zu 0EV (aus).
     * TRASH: Hier gilt das Gleiche wie für die `JUMP`-Taste.
  * _*Config. Presets*_: Dieses Untermenü konfiguriert [#Die_Presets die Presets]:
-    * Use A-DEP: Falls aktiviert (Ja gewählt), wird der `A-DEP`-Modus für [#Die_Presets die Presets] verwendet. Lesen Sie hierzu [#Der_A-DEP-Modus der A-DEP-Modus].
+    * Use A-DEP: Falls aktiviert (Ja gewählt), wird der `A-DEP`-Modus für [#Die_Presets die Presets] verwendet. Lesen Sie hierzu [#Der_A-DEP_Modus der A-DEP_Modus].
     * Camera: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass die Aufnahmeparameter der Kamera neu abgefragt werden. (Verschlusszeit, Blende,ISO,...).
     * 400plus: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass 400plus' eigene Einstellungen verwendet (Skripts, ...).
     * Settings: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass einige der selten geänderten Parameter neu abgefragt werden (Sprache, Videosystem,...).
@@ -265,7 +265,7 @@ Wenn der Eintrag "Max. DOF (m)" den Wert "INF!" anzeigen sollte, wurde die maxim
 Ein "Preset" ist eine komplette Abbildung der Kameraeinstellungen und Konfigurationsparameter. Presets können dafür verwendet werden, um die Kamera für eine bestimmte Aufnahmesituation vorzukonfigurieren (wie z.B. "Landschaftsaufnahme", "Porträt", "Low Light","Tiere",usw.), und erlauben dadurch einen schnellen Zugriff auf diese Einstellungen während des Shootings. Presets werden auf der CF-Karte gespeichert. Bis zu 9 Presets können so gespeichert werden. Die Anzahl der Presets jedoch ist unbegrenzt, da es möglich ist auf mehreren CF-Karten je 9 unterschiedliche Presets zu sichern.
 
 == Der A-DEP Modus ==
- kapern
+
 Unter normalen Umständen werden, wenn ein Preset geladen (wiederhergestellt) wird, alle Kameraparameter verändert, selbst der AE-Modus.
 Nehmen Sie bitte zur Kenntnis, dass die Kamera daher also in einem anderen AE-Modus arbeiten könnte, als dem, welcer momentan durch das Moduswahlrad ausgewählt ist. Jedoch wird die Kamera, wenn sie aus- und wieder eingeschaltet wird den AE-Modus auf den Wert setzen, welcher mit dem Moduswahlrad ausgewählt ist.
 
@@ -350,7 +350,7 @@ Die folgenden *_Goodies_* wurden der Kamera hinzugefügt um íhre Möglichkeiten
 == In den Kreativprogrammen ==
 
   * Im Dialog zur ISO-Wahl, drücken Sie `DP`um [#AutoISO AutoISO] zu aktivieren; wählen Sie einen beliebigen ISO-Wert um es zu deaktivieren.
-  * Im Dialog der Messmodusauswahl, drücken Sie `DP` um Punktmessung zu aktivieren (siehe auch [#Punktmessungsmodus / Punktmessungsmodus]).
+  * Im Dialog der Messmodusauswahl, drücken Sie `DP` um Punktmessung zu aktivieren (siehe auch [#Punktmessungsmodus Punktmessungsmodus]).
   * Im Dialog für den Weißabgleich können Sie die `DP`-Taste drücken, um eine benutzerdfinierte Temperatur (in Kelvin) für den Weißabgleich zu nutzen.
 
 = Andere Beigaben =
