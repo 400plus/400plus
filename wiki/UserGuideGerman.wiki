@@ -54,25 +54,25 @@ Nun benutzen Sie die `HOCH`- und `RUNTER`-Tasten um die Einstellung im Menü an 
 === Parameter ===
 
  * _*AutoISO*_: Dieses Untermenü dient dem Einstellen des [#AutoISO AutoISO].
-    * Enabled: aktivieren (Ja wählen) um AutoISO einzuschalten.
+    * Aktivieren: Ja wählen, um AutoISO einzuschalten.
     * Min ISO: niedrigster ISO-Wert den AutoISO benutzen soll.
     * Max ISO: höchster ISO-Wert den AutoISO benutzen soll.
     * Min Tv : niedrigste Verschlusszeit die AutoISO zu aufrechterhalten versucht.
     * Max Av : höchste Blendenöffnung die  AutoISO zu aufrechterhalten versucht `[*]`.
  * _*ISO*_: Rollen Sie durch mittlere ISO-Werte. Mögliche Werte liegen zwischen 100 - 3000.
- * _*Av Komp*_: Bewirkt das Gleiche wie die _Standard_ "Belichtungskorrektur", erweitert die Auswahl aber von -6 bis +6 EV.
+ * _*Av Abgleich*_: Bewirkt das Gleiche wie die _Standard_ "Belichtungskorrektur", erweitert die Auswahl aber von -6 bis +6 EV.
  * _*AEB*_: Bewirkt das Gleiche wie die _Standard_ "AEB", erweitert die Auswahl aber von -6 bis +6 EV.
  * _*Farbtemp. (K)*_: Setzt eine benutzerdefinierte Frabtemperaturwert in Kelvin, und setzt WB auf "benutzerdefiniert".
  * _*Spiegelverriegel.*_: (De-)aktiviert "Spiegelverriegelung" (bewirkt das Selbe wie die Custom Function - C.Fn 07).
  * _*Safety shift*_: Falls aktiviert (Ja gewählt) und die Kamera sich im `TV`- bzw. `AV`-Modus befindet, verändert die Kamera die vom Benutzer gewählte  Verschlußzeit bzw. Blendenöffnung um eine Unter- oder Überbelichtung zu vermeiden, falls der gewählte Wert zu klein bzw. groß für die aktuelle Szene ist.
- * _*Flash*_: Einstellung für das  Blitzgerät
-    * Blitz Komp: Bewirkt das Gleiche wie die _Standard_"Blitzbe. Korr.", erweitert die Auswahl aber von -6 bis +6 EV.
+ * _*Blitz*_: Einstellung für das  Blitzgerät
+    * Blitz Abgleich: Bewirkt das Gleiche wie die _Standard_"Blitzbe. Korr.", erweitert die Auswahl aber von -6 bis +6 EV.
     * Disable flash: Erzwingt die nicht Benutzung des Blitzes, selbst wenn der interne Blitz bereits aufgeklappt ist.
     * AF Blitz: (De-)aktiviert die Benutzung des Blitzes (während der Autofokusphase), selbst wenn der interne Blitz bereits aufgeklappt ist. Möglichkeiten: Aktiviert, Deaktiviert, Nur Extern (bewirkt das Selbe wie die Custom Function - C.Fn 05).
     * Blitz 2. Vorhang: Kontrolliert das Synchronisationsverhalten des Blendenvorhangs (bewirkt das Selbe wie die Custom Function - C.Fn 09).
- * _*IR Remote*_: Einstellungen für Infrarotauslöser:
-    * IR remote enable: aktivieren (Ja wählen), wenn Sie eine IR-Fernbedienung benutzen wollen. Falls Nein gewählt wird, wird dieses Feature deaktiviert.
-    * IR Fernausl. Verz.: Auswahl ob die Kamera sofort oder um 2 Sekunden verzögert auslösen soll, wenn eine IR-Fernbedienung verwendet wird.
+ * _*Infrarot Fernbed.*_: Einstellungen für Infrarotauslöser:
+    * IR Fernb. aktiv: aktivieren (Ja wählen), wenn Sie eine IR-Fernbedienung benutzen wollen. Falls Nein gewählt wird, wird dieses Feature deaktiviert.
+    * IR Fernb. Verz.: Auswahl ob die Kamera sofort oder um 2 Sekunden verzögert auslösen soll, wenn eine IR-Fernbedienung verwendet wird.
 
 _`[*]` Beachten Sie, dass die auswählbaren Werte die dieser Parameter anbietet in Abhängigkeit zu der physikalischen Beschaffenheit Ihres Objektivs stehen;
 Bei einem Zoomobjektiv kann die maximale Blendenöffnung je nach Zoomposition unterschiedlich sein.
@@ -82,74 +82,74 @@ Bitte zie´hen Sie diesen Fakt in Betracht wenn Sie den Wert einstellen_.
 
  * _*Erweitertes AEB*_: Diese Einstellung konfiguriert und startet das [#Erweitertes_AEB Erweitertes AEB] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
-    * Bilder: Die Anzahl der Aufnahmen die das Skript machen soll. Mögliche Werte liegen zwischen 1 und 9.
-    * SchrittEV: Der EV-Abstand (Belichtungswert) zwischen jeder Aufnahme. Mögliche Werte liegen zwischen +1/3EV und +6EV.
-    * Direction: Beschreibt die _Reihenfolge_ der EAEB Sequenz.
-    * Manuell [: Die niedrigste Verschlußzeit im `BULB` mode. Werte reichen von 1/4000 Sekunde bis zu 32 Minuten.
-    * Manuell ]: Die längste Verschlußzeit im `BULB` mode. Werte reichen von 1/4000 Sekunde bis zu 32 Minuten.
- * _*Flash AEB*_: Konfiguriert und startet das [#Blitz_AEB Flash AEB] Skript:
+    * Aufnahmen: Die Anzahl der Aufnahmen die das Skript machen soll. Mögliche Werte liegen zwischen 1 und 9.
+    * Schritt (EV): Der EV-Abstand (Belichtungswert) zwischen jeder Aufnahme. Mögliche Werte liegen zwischen +1/3EV und +6EV.
+    * Reihenfolge: Beschreibt die _Reihenfolge_ der EAEB Sequenz.
+    * Bulb min: Die niedrigste Verschlußzeit im `BULB` mode. Werte reichen von 1/4000 Sekunde bis zu 32 Minuten.
+    * Bulb max: Die längste Verschlußzeit im `BULB` mode. Werte reichen von 1/4000 Sekunde bis zu 32 Minuten.
+ * _*Blitz AEB*_: Konfiguriert und startet das [#Blitz_AEB Blitz AEB] Skript:
  * _*ISO AEB*_: Diese Einstellung konfiguriert und startet das [#ISO_AEB ISO AEB] Skript; jede Einstellung im Konfigurationsuntermenü gibt an, ob die Kamera für den gewählten ISO-Wert einmal ausgelöst werden muss.
  * _*Interval*_: Konfiguriert und startet das [#Intervalometer Intervalometer] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
-    * Time: Der Zeitraum (in Minuten:Sekunden) zwishcen den einzelnen Aufnahmen (oder Gruppen von Aufnahmen). Werte liegen zwischen 00:00 und 05:00.
-    * Action: Die auszuführende Aktion (One Shot, Erweitertes AEB, Flash AEB, ISO AEB, Langzeitbelichtung).
-    * Shots: Die Gesamtanzahl der Aufnahmen die das Skript machen wird. Werte liegen zwischen 1 und 250 und "No Limit" um endlos aufzunehmen.
- * _*Handwave*_: Konfiguriert und startet das [#Hand_Waving Hand Waving] Skript:
+    * Zeit: Der Zeitraum (in Minuten:Sekunden) zwishcen den einzelnen Aufnahmen (oder Gruppen von Aufnahmen). Werte liegen zwischen 00:00 und 05:00.
+    * Aktion: Die auszuführende Aktion (One Shot, Erweitertes AEB, Blitz AEB, ISO AEB, Langzeitbelichtung).
+    * Aufnahmen: Die Gesamtanzahl der Aufnahmen die das Skript machen wird. Werte liegen zwischen 1 und 250 und "No Limit" um endlos aufzunehmen.
+ * _*Winken*_: Konfiguriert und startet das [#Winken Winken] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
-    * Action: Die auszuführende Aktion (One Shot, Erweitertes AEB, Flash AEB, ISO AEB, Langzeitbelichtung).
-    * Repeat: Falls aktiviert (Ja gewählt), wird sich das Skript nach Beendigung von alleine neustarten. Dies erlaubt es Ihnen mit Ihrer Hand erneut zu winken  um das Skript weiter zu benutzen.
+    * Aktion: Die auszuführende Aktion (One Shot, Erweitertes AEB, Blitz AEB, ISO AEB, Langzeitbelichtung).
+    * Wiederholen: Falls aktiviert (Ja gewählt), wird sich das Skript nach Beendigung von alleine neustarten. Dies erlaubt es Ihnen mit Ihrer Hand erneut zu winken  um das Skript weiter zu benutzen.
     * Instant: Falls aktiviert (Ja gewählt), wird das Skript eine Aufnahme machen, sobald es eine Hand erkennt; ansonsten wartet es auf ein Verschwinden der Hand.
- * _*Timer*_: Konfiguriert und startet das  [#Self_Timer Self Timer] Skript:
+ * _*Timer*_: Konfiguriert und startet das  [#Selbstauslöser Selbstauslöser] Skript:
     * Verz.: Die Zeit (in Minuten:Sekunden) die das Skript warten soll bevor es auslöst. Werte liegen zwischen 00:00 und 05:00.
-    * Action: Die auszuführende Aktion (One Shot, Erweitertes AEB, Flash AEB, ISO AEB, Langzeitbelichtung).
- * _*Long exposure*_:  Konfiguriert und startet das [#Long_Exposure Langzeitbelichtungs] Skript:
+    * Aktion: Die auszuführende Aktion (One Shot, Erweitertes AEB, Blitz AEB, ISO AEB, Langzeitbelichtung).
+ * _*Langzeitbelichtung*_:  Konfiguriert und startet das [#Langzeitbelichtung Langzeitbelichtungs] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
     * Time: Die Belichtungszeit (in Minuten:Sekunden). Werte liegen zwischen 00:00 und 100:00.
-    * Calculator: Öffnet [#Long_Exposure_Calculator den Rechner für Langzeitbelichtungen].
- * _*DOF Calculator*_: Startet den [#DOF_Calculator DOF Calculator]:
+    * Rechner: Öffnet [#Langzeitbelichtungsrechner den Rechner für Langzeitbelichtungen].
+ * _*DOF Rechner*_: Startet den [#DOF_Rechner DOF Rechner]:
     * Focal length (mm): Brennweite des Objektivs in mm.
     * Av: Blende des Objektivs.
-    * Focus distance (m): Abstand zum Fokuspunkt.
+    * Fokusabstand (m): Abstand zum Fokuspunkt.
     * Min. DOF (m): Kürzeste Entfernung mit akzeptapler Schärfe (nur zur Information).
     * Max. DOF (m): Längste Entfernung mit akzeptapler Schärfe (nur zur Information)
 
 === Seite: Info ===
 
- * _*Release count*_: Die Anzahl der Auslösevorgänge des Kamera-Bodies.
+ * _*Auslösezähler*_: Die Anzahl der Auslösevorgänge des Kamera-Bodies.
  * _*Body ID*_: Die "BodyID" des Kamera-Bodies (eine einmalige interne Nummer).
  * _*Version*_: Die Versionsnummer der aktuell installierten 400plus-Software.
 
 === Seite: Einstellungen ===
 
- * _*Language*_: Bestimmt die Menüsprache von `400plus`; wenn Sie "`Camera`" wählen, wird die Sprache welche in der Kamera eingestellt ist verwendet.
- * _*ISO in viewfinder*_: Falls aktiviert (Ja gewählt), können Sie die Pad-Tasten benutzen um den ISO-Wert anzuzeigen und zu verändern während Sie durch den Sucher schauen;weitere Informationen finden Sie unter [#ISO_in_viewfinder ISO in viewfinder].
- * _*Developers menu*_: Falls aktiviert (Ja gewählt), ist das Entwicklermenü über eine Seite aufrufbar sein.
- * _*Config. Scripts*_: Dieses Untermenü konfiguriert das Verhalten [#Die_Skripte der Skripte].
-    * Disable power-off: Falls aktiviert (Ja gewählt), wird das automatische Abschalten der Kamera deaktiveiert. Dies wird zurückgesetzt, nachdem das Skript beendet wurde.
-    * LCD display: Stellt die Helligkeit des LCD-Bildschirms während der Ausführung eines Skripts ein.
-    * Indicator: Stellt die Häufigkeit ein, wie oft die blaue LED blinkt während ein Skript ausgeführt wird.
- * _*Config. Buttons*:_ In diesem Untermenü kann der Benutzer das Verhalten einiger Spezialtasten einstellen:
-    * Better DISP button: Falls aktiviert (Ja gewählt), verändert die `DISP`-Taste die Bildschirmhelligkeit in kleinen Schritten anstatt es lediglich ein- und auszuschalten.
+ * _*Sprache*_: Bestimmt die Menüsprache von `400plus`; wenn Sie "`Camera`" wählen, wird die Sprache welche in der Kamera eingestellt ist verwendet.
+ * _*ISO in Sucher*_: Falls aktiviert (Ja gewählt), können Sie die Pad-Tasten benutzen um den ISO-Wert anzuzeigen und zu verändern während Sie durch den Sucher schauen;weitere Informationen finden Sie unter [#ISO_in_Sucher ISO in Sucher].
+ * _*Entwicklermenü*_: Falls aktiviert (Ja gewählt), ist das Entwicklermenü über eine Seite aufrufbar sein.
+ * _*Konfig. Skripts*_: Dieses Untermenü konfiguriert das Verhalten [#Die_Skripte der Skripte].
+    * Deaktiviere Power-Off: Falls aktiviert (Ja gewählt), wird das automatische Abschalten der Kamera deaktiveiert. Dies wird zurückgesetzt, nachdem das Skript beendet wurde.
+    * LCD Display: Stellt die Helligkeit des LCD-Bildschirms während der Ausführung eines Skripts ein.
+    * Indikator: Stellt die Häufigkeit ein, wie oft die blaue LED blinkt während ein Skript ausgeführt wird.
+ * _*Konfig. Tasten*:_ In diesem Untermenü kann der Benutzer das Verhalten einiger Spezialtasten einstellen:
+    * Bessere DISP Taste: Falls aktiviert (Ja gewählt), verändert die `DISP`-Taste die Bildschirmhelligkeit in kleinen Schritten anstatt es lediglich ein- und auszuschalten.
     * JUMP: Lässt den Benutzer der `JUMP`-Taste eine Aktion zuweisen die im Hauptmenü aufgerufen werden kann.
       * Intermediate ISO: verändert den ISO-Wert um 1/8 EV (lesen Sie hierzu [#Erweiterte_ISOs Notes / Erweiterte ISOs]).
       * Repeat last script: Wiederholt das zuletzt aufgerufene Skript.
       * Mirror lock-up: Schaltet die Spiegelverriegelung ein/aus.
       * AEB: Rollt duch die AEB-Abstände von 0EV zu 1EV, dann 2EV, und wieder zurück zu 0EV (aus).
-    * TRASH: Hier gilt das Gleiche wie für die `JUMP`-Taste.
- * _*Config. Presets*_: Dieses Untermenü konfiguriert [#Die_Presets die Presets]:
-    * Use A-DEP: Falls aktiviert (Ja gewählt), wird der `A-DEP`-Modus für [#Die_Presets die Presets] verwendet. Lesen Sie hierzu [#Der_A-DEP_Modus der A-DEP_Modus].
+    * Mülleimer: Hier gilt das Gleiche wie für die `JUMP`-Taste.
+ * _*Konfig. Presets*_: Dieses Untermenü konfiguriert [#Die_Presets die Presets]:
+    * Benutze A-DEP: Falls aktiviert (Ja gewählt), wird der `A-DEP`-Modus für [#Die_Presets die Presets] verwendet. Lesen Sie hierzu [#Der_A-DEP_Modus der A-DEP_Modus].
     * Camera: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass die Aufnahmeparameter der Kamera neu abgefragt werden. (Verschlusszeit, Blende,ISO,...).
     * 400plus: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass 400plus' eigene Einstellungen verwendet (Skripts, ...).
-    * Settings: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass einige der selten geänderten Parameter neu abgefragt werden (Sprache, Videosystem,...).
-    * Image: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass Parameter bezüglich des Bildes neu abgefragt werden (RAW/JPEG, Qualität, ...).
-    * Custom Fn: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass die CUstom Functions (C.Fn.) neu abgefragt werden (Spiegelverriegelung, Langzeitbelichung, Rauschreduktion, ...).
- * _*Config. Pages*_: Benutzen Sie dieses Untermenü um einzustellen, in welcher Reihenfolge die Seiten angezeigt werden müssen.
+    * Einstellungen: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass einige der selten geänderten Parameter neu abgefragt werden (Sprache, Videosystem,...).
+    * Bild: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass Parameter bezüglich des Bildes neu abgefragt werden (RAW/JPEG, Qualität, ...).
+    * Custom Fn: Falls aktiviert (Ja gewählt), führt das Laden eines Presets dazu, dass die Custom Functions (C.Fn.) neu abgefragt werden (Spiegelverriegelung, Langzeitbelichung, Rauschreduktion, ...).
+ * _*Konfig. Seiten*_: Benutzen Sie dieses Untermenü um einzustellen, in welcher Reihenfolge die Seiten angezeigt werden müssen.
 
 === Seite: Presets ===
 
 Diese Seite dient dazu [#Die_Presets Presets] zu laden, zu sichern und umzubenennen; machen sie Folgendes um ein Preset umzubenennen:
 
- * Wählen Sie die "Rename"-Option im Presets-Untermenü aus.
+ * Wählen Sie die "Umbenennen"-Option im Presets-Untermenü aus.
  * Benutzen Sie die `HOCH`- / `RUNTER`- / `LINKS`- / `RECHTS`-Tasten um einen Wert auszuwählen.
  * Benutzen Sie die `MENU`-Taste um zwischen Kleinbuchstaben / Ziffern und Großbuchstaben / Symbolen zu wechseln.
  * Benutzen Sie die `JUMP`-Taste um für das gewählte Zeichen zwischen Groß- und Kleinschreibung zu wechseln (Fußzeile).
@@ -209,24 +209,24 @@ Wenn zum Beispiel eine Intervallänge von 15 Sekunden eingestellt wurdedann wird
 Falls eine Aufnahme in der Sequenz eine Belichtungszeit hat, welche länger als die Intervallänge ist, wird `400plus` genau so viele Aufnahmen aussetzenwie nötig und die Aufnahmesequenz neu planen.
 Dies ist auch dann gültig, wenn das Intervalometer für eine beliebige Multi-Aufnahme-Aktion konfiguriert wurde.
 
-== Hand Waving ==
+== Winken ==
 
 Das Skript löst die Kamera aus, wenn der LCD-Aus-Sensor (auf der Rückseite der Kamera) ausgelöst wird. Benutzen Sie dieses Skript um Bildverwackelungen zu vermeiden und die Kamera eine Aufnahme machen zu lassen ohne dafür eine Fernbedienung zu benötigen.
 Falls die "Repeat"-Option aktiviert ist, beendet sich das Skript nicht, nachdem aus ausgelöst wurde, sondern wiederholt sich damit Sie mehr Aufnahmen nacheinander machen können.
 Standardmäßig wartet das Skript, bis etwas (wie zum Beispiel Ihre Hand oder Ihr Finger) den Sensor verdeckt und wieder freimacht.
 Es ist jedoch möglich, das Skript auszulösen sobald der Sensor blockiert ist, indem Sie die "Instant"-Option aktivieren.
 
-== Self Timer ==
+== Selbstauslöser ==
 
 Dieses Skript wartet eine konfigurierbare Zeitspanne bevor die Kamera auslöst.
 
-== Long Exposure ==
+== Langzeitbelichtung ==
 
 Bietet die Möglichkeit eine von 15 Sekunden bis 100 Minuten einstellbare Langzeitbelichtung zu realisieren.
 
 Beachten Sie bitte, dass die Kamera sich im 'M + Bulb'-Modus befinden muss um eine Langzeitbelichtung durchzuführen; das Skript wird die Kamera automatisch einstellen, allerdings ist es Aufgabe des Benutzers eine passende Blendeneinstellung zu treffen.
 
-=== Long Exposure Calculator ===
+=== Langzeitbelichtungsrechner ===
 
 
 Der Rechner für Langzeitbelichtungen ist ein Werkzeug, welches eigens dafür entwickelt wurde, den Fotografen dabei zu unterstützen schnell die passende Belichtungszeit festzustellen, die für eine bestimmte Szene erforderlich ist.
@@ -249,7 +249,7 @@ benutzen Sie nun den Rechner für Langzeitbelichtungen und stellen Sie die Belic
 Ein Beispiel: 
 nehmen wir an, wir hätten einen ND8 Filter (8 Stufen Lichtreduktion): wenn die Kamera 1/120s, f/4.0 und ISO 1600 ohne Filter misst, dann wählen wir 2', f/8.0 ISO 100 um einen EV von +8 zu erhalten.
 
-=== DOF Calculator ===
+=== DOF Rechner ===
 
 Der DOF-Rechner kann Ihnen dabei helfen den Schärfentiefebereich eine Szene, oder den Abstandsbereich in welchem eine Szene scharf erscheint zu bestimmen;
 um mehr Informationen dazu zu erhalten, besuchen Sie bitte die Seite [http://www.dofmaster.com/index.html DOF Master].
@@ -320,7 +320,7 @@ in diesem Fall wählt der Benutzer sowohl die Blende, als auch die Verschlußzei
 Keiner der Konfigurationsparameter beeinflußt AutoISO in diesem Modus; außerdem ist dies der einzige Modus, in dem ISO-Zwischenwerte genutzt werden.
 Um die Belichtungsanpassung im M-Modus zu nutzen, benutzen Sie die `LINKS`- und `RECHTS`-Tasten während Sie durch den Sucher schauen.
 
-= ISO in viewfinder =
+= ISO in Sucher =
 
 Wenn Sie diese Option aktivieren (auf Ja setzen) und wenn die Kamera sich zusätzlich in einem der Kreativmodi befindet, können Sie den ISO-Wert wechseln, während Sie durch den Sucher schauen; im Tv- und M-Modus wird der neue ISO-Wert zudem im Sucher angezeigt.
 
