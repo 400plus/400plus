@@ -57,9 +57,9 @@ Nun benutzen Sie die `HOCH`- und `RUNTER`-Tasten um die Einstellung im Menü an 
     * Aktivieren: Ja wählen, um AutoISO einzuschalten.
     * Min ISO: niedrigster ISO-Wert den AutoISO benutzen soll.
     * Max ISO: höchster ISO-Wert den AutoISO benutzen soll.
-    * Min Tv : niedrigste Verschlusszeit die AutoISO zu aufrechterhalten versucht.
-    * Max Av : höchste Blendenöffnung die  AutoISO zu aufrechterhalten versucht `[*]`.
- * _*ISO*_: Rollen Sie durch mittlere ISO-Werte. Mögliche Werte liegen zwischen 100 - 3000.
+    * Min Tv : niedrigste Verschlusszeit die AutoISO beizubehalten versucht.
+    * Max Av : höchste Blendenöffnung die  AutoISO beizubehalten versucht `[*]`.
+ * _*ISO*_: Rollen Sie durch die ISO-Werte. Mögliche Werte liegen zwischen 100 - 3000.
  * _*Av Abgleich*_: Bewirkt das Gleiche wie die _Standard_ "Belichtungskorrektur", erweitert die Auswahl aber von -6 bis +6 EV.
  * _*AEB*_: Bewirkt das Gleiche wie die _Standard_ "AEB", erweitert die Auswahl aber von -6 bis +6 EV.
  * _*Farbtemp. (K)*_: Setzt eine benutzerdefinierte Frabtemperaturwert in Kelvin, und setzt WB auf "benutzerdefiniert".
@@ -67,7 +67,7 @@ Nun benutzen Sie die `HOCH`- und `RUNTER`-Tasten um die Einstellung im Menü an 
  * _*Safety shift*_: Falls aktiviert (Ja gewählt) und die Kamera sich im `TV`- bzw. `AV`-Modus befindet, verändert die Kamera die vom Benutzer gewählte  Verschlußzeit bzw. Blendenöffnung um eine Unter- oder Überbelichtung zu vermeiden, falls der gewählte Wert zu klein bzw. groß für die aktuelle Szene ist.
  * _*Blitz*_: Einstellung für das  Blitzgerät
     * Blitz Abgleich: Bewirkt das Gleiche wie die _Standard_"Blitzbe. Korr.", erweitert die Auswahl aber von -6 bis +6 EV.
-    * Disable flash: Erzwingt die nicht Benutzung des Blitzes, selbst wenn der interne Blitz bereits aufgeklappt ist.
+    * Disable flash: Deaktiviert die Benutzung des Blitzes, selbst wenn der interne Blitz bereits aufgeklappt ist.
     * AF Blitz: (De-)aktiviert die Benutzung des Blitzes (während der Autofokusphase), selbst wenn der interne Blitz bereits aufgeklappt ist. Möglichkeiten: Aktiviert, Deaktiviert, Nur Extern (bewirkt das Selbe wie die Custom Function - C.Fn 05).
     * Blitz 2. Vorhang: Kontrolliert das Synchronisationsverhalten des Blendenvorhangs (bewirkt das Selbe wie die Custom Function - C.Fn 09).
  * _*Infrarot Fernbed.*_: Einstellungen für Infrarotauslöser:
@@ -109,7 +109,7 @@ Bitte zie´hen Sie diesen Fakt in Betracht wenn Sie den Wert einstellen_.
  * _*DOF Rechner*_: Startet den [#DOF_Rechner DOF Rechner]:
     * Focal length (mm): Brennweite des Objektivs in mm.
     * Av: Blende des Objektivs.
-    * Fokusabstand (m): Abstand zum Fokuspunkt.
+    * Fokusabstand (m): Entfernung zum Fokuspunkt.
     * Min. DOF (m): Kürzeste Entfernung mit akzeptapler Schärfe (nur zur Information).
     * Max. DOF (m): Längste Entfernung mit akzeptapler Schärfe (nur zur Information)
 
@@ -123,14 +123,14 @@ Bitte zie´hen Sie diesen Fakt in Betracht wenn Sie den Wert einstellen_.
 
  * _*Sprache*_: Bestimmt die Menüsprache von `400plus`; wenn Sie "`Camera`" wählen, wird die Sprache welche in der Kamera eingestellt ist verwendet.
  * _*ISO in Sucher*_: Falls aktiviert (Ja gewählt), können Sie die Pad-Tasten benutzen um den ISO-Wert anzuzeigen und zu verändern während Sie durch den Sucher schauen;weitere Informationen finden Sie unter [#ISO_in_Sucher ISO in Sucher].
- * _*Entwicklermenü*_: Falls aktiviert (Ja gewählt), ist das Entwicklermenü über eine Seite aufrufbar sein.
+ * _*Entwicklermenü*_: Falls aktiviert (Ja gewählt), ist das Entwicklermenü als Seite aufrufbar.
  * _*Konfig. Skripts*_: Dieses Untermenü konfiguriert das Verhalten [#Die_Skripte der Skripte].
     * Deaktiviere Power-Off: Falls aktiviert (Ja gewählt), wird das automatische Abschalten der Kamera deaktiveiert. Dies wird zurückgesetzt, nachdem das Skript beendet wurde.
     * LCD Display: Stellt die Helligkeit des LCD-Bildschirms während der Ausführung eines Skripts ein.
     * Indikator: Stellt die Häufigkeit ein, wie oft die blaue LED blinkt während ein Skript ausgeführt wird.
  * _*Konfig. Tasten*:_ In diesem Untermenü kann der Benutzer das Verhalten einiger Spezialtasten einstellen:
     * Bessere DISP Taste: Falls aktiviert (Ja gewählt), verändert die `DISP`-Taste die Bildschirmhelligkeit in kleinen Schritten anstatt es lediglich ein- und auszuschalten.
-    * JUMP: Lässt den Benutzer der `JUMP`-Taste eine Aktion zuweisen die im Hauptmenü aufgerufen werden kann.
+    * JUMP: Zuweisung einer Aktion die bei Betätigung der `JUMP`-Taste aus dem Hauptmenu erfolgen soll:
       * Intermediate ISO: verändert den ISO-Wert um 1/8 EV (lesen Sie hierzu [#Erweiterte_ISOs Notes / Erweiterte ISOs]).
       * Repeat last script: Wiederholt das zuletzt aufgerufene Skript.
       * Mirror lock-up: Schaltet die Spiegelverriegelung ein/aus.
@@ -188,7 +188,7 @@ Angenommen sei eine Konfiguration von 5 Aufnahmen mit 1EV Unterschied; nachfolge
  * ` + ` : Eine Aufnahme mit der aktuellen EV und die restlichen darüber: 0EV, +1EV, +2EV, +3EV, +4EV.
  * ` - ` : Eine Aufnahme mit der aktuellen EV und die restlichen darunter: 0EV, -1EV, -2EV, -3EV, -4EV.
 
-Im 'M'-Modus und einer Belichtungszeit mit Wert `BULB` macht das Skript so oft wie benötigt die Kamera auslösen (in diesem Modus ist die Anzahl der eingestellten Aufnahmen irrelevant). Die genutzten Verschlußzeiten befinden sich zwischen dem Wert für "Bulb min:" und dem Wert für "Bulb max:", wobei jede Aufnahme durch den Wert von "Step (EV)" verändert wird. Beachten Sie bitte auch, dass in diesem Modus Belichtungszeiten von bis zu 32 Minuten eingestellt werden können.
+Im 'M'-Modus und einer Belichtungszeit mit Wert `BULB` wird das Skript so oft wie benötigt die Kamera auslösen (in diesem Modus ist die Anzahl der eingestellten Aufnahmen irrelevant). Die genutzten Verschlußzeiten befinden sich zwischen dem Wert für "Bulb min:" und dem Wert für "Bulb max:", wobei jede Aufnahme durch den Wert von "Step (EV)" verändert wird. Beachten Sie bitte auch, dass in diesem Modus Belichtungszeiten von bis zu 32 Minuten eingestellt werden können.
 
 == Blitz AEB ==
 
@@ -197,7 +197,7 @@ Dem [#Erweitertes_AEB Erweitertes AEB]-Skript sehr ähnlich, nur dass hier die B
 == ISO AEB ==
 
 Die Kamera wird eine Aufnahme für jeden eingestellten ISO-Wert machen.
-Möglicherweise möchten Sie in den `M`-Modus wechseln bevor Sie dieses Skript benutzen.
+Möglicherweise möchten Sie lieber in den `M`-Modus wechseln bevor Sie dieses Skript benutzen.
 
 == Intervalometer ==
 
@@ -405,4 +405,6 @@ Der Punktmessungsmodus ist dem _Standard_modus "Selektivmessung" ähnlich, aller
 Die folgenden Probleme wurden gemeldet und bestätigt:
 
  * Problem #156: Wenn AF-Vorlagen verwendet werden wird der AF-Assist Beam des 430EX nicht ausgelöst. 
- * Problem #153: Das Standardmenü blitzt kurz auf, bevor das Shortcutmenü geöffnet wird.
+ * Problem #153: Das Standardmenü blitzt kurz auf, bevor das Shortcutmenü geöffnet wird. 
+ = Danksagung =
+ Danke an [http://chdk.setepontos.com/index.php?action=profile;u=23374 Thebi] für das Korrekturlesen und die daraus resultierende Hilfe.
