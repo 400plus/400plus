@@ -1,5 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-9*_
+ * Updated German translation (Malte Perenz).
+ * Improved display of long menus.
+
 _*20120415-8*_
  * Added Dutch translation (Alfred Vink).
  * More stability fixes for scripts.
