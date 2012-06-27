@@ -113,7 +113,8 @@ void initialize() {
 }
 
 void initialize_display() {
-	ENQUEUE_TASK(restore_display);
+	if (!status.script_running)
+		ENQUEUE_TASK(restore_display);
 }
 
 void intercom_proxy(const int handler, char *message) {
