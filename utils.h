@@ -9,7 +9,7 @@
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     5
 #define EVENT_WAIT        5
-#define RELEASE_WAIT    100
+#define RELEASE_WAIT    250
 
 #define SHUTTER_LAG     125
 
@@ -55,7 +55,6 @@ extern void exit_factory_mode();
 extern void start_debug_mode();
 extern void dump_log();
 extern void dump_memory();
-extern void dump_memory_after_5s();
 extern void print_info();
 
 extern int send_to_intercom(int message, int length, int parm);
