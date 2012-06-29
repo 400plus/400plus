@@ -1,6 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
-_*20120415-9*_
+_*20120415-11*_
+ * Longer pauses between shots: makes scripts run slower, but more stable.
+
+_*20120415-10*_
  * Added Galician translation (Rubén Castiñeiras Lorenzo).
 
 _*20120415-9*_
