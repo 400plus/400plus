@@ -295,6 +295,8 @@ void action_ext_aeb() {
 		int tv_val;
 
 		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
+			wait_for_camera();
+
 			if (tv_val < 0x10) {
 				if (cameraMode->tv_val != TV_VAL_BULB)
 					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
@@ -325,7 +327,7 @@ void action_ext_aeb() {
 
 		// First photo taken using default values
 		shutter_release();
-		script_delay(100);
+		wait_for_camera();
 		frames--;
 
 		// Grab the parameters used by the camera
@@ -339,6 +341,8 @@ void action_ext_aeb() {
 		// ...and do the rest ourselves
 		while(frames) {
 			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
+				wait_for_camera();
+
 				tv_inc = tv_add(tv_inc, tv_sep);
 				av_inc = av_add(av_inc, av_sep);
 
@@ -353,6 +357,8 @@ void action_ext_aeb() {
 			}
 
 			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
+				wait_for_camera();
+
 				tv_dec = tv_sub(tv_dec, tv_sep);
 				av_dec = av_sub(av_dec, av_sep);
 
@@ -425,6 +431,8 @@ void action_efl_aeb() {
 }
 
 void action_long_exp() {
+	wait_for_camera();
+
 	if (cameraMode->ae != AE_MODE_M)
 		send_to_intercom(IC_SET_AE,     1, AE_MODE_M);
 
