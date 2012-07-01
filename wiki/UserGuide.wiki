@@ -298,6 +298,8 @@ When this option is active (set to Yes), and if the camera is set in any creativ
  * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or UP just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
  * In P and Av modes, ISO can also be changed, but it is not displayed.
 
+*NOTE*: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled, even if it has been enable in the settings menu.
+
 = The AF-Pattern point selection =
 
 400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
