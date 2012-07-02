@@ -2,7 +2,7 @@
 
 = Übersetzung =
 German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
-Based on english Wiki r1239
+Based on english Wiki r1392
 = Inhaltsangabe=
 
 <wiki:toc max_depth="1" />
@@ -91,9 +91,13 @@ Bitte zie´hen Sie diesen Fakt in Betracht wenn Sie den Wert einstellen_.
  * _*ISO AEB*_: Diese Einstellung konfiguriert und startet das [#ISO_AEB ISO AEB] Skript; jede Einstellung im Konfigurationsuntermenü gibt an, ob die Kamera für den gewählten ISO-Wert einmal ausgelöst werden muss.
  * _*Interval*_: Konfiguriert und startet das [#Intervalometer Intervalometer] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
-    * Zeit: Der Zeitraum (in Minuten:Sekunden) zwishcen den einzelnen Aufnahmen (oder Gruppen von Aufnahmen). Werte liegen zwischen 00:00 und 05:00.
+    * Zeit: Der Zeitraum (in Minuten:Sekunden) zwishcen den einzelnen Aufnahmen (oder Gruppen von Aufnahmen). Werte liegen zwischen 00:01 und 05:00.
     * Aktion: Die auszuführende Aktion (One Shot, Erweitertes AEB, Blitz AEB, ISO AEB, Langzeitbelichtung).
     * Aufnahmen: Die Gesamtanzahl der Aufnahmen die das Skript machen wird. Werte liegen zwischen 1 und 250 und "No Limit" um endlos aufzunehmen.
+    * Videoformat (fps): Angestrebte Framerate der Wiedergabe, falls eine Zeitrafferaufnahme vorbereitet wird.
+    * Aufnahmezeit: Voraussichtliche Zeit, die die Kamera benötigen wird um die komplette Zeitrafferaufnahme aufzunehmen (nur zur Information).
+    * Wiedergabezeit: Voraussichtliche Wiedergabezeit der Zeitrafferaufnahme (nur zur Information).
+
  * _*Winken*_: Konfiguriert und startet das [#Winken Winken] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
     * Aktion: Die auszuführende Aktion (One Shot, Erweitertes AEB, Blitz AEB, ISO AEB, Langzeitbelichtung).
@@ -104,7 +108,7 @@ Bitte zie´hen Sie diesen Fakt in Betracht wenn Sie den Wert einstellen_.
     * Aktion: Die auszuführende Aktion (One Shot, Erweitertes AEB, Blitz AEB, ISO AEB, Langzeitbelichtung).
  * _*Langzeitbelichtung*_:  Konfiguriert und startet das [#Langzeitbelichtung Langzeitbelichtungs] Skript:
     * Verz.: Wählt aus, ob das Skript sofort oder aber mit 2 Sekunden Verzögerung startet.
-    * Time: Die Belichtungszeit (in Minuten:Sekunden). Werte liegen zwischen 00:00 und 100:00.
+    * Time: Die Belichtungszeit (in Minuten:Sekunden). Werte liegen zwischen 00:15 und 100:00.
     * Rechner: Öffnet [#Langzeitbelichtungsrechner den Rechner für Langzeitbelichtungen].
  * _*DOF Rechner*_: Startet den [#DOF_Rechner DOF Rechner]:
     * Focal length (mm): Brennweite des Objektivs in mm.
@@ -161,11 +165,12 @@ Beachten Sie bitte, dass links von jedem Preset eine Nummer angezeigt wird. Dies
 
 === Seite: Entwickler ===
 
-*ANMERKUNG*: Die Entwicklerseite wird standardmäßig nicht angezeigt. Sie muss auf der  [#Seite:_Einstellungen Einstellungsseite] aktiviert werden um angezeigt werden zu können..
+*ANMERKUNG*: Die Entwicklerseite wird standardmäßig nicht angezeigt. Sie muss auf der  [#Seite:_Einstellungen Einstellungsseite] aktiviert werden um angezeigt werden zu können;
+zudem liegt die Entwicklerseite außerhalb der normalen Navigation: drücken Sie die `MÜLLEIMER`-Taste, während Sie sich im Menü befinden um die Entwicklerseite angezeigt zu bekommen.
 
-_Diese Seite ist bewusst leergelassen._
+_Diese Seite wurde bewusst leergelassen._
 
-*WARNUNG*: Diese Optionen sollten nur mit größter Vorsicht benutzt werden; 
+*WARNUNG*: Die Optionen auf dieser Seite sollten nur mit größter Vorsicht benutzt werden; 
 so lange Sie nicht gerade an einem eigenen Hack arbeiten, gibt es hier für Sie höschstwahrscheinlich nicht viel zu sehen.
 
 = Die Skripte =
@@ -204,10 +209,32 @@ Möglicherweise möchten Sie lieber in den `M`-Modus wechseln bevor Sie dieses S
 Dieses Skript lässt die Kamera so oft wie eingestellt wurde (oder endlos) auslösen, wobei der zeitliche Abstand zwischen den Aufnahmen einstellbar ist;
 Praktisch ist dies zum Beispiel für _Stop-Motion_-Videos.
 
+=== Strikte Zeitplanung ===
 Beachten Sie bitte, dass `400plus` immer versuchen wird die Aufnahmen in einem gleichmäßigen Rhythmus, unabhängig von der Belichtungszeit, zu machen:
 Wenn zum Beispiel eine Intervallänge von 15 Sekunden eingestellt wurdedann wird exakt alle 15 Sekunden eine Aufnahme gemacht, auch wenn eine Belichtungszeit von 10 Sekunden eingestellt wurde.
-Falls eine Aufnahme in der Sequenz eine Belichtungszeit hat, welche länger als die Intervallänge ist, wird `400plus` genau so viele Aufnahmen aussetzenwie nötig und die Aufnahmesequenz neu planen.
+Falls eine Aufnahme in der Sequenz eine Belichtungszeit hat, welche länger als die Intervallänge ist, wird `400plus` genau so viele Aufnahmen aussetzen wie nötig und die Aufnahmesequenz entsprechend neu planen.
 Dies ist auch dann gültig, wenn das Intervalometer für eine beliebige Multi-Aufnahme-Aktion konfiguriert wurde.
+
+Ein Beispiel: 
+Stellen Sie sich ein Interval von 5 Sekunden und Belichtungszeiten zwischen 1 und 4 Sekunden vor (wir nehmen an, die Kamera befindet sich im Av-Modus und die Lichtverhältnisse verändern sich während des Skripts):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * *   *         * *
+}}}
+
+Achten Sie darauf, wie die Pausenlänge sich zwischen dem Ende einer Belichtung und dem Start der nächsten sich der Belichtungszeit anpasst, so dass die Aufnahmen immer zu den passenden Intervallen starten. Jetzt stellen Sie sich vor, dass eine der Belichtungen länger dauern wird als 5 Sekunden (nehmen wir 7 Sekunden an):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * * * * *       * *
+}}}
+
+Achten Sie darauf, dass die dritte Aufnahme nicht 5 Sekunden nach der zweiten, sondern erst zu Sekunde 15 gestartet wird.
+
+=== Zeitraffer Rechner ===
+
+Falls Sie planen, eine Zeitrafferaufnahme aus den Fotografien, welche durch dieses Skript produziert wurden, zu erstellen, so können Sie die gewünschte Wiedergabe Framerate angeben und das Skript wird die daraus resultierende Wiedergabezeit berechnen. DIese Parameter sind lediglich informativ und haben keinerlei Auswirkungen auf das Skript selber.
 
 == Winken ==
 
@@ -329,6 +356,8 @@ Wenn Sie diese Option aktivieren (auf Ja setzen) und wenn die Kamera sich zusät
  * Drücken Sie nun die `LINKS`- und `RECHTS`-Tasten um den ISO-Wert zu verändern, oder `die `HOCH`-Taste um ihn sich nur im Sucher anzeigen zu lassen;
  der neue Wert wird im Sucher genau da angezeigt, wo ansonsten die Verschlußgeschwindigkeit, während die Taste gedrückt wird,  zu finden ist.
  * Im P- und Av-Modus kann der ISO-Wert auch verändert werden, jedoch wird diese änderung nicht im Sucher angezeigt.
+
+*ANMERKUNG*: Falls die Custom FUnction (C.Fn.) "_01_" auf "_4_" gesetzt wurde, wird dieses Feature deaktiviert bleiben, selbst wenn es im Menü aktiviert wurde.
 
 = Die AF-Vorlagenauswahl =
 
