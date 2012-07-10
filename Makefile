@@ -62,40 +62,11 @@ LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
 
 OBJCOPY := arm-elf-objcopy
 
-S_OBJS := entry.o         \
-         funclist.o       \
+S_SRCS := $(wildcard *.S)
+C_SRCS := $(wildcard *.c)
 
-C_OBJS := init.o          \
-         gui.o            \
-         main.o           \
-	 font-large.o     \
-	 font-med.o       \
-	 font-small.o     \
-	 bmp.o            \
-         mainctrl.o       \
-         tasks.o          \
-         ini.o            \
-         languages.o      \
-         utils.o          \
-         memspy.o         \
-         menu.o           \
-         menupage.o       \
-         menuitem.o       \
-         menu_info.o      \
-         menu_main.o      \
-         menu_params.o    \
-         menu_presets.o   \
-         menu_rename.o    \
-         menu_scripts.o   \
-         menu_settings.o  \
-         menu_developer.o \
-         display.o        \
-         settings.o       \
-         presets.o        \
-         scripts.o        \
-         viewfinder.o     \
-         af_patterns.o    \
-         debug.o          \
+S_OBJS := $(S_SRCS:.S=.o)
+C_OBJS := $(C_SRCS:.c=.o)
 
 OBJS  := $(S_OBJS) $(C_OBJS)
 
