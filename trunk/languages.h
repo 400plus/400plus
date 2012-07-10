@@ -1,5 +1,5 @@
 /**
- * $URL$
+ * $HeadURL$
  * $Revision$
  * $Date$
  * $Author$
