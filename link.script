@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 SECTIONS {
 	first 0x7E0000 :
 	{

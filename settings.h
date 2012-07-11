@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 
