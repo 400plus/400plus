@@ -1,5 +1,5 @@
 /**
- * $Revision: 1399 $
+ * $Revision$
  * $Date$
  * $Author$
  */
