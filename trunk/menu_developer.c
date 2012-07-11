@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 // to enable specific functionality compile with the following flags:
 // -DBREAK_CAMERA   - enable "factory mode" menus
 // -DTEST_DIALOGS   - enable dialogs testing menu

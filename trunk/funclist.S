@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
     .text
     .org 0
 

@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 #include "font.h"
 struct font font_small = {
 	.width		= 8,

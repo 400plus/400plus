@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 #ifndef INIT_H_
 #define INIT_H_
 

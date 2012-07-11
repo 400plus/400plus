@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 #include "firmware.h"
 
 #include "af_patterns.h"

@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 #ifndef MENUITEM_H_
 #define MENUITEM_H_
 

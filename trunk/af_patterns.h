@@ -1,3 +1,9 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
 #ifndef AF_PATTERNS_H_
 #define AF_PATTERNS_H_
 
