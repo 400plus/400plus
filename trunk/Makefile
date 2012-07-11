@@ -113,7 +113,7 @@ clean:
 languages.ini: languages.h languages/*.ini
 	@$(ECHO) -e $(BOLD)[GEN]$(NORM) languages.ini, new_lang.ini
 	@./languages/lang_tool.pl -q -f languages -l languages.h -o languages.ini
-	@./languages/lang_tool.pl -q -f languages -l languages.h -g `svn info languages.h | grep "Last Changed Rev" | cut -d ':' -f2`
+	@./languages/lang_tool.pl -q -f languages -l languages.h -g `cat languages.h | fgrep "Revision: " | cut -d' ' -f4`
 
 -include .*.d
 
