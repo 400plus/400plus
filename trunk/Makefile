@@ -74,7 +74,7 @@ BOLD="\033[1m"
 NORM="\033[0m"
 ECHO="/bin/echo"
 
-all: languages.ini $(PROJECT).BIN
+all: i18n $(PROJECT).BIN
 
 release: clean
 	@mkdir $(RELNAME)
@@ -110,9 +110,14 @@ clean:
 	rm -f $(OBJS) .*.o.d
 	rm -f $(PROJECT).arm.elf
 
+i18n: languages.ini languages/new_lang.ini
+
 languages.ini: languages.h languages/*.ini
-	@$(ECHO) -e $(BOLD)[GEN]$(NORM) languages.ini, new_lang.ini
+	@$(ECHO) -e $(BOLD)[i18n]$(NORM) languages.ini
 	@./languages/lang_tool.pl -q -f languages -l languages.h -o languages.ini
+
+languages/new_lang.ini: languages.h
+	@$(ECHO) -e $(BOLD)[i18n]$(NORM) new_lang.ini
 	@./languages/lang_tool.pl -q -f languages -l languages.h -g `cat languages.h | fgrep "Revision: " | cut -d' ' -f4`
 
 -include .*.d
