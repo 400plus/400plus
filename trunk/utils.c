@@ -262,7 +262,7 @@ void ev_print(char *dest, int ev) {
 
 	switch (ev & 0x07) {
 	case 0x00:
-		dsp_dec = " ·/·";
+		dsp_dec = " -/-";
 		break;
 	case 0x03:
 		dsp_dec = " 1/3";
