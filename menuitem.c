@@ -102,7 +102,7 @@ void menuitem_print(char *buffer, const char *name, const char *parameter, const
 	if (pad > 0)
 		sprintf(buffer, "%s%*s%s", name, pad, "", parameter);
 	else
-		sprintf(buffer, "%s %.*s.", name, strlen(parameter) + pad - 1, parameter);
+		sprintf(buffer, "%s %.*s.", name, strlen_utf8(parameter) + pad - 1, parameter);
 }
 
 void menuitem_inc_ev(const type_MENUITEM *item, const int repeating) {
