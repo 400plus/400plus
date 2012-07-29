@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef TYPES_H_
 #define TYPES_H_
 
@@ -16,9 +10,6 @@
 #define O_TRUNC   0x0400
 #endif
 
-typedef unsigned char    uint8_t;
-typedef unsigned short   uint16_t;
-typedef unsigned long    uint32_t;
 typedef long FILE;
 typedef long unsigned int size_t;
 

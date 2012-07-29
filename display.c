@@ -1,16 +1,9 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "main.h"
 #include "firmware.h"
 
 #include "settings.h"
 #include "utils.h"
 
-#include "bmp.h"
 #include "display.h"
 
 void display_refresh_meteringmode();
@@ -40,8 +33,6 @@ void display_refresh() {
 	display_refresh_iso();
 
 	dialog_redraw(hMainDialog);
-
-	//bmp_hexdump(FONT_SMALL, 0, 10, (void *)((int)0x00001C84), 16);
 }
 
 void display_refresh_meteringmode() {

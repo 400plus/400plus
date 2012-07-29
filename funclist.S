@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
     .text
     .org 0
 
@@ -13621,7 +13615,7 @@ DEF(ctrlMain_sub_FF913270, 0xFF913270)
 DEF(ctrlMain_sub_FF913434, 0xFF913434)
 DEF(ctrlMan_sub_FF9135A4, 0xFF9135A4)
 DEF(ddiv_mantissas, 0xFFB351EC)
-DEF(vsnprintf, 0xFFB1F7B4)
+DEF(debug_printf, 0xFFB1F7B4)
 DEF(difftime, 0xFFB53270)
 DEF(dig_prop_some, 0xFF82F688)
 DEF(disableRtn, 0xFFB5F308)

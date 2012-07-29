@@ -1,7 +1,3 @@
-# $Revision$
-# $Date$
-# $Author$
-
 PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
 
@@ -24,12 +20,12 @@ COMMON_FLAGS =\
 	-mfloat-abi=soft                  \
 	-msoft-float                      \
 	-fno-builtin                      \
+	-nostdinc                         \
 	-nostdlib                         \
 	-fomit-frame-pointer              \
 	-fno-strict-aliasing              \
 	-mfpu=fpa
 
-	#-nostdinc                         \
 	#-fno-builtin-puts                 \
 	#-fno-builtin-sprintf              \
 	#-fno-builtin-bzero                \
@@ -66,11 +62,36 @@ LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
 
 OBJCOPY := arm-elf-objcopy
 
-S_SRCS := $(wildcard *.S)
-C_SRCS := $(wildcard *.c)
+S_OBJS := entry.o         \
+         funclist.o       \
 
-S_OBJS := $(S_SRCS:.S=.o)
-C_OBJS := $(C_SRCS:.c=.o)
+C_OBJS := init.o          \
+         gui.o            \
+         main.o           \
+         mainctrl.o       \
+         tasks.o          \
+         ini.o            \
+         languages.o      \
+         utils.o          \
+         memspy.o         \
+         menu.o           \
+         menupage.o       \
+         menuitem.o       \
+         menu_info.o      \
+         menu_main.o      \
+         menu_params.o    \
+         menu_presets.o   \
+         menu_rename.o    \
+         menu_scripts.o   \
+         menu_settings.o  \
+         menu_developer.o \
+         display.o        \
+         settings.o       \
+         presets.o        \
+         scripts.o        \
+         viewfinder.o     \
+         af_patterns.o    \
+         debug.o          \
 
 OBJS  := $(S_OBJS) $(C_OBJS)
 
@@ -78,10 +99,9 @@ BOLD="\033[1m"
 NORM="\033[0m"
 ECHO="/bin/echo"
 
-all: i18n $(PROJECT).BIN
+all: languages.ini $(PROJECT).BIN
 
 release: clean
-	@$(ECHO) -e $(BOLD)[RELEASE]$(NORM)
 	@mkdir $(RELNAME)
 	@svn export . $(RELNAME)/src
 	@zip -9 -r $(RELNAME).src.zip $(RELNAME)
@@ -91,20 +111,16 @@ release: clean
 	@cp $(RELNAME)/src/AUTOEXEC.BIN $(RELNAME)/src/languages.ini $(RELNAME)/bin/
 	@zip -9 -r $(RELNAME).bin.zip $(RELNAME)/bin/
 
-	@$(ECHO) -e $(BOLD)[ZIP]$(NORM)
+	@echo
 	@rm -rf $(RELNAME)
 	@ls -l $(RELNAME).src.zip $(RELNAME).bin.zip
 
 $(PROJECT).BIN: $(PROJECT).arm.elf
-	@$(ECHO) -e $(BOLD)[OBJCOPY]:$(NORM) $@
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
-
-	@$(ECHO) -e $(BOLD)[BIN]$(NORM)
-	@rm -f $(PROJECT).arm.elf
-	@ls -l AUTOEXEC.BIN
+	rm -f $(PROJECT).arm.elf
+	@echo; echo; ls -l AUTOEXEC.BIN
 
 $(PROJECT).arm.elf: $(OBJS) link.script
-	@$(ECHO) -e $(BOLD)[LINK]:$(NORM) $@
 	$(CC) $(CFLAGS) -Wl,-T,link.script -lgcc -o $@ $^
 
 %.o: %.c
@@ -116,19 +132,13 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 	@$(CC) $(ASFLAGS) -c -o $@ $<
 
 clean:
-	@$(ECHO) -e $(BOLD)[CLEAN]$(NORM)
 	rm -f $(OBJS) .*.o.d
 	rm -f $(PROJECT).arm.elf
 
-i18n: languages.ini languages/new_lang.ini
-
 languages.ini: languages.h languages/*.ini
-	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
+	@$(ECHO) -e $(BOLD)[GEN]$(NORM) languages.ini, new_lang.ini
 	@./languages/lang_tool.pl -q -f languages -l languages.h -o languages.ini
-
-languages/new_lang.ini: languages.h
-	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
-	@./languages/lang_tool.pl -q -f languages -l languages.h -g `cat languages.h | fgrep "Revision: " | cut -d' ' -f4`
+	@./languages/lang_tool.pl -q -f languages -l languages.h -g `svn info languages.h | grep "Last Changed Rev" | cut -d ':' -f2`
 
 -include .*.d
 

@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef LANGUAGES_H_
 #define LANGUAGES_H_
 
@@ -28,9 +22,7 @@
 	LANG_PAIR( I_RELEASE_COUNT,      "Release count"      ) \
 	LANG_PAIR( I_BODY_ID,            "Body ID"            ) \
 	LANG_PAIR( I_VERSION,            "Version"            ) \
-	LANG_PAIR( I_DUMP_MEMORY,        "Dump RAM after 5s"  ) \
-	LANG_PAIR( I_MEMSPY_ENABLE,      "MemSpy Enable"      ) \
-	LANG_PAIR( I_MEMSPY_DISABLE,     "MemSpy Disable"     ) \
+	LANG_PAIR( I_DUMP_MEMORY,        "Dump RAM  !Wait-For-Beep!" ) \
 	LANG_PAIR( I_DUMP_LOG_TO_FILE,   "Dump log to file"   ) \
 	LANG_PAIR( I_PRINT_INFO,         "Print info to log"  ) \
 	LANG_PAIR( I_ENTER_FACTORY_MODE, "Enter factory Mode" ) \
