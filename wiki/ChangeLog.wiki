@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-12*_
+ * Updated Russian translation (thanks to "丫ｎｓ").
+
 _*20120415-11*_
  * Longer pauses between shots: makes scripts run slower, but more stable.
 
