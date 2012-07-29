@@ -154,6 +154,8 @@ _This Page Is Intentionally Left Blank._
 
 When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second). To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
 
+You can also pause a running script, by means of simply pressing the DISP button: this will put the camera into a low-power mode, and effectively stop all ongoing activity; press DISP again, to bring back the camera into life, and the script will continue normally.
+
 All scripts will check the card capacity before each shot; if the estimated number of shots available is lower than a fixed value (3), the scripts will stop executing.
 
 == Extended AEB ==
