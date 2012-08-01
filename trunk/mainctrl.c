@@ -11,6 +11,7 @@
 #include "utils.h"
 #include "debug.h"
 #include "bmp.h"
+#include "button.h"
 
 typedef struct MC_Table_entry_struct {
 	mc_event_t t;
@@ -88,27 +89,13 @@ void my_MC_T_Button(mc_table_t * event) {
 		break;
 
 	case MC_BUTTON_JUMP: // 162+0 = 162 // btn JUMP
-		switch (FLAG_GUI_MODE) {
-			case GUIMODE_OFF:
-			case GUIMODE_OLC:
-				ENQUEUE_TASK(button_jump_task);
-				break;
-			default:
-				MC_T_Button(event);
-				break;
-		}
+		if (!button_handler(BUTTON_JUMP))
+			MC_T_Button(event);
 		break;
 
 	case MC_BUTTON_TRASH: // 162+3 = 165 // btn TRASH
-		switch (FLAG_GUI_MODE) {
-			case GUIMODE_OFF:
-			case GUIMODE_OLC:
-				ENQUEUE_TASK(button_trash_task);
-				break;
-			default:
-				MC_T_Button(event);
-				break;
-		}
+		if (!button_handler(BUTTON_TRASH))
+			MC_T_Button(event);
 		break;
 	case MC_BUTTON_UNK1: // 162+10= 172 // btn UNK1
 		//printf_log(1, 6, "AF: btn: %d, PF: %d,%d\n", event->sw, PowerFlag, (PowerFlag|1));
