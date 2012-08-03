@@ -2,7 +2,7 @@
 
 = Übersetzung =
 German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
-Based on english Wiki r1392
+Based on english Wiki r1415
 = Inhaltsangabe=
 
 <wiki:toc max_depth="1" />
@@ -178,6 +178,9 @@ so lange Sie nicht gerade an einem eigenen Hack arbeiten, gibt es hier für Sie 
 Wenn ein Skript startet oder stoppt ist ein _piep_ zu hören; während ein Skript läuft wird die `DP`-Taste ca. 2 mal pro Sekunde blinken.
 Um ein in der Ausführung befindlichse Skript zu stoppen, drücken Sie die `DP`-Taste erneut; es kann vorkommen, dass die Kamera nicht augenblicklich stoppt, darum sollten Sie die `DP`-Taste so lange halten, bis Sie ein _piep_ hören, welches das Ende der Skriptausführung bedeutet.
 
+Ein bereits gestartetes Skript kann außerdem pausiert werden, indem die `DISP`-Taste gedrückt wird. Dies wird die Kamera in einen Energiesparmodus versetzen und alle laufenden Aktivitäten stoppen; 
+bei nochmaligem Drücken der `DISP`-Taste wird die Kamera wieder aufgeweckt und das Skript wird normal fortgeführt.
+
 Alle Skripte testen vor jeder Aufnahme den verfügbaren Speicherplatz auf der CF-Karte; falls die Anzahl der speicherbaren Aufnahmen eine gewisse Anzahl unterschreitet (3), wird das Skript seine Ausführung stoppen.
 
 == Erweitertes AEB ==
@@ -231,6 +234,9 @@ Exposure : * *       * * * * * * *       * *
 }}}
 
 Achten Sie darauf, dass die dritte Aufnahme nicht 5 Sekunden nach der zweiten, sondern erst zu Sekunde 15 gestartet wird.
+
+*ANMERKUNG*: '400plus' überprüft nicht, ob die Eingaben des Benutzers auch Sinn machen; Es wird sich, zum Beispiel, nicht beschweren wenn Sie zum Beispiel eine Intervallzeit von 10 Sekunden mit einer Belichtungszeit von 15 Sekunden setzen;
+es obliegt alleinig dem Benutzer diese Situationen zu erkennen und zu vermeiden.
 
 === Zeitraffer Rechner ===
 
