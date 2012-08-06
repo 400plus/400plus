@@ -15,7 +15,8 @@ http://code.google.com/p/inih/
 //#include <stdio.h>
 //#include <ctype.h> // 0xAF - linker cannot see __ctype_ptr__  and we have VxWorks isspace() already, so this is not needed
 
-#include <string.h>
+#include "ctype.h"
+#include "string.h"
 
 #include "ini.h"
 #include "utils.h"
