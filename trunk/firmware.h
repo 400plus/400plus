@@ -33,7 +33,6 @@ extern int logMsg(char *, ...);
 
 // Memory management
 extern void * AllocateMemory( unsigned int len );
-extern void * memcpy(void *dest, const void *src, size_t n);
 
 // LED management
 
@@ -43,8 +42,6 @@ extern long eventproc_EdLedBlink(void);
 
 // String management
 
-extern int   strlen(const char *);
-extern char *strncpy(char *destination, const char *source, int length);
 extern void  sprintf(char*, const char*, ...);
 extern int   isspace(int c);
 extern int   Run_UnicodeString_Dataset_c(char *dest, const char *src, size_t size);
