@@ -43,7 +43,6 @@ extern long eventproc_EdLedBlink(void);
 // String management
 
 extern void  sprintf(char*, const char*, ...);
-extern int   isspace(int c);
 extern int   Run_UnicodeString_Dataset_c(char *dest, const char *src, size_t size);
 
 // Queue management
