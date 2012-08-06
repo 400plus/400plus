@@ -4,28 +4,7 @@
  * $Author$
  */
 
-    .text
-    .org 0
-
-
-#define DEF(n,a) \
-    .globl n; n = a
-
-#define NSTUB(name, addr)\
-    .globl name ;\
-    .weak name ;\
-    name: ;\
-	ldr  pc, = addr
-
-#define NHSTUB(name, addr)\
-    .globl name ;\
-    name: ;\
-	ldr  pc, = addr
-
-#define STUB(addr)\
-    .globl sub_ ## addr ; sub_ ## addr = 0x ## addr
-
-
+#include "stub.h"
 
 DEF(addr_0x1900,0x1900)
 DEF(cache_0xFFB602F0,0xFFB602F0)
@@ -14683,11 +14662,6 @@ DEF(memSysPartition, 0x00023858)
 DEF(memTop.2, 0x00001994)
 DEF(memTop.3, 0x00001998)
 DEF(memalign, 0xFFB4C578)
-DEF(memchr, 0xFFB53D84)
-DEF(memcmp, 0xFFB53D44)
-DEF(memcpy, 0xFFB53D28)
-DEF(memmove, 0xFFB53CC8)
-DEF(memset, 0xFFB53CA8)
 DEF(mktime, 0xFFB52E1C)
 DEF(mmuArm946eAEnable, 0xFFB375F8)
 DEF(mmuArm946eCcrSet, 0xFFB37680)
@@ -15147,27 +15121,6 @@ DEF(store_r0_to_DF18, 0xFFB5E504)
 DEF(str_0x288A0, 0xFFB03540)
 DEF(str_0x5188, 0xFF92E3FC)
 DEF(str_1_to_0xC0201200, 0xFFB329AC)
-DEF(strcat, 0xFFB53C70)
-DEF(strchr, 0xFFB53C38)
-DEF(strcmp, 0xFFB53BFC)
-DEF(strcoll, 0xFFB53A98)
-DEF(strcpy, 0xFFB53A74)
-DEF(strcspn, 0xFFB53A0C)
-DEF(strftime, 0xFFB52C6C)
-DEF(strlen, 0xFFB538C4)
-DEF(strncat, 0xFFB53874)
-DEF(strncmp, 0xFFB53828)
-DEF(strncpy, 0xFFB537C8)
-DEF(strpbrk, 0xFFB53774)
-DEF(strrchr, 0xFFB5374C)
-DEF(strspn, 0xFFB536E4)
-DEF(strstr, 0xFFB53674)
-DEF(strtod, 0xFFB542C8)
-DEF(strtok_r, 0xFFB535EC)
-DEF(strtol, 0xFFB53F50)
-DEF(strtoul, 0xFFB53DBC)
-DEF(strupr, 0xFFB579B8)
-DEF(strxfrm, 0xFFB5350C)
 DEF(sysBspRev, 0xFF81031C)
 DEF(sysCacheLibInit, 0xFFB5F428)
 DEF(sysClockConnect, 0xFFB32614)

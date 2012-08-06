@@ -16,6 +16,7 @@ else
 endif
 
 COMMON_FLAGS =\
+	-Ivxworks                         \
 	-Wall                             \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
 	-Wp,-MT,$@                        \
@@ -66,8 +67,8 @@ LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
 
 OBJCOPY := arm-elf-objcopy
 
-S_SRCS := $(wildcard *.S)
-C_SRCS := $(wildcard *.c)
+S_SRCS := $(wildcard *.S) $(wildcard vxworks/*.S)
+C_SRCS := $(wildcard *.c) $(wildcard vxworks/*.c)
 
 S_OBJS := $(S_SRCS:.S=.o)
 C_OBJS := $(C_SRCS:.c=.o)
