@@ -47,6 +47,11 @@ This is so to keep the last _0x20000_ bytes (_128kb_), our hack, out of the
 heap space, and this way to be safe from __OFW__'s and our heap allocations
 (__`malloc()`__).
 
+## image player stuff
+0xF4B8 - there is a structure, offset 0x18 seems to be the
+RealImagePosition, perhaps there are the zoom levels and other stuff for the
+"PB IM" (playback image)
+
 ## DP Led blink
 	eventproc_EdLedBlink();
 	// or
@@ -77,11 +82,16 @@ JUMP: 0xC0220134
 TRASH: 0xC0220130
 
 ## Message Queues
-CreateMessageQueue returns pointer to a structure pf this type i believe:
+CreateMessageQueue returns pointer to a structure of this type I believe:
 	struct {
 		int messages_in_the_queue; // unread
 		char * name_of_the_queue;
 	}
+
+## state machines
+Alex made some nice diagrams of our state machines:
+http://a1ex.bitbucket.org/ML/states/400D-alt/index.html
+
 
 ---
 
