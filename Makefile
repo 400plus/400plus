@@ -26,6 +26,7 @@ COMMON_FLAGS =\
 	-msoft-float                      \
 	-fno-builtin                      \
 	-nostdlib                         \
+	-nostdinc                         \
 	-fomit-frame-pointer              \
 	-fno-strict-aliasing              \
 	-mfpu=fpa
