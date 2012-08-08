@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include "stub.h"
+#include <stub.h>
 
 DEF(addr_0x1900,0x1900)
 DEF(cache_0xFFB602F0,0xFFB602F0)

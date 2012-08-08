@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include "string.h"
+#include <string.h>
 
 #include "main.h"
 #include "mainctrl.h"

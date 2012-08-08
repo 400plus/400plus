@@ -17,8 +17,9 @@
  #                                                                                 #
  #################################################################################*/
 
+#include <vxworks.h>
+
 #include "font.h"
-#include "vxworks.h"
 #include "firmware.h"
 
 #define vram_start (0x212D7C)
