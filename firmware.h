@@ -7,8 +7,9 @@
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 
+#include <vxworks.h>
+
 #include "main.h"
-#include "vxworks.h"
 #include "types.h"
 
 // Variables, Flags, Pointers, Handlers

@@ -7,7 +7,7 @@
 #ifndef STRING_H_
 #define STRING_H_
 
-#include "types.h"
+#include <types.h>
 
 extern void    *memccpy(void *, const void *, int, size_t);
 extern void    *memchr(const void *, int, size_t);
