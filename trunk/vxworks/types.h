@@ -19,10 +19,14 @@
 typedef unsigned char    uint8_t;
 typedef unsigned short   uint16_t;
 typedef unsigned long    uint32_t;
-typedef long FILE;
-typedef long unsigned int size_t;
 
-typedef unsigned int time_t;
+typedef long FILE;
+
+typedef long unsigned int size_t;
+typedef long unsigned int fpos_t;
+typedef long unsigned int off_t;
+
+typedef      unsigned int time_t;
 
 struct timespec {
 	time_t tv_sec;   /* seconds */

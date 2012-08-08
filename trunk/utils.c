@@ -5,6 +5,7 @@
  */
 
 #include <string.h>
+#include <stdio.h>
 
 #include "main.h"
 #include "firmware.h"

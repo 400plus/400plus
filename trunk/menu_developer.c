@@ -14,6 +14,8 @@
 // MENU -> exit test mode
 // JUMP -> change color palette (some dialogs are seen in special palettes)
 
+#include <stdio.h>
+
 #include "main.h"
 #include "firmware.h"
 
