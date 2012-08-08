@@ -17,9 +17,11 @@
  #                                                                                 #
  #################################################################################*/
 
+#include <stdio.h>
+#include <stdarg.h>
+
 #include "bmp.h"
 #include "debug.h"
-#include <stdarg.h>
 
 
 static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {

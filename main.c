@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdio.h>
+
 #include "firmware.h"
 
 #include "af_patterns.h"

@@ -18,5 +18,4 @@ DEF(isspace,  0xFFB57A18)
 DEF(isupper,  0xFFB57A00)
 DEF(isxdigit, 0xFFB579E8)
 DEF(tolower,  0xFFB579CC)
-
 //DEF(toupper,  ?)
