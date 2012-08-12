@@ -1,19 +1,9 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <string.h>
-
 #include "main.h"
 #include "mainctrl.h"
 #include "firmware.h"
 #include "tasks.h"
 #include "utils.h"
 #include "debug.h"
-#include "bmp.h"
-#include "button.h"
 
 typedef struct MC_Table_entry_struct {
 	mc_event_t t;
@@ -91,13 +81,27 @@ void my_MC_T_Button(mc_table_t * event) {
 		break;
 
 	case MC_BUTTON_JUMP: // 162+0 = 162 // btn JUMP
-		if (!button_handler(BUTTON_JUMP))
-			MC_T_Button(event);
+		switch (FLAG_GUI_MODE) {
+			case GUIMODE_OFF:
+			case GUIMODE_OLC:
+				ENQUEUE_TASK(button_jump_task);
+				break;
+			default:
+				MC_T_Button(event);
+				break;
+		}
 		break;
 
 	case MC_BUTTON_TRASH: // 162+3 = 165 // btn TRASH
-		if (!button_handler(BUTTON_TRASH))
-			MC_T_Button(event);
+		switch (FLAG_GUI_MODE) {
+			case GUIMODE_OFF:
+			case GUIMODE_OLC:
+				ENQUEUE_TASK(button_trash_task);
+				break;
+			default:
+				MC_T_Button(event);
+				break;
+		}
 		break;
 	case MC_BUTTON_UNK1: // 162+10= 172 // btn UNK1
 		//printf_log(1, 6, "AF: btn: %d, PF: %d,%d\n", event->sw, PowerFlag, (PowerFlag|1));
@@ -112,54 +116,6 @@ void my_MC_T_Button(mc_table_t * event) {
 	}
 }
 
-
-
-void my_task_MainCtrl_hijack() {
-	SleepTask(2000); // give some time to the original one.
-	// so we simulate a situation where we do not own the original task.
-
-	struct mq {
-		int unseen;
-		char * name;
-	};
-
-	struct mq * OrgQ;
-	int * orgptr = hMainMessQueue;
-
-	OrgQ = (struct mq *)hMainMessQueue;
-
-	// if we comment out the next line, the original MainCtrl task will use the original Queue
-	// it works this way and we see the messages from the Queue in parallel with the MainCtrl
-	hMainMessQueue = CreateMessageQueue("HJ_MainMessQueue", 0x64);
-
-	int z;
-	for (z=0; z< 100; z++) {
-		bmp_hexdump(FONT_SMALL, 0, 10, (void*)OrgQ, 16);
-		bmp_printf(FONT_SMALL, 0, 30, "%d: OrgQ->name: %s [%X]", timestamp(), OrgQ->name, (unsigned int) OrgQ);
-		bmp_printf(FONT_SMALL, 0, 40, "%d: hMQ->name: %s [%X]", timestamp(), ((struct mq *)hMainMessQueue)->name, (unsigned int)hMainMessQueue );
-		bmp_printf(FONT_SMALL, 0, 120, "%d: MCQ RX @ 0x%08X/0x%08X", timestamp(), (unsigned int)orgptr, (unsigned int)hMainMessQueue);
-		SleepTask(10);
-	}
-
-	while (1) {
-		bmp_printf(FONT_SMALL, 0, 60, "%d: Gonna RX from OrgQ.", timestamp());
-		SleepTask(2500);
-
-		int msg;
-		ReceiveMessageQueue(OrgQ, &msg, 0);
-
-		bmp_printf(FONT_SMALL, 0, 70, "%d: OrgQ RX", timestamp());
-
-		LEDBLUE ^= 2;
-
-		bmp_printf(FONT_SMALL, 0, 80, "%d: gonna TX to HJQ", timestamp());
-
-		TryPostMessageQueue(hMainMessQueue, &msg, 0);
-
-		bmp_printf(FONT_SMALL, 0, 90, "%d: HJQ TX", timestamp());
-	}
-
-}
 void my_task_MainCtrl() {
 
 	// using printf() in this function makes troubles with shooting...
@@ -176,7 +132,6 @@ void my_task_MainCtrl() {
 		int msg;
 
 		ReceiveMessageQueue(hMainMessQueue, &msg, 0);
-		//bmp_printf(FONT_SMALL, 0, 140, "%d:0x%08X", timestamp(), msg);
 		event = (mc_table_t *)(&MC_T_Table[msg*3]);
 
 
@@ -266,8 +221,6 @@ void my_MainCtrlInit() {
 	hMainMessQueue = (int*)CreateMessageQueue(aMainMessQueue, 0x64);
 	hMainDataQueue = (int*)CreateMessageQueue(aMainDataQueue, 0xC8);
 	CreateTask(aMainCtrl, 0x15, 0x4000, my_task_MainCtrl, 0);
-	// uncomment to try the hijack stuff... not working as we want though...
-	//CreateTask("HJ_MainCtrl", 0x16, 0x1000, my_task_MainCtrl_hijack, 0);
 	DebugProcsInit();
 	CreateInterComQueue();
 	MC_InitStart();

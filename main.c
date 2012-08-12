@@ -1,11 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdio.h>
-
 #include "firmware.h"
 
 #include "af_patterns.h"
@@ -43,58 +35,58 @@ type_STATUS status = {
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{IC_BUTTON_UP,    FALSE,  {restore_iso}},
-	{IC_BUTTON_DOWN,  FALSE,  {restore_wb}},
-	{IC_BUTTON_LEFT,  FALSE,  {restore_metering}},
-	{IC_BUTTON_DP,    TRUE,   {menu_main_start}},
-	{IC_BUTTON_AV,    FALSE,  {toggle_img_format}},
-	{IC_BUTTON_DISP,  TRUE,   {display_brightness}},
+	{IC_BUTTON_UP,    TRUE,  FALSE,  {restore_iso}},
+	{IC_BUTTON_DOWN,  TRUE,  FALSE,  {restore_wb}},
+	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
+	{IC_BUTTON_DP,    FALSE, TRUE,   {menu_main_start}},
+	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_img_format}},
+	{IC_BUTTON_DISP,  FALSE, TRUE,   {display_brightness}},
 	END_OF_LIST
 };
 
 type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_SET,        TRUE,  {menu_event_set}},
-	{IC_BUTTON_DIAL_LEFT,  TRUE,  {menu_event_prev}},
-	{IC_BUTTON_DIAL_RIGHT, TRUE,  {menu_event_next}},
-	{IC_BUTTON_RIGHT,      TRUE,  {menu_event_right}},
-	{IC_BUTTON_LEFT,       TRUE,  {menu_event_left}},
-	{IC_BUTTON_DP,         TRUE,  {menu_event_dp}},
-	{IC_BUTTON_AV,         TRUE,  {menu_event_av, menu_event_av_up}},
-	{IC_DIALOGOFF,         FALSE, {menu_event_finish}},
+	{IC_BUTTON_SET,        FALSE, TRUE,  {menu_event_set}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {menu_event_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE,  {menu_event_next}},
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {menu_event_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {menu_event_left}},
+	{IC_BUTTON_DP,         FALSE, TRUE,  {menu_event_dp}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_event_av, menu_event_av_up}},
+	{IC_DIALOGOFF,         FALSE, FALSE, {menu_event_finish}},
 	END_OF_LIST
 };
 
 type_ACTION actions_meter[] = {
-	{IC_BUTTON_DP,    TRUE, {set_metering_spot}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {set_metering_spot}},
 	END_OF_LIST
 };
 
 type_ACTION actions_wb[] = {
-	{IC_BUTTON_DP,    TRUE, {set_whitebalance_colortemp}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {set_whitebalance_colortemp}},
 	END_OF_LIST
 };
 
 type_ACTION actions_iso[] = {
-	{IC_BUTTON_DP,    TRUE,  {autoiso_enable}},
-	{IC_BUTTON_SET,   FALSE, {autoiso_disable}},
+	{IC_BUTTON_DP,    FALSE, TRUE,  {autoiso_enable}},
+	{IC_BUTTON_SET,   FALSE, FALSE, {autoiso_disable}},
 	END_OF_LIST
 };
 
 type_ACTION actions_face[] = {
-	{IC_BUTTON_UP,    TRUE, {viewfinder_up,    viewfinder_end}},
-	{IC_BUTTON_DOWN,  TRUE, {}},
-	{IC_BUTTON_RIGHT, TRUE, {viewfinder_right, viewfinder_end}},
-	{IC_BUTTON_LEFT,  TRUE, {viewfinder_left,  viewfinder_end}},
+	{IC_BUTTON_UP,    TRUE, TRUE, {viewfinder_up,    viewfinder_end}},
+	{IC_BUTTON_DOWN,  TRUE, TRUE, {}},
+	{IC_BUTTON_RIGHT, TRUE, TRUE, {viewfinder_right, viewfinder_end}},
+	{IC_BUTTON_LEFT,  TRUE, TRUE, {viewfinder_left,  viewfinder_end}},
 	END_OF_LIST
 };
 
 type_ACTION actions_af[] = {
-	{IC_BUTTON_SET,   TRUE, {afp_center}},
-	{IC_BUTTON_UP,    TRUE, {afp_top}},
-	{IC_BUTTON_DOWN,  TRUE, {afp_bottom}},
-	{IC_BUTTON_RIGHT, TRUE, {afp_right}},
-	{IC_BUTTON_LEFT,  TRUE, {afp_left}},
-	{IC_BUTTON_DISP,  TRUE, {}},
+	{IC_BUTTON_SET,   FALSE, TRUE, {afp_center}},
+	{IC_BUTTON_UP,    TRUE,  TRUE, {afp_top}},
+	{IC_BUTTON_DOWN,  TRUE,  TRUE, {afp_bottom}},
+	{IC_BUTTON_RIGHT, TRUE,  TRUE, {afp_right}},
+	{IC_BUTTON_LEFT,  TRUE,  TRUE, {afp_left}},
+	{IC_BUTTON_DISP,  FALSE, TRUE, {}},
 	END_OF_LIST
 };
 
@@ -130,7 +122,7 @@ void intercom_proxy(const int handler, char *message) {
 	int message_len = message[0];
 	int event       = message[1];
 	int param       = message_len > 1 ? message[2] : FALSE;
-	int button_down = param;
+	int holds       = param;
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
@@ -199,7 +191,7 @@ void intercom_proxy(const int handler, char *message) {
 		goto pass_message;
 	case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
 		event = (param & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
-		button_down = FALSE;
+		holds = FALSE;
 		break;
 	case IC_MEASURING:
 		status.measuring = param;
@@ -219,7 +211,7 @@ void intercom_proxy(const int handler, char *message) {
 	}
 
 	// Check for button-up events, even if the current GUI mode does not match
-	if (status.button_down && status.button_down == event && !button_down) {
+	if (status.button_down && status.button_down == event && !holds) {
 		status.button_down = FALSE;
 
 		// Launch the defined task
@@ -255,7 +247,7 @@ void intercom_proxy(const int handler, char *message) {
 
 					// Consider buttons with "button down" and "button up" events
 					// and save "button up" parameters for later use
-					if (button_down) {
+					if (action->holds && holds) {
 						status.button_down     = event;
 						status.button_up_task  = action->task[1];
 						status.button_up_block = action->block;

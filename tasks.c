@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "main.h"
 #include "firmware.h"
 
@@ -18,7 +12,6 @@
 #include "menu_main.h"
 
 #include "tasks.h"
-#include "bmp.h"
 
 void set_intermediate_iso();
 void repeat_last_script();
@@ -36,24 +29,6 @@ void start_up() {
 		start_debug_mode();
 
 	SleepTask(100);
-
-#if 0
-	// vram testing
-	SleepTask(1000);
-	beep();
-
-	int i;
-	for (i=0; i<vram_size; i+=4) {
-		MEM(vram_start+i)= 0x88888888;
-	}
-	beep();
-
-	//bmp_draw_palette();
-	bmp_printf(FONT_LARGE, 0, 50, "Hello World!");
-	SleepTask(5000);
-
-	// vram testing - end
-#endif
 
 #ifdef MEMSPY
 	debug_log("starting memspy task");
@@ -198,11 +173,11 @@ void autoiso() {
 		break;
 	case AE_MODE_M:
 		mask   = 0xFF;
-		miniso = 0x48;
-		maxiso = 0x6F;
+		miniso = 0x48; // ISO  100
+		maxiso = 0x6F; // ISO 3000
 
-		ev = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
-		ev = ev_add(ev, status.ev_comp);
+		ev  = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
+		ev += status.ev_comp;
 		break;
 	default:
 		break;
@@ -216,12 +191,12 @@ void autoiso() {
 	}
 
 	if (ev != 0x00) {
-		newiso = (cameraMode->iso + ev) & mask;
+		newiso = (cameraMode->iso + ev);
 
 		newiso = MIN(newiso, maxiso);
 		newiso = MAX(newiso, miniso);
 
-		send_to_intercom(IC_SET_ISO, 2, newiso);
+		send_to_intercom(IC_SET_ISO, 2, newiso & mask);
 		ENQUEUE_TASK(restore_display);
 	}
 }

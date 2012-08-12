@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MAIN_H_
 #define MAIN_H_
 
@@ -30,11 +24,6 @@
 	]
 
 
-#define BTN_PRESSED     0x20
-#define BTN_NOT_PRESSED 0x21
-// button addresses
-#define BTN_ADDR_TRASH  0xC0220130
-#define BTN_ADDR_JUMP   0xC0220134
 
 // Events for SendToIntercom
 typedef enum {
@@ -606,6 +595,7 @@ typedef void(*type_TASK)();
 
 typedef struct {
 	int       button;
+	int       holds;
 	int       block;
 	type_TASK task[2];
 	int       _eol_;

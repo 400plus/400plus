@@ -1,16 +1,9 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 
-#include <vxworks.h>
-#include <types.h>
-
 #include "main.h"
+#include "vxworks.h"
+#include "types.h"
 
 // Variables, Flags, Pointers, Handlers
 extern /*unsigned*/ int   BodyID;
@@ -34,6 +27,7 @@ extern int logMsg(char *, ...);
 
 // Memory management
 extern void * AllocateMemory( unsigned int len );
+extern void * memcpy(void *dest, const void *src, size_t n);
 
 // LED management
 
@@ -43,6 +37,10 @@ extern long eventproc_EdLedBlink(void);
 
 // String management
 
+extern int   strlen(const char *);
+extern char *strncpy(char *destination, const char *source, int length);
+extern void  sprintf(char*, const char*, ...);
+extern int   isspace(int c);
 extern int   Run_UnicodeString_Dataset_c(char *dest, const char *src, size_t size);
 
 // Queue management
@@ -59,8 +57,10 @@ extern int read(int fd, void *buffer, size_t nbytes);
 extern int write(int fd, void *buffer, size_t nbytes);
 extern int close(int fd);
 
+extern int printf(const char *format, ...);         // printf to stdout
 extern int printErr(const char *, ...);             // printf to stderr
 extern int printf_log(int, int, const char *, ...); // printf to the log system
+extern int fprintf (FILE *fp, const char *fmt, ...);// printf to FILE stream
 extern int fdprintf(int fd, char *format, ...);     // printf to FD
 
 // these are wrappers over stdio
@@ -76,6 +76,27 @@ extern void FIO_SeekFile(int fd, long offset, int whence); // whence: SEEK_SET=0
 // File IO
 
 extern long fdConsole; // fd of stdout
+extern FILE *fopen(const char *file, const char *mode);
+extern FILE *freopen(const char * file, const char * mode, FILE * fp);
+extern FILE *fdopen(int fd, char * mode);
+extern int   fclose(FILE *fp);
+extern int   fileno(FILE *fp); // return FD for the FILE stream
+extern int   fread(void *buffer, size_t size, size_t count, FILE *fp);
+extern int   fwrite(const void *buffer, size_t size, size_t count, FILE *fp);
+extern int   fseek(FILE * fp, long offset, int whence);
+extern long  ftell(FILE * fp);
+extern int   feof(FILE *fp);   // test for EOF
+extern int   ferror(FILE *fp); // test for error
+extern int   fflush(FILE *fp);
+extern int   fgetc(FILE *fp);
+extern int   fgets(char * buf, size_t n, FILE *fp); // not working, gets wrong file position pointer after a while
+extern int   fscanf(FILE * fp, char const * fmt, ...);
+extern int   fputs (const char * s, FILE * fp);
+
+// we do not have fpos_t
+//extern int   fgetpos(FILE *fp, fpos_t *pos);
+//extern int   fsetpos(FILE *iop, const fpos_t * pos);
+//extern int   fioFormatV(const char *fmt, va_list vaList, FUNCPTR outRoutine, int outarg); // convert a format string
 
 // Time functions
 
@@ -248,16 +269,5 @@ extern int sub_FF92AFD8();
 extern int sub_FF92AF58();
 extern int GUIWindowInstanceProc();
 extern int GUI_IDLEHandler();
-extern int * hGuiMainQueue;
-extern char aGuiMainQueue[];
-extern char aGuiMainTask[];
-extern void task_GuiMainTask();
-extern void OlcTftNotifyChange();
-extern int * hTurnDisplayEventFlag;
-extern char aTurndisplayeve[];
-extern char aTurndisplaytas[];
-extern void task_TurnDisplayTask();
-
-
 
 #endif /* FIRMWARE_H_ */

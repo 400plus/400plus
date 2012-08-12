@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MENU_MAIN_H_
 #define MENU_MAIN_H_
 

@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "main.h"
 
 #include "init.h"
@@ -152,7 +146,8 @@ void my_task_Startup() {
 	dmSetPrintLevel(hDbgMgr, 0xFF, 0);
 #endif
 
-	int disable_hack = (*(int*)BTN_ADDR_TRASH == BTN_PRESSED);
+	//int disable_hack = cameraMode->forbid_rel;
+	int disable_hack = 0;
 	if (!disable_hack) initialize(); // task_dispatcher
 
 	sub_FFAFE5BC();
