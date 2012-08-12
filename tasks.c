@@ -173,11 +173,11 @@ void autoiso() {
 		break;
 	case AE_MODE_M:
 		mask   = 0xFF;
-		miniso = 0x48;
-		maxiso = 0x6F;
+		miniso = 0x48; // ISO  100
+		maxiso = 0x6F; // ISO 3000
 
-		ev = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
-		ev = ev_add(ev, status.ev_comp);
+		ev  = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
+		ev += status.ev_comp;
 		break;
 	default:
 		break;
@@ -191,12 +191,12 @@ void autoiso() {
 	}
 
 	if (ev != 0x00) {
-		newiso = (cameraMode->iso + ev) & mask;
+		newiso = (cameraMode->iso + ev);
 
 		newiso = MIN(newiso, maxiso);
 		newiso = MAX(newiso, miniso);
 
-		send_to_intercom(IC_SET_ISO, 2, newiso);
+		send_to_intercom(IC_SET_ISO, 2, newiso & mask);
 		ENQUEUE_TASK(restore_display);
 	}
 }
