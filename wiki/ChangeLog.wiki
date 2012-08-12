@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-13*_
+ * Fixed a bug in AutoISO with large shutter values.
+
 _*20120415-12*_
  * Updated Russian translation (thanks to "丫ｎｓ").
 
