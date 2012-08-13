@@ -20,7 +20,7 @@ DEF(fileno,    0xFFB572A4)
 //DEF(flockfile, ?);
 DEF(fopen,     0xFFB570FC)
 DEF(fprintf,   0xFFB57098)
-//DEF(fputc(int, ?);
+//DEF(fputc, ?);
 DEF(fputs,     0xFFB56F50)
 DEF(fread,     0xFFB56E24)
 DEF(freopen,   0xFFB56C3C)
@@ -41,7 +41,6 @@ DEF(gets,      0xFFB56070)
 //DEF(pclose, ?);
 //DEF(perror, ?);
 //DEF(popen, ?);
-//DEF(gets, ?);
 DEF(printf,    0xFFB50AA0)
 //DEF(putc, ?);
 //DEF(putchar, ?);
