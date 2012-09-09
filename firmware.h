@@ -79,10 +79,6 @@ extern long fdConsole; // fd of stdout
 
 // Time functions
 
-extern time_t time(time_t *t); // returns timestamp, and sets arg1 if pointer is provided
-extern int clock_gettime(int clock_id/* 0 */, struct timespec *tp); // return 0 on success
-extern struct tm * localtime_r(time_t *time, struct tm*);
-
 // free space is reported in KB, drvltr is "A:"
 extern int FP_GetDriveFreeSpace(char * drv_letter, int * result);
 

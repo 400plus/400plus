@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "main.h"
 #include "firmware.h"
