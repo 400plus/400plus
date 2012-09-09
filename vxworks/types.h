@@ -16,6 +16,9 @@
 #define O_TRUNC   0x0400
 #endif
 
+typedef unsigned int     uint_t;
+typedef unsigned long    ulong_t;
+
 typedef unsigned char    uint8_t;
 typedef unsigned short   uint16_t;
 typedef unsigned long    uint32_t;
