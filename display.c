@@ -6,7 +6,8 @@
 
 #include <stdio.h>
 
-#include "main.h"
+#include <camera.h>
+
 #include "firmware.h"
 
 #include "settings.h"

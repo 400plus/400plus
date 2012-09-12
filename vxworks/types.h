@@ -33,12 +33,4 @@ typedef int  clockid_t;
 typedef	long clock_t;
 typedef	long time_t;
 
-struct lens_info {
-	short id;
-	short max_mm;
-	short min_mm;
-	short not_used;
-	char *name;
-} __attribute__((packed));
-
 #endif // TYPES_H_

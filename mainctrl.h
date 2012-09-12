@@ -7,6 +7,8 @@
 #ifndef MAINCTRL_H_
 #define MAINCTRL_H_
 
+#include "main.h"
+
 typedef enum {
 	MC_INFOANDCTRL          = 0x01,
 	MC_BUTTON               = 0x02,

@@ -8,7 +8,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "main.h"
+#include <camera.h>
+
 #include "firmware.h"
 
 #include "languages.h"

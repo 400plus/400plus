@@ -7,7 +7,8 @@
 #ifndef PRESETS_H_
 #define PRESETS_H_
 
-#include "main.h"
+#include <camera.h>
+
 #include "settings.h"
 
 #define PRESETS_VERSION 0x02

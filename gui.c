@@ -6,7 +6,6 @@
 
 #include "firmware.h"
 #include "gui.h"
-#include "main.h"
 #include "debug.h"
 
 

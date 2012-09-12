@@ -25,10 +25,6 @@ extern int GUIMode;       // Current GUI Mode
 extern int hFaMain;       // Factory Dialog
 extern int hMnBg;         // Menu Dialog
 extern void *OlcInfoData; // OLC data
-extern void *DPData; // CameraMode
-extern struct lens_info LensID; // lens info
-extern int is_release_permitted; // can we shoot
-
 
 extern int logMsg(char *, ...);
 
@@ -77,8 +73,6 @@ extern void FIO_SeekFile(int fd, long offset, int whence); // whence: SEEK_SET=0
 
 extern long fdConsole; // fd of stdout
 
-// Time functions
-
 // free space is reported in KB, drvltr is "A:"
 extern int FP_GetDriveFreeSpace(char * drv_letter, int * result);
 
@@ -121,8 +115,6 @@ extern SEM_ID hMainCtrlMonoSem;
 extern int eventproc_PrintICUInfo();
 extern int eventproc_RiseEvent(const char *event);
 extern int eventproc_Release();
-extern int permit_or_inhibit_release(int);
-extern int able_to_release(); // checks the "is_release_permitted" and "BurstCounter", return 1 if we can shoot
 
 // Display
 
