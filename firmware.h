@@ -50,7 +50,6 @@ extern int  TryPostMessageQueue(void *hMessageQueue, void *pMessage, int forever
 
 // StdIO
 
-extern int open(const char *name, int flags, int mode);
 extern int read(int fd, void *buffer, size_t nbytes);
 extern int write(int fd, void *buffer, size_t nbytes);
 extern int close(int fd);
