@@ -4,8 +4,9 @@
  * $Author$
  */
 
-#include "main.h"
+#include <camera.h>
 
+#include "main.h"
 #include "settings.h"
 #include "utils.h"
 

@@ -7,8 +7,6 @@
 #ifndef BUTTON_H_
 #define BUTTON_H_
 
-#include "main.h"
-
 typedef enum {
 	BUTTON_DP,
 	BUTTON_DISP,

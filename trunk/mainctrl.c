@@ -6,7 +6,6 @@
 
 #include <string.h>
 
-#include "main.h"
 #include "mainctrl.h"
 #include "firmware.h"
 #include "tasks.h"

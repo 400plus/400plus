@@ -4,7 +4,6 @@
  * $Author$
  */
 
-#include "main.h"
 #include "firmware.h"
 #include "tasks.h"
 

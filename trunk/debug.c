@@ -5,7 +5,6 @@
  */
 
 
-#include "main.h"
 #include "mainctrl.h"
 
 #ifdef ENABLE_DEBUG

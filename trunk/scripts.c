@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <camera.h>
+
 #include "main.h"
 #include "firmware.h"
 

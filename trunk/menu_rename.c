@@ -6,7 +6,6 @@
 
 #include <string.h>
 
-#include "main.h"
 #include "firmware.h"
 
 #include "languages.h"

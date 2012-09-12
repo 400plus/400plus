@@ -7,6 +7,8 @@
 #ifndef MENU_H_
 #define MENU_H_
 
+#include <camera.h>
+
 #define MENU_WIDTH  27
 #define MENU_HEIGHT  5
 
