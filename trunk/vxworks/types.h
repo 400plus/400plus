@@ -29,6 +29,8 @@ typedef long unsigned int size_t;
 typedef long unsigned int fpos_t;
 typedef long unsigned int off_t;
 
+typedef uint_t mode_t;
+
 typedef int  clockid_t;
 typedef	long clock_t;
 typedef	long time_t;
