@@ -12,8 +12,10 @@ home page for more info:
 http://code.google.com/p/inih/
 */
 
+#include <fcntl.h>
 #include <ctype.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "ini.h"
 #include "utils.h"

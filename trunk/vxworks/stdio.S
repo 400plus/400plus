@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.h>
+#include <stub.S>
 
 DEF(clearerr,  0xFFB578A4)
 //DEF(ctermid,  ?);

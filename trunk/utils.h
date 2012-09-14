@@ -10,7 +10,7 @@
 // it's slow
 #undef FGETS_USE_SLOW
 
-#include <types.h>
+#include <sys/types.h>
 
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     5
