@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.h>
+#include <stub.S>
 
 //DEF(open, ?)
 //DEF(open, ?)

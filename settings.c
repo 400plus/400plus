@@ -4,6 +4,9 @@
  * $Author$
  */
 
+#include <fcntl.h>
+#include <unistd.h>
+
 #include "main.h"
 #include "firmware.h"
 

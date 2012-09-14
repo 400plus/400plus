@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.h>
+#include <stub.S>
 
 DEF(abort,   0xFFB54D54)
 DEF(abs,     0xFFB54C34)

@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.h>
+#include <stub.S>
 
 DEF(isalnum,  0xFFB57AD8)
 DEF(isalpha,  0xFFB57AC0)

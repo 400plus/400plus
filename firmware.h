@@ -7,8 +7,8 @@
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 
-#include <vxworks.h>
-#include <types.h>
+#include "vxworks/vxworks.h"
+#include <sys/types.h>
 
 #include "main.h"
 
@@ -49,10 +49,6 @@ extern int  PostMessageQueue(void *hMessageQueue, void *pMessage, int forever);
 extern int  TryPostMessageQueue(void *hMessageQueue, void *pMessage, int forever);
 
 // StdIO
-
-extern int read(int fd, void *buffer, size_t nbytes);
-extern int write(int fd, void *buffer, size_t nbytes);
-extern int close(int fd);
 
 extern int printErr(const char *, ...);             // printf to stderr
 extern int printf_log(int, int, const char *, ...); // printf to the log system

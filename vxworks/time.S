@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.h>
+#include <stub.S>
 
 DEF(asctime,       0xFFB53368)
 DEF(asctime_r,     0xFFB53348)
