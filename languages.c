@@ -47,7 +47,7 @@ int  lang_pack_keys_loaded;
 
 int lang_pack_sections(void *user, int lineno, const char *section) {
 	strncpy0(languages_found[languages_found_last++], section, LP_MAX_WORD-1);
-	languages_found[languages_found_last][0] = NULL;
+	languages_found[languages_found_last][0] = '\0';
 	return 1;
 }
 
@@ -55,7 +55,7 @@ int lang_pack_sections(void *user, int lineno, const char *section) {
 void lang_pack_init() {
 	int res = 0;
 	strncpy0(languages_found[languages_found_last++], "Camera", LP_MAX_WORD-1);
-	languages_found[languages_found_last][0] = NULL;
+	languages_found[languages_found_last][0] = '\0';
 
 	res = ini_parse("A:/languages.ini", NULL, NULL, lang_pack_sections, NULL);
 
