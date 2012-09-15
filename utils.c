@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
+#include <sys/types.h>
 
 #include <clock.h>
 #include <camera.h>
