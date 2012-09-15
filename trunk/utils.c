@@ -8,7 +8,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include <unistd.h>
 
+#include <clock.h>
 #include <camera.h>
 
 #include "firmware.h"
@@ -705,7 +707,7 @@ char * my_fgets_faster(char *s, int n, int fd) {
 	}
 
 	cs = s;
-	while (--n > 0 && ( bpos || (rc = read_(fd, &buf, 255)) ) ) {
+	while (--n > 0 && ( bpos || (rc = read(fd, &buf, 255)) ) ) {
 		unsigned char c;
 		if (rc < 255)
 			buf[rc] = '\0';

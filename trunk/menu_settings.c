@@ -117,7 +117,7 @@ void reload_language_and_refresh(const type_MENUITEM *item) {
 void menu_settings_open() {
 	int i;
 
-	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != NULL && languages_found[i][0] != NULL; i++) {
+	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != '\0' && languages_found[i][0] != '\0'; i++) {
 		menupage_settings.items[0].parm.menuitem_enum.list->length  = i + 1;
 		menupage_settings.items[0].parm.menuitem_enum.list->data[i] = languages_found[i];
 	}
