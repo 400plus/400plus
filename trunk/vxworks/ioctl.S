@@ -4,6 +4,6 @@
  * $Author$
  */
 
-#include <stub.S>
+#include "../stub.h"
 
 DEF(ioctl, 0xFFB4DF70)
