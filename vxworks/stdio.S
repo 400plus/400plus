@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.S>
+#include "../stub.h"
 
 DEF(clearerr,  0xFFB578A4)
 DEF(fclose,    0xFFB577B4)

@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.S>
+#include "../stub.h"
 
 DEF(memchr,   0xFFB53D84)
 DEF(memcmp,   0xFFB53D44)

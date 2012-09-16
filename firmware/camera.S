@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include <stub.S>
+#include "../stub.h"
 
 DEF(DPData,                    0x00016B60)
 DEF(LensID,                    0x00005884)
