@@ -26,18 +26,18 @@ static dialog_t *countdown_dialog = NULL;
 void restore_display() {
 	SleepTask(100);
 
-	if (cameraMode->ae < AE_MODE_AUTO)
+	if (DPData->ae < AE_MODE_AUTO)
 		display_refresh();
 }
 
 void display_refresh() {
-	if (cameraMode->metering == METERING_MODE_SPOT)
+	if (DPData->metering == METERING_MODE_SPOT)
 		display_refresh_meteringmode();
 
-	if (cameraMode->wb == WB_MODE_COLORTEMP)
+	if (DPData->wb == WB_MODE_COLORTEMP)
 		display_refresh_whitebalance();
 
-	if (cameraMode->efcomp > 0x10 && cameraMode->efcomp < 0xF0)
+	if (DPData->efcomp > 0x10 && DPData->efcomp < 0xF0)
 		display_refresh_flashcomp();
 
 	display_refresh_iso();
@@ -57,7 +57,7 @@ void display_refresh_whitebalance() {
 
 void display_refresh_flashcomp() {
 	int negative = FALSE, value = 0;
-	int flash_exp_comp = cameraMode->efcomp;
+	int flash_exp_comp = DPData->efcomp;
 
 	if (flash_exp_comp > 0x30) {
 		flash_exp_comp = 0x100 - flash_exp_comp;
@@ -92,14 +92,14 @@ void display_refresh_flashcomp() {
 void display_refresh_iso() {
 	char tmp[32] = "AUTO";
 
-	switch(cameraMode->ae) {
+	switch(DPData->ae) {
 	case AE_MODE_P:
 	case AE_MODE_TV:
 	case AE_MODE_AV:
 	case AE_MODE_M:
 		if (!settings.autoiso_enable || status.measuring)
 	default:
-			iso_print(tmp, cameraMode->iso);
+			iso_print(tmp, DPData->iso);
 		break;
 	}
 
@@ -139,8 +139,8 @@ void display_brightness() {
 			break;
 
 		case GUIMODE_OLC:
-			if (cameraMode->lcd_brightness < 7)
-				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1 + cameraMode->lcd_brightness);
+			if (DPData->lcd_brightness < 7)
+				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1 + DPData->lcd_brightness);
 			else
 				press_button(IC_BUTTON_DISP);
 			break;

@@ -17,13 +17,14 @@
 
 int *feedback_task = NULL;
 
-type_CAMERA_MODE st_cameraMode;
+dpr_data_t st_DPData;
 
 void script_start();
 void script_stop();
 void script_feedback();
 
 void script_action(type_SHOT_ACTION action);
+
 void action_ext_aeb();
 void action_efl_aeb();
 void action_iso_aeb();
@@ -188,7 +189,7 @@ void script_start() {
 	status.script_running  = TRUE;
 	status.script_stopping = FALSE;
 
-	st_cameraMode = *cameraMode;
+	st_DPData = *DPData;
 
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
 	send_to_intercom(IC_SET_AE_BKT,            1, 0x00);
@@ -225,19 +226,19 @@ void script_stop() {
 }
 
 void script_restore_parameters() {
-	send_to_intercom(IC_SET_AE,     1, st_cameraMode.ae);
-	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
-	send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
-	send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
-	send_to_intercom(IC_SET_ISO,    2, st_cameraMode.iso);
+	send_to_intercom(IC_SET_AE,     1, st_DPData.ae);
+	send_to_intercom(IC_SET_EFCOMP, 1, st_DPData.efcomp);
+	send_to_intercom(IC_SET_TV_VAL, 1, st_DPData.tv_val);
+	send_to_intercom(IC_SET_AV_VAL, 1, st_DPData.av_val);
+	send_to_intercom(IC_SET_ISO,    2, st_DPData.iso);
 }
 
 void script_restore() {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
-	send_to_intercom(IC_SET_AE_BKT,            1, st_cameraMode.ae_bkt);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_DPData.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_AE_BKT,            1, st_DPData.ae_bkt);
 
-	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
-	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_cameraMode.auto_power_off);
+	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_DPData.lcd_brightness);
+	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_DPData.auto_power_off);
 
 	display_on();
 }
@@ -299,14 +300,14 @@ void script_action(type_SHOT_ACTION action) {
 }
 
 void action_ext_aeb() {
-	if (cameraMode->tv_val == TV_VAL_BULB) {
+	if (DPData->tv_val == TV_VAL_BULB) {
 		int tv_val;
 
 		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
 			wait_for_camera();
 
 			if (tv_val < 0x10) {
-				if (cameraMode->tv_val != TV_VAL_BULB)
+				if (DPData->tv_val != TV_VAL_BULB)
 					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
 				shutter_release_bulb(60 * (1 << (1 - (tv_val >> 3))));
@@ -318,14 +319,14 @@ void action_ext_aeb() {
 			if (!can_continue())
 				break;
 		}
-	} else if (cameraMode->ae < AE_MODE_AUTO) {
+	} else if (DPData->ae < AE_MODE_AUTO) {
 		int tv_inc, av_inc;
 		int tv_dec, av_dec;
 
 		int tv_sep = 0x00, av_sep = 0x00;
 		int frames = settings.eaeb_frames;
 
-		if (cameraMode->ae == AE_MODE_TV) {
+		if (DPData->ae == AE_MODE_TV) {
 			// Fixed Tv, Variable Av
 			av_sep = settings.eaeb_ev;
 		} else {
@@ -343,7 +344,7 @@ void action_ext_aeb() {
 		av_inc = av_dec = status.last_shot_av;
 
 		// Enter manual mode...
-		if (cameraMode->ae != AE_MODE_M)
+		if (DPData->ae != AE_MODE_M)
 			send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
 
 		// ...and do the rest ourselves
@@ -405,8 +406,8 @@ void action_iso_aeb() {
 void action_efl_aeb() {
 	int frames = settings.efl_aeb_frames;
 
-	int ef_inc = cameraMode->efcomp;
-	int ef_dec = cameraMode->efcomp;
+	int ef_inc = DPData->efcomp;
+	int ef_dec = DPData->efcomp;
 
 	shutter_release();
 	frames--;
@@ -441,10 +442,10 @@ void action_efl_aeb() {
 void action_long_exp() {
 	wait_for_camera();
 
-	if (cameraMode->ae != AE_MODE_M)
+	if (DPData->ae != AE_MODE_M)
 		send_to_intercom(IC_SET_AE,     1, AE_MODE_M);
 
-	if (cameraMode->tv_val != TV_VAL_BULB)
+	if (DPData->tv_val != TV_VAL_BULB)
 		send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
 	shutter_release_bulb(settings.lexp_time);
@@ -465,5 +466,5 @@ void script_delay(int delay) {
 }
 
 int can_continue() {
-	return ! (status.script_stopping || cameraMode->avail_shot < SCRIPT_MIN_SHOTS);
+	return ! (status.script_stopping || DPData->avail_shot < SCRIPT_MIN_SHOTS);
 }

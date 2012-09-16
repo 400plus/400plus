@@ -15,7 +15,7 @@
 		sizeof( struct struct_name ) == size ? 0 : -1 \
 	]
 
-struct lens_info {
+struct lens_info_t {
 	short id;
 	short max_mm;
 	short min_mm;
@@ -24,7 +24,7 @@ struct lens_info {
 } __attribute__((packed));
 
 // DigiProp Data Structure
-struct struct_dpr_data_t {       // [*] Used and tested, others unknown
+struct dpr_data_t {              // [*] Used and tested, others unknown
 	int ae;                      // 0x0000 [*] [1]
 	int metering;                // 0x0004 [*] [2]
 	int efcomp;                  // 0x0008 [*] [K]
@@ -128,15 +128,15 @@ struct struct_dpr_data_t {       // [*] Used and tested, others unknown
 	int field_190;               // 0x0190
 };
 
-SIZE_CHECK_STRUCT(struct_dpr_data_t, 0x194);
 //  0x194 is the number in the FW when it comes to DPR (as it's 0x198 too, they go together always)
+SIZE_CHECK_STRUCT(dpr_data_t, 0x194);
 
-typedef struct struct_dpr_data_t type_CAMERA_MODE;
-extern type_CAMERA_MODE *cameraMode;
+typedef struct dpr_data_t dpr_data_t;
 
-extern void *DPData; // CameraMode
-extern struct lens_info LensID; // lens info
-extern int is_release_permitted; // can we shoot
+extern struct dpr_data_t  *DPData;
+extern struct lens_info_t  LensID;
+
+extern int is_release_permitted; // can we shoot ?
 
 // [1] Values for "ae"
 #define AE_MODE_P         0x00

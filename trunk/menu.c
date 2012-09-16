@@ -15,7 +15,7 @@
 
 #include "menu.h"
 
-type_CAMERA_MODE menu_cameraMode;
+dpr_data_t menu_DPData;
 
 void *menu_handler;
 
@@ -66,10 +66,10 @@ void menu_create(type_MENU *menu) {
 	SleepTask(100);
 
 	FLAG_GUI_MODE = 0x2D; // In theory, we do not need this, but menu_close does not work properly without it...
-	//cameraMode->gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
+	//DPData->gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
 
 	current_menu    = menu;
-	menu_cameraMode = *cameraMode;
+	menu_DPData = *DPData;
 
 	menu_destroy();
 	menu_initialize();

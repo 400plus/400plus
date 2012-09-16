@@ -21,9 +21,6 @@
 
 #include "main.h"
 
-// Camera data
-type_CAMERA_MODE *cameraMode = (type_CAMERA_MODE*)&DPData;
-
 // Main queues
 int *task_queue;
 

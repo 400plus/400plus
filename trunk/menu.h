@@ -74,7 +74,7 @@ struct MENU {
 	int               changed;
 };
 
-extern type_CAMERA_MODE  menu_cameraMode;
+extern dpr_data_t menu_DPData;
 
 extern void menu_create (type_MENU * menu);
 extern void menu_close  ();
