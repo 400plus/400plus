@@ -139,49 +139,58 @@ extern struct lens_info_t  LensID;
 extern int is_release_permitted; // can we shoot ?
 
 // [1] Values for "ae"
-#define AE_MODE_P         0x00
-#define AE_MODE_TV        0x01
-#define AE_MODE_AV        0x02
-#define AE_MODE_M         0x03
-#define AE_MODE_ADEP      0x05
-// auto modes == (ae > 6)
-#define AE_MODE_AUTO      0x08
-#define AE_MODE_NIGHT     0x09
-#define AE_MODE_SPORTS    0x0A
-#define AE_MODE_PORTRAIT  0x0B
-#define AE_MODE_LANDSCAPE 0x0C
-#define AE_MODE_CLOSEUP   0x0D
-#define AE_MODE_FLASHOFF  0x0E
+typedef enum {
+	AE_MODE_P         = 0x00,
+	AE_MODE_TV        = 0x01,
+	AE_MODE_AV        = 0x02,
+	AE_MODE_M         = 0x03,
+	AE_MODE_ADEP      = 0x05,
+	AE_MODE_AUTO      = 0x08,
+	AE_MODE_NIGHT     = 0x09,
+	AE_MODE_SPORTS    = 0x0A,
+	AE_MODE_PORTRAIT  = 0x0B,
+	AE_MODE_LANDSCAPE = 0x0C,
+	AE_MODE_CLOSEUP   = 0x0D,
+	AE_MODE_FLASHOFF  = 0x0E
+} AE_MODE;
 
 // [2] Values for "metering"
-#define METERING_MODE_EVAL 0
-#define METERING_MODE_SPOT 3
+typedef enum {
+	METERING_MODE_EVAL = 0,
+	METERING_MODE_SPOT = 3
+} METERING_MODE;
 
 // [3] Values for "drive"
-#define DRIVE_MODE_SINGLE 0
-#define DRIVE_MODE_BURST  1
+typedef enum {
+	DRIVE_MODE_SINGLE = 0,
+	DRIVE_MODE_BURST  = 1
+} DRIVE_MODE;
 
 // [4] Values for "wb"
-#define WB_MODE_AUTO        0x00
-#define WB_MODE_DAYLIGHT    0x01
-#define WB_MODE_COUDY       0x02
-#define WB_MODE_TUNGSTEN    0x03
-#define WB_MODE_FLUORESCENT 0x04
-#define WB_MODE_FLASH       0x05
-#define WB_MODE_CUSTOM      0x06
-#define WB_MODE_SHADE       0x07
-#define WB_MODE_COLORTEMP   0x08
+typedef enum {
+	WB_MODE_AUTO        = 0x00,
+	WB_MODE_DAYLIGHT    = 0x01,
+	WB_MODE_COUDY       = 0x02,
+	WB_MODE_TUNGSTEN    = 0x03,
+	WB_MODE_FLUORESCENT = 0x04,
+	WB_MODE_FLASH       = 0x05,
+	WB_MODE_CUSTOM      = 0x06,
+	WB_MODE_SHADE       = 0x07,
+	WB_MODE_COLORTEMP   = 0x08
+} WB_MODE;
 
 // [5] Values for "af_point" (can be ORed together to form patterns)
-#define AF_POINT_C  0x0001 // Center
-#define AF_POINT_T  0x0002 // Top
-#define AF_POINT_B  0x0004 // Bottom
-#define AF_POINT_TL 0x0008 // Top-left
-#define AF_POINT_TR 0x0010 // Top-right
-#define AF_POINT_BL 0x0020 // Bottom-left
-#define AF_POINT_BR 0x0040 // Bottom-right
-#define AF_POINT_L  0x0080 // Left
-#define AF_POINT_R  0x0100 // Right
+typedef enum {
+	AF_POINT_C  = 0x0001, // Center
+	AF_POINT_T  = 0x0002, // Top
+	AF_POINT_B  = 0x0004, // Bottom
+	AF_POINT_TL = 0x0008, // Top-left
+	AF_POINT_TR = 0x0010, // Top-right
+	AF_POINT_BL = 0x0020, // Bottom-left
+	AF_POINT_BR = 0x0040, // Bottom-right
+	AF_POINT_L  = 0x0080, // Left
+	AF_POINT_R  = 0x0100 // Right
+} AF_POINT;
 
 // [6] Values for "auto_power_off"
 //     Number of seconds to wait, 0x00 for OFF
@@ -190,50 +199,70 @@ extern int is_release_permitted; // can we shoot ?
 //     Number of seconds to wait, 0x00 for OFF, 0xFF for HOLD
 
 // [8] Values for "auto_rotate"
-#define AUTO_ROTATE_OFF         0x00
-#define AUTO_ROTATE_COMP_CAMERA 0x01
-#define AUTO_ROTATE_COMP        0x02
+typedef enum {
+	AUTO_ROTATE_OFF         = 0x00,
+	AUTO_ROTATE_COMP_CAMERA = 0x01,
+	AUTO_ROTATE_COMP        = 0x02
+} AUTO_ROTATE_MODE;
 
 // [9] Values for "lcd_brightness"
 //     Brightness in range 1 to 7
 
 // [A] Values for "date_time"
-#define DATE_TIME_YYMMDD 0x01
-#define DATE_TIME_DDMMYY 0x02
-#define DATE_TIME_MMDDYY 0x03
+typedef enum {
+	DATE_TIME_YYMMDD = 0x01,
+	DATE_TIME_DDMMYY = 0x02,
+	DATE_TIME_MMDDYY = 0x03
+} DATE_TIME_FORMAT;
 
 // [B] Values for "file_numbering"
-#define FILE_NUMBERING_CONT 0x00
-#define FILE_NUMBERING_AUTO 0x01
+typedef enum {
+	FILE_NUMBERING_CONT = 0x00,
+	FILE_NUMBERING_AUTO = 0x01
+} FILE_NUMBERING;
 
 // [C] Values for "video_system"
-#define VIDEO_SYSYEM_PAL  0x00
-#define VIDEO_SYSTEM_NTSC 0x01
+typedef enum {
+	VIDEO_SYSYEM_PAL  = 0x00,
+	VIDEO_SYSTEM_NTSC = 0x01
+} VIDEO_SYSTEM;
 
 // [D] Values for "histogram"
-#define HISTOGRAM_BRIGHTNESS 0x00
-#define HISTOGRAM_RGB        0x01
+typedef enum {
+	HISTOGRAM_BRIGHTNESS = 0x00,
+	HISTOGRAM_RGB        = 0x01
+} HISTOGRAM_MODE;
 
 // [E] Values for "color_space"
-#define COLOR_SPACE_SRGB  0x00
-#define COLOR_SPACE_ADOBE 0x01
+typedef enum {
+	COLOR_SPACE_SRGB  = 0x00,
+	COLOR_SPACE_ADOBE = 0x01
+} COLOR_SPACE;
 
 // [F] Values for "tv_val"
 //     0x10 => 30", ..., 0x98 => 1/4000
-#define TV_VAL_BULB 0x0C // Internal code for BULB mode
+typedef enum {
+	TV_VAL_BULB = 0x0C // Internal code for BULB mode
+} TV_VAL;
 
 // [G] Values for "img_format"
-#define IMG_FORMAT_JPG   0x01
-#define IMG_FORMAT_RAW   0x02
+typedef enum {
+	IMG_FORMAT_JPG   = 0x01,
+	IMG_FORMAT_RAW   = 0x02
+} IMG_FORMAT;
 
 // [H] Values for "img_quality"
-#define IMG_QUALITY_HIGH 0x00
-#define IMG_QUALITY_LOW  0x01
+typedef enum {
+	IMG_QUALITY_HIGH = 0x00,
+	IMG_QUALITY_LOW  = 0x01
+} IMG_QUALITY;
 
 // [I] Values for "img_size"
-#define IMG_SIZE_L       0x00
-#define IMG_SIZE_M       0x01
-#define IMG_SIZE_S       0x02
+typedef enum {
+	IMG_SIZE_L       = 0x00,
+	IMG_SIZE_M       = 0x01,
+	IMG_SIZE_S       = 0x02
+} IMG_SIZE;
 
 // [J] ISO encoding
 // Value xxyy.yzzz means:
