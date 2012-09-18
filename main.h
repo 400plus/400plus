@@ -252,11 +252,10 @@ typedef enum {
 	GUI_UNKNOWN2                   = 0x1000003E, // related to btns that repeats (AV, 1/2-SHUT) may be ?
 } gui_event_t;
 
-
 // Used flags
 #define FLAG_MAIN_GUI       (*(int*)(0x00001C88))
 #define FLAG_CAMERA_BUSY    hRelSem
-#define FLAG_METMOD_DIALOG  (*(int*)(0x000047EC)) // ?
+#define FLAG_METMOD_DIALOG  (*(int*)(0x000047EC))
 #define FLAG_AFSLCT_DIALOG  (*(int*)(0x00004804))
 #define FLAG_FACTORY_DIALOG hFaMain
 #define FLAG_MENU_DIALOG    hMnBg
@@ -265,8 +264,8 @@ typedef enum {
 
 // Documented flags
 #define FLAG_DISPLAY_ON     (*(int*)(0x00006D58))
-
 #define FLAG_GUI_MODE       GUIMode
+
 typedef enum { // GUIModes
 	GUIMODE_OFF,             // 0x00 - main screen off
 	GUIMODE_REVIEW,          // 0x01 - review photos mode (activated with play btn)
@@ -300,12 +299,10 @@ typedef enum { // GUIModes
 	GUIMODE_BATTEMPTY,       // 0x1D - Battery empty
 	GUIMODE_ACTIVESWEEP,     // 0x1E - Sweeping the sensor
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
-
 // Fictitious modes
 	GUIMODE_400PLUS = 0xFF,  // 400Plus mode
 	GUIMODE_FACE    = 0xFE	 // Face mode
 } type_GUIMODE;
-
 
 // Dialog Item struct
 typedef struct {
@@ -318,7 +315,6 @@ typedef struct {
 	int the_case;   // 0x18 - element from the jumptable to switch on it (in dlgItem_sub_FF917D00)
 	//              // something like: goto jump_table[the_case];
 } dialog_item_t;
-
 
 // DIALOG struct
 typedef struct struct_type_DIALOG dialog_t; // forward declaration
@@ -428,68 +424,3 @@ extern void intercom_proxy(const int handler, char *message);
 extern type_STATUS status;
 
 #endif /* MAIN_H_ */
-
-
-
-#if 0
-
-ChangeDprData (int what, int value);
-
-  2: red_eye
-  3: beep
-  4: auto_power_off
-  5: view_type
-  6: review_time
-  7: auto_rotate
-  8: lcd_brightness
-  9: file_numbering
- 10: language
- 11: video_system
- 12: ptp
- 13: picture_style_mode
- 14: histogram
- 15: color_space
- 16: forbid_rel
- 17: iso
- 18: metering
- 19: selected_af_mode
- 21: face_sensor_disable
- 23: drive
- 24: wb
- 26: color_temp
- 27: date_time
- 28: cfmenupos
- 29: cf_set_button_func
- 30: cf_nr_for_long_exposure
- 31: cf_efav_fix_x
- 32: cf_afael_active_button
- 33: cf_emit_aux
- 34: cf_explevel_inc_third
- 35: cf_mirror_up_lock
- 36: cf_flash_metering
- 37: cf_flash_sync_rear
- 38: cf_qr_magnify
- 39: field_188
- 40: cf_emit_flash
- 41: cf_extend_iso
- 42: cf_aeb_sequence
- 43: cf_si_indicate
- 44: cf_menu_pos
- 45: cf_fpsel_method
- 46: cf_safety_shift
- 47: cf_lens_button
- 55: efcomp
- 66: ae_bkt
- 90: usb_connect_type
- 91: menupos
-113: play_jump_type
-114: playback_file_id
-115: playback_file_id_pos
-138: field_18C
-156: wb_bkt
-157: wbcomp_gm
-158: wbcomp_ab
-
-#endif
-
-
