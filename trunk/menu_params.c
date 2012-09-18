@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 #include "firmware.h"
 
@@ -93,7 +95,7 @@ type_MENUITEM menupage_params_items[] = {
 
 type_MENUPAGE menupage_params = {
 	name      : LP_WORD(L_P_PARAMS),
-	sibilings : TRUE,
+	sibilings : true,
 	length    : LENGTH(menupage_params_items),
 	items     : menupage_params_items,
 	ordering  : settings.params_order,

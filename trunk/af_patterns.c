@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include <camera.h>
 
 #include "main.h"

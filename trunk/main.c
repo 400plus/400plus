@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "firmware.h"
 
@@ -26,72 +27,72 @@ int *task_queue;
 
 // Global status
 type_STATUS status = {
-	button_down       : FALSE,
-	script_running    : FALSE,
-	script_stopping   : FALSE,
-	iso_in_viewfinder : FALSE,
-	afp_dialog        : FALSE,
-	last_preset       : FALSE,
-	ignore_ae_change  : FALSE,
-	booting           : TRUE,
-	measuring         : FALSE,
+	button_down       : false,
+	script_running    : false,
+	script_stopping   : false,
+	iso_in_viewfinder : false,
+	afp_dialog        : false,
+	last_preset       : false,
+	ignore_ae_change  : false,
+	booting           : true,
+	measuring         : false,
 	ev_comp           : 0x00,
 };
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{IC_BUTTON_UP,    FALSE,  {restore_iso}},
-	{IC_BUTTON_DOWN,  FALSE,  {restore_wb}},
-	{IC_BUTTON_LEFT,  FALSE,  {restore_metering}},
-	{IC_BUTTON_DP,    TRUE,   {menu_main_start}},
-	{IC_BUTTON_AV,    FALSE,  {toggle_img_format}},
-	{IC_BUTTON_DISP,  TRUE,   {display_brightness}},
+	{IC_BUTTON_UP,    false,  {restore_iso}},
+	{IC_BUTTON_DOWN,  false,  {restore_wb}},
+	{IC_BUTTON_LEFT,  false,  {restore_metering}},
+	{IC_BUTTON_DP,    true,   {menu_main_start}},
+	{IC_BUTTON_AV,    false,  {toggle_img_format}},
+	{IC_BUTTON_DISP,  true,   {display_brightness}},
 	END_OF_LIST
 };
 
 type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_SET,        TRUE,  {menu_event_set}},
-	{IC_BUTTON_DIAL_LEFT,  TRUE,  {menu_event_prev}},
-	{IC_BUTTON_DIAL_RIGHT, TRUE,  {menu_event_next}},
-	{IC_BUTTON_RIGHT,      TRUE,  {menu_event_right}},
-	{IC_BUTTON_LEFT,       TRUE,  {menu_event_left}},
-	{IC_BUTTON_DP,         TRUE,  {menu_event_dp}},
-	{IC_BUTTON_AV,         TRUE,  {menu_event_av, menu_event_av_up}},
-	{IC_DIALOGOFF,         FALSE, {menu_event_finish}},
+	{IC_BUTTON_SET,        true,  {menu_event_set}},
+	{IC_BUTTON_DIAL_LEFT,  true,  {menu_event_prev}},
+	{IC_BUTTON_DIAL_RIGHT, true,  {menu_event_next}},
+	{IC_BUTTON_RIGHT,      true,  {menu_event_right}},
+	{IC_BUTTON_LEFT,       true,  {menu_event_left}},
+	{IC_BUTTON_DP,         true,  {menu_event_dp}},
+	{IC_BUTTON_AV,         true,  {menu_event_av, menu_event_av_up}},
+	{IC_DIALOGOFF,         false, {menu_event_finish}},
 	END_OF_LIST
 };
 
 type_ACTION actions_meter[] = {
-	{IC_BUTTON_DP,    TRUE, {set_metering_spot}},
+	{IC_BUTTON_DP,    true, {set_metering_spot}},
 	END_OF_LIST
 };
 
 type_ACTION actions_wb[] = {
-	{IC_BUTTON_DP,    TRUE, {set_whitebalance_colortemp}},
+	{IC_BUTTON_DP,    true, {set_whitebalance_colortemp}},
 	END_OF_LIST
 };
 
 type_ACTION actions_iso[] = {
-	{IC_BUTTON_DP,    TRUE,  {autoiso_enable}},
-	{IC_BUTTON_SET,   FALSE, {autoiso_disable}},
+	{IC_BUTTON_DP,    true,  {autoiso_enable}},
+	{IC_BUTTON_SET,   false, {autoiso_disable}},
 	END_OF_LIST
 };
 
 type_ACTION actions_face[] = {
-	{IC_BUTTON_UP,    TRUE, {viewfinder_up,    viewfinder_end}},
-	{IC_BUTTON_DOWN,  TRUE, {}},
-	{IC_BUTTON_RIGHT, TRUE, {viewfinder_right, viewfinder_end}},
-	{IC_BUTTON_LEFT,  TRUE, {viewfinder_left,  viewfinder_end}},
+	{IC_BUTTON_UP,    true, {viewfinder_up,    viewfinder_end}},
+	{IC_BUTTON_DOWN,  true, {}},
+	{IC_BUTTON_RIGHT, true, {viewfinder_right, viewfinder_end}},
+	{IC_BUTTON_LEFT,  true, {viewfinder_left,  viewfinder_end}},
 	END_OF_LIST
 };
 
 type_ACTION actions_af[] = {
-	{IC_BUTTON_SET,   TRUE, {afp_center}},
-	{IC_BUTTON_UP,    TRUE, {afp_top}},
-	{IC_BUTTON_DOWN,  TRUE, {afp_bottom}},
-	{IC_BUTTON_RIGHT, TRUE, {afp_right}},
-	{IC_BUTTON_LEFT,  TRUE, {afp_left}},
-	{IC_BUTTON_DISP,  TRUE, {}},
+	{IC_BUTTON_SET,   true, {afp_center}},
+	{IC_BUTTON_UP,    true, {afp_top}},
+	{IC_BUTTON_DOWN,  true, {afp_bottom}},
+	{IC_BUTTON_RIGHT, true, {afp_right}},
+	{IC_BUTTON_LEFT,  true, {afp_left}},
+	{IC_BUTTON_DISP,  true, {}},
 	END_OF_LIST
 };
 
@@ -126,7 +127,7 @@ void intercom_proxy(const int handler, char *message) {
 	int gui_mode;
 	int message_len = message[0];
 	int event       = message[1];
-	int param       = message_len > 1 ? message[2] : FALSE;
+	int param       = message_len > 1 ? message[2] : false;
 	int button_down = param;
 
 	type_CHAIN  *chain;
@@ -143,7 +144,7 @@ void intercom_proxy(const int handler, char *message) {
 			script_restore();
 			break;
 		case IC_BUTTON_DP: // DP Button stops the script
-			status.script_stopping = TRUE;
+			status.script_stopping = true;
 			goto block_message;
 			break;
 		case IC_SHOOTING: // Shot taken while script is running
@@ -161,10 +162,10 @@ void intercom_proxy(const int handler, char *message) {
 	case IC_SETTINGS_0: // Settings changed (begin of sequence)
 		if (status.ignore_ae_change) {
 			// Ignore first AE change after loading a preset, as it generates this same event
-			status.ignore_ae_change = FALSE;
+			status.ignore_ae_change = false;
 		} else {
 			// Handle preset recall when dial moved to A-DEP
-			status.last_preset  = FALSE;
+			status.last_preset  = false;
 			status.main_dial_ae = param;
 
 			if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
@@ -187,7 +188,7 @@ void intercom_proxy(const int handler, char *message) {
 		if (status.afp_dialog) {
 			// Open Extended AF-Point selection dialog
 			message[1] = IC_AFPDLGON;
-			status.afp_dialog = FALSE;
+			status.afp_dialog = false;
 			ENQUEUE_TASK(afp_enter);
 		}
 		goto pass_message;
@@ -196,7 +197,7 @@ void intercom_proxy(const int handler, char *message) {
 		goto pass_message;
 	case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
 		event = (param & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
-		button_down = FALSE;
+		button_down = false;
 		break;
 	case IC_MEASURING:
 		status.measuring = param;
@@ -217,7 +218,7 @@ void intercom_proxy(const int handler, char *message) {
 
 	// Check for button-up events, even if the current GUI mode does not match
 	if (status.button_down && status.button_down == event && !button_down) {
-		status.button_down = FALSE;
+		status.button_down = false;
 
 		// Launch the defined task
 		if (status.button_up_task)
@@ -287,7 +288,7 @@ void task_dispatcher () {
 
 	// Loop while receiving messages
 	for (;;) {
-		ReceiveMessageQueue(task_queue, &task, FALSE);
+		ReceiveMessageQueue(task_queue, &task, false);
 		task();
 	}
 }

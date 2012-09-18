@@ -439,7 +439,7 @@ void dump_memory() {
 		int addr=0;
 		int power_off_state = DPData->auto_power_off;
 
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, false);
 
 		while (addr<0x800000) { // dump 8MB of RAM
 			char buf[0x800];

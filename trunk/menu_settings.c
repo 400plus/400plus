@@ -5,6 +5,7 @@
  */
 
 #include <unistd.h>
+#include <stdbool.h>
 
 #include "main.h"
 
@@ -102,7 +103,7 @@ type_MENUITEM menu_settings_items[] = {
 
 type_MENUPAGE menupage_settings = {
 	name      : LP_WORD(L_P_SETTINGS),
-	sibilings : TRUE,
+	sibilings : true,
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
 	ordering  : settings.settings_order,

@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 #include "firmware.h"
 
@@ -83,7 +85,7 @@ void start_up() {
 	eventproc_EdLedOff();
 
 	// We are no longer booting up
-	status.booting = FALSE;
+	status.booting = false;
 
 #if 0
 	debug_log("=== DUMPING DDD ===");
@@ -131,7 +133,7 @@ void set_intermediate_iso() {
 }
 
 void toggle_img_format() {
-	static int first_call = TRUE;
+	static int first_call = true;
 
 	if (!first_call && DPData->ae >= AE_MODE_AUTO) {
 		switch(DPData->img_format) {
@@ -150,7 +152,7 @@ void toggle_img_format() {
 		send_to_intercom(IC_SET_IMG_SIZE,    1, IMG_SIZE_L);
 	}
 
-	first_call = FALSE;
+	first_call = false;
 }
 
 void toggle_CfMLU() {
@@ -230,7 +232,7 @@ void autoiso_enable() {
 	press_button(IC_BUTTON_SET);
 
 	if (!settings.autoiso_enable) {
-		settings.autoiso_enable = TRUE;
+		settings.autoiso_enable = true;
 		settings_write();
 	}
 
@@ -240,7 +242,7 @@ void autoiso_enable() {
 
 void autoiso_disable() {
 	if (settings.autoiso_enable) {
-		settings.autoiso_enable = FALSE;
+		settings.autoiso_enable = false;
 		settings_write();
 	}
 }

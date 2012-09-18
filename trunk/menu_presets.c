@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 
 #include "languages.h"
@@ -204,10 +206,10 @@ type_MENUITEM preset_items[] = {
 
 type_MENUPAGE menupage_presets = {
 	name      : LP_WORD(L_P_PRESETS),
-	sibilings : TRUE,
+	sibilings : true,
 	length    : LENGTH(preset_items),
 	items     : preset_items,
-	rename    : TRUE,
+	rename    : true,
 	ordering  : presets_config.order,
 	tasks     : {
 		[MENU_EVENT_OPEN] = menu_preset_open,
@@ -216,10 +218,10 @@ type_MENUPAGE menupage_presets = {
 
 void menu_preset_open() {
 	if (status.last_preset) {
-		menupage_presets.highlight        = TRUE;
+		menupage_presets.highlight        = true;
 		menupage_presets.highlighted_item = status.last_preset;
 	} else {
-		menupage_presets.highlight        = FALSE;
+		menupage_presets.highlight        = false;
 	}
 }
 

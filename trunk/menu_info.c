@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 #include "firmware.h"
 
@@ -23,7 +25,7 @@ type_MENUITEM menupage_info_items[] = {
 
 type_MENUPAGE menupage_info = {
 	name        : LP_WORD(L_P_INFO),
-	sibilings   : TRUE,
+	sibilings   : true,
 	length      : LENGTH(menupage_info_items),
 	items       : menupage_info_items,
 	ordering    : settings.info_order,

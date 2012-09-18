@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <camera.h>
 
@@ -56,12 +57,12 @@ void display_refresh_whitebalance() {
 }
 
 void display_refresh_flashcomp() {
-	int negative = FALSE, value = 0;
+	int negative = false, value = 0;
 	int flash_exp_comp = DPData->efcomp;
 
 	if (flash_exp_comp > 0x30) {
 		flash_exp_comp = 0x100 - flash_exp_comp;
-		negative = TRUE;
+		negative = true;
 	}
 
 	switch (flash_exp_comp)	{
