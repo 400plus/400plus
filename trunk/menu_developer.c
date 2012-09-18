@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "main.h"
+#include "macros.h"
 
 #include "debug.h"
 #include "languages.h"

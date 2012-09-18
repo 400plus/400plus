@@ -9,13 +9,6 @@
 
 #include "scripts.h"
 
-#define MAX(x,y) ((x) > (y) ? (x) : (y))
-#define MIN(x,y) ((x) < (y) ? (x) : (y))
-
-#define INT_SWAP(x, y) do {int _SWAP_; _SWAP_=(x); (x)=(y); (y)=_SWAP_;} while(0)
-
-#define LENGTH(array) (sizeof(array) / sizeof(array[0]))
-
 // Action definitions
 typedef void(*type_TASK)();
 

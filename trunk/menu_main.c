@@ -4,7 +4,7 @@
  * $Author$
  */
 
-#include "main.h"
+#include "macros.h"
 #include "firmware.h"
 
 #include "languages.h"

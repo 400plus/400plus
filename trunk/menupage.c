@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "main.h"
+#include "macros.h"
 #include "firmware.h"
 
 #include "languages.h"
