@@ -2,10 +2,6 @@
 # $Date$
 # $Author$
 
-ARM_BASE = /opt/arm-elf/
-ARM_BIN  = $(ARM_BASE)/bin
-ARM_INC  = $(ARM_BASE)/arm-elf/include $(ARM_BASE)lib/gcc/arm-elf/4.6.2/include
-
 PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
 
@@ -22,7 +18,6 @@ endif
 COMMON_FLAGS =\
 	-Ivxworks                         \
 	-Ifirmware                        \
-	$(foreach i, $(ARM_INC), -I$i)    \
 	-Wall                             \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
 	-Wp,-MT,$@                        \
@@ -32,7 +27,6 @@ COMMON_FLAGS =\
 	-msoft-float                      \
 	-fno-builtin                      \
 	-nostdlib                         \
-	-nostdinc                         \
 	-fomit-frame-pointer              \
 	-fno-strict-aliasing              \
 	-mfpu=fpa
@@ -56,7 +50,7 @@ COMMON_FLAGS =\
 # this fixes them, keep it here in case we need it
 	#-mstructure-size-boundary=32 \
 
-CC     := $(ARM_BIN)/arm-elf-gcc
+CC     := arm-elf-gcc
 CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 	-Os                                \
 	-Wno-char-subscripts               \
@@ -66,13 +60,13 @@ CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 	#-Wno-unused-parameter \
 	#-Wno-unused-function  \
 
-AS      := $(ARM_BIN)/arm-elf-as
+AS      := arm-elf-as
 ASFLAGS := $(COMMON_FLAGS)
 
-LD      := $(ARM_BIN)/arm-elf-ld
+LD      := arm-elf-ld
 LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
 
-OBJCOPY := $(ARM_BIN)/arm-elf-objcopy
+OBJCOPY := arm-elf-objcopy
 
 S_SRCS := $(wildcard *.S) $(wildcard vxworks/*.S) $(wildcard firmware/*.S)
 C_SRCS := $(wildcard *.c) $(wildcard vxworks/*.c) $(wildcard firmware/*.C)
