@@ -7,6 +7,8 @@
 #include <camera.h>
 
 #include "main.h"
+#include "firmware.h"
+
 #include "settings.h"
 #include "utils.h"
 

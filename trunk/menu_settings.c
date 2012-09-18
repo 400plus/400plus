@@ -6,7 +6,7 @@
 
 #include <unistd.h>
 
-#include "firmware.h"
+#include "main.h"
 
 #include "languages.h"
 #include "menu.h"

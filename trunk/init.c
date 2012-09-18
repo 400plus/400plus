@@ -6,9 +6,10 @@
 
 #include <strings.h>
 
-#include "init.h"
-
+#include "main.h"
 #include "firmware.h"
+
+#include "init.h"
 
 void my_romStart(int startType);
 int  my_usrInit(int startType);

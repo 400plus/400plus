@@ -7,6 +7,8 @@
 #include <camera.h>
 
 #include "main.h"
+#include "firmware.h"
+
 #include "utils.h"
 
 #include "af_patterns.h"

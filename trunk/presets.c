@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+#include "main.h"
 #include "firmware.h"
 
 #include "display.h"
