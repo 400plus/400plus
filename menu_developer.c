@@ -16,7 +16,7 @@
 
 #include <stdio.h>
 
-#include "firmware.h"
+#include "main.h"
 
 #include "debug.h"
 #include "languages.h"

@@ -4,9 +4,10 @@
  * $Author$
  */
 
+#include "main.h"
 #include "firmware.h"
-#include "tasks.h"
 
+#include "tasks.h"
 #include "button.h"
 
 type_ACTION button_actions_main[] = {

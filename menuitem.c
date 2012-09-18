@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 
+#include "main.h"
 #include "firmware.h"
 
 #include "menu.h"
