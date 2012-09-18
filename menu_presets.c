@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 
+#include "macros.h"
 #include "main.h"
 
 #include "languages.h"

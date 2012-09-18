@@ -14,7 +14,7 @@
 #include <clock.h>
 #include <camera.h>
 
-#include "main.h"
+#include "macros.h"
 
 #include "languages.h"
 #include "settings.h"

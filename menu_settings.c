@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#include "main.h"
+#include "macros.h"
 
 #include "languages.h"
 #include "menu.h"
