@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "macros.h"
 #include "firmware.h"
 
 #include "af_patterns.h"

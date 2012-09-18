@@ -55,9 +55,6 @@ extern int *task_queue;
 // Inline code
 #define ENQUEUE_TASK(task) TryPostMessageQueue(task_queue, (task), false);
 
-#define END_OF_LIST  {_eol_ : true}
-#define IS_EOL(item) (item->_eol_)
-
 // Our own code
 extern void initialize();
 extern void initialize_display();
