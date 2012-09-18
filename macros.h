@@ -14,4 +14,7 @@
 
 #define LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
+#define END_OF_LIST  {_eol_ : true}
+#define IS_EOL(item) (item->_eol_)
+
 #endif
