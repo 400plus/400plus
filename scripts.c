@@ -5,6 +5,7 @@
  */
 
 #include <camera.h>
+#include <stdbool.h>
 
 #include "main.h"
 #include "firmware.h"
@@ -186,16 +187,16 @@ void script_long_exp() {
 void script_start() {
 	beep();
 
-	status.script_running  = TRUE;
-	status.script_stopping = FALSE;
+	status.script_running  = true;
+	status.script_stopping = false;
 
 	st_DPData = *DPData;
 
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, false);
 	send_to_intercom(IC_SET_AE_BKT,            1, 0x00);
 
 	if (settings.keep_power_on)
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, false);
 
 	switch (settings.script_lcd) {
 	case SCRIPT_LCD_DIM:
@@ -219,8 +220,8 @@ void script_start() {
 void script_stop() {
 	beep();
 
-	status.script_running  = FALSE;
-	status.script_stopping = TRUE;
+	status.script_running  = false;
+	status.script_stopping = true;
 
 	script_restore();
 }

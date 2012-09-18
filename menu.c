@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 
 #include "languages.h"
@@ -22,15 +24,15 @@ void *menu_handler;
 type_MENU     *current_menu;
 
 type_ACTION callbacks_standard[] = {
-	{GUI_BUTTON_MENU,           TRUE,  {menu_event_menu}},
-//	{GUI_BUTTON_DISP,           TRUE,  {menu_event_disp}},
-	{GUI_BUTTON_JUMP,           TRUE,  {menu_event_jump}},
-	{GUI_BUTTON_PLAY,           TRUE,  {menu_event_play}},
-	{GUI_BUTTON_TRASH,          TRUE,  {menu_event_trash}},
-	{GUI_BUTTON_UP,             TRUE,  {menu_event_up}},
-	{GUI_BUTTON_DOWN,           TRUE,  {menu_event_down}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, TRUE,  {menu_event_out}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  TRUE,  {menu_event_in}},
+	{GUI_BUTTON_MENU,           true,  {menu_event_menu}},
+//	{GUI_BUTTON_DISP,           true,  {menu_event_disp}},
+	{GUI_BUTTON_JUMP,           true,  {menu_event_jump}},
+	{GUI_BUTTON_PLAY,           true,  {menu_event_play}},
+	{GUI_BUTTON_TRASH,          true,  {menu_event_trash}},
+	{GUI_BUTTON_UP,             true,  {menu_event_up}},
+	{GUI_BUTTON_DOWN,           true,  {menu_event_down}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, true,  {menu_event_out}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  true,  {menu_event_in}},
 	END_OF_LIST
 };
 
@@ -113,7 +115,7 @@ void menu_close() {
 
 void menu_initialize() {
 	menu_return();
-	status.menu_running = TRUE;
+	status.menu_running = true;
 }
 
 void menu_destroy() {
@@ -127,7 +129,7 @@ void menu_destroy() {
 
 void menu_finish() {
 	menu_event_save();
-	status.menu_running = FALSE;
+	status.menu_running = false;
 }
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
@@ -158,7 +160,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 
 			// Decide how to respond to this button
 			if (action->block)
-				return FALSE;
+				return false;
 			else
 				goto pass_event;
 		}
@@ -196,7 +198,7 @@ void menu_set_page(type_MENUPAGE *page) {
 
 void menu_highlight(const int line) {
 	GUI_Select_Item  (menu_handler, line + 1);
-	GUI_Highlight_Sub(menu_handler, line + 1, FALSE);
+	GUI_Highlight_Sub(menu_handler, line + 1, false);
 
 	menu_redraw();
 }
@@ -290,14 +292,14 @@ void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repe
 
 	SleepTask(50);
 
-	action(menu, FALSE);
+	action(menu, false);
 	delay = AUTOREPEAT_DELAY_LONG;
 
 	do {
 		SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 		if (--delay == 0) {
-			action(menu, TRUE);
+			action(menu, true);
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
@@ -313,7 +315,7 @@ void menu_repeat_right(type_MENU *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = TRUE;
+		menu->changed = true;
 		menu_event_refresh();
 	}
 }
@@ -328,7 +330,7 @@ void menu_repeat_left(type_MENU *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = TRUE;
+		menu->changed = true;
 		menu_event_refresh();
 	}
 }

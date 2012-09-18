@@ -5,6 +5,7 @@
  */
 
 #include <camera.h>
+#include <stdbool.h>
 
 #include "main.h"
 #include "firmware.h"
@@ -65,7 +66,7 @@ void viewfinder_end() {
 		send_to_intercom(IC_SET_TV_VAL,        1, vf_DPData.tv_val);
 
 		// Reset flag, viewfinder restored
-		status.iso_in_viewfinder = FALSE;
+		status.iso_in_viewfinder = false;
 	}
 }
 
@@ -84,11 +85,11 @@ void viewfinder_display_iso(const int iso) {
 		vf_DPData = *DPData;
 
 		// Change to Tv=ISO, no flash
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, TRUE);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, true);
 		send_to_intercom(IC_SET_TV_VAL,        1, (iso & 0xF8) + 0x25);
 
 		// Set flag to restore viewfinder later
-		status.iso_in_viewfinder = TRUE;
+		status.iso_in_viewfinder = true;
 	}
 }
 

@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 #include "firmware.h"
 
@@ -219,7 +221,7 @@ type_MENUITEM menupage_scripts_items[] = {
 
 type_MENUPAGE menupage_scripts = {
 	name      : LP_WORD(L_P_SCRIPTS),
-	sibilings : TRUE,
+	sibilings : true,
 	length    : LENGTH(menupage_scripts_items),
 	items     : menupage_scripts_items,
 	ordering  : settings.scripts_order,

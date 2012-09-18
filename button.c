@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 #include "firmware.h"
 
@@ -11,8 +13,8 @@
 #include "button.h"
 
 type_ACTION button_actions_main[] = {
-	{BUTTON_JUMP,  TRUE, {button_jump_task}},
-	{BUTTON_TRASH, TRUE, {button_trash_task}},
+	{BUTTON_JUMP,  true, {button_jump_task}},
+	{BUTTON_TRASH, true, {button_trash_task}},
 	END_OF_LIST
 };
 
@@ -71,5 +73,5 @@ int button_handler(type_BUTTON button) {
 	}
 
 	// If no action was found, do not block it
-	return FALSE;
+	return false;
 }
