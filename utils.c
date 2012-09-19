@@ -93,7 +93,7 @@ int ev_sgn(int ev) {
 int ev_inc(int ev) {
 	ev = ev_normalize(ev);
 
-	if (DPData->cf_explevel_inc_third)
+	if (DPData.cf_explevel_inc_third)
 		ev = ev_add(ev, 0x04); // +0 1/2
 	else
 		ev = ev_add(ev, 0x03); // +0 1/3
@@ -104,7 +104,7 @@ int ev_inc(int ev) {
 int ev_dec(int ev) {
 	ev = ev_normalize(ev);
 
-	if (DPData->cf_explevel_inc_third)
+	if (DPData.cf_explevel_inc_third)
 		ev = ev_add(ev, 0xFC); // -0 1/2
 	else
 		ev = ev_add(ev, 0xFD); // -0 1/3
@@ -134,7 +134,7 @@ int ev_sub(int ying, int yang) {
 int av_inc(int av) {
 	av = ev_normalize(av);
 
-	if (DPData->cf_explevel_inc_third)
+	if (DPData.cf_explevel_inc_third)
 		av = ev_add(av, 0x04); // +0 1/2
 	else
 		av = ev_add(av, 0x03); // +0 1/3
@@ -145,7 +145,7 @@ int av_inc(int av) {
 int av_dec(int av) {
 	av = ev_normalize(av);
 
-	if (DPData->cf_explevel_inc_third)
+	if (DPData.cf_explevel_inc_third)
 		av = ev_add(av, 0xFC); // -0 1/2
 	else
 		av = ev_add(av, 0xFD); // -0 1/3
@@ -156,13 +156,13 @@ int av_dec(int av) {
 int av_add(int ying, int yang) {
 	int av = ev_add(ying, yang);
 
-	return MIN(av, DPData->avmax);
+	return MIN(av, DPData.avmax);
 }
 
 int av_sub(int ying, int yang) {
 	int av = ev_sub(ying, yang);
 
-	return MAX(av, DPData->avo);
+	return MAX(av, DPData.avo);
 }
 
 int tv_next(int tv) {
@@ -176,7 +176,7 @@ int tv_prev(int tv) {
 int tv_inc(int tv) {
 	tv = ev_normalize(tv);
 
-	if (DPData->cf_explevel_inc_third)
+	if (DPData.cf_explevel_inc_third)
 		tv = ev_add(tv, 0x04); // +0 1/2
 	else
 		tv = ev_add(tv, 0x03); // +0 1/3
@@ -187,7 +187,7 @@ int tv_inc(int tv) {
 int tv_dec(int tv) {
 	tv = ev_normalize(tv);
 
-	if (DPData->cf_explevel_inc_third)
+	if (DPData.cf_explevel_inc_third)
 		tv = ev_add(tv, 0xFC); // -0 1/2
 	else
 		tv = ev_add(tv, 0xFD); // -0 1/3
@@ -208,7 +208,7 @@ int tv_sub(int ying, int yang) {
 }
 
 int ev_normalize(int ev) {
-	if (DPData->cf_explevel_inc_third)
+	if (DPData.cf_explevel_inc_third)
 		ev &= 0xFC;
 	else switch (ev & 0x07) {
 	case 0x01:
@@ -394,7 +394,7 @@ void display_float(char *dest, float value) {
 }
 
 void beep() {
-	if (DPData->beep) {
+	if (DPData.beep) {
 		eventproc_RiseEvent("RequestBuzzer");
 		SleepTask(EVENT_WAIT);
 	}
@@ -437,7 +437,7 @@ void dump_memory() {
 		beep();
 	} else {
 		int addr=0;
-		int power_off_state = DPData->auto_power_off;
+		int power_off_state = DPData.auto_power_off;
 
 		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, false);
 

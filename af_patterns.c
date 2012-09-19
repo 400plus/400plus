@@ -60,23 +60,23 @@ void afp_enter() {
 }
 
 void afp_center () {
-	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData->af_point, DIRECTION_CENTER));
+	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData.af_point, DIRECTION_CENTER));
 }
 
 void afp_top () {
-	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData->af_point, DIRECTION_UP));
+	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData.af_point, DIRECTION_UP));
 }
 
 void afp_bottom () {
-	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData->af_point, DIRECTION_DOWN));
+	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData.af_point, DIRECTION_DOWN));
 }
 
 void afp_left () {
-	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData->af_point, DIRECTION_LEFT));
+	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData.af_point, DIRECTION_LEFT));
 }
 
 void afp_right () {
-	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData->af_point, DIRECTION_RIGHT));
+	send_to_intercom(IC_SET_AF_POINT, 2, afp_transformer(DPData.af_point, DIRECTION_RIGHT));
 }
 
 int afp_transformer (int pattern, type_DIRECTION direction) {

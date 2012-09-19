@@ -116,7 +116,7 @@ int preset_write(int id) {
 
 	type_PRESET buffer = {
 		settings    : settings,
-		camera_mode : *DPData
+		camera_mode : DPData
 	};
 
 	get_preset_filename(filename, id);
