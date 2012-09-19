@@ -230,9 +230,9 @@ type_MENUPAGE menupage_scripts = {
 
 void menu_lexp_calc_open (type_MENU *menu) {
 	// Copy current parameters from camera to menu
-	menu_DPData.iso    = DPData->iso;
-	menu_DPData.tv_val = DPData->tv_val;
-	menu_DPData.av_val = DPData->av_val;
+	menu_DPData.iso    = DPData.iso;
+	menu_DPData.tv_val = DPData.tv_val;
+	menu_DPData.av_val = DPData.av_val;
 
 	// Clear sub-stop exposure time, as we still do not support it
 	menu_scripts_ev = menu_DPData.tv_val & 0x07;
@@ -254,8 +254,8 @@ void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_calc_av(const type_MENUITEM *item) {
-	int min = MAX(DPData->avo,   0x08);
-	int max = MIN(DPData->avmax, 0x67);
+	int min = MAX(DPData.avo,   0x08);
+	int max = MIN(DPData.avmax, 0x67);
 
 	menu_DPData.av_val = MAX(menu_DPData.av_val, min);
 	menu_DPData.av_val = MIN(menu_DPData.av_val, max);
@@ -264,7 +264,7 @@ void menu_scripts_apply_calc_av(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
-	menu_scripts_ev = ev_normalize((menu_DPData.iso - DPData->iso) - ev_sub(menu_DPData.tv_val, DPData->tv_val) - ev_sub(menu_DPData.av_val, DPData->av_val));
+	menu_scripts_ev = ev_normalize((menu_DPData.iso - DPData.iso) - ev_sub(menu_DPData.tv_val, DPData.tv_val) - ev_sub(menu_DPData.av_val, DPData.av_val));
 	menu_event_display();
 }
 
@@ -281,8 +281,8 @@ void menu_scripts_apply_calc(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
-	int min = MAX(DPData->avo,   0x08);
-	int max = MIN(DPData->avmax, 0x67);
+	int min = MAX(DPData.avo,   0x08);
+	int max = MIN(DPData.avmax, 0x67);
 
 	*item->parm.menuitem_av.value = MAX(*item->parm.menuitem_av.value, min);
 	*item->parm.menuitem_av.value = MIN(*item->parm.menuitem_av.value, max);

@@ -190,7 +190,7 @@ void script_start() {
 	status.script_running  = true;
 	status.script_stopping = false;
 
-	st_DPData = *DPData;
+	st_DPData = DPData;
 
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, false);
 	send_to_intercom(IC_SET_AE_BKT,            1, 0x00);
@@ -301,14 +301,14 @@ void script_action(type_SHOT_ACTION action) {
 }
 
 void action_ext_aeb() {
-	if (DPData->tv_val == TV_VAL_BULB) {
+	if (DPData.tv_val == TV_VAL_BULB) {
 		int tv_val;
 
 		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
 			wait_for_camera();
 
 			if (tv_val < 0x10) {
-				if (DPData->tv_val != TV_VAL_BULB)
+				if (DPData.tv_val != TV_VAL_BULB)
 					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
 				shutter_release_bulb(60 * (1 << (1 - (tv_val >> 3))));
@@ -320,14 +320,14 @@ void action_ext_aeb() {
 			if (!can_continue())
 				break;
 		}
-	} else if (DPData->ae < AE_MODE_AUTO) {
+	} else if (DPData.ae < AE_MODE_AUTO) {
 		int tv_inc, av_inc;
 		int tv_dec, av_dec;
 
 		int tv_sep = 0x00, av_sep = 0x00;
 		int frames = settings.eaeb_frames;
 
-		if (DPData->ae == AE_MODE_TV) {
+		if (DPData.ae == AE_MODE_TV) {
 			// Fixed Tv, Variable Av
 			av_sep = settings.eaeb_ev;
 		} else {
@@ -345,7 +345,7 @@ void action_ext_aeb() {
 		av_inc = av_dec = status.last_shot_av;
 
 		// Enter manual mode...
-		if (DPData->ae != AE_MODE_M)
+		if (DPData.ae != AE_MODE_M)
 			send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
 
 		// ...and do the rest ourselves
@@ -407,8 +407,8 @@ void action_iso_aeb() {
 void action_efl_aeb() {
 	int frames = settings.efl_aeb_frames;
 
-	int ef_inc = DPData->efcomp;
-	int ef_dec = DPData->efcomp;
+	int ef_inc = DPData.efcomp;
+	int ef_dec = DPData.efcomp;
 
 	shutter_release();
 	frames--;
@@ -443,10 +443,10 @@ void action_efl_aeb() {
 void action_long_exp() {
 	wait_for_camera();
 
-	if (DPData->ae != AE_MODE_M)
+	if (DPData.ae != AE_MODE_M)
 		send_to_intercom(IC_SET_AE,     1, AE_MODE_M);
 
-	if (DPData->tv_val != TV_VAL_BULB)
+	if (DPData.tv_val != TV_VAL_BULB)
 		send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
 	shutter_release_bulb(settings.lexp_time);
@@ -467,5 +467,5 @@ void script_delay(int delay) {
 }
 
 int can_continue() {
-	return ! (status.script_stopping || DPData->avail_shot < SCRIPT_MIN_SHOTS);
+	return ! (status.script_stopping || DPData.avail_shot < SCRIPT_MIN_SHOTS);
 }

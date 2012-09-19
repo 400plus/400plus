@@ -112,8 +112,8 @@ void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
 }
 
 void menu_params_apply_autoiso_maxav(const type_MENUITEM *item) {
-	int min = MAX(DPData->avo,   0x08);
-	int max = MIN(DPData->avmax, 0x67);
+	int min = MAX(DPData.avo,   0x08);
+	int max = MIN(DPData.avmax, 0x67);
 
 	settings.autoiso_maxav = MAX(settings.autoiso_maxav, min);
 	settings.autoiso_maxav = MIN(settings.autoiso_maxav, max);

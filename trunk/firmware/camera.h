@@ -23,6 +23,8 @@ struct lens_info_t {
 	char *name;
 } __attribute__((packed));
 
+typedef struct lens_info_t lens_info_t;
+
 // DigiProp Data Structure
 struct dpr_data_t {              // [*] Used and tested, others unknown
 	int ae;                      // 0x0000 [*] [1]
@@ -133,8 +135,8 @@ SIZE_CHECK_STRUCT(dpr_data_t, 0x194);
 
 typedef struct dpr_data_t dpr_data_t;
 
-extern struct dpr_data_t  *DPData;
-extern struct lens_info_t  LensID;
+extern dpr_data_t  DPData;
+extern lens_info_t LensID;
 
 extern int is_release_permitted; // can we shoot ?
 
