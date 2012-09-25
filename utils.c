@@ -1,20 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <fcntl.h>
-#include <string.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/types.h>
-
-#include <clock.h>
-#include <camera.h>
-
-#include "macros.h"
+#include "main.h"
+#include "firmware.h"
 
 #include "languages.h"
 #include "settings.h"
@@ -93,7 +78,7 @@ int ev_sgn(int ev) {
 int ev_inc(int ev) {
 	ev = ev_normalize(ev);
 
-	if (DPData.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		ev = ev_add(ev, 0x04); // +0 1/2
 	else
 		ev = ev_add(ev, 0x03); // +0 1/3
@@ -104,7 +89,7 @@ int ev_inc(int ev) {
 int ev_dec(int ev) {
 	ev = ev_normalize(ev);
 
-	if (DPData.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		ev = ev_add(ev, 0xFC); // -0 1/2
 	else
 		ev = ev_add(ev, 0xFD); // -0 1/3
@@ -134,7 +119,7 @@ int ev_sub(int ying, int yang) {
 int av_inc(int av) {
 	av = ev_normalize(av);
 
-	if (DPData.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		av = ev_add(av, 0x04); // +0 1/2
 	else
 		av = ev_add(av, 0x03); // +0 1/3
@@ -145,7 +130,7 @@ int av_inc(int av) {
 int av_dec(int av) {
 	av = ev_normalize(av);
 
-	if (DPData.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		av = ev_add(av, 0xFC); // -0 1/2
 	else
 		av = ev_add(av, 0xFD); // -0 1/3
@@ -156,13 +141,13 @@ int av_dec(int av) {
 int av_add(int ying, int yang) {
 	int av = ev_add(ying, yang);
 
-	return MIN(av, DPData.avmax);
+	return MIN(av, cameraMode->avmax);
 }
 
 int av_sub(int ying, int yang) {
 	int av = ev_sub(ying, yang);
 
-	return MAX(av, DPData.avo);
+	return MAX(av, cameraMode->avo);
 }
 
 int tv_next(int tv) {
@@ -176,7 +161,7 @@ int tv_prev(int tv) {
 int tv_inc(int tv) {
 	tv = ev_normalize(tv);
 
-	if (DPData.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		tv = ev_add(tv, 0x04); // +0 1/2
 	else
 		tv = ev_add(tv, 0x03); // +0 1/3
@@ -187,7 +172,7 @@ int tv_inc(int tv) {
 int tv_dec(int tv) {
 	tv = ev_normalize(tv);
 
-	if (DPData.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		tv = ev_add(tv, 0xFC); // -0 1/2
 	else
 		tv = ev_add(tv, 0xFD); // -0 1/3
@@ -208,7 +193,7 @@ int tv_sub(int ying, int yang) {
 }
 
 int ev_normalize(int ev) {
-	if (DPData.cf_explevel_inc_third)
+	if (cameraMode->cf_explevel_inc_third)
 		ev &= 0xFC;
 	else switch (ev & 0x07) {
 	case 0x01:
@@ -271,7 +256,7 @@ void ev_print(char *dest, int ev) {
 
 	switch (ev & 0x07) {
 	case 0x00:
-		dsp_dec = " -/-";
+		dsp_dec = " ·/·";
 		break;
 	case 0x03:
 		dsp_dec = " 1/3";
@@ -394,7 +379,7 @@ void display_float(char *dest, float value) {
 }
 
 void beep() {
-	if (DPData.beep) {
+	if (cameraMode->beep) {
 		eventproc_RiseEvent("RequestBuzzer");
 		SleepTask(EVENT_WAIT);
 	}
@@ -417,7 +402,6 @@ void dump_log() {
 	beep();
 }
 
-#ifdef MEM_DUMP
 void dump_memory() {
 	char filename[20] = "A:/12345678.MEM";
 	time_t t;
@@ -437,19 +421,19 @@ void dump_memory() {
 		beep();
 	} else {
 		int addr=0;
-		int power_off_state = DPData.auto_power_off;
+		int power_off_state = cameraMode->auto_power_off;
 
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, false);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
 
 		while (addr<0x800000) { // dump 8MB of RAM
-			char buf[0x800];
+			char buf[0x400];
 			// i don't know why, but if we try to pass the mem address (addr) directly to
 			// FIO_WriteFile, we get zero-filled file... so we need local buffer as a proxy
 			// note: do not increase the size of the local buffer too much, because it is in the stack
 			LEDBLUE ^= 2;
-			memcpy(buf, (void*)addr, 0x800);
-			FIO_WriteFile(file, buf, 0x800);
-			addr += 0x800;
+			memcpy(buf, (void*)addr, 0x400);
+			FIO_WriteFile(file, buf, 0x400);
+			addr += 0x400;
 		}
 		FIO_CloseFile(file);
 
@@ -457,22 +441,7 @@ void dump_memory() {
 	}
 	beep();
 }
-static void mem_dumper_task() {
-	int i;
 
-	beep();
-
-	for (i=0; i<10; i++) {
-		LEDBLUE ^= 2;
-		SleepTask(500);
-	}
-
-	dump_memory();
-}
-void dump_memory_after_5s() {
-	CreateTask("memdumper", 0x1e, 0x1000, mem_dumper_task, 0);
-}
-#endif
 void print_info() {
 	// print some info to the log
 	eventproc_RiseEvent("about");
@@ -529,7 +498,6 @@ int send_to_intercom(int message, int length, int parm) {
 }
 
 #if 0
-// this is a disassembled version of eventproc_release()
 int shutter_release_disasm() {
 
 	extern char * aRelSem;
@@ -539,13 +507,13 @@ int shutter_release_disasm() {
 	}
 
 	SendToIntercom(IC_RELEASE, 0, 0);
-	SendToIntercom(0x6D, 1, 1); // set burst counter
+	SendToIntercom(0x6D, 1, 1);
 
 	TakeSemaphore(hRelSem, 30000);
 	DeleteSemaphore(hRelSem);
 	hRelSem = 0;
 
-	SleepTask(EVENT_WAIT); // we added this
+	SleepTask(EVENT_WAIT);
 	return 0;
 }
 #endif
@@ -708,7 +676,7 @@ char * my_fgets_faster(char *s, int n, int fd) {
 	}
 
 	cs = s;
-	while (--n > 0 && ( bpos || (rc = read(fd, &buf, 255)) ) ) {
+	while (--n > 0 && ( bpos || (rc = read_(fd, &buf, 255)) ) ) {
 		unsigned char c;
 		if (rc < 255)
 			buf[rc] = '\0';

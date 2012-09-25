@@ -1,13 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <string.h>
-
-#include <camera.h>
-
 #include "main.h"
 #include "firmware.h"
 
@@ -47,7 +37,7 @@ int  lang_pack_keys_loaded;
 
 int lang_pack_sections(void *user, int lineno, const char *section) {
 	strncpy0(languages_found[languages_found_last++], section, LP_MAX_WORD-1);
-	languages_found[languages_found_last][0] = '\0';
+	languages_found[languages_found_last][0] = NULL;
 	return 1;
 }
 
@@ -55,7 +45,7 @@ int lang_pack_sections(void *user, int lineno, const char *section) {
 void lang_pack_init() {
 	int res = 0;
 	strncpy0(languages_found[languages_found_last++], "Camera", LP_MAX_WORD-1);
-	languages_found[languages_found_last][0] = '\0';
+	languages_found[languages_found_last][0] = NULL;
 
 	res = ini_parse("A:/languages.ini", NULL, NULL, lang_pack_sections, NULL);
 
@@ -93,7 +83,7 @@ void lang_pack_config() {
 	int  i;
 	static char lang[LP_MAX_WORD];
 
-	GetLanguageStr(DPData.language, lang);
+	GetLanguageStr(cameraMode->language, lang);
 	if (settings.language != 0) {
 		debug_log("Discarding camera language: [%s]", lang);
 		strncpy0(lang, languages_found[settings.language], LP_MAX_WORD);
@@ -112,7 +102,7 @@ void lang_pack_config() {
 	}
 
 	// if we need non-english language, load it from languages.ini
-	if (settings.language != 0 || DPData.language > 0 /* ENGLISH */) {
+	if (settings.language != 0 || cameraMode->language > 0 /* ENGLISH */) {
 		int res;
 		stoupper(lang); // convert to upper case
 		lang_pack_keys_loaded=0;

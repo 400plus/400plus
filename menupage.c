@@ -1,13 +1,4 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdio.h>
-#include <stdbool.h>
-
-#include "macros.h"
+#include "main.h"
 #include "firmware.h"
 
 #include "languages.h"
@@ -27,7 +18,7 @@ int get_real_id(type_MENUPAGE *page, int item_pos);
 type_MENUITEM *get_item(type_MENUPAGE *page, int item_id);
 
 void menupage_initialize(type_MENUPAGE *page) {
-	item_grabbed = false;
+	item_grabbed = FALSE;
 }
 
 void menupage_display(type_MENU *menu) {
@@ -57,7 +48,7 @@ void menupage_display(type_MENU *menu) {
 }
 
 void menupage_up(type_MENU *menu) {
-	int display = false;
+	int display = FALSE;
 	type_MENUPAGE *page = menu->current_page;
 
 	if (page->length > MENU_HEIGHT || page->current_posn > 0) {
@@ -65,7 +56,7 @@ void menupage_up(type_MENU *menu) {
 
 		if (item_grabbed) {
 			INT_SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn + 1)]);
-			display = true;
+			display = TRUE;
 		}
 	}
 
@@ -73,7 +64,7 @@ void menupage_up(type_MENU *menu) {
 		page->current_line--;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -84,14 +75,14 @@ void menupage_down(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	const int height = MIN(MENU_HEIGHT, page->length) - 1;
-	int display = false;
+	int display = FALSE;
 
 	if (page->length > MENU_HEIGHT || page->current_posn < height) {
 		page->current_posn++;
 
 		if (item_grabbed) {
 			INT_SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn - 1)]);
-			display = true;
+			display = TRUE;
 		}
 	}
 
@@ -99,7 +90,7 @@ void menupage_down(type_MENU *menu) {
 		page->current_line++;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -111,7 +102,7 @@ void menupage_drag_drop(type_MENU *menu) {
 
 	if (page->ordering) {
 		item_grabbed  = ! item_grabbed;
-		menu->changed = true;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }

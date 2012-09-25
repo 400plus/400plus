@@ -1,12 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdbool.h>
-
-#include "macros.h"
 #include "main.h"
 
 #include "languages.h"
@@ -207,10 +198,10 @@ type_MENUITEM preset_items[] = {
 
 type_MENUPAGE menupage_presets = {
 	name      : LP_WORD(L_P_PRESETS),
-	sibilings : true,
+	sibilings : TRUE,
 	length    : LENGTH(preset_items),
 	items     : preset_items,
-	rename    : true,
+	rename    : TRUE,
 	ordering  : presets_config.order,
 	tasks     : {
 		[MENU_EVENT_OPEN] = menu_preset_open,
@@ -219,10 +210,10 @@ type_MENUPAGE menupage_presets = {
 
 void menu_preset_open() {
 	if (status.last_preset) {
-		menupage_presets.highlight        = true;
+		menupage_presets.highlight        = TRUE;
 		menupage_presets.highlighted_item = status.last_preset;
 	} else {
-		menupage_presets.highlight        = false;
+		menupage_presets.highlight        = FALSE;
 	}
 }
 

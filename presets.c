@@ -1,13 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdbool.h>
-
 #include "main.h"
 #include "firmware.h"
 
@@ -20,12 +10,12 @@
 type_PRESET preset;
 
 type_PRESETS_CONFIG presets_config = {
-	use_adep        : true,
-	recall_camera   : true,
-	recall_400plus  : true,
-	recall_settings : false,
-	recall_image    : true,
-	recall_cfn      : true,
+	use_adep        : TRUE,
+	recall_camera   : TRUE,
+	recall_400plus  : TRUE,
+	recall_settings : FALSE,
+	recall_image    : TRUE,
+	recall_cfn      : TRUE,
 	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8}
 };
 
@@ -74,7 +64,7 @@ void presets_write() {
 }
 
 int preset_read(int id) {
-	int result  = false;
+	int result  = FALSE;
 	int file    = -1;
 	int version =  0;
 
@@ -97,7 +87,7 @@ int preset_read(int id) {
 		goto end;
 
 	preset = buffer;
-	result = true;
+	result = TRUE;
 
 end:
 	if (file != -1)
@@ -109,14 +99,14 @@ end:
 int preset_write(int id) {
 	const int version = SETTINGS_VERSION;
 
-	int  result = false;
+	int  result = FALSE;
 	int  file   = -1;
 
 	char filename[16];
 
 	type_PRESET buffer = {
 		settings    : settings,
-		camera_mode : DPData
+		camera_mode : *cameraMode
 	};
 
 	get_preset_filename(filename, id);
@@ -133,7 +123,7 @@ int preset_write(int id) {
 	if (FIO_CloseFile(file) == -1)
 		goto end;
 
-	result = true;
+	result = TRUE;
 
 end:
 	if (file != -1)
@@ -144,7 +134,7 @@ end:
 
 void preset_apply() {
 	if (presets_config.recall_camera) {
-		status.ignore_ae_change = true;
+		status.ignore_ae_change = TRUE;
 
 		send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
 	}
@@ -159,7 +149,7 @@ void preset_apply_full() {
 	}
 
 	if (presets_config.recall_camera) {
-		status.ignore_ae_change = true;
+		status.ignore_ae_change = TRUE;
 
 		send_to_intercom(IC_SET_AE,         1, preset.camera_mode.ae);
 		send_to_intercom(IC_SET_METERING,   1, preset.camera_mode.metering);
@@ -234,11 +224,11 @@ void preset_apply_full() {
 }
 
 void preset_recall() {
-	sub_preset_recall(false);
+	sub_preset_recall(FALSE);
 }
 
 void preset_recall_full() {
-	sub_preset_recall(true);
+	sub_preset_recall(TRUE);
 }
 
 void sub_preset_recall(int full) {

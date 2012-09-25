@@ -1,12 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdbool.h>
-
-#include "macros.h"
 #include "main.h"
 #include "firmware.h"
 
@@ -21,7 +12,6 @@
 #include "menu_main.h"
 
 #include "tasks.h"
-#include "bmp.h"
 
 void set_intermediate_iso();
 void repeat_last_script();
@@ -39,24 +29,6 @@ void start_up() {
 		start_debug_mode();
 
 	SleepTask(100);
-
-#if 0
-	// vram testing
-	SleepTask(1000);
-	beep();
-
-	int i;
-	for (i=0; i<vram_size; i+=4) {
-		MEM(vram_start+i)= 0x88888888;
-	}
-	beep();
-
-	//bmp_draw_palette();
-	bmp_printf(FONT_LARGE, 0, 50, "Hello World!");
-	SleepTask(5000);
-
-	// vram testing - end
-#endif
 
 #ifdef MEMSPY
 	debug_log("starting memspy task");
@@ -86,7 +58,7 @@ void start_up() {
 	eventproc_EdLedOff();
 
 	// We are no longer booting up
-	status.booting = false;
+	status.booting = FALSE;
 
 #if 0
 	debug_log("=== DUMPING DDD ===");
@@ -126,18 +98,18 @@ void set_whitebalance_colortemp() {
 }
 
 void set_intermediate_iso() {
-	if (DPData.ae < AE_MODE_AUTO) {
-		send_to_intercom(IC_SET_ISO, 2, iso_roll(DPData.iso));
+	if (cameraMode->ae < AE_MODE_AUTO) {
+		send_to_intercom(IC_SET_ISO, 2, iso_roll(cameraMode->iso));
 		print_icu_info();
 		display_refresh();
 	}
 }
 
 void toggle_img_format() {
-	static int first_call = true;
+	static int first_call = TRUE;
 
-	if (!first_call && DPData.ae >= AE_MODE_AUTO) {
-		switch(DPData.img_format) {
+	if (!first_call && cameraMode->ae >= AE_MODE_AUTO) {
+		switch(cameraMode->img_format) {
 		case IMG_FORMAT_JPG:
 			send_to_intercom(IC_SET_IMG_FORMAT, 1, IMG_FORMAT_RAW);
 			break;
@@ -153,32 +125,32 @@ void toggle_img_format() {
 		send_to_intercom(IC_SET_IMG_SIZE,    1, IMG_SIZE_L);
 	}
 
-	first_call = false;
+	first_call = FALSE;
 }
 
 void toggle_CfMLU() {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, DPData.cf_mirror_up_lock ^ 0x01);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, cameraMode->cf_mirror_up_lock ^ 0x01);
 }
 
 void toggle_CfFlashSyncRear() {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, DPData.cf_flash_sync_rear ^ 0x01);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, cameraMode->cf_flash_sync_rear ^ 0x01);
 }
 
 void toggle_AEB() {
-	send_to_intercom(IC_SET_AE_BKT, 1, ((DPData.ae_bkt & 0xF8) + 0x08) % 0x18);
+	send_to_intercom(IC_SET_AE_BKT, 1, ((cameraMode->ae_bkt & 0xF8) + 0x08) % 0x18);
 }
 
 void restore_iso() {
-	send_to_intercom(IC_SET_ISO, 2, DPData.iso & 0xF8);
+	send_to_intercom(IC_SET_ISO, 2, cameraMode->iso & 0xF8);
 }
 
 void restore_wb() {
-	if (DPData.wb == WB_MODE_COLORTEMP)
+	if (cameraMode->wb == WB_MODE_COLORTEMP)
 		send_to_intercom(IC_SET_WB, 1, WB_MODE_AUTO);
 }
 
 void restore_metering() {
-	if (DPData.metering == METERING_MODE_SPOT)
+	if (cameraMode->metering == METERING_MODE_SPOT)
 		send_to_intercom(IC_SET_METERING, 1, METERING_MODE_EVAL);
 }
 
@@ -187,9 +159,9 @@ void autoiso() {
 	int miniso = settings.autoiso_miniso;
 	int maxiso = settings.autoiso_maxiso;
 
-	int newiso = DPData.iso;
+	int newiso = cameraMode->iso;
 
-	switch(DPData.ae) {
+	switch(cameraMode->ae) {
 	case AE_MODE_P:
 	case AE_MODE_AV:
 		measure = status.measured_tv;
@@ -204,8 +176,9 @@ void autoiso() {
 		miniso = 0x48; // ISO  100
 		maxiso = 0x6F; // ISO 3000
 
+		// TODO: Fix this shit!
 		ev  = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
-		ev += status.ev_comp;
+		ev -= (status.ev_comp     & 0x80) ? (0x100 - status.ev_comp    ) : -status.ev_comp;
 		break;
 	default:
 		break;
@@ -219,7 +192,7 @@ void autoiso() {
 	}
 
 	if (ev != 0x00) {
-		newiso = (DPData.iso + ev);
+		newiso = (cameraMode->iso + ev);
 
 		newiso = MIN(newiso, maxiso);
 		newiso = MAX(newiso, miniso);
@@ -233,7 +206,7 @@ void autoiso_enable() {
 	press_button(IC_BUTTON_SET);
 
 	if (!settings.autoiso_enable) {
-		settings.autoiso_enable = true;
+		settings.autoiso_enable = TRUE;
 		settings_write();
 	}
 
@@ -243,7 +216,7 @@ void autoiso_enable() {
 
 void autoiso_disable() {
 	if (settings.autoiso_enable) {
-		settings.autoiso_enable = false;
+		settings.autoiso_enable = FALSE;
 		settings_write();
 	}
 }

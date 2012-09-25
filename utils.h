@@ -1,16 +1,10 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef UTILS_H_
 #define UTILS_H_
 
 // it's slow
 #undef FGETS_USE_SLOW
 
-#include <sys/types.h>
+#include "types.h"
 
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     5
@@ -61,7 +55,6 @@ extern void exit_factory_mode();
 extern void start_debug_mode();
 extern void dump_log();
 extern void dump_memory();
-extern void dump_memory_after_5s();
 extern void print_info();
 
 extern int send_to_intercom(int message, int length, int parm);

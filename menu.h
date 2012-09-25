@@ -1,13 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MENU_H_
 #define MENU_H_
-
-#include <camera.h>
 
 #define MENU_WIDTH  27
 #define MENU_HEIGHT  5
@@ -74,7 +66,7 @@ struct MENU {
 	int               changed;
 };
 
-extern dpr_data_t menu_DPData;
+extern type_CAMERA_MODE  menu_cameraMode;
 
 extern void menu_create (type_MENU * menu);
 extern void menu_close  ();

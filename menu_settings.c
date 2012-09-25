@@ -1,13 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <unistd.h>
-#include <stdbool.h>
-
-#include "macros.h"
+#include "main.h"
+#include "firmware.h"
 
 #include "languages.h"
 #include "menu.h"
@@ -103,7 +95,7 @@ type_MENUITEM menu_settings_items[] = {
 
 type_MENUPAGE menupage_settings = {
 	name      : LP_WORD(L_P_SETTINGS),
-	sibilings : true,
+	sibilings : TRUE,
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
 	ordering  : settings.settings_order,
@@ -120,7 +112,7 @@ void reload_language_and_refresh(const type_MENUITEM *item) {
 void menu_settings_open() {
 	int i;
 
-	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != '\0' && languages_found[i][0] != '\0'; i++) {
+	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != NULL && languages_found[i][0] != NULL; i++) {
 		menupage_settings.items[0].parm.menuitem_enum.list->length  = i + 1;
 		menupage_settings.items[0].parm.menuitem_enum.list->data[i] = languages_found[i];
 	}

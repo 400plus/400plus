@@ -1,20 +1,9 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <camera.h>
-
 #include "main.h"
+#include "firmware.h"
 
 #include "settings.h"
 #include "utils.h"
 
-#include "bmp.h"
 #include "display.h"
 
 void display_refresh_meteringmode();
@@ -27,25 +16,23 @@ static dialog_t *countdown_dialog = NULL;
 void restore_display() {
 	SleepTask(100);
 
-	if (DPData.ae < AE_MODE_AUTO)
+	if (cameraMode->ae < AE_MODE_AUTO)
 		display_refresh();
 }
 
 void display_refresh() {
-	if (DPData.metering == METERING_MODE_SPOT)
+	if (cameraMode->metering == METERING_MODE_SPOT)
 		display_refresh_meteringmode();
 
-	if (DPData.wb == WB_MODE_COLORTEMP)
+	if (cameraMode->wb == WB_MODE_COLORTEMP)
 		display_refresh_whitebalance();
 
-	if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0)
+	if (cameraMode->efcomp > 0x10 && cameraMode->efcomp < 0xF0)
 		display_refresh_flashcomp();
 
 	display_refresh_iso();
 
 	dialog_redraw(hMainDialog);
-
-	//bmp_hexdump(FONT_SMALL, 0, 10, (void *)((int)0x00001C84), 16);
 }
 
 void display_refresh_meteringmode() {
@@ -57,12 +44,12 @@ void display_refresh_whitebalance() {
 }
 
 void display_refresh_flashcomp() {
-	int negative = false, value = 0;
-	int flash_exp_comp = DPData.efcomp;
+	int negative = FALSE, value = 0;
+	int flash_exp_comp = cameraMode->efcomp;
 
 	if (flash_exp_comp > 0x30) {
 		flash_exp_comp = 0x100 - flash_exp_comp;
-		negative = true;
+		negative = TRUE;
 	}
 
 	switch (flash_exp_comp)	{
@@ -93,14 +80,14 @@ void display_refresh_flashcomp() {
 void display_refresh_iso() {
 	char tmp[32] = "AUTO";
 
-	switch(DPData.ae) {
+	switch(cameraMode->ae) {
 	case AE_MODE_P:
 	case AE_MODE_TV:
 	case AE_MODE_AV:
 	case AE_MODE_M:
 		if (!settings.autoiso_enable || status.measuring)
 	default:
-			iso_print(tmp, DPData.iso);
+			iso_print(tmp, cameraMode->iso);
 		break;
 	}
 
@@ -140,8 +127,8 @@ void display_brightness() {
 			break;
 
 		case GUIMODE_OLC:
-			if (DPData.lcd_brightness < 7)
-				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1 + DPData.lcd_brightness);
+			if (cameraMode->lcd_brightness < 7)
+				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1 + cameraMode->lcd_brightness);
 			else
 				press_button(IC_BUTTON_DISP);
 			break;

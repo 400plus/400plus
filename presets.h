@@ -1,14 +1,7 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef PRESETS_H_
 #define PRESETS_H_
 
-#include <camera.h>
-
+#include "main.h"
 #include "settings.h"
 
 #define PRESETS_VERSION 0x02
@@ -16,8 +9,8 @@
 #define PRESETS_FILE    "A:/PRESET_%u"
 
 typedef struct {
-	dpr_data_t     camera_mode;
-	type_SETTINGS  settings;
+	type_CAMERA_MODE camera_mode;
+	type_SETTINGS    settings;
 } type_PRESET;
 
 typedef struct {

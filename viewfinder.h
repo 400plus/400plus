@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef VIEWFINDER_H_
 #define VIEWFINDER_H_
 

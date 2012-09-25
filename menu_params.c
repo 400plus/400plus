@@ -1,12 +1,4 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdbool.h>
-
-#include "macros.h"
+#include "main.h"
 #include "firmware.h"
 
 #include "languages.h"
@@ -52,10 +44,10 @@ type_MENUPAGE autoiso_page = {
 };
 
 type_MENUITEM flash_items[] = {
-	MENUITEM_EVCOMP (LP_WORD(L_I_FLASH_COMP),    &menu_DPData.efcomp,             menu_params_apply_efcomp),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_USE_FLASH),     &menu_DPData.cf_emit_flash,      menu_params_apply_cf_emit_flash),
-	MENUITEM_AFFLASH(LP_WORD(L_I_AF_FLASH),      &menu_DPData.cf_emit_aux,        menu_params_apply_cf_emit_aux),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_FLASH_2ND_CURT),&menu_DPData.cf_flash_sync_rear, menu_params_apply_cf_flash_sync_rear),
+	MENUITEM_EVCOMP (LP_WORD(L_I_FLASH_COMP),    &menu_cameraMode.efcomp,             menu_params_apply_efcomp),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_USE_FLASH),     &menu_cameraMode.cf_emit_flash,      menu_params_apply_cf_emit_flash),
+	MENUITEM_AFFLASH(LP_WORD(L_I_AF_FLASH),      &menu_cameraMode.cf_emit_aux,        menu_params_apply_cf_emit_aux),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_FLASH_2ND_CURT),&menu_cameraMode.cf_flash_sync_rear, menu_params_apply_cf_flash_sync_rear),
 };
 
 type_MENUPAGE flash_page = {
@@ -83,19 +75,19 @@ type_MENUPAGE ir_page = {
 
 type_MENUITEM menupage_params_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_S_AUTOISO),       &autoiso_page,                      NULL),
-	MENUITEM_FULLISO(LP_WORD(L_I_ISO),           &menu_DPData.iso,               menu_params_apply_iso),
-	MENUITEM_EVCOMP (LP_WORD(L_I_AV_COMP),       &menu_DPData.av_comp,           menu_params_apply_av_comp),
-	MENUITEM_EVSEP  (LP_WORD(L_I_AEB),           &menu_DPData.ae_bkt,            menu_params_apply_ae_bkt),
-	MENUITEM_CLRTEMP(LP_WORD(L_I_COLOR_TEMP_K),  &menu_DPData.color_temp,        menu_params_apply_color_temp),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_MIRROR_LOCKUP), &menu_DPData.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_SAFETY_SHIFT),  &menu_DPData.cf_safety_shift,   menu_params_apply_cf_safety_shift),
+	MENUITEM_FULLISO(LP_WORD(L_I_ISO),           &menu_cameraMode.iso,               menu_params_apply_iso),
+	MENUITEM_EVCOMP (LP_WORD(L_I_AV_COMP),       &menu_cameraMode.av_comp,           menu_params_apply_av_comp),
+	MENUITEM_EVSEP  (LP_WORD(L_I_AEB),           &menu_cameraMode.ae_bkt,            menu_params_apply_ae_bkt),
+	MENUITEM_CLRTEMP(LP_WORD(L_I_COLOR_TEMP_K),  &menu_cameraMode.color_temp,        menu_params_apply_color_temp),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_MIRROR_LOCKUP), &menu_cameraMode.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_SAFETY_SHIFT),  &menu_cameraMode.cf_safety_shift,   menu_params_apply_cf_safety_shift),
 	MENUITEM_SUBMENU(LP_WORD(L_S_FLASH),         &flash_page,                        NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_IR),            &ir_page,                           NULL),
 };
 
 type_MENUPAGE menupage_params = {
 	name      : LP_WORD(L_P_PARAMS),
-	sibilings : true,
+	sibilings : TRUE,
 	length    : LENGTH(menupage_params_items),
 	items     : menupage_params_items,
 	ordering  : settings.params_order,
@@ -112,8 +104,8 @@ void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
 }
 
 void menu_params_apply_autoiso_maxav(const type_MENUITEM *item) {
-	int min = MAX(DPData.avo,   0x08);
-	int max = MIN(DPData.avmax, 0x67);
+	int min = MAX(cameraMode->avo,   0x08);
+	int max = MIN(cameraMode->avmax, 0x67);
 
 	settings.autoiso_maxav = MAX(settings.autoiso_maxav, min);
 	settings.autoiso_maxav = MIN(settings.autoiso_maxav, max);

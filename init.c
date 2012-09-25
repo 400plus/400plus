@@ -1,15 +1,8 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <strings.h>
-
 #include "main.h"
-#include "firmware.h"
 
 #include "init.h"
+
+#include "firmware.h"
 
 void my_romStart(int startType);
 int  my_usrInit(int startType);
@@ -153,7 +146,8 @@ void my_task_Startup() {
 	dmSetPrintLevel(hDbgMgr, 0xFF, 0);
 #endif
 
-	int disable_hack = (*(int*)BTN_ADDR_TRASH == BTN_PRESSED);
+	//int disable_hack = cameraMode->forbid_rel;
+	int disable_hack = 0;
 	if (!disable_hack) initialize(); // task_dispatcher
 
 	sub_FFAFE5BC();

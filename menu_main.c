@@ -1,10 +1,4 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include "macros.h"
+#include "main.h"
 #include "firmware.h"
 
 #include "languages.h"

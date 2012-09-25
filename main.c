@@ -1,13 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdio.h>
-#include <stdbool.h>
-
-#include "macros.h"
 #include "firmware.h"
 
 #include "af_patterns.h"
@@ -23,77 +13,80 @@
 
 #include "main.h"
 
+// Camera data
+type_CAMERA_MODE *cameraMode = (type_CAMERA_MODE*)&DPData;
+
 // Main queues
 int *task_queue;
 
 // Global status
 type_STATUS status = {
-	button_down       : false,
-	script_running    : false,
-	script_stopping   : false,
-	iso_in_viewfinder : false,
-	afp_dialog        : false,
-	last_preset       : false,
-	ignore_ae_change  : false,
-	booting           : true,
-	measuring         : false,
+	button_down       : FALSE,
+	script_running    : FALSE,
+	script_stopping   : FALSE,
+	iso_in_viewfinder : FALSE,
+	afp_dialog        : FALSE,
+	last_preset       : FALSE,
+	ignore_ae_change  : FALSE,
+	booting           : TRUE,
+	measuring         : FALSE,
 	ev_comp           : 0x00,
 };
 
 // Action definitions
 type_ACTION actions_main[]  = {
-	{IC_BUTTON_UP,    false,  {restore_iso}},
-	{IC_BUTTON_DOWN,  false,  {restore_wb}},
-	{IC_BUTTON_LEFT,  false,  {restore_metering}},
-	{IC_BUTTON_DP,    true,   {menu_main_start}},
-	{IC_BUTTON_AV,    false,  {toggle_img_format}},
-	{IC_BUTTON_DISP,  true,   {display_brightness}},
+	{IC_BUTTON_UP,    TRUE,  FALSE,  {restore_iso}},
+	{IC_BUTTON_DOWN,  TRUE,  FALSE,  {restore_wb}},
+	{IC_BUTTON_LEFT,  TRUE,  FALSE,  {restore_metering}},
+	{IC_BUTTON_DP,    FALSE, TRUE,   {menu_main_start}},
+	{IC_BUTTON_AV,    TRUE,  FALSE,  {toggle_img_format}},
+	{IC_BUTTON_DISP,  FALSE, TRUE,   {display_brightness}},
 	END_OF_LIST
 };
 
 type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_SET,        true,  {menu_event_set}},
-	{IC_BUTTON_DIAL_LEFT,  true,  {menu_event_prev}},
-	{IC_BUTTON_DIAL_RIGHT, true,  {menu_event_next}},
-	{IC_BUTTON_RIGHT,      true,  {menu_event_right}},
-	{IC_BUTTON_LEFT,       true,  {menu_event_left}},
-	{IC_BUTTON_DP,         true,  {menu_event_dp}},
-	{IC_BUTTON_AV,         true,  {menu_event_av, menu_event_av_up}},
-	{IC_DIALOGOFF,         false, {menu_event_finish}},
+	{IC_BUTTON_SET,        FALSE, TRUE,  {menu_event_set}},
+	{IC_BUTTON_DIAL_LEFT,  FALSE, TRUE,  {menu_event_prev}},
+	{IC_BUTTON_DIAL_RIGHT, FALSE, TRUE,  {menu_event_next}},
+	{IC_BUTTON_RIGHT,      TRUE,  TRUE,  {menu_event_right}},
+	{IC_BUTTON_LEFT,       TRUE,  TRUE,  {menu_event_left}},
+	{IC_BUTTON_DP,         FALSE, TRUE,  {menu_event_dp}},
+	{IC_BUTTON_AV,         TRUE,  TRUE,  {menu_event_av, menu_event_av_up}},
+	{IC_DIALOGOFF,         FALSE, FALSE, {menu_event_finish}},
 	END_OF_LIST
 };
 
 type_ACTION actions_meter[] = {
-	{IC_BUTTON_DP,    true, {set_metering_spot}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {set_metering_spot}},
 	END_OF_LIST
 };
 
 type_ACTION actions_wb[] = {
-	{IC_BUTTON_DP,    true, {set_whitebalance_colortemp}},
+	{IC_BUTTON_DP,    FALSE, TRUE, {set_whitebalance_colortemp}},
 	END_OF_LIST
 };
 
 type_ACTION actions_iso[] = {
-	{IC_BUTTON_DP,    true,  {autoiso_enable}},
-	{IC_BUTTON_SET,   false, {autoiso_disable}},
+	{IC_BUTTON_DP,    FALSE, TRUE,  {autoiso_enable}},
+	{IC_BUTTON_SET,   FALSE, FALSE, {autoiso_disable}},
 	END_OF_LIST
 };
 
 type_ACTION actions_face[] = {
-	{IC_BUTTON_UP,    true, {viewfinder_up,    viewfinder_end}},
-	{IC_BUTTON_DOWN,  true, {}},
-	{IC_BUTTON_RIGHT, true, {viewfinder_right, viewfinder_end}},
-	{IC_BUTTON_LEFT,  true, {viewfinder_left,  viewfinder_end}},
+	{IC_BUTTON_UP,    TRUE, TRUE, {viewfinder_up,    viewfinder_end}},
+	{IC_BUTTON_DOWN,  TRUE, TRUE, {}},
+	{IC_BUTTON_RIGHT, TRUE, TRUE, {viewfinder_right, viewfinder_end}},
+	{IC_BUTTON_LEFT,  TRUE, TRUE, {viewfinder_left,  viewfinder_end}},
 	END_OF_LIST
 };
 
 type_ACTION actions_af[] = {
-	{IC_BUTTON_SET,   true, {afp_center}},
-	{IC_BUTTON_UP,    true, {afp_top}},
-	{IC_BUTTON_DOWN,  true, {afp_bottom}},
-	{IC_BUTTON_RIGHT, true, {afp_right}},
-	{IC_BUTTON_LEFT,  true, {afp_left}},
-	{IC_BUTTON_DISP,  true, {}},
+	{IC_BUTTON_SET,   FALSE, TRUE, {afp_center}},
+	{IC_BUTTON_UP,    TRUE,  TRUE, {afp_top}},
+	{IC_BUTTON_DOWN,  TRUE,  TRUE, {afp_bottom}},
+	{IC_BUTTON_RIGHT, TRUE,  TRUE, {afp_right}},
+	{IC_BUTTON_LEFT,  TRUE,  TRUE, {afp_left}},
+	{IC_BUTTON_DISP,  FALSE, TRUE, {}},
 	END_OF_LIST
 };
 
@@ -128,8 +121,8 @@ void intercom_proxy(const int handler, char *message) {
 	int gui_mode;
 	int message_len = message[0];
 	int event       = message[1];
-	int param       = message_len > 1 ? message[2] : false;
-	int button_down = param;
+	int param       = message_len > 1 ? message[2] : FALSE;
+	int holds       = param;
 
 	type_CHAIN  *chain;
 	type_ACTION *action;
@@ -145,7 +138,7 @@ void intercom_proxy(const int handler, char *message) {
 			script_restore();
 			break;
 		case IC_BUTTON_DP: // DP Button stops the script
-			status.script_stopping = true;
+			status.script_stopping = TRUE;
 			goto block_message;
 			break;
 		case IC_SHOOTING: // Shot taken while script is running
@@ -163,10 +156,10 @@ void intercom_proxy(const int handler, char *message) {
 	case IC_SETTINGS_0: // Settings changed (begin of sequence)
 		if (status.ignore_ae_change) {
 			// Ignore first AE change after loading a preset, as it generates this same event
-			status.ignore_ae_change = false;
+			status.ignore_ae_change = FALSE;
 		} else {
 			// Handle preset recall when dial moved to A-DEP
-			status.last_preset  = false;
+			status.last_preset  = FALSE;
 			status.main_dial_ae = param;
 
 			if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
@@ -189,7 +182,7 @@ void intercom_proxy(const int handler, char *message) {
 		if (status.afp_dialog) {
 			// Open Extended AF-Point selection dialog
 			message[1] = IC_AFPDLGON;
-			status.afp_dialog = false;
+			status.afp_dialog = FALSE;
 			ENQUEUE_TASK(afp_enter);
 		}
 		goto pass_message;
@@ -198,7 +191,7 @@ void intercom_proxy(const int handler, char *message) {
 		goto pass_message;
 	case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
 		event = (param & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
-		button_down = false;
+		holds = FALSE;
 		break;
 	case IC_MEASURING:
 		status.measuring = param;
@@ -218,8 +211,8 @@ void intercom_proxy(const int handler, char *message) {
 	}
 
 	// Check for button-up events, even if the current GUI mode does not match
-	if (status.button_down && status.button_down == event && !button_down) {
-		status.button_down = false;
+	if (status.button_down && status.button_down == event && !holds) {
+		status.button_down = FALSE;
 
 		// Launch the defined task
 		if (status.button_up_task)
@@ -254,7 +247,7 @@ void intercom_proxy(const int handler, char *message) {
 
 					// Consider buttons with "button down" and "button up" events
 					// and save "button up" parameters for later use
-					if (button_down) {
+					if (action->holds && holds) {
 						status.button_down     = event;
 						status.button_up_task  = action->task[1];
 						status.button_up_block = action->block;
@@ -289,7 +282,7 @@ void task_dispatcher () {
 
 	// Loop while receiving messages
 	for (;;) {
-		ReceiveMessageQueue(task_queue, &task, false);
+		ReceiveMessageQueue(task_queue, &task, FALSE);
 		task();
 	}
 }
