@@ -204,8 +204,9 @@ void autoiso() {
 		miniso = 0x48; // ISO  100
 		maxiso = 0x6F; // ISO 3000
 
+		// TODO: Fix this shit!
 		ev  = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
-		ev += status.ev_comp;
+		ev -= (status.ev_comp     & 0x80) ? (0x100 - status.ev_comp    ) : -status.ev_comp;
 		break;
 	default:
 		break;
