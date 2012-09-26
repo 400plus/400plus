@@ -96,20 +96,21 @@ void menu_create(type_MENU *menu) {
 void menu_close() {
 /*
 	GUI_Lock();
-    GUI_PalleteInit();
+	GUI_PalleteInit();
 
 	DeleteDialogBox(menu_handler);
 	menu_destroy();
 	menu_finish();
 
 	GUI_StartMode(GUIMODE_OLC);
-    CreateDialogBox_OlMain();
-    GUIMode = GUIMODE_OLC;
+	CreateDialogBox_OlMain();
+	GUIMode = GUIMODE_OLC;
 
-    GUI_UnLock();
-    GUI_PalleteUnInit();
+	GUI_UnLock();
+	GUI_PalleteUnInit();
 */
-    press_button(IC_BUTTON_DISP);
+	press_button(IC_BUTTON_DISP);
+
 	menu_destroy();
 	menu_finish();
 }

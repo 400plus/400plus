@@ -206,15 +206,16 @@ int tv_sub(int ying, int yang) {
 int ev_normalize(char ev) {
 	if (DPData.cf_explevel_inc_third)
 		ev &= 0xFC;
-	else switch (ev & 0x07) {
-	case 0x01:
-	case 0x02:
-		ev = (ev & 0xF8) | 0x03;
-		break;
-	case 0x06:
-	case 0x07:
-		ev = (ev & 0xF8) | 0x05;
-		break;
+	else
+		switch (ev & 0x07) {
+		case 0x01:
+		case 0x02:
+			ev = (ev & 0xF8) | 0x03;
+			break;
+		case 0x06:
+		case 0x07:
+			ev = (ev & 0xF8) | 0x05;
+			break;
 	}
 
 	return ev;
@@ -355,25 +356,24 @@ void iso_print(char *dest, int code) {
 }
 
 void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max) {
-    float fl =    1.0f * focal_length;
-    float fd = 1000.0f * focus_distance;
+	float fl =    1.0f * focal_length;
+	float fd = 1000.0f * focus_distance;
 
-    float fn  = f_number[(av >> 3) - 1][av & 0x07]; // F-Number
-    float cof = 0.019f; // Circle of confusion
+	float fn  = f_number[(av >> 3) - 1][av & 0x07]; // F-Number
+	float cof = 0.019f; // Circle of confusion
 
-    // Hyperfocal
-    float hf  = fl + fl * fl / (fn * cof);
-    float aux = fd * (hf - fl) / 1000.0f;
+	// Hyperfocal
+	float hf  = fl + fl * fl / (fn * cof);
+	float aux = fd * (hf - fl) / 1000.0f;
 
-    // Min distance
-    display_float(min, aux / (hf + fd - 2.0f * fl));
+	// Min distance
+	display_float(min, aux / (hf + fd - 2.0f * fl));
 
-    // Max distance
-    if (hf >= fd) {
-        display_float(max, aux / (hf - fd));
-    } else {
-    	sprintf(max, "%s", LP_WORD(L_S_INFINITE));
-    }
+	// Max distance
+	if (hf >= fd)
+		display_float(max, aux / (hf - fd));
+	else
+		sprintf(max, "%s", LP_WORD(L_S_INFINITE));
 }
 
 void display_float(char *dest, float value) {
