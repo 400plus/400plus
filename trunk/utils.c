@@ -22,8 +22,6 @@
 
 #include "debug.h"
 
-int ev_normalize(char ev);
-
 static char *av_strings[][4] = {
 	{"1.0", "1.1", "1.2", "1.3"},
 	{"1.4", "1.5", "1.7", "1.8"},
@@ -84,9 +82,28 @@ static float f_number[][8] = {
 	{64.000f, 66.834f, 69.792f, 72.882f, 76.109f, 79.479f, 82.998f, 86.672f}
 };
 
+char ev_normalize(char ev);
 void display_float(char *dest, float value);
 
-int ev_inc(char ev) {
+char ev_normalize(char ev) {
+	if (DPData.cf_explevel_inc_third)
+		ev &= 0xFC;
+	else
+		switch (ev & 0x07) {
+		case 0x01:
+		case 0x02:
+			ev = (ev & 0xF8) | 0x03;
+			break;
+		case 0x06:
+		case 0x07:
+			ev = (ev & 0xF8) | 0x05;
+			break;
+	}
+
+	return ev;
+}
+
+char ev_inc(char ev) {
 	ev = ev_normalize(ev);
 
 	if (DPData.cf_explevel_inc_third)
@@ -94,10 +111,10 @@ int ev_inc(char ev) {
 	else
 		ev = ev_add(ev, 0x03); // +0 1/3
 
-	return (ev & 0x80) ? ev : MIN(ev, 0x30);
+	return (ev & 0x80) ? ev : MIN(ev, 0x30); // +6 EV
 }
 
-int ev_dec(char ev) {
+char ev_dec(char ev) {
 	ev = ev_normalize(ev);
 
 	if (DPData.cf_explevel_inc_third)
@@ -105,11 +122,11 @@ int ev_dec(char ev) {
 	else
 		ev = ev_add(ev, 0xFD); // -0 1/3
 
-	return (ev & 0x80) ? MAX(ev, 0xD0) : ev;
+	return (ev & 0x80) ? MAX(ev, 0xD0) : ev; // -6 EV
 }
 
-int ev_add(char ying, char yang) {
-	char ev = (ying + yang) & 0xFF;
+char ev_add(char ying, char yang) {
+	char ev = ying + yang;
 
 	switch (ev & 0x07) {
 	case 0x02:
@@ -123,7 +140,7 @@ int ev_add(char ying, char yang) {
 	return ev;
 }
 
-int ev_sub(char ying, char yang) {
+char ev_sub(char ying, char yang) {
 	return ev_add(ying, -yang);
 }
 
@@ -201,24 +218,6 @@ int tv_sub(int ying, int yang) {
 	int ev = ev_sub(ying, yang);
 
 	return MAX(ev, 0x10);
-}
-
-int ev_normalize(char ev) {
-	if (DPData.cf_explevel_inc_third)
-		ev &= 0xFC;
-	else
-		switch (ev & 0x07) {
-		case 0x01:
-		case 0x02:
-			ev = (ev & 0xF8) | 0x03;
-			break;
-		case 0x06:
-		case 0x07:
-			ev = (ev & 0xF8) | 0x05;
-			break;
-	}
-
-	return ev;
 }
 
 int iso_roll(int iso) {
