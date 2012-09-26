@@ -101,10 +101,10 @@ void script_interval() {
 			// Calculate how much time is left until target, and wait;
 			// automatically aim for the next target, if already missed this
 			gap    = target - timestamp();
-            pause  = gap % delay;
-            pause += pause > 0 ? 0 : delay;
+			pause  = gap % delay;
+			pause += pause > 0 ? 0 : delay;
 
-            script_delay(pause);
+			script_delay(pause);
 		}
 
 		if (!can_continue())
@@ -115,8 +115,8 @@ void script_interval() {
 		// Recalculate the next target,
 		// but considering we may have already missed it
 		jump    = (pause % delay) - gap;
-        jump   += jump > delay ? 0 : delay;
-        target += jump;
+		jump   += jump > delay ? 0 : delay;
+		target += jump;
 	}
 
 	script_stop();

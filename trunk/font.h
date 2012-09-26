@@ -9,9 +9,9 @@
 
 struct font
 {
-    unsigned        width;
-    unsigned        height;
-    unsigned        bitmap[];
+	unsigned        width;
+	unsigned        height;
+	unsigned        bitmap[];
 };
 
 

@@ -23,5 +23,5 @@
 	ldr  pc, = addr
 
 #define STUB(addr)\
-    .globl sub_ ## addr;\
-    sub_ ## addr = 0x ## addr
+	.globl sub_ ## addr;\
+	sub_ ## addr = 0x ## addr
