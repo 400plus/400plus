@@ -22,7 +22,7 @@
 
 #include "debug.h"
 
-int ev_normalize(int ev);
+int ev_normalize(char ev);
 
 static char *av_strings[][4] = {
 	{"1.0", "1.1", "1.2", "1.3"},
@@ -86,11 +86,11 @@ static float f_number[][8] = {
 
 void display_float(char *dest, float value);
 
-int ev_sgn(int ev) {
-	return 0x100 - ev;
+int ev_sgn(char ev) {
+	return -ev;
 }
 
-int ev_inc(int ev) {
+int ev_inc(char ev) {
 	ev = ev_normalize(ev);
 
 	if (DPData.cf_explevel_inc_third)
@@ -101,7 +101,7 @@ int ev_inc(int ev) {
 	return (ev & 0x80) ? ev : MIN(ev, 0x30);
 }
 
-int ev_dec(int ev) {
+int ev_dec(char ev) {
 	ev = ev_normalize(ev);
 
 	if (DPData.cf_explevel_inc_third)
@@ -112,8 +112,8 @@ int ev_dec(int ev) {
 	return (ev & 0x80) ? MAX(ev, 0xD0) : ev;
 }
 
-int ev_add(int ying, int yang) {
-	int ev = (ying + yang) & 0xFF;
+int ev_add(char ying, char yang) {
+	char ev = (ying + yang) & 0xFF;
 
 	switch (ev & 0x07) {
 	case 0x02:
@@ -127,7 +127,7 @@ int ev_add(int ying, int yang) {
 	return ev;
 }
 
-int ev_sub(int ying, int yang) {
+int ev_sub(char ying, char yang) {
 	return ev_add(ying, ev_sgn(yang));
 }
 
@@ -207,7 +207,7 @@ int tv_sub(int ying, int yang) {
 	return MAX(ev, 0x10);
 }
 
-int ev_normalize(int ev) {
+int ev_normalize(char ev) {
 	if (DPData.cf_explevel_inc_third)
 		ev &= 0xFC;
 	else switch (ev & 0x07) {
@@ -254,7 +254,7 @@ int iso_dec(int iso) {
 	return MAX(iso, 0x48);
 }
 
-void ev_print(char *dest, int ev) {
+void ev_print(char *dest, char ev) {
 	char dsp_sgn, *dsp_dec;
 	int  dsp_int;
 
