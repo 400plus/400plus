@@ -19,14 +19,14 @@
 
 #define SHUTTER_LAG     125
 
-extern int ev_normalize(int ev);
-extern int ev_sgn(int ev);
-extern int ev_inc(int ev);
-extern int ev_dec(int ev);
-extern int ev_add(int ying, int yang);
-extern int ev_sub(int ying, int yang);
+extern int ev_normalize(char ev);
+extern int ev_sgn(char ev);
+extern int ev_inc(char ev);
+extern int ev_dec(char ev);
+extern int ev_add(char ying, char yang);
+extern int ev_sub(char ying, char yang);
 
-extern int ev_normalize(int ev);
+extern int ev_normalize(char ev);
 
 extern int av_inc(int ev);
 extern int av_dec(int ev);
@@ -46,7 +46,7 @@ extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
 
-extern void ev_print(char *dest, int ev);
+extern void ev_print(char *dest, char ev);
 extern void av_print(char *dest, int ev);
 extern void tv_print(char *dest, int ev);
 
