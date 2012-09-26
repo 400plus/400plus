@@ -144,7 +144,7 @@ char ev_sub(char ying, char yang) {
 	return ev_add(ying, -yang);
 }
 
-int av_inc(int av) {
+char av_inc(char av) {
 	av = ev_normalize(av);
 
 	if (DPData.cf_explevel_inc_third)
@@ -155,7 +155,7 @@ int av_inc(int av) {
 	return MIN(av, 0x67); // f/60.0
 }
 
-int av_dec(int av) {
+char av_dec(char av) {
 	av = ev_normalize(av);
 
 	if (DPData.cf_explevel_inc_third)
@@ -166,14 +166,14 @@ int av_dec(int av) {
 	return MAX(av, 0x08); // f/1.0
 }
 
-int av_add(int ying, int yang) {
-	int av = ev_add(ying, yang);
+char av_add(char ying, char yang) {
+	char av = ev_add(ying, yang);
 
 	return MIN(av, DPData.avmax);
 }
 
-int av_sub(int ying, int yang) {
-	int av = ev_sub(ying, yang);
+char av_sub(char ying, char yang) {
+	char av = ev_sub(ying, yang);
 
 	return MAX(av, DPData.avo);
 }
