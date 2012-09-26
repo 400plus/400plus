@@ -86,10 +86,6 @@ static float f_number[][8] = {
 
 void display_float(char *dest, float value);
 
-int ev_sgn(char ev) {
-	return -ev;
-}
-
 int ev_inc(char ev) {
 	ev = ev_normalize(ev);
 
@@ -128,7 +124,7 @@ int ev_add(char ying, char yang) {
 }
 
 int ev_sub(char ying, char yang) {
-	return ev_add(ying, ev_sgn(yang));
+	return ev_add(ying, -yang);
 }
 
 int av_inc(int av) {
