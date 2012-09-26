@@ -26,10 +26,10 @@ extern char ev_dec(char ev);
 extern char ev_add(char ying, char yang);
 extern char ev_sub(char ying, char yang);
 
-extern int av_inc(int ev);
-extern int av_dec(int ev);
-extern int av_add(int ying, int yang);
-extern int av_sub(int ying, int yang);
+extern char av_inc(char ev);
+extern char av_dec(char ev);
+extern char av_add(char ying, char yang);
+extern char av_sub(char ying, char yang);
 
 extern int tv_next(int ev);
 extern int tv_prev(int ev);
