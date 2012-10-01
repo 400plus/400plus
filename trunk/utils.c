@@ -254,22 +254,20 @@ int iso_dec(int iso) {
 	return MAX(iso, 0x48);
 }
 
-void ev_print(char *dest, char ev) {
-	char dsp_sgn, *dsp_dec;
-	int  dsp_int;
+void ev_print(char *dest, ev_t ev) {
+	char dsp_sgn = ' ';
 
-	if (ev & 0x80) {
+	if (ev < 0)
 		dsp_sgn = '-';
-		ev = 0x80 - (ev & 0x7F);
-	} else if (ev & 0x7F) {
+	else if (ev > 0)
 		dsp_sgn = '+';
-	} else {
-		dsp_sgn = ' ';
-	}
 
-	dsp_int = ((ev & 0x78) >> 3);
+	ev = abs(ev);
 
-	switch (ev & 0x07) {
+	int   dsp_int = ev / 8;
+	char *dsp_dec = " ?/?";
+
+	switch (ev - 8 * dsp_int) {
 	case 0x00:
 		dsp_dec = " -/-";
 		break;
@@ -281,9 +279,6 @@ void ev_print(char *dest, char ev) {
 		break;
 	case 0x05:
 		dsp_dec = " 2/3";
-		break;
-	default:
-		dsp_dec = " ?/?";
 		break;
 	}
 
