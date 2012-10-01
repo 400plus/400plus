@@ -47,7 +47,7 @@ extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
 
-extern void ev_print(char *dest, char ev);
+extern void ev_print(char *dest, ev_t ev);
 extern void av_print(char *dest, int ev);
 extern void tv_print(char *dest, int ev);
 
