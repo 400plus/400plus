@@ -12,6 +12,8 @@
 
 #include <sys/types.h>
 
+typedef signed char ev_t;
+
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     5
 #define EVENT_WAIT        5
@@ -19,24 +21,25 @@
 
 #define SHUTTER_LAG     125
 
-extern char ev_normalize(char ev);
+extern ev_t ev_normalize(ev_t ev);
 
-extern char ev_inc(char ev);
-extern char ev_dec(char ev);
-extern char ev_add(char ying, char yang);
-extern char ev_sub(char ying, char yang);
+extern ev_t ev_inc(ev_t ev);
+extern ev_t ev_dec(ev_t ev);
+extern ev_t ev_add(ev_t ying, ev_t yang);
+extern ev_t ev_sub(ev_t ying, ev_t yang);
 
 extern char av_inc(char ev);
 extern char av_dec(char ev);
 extern char av_add(char ying, char yang);
 extern char av_sub(char ying, char yang);
 
-extern int tv_next(int ev);
-extern int tv_prev(int ev);
-extern int tv_inc(int ev);
-extern int tv_dec(int ev);
-extern int tv_add(int ying, int yang);
-extern int tv_sub(int ying, int yang);
+extern char tv_next(char ev);
+extern char tv_prev(char ev);
+
+extern char tv_inc(char ev);
+extern char tv_dec(char ev);
+extern char tv_add(char ying, char yang);
+extern char tv_sub(char ying, char yang);
 
 extern int iso_roll(int iso);
 extern int iso_next(int iso);
