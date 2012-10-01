@@ -82,10 +82,10 @@ static float f_number[][8] = {
 	{64.000f, 66.834f, 69.792f, 72.882f, 76.109f, 79.479f, 82.998f, 86.672f}
 };
 
-char ev_normalize(char ev);
+ev_t ev_normalize(ev_t ev);
 void display_float(char *dest, float value);
 
-char ev_normalize(char ev) {
+ev_t ev_normalize(ev_t ev) {
 	if (DPData.cf_explevel_inc_third)
 		ev &= 0xFC;
 	else
@@ -103,44 +103,44 @@ char ev_normalize(char ev) {
 	return ev;
 }
 
-char ev_inc(char ev) {
+ev_t ev_inc(ev_t ev) {
 	ev = ev_normalize(ev);
 
 	if (DPData.cf_explevel_inc_third)
-		ev = ev_add(ev, 0x04); // +0 1/2
+		ev = ev_add(ev, 0004); // +0 1/2
 	else
-		ev = ev_add(ev, 0x03); // +0 1/3
+		ev = ev_add(ev, 0003); // +0 1/3
 
-	return (ev & 0x80) ? ev : MIN(ev, 0x30); // +6 EV
+	return MIN(ev, +0060); // +6 EV
 }
 
-char ev_dec(char ev) {
+ev_t ev_dec(ev_t ev) {
 	ev = ev_normalize(ev);
 
 	if (DPData.cf_explevel_inc_third)
-		ev = ev_add(ev, 0xFC); // -0 1/2
+		ev = ev_sub(ev, 0004); // -0 1/2
 	else
-		ev = ev_add(ev, 0xFD); // -0 1/3
+		ev = ev_sub(ev, 0003); // -0 1/3
 
-	return (ev & 0x80) ? MAX(ev, 0xD0) : ev; // -6 EV
+	return MAX(ev, -0060); // -6 EV
 }
 
-char ev_add(char ying, char yang) {
-	char ev = ying + yang;
+ev_t ev_add(ev_t ying, ev_t yang) {
+	ev_t ev = ying + yang;
 
 	switch (ev & 0x07) {
 	case 0x02:
-		ev += 0x01;
+		ev++;
 		break;
 	case 0x06:
-		ev -= 0x01;
+		ev--;
 		break;
 	}
 
 	return ev;
 }
 
-char ev_sub(char ying, char yang) {
+ev_t ev_sub(ev_t ying, ev_t yang) {
 	return ev_add(ying, -yang);
 }
 
@@ -159,9 +159,9 @@ char av_dec(char av) {
 	av = ev_normalize(av);
 
 	if (DPData.cf_explevel_inc_third)
-		av = ev_add(av, 0xFC); // -0 1/2
+		av = ev_sub(av, -0x04); // -0 1/2
 	else
-		av = ev_add(av, 0xFD); // -0 1/3
+		av = ev_sub(av, -0x03); // -0 1/3
 
 	return MAX(av, 0x08); // f/1.0
 }
@@ -178,15 +178,19 @@ char av_sub(char ying, char yang) {
 	return MAX(av, DPData.avo);
 }
 
-int tv_next(int tv) {
-	return MIN(tv + 0x08, 0x98);
+char tv_next(char tv) {
+	tv += 0x08;
+
+	return MIN(tv, 0x98);
 }
 
-int tv_prev(int tv) {
-	return MAX(tv - 0x08, -0x20);
+char tv_prev(char tv) {
+	tv -= 0x08;
+
+	return MAX(tv, -0x20);
 }
 
-int tv_inc(int tv) {
+char tv_inc(char tv) {
 	tv = ev_normalize(tv);
 
 	if (DPData.cf_explevel_inc_third)
@@ -197,25 +201,25 @@ int tv_inc(int tv) {
 	return MIN(tv, 0x98); // 1/4000s
 }
 
-int tv_dec(int tv) {
+char tv_dec(char tv) {
 	tv = ev_normalize(tv);
 
 	if (DPData.cf_explevel_inc_third)
-		tv = ev_add(tv, 0xFC); // -0 1/2
+		tv = ev_sub(tv, -0x04); // -0 1/2
 	else
-		tv = ev_add(tv, 0xFD); // -0 1/3
+		tv = ev_sub(tv, -0x03); // -0 1/3
 
 	return MAX(tv, 0x10); // 30s
 }
 
-int tv_add(int ying, int yang) {
-	int ev = ev_add(ying, yang);
+char tv_add(char ying, char yang) {
+	char ev = ev_add(ying, yang);
 
 	return MIN(ev, 0xA0);
 }
 
-int tv_sub(int ying, int yang) {
-	int ev = ev_sub(ying, yang);
+char tv_sub(char ying, char yang) {
+	char ev = ev_sub(ying, yang);
 
 	return MAX(ev, 0x10);
 }
