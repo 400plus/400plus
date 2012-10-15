@@ -35,7 +35,6 @@ void menu_dof_calc_open (type_MENU *menu);
 
 void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
-void menu_scripts_apply_calc_av    (const type_MENUITEM *item);
 void menu_scripts_apply_calc_ev    (const type_MENUITEM *item);
 void menu_scripts_apply_calc       (const type_MENUITEM *item);
 
@@ -61,8 +60,8 @@ type_MENUITEM ext_aeb_items[] = {
 	MENUITEM_BRACKET(LP_WORD(L_I_FRAMES),    &settings.eaeb_frames,    NULL),
 	MENUITEM_EVEAEB (LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,        NULL),
 	MENUITEM_EAEBDIR(LP_WORD(L_I_DIRECTION), &settings.eaeb_direction, NULL),
-	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min, menu_scripts_apply_eaeb_tvmin),
-	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max, menu_scripts_apply_eaeb_tvmax)
+	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min,    menu_scripts_apply_eaeb_tvmin),
+	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max,    menu_scripts_apply_eaeb_tvmax)
 };
 
 type_MENUITEM efl_aeb_items[] = {
@@ -104,16 +103,16 @@ type_MENUITEM timer_items[] = {
 };
 
 type_MENUITEM lexp_calc_items[] = {
-	MENUITEM_BASEISO(LP_WORD(L_I_ISO),    &menu_DPData.iso,    menu_scripts_apply_calc_ev),
-	MENUITEM_BULB   (LP_WORD(L_I_TV_VAL), &menu_DPData.tv_val, menu_scripts_apply_calc_ev),
-	MENUITEM_AV     (LP_WORD(L_I_AV_VAL), &menu_DPData.av_val, menu_scripts_apply_calc_av),
+	MENUITEM_BASEISO(LP_WORD(L_I_ISO),    &menu_DPData.iso,        menu_scripts_apply_calc_ev),
+	MENUITEM_BULB   (LP_WORD(L_I_TV_VAL), &menu_DPData.tv_val,     menu_scripts_apply_calc_ev),
+	MENUITEM_AV     (LP_WORD(L_I_AV_VAL), &menu_DPData.av_val,     menu_scripts_apply_calc_ev),
 	MENUITEM_EVINFO (LP_WORD(L_I_EV_VAL), &menu_scripts_ev,        NULL),
 	MENUITEM_LAUNCH (LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
 };
 
 type_MENUITEM dof_calc_items[] = {
 	MENUITEM_FLENGTH(LP_WORD(L_I_FLENGTH), &menu_scripts_fl,        menu_scripts_apply_dof),
-	MENUITEM_AV     (LP_WORD(L_I_AV_VAL),  &menu_DPData.av_val, menu_scripts_apply_dof_av),
+	MENUITEM_AV     (LP_WORD(L_I_AV_VAL),  &menu_DPData.av_val,     menu_scripts_apply_dof_av),
 	MENUITEM_FDIST  (LP_WORD(L_I_FDIST),   &menu_scripts_fd,        menu_scripts_apply_dof),
 	MENUITEM_INFO   (LP_WORD(L_I_DOFMIN),   menu_scripts_dof_min),
 	MENUITEM_INFO   (LP_WORD(L_I_DOFMAX),   menu_scripts_dof_max),
@@ -253,16 +252,6 @@ void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 	menu_event_display();
 }
 
-void menu_scripts_apply_calc_av(const type_MENUITEM *item) {
-	int min = MAX(DPData.avo,   0x08);
-	int max = MIN(DPData.avmax, 0x67);
-
-	menu_DPData.av_val = MAX(menu_DPData.av_val, min);
-	menu_DPData.av_val = MIN(menu_DPData.av_val, max);
-
-	menu_scripts_apply_calc_ev(item);
-}
-
 void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
 	menu_scripts_ev = ev_normalize((menu_DPData.iso - DPData.iso) - ev_sub(menu_DPData.tv_val, DPData.tv_val) - ev_sub(menu_DPData.av_val, DPData.av_val));
 	menu_event_display();
@@ -281,12 +270,6 @@ void menu_scripts_apply_calc(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
-	int min = MAX(DPData.avo,   0x08);
-	int max = MIN(DPData.avmax, 0x67);
-
-	*item->parm.menuitem_av.value = MAX(*item->parm.menuitem_av.value, min);
-	*item->parm.menuitem_av.value = MIN(*item->parm.menuitem_av.value, max);
-
 	send_to_intercom(IC_SET_AV_VAL, 1, *item->parm.menuitem_av.value);
 	menu_scripts_apply_dof(item);
 }
