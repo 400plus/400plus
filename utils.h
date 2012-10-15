@@ -13,6 +13,7 @@
 #include <sys/types.h>
 
 typedef signed char ev_t;
+typedef signed char av_t;
 
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     5
@@ -21,6 +22,11 @@ typedef signed char ev_t;
 
 #define SHUTTER_LAG     125
 
+#define EV_CODE(val, sub)  (0010 * (val) + (sub))
+
+#define EV_VAL(code)  ((code) / 0010)
+#define EV_SUB(code)  ((code) - 0010 * EV_VAL(code))
+
 extern ev_t ev_normalize(ev_t ev);
 
 extern ev_t ev_inc(ev_t ev);
@@ -28,10 +34,14 @@ extern ev_t ev_dec(ev_t ev);
 extern ev_t ev_add(ev_t ying, ev_t yang);
 extern ev_t ev_sub(ev_t ying, ev_t yang);
 
-extern char av_inc(char ev);
-extern char av_dec(char ev);
-extern char av_add(char ying, char yang);
-extern char av_sub(char ying, char yang);
+extern void ev_print(char *dest, ev_t ev);
+
+extern av_t av_inc(av_t ev);
+extern av_t av_dec(av_t ev);
+extern av_t av_add(av_t ying, av_t yang);
+extern av_t av_sub(av_t ying, av_t yang);
+
+extern void av_print(char *dest, av_t ev);
 
 extern char tv_next(char ev);
 extern char tv_prev(char ev);
@@ -41,15 +51,13 @@ extern char tv_dec(char ev);
 extern char tv_add(char ying, char yang);
 extern char tv_sub(char ying, char yang);
 
+extern void tv_print(char *dest, int ev);
+
 extern int iso_roll(int iso);
 extern int iso_next(int iso);
 extern int iso_prev(int iso);
 extern int iso_inc(int iso);
 extern int iso_dec(int iso);
-
-extern void ev_print(char *dest, ev_t ev);
-extern void av_print(char *dest, int ev);
-extern void tv_print(char *dest, int ev);
 
 extern void iso_print(char *dest, int code);
 

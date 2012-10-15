@@ -5,8 +5,9 @@
  */
 
 #include <fcntl.h>
-#include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -18,9 +19,9 @@
 
 #include "languages.h"
 #include "settings.h"
-#include "utils.h"
-
 #include "debug.h"
+
+#include "utils.h"
 
 static char *av_strings[][4] = {
 	{"1.0", "1.1", "1.2", "1.3"},
@@ -82,45 +83,48 @@ static float f_number[][8] = {
 	{64.000f, 66.834f, 69.792f, 72.882f, 76.109f, 79.479f, 82.998f, 86.672f}
 };
 
+char ev_normalization[2][8] = {
+	// 1/3 EV
+	{
+     0, // 0/8 => 0/8
+    -1, // 1/8 => 0/8
+    +1, // 2/8 => 3/8
+     0, // 3/8 => 3/8
+    +1, // 4/8 => 5/8
+     0, // 5/8 => 5/8
+    -1, // 6/8 => 5/8
+    +1  // 7/8 => 8/8
+	},
+	// 1/2 EV
+	{
+     0, // 0/8 => 0/8
+    +3, // 1/8 => 4/8
+    +2, // 2/8 => 4/8
+    +1, // 3/8 => 4/8
+     0, // 4/8 => 4/8
+    -1, // 5/8 => 4/8
+    +2, // 6/8 => 8/8
+    +1  // 7/8 => 8/8
+	},
+};
+
 ev_t ev_normalize(ev_t ev);
 void display_float(char *dest, float value);
 
-ev_t ev_normalize(ev_t ev) {
-	if (DPData.cf_explevel_inc_third)
-		ev &= 0xFC;
-	else
-		switch (ev & 0x07) {
-		case 0x01:
-		case 0x02:
-			ev = (ev & 0xF8) | 0x03;
-			break;
-		case 0x06:
-		case 0x07:
-			ev = (ev & 0xF8) | 0x05;
-			break;
-	}
+/* EV related --------------------------------------------------------- */
 
-	return ev;
+ev_t ev_normalize(ev_t ev) {
+	return ev + SIGN(ev) * ev_normalization[DPData.cf_explevel_inc_third][abs(EV_SUB(ev))];
 }
 
 ev_t ev_inc(ev_t ev) {
-	ev = ev_normalize(ev);
-
-	if (DPData.cf_explevel_inc_third)
-		ev = ev_add(ev, 0004); // +0 1/2
-	else
-		ev = ev_add(ev, 0003); // +0 1/3
+	ev = ev_normalize(ev_normalize(ev) + (DPData.cf_explevel_inc_third ? 0004 : 0003));
 
 	return MIN(ev, +0060); // +6 EV
 }
 
 ev_t ev_dec(ev_t ev) {
-	ev = ev_normalize(ev);
-
-	if (DPData.cf_explevel_inc_third)
-		ev = ev_sub(ev, 0004); // -0 1/2
-	else
-		ev = ev_sub(ev, 0003); // -0 1/3
+	ev = ev_normalize(ev_normalize(ev) - (DPData.cf_explevel_inc_third ? 0004 : 0003));
 
 	return MAX(ev, -0060); // -6 EV
 }
@@ -142,116 +146,6 @@ ev_t ev_add(ev_t ying, ev_t yang) {
 
 ev_t ev_sub(ev_t ying, ev_t yang) {
 	return ev_add(ying, -yang);
-}
-
-char av_inc(char av) {
-	av = ev_normalize(av);
-
-	if (DPData.cf_explevel_inc_third)
-		av = ev_add(av, 0x04); // +0 1/2
-	else
-		av = ev_add(av, 0x03); // +0 1/3
-
-	return MIN(av, 0x67); // f/60.0
-}
-
-char av_dec(char av) {
-	av = ev_normalize(av);
-
-	if (DPData.cf_explevel_inc_third)
-		av = ev_sub(av, -0x04); // -0 1/2
-	else
-		av = ev_sub(av, -0x03); // -0 1/3
-
-	return MAX(av, 0x08); // f/1.0
-}
-
-char av_add(char ying, char yang) {
-	char av = ev_add(ying, yang);
-
-	return MIN(av, DPData.avmax);
-}
-
-char av_sub(char ying, char yang) {
-	char av = ev_sub(ying, yang);
-
-	return MAX(av, DPData.avo);
-}
-
-char tv_next(char tv) {
-	tv += 0x08;
-
-	return MIN(tv, 0x98);
-}
-
-char tv_prev(char tv) {
-	tv -= 0x08;
-
-	return MAX(tv, -0x20);
-}
-
-char tv_inc(char tv) {
-	tv = ev_normalize(tv);
-
-	if (DPData.cf_explevel_inc_third)
-		tv = ev_add(tv, 0x04); // +0 1/2
-	else
-		tv = ev_add(tv, 0x03); // +0 1/3
-
-	return MIN(tv, 0x98); // 1/4000s
-}
-
-char tv_dec(char tv) {
-	tv = ev_normalize(tv);
-
-	if (DPData.cf_explevel_inc_third)
-		tv = ev_sub(tv, -0x04); // -0 1/2
-	else
-		tv = ev_sub(tv, -0x03); // -0 1/3
-
-	return MAX(tv, 0x10); // 30s
-}
-
-char tv_add(char ying, char yang) {
-	char ev = ev_add(ying, yang);
-
-	return MIN(ev, 0xA0);
-}
-
-char tv_sub(char ying, char yang) {
-	char ev = ev_sub(ying, yang);
-
-	return MAX(ev, 0x10);
-}
-
-int iso_roll(int iso) {
-	iso = (iso & 0xF8) | ((iso + 1) & 0x07);
-
-	return MIN(iso, 0x70);
-}
-
-int iso_next(int iso) {
-	iso = (iso & 0xF8) + 0x08;
-
-	return MIN(iso, 0x68);
-}
-
-int iso_prev(int iso) {
-	iso = (iso & 0xF8) - 0x08;
-
-	return MAX(iso, 0x48);
-}
-
-int iso_inc(int iso) {
-	iso = iso + 0x01;
-
-	return MIN(iso, 0x6F);
-}
-
-int iso_dec(int iso) {
-	iso = iso - 0x01;
-
-	return MAX(iso, 0x48);
 }
 
 void ev_print(char *dest, ev_t ev) {
@@ -285,11 +179,33 @@ void ev_print(char *dest, ev_t ev) {
 	sprintf(dest, "%c%i%s", dsp_sgn, dsp_int, dsp_dec);
 }
 
-void av_print(char *dest, int av) {
-	int base = (av >> 3) - 0x01;
+/* AV related --------------------------------------------------------- */
+
+av_t av_add(av_t ying, av_t yang) {
+	av_t av = ev_normalize(ying + yang);
+
+	return MIN(av, DPData.avmax);
+}
+
+av_t av_sub(av_t ying, av_t yang) {
+	av_t av = ev_normalize(ying - yang);
+
+	return MAX(av, DPData.avo);
+}
+
+av_t av_inc(av_t av) {
+	return av_add(av, DPData.cf_explevel_inc_third ? 0004 : 0003);
+}
+
+av_t av_dec(av_t av) {
+	return av_sub(av, DPData.cf_explevel_inc_third ? 0004 : 0003);
+}
+
+void av_print(char *dest, av_t av) {
+	int base = EV_VAL(av) - 1;
 	int frac = 0;
 
-	switch (av & 0x07) {
+	switch (EV_SUB(av)) {
 	case 0x00:
 	case 0x01:
 		frac = 0;
@@ -313,6 +229,44 @@ void av_print(char *dest, int av) {
 	sprintf(dest, "f/%s", av_strings[base][frac]);
 }
 
+/* TV related --------------------------------------------------------- */
+
+char tv_next(char tv) {
+	tv += 0x08;
+
+	return MIN(tv, 0x98);
+}
+
+char tv_prev(char tv) {
+	tv -= 0x08;
+
+	return MAX(tv, -0x20);
+}
+
+char tv_inc(char tv) {
+	tv = ev_normalize(ev_normalize(tv) + (DPData.cf_explevel_inc_third ? 0004 : 0003));
+
+	return MIN(tv, 0230); // 1/4000s
+}
+
+char tv_dec(char tv) {
+	tv = ev_normalize(ev_normalize(tv) - (DPData.cf_explevel_inc_third ? 0004 : 0003));
+
+	return MAX(tv, 0020); // 30s
+}
+
+char tv_add(char ying, char yang) {
+	char ev = ev_add(ying, yang);
+
+	return MIN(ev, 0xA0);
+}
+
+char tv_sub(char ying, char yang) {
+	char ev = ev_sub(ying, yang);
+
+	return MAX(ev, 0x10);
+}
+
 void tv_print(char *dest, int tv) {
 	int base = (tv >> 3) + 0x04;
 	int frac = 0;
@@ -332,6 +286,38 @@ void tv_print(char *dest, int tv) {
 	}
 
 	sprintf(dest, "%s", tv_strings[base][frac]);
+}
+
+/* ISO related --------------------------------------------------------- */
+
+int iso_roll(int iso) {
+	iso = (iso & 0xF8) | ((iso + 1) & 0x07);
+
+	return MIN(iso, 0x70);
+}
+
+int iso_next(int iso) {
+	iso = (iso & 0xF8) + 0x08;
+
+	return MIN(iso, 0x68);
+}
+
+int iso_prev(int iso) {
+	iso = (iso & 0xF8) - 0x08;
+
+	return MAX(iso, 0x48);
+}
+
+int iso_inc(int iso) {
+	iso = iso + 0x01;
+
+	return MIN(iso, 0x6F);
+}
+
+int iso_dec(int iso) {
+	iso = iso - 0x01;
+
+	return MAX(iso, 0x48);
 }
 
 /**

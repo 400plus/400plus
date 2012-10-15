@@ -20,7 +20,6 @@
 
 void menu_params_apply_autoiso_miniso     (const type_MENUITEM *item);
 void menu_params_apply_autoiso_maxiso     (const type_MENUITEM *item);
-void menu_params_apply_autoiso_maxav      (const type_MENUITEM *item);
 void menu_params_apply_iso                (const type_MENUITEM *item);
 void menu_params_apply_av_comp            (const type_MENUITEM *item);
 void menu_params_apply_efcomp             (const type_MENUITEM *item);
@@ -39,7 +38,7 @@ type_MENUITEM autoiso_items[] = {
 	MENUITEM_BASEISO(LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso, menu_params_apply_autoiso_miniso),
 	MENUITEM_BASEISO(LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso, menu_params_apply_autoiso_maxiso),
 	MENUITEM_TV     (LP_WORD(L_I_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL),
-	MENUITEM_AV     (LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  menu_params_apply_autoiso_maxav),
+	MENUITEM_AV     (LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
 };
 
 type_MENUPAGE autoiso_page = {
@@ -82,15 +81,15 @@ type_MENUPAGE ir_page = {
 };
 
 type_MENUITEM menupage_params_items[] = {
-	MENUITEM_SUBMENU(LP_WORD(L_S_AUTOISO),       &autoiso_page,                      NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_AUTOISO),       &autoiso_page,                  NULL),
 	MENUITEM_FULLISO(LP_WORD(L_I_ISO),           &menu_DPData.iso,               menu_params_apply_iso),
 	MENUITEM_EVCOMP (LP_WORD(L_I_AV_COMP),       &menu_DPData.av_comp,           menu_params_apply_av_comp),
 	MENUITEM_EVSEP  (LP_WORD(L_I_AEB),           &menu_DPData.ae_bkt,            menu_params_apply_ae_bkt),
 	MENUITEM_CLRTEMP(LP_WORD(L_I_COLOR_TEMP_K),  &menu_DPData.color_temp,        menu_params_apply_color_temp),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_MIRROR_LOCKUP), &menu_DPData.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_SAFETY_SHIFT),  &menu_DPData.cf_safety_shift,   menu_params_apply_cf_safety_shift),
-	MENUITEM_SUBMENU(LP_WORD(L_S_FLASH),         &flash_page,                        NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_S_IR),            &ir_page,                           NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_FLASH),         &flash_page,                    NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_IR),            &ir_page,                       NULL),
 };
 
 type_MENUPAGE menupage_params = {
@@ -109,16 +108,6 @@ void menu_params_apply_autoiso_miniso(const type_MENUITEM *item) {
 void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
 	settings.autoiso_miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
 	menu_event_display();
-}
-
-void menu_params_apply_autoiso_maxav(const type_MENUITEM *item) {
-	int min = MAX(DPData.avo,   0x08);
-	int max = MIN(DPData.avmax, 0x67);
-
-	settings.autoiso_maxav = MAX(settings.autoiso_maxav, min);
-	settings.autoiso_maxav = MIN(settings.autoiso_maxav, max);
-
-	menu_event_refresh();
 }
 
 void menu_params_apply_iso(const type_MENUITEM *item) {
