@@ -39,12 +39,6 @@ static char *av_strings[][4] = {
 };
 
 static char *tv_strings[][4] = {
-	{   "32'",       "",       "",       ""},
-	{   "16'",       "",       "",       ""},
-	{    "8'",       "",       "",       ""},
-	{    "4'",       "",       "",       ""},
-	{    "2'",       "",       "",       ""},
-	{    "1'",       "",       "",       ""},
 	{  "30\"",   "25\"",   "20\"",   "20\""},
 	{  "15\"",   "13\"",   "10\"",   "10\""},
 	{   "8\"",    "6\"",    "6\"",    "5\""},
@@ -108,60 +102,65 @@ char ev_normalization[2][8] = {
 	},
 };
 
-ev_t ev_normalize(ev_t ev);
 void display_float(char *dest, float value);
 
 /* EV related --------------------------------------------------------- */
 
-ev_t ev_normalize(ev_t ev) {
-	return ev + SIGN(ev) * ev_normalization[DPData.cf_explevel_inc_third][abs(EV_SUB(ev))];
+ev_t ev_normalize(ev_t ec) {
+	return ec + SIGN(ec) * ev_normalization[DPData.cf_explevel_inc_third][abs(EV_SUB(ec))];
 }
 
-ev_t ev_inc(ev_t ev) {
-	ev = ev_normalize(ev_normalize(ev) + (DPData.cf_explevel_inc_third ? 0004 : 0003));
+/* EC related --------------------------------------------------------- */
 
-	return MIN(ev, +0060); // +6 EV
+ec_t ec_normalize(ec_t ec) {
+	return ec + SIGN(ec) * ev_normalization[DPData.cf_explevel_inc_third][abs(EV_SUB(ec))];
 }
 
-ev_t ev_dec(ev_t ev) {
-	ev = ev_normalize(ev_normalize(ev) - (DPData.cf_explevel_inc_third ? 0004 : 0003));
+ec_t ec_inc(ec_t ec) {
+	ec = ec_normalize(ec_normalize(ec) + (DPData.cf_explevel_inc_third ? 0004 : 0003));
 
-	return MAX(ev, -0060); // -6 EV
+	return MIN(ec, +0060); // +6 EV
 }
 
-ev_t ev_add(ev_t ying, ev_t yang) {
-	ev_t ev = ying + yang;
+ec_t ec_dec(ec_t ec) {
+	ec = ec_normalize(ec_normalize(ec) - (DPData.cf_explevel_inc_third ? 0004 : 0003));
 
-	switch (ev & 0x07) {
+	return MAX(ec, -0060); // -6 EV
+}
+
+ec_t ec_add(ec_t ying, ec_t yang) {
+	ec_t ec = ying + yang;
+
+	switch (ec & 0x07) {
 	case 0x02:
-		ev++;
+		ec++;
 		break;
 	case 0x06:
-		ev--;
+		ec--;
 		break;
 	}
 
-	return ev;
+	return ec;
 }
 
-ev_t ev_sub(ev_t ying, ev_t yang) {
-	return ev_add(ying, -yang);
+ec_t ec_sub(ec_t ying, ec_t yang) {
+	return ec_add(ying, -yang);
 }
 
-void ev_print(char *dest, ev_t ev) {
+void ec_print(char *dest, ec_t ec) {
 	char dsp_sgn = ' ';
 
-	if (ev < 0)
+	if (ec < 0)
 		dsp_sgn = '-';
-	else if (ev > 0)
+	else if (ec > 0)
 		dsp_sgn = '+';
 
-	ev = abs(ev);
+	ec = abs(ec);
 
-	int   dsp_int = ev / 8;
+	int   dsp_int = ec / 8;
 	char *dsp_dec = " ?/?";
 
-	switch (ev - 8 * dsp_int) {
+	switch (ec - 8 * dsp_int) {
 	case 0x00:
 		dsp_dec = " -/-";
 		break;
@@ -202,90 +201,100 @@ av_t av_dec(av_t av) {
 }
 
 void av_print(char *dest, av_t av) {
-	int base = EV_VAL(av) - 1;
+	int base = EV_VAL(av);
 	int frac = 0;
 
 	switch (EV_SUB(av)) {
-	case 0x00:
-	case 0x01:
+	case 0000:
+	case 0001:
 		frac = 0;
 		break;
-	case 0x02:
-	case 0x03:
+	case 0002:
+	case 0003:
 		frac = 1;
 		break;
-	case 0x04:
+	case 0004:
 		frac = 2;
 		break;
-	case 0x05:
-	case 0x06:
-	case 0x07:
+	case 0005:
+	case 0006:
+	case 0007:
 		frac = 3;
 		break;
 	default:
 		break;
 	}
 
-	sprintf(dest, "f/%s", av_strings[base][frac]);
+	sprintf(dest, "f/%s", av_strings[base - 1][frac]);
 }
 
 /* TV related --------------------------------------------------------- */
 
-char tv_next(char tv) {
-	tv += 0x08;
-
-	return MIN(tv, 0x98);
-}
-
-char tv_prev(char tv) {
-	tv -= 0x08;
-
-	return MAX(tv, -0x20);
-}
-
-char tv_inc(char tv) {
-	tv = ev_normalize(ev_normalize(tv) + (DPData.cf_explevel_inc_third ? 0004 : 0003));
+tv_t tv_add(tv_t ying, tv_t yang) {
+	tv_t tv = ev_normalize(ying + yang);
 
 	return MIN(tv, 0230); // 1/4000s
 }
 
-char tv_dec(char tv) {
-	tv = ev_normalize(ev_normalize(tv) - (DPData.cf_explevel_inc_third ? 0004 : 0003));
+tv_t tv_sub(tv_t ying, tv_t yang) {
+	tv_t tv = ev_normalize(ying - yang);
 
 	return MAX(tv, 0020); // 30s
 }
 
-char tv_add(char ying, char yang) {
-	char ev = ev_add(ying, yang);
-
-	return MIN(ev, 0xA0);
+tv_t tv_inc(tv_t tv) {
+	return tv_add(tv, (DPData.cf_explevel_inc_third ? 0004 : 0003));
 }
 
-char tv_sub(char ying, char yang) {
-	char ev = ev_sub(ying, yang);
-
-	return MAX(ev, 0x10);
+tv_t tv_dec(tv_t tv) {
+	return tv_sub(tv, (DPData.cf_explevel_inc_third ? 0004 : 0003));
 }
 
-void tv_print(char *dest, int tv) {
-	int base = (tv >> 3) + 0x04;
+tv_t bulb_next(tv_t tv) {
+	tv += 0010;
+
+	return MIN(tv, 0100 + 0230); // 1/4000s
+}
+
+tv_t bulb_prev(tv_t tv) {
+	tv -= 0010;
+
+	return MAX(tv, 0100 - 0040); // 32'
+}
+
+void tv_print(char *dest, tv_t tv) {
+	int base = EV_VAL(tv);
 	int frac = 0;
 
-	switch (tv & 0x07) {
-	case 0x03:
+	switch (EV_SUB(tv)) {
+	case 0000:
+	case 0001:
+		frac = 0;
+		break;
+	case 0002:
+	case 0003:
 		frac = 1;
 		break;
-	case 0x04:
+	case 0004:
 		frac = 2;
 		break;
-	case 0x05:
+	case 0005:
+	case 0006:
+	case 0007:
 		frac = 3;
 		break;
 	default:
 		break;
 	}
 
-	sprintf(dest, "%s", tv_strings[base][frac]);
+	sprintf(dest, "%s", tv_strings[base - 2][frac]);
+}
+
+void bulb_print(char *dest, tv_t tv) {
+	if (tv < 0120)
+		sprintf(dest, "%2i'", 1 << ((0110 - tv) / 0010));
+	else
+		tv_print(dest, tv - 0100);
 }
 
 /* ISO related --------------------------------------------------------- */

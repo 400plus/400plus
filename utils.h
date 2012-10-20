@@ -12,8 +12,10 @@
 
 #include <sys/types.h>
 
-typedef signed char ev_t;
-typedef signed char av_t;
+typedef   signed char ec_t;
+typedef unsigned char ev_t;
+typedef unsigned char av_t;
+typedef unsigned char tv_t;
 
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     5
@@ -27,31 +29,32 @@ typedef signed char av_t;
 #define EV_VAL(code)  ((code) / 0010)
 #define EV_SUB(code)  ((code) - 0010 * EV_VAL(code))
 
-extern ev_t ev_normalize(ev_t ev);
+extern ec_t ec_normalize(ec_t ec);
 
-extern ev_t ev_inc(ev_t ev);
-extern ev_t ev_dec(ev_t ev);
-extern ev_t ev_add(ev_t ying, ev_t yang);
-extern ev_t ev_sub(ev_t ying, ev_t yang);
+extern ec_t ec_inc(ec_t ev);
+extern ec_t ec_dec(ec_t ev);
+extern ec_t ec_add(ec_t ying, ec_t yang);
+extern ec_t ec_sub(ec_t ying, ec_t yang);
 
-extern void ev_print(char *dest, ev_t ev);
+extern void ec_print(char *dest, ec_t ec);
 
-extern av_t av_inc(av_t ev);
-extern av_t av_dec(av_t ev);
 extern av_t av_add(av_t ying, av_t yang);
 extern av_t av_sub(av_t ying, av_t yang);
+extern av_t av_inc(av_t av);
+extern av_t av_dec(av_t av);
 
-extern void av_print(char *dest, av_t ev);
+extern void av_print(char *dest, av_t av);
 
-extern char tv_next(char ev);
-extern char tv_prev(char ev);
+extern tv_t tv_add(tv_t ying, tv_t yang);
+extern tv_t tv_sub(tv_t ying, tv_t yang);
+extern tv_t tv_inc(tv_t tv);
+extern tv_t tv_dec(tv_t tv);
 
-extern char tv_inc(char ev);
-extern char tv_dec(char ev);
-extern char tv_add(char ying, char yang);
-extern char tv_sub(char ying, char yang);
+extern tv_t bulb_next(tv_t tv);
+extern tv_t bulb_prev(tv_t tv);
 
-extern void tv_print(char *dest, int ev);
+extern void tv_print  (char *dest, tv_t tv);
+extern void bulb_print(char *dest, tv_t tv);
 
 extern int iso_roll(int iso);
 extern int iso_next(int iso);

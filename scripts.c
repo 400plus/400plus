@@ -304,16 +304,16 @@ void action_ext_aeb() {
 	if (DPData.tv_val == TV_VAL_BULB) {
 		int tv_val;
 
-		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
+		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = bulb_next(tv_val)) {
 			wait_for_camera();
 
-			if (tv_val < 0x10) {
+			if (tv_val < 0120) {
 				if (DPData.tv_val != TV_VAL_BULB)
 					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
-				shutter_release_bulb(60 * (1 << (1 - (tv_val >> 3))));
+				shutter_release_bulb(1 << ((0110 - tv_val) / 0010));
 			} else {
-				send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_val - 0100);
 				shutter_release();
 			}
 
@@ -415,7 +415,7 @@ void action_efl_aeb() {
 
 	while(frames) {
 		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
-			ef_inc = ev_add(ef_inc, settings.efl_aeb_ev);
+			ef_inc = ec_add(ef_inc, settings.efl_aeb_ev);
 			send_to_intercom(IC_SET_EFCOMP, 1, ef_inc);
 
 			shutter_release();
@@ -426,7 +426,7 @@ void action_efl_aeb() {
 		}
 
 		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
-			ef_dec = ev_sub(ef_dec, settings.efl_aeb_ev);
+			ef_dec = ec_sub(ef_dec, settings.efl_aeb_ev);
 			send_to_intercom(IC_SET_EFCOMP, 1, ef_dec);
 
 			shutter_release();
