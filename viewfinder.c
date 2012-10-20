@@ -10,8 +10,10 @@
 #include "main.h"
 #include "firmware.h"
 
+#include "exposure.h"
 #include "settings.h"
 #include "utils.h"
+
 
 #include "viewfinder.h"
 

@@ -11,6 +11,7 @@
 #include "firmware.h"
 
 #include "display.h"
+#include "exposure.h"
 #include "languages.h"
 #include "menu.h"
 #include "menupage.h"

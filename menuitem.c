@@ -9,8 +9,9 @@
 #include "macros.h"
 #include "firmware.h"
 
-#include "menu.h"
+#include "exposure.h"
 #include "languages.h"
+#include "menu.h"
 #include "utils.h"
 
 #include "menuitem.h"

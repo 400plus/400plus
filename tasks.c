@@ -10,18 +10,19 @@
 #include "main.h"
 #include "firmware.h"
 
+#include "bmp.h"
+#include "debug.h"
 #include "display.h"
+#include "exposure.h"
 #include "languages.h"
+#include "memspy.h"
+#include "menu_main.h"
 #include "presets.h"
 #include "scripts.h"
 #include "settings.h"
 #include "utils.h"
-#include "debug.h"
-#include "memspy.h"
-#include "menu_main.h"
 
 #include "tasks.h"
-#include "bmp.h"
 
 void set_intermediate_iso();
 void repeat_last_script();
