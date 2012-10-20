@@ -20,7 +20,7 @@ typedef struct {
 	int  *value;
 	int   can_do_zero;
 	int   zero_means_off;
-} type_MENUITEM_EV;
+} type_MENUITEM_EC;
 
 typedef struct {
 	int  *value;
@@ -61,7 +61,7 @@ typedef struct {
 } type_MENUITEM_SUBMENU;
 
 typedef union {
-	type_MENUITEM_EV      menuitem_ev;
+	type_MENUITEM_EC      menuitem_ec;
 	type_MENUITEM_AV      menuitem_av;
 	type_MENUITEM_TV      menuitem_tv;
 	type_MENUITEM_ISO     menuitem_iso;
@@ -98,17 +98,17 @@ OPTIONLIST_DEC(vformat)
 OPTIONLIST_DEC(scrind)
 OPTIONLIST_DEC(scrlcd)
 
-#define MENUITEM_EV(_NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
+#define MENUITEM_EC(_NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
 	name     : _NAME_, \
 	readonly : _RO_, \
-	parm     : { menuitem_ev : { \
+	parm     : { menuitem_ec : { \
 		value          : _VALUE_, \
 		can_do_zero    : _CDZ_, \
 		zero_means_off : _ZMO_, \
 	}}, \
-	display  : menuitem_display_ev, \
-	inc      : menuitem_inc_ev, \
-	dec      : menuitem_dec_ev, \
+	display  : menuitem_display_ec, \
+	inc      : menuitem_inc_ec, \
+	dec      : menuitem_dec_ec, \
 	change   : _CHANGE_ \
 }
 
@@ -127,7 +127,6 @@ OPTIONLIST_DEC(scrlcd)
 	name  : _NAME_, \
 	parm  : { menuitem_tv : { \
 		value : _VALUE_, \
-		bulb  : false, \
 	}}, \
 	display : menuitem_display_tv, \
 	inc     : menuitem_inc_tv, \
@@ -139,11 +138,10 @@ OPTIONLIST_DEC(scrlcd)
 	name  : _NAME_, \
 	parm  : { menuitem_tv : { \
 		value : _VALUE_, \
-		bulb  : true, \
 	}}, \
-	display : menuitem_display_tv,  \
-	inc     : menuitem_inc_tv, \
-	dec     : menuitem_dec_tv, \
+	display : menuitem_display_bulb,  \
+	inc     : menuitem_inc_bulb, \
+	dec     : menuitem_dec_bulb, \
 	change  : _CHANGE_ \
 }
 
@@ -247,10 +245,10 @@ OPTIONLIST_DEC(scrlcd)
 	display : menuitem_display_info, \
 }
 
-#define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, false, true,  false, _ON_CHANGE_)
-#define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, false, true,  true,  _ON_CHANGE_)
-#define MENUITEM_EVEAEB(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, false, false, true,  _ON_CHANGE_)
-#define MENUITEM_EVINFO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EV(_NAME_, _VALUE_, true,  true,  false, _ON_CHANGE_)
+#define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, false, true,  false, _ON_CHANGE_)
+#define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, false, true,  true,  _ON_CHANGE_)
+#define MENUITEM_EVEAEB(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, false, false, true,  _ON_CHANGE_)
+#define MENUITEM_EVINFO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, true,  true,  false, _ON_CHANGE_)
 
 #define MENUITEM_BASEISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, true,  _ON_CHANGE_)
 #define MENUITEM_FULLISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, false, _ON_CHANGE_)
@@ -278,9 +276,10 @@ OPTIONLIST_DEC(scrlcd)
 #define MENUITEM_INFTIME(_NAME_, _VALUE_)              MENUITEM_TIME(_NAME_, _VALUE_, true,     1,   100,   1,   5, NULL)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_ev   (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_ec   (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_av   (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_tv   (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display_bulb (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_iso  (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_int  (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_time (const type_MENUITEM *item, char *buffer, const int length);
@@ -288,18 +287,20 @@ extern void menuitem_display_enum (const type_MENUITEM *item, char *buffer, cons
 extern void menuitem_display_info (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_sub  (const type_MENUITEM *item, char *buffer, const int length);
 
-extern void menuitem_inc_ev   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_ec   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_av   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_tv   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_bulb (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_iso  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_int  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_flen (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_enum (const type_MENUITEM *item, const int repeating);
 extern void menuitem_inc_sub  (const type_MENUITEM *item, const int repeating);
 
-extern void menuitem_dec_ev   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_ec   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_av   (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_tv   (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_bulb (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_iso  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_int  (const type_MENUITEM *item, const int repeating);
 extern void menuitem_dec_flen (const type_MENUITEM *item, const int repeating);

@@ -115,11 +115,11 @@ void menu_params_apply_iso(const type_MENUITEM *item) {
 }
 
 void menu_params_apply_av_comp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_AV_COMP, 1, *item->parm.menuitem_ev.value);
+	send_to_intercom(IC_SET_AV_COMP, 1, *item->parm.menuitem_ec.value);
 }
 
 void menu_params_apply_efcomp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_EFCOMP, 1, *item->parm.menuitem_ev.value);
+	send_to_intercom(IC_SET_EFCOMP, 1, *item->parm.menuitem_ec.value);
 }
 
 void menu_params_apply_cf_emit_flash(const type_MENUITEM *item) {
@@ -127,7 +127,7 @@ void menu_params_apply_cf_emit_flash(const type_MENUITEM *item) {
 }
 
 void menu_params_apply_ae_bkt(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_AE_BKT, 1, *item->parm.menuitem_ev.value);
+	send_to_intercom(IC_SET_AE_BKT, 1, *item->parm.menuitem_ec.value);
 }
 
 void menu_params_apply_color_temp(const type_MENUITEM *item) {

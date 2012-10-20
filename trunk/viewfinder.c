@@ -26,7 +26,7 @@ void viewfinder_right() {
 	if (settings.autoiso_enable) {
 		// AutoISO + M => change exposure compensation
 		if (DPData.ae == AE_MODE_M)
-			viewfinder_change_evc(ev_inc(status.ev_comp));
+			viewfinder_change_evc(ec_inc(status.ev_comp));
 	} else if (settings.iso_in_viewfinder) {
 		// Only for creative modes
 		if (DPData.ae < AE_MODE_AUTO)
@@ -38,7 +38,7 @@ void viewfinder_left() {
 	if (settings.autoiso_enable) {
 		// AutoISO + M => change exposure compensation
 		if (DPData.ae == AE_MODE_M)
-			viewfinder_change_evc(ev_dec(status.ev_comp));
+			viewfinder_change_evc(ec_dec(status.ev_comp));
 	} else if (settings.iso_in_viewfinder) {
 		// Only for creative modes
 		if (DPData.ae < AE_MODE_AUTO)
