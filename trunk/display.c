@@ -11,10 +11,11 @@
 
 #include "main.h"
 
+#include "bmp.h"
+#include "exposure.h"
 #include "settings.h"
 #include "utils.h"
 
-#include "bmp.h"
 #include "display.h"
 
 void display_refresh_meteringmode();
