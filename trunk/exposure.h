@@ -11,11 +11,25 @@ typedef   signed char ec_t;
 typedef unsigned char ev_t;
 typedef unsigned char av_t;
 typedef unsigned char tv_t;
+typedef unsigned char iso_t;
 
 #define EV_CODE(val, sub)  (0010 * (val) + (sub))
 
 #define EV_VAL(code)  ((code) / 0010)
 #define EV_SUB(code)  ((code) - 0010 * EV_VAL(code))
+
+#define EC_MIN EV_CODE(+6, 0)  // +6EV
+#define EC_MAX EV_CODE(-6, 0)  // -6EV
+
+#define TV_MIN EV_CODE( 2, 0)  // 30"
+#define TV_MAX EV_CODE(23, 0)  // 1/4000s
+
+#define BULB_MIN 0040  // 30'
+#define BULB_MAX 0330  // 1/4000s
+
+#define ISO_MIN EV_CODE( 9, 0)
+#define ISO_MAX EV_CODE(13, 0)
+#define ISO_EXT EV_CODE(13, 7)
 
 extern ec_t ec_normalize(ec_t ec);
 
@@ -44,12 +58,12 @@ extern tv_t bulb_prev(tv_t tv);
 extern void tv_print  (char *dest, tv_t tv);
 extern void bulb_print(char *dest, tv_t tv);
 
-extern int iso_roll(int iso);
-extern int iso_next(int iso);
-extern int iso_prev(int iso);
-extern int iso_inc(int iso);
-extern int iso_dec(int iso);
+extern iso_t iso_roll(iso_t iso);
+extern iso_t iso_next(iso_t iso);
+extern iso_t iso_prev(iso_t iso);
+extern iso_t iso_inc(iso_t iso);
+extern iso_t iso_dec(iso_t iso);
 
-extern void iso_print(char *dest, int code);
+extern void iso_print(char *dest, iso_t code);
 
 #endif /* EXPOSURE_H_ */

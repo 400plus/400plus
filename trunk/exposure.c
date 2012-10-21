@@ -90,13 +90,13 @@ ec_t ec_normalize(ec_t ec) {
 ec_t ec_inc(ec_t ec) {
 	ec = ec_normalize(ec_normalize(ec) + (DPData.cf_explevel_inc_third ? 0004 : 0003));
 
-	return MIN(ec, +0060); // +6 EV
+	return MIN(ec, EC_MAX);
 }
 
 ec_t ec_dec(ec_t ec) {
 	ec = ec_normalize(ec_normalize(ec) - (DPData.cf_explevel_inc_third ? 0004 : 0003));
 
-	return MAX(ec, -0060); // -6 EV
+	return MAX(ec, EC_MIN);
 }
 
 ec_t ec_add(ec_t ying, ec_t yang) {
@@ -204,13 +204,13 @@ void av_print(char *dest, av_t av) {
 tv_t tv_add(tv_t ying, tv_t yang) {
 	tv_t tv = ev_normalize(ying + yang);
 
-	return MIN(tv, 0230); // 1/4000s
+	return MIN(tv, TV_MAX); // 1/4000s
 }
 
 tv_t tv_sub(tv_t ying, tv_t yang) {
 	tv_t tv = ev_normalize(ying - yang);
 
-	return MAX(tv, 0020); // 30s
+	return MAX(tv, TV_MIN); // 30s
 }
 
 tv_t tv_inc(tv_t tv) {
@@ -224,13 +224,13 @@ tv_t tv_dec(tv_t tv) {
 tv_t bulb_next(tv_t tv) {
 	tv += 0010;
 
-	return MIN(tv, 0100 + 0230); // 1/4000s
+	return MIN(tv, BULB_MAX);
 }
 
 tv_t bulb_prev(tv_t tv) {
 	tv -= 0010;
 
-	return MAX(tv, 0100 - 0040); // 32'
+	return MAX(tv, BULB_MIN);
 }
 
 void tv_print(char *dest, tv_t tv) {
@@ -270,34 +270,34 @@ void bulb_print(char *dest, tv_t tv) {
 
 /* ISO related --------------------------------------------------------- */
 
-int iso_roll(int iso) {
-	iso = (iso & 0xF8) | ((iso + 1) & 0x07);
+iso_t iso_roll(iso_t iso) {
+	iso = EV_CODE(EV_VAL(iso), (EV_SUB(iso) + 1) % 8);
 
-	return MIN(iso, 0x70);
+	return MIN(iso, ISO_EXT);
 }
 
-int iso_next(int iso) {
-	iso = (iso & 0xF8) + 0x08;
+iso_t iso_next(iso_t iso) {
+	iso = EV_CODE(EV_VAL(iso) + 1, 0);
 
-	return MIN(iso, 0x68);
+	return MIN(iso, ISO_MAX);
 }
 
-int iso_prev(int iso) {
-	iso = (iso & 0xF8) - 0x08;
+iso_t iso_prev(iso_t iso) {
+	iso = EV_CODE(EV_VAL(iso) - 1, 0);
 
-	return MAX(iso, 0x48);
+	return MAX(iso, ISO_MIN);
 }
 
-int iso_inc(int iso) {
-	iso = iso + 0x01;
+iso_t iso_inc(iso_t iso) {
+	iso++;
 
-	return MIN(iso, 0x6F);
+	return MIN(iso, ISO_EXT);
 }
 
-int iso_dec(int iso) {
-	iso = iso - 0x01;
+iso_t iso_dec(iso_t iso) {
+	iso--;
 
-	return MAX(iso, 0x48);
+	return MAX(iso, ISO_MIN);
 }
 
 /**
@@ -307,11 +307,11 @@ int iso_dec(int iso) {
  * version, as the correct algorithm yields _uglier_ numbers.
  */
 
-void iso_print(char *dest, int code) {
+void iso_print(char *dest, iso_t code) {
 	int iso;
 
-	int base = ((code & 0x38) >> 3) - 1;
-	int mult =  (code & 0x07);
+	int base = EV_VAL(code) - 9;
+	int mult = EV_SUB(code);
 
 	iso  = 100 * (1 << base);
 	iso += iso * mult / 8;
