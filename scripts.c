@@ -312,7 +312,7 @@ void action_ext_aeb() {
 				if (DPData.tv_val != TV_VAL_BULB)
 					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
-				shutter_release_bulb(1 << ((0110 - tv_val) / 0010));
+				shutter_release_bulb(60 * 1 << ((0110 - tv_val) / 0010));
 			} else {
 				send_to_intercom(IC_SET_TV_VAL, 1, tv_val - 0100);
 				shutter_release();
