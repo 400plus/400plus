@@ -9,6 +9,7 @@
 #include "macros.h"
 #include "main.h"
 
+#include "button.h"
 #include "languages.h"
 #include "menupage.h"
 #include "menuitem.h"
@@ -22,20 +23,7 @@ dpr_data_t menu_DPData;
 
 void *menu_handler;
 
-type_MENU     *current_menu;
-
-type_ACTION callbacks_standard[] = {
-	{GUI_BUTTON_MENU,           true,  {menu_event_menu}},
-//	{GUI_BUTTON_DISP,           true,  {menu_event_disp}},
-	{GUI_BUTTON_JUMP,           true,  {menu_event_jump}},
-	{GUI_BUTTON_PLAY,           true,  {menu_event_play}},
-	{GUI_BUTTON_TRASH,          true,  {menu_event_trash}},
-	{GUI_BUTTON_UP,             true,  {menu_event_up}},
-	{GUI_BUTTON_DOWN,           true,  {menu_event_down}},
-	{GUI_BUTTON_ZOOM_OUT_PRESS, true,  {menu_event_out}},
-	{GUI_BUTTON_ZOOM_IN_PRESS,  true,  {menu_event_in}},
-	END_OF_LIST
-};
+type_MENU *current_menu;
 
 void menu_initialize();
 void menu_destroy();
@@ -136,7 +124,7 @@ void menu_finish() {
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	int ret;
-	type_ACTION *action;
+	type_BUTTON button;
 
 // FW:FF915990
 // this seems to be one of the addresses where the handler is called
@@ -150,29 +138,30 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 	//debug_log("_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
 #endif
 
-	// Loop over all the actions from this action chain
-	for (action = callbacks_standard; ! IS_EOL(action); action++) {
-
-		// Check whether this action corresponds to the event received
-		if (action->button == event) {
-
-			// Launch the defined task
-			if (action->task[0])
-				action->task[0]();
-
-			// Decide how to respond to this button
-			if (action->block)
-				return false;
-			else
-				goto pass_event;
-		}
+	switch(event) {
+	case GUI_BUTTON_MENU            : button = BUTTON_MENU;     break;
+//	case GUI_BUTTON_DISP            : button = BUTTON_DISP;     break;
+	case GUI_BUTTON_JUMP            : button = BUTTON_JUMP;     break;
+	case GUI_BUTTON_PLAY            : button = BUTTON_PLAY;     break;
+	case GUI_BUTTON_TRASH           : button = BUTTON_TRASH;    break;
+	case GUI_BUTTON_UP              : button = BUTTON_UP;       break;
+	case GUI_BUTTON_DOWN            : button = BUTTON_DOWN;     break;
+	case GUI_BUTTON_ZOOM_OUT_PRESS  : button = BUTTON_ZOOM_OUT; break;
+	case GUI_BUTTON_ZOOM_IN_PRESS   : button = BUTTON_ZOOM_IN;  break;
+	default:
+		goto pass_event;
 	}
+
+	if (button_handler(button))
+		return false;
 
 pass_event:
 	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+
 #ifdef ENABLE_DEBUG
 	printf_log(1,6, "_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
 #endif
+
 	return ret;
 }
 

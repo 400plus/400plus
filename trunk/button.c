@@ -8,20 +8,35 @@
 
 #include "macros.h"
 #include "main.h"
+#include "menu.h"
 #include "firmware.h"
 
 #include "tasks.h"
 #include "button.h"
 
 type_ACTION button_actions_main[] = {
-	{BUTTON_JUMP,  true, {button_jump_task}},
-	{BUTTON_TRASH, true, {button_trash_task}},
+	{BUTTON_JUMP,  true,  {button_jump_task}},
+	{BUTTON_TRASH, true,  {button_trash_task}},
+	END_OF_LIST
+};
+
+type_ACTION button_actions_400plus[] = {
+	{BUTTON_MENU,     true,  {menu_event_menu}},
+//	{BUTTON_DISP,     true,  {menu_event_disp}},
+	{BUTTON_JUMP,     true,  {menu_event_jump}},
+	{BUTTON_PLAY,     true,  {menu_event_play}},
+	{BUTTON_TRASH,    true,  {menu_event_trash}},
+	{BUTTON_UP,       true,  {menu_event_up}},
+	{BUTTON_DOWN,     true,  {menu_event_down}},
+	{BUTTON_ZOOM_OUT, true,  {menu_event_out}},
+	{BUTTON_ZOOM_IN,  true,  {menu_event_in}},
 	END_OF_LIST
 };
 
 type_CHAIN button_chains[] = {
-	{GUIMODE_OLC, button_actions_main},
-	{GUIMODE_OFF, button_actions_main},
+	{GUIMODE_OLC,     button_actions_main},
+	{GUIMODE_OFF,     button_actions_main},
+	{GUIMODE_400PLUS, button_actions_400plus},
 	END_OF_LIST
 };
 
