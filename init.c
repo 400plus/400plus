@@ -33,8 +33,12 @@ void COPY() {
 
 // entry routine, entry.S calls this, so we enter here after power up.
 void my_romStart(int startType) {
-	unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0 >> 2);
-	my_usrInit(startType);
+	if ((*(int*)BTN_ADDR_TRASH == BTN_PRESSED)) {
+		romStart(startType);
+	} else {
+		unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0 >> 2);
+		my_usrInit(startType);
+	}
 }
 
 int my_usrInit(int startType) {
@@ -153,9 +157,8 @@ void my_task_Startup() {
 	dmSetPrintLevel(hDbgMgr, 0xFF, 0);
 #endif
 
-	int disable_hack = (*(int*)BTN_ADDR_TRASH == BTN_PRESSED);
-	if (!disable_hack) initialize(); // task_dispatcher
-
+	initialize();
+	
 	sub_FFAFE5BC();
 	SetAssert();
 	EventProcedureServiceInit();
@@ -188,11 +191,7 @@ void my_task_Startup() {
 
 	SetAssertProc(AssertPrepare, 0);
 
-	if (disable_hack) {
-		InitializeIntercom();
-	} else {
-		my_InitializeIntercom(); // InitializeIntercom();
-	}
+	my_InitializeIntercom(); // InitializeIntercom();
 
 	AfeGainCmosParamInit();
 
@@ -261,11 +260,7 @@ void my_task_Startup() {
 
 	RegisterISR_EMERGENCY_CARDDOOR();
 
-	if (disable_hack) {
-		MainCtrlInit();
-	} else {
-		my_MainCtrlInit();
-	}
+	my_MainCtrlInit();
 
 	CaptureSemaphoreInit();
 
@@ -345,11 +340,7 @@ void my_task_Startup() {
 
 	CreateMemoryManagerPubInstance();
 
-	if (disable_hack) {
-		GUIInit();
-	} else {
-		my_GUIInit(); //GUIInit();
-	}
+	my_GUIInit(); //GUIInit();
 	GUIApiCalls();
 
 	InitializeImagePlayer();
