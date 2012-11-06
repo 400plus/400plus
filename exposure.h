@@ -18,8 +18,11 @@ typedef unsigned char iso_t;
 #define EV_VAL(code)  ((code) / 0010)
 #define EV_SUB(code)  ((code) - 0010 * EV_VAL(code))
 
-#define EC_MIN EV_CODE(-6, 0)  // +6EV
-#define EC_MAX EV_CODE(+6, 0)  // -6EV
+#define EV_TRUNC(code) EV_CODE(EV_VAL(code), 0)
+
+#define EC_ZERO EV_CODE( 0, 0)  //  0EV
+#define EC_MIN  EV_CODE(-6, 0)  // +6EV
+#define EC_MAX  EV_CODE(+6, 0)  // -6EV
 
 #define TV_MIN EV_CODE( 2, 0)  // 30"
 #define TV_MAX EV_CODE(23, 0)  // 1/4000s

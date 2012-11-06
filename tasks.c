@@ -170,7 +170,7 @@ void toggle_AEB() {
 }
 
 void restore_iso() {
-	send_to_intercom(IC_SET_ISO, 2, DPData.iso & 0xF8);
+	send_to_intercom(IC_SET_ISO, 2, EV_TRUNC(DPData.iso));
 }
 
 void restore_wb() {
@@ -184,13 +184,27 @@ void restore_metering() {
 }
 
 void autoiso() {
-	int mask = 0xF8, ev = 0x00, measure = 0x00, limit = 0x00;
-	int miniso = settings.autoiso_miniso;
-	int maxiso = settings.autoiso_maxiso;
+	ev_t limit;
 
-	int newiso = DPData.iso;
+	ec_t ev      = EC_ZERO;
+	ec_t measure = EC_ZERO;
+
+	iso_t newiso = DPData.iso;
 
 	switch(DPData.ae) {
+	case AE_MODE_M:
+		ev = status.measured_ev - status.ev_comp;
+
+		if (ev != EC_ZERO) {
+			newiso = (DPData.iso - ev);
+			newiso = MIN(newiso, ISO_EXT);
+			newiso = MAX(newiso, ISO_MIN);
+
+			send_to_intercom(IC_SET_ISO, 2, newiso);
+			ENQUEUE_TASK(restore_display);
+		}
+
+		return;
 	case AE_MODE_P:
 	case AE_MODE_AV:
 		measure = status.measured_tv;
@@ -200,33 +214,24 @@ void autoiso() {
 		measure = status.measured_av;
 		limit   = settings.autoiso_maxav;
 		break;
-	case AE_MODE_M:
-		mask   = 0xFF;
-		miniso = 0x48; // ISO  100
-		maxiso = 0x6F; // ISO 3000
-
-		// TODO: Fix this shit!
-		ev  = (status.measured_ev & 0x80) ? (0x100 - status.measured_ev) : -status.measured_ev;
-		ev -= (status.ev_comp     & 0x80) ? (0x100 - status.ev_comp    ) : -status.ev_comp;
-		break;
 	default:
 		break;
 	}
 
-	if (measure != 0x00) {
+	if (measure != EC_ZERO) {
 		if (measure < limit)
-			ev = (limit - measure) + 0x08;
-		else if (measure >= limit + 0x08)
+			ev = (limit - measure) + 0010;
+		else if (measure >= limit + 0010)
 			ev = (limit - measure);
 	}
 
-	if (ev != 0x00) {
+	if (ev != EC_ZERO) {
 		newiso = (DPData.iso + ev);
 
-		newiso = MIN(newiso, maxiso);
-		newiso = MAX(newiso, miniso);
+		newiso = MIN(newiso, settings.autoiso_maxiso);
+		newiso = MAX(newiso, settings.autoiso_miniso);
 
-		send_to_intercom(IC_SET_ISO, 2, newiso & mask);
+		send_to_intercom(IC_SET_ISO, 2, EV_TRUNC(newiso));
 		ENQUEUE_TASK(restore_display);
 	}
 }

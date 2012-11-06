@@ -7,6 +7,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "exposure.h"
 #include "scripts.h"
 
 // Action definitions
@@ -40,12 +41,12 @@ typedef struct {
 	int         ignore_ae_change;  // Ignore next AE change
 	int         booting;           // Camera is still booting up
 	int         measuring;         // Camera is measuring the scene
-	int         measured_tv;       // Shutter speed as proposed by the metering
-	int         measured_av;       // Aperture as proposed by the metering
-	int         measured_ev;       // Exposure deviation as measured by the camera
+	tv_t        measured_tv;       // Shutter speed as proposed by the metering
+	av_t        measured_av;       // Aperture as proposed by the metering
+	ev_t        measured_ev;       // Exposure deviation as measured by the camera
 	int         last_shot_tv;      // Shutter speed of the last shot taken
 	int         last_shot_av;      // Aperture of the last shot taken
-	int         ev_comp;           // Exposure compensation for AutoISO + M
+	ec_t        ev_comp;           // Exposure compensation for AutoISO + M
 	type_SCRIPT last_script;       // Last executed script
 } type_STATUS;
 
