@@ -166,7 +166,7 @@ void toggle_CfFlashSyncRear() {
 }
 
 void toggle_AEB() {
-	send_to_intercom(IC_SET_AE_BKT, 1, ((DPData.ae_bkt & 0xF8) + 0x08) % 0x18);
+	send_to_intercom(IC_SET_AE_BKT, 1, (EV_TRUNC(DPData.ae_bkt) + 0010) % 0030);
 }
 
 void restore_iso() {
