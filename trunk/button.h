@@ -8,6 +8,7 @@
 #define BUTTON_H_
 
 typedef enum {
+	BUTTON_NONE,
 	BUTTON_DP,
 	BUTTON_DISP,
 	BUTTON_MENU,
@@ -24,9 +25,10 @@ typedef enum {
 	BUTTON_UP,
 	BUTTON_DOWN,
 	BUTTON_RIGHT,
-	BUTTON_LEFT
+	BUTTON_LEFT,
+	BUTTON_COUNT,
 } type_BUTTON;
 
-int button_handler(type_BUTTON button);
+int button_handler(type_BUTTON button, int is_button_down);
 
 #endif
