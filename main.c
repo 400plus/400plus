@@ -11,6 +11,7 @@
 #include "firmware.h"
 
 #include "af_patterns.h"
+#include "button.h"
 #include "display.h"
 #include "languages.h"
 #include "menu.h"
@@ -28,7 +29,7 @@ int *task_queue;
 
 // Global status
 type_STATUS status = {
-	button_down       : false,
+	button_down       : BUTTON_NONE,
 	script_running    : false,
 	script_stopping   : false,
 	iso_in_viewfinder : false,
@@ -38,75 +39,6 @@ type_STATUS status = {
 	booting           : true,
 	measuring         : false,
 	ev_comp           : 0x00,
-};
-
-// Action definitions
-type_ACTION actions_main[]  = {
-	{IC_BUTTON_UP,    false,  {restore_iso}},
-	{IC_BUTTON_DOWN,  false,  {restore_wb}},
-	{IC_BUTTON_LEFT,  false,  {restore_metering}},
-	{IC_BUTTON_DP,    true,   {menu_main_start}},
-	{IC_BUTTON_AV,    false,  {toggle_img_format}},
-	{IC_BUTTON_DISP,  true,   {display_brightness}},
-	END_OF_LIST
-};
-
-type_ACTION actions_400plus[]  = {
-	{IC_BUTTON_SET,        true,  {menu_event_set}},
-	{IC_BUTTON_DIAL_LEFT,  true,  {menu_event_prev}},
-	{IC_BUTTON_DIAL_RIGHT, true,  {menu_event_next}},
-	{IC_BUTTON_RIGHT,      true,  {menu_event_right}},
-	{IC_BUTTON_LEFT,       true,  {menu_event_left}},
-	{IC_BUTTON_DP,         true,  {menu_event_dp}},
-	{IC_BUTTON_AV,         true,  {menu_event_av, menu_event_av_up}},
-	{IC_DIALOGOFF,         false, {menu_event_finish}},
-	END_OF_LIST
-};
-
-type_ACTION actions_meter[] = {
-	{IC_BUTTON_DP,    true, {set_metering_spot}},
-	END_OF_LIST
-};
-
-type_ACTION actions_wb[] = {
-	{IC_BUTTON_DP,    true, {set_whitebalance_colortemp}},
-	END_OF_LIST
-};
-
-type_ACTION actions_iso[] = {
-	{IC_BUTTON_DP,    true,  {autoiso_enable}},
-	{IC_BUTTON_SET,   false, {autoiso_disable}},
-	END_OF_LIST
-};
-
-type_ACTION actions_face[] = {
-	{IC_BUTTON_UP,    true, {viewfinder_up,    viewfinder_end}},
-	{IC_BUTTON_DOWN,  true, {}},
-	{IC_BUTTON_RIGHT, true, {viewfinder_right, viewfinder_end}},
-	{IC_BUTTON_LEFT,  true, {viewfinder_left,  viewfinder_end}},
-	END_OF_LIST
-};
-
-type_ACTION actions_af[] = {
-	{IC_BUTTON_SET,   true, {afp_center}},
-	{IC_BUTTON_UP,    true, {afp_top}},
-	{IC_BUTTON_DOWN,  true, {afp_bottom}},
-	{IC_BUTTON_RIGHT, true, {afp_right}},
-	{IC_BUTTON_LEFT,  true, {afp_left}},
-	{IC_BUTTON_DISP,  true, {}},
-	END_OF_LIST
-};
-
-type_CHAIN intercom_chains[] = {
-	{GUIMODE_OLC,       actions_main},
-	{GUIMODE_OFF,       actions_main},
-	{GUIMODE_400PLUS,   actions_400plus},
-	{GUIMODE_METER,     actions_meter},
-	{GUIMODE_WB,        actions_wb},
-	{GUIMODE_ISO,       actions_iso},
-	{GUIMODE_FACE,      actions_face},
-	{GUIMODE_AFPATTERN, actions_af},
-	END_OF_LIST
 };
 
 void task_dispatcher();
@@ -125,157 +57,131 @@ void initialize_display() {
 }
 
 void intercom_proxy(const int handler, char *message) {
-	int gui_mode;
-	int message_len = message[0];
-	int event       = message[1];
-	int param       = message_len > 1 ? message[2] : false;
-	int button_down = param;
+	int button_down = true;
 
-	type_CHAIN  *chain;
-	type_ACTION *action;
+	type_BUTTON button;
 
 #ifdef ENABLE_DEBUG
 	message_logger(message);
 #endif
 
 	// Fast path for the case of a running script
-	if (status.script_running) {
-		switch(event) {
+	if (status.script_running)
+		switch(message[1]) {
 		case IC_SHUTDOWN: // Camera has shut down
 			script_restore();
-			break;
-		case IC_BUTTON_DP: // DP Button stops the script
-			status.script_stopping = true;
-			goto block_message;
-			break;
+			goto pass_message;
 		case IC_SHOOTING: // Shot taken while script is running
 			status.last_shot_tv = message[2];
 			status.last_shot_av = message[3];
-			break;
-		}
-
-		// Notice we jump to pass_message immediately
-		goto pass_message;
-	}
-
-	// Status-independent events and special cases
-	switch (event) {
-	case IC_SETTINGS_0: // Settings changed (begin of sequence)
-		if (status.ignore_ae_change) {
-			// Ignore first AE change after loading a preset, as it generates this same event
-			status.ignore_ae_change = false;
-		} else {
-			// Handle preset recall when dial moved to A-DEP
-			status.last_preset  = false;
-			status.main_dial_ae = param;
-
-			if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
-				if (status.booting) {
-					ENQUEUE_TASK(preset_recall);
-				} else {
-					ENQUEUE_TASK(preset_recall_full);
-				}
-			}
-		}
-		goto pass_message;
-	case IC_SETTINGS_3: // Settings changed (end of sequence)
-		// Restore display
-		ENQUEUE_TASK(restore_display);
-		goto pass_message;
-	case IC_DIALOGON: // Entering a dialog
-		status.afp_dialog = (param == IC_SET_AF);
-		goto pass_message;
-	case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
-		if (status.afp_dialog) {
-			// Open Extended AF-Point selection dialog
-			message[1] = IC_AFPDLGON;
-			status.afp_dialog = false;
-			ENQUEUE_TASK(afp_enter);
-		}
-		goto pass_message;
-	case IC_SET_LANGUAGE:
-		ENQUEUE_TASK(lang_pack_config);
-		goto pass_message;
-	case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
-		event = (param & 0x80) ? IC_BUTTON_DIAL_LEFT : IC_BUTTON_DIAL_RIGHT;
-		button_down = false;
-		break;
-	case IC_MEASURING:
-		status.measuring = param;
-		ENQUEUE_TASK(restore_display);
-		break;
-	case IC_MEASUREMENT:
-		if (status.measuring) {
-			// TODO: Generalize this
-			status.measured_tv = message[2];
-			status.measured_av = message[3];
-			status.measured_ev = message[4];
-
-			if (settings.autoiso_enable)
-				ENQUEUE_TASK(autoiso);
-		}
-		break;
-	}
-
-	// Check for button-up events, even if the current GUI mode does not match
-	if (status.button_down && status.button_down == event && !button_down) {
-		status.button_down = false;
-
-		// Launch the defined task
-		if (status.button_up_task)
-			ENQUEUE_TASK(status.button_up_task);
-
-		// Decide how to respond to this button
-		if (status.button_up_block)
-			goto block_message;
-		else
 			goto pass_message;
-	}
-
-	// Use fictitious GUI modes so everything else fits nicely
-	if (FLAG_FACE_SENSOR && FLAG_GUI_MODE == GUIMODE_OFF)
-		gui_mode = GUIMODE_FACE;
-	else if(status.menu_running)
-		gui_mode = GUIMODE_400PLUS;
+		case IC_BUTTON_DP: // DP Button stops the script
+			status.script_stopping = true;
+			goto block_message;
+		default:
+			goto pass_message;
+		}
 	else
-		gui_mode = FLAG_GUI_MODE;
+		// Status-independent events and special cases
+		switch (message[1]) {
+		case IC_SET_LANGUAGE:
+			ENQUEUE_TASK(lang_pack_config);
+			goto pass_message;
+		case IC_DIALOGON: // Entering a dialog
+			status.afp_dialog = (message[2] == IC_SET_AF);
+			goto pass_message;
+		case IC_DIALOGOFF:
+			if (status.menu_running)
+				ENQUEUE_TASK(menu_event_finish);
+			goto pass_message;
+		case IC_MEASURING:
+			status.measuring = message[2];
+			ENQUEUE_TASK(restore_display);
+			goto pass_message;
+		case IC_MEASUREMENT:
+			if (status.measuring) {
+				status.measured_tv = message[2];
+				status.measured_av = message[3];
+				status.measured_ev = message[4];
 
-	// Loop over all the action chains
-	for(chain = intercom_chains; ! IS_EOL(chain); chain++) {
+				if (settings.autoiso_enable)
+					ENQUEUE_TASK(autoiso);
+			}
+			goto pass_message;
+		case IC_SETTINGS_0: // Settings changed (begin of sequence)
+			if (status.ignore_ae_change) {
+				// Ignore first AE change after loading a preset, as it generates this same event
+				status.ignore_ae_change = false;
+			} else {
+				// Handle preset recall when dial moved to A-DEP
+				status.last_preset  = false;
+				status.main_dial_ae = message[2];
 
-		// Check whether this action chain corresponds to the current GUI mode
-		if (chain->type == gui_mode) {
-
-			// Loop over all the actions from this action chain
-			for (action = chain->actions; ! IS_EOL(action); action++) {
-
-				// Check whether this action corresponds to the event received
-				if (action->button == event) {
-
-					// Consider buttons with "button down" and "button up" events
-					// and save "button up" parameters for later use
-					if (button_down) {
-						status.button_down     = event;
-						status.button_up_task  = action->task[1];
-						status.button_up_block = action->block;
+				if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
+					if (status.booting) {
+						ENQUEUE_TASK(preset_recall);
+					} else {
+						ENQUEUE_TASK(preset_recall_full);
 					}
-
-					// Launch the defined task
-					if (action->task[0])
-						ENQUEUE_TASK(action->task[0]);
-
-					// Decide how to respond to this button
-					if (action->block)
-						goto block_message;
-					else
-						goto pass_message;
 				}
 			}
-
-			// Once we find a matching action chain, we look no futher
-			break;
+			goto pass_message;
+		case IC_SETTINGS_3: // Settings changed (end of sequence)
+			// Restore display
+			ENQUEUE_TASK(restore_display);
+			goto pass_message;
+		case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
+			if (status.afp_dialog) {
+				// Open Extended AF-Point selection dialog
+				message[1] = IC_AFPDLGON;
+				status.afp_dialog = false;
+				ENQUEUE_TASK(afp_enter);
+			}
+			goto pass_message;
+		case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
+			button = (message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT;
+			goto handle_button;
+		case IC_BUTTON_DISP:
+			button = BUTTON_DISP;
+			goto handle_button;
+		case IC_BUTTON_SET:
+			button = BUTTON_SET;
+			goto handle_button;
+		case IC_BUTTON_UP:
+			if (!status.menu_running) {
+				button = BUTTON_UP;
+				button_down = message[2];
+			}
+			goto handle_button;
+		case IC_BUTTON_DOWN:
+			if (!status.menu_running) {
+				button = BUTTON_DOWN;
+				button_down = message[2];
+			}
+			goto handle_button;
+		case IC_BUTTON_RIGHT:
+			button = BUTTON_RIGHT;
+			button_down = message[2];
+			goto handle_button;
+		case IC_BUTTON_LEFT:
+			button = BUTTON_LEFT;
+			button_down = message[2];
+			goto handle_button;
+		case IC_BUTTON_DP:
+			button = BUTTON_DP;
+			goto handle_button;
+		case IC_BUTTON_AV:
+			button = BUTTON_AV;
+			button_down = message[2];
+			goto handle_button;
+		default:
+			goto pass_message;
 		}
-	}
+
+handle_button:
+	if (button != BUTTON_NONE)
+		if (button_handler(button, button_down))
+			goto block_message;
 
 pass_message:
 	IntercomHandler(handler, message);

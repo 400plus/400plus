@@ -152,7 +152,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 		goto pass_event;
 	}
 
-	if (button_handler(button))
+	if (button_handler(button, true))
 		return false;
 
 pass_event:

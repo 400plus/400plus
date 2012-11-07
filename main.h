@@ -35,8 +35,6 @@ typedef struct {
 	int         iso_in_viewfinder; // ISO is being displayed in the viewfinder
 	int         afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int         main_dial_ae;      // AE mode selected in the main dial
-	type_TASK   button_up_task;    // Task that must be executed when the current button is released
-	int         button_up_block;   // Response when the current button is released
 	int         last_preset;       // Last preset used
 	int         ignore_ae_change;  // Ignore next AE change
 	int         booting;           // Camera is still booting up
