@@ -180,13 +180,13 @@ void start_debug_mode() {
 	time(&t);
 	localtime_r(&t, &tm);
 
-	if (settings.logfile_mode == 1) // new
+	if (settings.logfile_mode == LOGFILE_MODE_NEW)
 		sprintf(filename, "A:/%02d%02d%02d%02d.LOG", tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min);
 
 	// O_APPEND is not working in VxWorks, so we seek to the end later
 	file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644);
 	if(file > 0) {
-		if (settings.logfile_mode == 2) // append
+		if (settings.logfile_mode == LOGFILE_MODE_APPEND)
 			FIO_SeekFile(file, 0, 2/*SEEK_END*/);
 
 		// redirect stdout and stderr to our file

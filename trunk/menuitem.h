@@ -8,11 +8,7 @@
 #define MENUITEM_H_
 
 #include "menu.h"
-
-typedef struct {
-	int  length;
-	char **data;
-} type_LIST;
+#include "menuoptions.h"
 
 typedef void(*type_MENUITEM_TASK)(type_MENUITEM *item);
 
@@ -81,22 +77,6 @@ struct MENUITEM {
 	void (*action) (const type_MENUITEM *item);
 	void (*change) (const type_MENUITEM *item);
 };
-
-#define OPTIONLIST_DEC(NAME)      extern type_LIST _##NAME##_LIST_;
-#define OPTIONLIST_REF(NAME)      (&_##NAME##_LIST_)
-#define OPTIONLIST_DEF(NAME, ...) static char *_##NAME##_STRINGS_[]={__VA_ARGS__};  type_LIST _##NAME##_LIST_={length:LENGTH(_##NAME##_STRINGS_),data:_##NAME##_STRINGS_};
-
-OPTIONLIST_DEC(bool)
-OPTIONLIST_DEC(delay)
-OPTIONLIST_DEC(flash)
-OPTIONLIST_DEC(action)
-OPTIONLIST_DEC(logfile)
-OPTIONLIST_DEC(btnactn)
-OPTIONLIST_DEC(direction)
-OPTIONLIST_DEC(languages)
-OPTIONLIST_DEC(vformat)
-OPTIONLIST_DEC(scrind)
-OPTIONLIST_DEC(scrlcd)
 
 #define MENUITEM_EC(_NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
 	name     : _NAME_, \
@@ -253,16 +233,16 @@ OPTIONLIST_DEC(scrlcd)
 #define MENUITEM_BASEISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, true,  _ON_CHANGE_)
 #define MENUITEM_FULLISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, false, _ON_CHANGE_)
 
-#define MENUITEM_BOOLEAN( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(bool),      _ON_CHANGE_)
-#define MENUITEM_AFFLASH( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(flash),     _ON_CHANGE_)
-#define MENUITEM_ACTION(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(action),    _ON_CHANGE_)
-#define MENUITEM_LOGFILE( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(logfile),   _ON_CHANGE_)
-#define MENUITEM_BTNACTN( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(btnactn),   _ON_CHANGE_)
-#define MENUITEM_EAEBDIR( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(direction), _ON_CHANGE_)
-#define MENUITEM_LANG(    _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(languages), _ON_CHANGE_)
-#define MENUITEM_VFORMAT( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(vformat),   _ON_CHANGE_)
-#define MENUITEM_SCRIND(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(scrind),    _ON_CHANGE_)
-#define MENUITEM_SCRLCD(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, OPTIONLIST_REF(scrlcd),    _ON_CHANGE_)
+#define MENUITEM_BOOLEAN( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_bool,      _ON_CHANGE_)
+#define MENUITEM_AFFLASH( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_flash,     _ON_CHANGE_)
+#define MENUITEM_ACTION(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_action,    _ON_CHANGE_)
+#define MENUITEM_LOGFILE( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_logfile,   _ON_CHANGE_)
+#define MENUITEM_BTNACTN( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_btnactn,   _ON_CHANGE_)
+#define MENUITEM_EAEBDIR( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_direction, _ON_CHANGE_)
+#define MENUITEM_LANG(    _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_languages, _ON_CHANGE_)
+#define MENUITEM_VFORMAT( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_vformat,   _ON_CHANGE_)
+#define MENUITEM_SCRIND(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_scrind,    _ON_CHANGE_)
+#define MENUITEM_SCRLCD(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_scrlcd,    _ON_CHANGE_)
 
 #define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, false, 1800, 11000, 100, 500, false, "%5u", _ON_CHANGE_)
 #define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, false,    0,   250,   1,  10, true,  "%3u", _ON_CHANGE_)
