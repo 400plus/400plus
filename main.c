@@ -59,7 +59,7 @@ void initialize_display() {
 void intercom_proxy(const int handler, char *message) {
 	int button_down = true;
 
-	type_BUTTON button;
+	type_BUTTON button = BUTTON_NONE;
 
 #ifdef ENABLE_DEBUG
 	message_logger(message);
