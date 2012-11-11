@@ -18,14 +18,14 @@
 #include "menu_main.h"
 #include "menu_rename.h"
 #include "presets.h"
-#include "tasks.h"
+#include "actions.h"
 #include "utils.h"
 #include "viewfinder.h"
 
 #include "main.h"
 
-// Main queues
-int *task_queue;
+// Main message queue
+int *action_queue;
 
 // Global status
 type_STATUS status = {
@@ -41,19 +41,19 @@ type_STATUS status = {
 	ev_comp           : 0x00,
 };
 
-void task_dispatcher();
+void action_dispatcher();
 void message_logger (char *message);
 
 void initialize() {
-	task_queue = (int*)CreateMessageQueue("task_queue", 0x40);
-	CreateTask("Task Dispatcher", 25, 0x2000, task_dispatcher, 0);
+	action_queue = (int*)CreateMessageQueue("action_queue", 0x40);
+	CreateTask("Action Dispatcher", 25, 0x2000, action_dispatcher, 0);
 
-	ENQUEUE_TASK(start_up);
+	enqueue_action(start_up);
 }
 
 void initialize_display() {
 	if (!status.script_running)
-		ENQUEUE_TASK(restore_display);
+		enqueue_action(restore_display);
 }
 
 void intercom_proxy(const int handler, char *message) {
@@ -85,18 +85,18 @@ void intercom_proxy(const int handler, char *message) {
 		// Status-independent events and special cases
 		switch (message[1]) {
 		case IC_SET_LANGUAGE:
-			ENQUEUE_TASK(lang_pack_config);
+			enqueue_action(lang_pack_config);
 			goto pass_message;
 		case IC_DIALOGON: // Entering a dialog
 			status.afp_dialog = (message[2] == IC_SET_AF);
 			goto pass_message;
 		case IC_DIALOGOFF:
 			if (status.menu_running)
-				ENQUEUE_TASK(menu_event_finish);
+				enqueue_action(menu_event_finish);
 			goto pass_message;
 		case IC_MEASURING:
 			status.measuring = message[2];
-			ENQUEUE_TASK(restore_display);
+			enqueue_action(restore_display);
 			goto pass_message;
 		case IC_MEASUREMENT:
 			if (status.measuring) {
@@ -105,7 +105,7 @@ void intercom_proxy(const int handler, char *message) {
 				status.measured_ev = message[4];
 
 				if (settings.autoiso_enable)
-					ENQUEUE_TASK(autoiso);
+					enqueue_action(autoiso);
 			}
 			goto pass_message;
 		case IC_SETTINGS_0: // Settings changed (begin of sequence)
@@ -119,23 +119,23 @@ void intercom_proxy(const int handler, char *message) {
 
 				if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
 					if (status.booting) {
-						ENQUEUE_TASK(preset_recall);
+						enqueue_action(preset_recall);
 					} else {
-						ENQUEUE_TASK(preset_recall_full);
+						enqueue_action(preset_recall_full);
 					}
 				}
 			}
 			goto pass_message;
 		case IC_SETTINGS_3: // Settings changed (end of sequence)
 			// Restore display
-			ENQUEUE_TASK(restore_display);
+			enqueue_action(restore_display);
 			goto pass_message;
 		case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
 			if (status.afp_dialog) {
 				// Open Extended AF-Point selection dialog
 				message[1] = IC_AFPDLGON;
 				status.afp_dialog = false;
-				ENQUEUE_TASK(afp_enter);
+				enqueue_action(afp_enter);
 			}
 			goto pass_message;
 		case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
@@ -190,14 +190,18 @@ block_message:
 	return;
 }
 
-void task_dispatcher () {
-	type_TASK task;
+void action_dispatcher () {
+	action_r action;
 
 	// Loop while receiving messages
 	for (;;) {
-		ReceiveMessageQueue(task_queue, &task, false);
-		task();
+		ReceiveMessageQueue(action_queue, &action, false);
+		action();
 	}
+}
+
+void enqueue_action(action_r action) {
+	TryPostMessageQueue(action_queue, (action), false);
 }
 
 void message_logger(char *message) {

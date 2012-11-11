@@ -14,23 +14,23 @@
 #include "display.h"
 #include "menu.h"
 #include "menu_main.h"
-#include "tasks.h"
+#include "actions.h"
 #include "utils.h"
 #include "viewfinder.h"
 
 #include "button.h"
 
 typedef struct {
-	int       block;
-	type_TASK task_press;
-	type_TASK task_release;
+	int      block;
+	action_r action_press;
+	action_r action_release;
 } reaction_r;
 
 reaction_r button_actions_main[BUTTON_COUNT] = {
 	[BUTTON_DP]    = {true,  menu_main_start},
 	[BUTTON_DISP]  = {true,  display_brightness},
-	[BUTTON_JUMP]  = {true,  button_jump_task},
-	[BUTTON_TRASH] = {true,  button_trash_task},
+	[BUTTON_JUMP]  = {true,  button_jump_action},
+	[BUTTON_TRASH] = {true,  button_trash_action},
 	[BUTTON_AV]    = {false, toggle_img_format},
 	[BUTTON_UP]    = {false, restore_iso},
 	[BUTTON_DOWN]  = {false, restore_wb},
@@ -105,8 +105,8 @@ int can_hold[BUTTON_COUNT] = {
 };
 
 int button_handler(type_BUTTON button, int is_button_down) {
-	static type_TASK   button_up_task  = NULL;         // Task that must be executed when the current button is released
-	static int         button_up_block = false;        // reaction when the current button is released
+	static action_r   button_up_action = NULL;  // Action that must be executed when the current button is released
+	static int        button_up_block  = false; // Reaction when the current button is released
 
 	int gui_mode;
 
@@ -131,17 +131,17 @@ int button_handler(type_BUTTON button, int is_button_down) {
 			if ((reaction = &chain[button]) == NULL) {
 				return false;
 			} else {
-				// Launch the defined task
-				if (reaction->task_press)
-					ENQUEUE_TASK(reaction->task_press);
+				// Launch the defined action
+				if (reaction->action_press)
+					enqueue_action(reaction->action_press);
 
 				// Consider buttons with "button down" and "button up" events
 				// and save "button up" parameters for later use
 				if (can_hold[button]) {
 					status.button_down = button;
 
-					button_up_task  = reaction->task_release;
-					button_up_block = reaction->block;
+					button_up_action = reaction->action_release;
+					button_up_block  = reaction->block;
 				}
 
 				// Decide how to respond to this button
@@ -153,9 +153,9 @@ int button_handler(type_BUTTON button, int is_button_down) {
 		if (status.button_down == button) {
 			status.button_down = BUTTON_NONE;
 
-			// Launch the defined task
-			if (button_up_task)
-				ENQUEUE_TASK(button_up_task);
+			// Launch the defined action
+			if (button_up_action)
+				enqueue_action(button_up_action);
 
 			// Decide how to respond to this button
 			return button_up_block;

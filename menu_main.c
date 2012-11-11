@@ -43,7 +43,7 @@ type_MENU menu_main = {
 	length   : LENGTH(menu_main_pages),
 	pages    : menu_main_pages,
 	ordering : settings.main_order,
-	tasks    : {
+	actions  : {
 		[MENU_EVENT_PLAY]    = menupage_drag_drop,
 		[MENU_EVENT_UP]      = menupage_up,
 		[MENU_EVENT_DOWN]    = menupage_down,
@@ -75,7 +75,7 @@ type_MENUPAGE main_list = {
 	name     : LP_WORD(L_P_400PLUS),
 	length   : LENGTH(main_list_items),
 	items    : main_list_items,
-	tasks    : {
+	actions  : {
 		[MENU_EVENT_PREV]   = list_up,
 		[MENU_EVENT_NEXT]   = list_down,
 		[MENU_EVENT_AV_UP]  = list_hide,

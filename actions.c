@@ -22,12 +22,12 @@
 #include "settings.h"
 #include "utils.h"
 
-#include "tasks.h"
+#include "actions.h"
 
 void set_intermediate_iso();
 void repeat_last_script();
 
-void button_task(type_BUTTON_ACTION action);
+void button_action(type_BUTTON_ACTION action);
 
 void start_up() {
 	// Wait for camera to settle down
@@ -201,7 +201,7 @@ void autoiso() {
 			newiso = MAX(newiso, ISO_MIN);
 
 			send_to_intercom(IC_SET_ISO, 2, newiso);
-			ENQUEUE_TASK(restore_display);
+			enqueue_action(restore_display);
 		}
 
 		return;
@@ -232,7 +232,7 @@ void autoiso() {
 		newiso = MAX(newiso, settings.autoiso_miniso);
 
 		send_to_intercom(IC_SET_ISO, 2, EV_TRUNC(newiso));
-		ENQUEUE_TASK(restore_display);
+		enqueue_action(restore_display);
 	}
 }
 
@@ -280,15 +280,15 @@ void repeat_last_script() {
 	}
 }
 
-void button_jump_task() {
-	button_task(settings.button_jump);
+void button_jump_action() {
+	button_action(settings.button_jump);
 }
 
-void button_trash_task() {
-	button_task(settings.button_trash);
+void button_trash_action() {
+	button_action(settings.button_trash);
 }
 
-void button_task(type_BUTTON_ACTION action) {
+void button_action(type_BUTTON_ACTION action) {
 	switch (action) {
 	case BUTTON_ACTION_ISO:
 		set_intermediate_iso();

@@ -103,7 +103,7 @@ type_MENUPAGE menupage_rename = {
 	name      : LP_WORD(L_P_RENAME),
 	length    : LENGTH(menupage_rename_items),
 	items     : menupage_rename_items,
-	tasks     : {
+	actions   : {
 		[MENU_EVENT_UP]      = rename_up,
 		[MENU_EVENT_DOWN]    = rename_down,
 		[MENU_EVENT_OUT]     = rename_prev,

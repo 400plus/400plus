@@ -54,7 +54,7 @@ void menu_scripts_wave         (const type_MENUITEM *item);
 void menu_scripts_self_timer   (const type_MENUITEM *item);
 void menu_scripts_long_exp     (const type_MENUITEM *item);
 
-void menu_scripts_launch (type_TASK script);
+void menu_scripts_launch (action_r script);
 
 type_MENUITEM ext_aeb_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
@@ -120,10 +120,10 @@ type_MENUITEM dof_calc_items[] = {
 };
 
 type_MENUPAGE lexp_calc_page = {
-	name   : LP_WORD(L_S_CALCULATOR),
-	length : LENGTH(lexp_calc_items),
-	items  : lexp_calc_items,
-	tasks  : {
+	name    : LP_WORD(L_S_CALCULATOR),
+	length  : LENGTH(lexp_calc_items),
+	items   : lexp_calc_items,
+	actions : {
 		[MENU_EVENT_OPEN] = menu_lexp_calc_open,
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -136,74 +136,74 @@ type_MENUITEM lexp_items[] = {
 };
 
 type_MENUPAGE ext_aeb_page = {
-	name   : LP_WORD(L_S_EXT_AEB),
-	length : LENGTH(ext_aeb_items),
-	items  : ext_aeb_items,
-	tasks  : {
+	name    : LP_WORD(L_S_EXT_AEB),
+	length  : LENGTH(ext_aeb_items),
+	items   : ext_aeb_items,
+	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE efl_aeb_page = {
-	name   : LP_WORD(L_S_EFL_AEB),
-	length : LENGTH(efl_aeb_items),
-	items  : efl_aeb_items,
-	tasks  : {
+	name    : LP_WORD(L_S_EFL_AEB),
+	length  : LENGTH(efl_aeb_items),
+	items   : efl_aeb_items,
+	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE iso_aeb_page = {
-	name   : LP_WORD(L_S_ISO_AEB),
-	length : LENGTH(iso_aeb_items),
-	items  : iso_aeb_items,
-	tasks  : {
+	name    : LP_WORD(L_S_ISO_AEB),
+	length  : LENGTH(iso_aeb_items),
+	items   : iso_aeb_items,
+	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE interval_page = {
-	name   : LP_WORD(L_S_INTERVAL),
-	length : LENGTH(interval_items),
-	items  : interval_items,
-	tasks  : {
+	name    : LP_WORD(L_S_INTERVAL),
+	length  : LENGTH(interval_items),
+	items   : interval_items,
+	actions : {
 		[MENU_EVENT_OPEN] = menu_scripts_open_timelapse,
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE wave_page = {
-	name   : LP_WORD(L_S_HANDWAVE),
-	length : LENGTH(wave_items),
-	items  : wave_items,
-	tasks  : {
+	name    : LP_WORD(L_S_HANDWAVE),
+	length  : LENGTH(wave_items),
+	items   : wave_items,
+	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE timer_page = {
-	name   : LP_WORD(L_S_TIMER),
-	length : LENGTH(timer_items),
-	items  : timer_items,
-	tasks  : {
+	name    : LP_WORD(L_S_TIMER),
+	length  : LENGTH(timer_items),
+	items   : timer_items,
+	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE lexp_page = {
-	name   : LP_WORD(L_S_LEXP),
-	length : LENGTH(lexp_items),
-	items  : lexp_items,
-	tasks  : {
+	name    : LP_WORD(L_S_LEXP),
+	length  : LENGTH(lexp_items),
+	items   : lexp_items,
+	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE dof_calc_page = {
-	name   : LP_WORD(L_S_DOF_CALC),
-	length : LENGTH(dof_calc_items),
-	items  : dof_calc_items,
-	tasks  : {
+	name    : LP_WORD(L_S_DOF_CALC),
+	length  : LENGTH(dof_calc_items),
+	items   : dof_calc_items,
+	actions : {
 		[MENU_EVENT_OPEN] = menu_dof_calc_open,
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -339,8 +339,8 @@ void menu_scripts_long_exp(const type_MENUITEM *item) {
 	menu_scripts_launch(script_long_exp);
 }
 
-void menu_scripts_launch(type_TASK script) {
-	ENQUEUE_TASK(menu_close);
-	ENQUEUE_TASK(restore_display);
-	ENQUEUE_TASK(script);
+void menu_scripts_launch(action_r script) {
+	enqueue_action(menu_close);
+	enqueue_action(restore_display);
+	enqueue_action(script);
 }

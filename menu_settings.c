@@ -55,28 +55,28 @@ type_MENUITEM pages_items[] = {
 };
 
 type_MENUPAGE scripts_page = {
-	name   : LP_WORD(L_S_SCRIPTS),
-	length : LENGTH(scripts_items),
-	items  : scripts_items,
-	tasks  : {
+	name    : LP_WORD(L_S_SCRIPTS),
+	length  : LENGTH(scripts_items),
+	items   : scripts_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE buttons_page = {
-	name   : LP_WORD(L_S_BUTTONS),
-	length : LENGTH(buttons_items),
-	items  : buttons_items,
-	tasks  : {
+	name    : LP_WORD(L_S_BUTTONS),
+	length  : LENGTH(buttons_items),
+	items   : buttons_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE presets_page = {
-	name   : LP_WORD(L_S_PRESETS),
-	length : LENGTH(presets_items),
-	items  : presets_items,
-	tasks  : {
+	name    : LP_WORD(L_S_PRESETS),
+	length  : LENGTH(presets_items),
+	items   : presets_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
@@ -86,7 +86,7 @@ type_MENUPAGE pages_page = {
 	length   : LENGTH(pages_items),
 	items    : pages_items,
 	ordering : settings.main_order,
-	tasks  : {
+	actions  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
@@ -107,7 +107,7 @@ type_MENUPAGE menupage_settings = {
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
 	ordering  : settings.settings_order,
-	tasks     : {
+	actions   : {
 		[MENU_EVENT_OPEN] = menu_settings_open,
 	}
 };

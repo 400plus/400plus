@@ -5,6 +5,7 @@
  */
 
 #include "firmware.h"
+#include "main.h"
 #include "gui.h"
 #include "debug.h"
 

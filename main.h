@@ -11,7 +11,7 @@
 #include "scripts.h"
 
 // Action definitions
-typedef void(*type_TASK)();
+typedef void(*action_r)();
 
 // Global status
 typedef struct {
@@ -35,16 +35,11 @@ typedef struct {
 	type_SCRIPT last_script;       // Last executed script
 } type_STATUS;
 
-// Main message queue
-extern int *task_queue;
-
-// Inline code
-#define ENQUEUE_TASK(task) TryPostMessageQueue(task_queue, (task), false);
-
 // Our own code
 extern void initialize();
 extern void initialize_display();
 extern void intercom_proxy(const int handler, char *message);
+extern void enqueue_action(action_r action);
 
 // Shared globals
 extern type_STATUS status;
