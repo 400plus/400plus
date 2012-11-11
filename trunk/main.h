@@ -13,19 +13,6 @@
 // Action definitions
 typedef void(*type_TASK)();
 
-typedef struct {
-	int       button;
-	int       block;
-	type_TASK task[2];
-	int       _eol_;
-} type_ACTION;
-
-typedef struct {
-	int          type;      // GUIMode for intercom_proxy(), type_MENU_TYPE for menu_buttons_handler()
-	type_ACTION *actions;
-	int          _eol_;
-} type_CHAIN;
-
 // Global status
 typedef struct {
 	int         button_down;       // A button is down, and which one
