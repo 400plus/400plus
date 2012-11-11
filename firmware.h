@@ -292,8 +292,9 @@ typedef enum { // GUIModes
 	GUIMODE_ACTIVESWEEP,     // 0x1E - Sweeping the sensor
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 // Fictitious modes
-	GUIMODE_400PLUS = 0xFF,  // 400Plus mode
-	GUIMODE_FACE    = 0xFE	 // Face mode
+	GUIMODE_400PLUS = 0x40,  // 400Plus mode
+	GUIMODE_FACE    = 0x41,	 // Face mode
+	GUIMODE_COUNT   = 0x4F   // Total number of active GUIMODEs (plus a safe margin)
 } type_GUIMODE;
 
 // Dialog Item struct
