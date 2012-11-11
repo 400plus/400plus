@@ -10,7 +10,7 @@
 
 #include "mainctrl.h"
 #include "firmware.h"
-#include "tasks.h"
+#include "actions.h"
 #include "utils.h"
 #include "debug.h"
 #include "bmp.h"

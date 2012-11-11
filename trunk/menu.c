@@ -229,10 +229,10 @@ void menu_event(type_MENU_EVENT event) {
 	type_MENU     *menu = current_menu;
 	type_MENUPAGE *page = menu->current_page;
 
-	if (page->tasks && page->tasks[event])
-		page->tasks[event](menu);
-	else if (menu->tasks && menu->tasks[event])
-		menu->tasks[event](menu);
+	if (page->actions && page->actions[event])
+		page->actions[event](menu);
+	else if (menu->actions && menu->actions[event])
+		menu->actions[event](menu);
 }
 
 void menu_set(type_MENU *menu) {

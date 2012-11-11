@@ -61,13 +61,13 @@ typedef enum {
 	MENU_EVENT_LAST  = MENU_EVENT_COUNT - 1
 } type_MENU_EVENT;
 
-typedef void(*type_MENUTASK)(type_MENU *menu);
+typedef void(*type_MENUACTION)(type_MENU *menu);
 
 struct MENU {
 	type_MENU_COLOR   color;
 	int               length;
 	type_MENUPAGE   **pages;
-	type_MENUTASK     tasks[MENU_EVENT_COUNT];
+	type_MENUACTION   actions[MENU_EVENT_COUNT];
 	int              *ordering;
 	int               current_posn;
 	type_MENUPAGE    *current_page;

@@ -63,7 +63,7 @@ type_MENUPAGE menupage_developer = {
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
 	ordering  : settings.developer_order,
-	tasks  : {
+	actions  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };

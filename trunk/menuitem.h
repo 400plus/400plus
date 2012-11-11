@@ -10,8 +10,6 @@
 #include "menu.h"
 #include "menuoptions.h"
 
-typedef void(*type_MENUITEM_TASK)(type_MENUITEM *item);
-
 typedef struct {
 	int  *value;
 	int   can_do_zero;

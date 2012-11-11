@@ -113,82 +113,82 @@ type_MENUITEM preset_9_items[] = {
 };
 
 type_MENUPAGE menupage_preset_1 = {
-	name   : presets_config.names[0],
-	length : LENGTH(preset_1_items),
-	items  : preset_1_items,
-	tasks  : {
+	name    : presets_config.names[0],
+	length  : LENGTH(preset_1_items),
+	items   : preset_1_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_2 = {
-	name   : presets_config.names[1],
-	length : LENGTH(preset_2_items),
-	items  : preset_2_items,
-	tasks  : {
+	name    : presets_config.names[1],
+	length  : LENGTH(preset_2_items),
+	items   : preset_2_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_3 = {
-	name   : presets_config.names[2],
-	length : LENGTH(preset_3_items),
-	items  : preset_3_items,
-	tasks  : {
+	name    : presets_config.names[2],
+	length  : LENGTH(preset_3_items),
+	items   : preset_3_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_4 = {
-	name   : presets_config.names[3],
-	length : LENGTH(preset_4_items),
-	items  : preset_4_items,
-	tasks  : {
+	name    : presets_config.names[3],
+	length  : LENGTH(preset_4_items),
+	items   : preset_4_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_5 = {
-	name   : presets_config.names[4],
-	length : LENGTH(preset_5_items),
-	items  : preset_5_items,
-	tasks  : {
+	name    : presets_config.names[4],
+	length  : LENGTH(preset_5_items),
+	items   : preset_5_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_6 = {
-	name   : presets_config.names[5],
-	length : LENGTH(preset_6_items),
-	items  : preset_6_items,
-	tasks  : {
+	name    : presets_config.names[5],
+	length  : LENGTH(preset_6_items),
+	items   : preset_6_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_7 = {
-	name   : presets_config.names[6],
-	length : LENGTH(preset_7_items),
-	items  : preset_7_items,
-	tasks  : {
+	name    : presets_config.names[6],
+	length  : LENGTH(preset_7_items),
+	items   : preset_7_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_8 = {
-	name   : presets_config.names[7],
-	length : LENGTH(preset_8_items),
-	items  : preset_8_items,
-	tasks  : {
+	name    : presets_config.names[7],
+	length  : LENGTH(preset_8_items),
+	items   : preset_8_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_9 = {
-	name   : presets_config.names[8],
-	length : LENGTH(preset_9_items),
-	items  : preset_9_items,
-	tasks  : {
+	name    : presets_config.names[8],
+	length  : LENGTH(preset_9_items),
+	items   : preset_9_items,
+	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
@@ -212,7 +212,7 @@ type_MENUPAGE menupage_presets = {
 	items     : preset_items,
 	rename    : true,
 	ordering  : presets_config.order,
-	tasks     : {
+	actions   : {
 		[MENU_EVENT_OPEN] = menu_preset_open,
 	}
 };

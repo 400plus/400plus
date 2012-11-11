@@ -45,7 +45,7 @@ type_MENUPAGE autoiso_page = {
 	name     : LP_WORD(L_S_AUTOISO),
 	length   : LENGTH(autoiso_items),
 	items    : autoiso_items,
-	tasks    : {
+	actions  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
@@ -61,7 +61,7 @@ type_MENUPAGE flash_page = {
 	name     : LP_WORD(L_S_FLASH),
 	length   : LENGTH(flash_items),
 	items    : flash_items,
-	tasks    : {
+	actions  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
@@ -75,7 +75,7 @@ type_MENUPAGE ir_page = {
 	name     : LP_WORD(L_S_IR),
 	length   : LENGTH(ir_items),
 	items    : ir_items,
-	tasks    : {
+	actions  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
