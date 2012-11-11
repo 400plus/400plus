@@ -22,66 +22,67 @@
 
 typedef struct {
 	int       block;
-	type_TASK task[2];
+	type_TASK task_press;
+	type_TASK task_release;
 } reaction_r;
 
 reaction_r button_actions_main[BUTTON_COUNT] = {
-	[BUTTON_DP]    = {true,  {menu_main_start}},
-	[BUTTON_DISP]  = {true,  {display_brightness}},
-	[BUTTON_JUMP]  = {true,  {button_jump_task}},
-	[BUTTON_TRASH] = {true,  {button_trash_task}},
-	[BUTTON_AV]    = {false, {toggle_img_format}},
-	[BUTTON_UP]    = {false, {restore_iso}},
-	[BUTTON_DOWN]  = {false, {restore_wb}},
-	[BUTTON_LEFT]  = {false, {restore_metering}},
+	[BUTTON_DP]    = {true,  menu_main_start},
+	[BUTTON_DISP]  = {true,  display_brightness},
+	[BUTTON_JUMP]  = {true,  button_jump_task},
+	[BUTTON_TRASH] = {true,  button_trash_task},
+	[BUTTON_AV]    = {false, toggle_img_format},
+	[BUTTON_UP]    = {false, restore_iso},
+	[BUTTON_DOWN]  = {false, restore_wb},
+	[BUTTON_LEFT]  = {false, restore_metering},
 };
 
 reaction_r button_actions_400plus[BUTTON_COUNT] = {
-	[BUTTON_DP]         = {true,  {menu_event_dp}},
-//	[BUTTON_DISP]       = {true,  {menu_event_disp}},
-	[BUTTON_MENU]       = {true,  {menu_event_menu}},
-	[BUTTON_JUMP]       = {true,  {menu_event_jump}},
-	[BUTTON_PLAY]       = {true,  {menu_event_play}},
-	[BUTTON_TRASH]      = {true,  {menu_event_trash}},
-	[BUTTON_DIAL_LEFT]  = {true,  {menu_event_prev}},
-	[BUTTON_DIAL_RIGHT] = {true,  {menu_event_next}},
-	[BUTTON_ZOOM_OUT]   = {true,  {menu_event_out}},
-	[BUTTON_ZOOM_IN]    = {true,  {menu_event_in}},
-	[BUTTON_AV]         = {true,  {menu_event_av, menu_event_av_up}},
-	[BUTTON_SET]        = {true,  {menu_event_set}},
-	[BUTTON_UP]         = {true,  {menu_event_up}},
-	[BUTTON_DOWN]       = {true,  {menu_event_down}},
-	[BUTTON_RIGHT]      = {true,  {menu_event_right}},
-	[BUTTON_LEFT]       = {true,  {menu_event_left}},
+	[BUTTON_DP]         = {true,  menu_event_dp},
+//	[BUTTON_DISP]       = {true,  menu_event_disp},
+	[BUTTON_MENU]       = {true,  menu_event_menu},
+	[BUTTON_JUMP]       = {true,  menu_event_jump},
+	[BUTTON_PLAY]       = {true,  menu_event_play},
+	[BUTTON_TRASH]      = {true,  menu_event_trash},
+	[BUTTON_DIAL_LEFT]  = {true,  menu_event_prev},
+	[BUTTON_DIAL_RIGHT] = {true,  menu_event_next},
+	[BUTTON_ZOOM_OUT]   = {true,  menu_event_out},
+	[BUTTON_ZOOM_IN]    = {true,  menu_event_in},
+	[BUTTON_AV]         = {true,  menu_event_av, menu_event_av_up},
+	[BUTTON_SET]        = {true,  menu_event_set},
+	[BUTTON_UP]         = {true,  menu_event_up},
+	[BUTTON_DOWN]       = {true,  menu_event_down},
+	[BUTTON_RIGHT]      = {true,  menu_event_right},
+	[BUTTON_LEFT]       = {true,  menu_event_left},
 };
 
 reaction_r button_actions_meter[BUTTON_COUNT] = {
-	[BUTTON_DP] = {true, {set_metering_spot}},
+	[BUTTON_DP] = {true, set_metering_spot},
 };
 
 reaction_r button_actions_wb[BUTTON_COUNT] = {
-	[BUTTON_DP] = {true, {set_whitebalance_colortemp}},
+	[BUTTON_DP] = {true, set_whitebalance_colortemp},
 };
 
 reaction_r button_actions_iso[BUTTON_COUNT] = {
-	[BUTTON_DP]  = {true,  {autoiso_enable}},
-	[BUTTON_SET] = {false, {autoiso_disable}},
+	[BUTTON_DP]  = {true,  autoiso_enable},
+	[BUTTON_SET] = {false, autoiso_disable},
 };
 
 reaction_r button_actions_face[BUTTON_COUNT] = {
-	[BUTTON_UP]    = {true, {viewfinder_up,    viewfinder_end}},
-	[BUTTON_DOWN]  = {true, {}},
-	[BUTTON_RIGHT] = {true, {viewfinder_right, viewfinder_end}},
-	[BUTTON_LEFT]  = {true, {viewfinder_left,  viewfinder_end}},
+	[BUTTON_UP]    = {true, viewfinder_up,    viewfinder_end},
+	[BUTTON_DOWN]  = {true},
+	[BUTTON_RIGHT] = {true, viewfinder_right, viewfinder_end},
+	[BUTTON_LEFT]  = {true, viewfinder_left,  viewfinder_end},
 };
 
 reaction_r button_actions_af[BUTTON_COUNT] = {
-	[BUTTON_SET]   = {true, {afp_center}},
-	[BUTTON_UP]    = {true, {afp_top}},
-	[BUTTON_DOWN]  = {true, {afp_bottom}},
-	[BUTTON_RIGHT] = {true, {afp_right}},
-	[BUTTON_LEFT]  = {true, {afp_left}},
-	[BUTTON_DISP]  = {true, {}},
+	[BUTTON_SET]   = {true, afp_center},
+	[BUTTON_UP]    = {true, afp_top},
+	[BUTTON_DOWN]  = {true, afp_bottom},
+	[BUTTON_RIGHT] = {true, afp_right},
+	[BUTTON_LEFT]  = {true, afp_left},
+	[BUTTON_DISP]  = {true},
 };
 
 reaction_r *button_chains[GUIMODE_COUNT] = {
@@ -130,18 +131,18 @@ int button_handler(type_BUTTON button, int is_button_down) {
 			if ((reaction = &chain[button]) == NULL) {
 				return false;
 			} else {
+				// Launch the defined task
+				if (reaction->task_press)
+					ENQUEUE_TASK(reaction->task_press);
+
 				// Consider buttons with "button down" and "button up" events
 				// and save "button up" parameters for later use
 				if (can_hold[button]) {
 					status.button_down = button;
 
-					button_up_task  = reaction->task[1];
+					button_up_task  = reaction->task_release;
 					button_up_block = reaction->block;
 				}
-
-				// Launch the defined task
-				if (reaction->task[0])
-					ENQUEUE_TASK(reaction->task[0]);
 
 				// Decide how to respond to this button
 				return reaction->block;
