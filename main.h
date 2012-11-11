@@ -11,7 +11,8 @@
 #include "scripts.h"
 
 // Action definitions
-typedef void(*action_r)();
+typedef void(*action_r)(void);
+typedef int (*proxy_r) (char*);
 
 // Global status
 typedef struct {

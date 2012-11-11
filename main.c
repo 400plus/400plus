@@ -41,6 +41,66 @@ type_STATUS status = {
 	ev_comp           : 0x00,
 };
 
+// Proxy listeners
+int proxy_script_restore (char *message);
+int proxy_script_shot    (char *message);
+int proxy_script_stop    (char *message);
+int proxy_set_language   (char *message);
+int proxy_dialog_enter   (char *message);
+int proxy_dialog_exit    (char *message);
+int proxy_dialog_afoff   (char *message);
+int proxy_measuring      (char *message);
+int proxy_measurement    (char *message);
+int proxy_settings0      (char *message);
+int proxy_settings3      (char *message);
+int proxy_button_dial    (char *message);
+int proxy_button_disp    (char *message);
+int proxy_button_set     (char *message);
+int proxy_button_up      (char *message);
+int proxy_button_down    (char *message);
+int proxy_button_right   (char *message);
+int proxy_button_left    (char *message);
+int proxy_button_dp      (char *message);
+int proxy_button_av      (char *message);
+
+proxy_r listeners_script[0x100] = {
+	[IC_SHUTDOWN]  = proxy_script_restore,
+	[IC_SHOOTING]  = proxy_script_shot,
+	[IC_BUTTON_DP] = proxy_script_stop,
+};
+
+proxy_r listeners_menu[0x100] = {
+	[IC_DIALOGOFF]    = proxy_dialog_exit,
+	[IC_BUTTON_DIAL]  = proxy_button_dial,
+	[IC_BUTTON_DISP]  = proxy_button_disp,
+	[IC_BUTTON_SET]   = proxy_button_set,
+	[IC_BUTTON_RIGHT] = proxy_button_right,
+	[IC_BUTTON_LEFT]  = proxy_button_left,
+	[IC_BUTTON_DP]    = proxy_button_dp,
+	[IC_BUTTON_AV]    = proxy_button_av,
+};
+
+proxy_r listeners_main[0x100] = {
+	[IC_SET_LANGUAGE] = proxy_set_language,
+	[IC_DIALOGON]     = proxy_dialog_enter,
+	[IC_MEASURING]    = proxy_measuring,
+	[IC_MEASUREMENT]  = proxy_measurement,
+	[IC_SETTINGS_0]   = proxy_settings0,
+	[IC_SETTINGS_3]   = proxy_settings3,
+	[IC_AFPDLGOFF]    = proxy_dialog_afoff,
+	[IC_BUTTON_DIAL]  = proxy_button_dial,
+	[IC_BUTTON_DISP]  = proxy_button_disp,
+	[IC_BUTTON_SET]   = proxy_button_set,
+	[IC_BUTTON_UP]    = proxy_button_up,
+	[IC_BUTTON_DOWN]  = proxy_button_down,
+	[IC_BUTTON_RIGHT] = proxy_button_right,
+	[IC_BUTTON_LEFT]  = proxy_button_left,
+	[IC_BUTTON_DP]    = proxy_button_dp,
+	[IC_BUTTON_AV]    = proxy_button_av,
+};
+
+
+
 void action_dispatcher();
 void message_logger (char *message);
 
@@ -57,9 +117,8 @@ void initialize_display() {
 }
 
 void intercom_proxy(const int handler, char *message) {
-	int button_down = true;
-
-	type_BUTTON button = BUTTON_NONE;
+	proxy_r  listener;
+	proxy_r *listeners;
 
 #ifdef ENABLE_DEBUG
 	message_logger(message);
@@ -67,127 +126,17 @@ void intercom_proxy(const int handler, char *message) {
 
 	// Fast path for the case of a running script
 	if (status.script_running)
-		switch(message[1]) {
-		case IC_SHUTDOWN: // Camera has shut down
-			script_restore();
-			goto pass_message;
-		case IC_SHOOTING: // Shot taken while script is running
-			status.last_shot_tv = message[2];
-			status.last_shot_av = message[3];
-			goto pass_message;
-		case IC_BUTTON_DP: // DP Button stops the script
-			status.script_stopping = true;
-			goto block_message;
-		default:
-			goto pass_message;
-		}
+		listeners = listeners_script;
+	else if (status.menu_running)
+		listeners = listeners_menu;
 	else
-		// Status-independent events and special cases
-		switch (message[1]) {
-		case IC_SET_LANGUAGE:
-			enqueue_action(lang_pack_config);
-			goto pass_message;
-		case IC_DIALOGON: // Entering a dialog
-			status.afp_dialog = (message[2] == IC_SET_AF);
-			goto pass_message;
-		case IC_DIALOGOFF:
-			if (status.menu_running)
-				enqueue_action(menu_event_finish);
-			goto pass_message;
-		case IC_MEASURING:
-			status.measuring = message[2];
-			enqueue_action(restore_display);
-			goto pass_message;
-		case IC_MEASUREMENT:
-			if (status.measuring) {
-				status.measured_tv = message[2];
-				status.measured_av = message[3];
-				status.measured_ev = message[4];
+		listeners = listeners_main;
 
-				if (settings.autoiso_enable)
-					enqueue_action(autoiso);
-			}
-			goto pass_message;
-		case IC_SETTINGS_0: // Settings changed (begin of sequence)
-			if (status.ignore_ae_change) {
-				// Ignore first AE change after loading a preset, as it generates this same event
-				status.ignore_ae_change = false;
-			} else {
-				// Handle preset recall when dial moved to A-DEP
-				status.last_preset  = false;
-				status.main_dial_ae = message[2];
+	if ((listener = listeners[message[1]]) != NULL)
+		if (listener(message))
+			return;
 
-				if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
-					if (status.booting) {
-						enqueue_action(preset_recall);
-					} else {
-						enqueue_action(preset_recall_full);
-					}
-				}
-			}
-			goto pass_message;
-		case IC_SETTINGS_3: // Settings changed (end of sequence)
-			// Restore display
-			enqueue_action(restore_display);
-			goto pass_message;
-		case IC_AFPDLGOFF: // Exiting AF-Point selection dialog
-			if (status.afp_dialog) {
-				// Open Extended AF-Point selection dialog
-				message[1] = IC_AFPDLGON;
-				status.afp_dialog = false;
-				enqueue_action(afp_enter);
-			}
-			goto pass_message;
-		case IC_BUTTON_DIAL: // Front Dial, we should detect direction and use our BTN IDs
-			button = (message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT;
-			goto handle_button;
-		case IC_BUTTON_DISP:
-			button = BUTTON_DISP;
-			goto handle_button;
-		case IC_BUTTON_SET:
-			button = BUTTON_SET;
-			goto handle_button;
-		case IC_BUTTON_UP:
-			if (!status.menu_running) {
-				button = BUTTON_UP;
-				button_down = message[2];
-			}
-			goto handle_button;
-		case IC_BUTTON_DOWN:
-			if (!status.menu_running) {
-				button = BUTTON_DOWN;
-				button_down = message[2];
-			}
-			goto handle_button;
-		case IC_BUTTON_RIGHT:
-			button = BUTTON_RIGHT;
-			button_down = message[2];
-			goto handle_button;
-		case IC_BUTTON_LEFT:
-			button = BUTTON_LEFT;
-			button_down = message[2];
-			goto handle_button;
-		case IC_BUTTON_DP:
-			button = BUTTON_DP;
-			goto handle_button;
-		case IC_BUTTON_AV:
-			button = BUTTON_AV;
-			button_down = message[2];
-			goto handle_button;
-		default:
-			goto pass_message;
-		}
-
-handle_button:
-	if (button != BUTTON_NONE)
-		if (button_handler(button, button_down))
-			goto block_message;
-
-pass_message:
 	IntercomHandler(handler, message);
-
-block_message:
-	return;
 }
 
 void action_dispatcher () {
@@ -213,4 +162,135 @@ void message_logger(char *message) {
 		sprintf(text + 3 * i, "%02X ", message[i]);
 
 	printf_log(8, 8, "[400plus-MSG%04d-%02X]: %s", id++, FLAG_GUI_MODE, text);
+}
+
+int proxy_script_restore(char *message) {
+	script_restore();
+
+	return false;
+}
+
+int proxy_script_shot(char *message) {
+	status.last_shot_tv = message[2];
+	status.last_shot_av = message[3];
+
+	return false;
+}
+
+int proxy_script_stop(char *message) {
+	status.script_stopping = true;
+
+	return true;
+}
+
+int proxy_set_language(char *message) {
+	enqueue_action(lang_pack_config);
+
+	return false;
+}
+
+int proxy_dialog_enter(char *message) {
+	status.afp_dialog = (message[2] == IC_SET_AF);
+
+	return false;
+}
+
+int proxy_dialog_exit(char *message) {
+	enqueue_action(menu_event_finish);
+
+	return false;
+}
+
+int proxy_dialog_afoff(char *message) {
+	if (status.afp_dialog) {
+		// Open Extended AF-Point selection dialog
+		message[1] = IC_AFPDLGON;
+		status.afp_dialog = false;
+		enqueue_action(afp_enter);
+	}
+
+	return false;
+}
+
+int proxy_measuring(char *message) {
+	status.measuring = message[2];
+	enqueue_action(restore_display);
+
+	return false;
+}
+
+int proxy_measurement(char *message) {
+	if (status.measuring) {
+		status.measured_tv = message[2];
+		status.measured_av = message[3];
+		status.measured_ev = message[4];
+
+		if (settings.autoiso_enable)
+			enqueue_action(autoiso);
+	}
+
+	return false;
+}
+
+int proxy_settings0(char *message) {
+	if (status.ignore_ae_change) {
+		// Ignore first AE change after loading a preset, as it generates this same event
+		status.ignore_ae_change = false;
+	} else {
+		// Handle preset recall when dial moved to A-DEP
+		status.last_preset  = false;
+		status.main_dial_ae = message[2];
+
+		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
+			if (status.booting) {
+				enqueue_action(preset_recall);
+			} else {
+				enqueue_action(preset_recall_full);
+			}
+		}
+	}
+
+	return false;
+}
+
+int proxy_settings3(char *message) {
+	enqueue_action(restore_display);
+
+	return false;
+}
+
+int proxy_button_dial(char *message) {
+	return button_handler((message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT, true);
+}
+
+int proxy_button_disp(char *message) {
+	return button_handler(BUTTON_DISP, true);
+}
+
+int proxy_button_set(char *message) {
+	return button_handler(BUTTON_SET, true);
+}
+
+int proxy_button_up(char *message) {
+	return button_handler(BUTTON_UP, message[2]);
+}
+
+int proxy_button_down(char *message) {
+	return button_handler(BUTTON_DOWN, message[2]);
+}
+
+int proxy_button_right(char *message) {
+	return button_handler(BUTTON_RIGHT, message[2]);
+}
+
+int proxy_button_left(char *message) {
+	return button_handler(BUTTON_LEFT, message[2]);
+}
+
+int proxy_button_dp(char *message) {
+	return button_handler(BUTTON_DP, true);
+}
+
+int proxy_button_av(char *message) {
+	return button_handler(BUTTON_AV, message[2]);
 }
