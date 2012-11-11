@@ -23,14 +23,7 @@
 typedef struct {
 	int       block;
 	type_TASK task[2];
-	int       _eol_;
 } reaction_r;
-
-typedef struct {
-	int         type;
-	reaction_r *actions;
-	int         _eol_;
-} chain_r;
 
 reaction_r button_actions_main[BUTTON_COUNT] = {
 	[BUTTON_DP]    = {true,  {menu_main_start}},
@@ -91,16 +84,15 @@ reaction_r button_actions_af[BUTTON_COUNT] = {
 	[BUTTON_DISP]  = {true, {}},
 };
 
-chain_r button_chains[] = {
-	{GUIMODE_OLC,       button_actions_main},
-	{GUIMODE_OFF,       button_actions_main},
-	{GUIMODE_400PLUS,   button_actions_400plus},
-	{GUIMODE_METER,     button_actions_meter},
-	{GUIMODE_WB,        button_actions_wb},
-	{GUIMODE_ISO,       button_actions_iso},
-	{GUIMODE_FACE,      button_actions_face},
-	{GUIMODE_AFPATTERN, button_actions_af},
-	END_OF_LIST
+reaction_r *button_chains[GUIMODE_COUNT] = {
+	[GUIMODE_OLC]       = button_actions_main,
+	[GUIMODE_OFF]       = button_actions_main,
+	[GUIMODE_400PLUS]   = button_actions_400plus,
+	[GUIMODE_METER]     = button_actions_meter,
+	[GUIMODE_WB]        = button_actions_wb,
+	[GUIMODE_ISO]       = button_actions_iso,
+	[GUIMODE_FACE]      = button_actions_face,
+	[GUIMODE_AFPATTERN] = button_actions_af,
 };
 
 int can_hold[BUTTON_COUNT] = {
@@ -117,7 +109,7 @@ int button_handler(type_BUTTON button, int is_button_down) {
 
 	int gui_mode;
 
-	chain_r    *chain;
+	reaction_r *chain;
 	reaction_r *reaction;
 
 	// Check first for button-down events
@@ -130,40 +122,31 @@ int button_handler(type_BUTTON button, int is_button_down) {
 		else
 			gui_mode = FLAG_GUI_MODE;
 
-		// Loop over all the action chains
-		for(chain = button_chains; ! IS_EOL(chain); chain++) {
+		// Check whether this mode has an assigned chain
+		if((chain = button_chains[gui_mode]) == NULL) {
+			return false;
+		} else {
+			// Check that we have an action assigned to this button
+			if ((reaction = &chain[button]) == NULL) {
+				return false;
+			} else {
+				// Consider buttons with "button down" and "button up" events
+				// and save "button up" parameters for later use
+				if (can_hold[button]) {
+					status.button_down = button;
 
-			// Check whether this action chain corresponds to the current GUI mode
-			if (chain->type == gui_mode) {
-
-				// Check that we have an action assigned to this button
-				if ((reaction = &chain->actions[button]) == NULL) {
-					return false;
-				} else {
-					// Consider buttons with "button down" and "button up" events
-					// and save "button up" parameters for later use
-					if (can_hold[button]) {
-						status.button_down = button;
-
-						button_up_task  = reaction->task[1];
-						button_up_block = reaction->block;
-					}
-
-					// Launch the defined task
-					if (reaction->task[0])
-						ENQUEUE_TASK(reaction->task[0]);
-
-					// Decide how to respond to this button
-					return reaction->block;
+					button_up_task  = reaction->task[1];
+					button_up_block = reaction->block;
 				}
 
-				// Once we find a matching action chain, we look no further
-				break;
+				// Launch the defined task
+				if (reaction->task[0])
+					ENQUEUE_TASK(reaction->task[0]);
+
+				// Decide how to respond to this button
+				return reaction->block;
 			}
 		}
-
-		// If no action was found, do not block it
-		return false;
 	} else {
 		// Check for button-up events and act immediately
 		if (status.button_down == button) {
