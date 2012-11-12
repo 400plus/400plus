@@ -374,3 +374,5 @@ The following relevant bugs have been reported and confirmed:
 
  * Issue #156: Auto-focus Assist Beam not fired from 430EX when using extended AF patterns.
  * Issue #153: Standard menu flashes before shortcuts menu.
+
+||*ATTENTION*: _Please, use the comments section below exclusively for comments (typos, clarifications, suggestions) about this page; open an issue to request support or suggest a new feature, and visit the forum for general discussions about the project._||
