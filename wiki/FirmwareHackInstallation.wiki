@@ -70,3 +70,5 @@ Now you can read the [http://code.google.com/p/400plus/wiki/UserGuide User Guide
 = Sources =
   * [http://chdk.setepontos.com/index.php/topic,3290.msg38630.html#msg38630 raingrove]
   * [http://chdk.setepontos.com/index.php/topic,4214.msg39827.html#msg39827 whim's post]
+
+||*ATTENTION*: _Please, use the comments section below exclusively for comments (typos, clarifications, suggestions) about this page; open an issue to request support or suggest a new feature, and visit the forum for general discussions about the project._||
