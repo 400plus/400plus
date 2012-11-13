@@ -135,6 +135,6 @@ void lang_pack_config() {
 	}
 
 	// Update "Camera" in language selection menu
-	strncpy0(languages_found[0], LP_WORD(L_S_CAMERA), LP_MAX_WORD-1);
+	strncpy0(languages_found[0], LP_WORD(L_V_CAMERA), LP_MAX_WORD-1);
 }
 
