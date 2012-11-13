@@ -352,6 +352,10 @@ Currently 400plus supports nine (9) languages:
 
 The desire is to have 400plus be supported in as many languages as possible! If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
 
+== Standard Initialization ==
+
+To temporarily switch `400plus` completely off (for example, if you believe `400plus` is making your camera act weird), just press the `TRASH` button while the camera is powering on.
+
 = Notes =
 
 Some notes and comments.
