@@ -130,6 +130,8 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
     * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
     * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
+ * _*Config. Menus*_: This sub-menu configures the behavior of [#The_menu the menu]:
+    * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element.
  * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
 
 === Presets Page ===
