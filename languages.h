@@ -139,7 +139,7 @@
 	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"  ) \
 	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
 	LANG_PAIR( S_INFINITE,           "INF!"               ) \
-	LANG_PAIR( S_CAMERA,             "Camera"             ) \
+	LANG_PAIR( V_CAMERA,             "Camera"             ) \
 	LANG_PAIR( I_WARP_MENUS,         "Menus warp"         ) \
 
 enum LANG_WORDS_ENUM {
