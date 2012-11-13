@@ -17,17 +17,17 @@
 
 == User guide ==
 
-This wiki page document will serve as the user guide for 400plus. It is assumed in this document that the user has installed 400plus prior to reading this guide and that it is working properly. For information about installing 400plus, please see [FirmwareHackInstallation].
+This wiki page document will serve as the user guide for `400plus`. It is assumed in this document that the user has installed `400plus` prior to reading this guide and that it is working properly. For information about installing `400plus`, please see [FirmwareHackInstallation].
 
 = The menu =
 
 == Accessing the menu ==
 
-To access the 400plus menu, press the `DP` button from the main camera dialog. To exit the 400plus menu, just half-press the shutter release button. _NOTE_: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
+To access the `400plus` menu, press the `DP` button from the main camera dialog. To exit the `400plus` menu, just half-press the shutter release button. _NOTE_: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
 
 == Navigating the menu ==
 
-400plus features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel or the `ZOOM IN` / `ZOOM OUT` buttons (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now use the front dial to select a page, and release the `AV` button to jump into it.
+`400plus` features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel or the `ZOOM IN` / `ZOOM OUT` buttons (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now use the front dial to select a page, and release the `AV` button to jump into it.
 
 To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons; then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (press and hold these buttons to change faster). Items with an exclamation mark '`!`' at the left perform an action; activate them with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
@@ -104,12 +104,12 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
  * _*Release count*_: The total number of shots (actuations) made by this camera body.
  * _*Body ID*_: The "BodyID" of the camera body (an internal number, unique to each camera).
- * _*Version*_: The version number of the 400plus software currently installed.
+ * _*Version*_: The version number of the `400plus` software currently installed.
 
 === Settings Page ===
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
- * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viefinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
+ * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viewfinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
@@ -126,7 +126,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*Config. Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
     * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
     * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
-    * 400plus: when active (set to Yes), loading a preset recalls 400plus' own settings (scripts, ...).
+    * 400plus: when active (set to Yes), loading a preset recalls `400plus`' own settings (scripts, ...).
     * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
     * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
     * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
@@ -211,7 +211,7 @@ Exposure : * *       * * * * * * *       * *
 
 Notice that the third photograph does not take place 5 seconds after the second one, but at second 15.
 
-*NOTE*: '400plus' will not validate that the values introduced by the user make sense at all: it will not complaint if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
+*NOTE*: `400plus` will not validate that the values introduced by the user make sense at all: it will not complaint if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
 
 === Time-lapse calculator ===
 
@@ -267,7 +267,7 @@ When this option is not enabled, then when the A-DEP position is selected with t
 
 = AutoISO =
 
-`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value acordingly. The behaviour of AutoISO is different for each creative mode, but the idea is roughtly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
+`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value accordingly. The behavior of AutoISO is different for each creative mode, but the idea is roughly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
 
 To enable AutoISO for the creative modes, activate it at the settings menu, or pres `DP` at the ISO selection dialog; to disable it, use the settings menu or select any ISO value at the ISO selection dialog.
 
@@ -275,7 +275,7 @@ To enable AutoISO for the creative modes, activate it at the settings menu, or p
 
 The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur.
 
-In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` will always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will authomaticaly raise the ISO value (up to "Max ISO") as needed.
+In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` will always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will automatically raise the ISO value (up to "Max ISO") as needed.
 
 Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
 
@@ -283,9 +283,9 @@ Please, note that when both Safety Shift and AutoISO are enabled, the camera cou
 
 In Tv mode, the intention of AutoISO is to use the lowest possible ISO that ensures an acceptable depth of field.
 
-In Tv mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an apperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
+In Tv mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an aperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
 
-Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shif and AutoISO at Av mode applies at Tv mode, too.
+Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shift and AutoISO at Av mode applies at Tv mode, too.
 
 == AutoISO and P mode ==
 
@@ -310,7 +310,7 @@ When this option is active (set to Yes), and if the camera is set in any creativ
 
 = The AF-Pattern point selection =
 
-400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
+`400plus` offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
 
 To use the additional AF-Pattern point selections during shooting, press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog, then press the `ZOOM IN` button again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the different AF selection patterns available. Half-press the shutter release button to exit the dialog.
 
@@ -338,7 +338,7 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 
 == Multi-language support ==
 
-Currently 400plus supports nine (9) languages:
+Currently `400plus` supports nine (9) languages:
 
   * English
   * Finnish
@@ -350,7 +350,7 @@ Currently 400plus supports nine (9) languages:
   * Simplified Chinese
   * Spanish
 
-The desire is to have 400plus be supported in as many languages as possible! If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
+The desire is to have `400plus` be supported in as many languages as possible! If you are interested in assisting in the conversion of `400plus` to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
 
 == Standard Initialization ==
 
@@ -362,7 +362,7 @@ Some notes and comments.
 
 == The _missing_ ISO-3200 ==
 
-Previous versions of `400plus` supported ISO-3200; or more precisely, it _appeared_ to support it: while the camera displayed "3200" as the ISO value, images where actually being shot at ISO-3000. Latests versions of `400plus` correct this bug, and thus only values up to ISO-3000 are supported now.
+Previous versions of `400plus` supported ISO-3200; or more precisely, it _appeared_ to support it: while the camera displayed "3200" as the ISO value, images where actually being shot at ISO-3000. Latest versions of `400plus` correct this bug, and thus only values up to ISO-3000 are supported now.
 
 Note, thus, that _an image shot at the new ISO-3000 will be exactly the same as if shot with the old ISO-3200_.
 
