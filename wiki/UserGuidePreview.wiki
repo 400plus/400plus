@@ -27,7 +27,7 @@ To access the 400plus menu, press the `DP` button from the main camera dialog. T
 
 == Navigating the menu ==
 
-400plus features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel or the `ZOOM IN` / `ZOOM OUT` buttons (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now then use the front dial to select a page, and release the `AV` button to jump into it.
+400plus features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel or the `ZOOM IN` / `ZOOM OUT` buttons (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now use the front dial to select a page, and release the `AV` button to jump into it.
 
 To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons; then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (press and hold these buttons to change faster). Items with an exclamation mark '`!`' at the left perform an action; activate them with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
@@ -75,9 +75,12 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*ISO AEB*_: This item launches and configures the [#ISO_AEB ISO AEB] script; each item in the configuration sub-menu indicates whether the camera must fire a shot for that ISO value.
  * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:00 to 05:00.
+    * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
     * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
+    * Video format (fps): intended playback frame-rate, if preparing a time-lapse.
+    * Recording time: estimated time that the camera will need to record the entire time-lapse (informative only).
+    * Playback time: estimated playback time of the resulting time-lapse (informative only).
  * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
@@ -88,7 +91,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
  * _*Long exposure*_: This item launches and configures the [#Long_Exposure Long Exposure] script:
     * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Time: the length (in minutes:seconds) of the exposure. Values range from 00:00 to 100:00.
+    * Time: the length (in minutes:seconds) of the exposure. Values range from 00:15 to 100:00.
     * Calculator: enter [#Long_Exposure_Calculator the long exposure calculator].
  * _*DOF Calculator*_: This item launches the [#DOF_Calculator DOF Calculator]:
     * Focal length (mm): Len's focal length, in millimeters.
@@ -145,15 +148,17 @@ Notice that there is always a number displayed on the left of each preset. This 
 
 === Developers Page ===
 
-*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it.
+*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button, while in the menu, to enter the developers' page.
 
 _This Page Is Intentionally Left Blank._
 
-*WARNING*: These options should be used with great care, there is probably little to see here, unless you are developing your own hack.
+*WARNING*: The options contained in this page should be used with great care, there is probably little to see here, unless you are developing your own hack.
 
 = The scripts =
 
 When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second). To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
+
+You can also pause a running script, by means of simply pressing the DISP button: this will put the camera into a low-power mode, and effectively stop all ongoing activity; press DISP again, to bring back the camera into life, and the script will continue normally.
 
 All scripts will check the card capacity before each shot; if the estimated number of shots available is lower than a fixed value (3), the scripts will stop executing.
 
@@ -186,7 +191,31 @@ You probably want to set the camera to `M` mode prior to using this script.
 
 This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example.
 
-Notice that `400plus` will always try to maintain a constant cadence of shots, independent of the exposure time: if configured to shot at 15s intervals, for example, then one shot will be taken exactly every 15s, even if the exposure is 10s. If one shot in the sequence has an exposure time longer than the configured interval time, `400plus` will skip as many shots as needed and reschedule the sequence. This comment is also true when the intervalometer is configured to fire any multi-shot action.
+=== Strict scheduling ===
+
+Notice that `400plus` will always try to maintain a constant cadence of shots, independent of the exposure time: if configured to shot at 15s intervals, for example, then one shot will be taken exactly every 15s, even if the exposure is 10s. If one shot in the sequence has an exposure time longer than the configured interval time, `400plus` will skip as many shots as needed and reschedule the sequence accordingly. This comment is also true when the intervalometer is configured to fire any multi-shot action.
+
+For example, imagine an interval of 5 seconds, and exposures ranging between 1 and 4 seconds (let's suppose camera is in Av mode, and light conditions change during the script):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * *   *         * *
+}}}
+
+Notice how the length of pause between the end of an exposure and the beginning of the next one adapts to the exposure time, so photographs always start at regular intervals. Now, imagine that one of the exposures takes longer than 5 seconds (let's say 7):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * * * * *       * *
+}}}
+
+Notice that the third photograph does not take place 5 seconds after the second one, but at second 15.
+
+*NOTE*: '400plus' will not validate that the values introduced by the user make sense at all: it will not complaint if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
+
+=== Time-lapse calculator ===
+
+If you plan to make a time-lapse movie with the photographs taken with this script, you can specify a desired reproduction frame-rate, and the script will calculate the resulting reproduction time. These parameters are purely informative, and have no influence on the script.
 
 == Hand Waving ==
 
@@ -238,7 +267,7 @@ When this option is not enabled, then when the A-DEP position is selected with t
 
 = AutoISO =
 
-`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value acordingly. The behiviour of AutoISO is different for each creative mode, but the idea is roughtly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
+`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value acordingly. The behaviour of AutoISO is different for each creative mode, but the idea is roughtly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
 
 To enable AutoISO for the creative modes, activate it at the settings menu, or pres `DP` at the ISO selection dialog; to disable it, use the settings menu or select any ISO value at the ISO selection dialog.
 
@@ -246,7 +275,7 @@ To enable AutoISO for the creative modes, activate it at the settings menu, or p
 
 The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur.
 
-In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` sill always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will authomaticaly raise the ISO value (up to "Max ISO") as needed.
+In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` will always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will authomaticaly raise the ISO value (up to "Max ISO") as needed.
 
 Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
 
@@ -277,6 +306,8 @@ When this option is active (set to Yes), and if the camera is set in any creativ
  * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or UP just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
  * In P and Av modes, ISO can also be changed, but it is not displayed.
 
+*NOTE*: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled, even if it has been enable in the settings menu.
+
 = The AF-Pattern point selection =
 
 400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
@@ -293,7 +324,7 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 
 == In the creative zone ==
 
-  * In the ISO selection dialog, press `DP` to activate [#AutoISO AutoISO]); select any ISO value to deactivate it.
+  * In the ISO selection dialog, press `DP` to activate [#AutoISO AutoISO]; select any ISO value to deactivate it.
   * In the Metering mode selection dialog, press `DP` to set Spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
   * In the White balance selection dialog, press `DP` to set the user-defined white balance kelvin temperature.
 
@@ -307,12 +338,16 @@ While looking through the viewfinder, the `ISO` and `WB` buttons become inactive
 
 == Multi-language support ==
 
-Currently 400plus supports five (5) languages:
+Currently 400plus supports nine (9) languages:
 
   * English
+  * Finnish
   * French
   * German
   * Italian
+  * Polish
+  * Russian
+  * Simplified Chinese
   * Spanish
 
 The desire is to have 400plus be supported in as many languages as possible! If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
@@ -343,3 +378,5 @@ The following relevant bugs have been reported and confirmed:
 
  * Issue #156: Auto-focus Assist Beam not fired from 430EX when using extended AF patterns.
  * Issue #153: Standard menu flashes before shortcuts menu.
+
+||*ATTENTION*: _Please, use the comments section below exclusively for comments (typos, clarifications, suggestions) about this page; open an issue to request support or suggest a new feature, and visit the forum for general discussions about the project._||
