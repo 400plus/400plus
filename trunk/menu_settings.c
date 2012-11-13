@@ -46,6 +46,10 @@ type_MENUITEM presets_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_CFN),      &presets_config.recall_cfn,      NULL),
 };
 
+type_MENUITEM menus_items[] = {
+	MENUITEM_BOOLEAN(LP_WORD(L_I_WARP_MENUS), &settings.menu_warp, NULL),
+};
+
 type_MENUITEM pages_items[] = {
 	MENUITEM_INFO(LP_WORD(L_P_PARAMS),     NULL),
 	MENUITEM_INFO(LP_WORD(L_P_SCRIPTS),    NULL),
@@ -81,6 +85,15 @@ type_MENUPAGE presets_page = {
 	}
 };
 
+type_MENUPAGE menus_page = {
+	name    : LP_WORD(L_S_MENUS),
+	length  : LENGTH(menus_items),
+	items   : menus_items,
+	actions : {
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
 type_MENUPAGE pages_page = {
 	name     : LP_WORD(L_S_PAGES),
 	length   : LENGTH(pages_items),
@@ -97,6 +110,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_SUBMENU(LP_WORD(L_S_SCRIPTS),          &scripts_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_BUTTONS),          &buttons_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PRESETS),          &presets_page,                    NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_MENUS),            &menus_page,                      NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PAGES),            &pages_page,                      NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu,        NULL),
 };

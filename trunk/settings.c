@@ -64,6 +64,7 @@ type_SETTINGS settings = {
 	button_trash     : BUTTON_ACTION_SCRIPT,
 	button_disp      : false,
 	language         : 0,
+	menu_warp        : true
 };
 
 int settings_read() {
