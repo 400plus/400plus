@@ -112,6 +112,7 @@
 	LANG_PAIR( S_BUTTONS,            "Config. Buttons"    ) \
 	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
 	LANG_PAIR( S_PAGES,              "Config. Pages"      ) \
+	LANG_PAIR( S_MENUS,              "Config. Menus"      ) \
 	LANG_PAIR( V_OFF,                "Off"                ) \
 	LANG_PAIR( V_NO_LIMIT,           "No Limit"           ) \
 	LANG_PAIR( V_YES,                "Yes"                ) \
@@ -139,6 +140,7 @@
 	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
 	LANG_PAIR( S_INFINITE,           "INF!"               ) \
 	LANG_PAIR( S_CAMERA,             "Camera"             ) \
+	LANG_PAIR( I_WARP_MENUS,         "Menus warp"         ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,
