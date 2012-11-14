@@ -31,12 +31,14 @@ void list_down   (type_MENU *menu);
 void list_display(type_MENU *menu);
 void list_hide   (type_MENU *menu);
 
+void page_display(type_MENU *menu);
+
 type_MENUPAGE *menu_main_pages[] = {
-	&menupage_params,
-	&menupage_scripts,
-	&menupage_info,
-	&menupage_settings,
-	&menupage_presets,
+	[MENUPAGE_PARAMS]   = &menupage_params,
+	[MENUPAGE_SCRIPTS]  = &menupage_scripts,
+	[MENUPAGE_INFO]     = &menupage_info,
+	[MENUPAGE_SETTINGS] = &menupage_settings,
+	[MENUPAGE_PRESETS]  = &menupage_presets,
 };
 
 type_MENU menu_main = {
@@ -64,11 +66,11 @@ type_MENU menu_main = {
 };
 
 type_MENUITEM main_list_items[] = {
-	MENUITEM_PAGE(LP_WORD(L_P_PARAMS)),
-	MENUITEM_PAGE(LP_WORD(L_P_SCRIPTS)),
-	MENUITEM_PAGE(LP_WORD(L_P_INFO)),
-	MENUITEM_PAGE(LP_WORD(L_P_SETTINGS)),
-	MENUITEM_PAGE(LP_WORD(L_P_PRESETS)),
+	[MENUPAGE_PARAMS]   = MENUITEM_PAGE(LP_WORD(L_P_PARAMS)),
+	[MENUPAGE_SCRIPTS]  = MENUITEM_PAGE(LP_WORD(L_P_SCRIPTS)),
+	[MENUPAGE_INFO]     = MENUITEM_PAGE(LP_WORD(L_P_INFO)),
+	[MENUPAGE_SETTINGS] = MENUITEM_PAGE(LP_WORD(L_P_SETTINGS)),
+	[MENUPAGE_PRESETS]  = MENUITEM_PAGE(LP_WORD(L_P_PRESETS)),
 };
 
 type_MENUPAGE main_list = {
@@ -76,9 +78,13 @@ type_MENUPAGE main_list = {
 	length   : LENGTH(main_list_items),
 	items    : main_list_items,
 	actions  : {
+		[MENU_EVENT_PLAY]   = page_display,
+		[MENU_EVENT_UP]     = list_up,
+		[MENU_EVENT_DOWN]   = list_down,
 		[MENU_EVENT_PREV]   = list_up,
 		[MENU_EVENT_NEXT]   = list_down,
 		[MENU_EVENT_AV_UP]  = list_hide,
+		[MENU_EVENT_SET]    = page_display,
 	},
 	ordering : settings.main_order,
 };
@@ -119,6 +125,13 @@ void list_down(type_MENU *menu) {
 }
 
 void list_hide(type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+
+	if (page->current_posn != menu->current_posn || !settings.menu_navmain)
+		menu_set_posn(get_item_id(page, page->current_posn));
+}
+
+void page_display (type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 
 	menu_set_posn(get_item_id(page, page->current_posn));
