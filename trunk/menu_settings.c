@@ -47,8 +47,9 @@ type_MENUITEM presets_items[] = {
 };
 
 type_MENUITEM menus_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_WARP_MENUS),    &settings.menu_warp,    NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_NAVIGATE_MAIN), &settings.menu_navmain, NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_WARP_MENUS),    &settings.menu_warp,      NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_NAVIGATE_MAIN), &settings.menu_navmain,   NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_ENTER_MAIN),    &settings.menu_entermain, NULL),
 };
 
 type_MENUITEM pages_items[] = {

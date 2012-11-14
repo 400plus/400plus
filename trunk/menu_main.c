@@ -91,6 +91,9 @@ type_MENUPAGE main_list = {
 
 void menu_main_start() {
 	menu_create(&menu_main);
+
+	if (settings.menu_entermain)
+		list_display(&menu_main);
 }
 
 void menu_main_save(type_MENU *menu) {
