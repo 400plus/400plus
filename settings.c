@@ -15,7 +15,7 @@
 
 #include "settings.h"
 
-type_SETTINGS settings = {
+type_SETTINGS settings_default = {
 	iso_in_viewfinder: false,
 	autoiso_enable   : false,
 	autoiso_miniso   : 0x48, // ISO100
@@ -69,6 +69,8 @@ type_SETTINGS settings = {
 	menu_entermain   : false,
 };
 
+type_SETTINGS settings;
+
 int settings_read() {
 	int result  = false;
 
@@ -76,6 +78,8 @@ int settings_read() {
 	int version =  0;
 
 	type_SETTINGS buffer;
+
+	settings = settings_default;
 
 	if ((file = FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644)) == -1)
 		goto end;
@@ -124,4 +128,11 @@ extern void settings_apply() {
 	} else {
 		remote_off();
 	}
+}
+
+void settings_restore() {
+	settings = settings_default;
+
+	settings_apply();
+	settings_write();
 }

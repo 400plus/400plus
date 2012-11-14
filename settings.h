@@ -138,5 +138,6 @@ extern type_SETTINGS settings;
 extern int  settings_read();
 extern void settings_write();
 extern void settings_apply();
+extern void settings_restore();
 
 #endif /* SETTINGS_H_ */

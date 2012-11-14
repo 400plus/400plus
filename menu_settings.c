@@ -7,8 +7,10 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+#include "main.h"
 #include "macros.h"
 
+#include "display.h"
 #include "languages.h"
 #include "menu.h"
 #include "menupage.h"
@@ -22,6 +24,7 @@
 extern char languages_found[MAX_LANGUAGES][LP_MAX_WORD];
 
 void menu_settings_open();
+void menu_settings_restore();
 
 void reload_language_and_refresh(const type_MENUITEM *item);
 
@@ -58,6 +61,11 @@ type_MENUITEM pages_items[] = {
 	MENUITEM_INFO(LP_WORD(L_P_INFO),       NULL),
 	MENUITEM_INFO(LP_WORD(L_P_SETTINGS),   NULL),
 	MENUITEM_INFO(LP_WORD(L_P_PRESETS),    NULL),
+};
+
+type_MENUITEM restore_items[] = {
+	MENUITEM_LAUNCH(LP_WORD(L_V_NO),  menu_return),
+	MENUITEM_LAUNCH(LP_WORD(L_V_YES), menu_settings_restore),
 };
 
 type_MENUPAGE scripts_page = {
@@ -106,9 +114,19 @@ type_MENUPAGE pages_page = {
 	}
 };
 
+type_MENUPAGE restore_page = {
+	name     : LP_WORD(L_S_CONFIRM),
+	length   : LENGTH(restore_items),
+	items    : restore_items,
+	actions  : {
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_LANG   (LP_WORD(L_I_LANGUAGE),         &settings.language,               reload_language_and_refresh),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_ISO_IN_VF),        &settings.iso_in_viewfinder,      NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_I_RESTORE),          &restore_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_SCRIPTS),          &scripts_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_BUTTONS),          &buttons_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PRESETS),          &presets_page,                    NULL),
@@ -140,4 +158,12 @@ void menu_settings_open() {
 		menupage_settings.items[0].parm.menuitem_enum.list->length  = i + 1;
 		menupage_settings.items[0].parm.menuitem_enum.list->data[i] = languages_found[i];
 	}
+}
+
+void menu_settings_restore() {
+	settings_restore();
+
+	enqueue_action(beep);
+	enqueue_action(menu_close);
+	enqueue_action(restore_display);
 }
