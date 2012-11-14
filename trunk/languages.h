@@ -141,6 +141,7 @@
 	LANG_PAIR( S_INFINITE,           "INF!"               ) \
 	LANG_PAIR( V_CAMERA,             "Camera"             ) \
 	LANG_PAIR( I_WARP_MENUS,         "Menus warp"         ) \
+	LANG_PAIR( I_NAVIGATE_MAIN,      "Navigate to main"   ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,

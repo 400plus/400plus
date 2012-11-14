@@ -129,6 +129,7 @@ typedef struct {
 	int button_disp;
 	int language;
 	int menu_warp;
+	int menu_navmain;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;
