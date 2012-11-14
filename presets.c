@@ -19,7 +19,7 @@
 
 type_PRESET preset;
 
-type_PRESETS_CONFIG presets_config = {
+type_PRESETS_CONFIG presets_default = {
 	use_adep        : true,
 	recall_camera   : true,
 	recall_400plus  : true,
@@ -28,6 +28,8 @@ type_PRESETS_CONFIG presets_config = {
 	recall_cfn      : true,
 	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8}
 };
+
+type_PRESETS_CONFIG presets_config;
 
 void sub_preset_recall(int full);
 //void get_filename(char *filename, int id);
@@ -38,6 +40,8 @@ void presets_read() {
 	int version =  0;
 
 	type_PRESETS_CONFIG buffer;
+
+	presets_config = presets_default;
 
 	for (id = 0; id < 9; id ++)
 		sprintf(presets_config.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), 1 + id);
@@ -71,6 +75,12 @@ void presets_write() {
 		FIO_WriteFile(file, (void*)&presets_config, sizeof(presets_config));
 		FIO_CloseFile(file);
 	}
+}
+
+void presets_restore() {
+	presets_config = presets_default;
+
+	presets_write();
 }
 
 int preset_read(int id) {

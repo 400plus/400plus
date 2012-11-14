@@ -7,7 +7,6 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#include "main.h"
 #include "macros.h"
 
 #include "display.h"
@@ -24,7 +23,9 @@
 extern char languages_found[MAX_LANGUAGES][LP_MAX_WORD];
 
 void menu_settings_open();
-void menu_settings_restore();
+
+void menu_restore_settings();
+void menu_restore_presets();
 
 void reload_language_and_refresh(const type_MENUITEM *item);
 
@@ -64,8 +65,8 @@ type_MENUITEM pages_items[] = {
 };
 
 type_MENUITEM restore_items[] = {
-	MENUITEM_LAUNCH(LP_WORD(L_V_NO),  menu_return),
-	MENUITEM_LAUNCH(LP_WORD(L_V_YES), menu_settings_restore),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RESTORE_SETTINGS), menu_restore_settings),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RESTORE_PRESETS),  menu_restore_presets),
 };
 
 type_MENUPAGE scripts_page = {
@@ -115,7 +116,7 @@ type_MENUPAGE pages_page = {
 };
 
 type_MENUPAGE restore_page = {
-	name     : LP_WORD(L_S_CONFIRM),
+	name     : LP_WORD(L_I_RESTORE),
 	length   : LENGTH(restore_items),
 	items    : restore_items,
 	actions  : {
@@ -160,10 +161,14 @@ void menu_settings_open() {
 	}
 }
 
-void menu_settings_restore() {
+void menu_restore_settings() {
 	settings_restore();
+	menu_return();
+	beep();
+}
 
-	enqueue_action(beep);
-	enqueue_action(menu_close);
-	enqueue_action(restore_display);
+void menu_restore_presets() {
+	presets_restore();
+	menu_return();
+	beep();
 }

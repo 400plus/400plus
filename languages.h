@@ -143,8 +143,9 @@
 	LANG_PAIR( I_WARP_MENUS,         "Menus warp"         ) \
 	LANG_PAIR( I_NAVIGATE_MAIN,      "Navigate to main"   ) \
 	LANG_PAIR( I_ENTER_MAIN,         "Enter to main"      ) \
-	LANG_PAIR( I_RESTORE,            "Restore settings"   ) \
-	LANG_PAIR( S_CONFIRM,            "Please confirm"     ) \
+	LANG_PAIR( I_RESTORE,            "Restore config."    ) \
+	LANG_PAIR( I_RESTORE_SETTINGS,   "Restore settings"   ) \
+	LANG_PAIR( I_RESTORE_PRESETS,    "Restore presets"    ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,
