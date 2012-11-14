@@ -41,10 +41,10 @@ void presets_read() {
 
 	type_PRESETS_CONFIG buffer;
 
-	presets_config = presets_default;
-
 	for (id = 0; id < 9; id ++)
-		sprintf(presets_config.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), 1 + id);
+		sprintf(presets_default.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), 1 + id);
+
+	presets_config = presets_default;
 
 	if ((file = FIO_OpenFile(PRESETS_CONFIG, O_RDONLY, 644)) == -1)
 		goto end;
