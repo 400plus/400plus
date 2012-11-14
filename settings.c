@@ -65,7 +65,8 @@ type_SETTINGS settings = {
 	button_disp      : false,
 	language         : 0,
 	menu_warp        : true,
-	menu_navmain     : false
+	menu_navmain     : false,
+	menu_entermain   : false,
 };
 
 int settings_read() {
