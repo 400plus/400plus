@@ -133,6 +133,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*Config. Menus*_: This sub-menu configures the behavior of [#The_menu the menu]:
     * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element.
     * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_the_menu Navigating the menu]).
+    * Enter to main: when active (set to Yes), `400plus` will directly enter the main page in the menu, instead of going to the last visited page.
  * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
 
 === Presets Page ===
