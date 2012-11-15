@@ -110,7 +110,9 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
  * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viewfinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
- * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
+ * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
+    * Restore settings: Restore all settings (but presets) back to default values.
+    * Restore presets: Restore all preset-related configuration back to default values (_notice that presets themselves are not deleted_).
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
     * LCD display: configure the brightness of the LCD display while a script is running.
@@ -135,6 +137,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_the_menu Navigating the menu]).
     * Enter to main: when active (set to Yes), `400plus` will directly enter the main page in the menu, instead of going to the last visited page.
  * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
+ * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
 
 === Presets Page ===
 
