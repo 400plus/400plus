@@ -29,6 +29,7 @@ typedef struct {
 	int  recall_cfn;
 	int  order[9];
 	char names[9][32];
+	int  last_preset;
 } type_PRESETS_CONFIG;
 
 extern type_PRESETS_CONFIG presets_config;
@@ -41,6 +42,7 @@ extern int  preset_read (int id);
 extern int  preset_write(int id);
 extern void preset_apply();
 extern void preset_apply_full();
+
 extern void preset_recall();
 extern void preset_recall_full();
 
