@@ -22,14 +22,15 @@
 #include "font.h"
 #include "firmware.h"
 
-#define vram_start (0x212D7C)
-#define vram_end   (0x212D7C + (360*240))
-#define vram_size  (vram_end - vram_start)
+#define vram_start (0x212D08)
+#define vram_end   (vram_start + (360*240))
+#define vram_size  (vram_end   - vram_start)
 
-static inline int * bmp_vram(void) {
-	int *x = (int*)0x212D7C;  //~ location of bmp buffer in 5dc.
+static inline int *bmp_vram(void) {
+	int *x = (int*)vram_start;  //~ location of bmp buffer in 5dc.
 	return x;
 }
+
 #define BMPPITCH 360
 
 #define FONT_MASK               0x000F0000
