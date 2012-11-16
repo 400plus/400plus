@@ -31,6 +31,9 @@ extern void menupage_refresh(type_MENU *menu);
 extern void menupage_up   (type_MENU *menu);
 extern void menupage_down (type_MENU *menu);
 
+extern void menupage_pgup   (type_MENU *menu);
+extern void menupage_pgdown (type_MENU *menu);
+
 extern void menupage_drag_drop(type_MENU *menu);
 
 extern type_MENUITEM *get_current_item(type_MENUPAGE *page);

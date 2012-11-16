@@ -61,7 +61,7 @@ void menupage_up(type_MENU *menu) {
 	int display = false;
 	type_MENUPAGE *page = menu->current_page;
 
-	if ((page->length > MENU_HEIGHT && settings.menu_warp)|| page->current_posn > 0) {
+	if ((page->length > MENU_HEIGHT && settings.menu_warp) || page->current_posn > 0) {
 		page->current_posn--;
 
 		if (item_grabbed) {
@@ -82,9 +82,8 @@ void menupage_up(type_MENU *menu) {
 }
 
 void menupage_down(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-
 	int display = false;
+	type_MENUPAGE *page = menu->current_page;
 
 	if ((page->length > MENU_HEIGHT && settings.menu_warp) || page->current_posn < page->length - 1) {
 		page->current_posn++;
@@ -97,6 +96,53 @@ void menupage_down(type_MENU *menu) {
 
 	if (page->current_line < MIN(MENU_HEIGHT, page->length) - 1) {
 		page->current_line++;
+		menu_highlight(page->current_line);
+	} else {
+		display = true;
+	}
+
+	if (display)
+		menu_event_display();
+}
+
+void menupage_pgup(type_MENU *menu) {
+	int display = false;
+	type_MENUPAGE *page = menu->current_page;
+
+	if (item_grabbed)
+		return;
+
+	page->current_posn -= MENU_HEIGHT - 1;
+
+	if (! (page->length > MENU_HEIGHT && settings.menu_warp))
+		page->current_posn = MAX(page->current_posn, 0);
+
+	if (page->current_line > 0) {
+		page->current_line = 0;
+		menu_highlight(page->current_line);
+	} else {
+		display = true;
+	}
+
+	if (display)
+		menu_event_display();
+}
+
+void menupage_pgdown(type_MENU *menu) {
+	int display = false;
+	type_MENUPAGE *page = menu->current_page;
+
+	if (item_grabbed)
+		return;
+
+	page->current_posn += MENU_HEIGHT - 1;
+
+	if (! (page->length > MENU_HEIGHT && settings.menu_warp)) {
+		page->current_posn = MIN(page->current_posn, page->length - 1);
+	}
+
+	if (page->current_line < MIN(MENU_HEIGHT, page->length) - 1) {
+		page->current_line = MIN(MENU_HEIGHT, page->length) - 1;
 		menu_highlight(page->current_line);
 	} else {
 		display = true;
