@@ -23,9 +23,8 @@ typedef struct {
 	int         iso_in_viewfinder; // ISO is being displayed in the viewfinder
 	int         afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int         main_dial_ae;      // AE mode selected in the main dial
-	int         last_preset;       // Last preset used
+	int         preset_active;     // There is a preset active
 	int         ignore_ae_change;  // Ignore next AE change
-	int         booting;           // Camera is still booting up
 	int         measuring;         // Camera is measuring the scene
 	tv_t        measured_tv;       // Shutter speed as proposed by the metering
 	av_t        measured_av;       // Aperture as proposed by the metering

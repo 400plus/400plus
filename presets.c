@@ -155,7 +155,6 @@ end:
 void preset_apply() {
 	if (presets_config.recall_camera) {
 		status.ignore_ae_change = true;
-
 		send_to_intercom(IC_SET_AE, 1, preset.camera_mode.ae);
 	}
 
@@ -163,6 +162,7 @@ void preset_apply() {
 }
 
 void preset_apply_full() {
+
 	if (presets_config.recall_400plus) {
 		settings = preset.settings;
 		settings_apply();
@@ -170,7 +170,6 @@ void preset_apply_full() {
 
 	if (presets_config.recall_camera) {
 		status.ignore_ae_change = true;
-
 		send_to_intercom(IC_SET_AE,         1, preset.camera_mode.ae);
 		send_to_intercom(IC_SET_METERING,   1, preset.camera_mode.metering);
 		send_to_intercom(IC_SET_EFCOMP,     1, preset.camera_mode.efcomp);
@@ -252,11 +251,21 @@ void preset_recall_full() {
 }
 
 void sub_preset_recall(int full) {
-	if (preset_read(0)) {
-		if (full) {
-			preset_apply_full();
-		} else {
-			preset_apply();
+	// Preventively, we assume no preset is active now
+	status.preset_active = false;
+
+	// Only if configured to hijack ADEP and enterng ADEP
+	if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
+		// Only if a preset was loaded, and we can read it back
+		if (presets_config.last_preset && preset_read(presets_config.last_preset)) {
+			// Apply full preset or just revert AE mode
+			if (full)
+				preset_apply_full();
+			else
+				preset_apply();
+
+			// Well, looks like we did recall a preset after all
+			status.preset_active = true;
 		}
 	}
 }

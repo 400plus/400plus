@@ -34,9 +34,7 @@ type_STATUS status = {
 	script_stopping   : false,
 	iso_in_viewfinder : false,
 	afp_dialog        : false,
-	last_preset       : false,
 	ignore_ae_change  : false,
-	booting           : true,
 	measuring         : false,
 	ev_comp           : 0x00,
 };
@@ -234,20 +232,12 @@ int proxy_measurement(char *message) {
 
 int proxy_settings0(char *message) {
 	if (status.ignore_ae_change) {
-		// Ignore first AE change after loading a preset, as it generates this same event
+		// Ignore first AE change coming from a preset being applied
 		status.ignore_ae_change = false;
 	} else {
 		// Handle preset recall when dial moved to A-DEP
-		status.last_preset  = false;
 		status.main_dial_ae = message[2];
-
-		if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
-			if (status.booting) {
-				enqueue_action(preset_recall);
-			} else {
-				enqueue_action(preset_recall_full);
-			}
-		}
+		enqueue_action(preset_recall_full);
 	}
 
 	return false;

@@ -36,6 +36,9 @@ void start_up() {
 	// Read settings from file
 	settings_read();
 
+	// Read presets from file
+	presets_read();
+
 	if (settings.debug_on_poweron)
 		start_debug_mode();
 
@@ -80,14 +83,11 @@ void start_up() {
 	send_to_intercom(IC_SET_REALTIME_ISO_0, 0, 0);
 	send_to_intercom(IC_SET_REALTIME_ISO_1, 0, 0);
 
-	// Read presets from file
-	presets_read();
-
 	// turn off the blue led after it was lighten by our my_task_MainCtrl()
 	eventproc_EdLedOff();
 
-	// We are no longer booting up
-	status.booting = false;
+	// If needed, recall last active preset
+	preset_recall();
 
 #if 0
 	debug_log("=== DUMPING DDD ===");
@@ -106,8 +106,6 @@ void start_up() {
 		beep();
 	}
 #endif
-
-
 }
 
 void set_metering_spot() {
