@@ -13,6 +13,7 @@
 
 #include "bmp.h"
 #include "exposure.h"
+#include "presets.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -26,9 +27,11 @@ void display_refresh_iso();
 static dialog_t *countdown_dialog = NULL;
 
 void restore_display() {
+	display_overlay();
+
 	SleepTask(100);
 
-	if (DPData.ae < AE_MODE_AUTO)
+	if (! status.menu_running && DPData.ae < AE_MODE_AUTO)
 		display_refresh();
 }
 
@@ -46,7 +49,7 @@ void display_refresh() {
 
 	dialog_redraw(hMainDialog);
 
-	//bmp_hexdump(FONT_SMALL, 0, 10, (void *)((int)0x00001C84), 16);
+	display_overlay();
 }
 
 void display_refresh_meteringmode() {
@@ -153,4 +156,9 @@ void display_brightness() {
 		}
 	else
 		press_button(IC_BUTTON_DISP);
+}
+
+void display_overlay() {
+	if (status.preset_active && presets_config.last_preset)
+		bmp_printf(FONT_SMALL, 16, 96, "%s", presets_config.names[presets_config.last_preset - 1]);
 }
