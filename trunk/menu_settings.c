@@ -26,6 +26,7 @@ void menu_settings_open();
 
 void menu_restore_settings();
 void menu_restore_presets();
+void menu_delete_presets();
 
 void reload_language_and_refresh(const type_MENUITEM *item);
 
@@ -67,6 +68,7 @@ type_MENUITEM pages_items[] = {
 type_MENUITEM restore_items[] = {
 	MENUITEM_LAUNCH(LP_WORD(L_I_RESTORE_SETTINGS), menu_restore_settings),
 	MENUITEM_LAUNCH(LP_WORD(L_I_RESTORE_PRESETS),  menu_restore_presets),
+	MENUITEM_LAUNCH(LP_WORD(L_I_DELETE_PRESETS),   menu_delete_presets),
 };
 
 type_MENUPAGE scripts_page = {
@@ -169,6 +171,12 @@ void menu_restore_settings() {
 
 void menu_restore_presets() {
 	presets_restore();
+	menu_return();
+	beep();
+}
+
+void menu_delete_presets() {
+	presets_delete();
 	menu_return();
 	beep();
 }
