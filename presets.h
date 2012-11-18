@@ -37,6 +37,7 @@ extern type_PRESETS_CONFIG presets_config;
 extern void presets_read();
 extern void presets_write();
 extern void presets_restore();
+extern void presets_delete();
 
 extern int  preset_read (int id);
 extern int  preset_write(int id);

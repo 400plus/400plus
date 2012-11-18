@@ -146,6 +146,7 @@
 	LANG_PAIR( I_RESTORE,            "Restore config."    ) \
 	LANG_PAIR( I_RESTORE_SETTINGS,   "Restore settings"   ) \
 	LANG_PAIR( I_RESTORE_PRESETS,    "Restore presets"    ) \
+	LANG_PAIR( I_DELETE_PRESETS,     "Delete presets"     ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,
