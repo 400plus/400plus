@@ -519,26 +519,15 @@ int shutter_release_disasm() {
 #endif
 
 void wait_for_camera() {
-	while (hRelSem || ! able_to_release())
+	while (! able_to_release())
 		SleepTask(RELEASE_WAIT);
-
-	SleepTask(RELEASE_WAIT);
-}
-
-void wait_for_capture() {
-	while (hRelSem)
-		SleepTask(RELEASE_WAIT);
-
-	SleepTask(RELEASE_WAIT);
 }
 
 int shutter_release() {
 	wait_for_camera();
 
 	int result = eventproc_Release();
-	SleepTask(RELEASE_WAIT);
-
-	wait_for_capture();
+	SleepTask(INTERCOM_WAIT);
 
 	return result;
 }
@@ -550,9 +539,7 @@ int shutter_release_bulb(int time) {
 	SleepTask(1000 * time + SHUTTER_LAG);
 
 	press_button(IC_BUTTON_HALF_SHUTTER);
-	SleepTask(RELEASE_WAIT);
-
-	wait_for_capture();
+	SleepTask(INTERCOM_WAIT);
 
 	return 0;
 }
