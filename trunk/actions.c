@@ -36,11 +36,15 @@ void start_up() {
 	// Read settings from file
 	settings_read();
 
-	// Read presets from file
-	presets_read();
-
+	// If configured, start debug mode
 	if (settings.debug_on_poweron)
 		start_debug_mode();
+
+	// Set current language
+	lang_pack_init();
+
+	// Read presets from file
+	presets_read();
 
 	SleepTask(100);
 
@@ -72,9 +76,6 @@ void start_up() {
 	if (settings.remote_enable) {
 		remote_on();
 	}
-
-	// Set current language
-	lang_pack_init();
 
 	// Enable (hidden) CFn.8 for ISO H
 	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1, 1);
