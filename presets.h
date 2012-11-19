@@ -16,7 +16,7 @@
 #define PRESETS_FILE    "A:/PRESET_%u"
 
 typedef struct {
-	dpr_data_t     camera_mode;
+	dpr_data_t     DPData;
 	type_SETTINGS  settings;
 } type_PRESET;
 
