@@ -5,6 +5,10 @@
 PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
 
+ifndef CROSS_COMPILE
+	CROSS_COMPILE=arm-elf-
+endif
+
 ifdef RELEASE
 	VERSION = V-$(RELEASE)
 	RELNAME = 400plus-$(RELEASE)
@@ -22,14 +26,15 @@ COMMON_FLAGS =\
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
 	-Wp,-MT,$@                        \
 	-mcpu=arm946e-s                   \
+	-march=armv5te                    \
 	-DVERSION='"$(VERSION)"'          \
-	-mfloat-abi=soft                  \
-	-msoft-float                      \
 	-fno-builtin                      \
 	-nostdlib                         \
 	-fomit-frame-pointer              \
 	-fno-strict-aliasing              \
-	-mfpu=fpa
+	-mfloat-abi=soft                  \
+	-msoft-float                      \
+	-mfpu=fpa                         \
 
 	#-nostdinc                         \
 	#-fno-builtin-puts                 \
@@ -50,7 +55,7 @@ COMMON_FLAGS =\
 # this fixes them, keep it here in case we need it
 	#-mstructure-size-boundary=32 \
 
-CC     := arm-elf-gcc
+CC     := $(CROSS_COMPILE)gcc
 CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 	-Os                                \
 	-Wno-char-subscripts               \
@@ -60,13 +65,14 @@ CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 	#-Wno-unused-parameter \
 	#-Wno-unused-function  \
 
-AS      := arm-elf-as
+AS      := $(CROSS_COMPILE)as
 ASFLAGS := $(COMMON_FLAGS)
 
-LD      := arm-elf-ld
-LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
+LD      := $(CROSS_COMPILE)ld
+#LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
+LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start
 
-OBJCOPY := arm-elf-objcopy
+OBJCOPY := $(CROSS_COMPILE)objcopy
 
 S_SRCS := $(wildcard *.S) $(wildcard vxworks/*.S) $(wildcard firmware/*.S)
 C_SRCS := $(wildcard *.c) $(wildcard vxworks/*.c) $(wildcard firmware/*.C)
