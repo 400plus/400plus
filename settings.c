@@ -64,7 +64,6 @@ type_SETTINGS settings_default = {
 	button_trash     : BUTTON_ACTION_SCRIPT,
 	button_disp      : false,
 	language         : 0,
-	menu_warp        : true,
 	menu_navmain     : false,
 	menu_entermain   : false,
 };

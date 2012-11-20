@@ -128,7 +128,7 @@ typedef struct {
 	int button_trash;
 	int button_disp;
 	int language;
-	int menu_warp;
+	int menu_wrap;
 	int menu_navmain;
 	int menu_entermain;
 } type_SETTINGS;

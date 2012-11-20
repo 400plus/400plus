@@ -61,7 +61,7 @@ void menupage_up(type_MENU *menu) {
 	int display = false;
 	type_MENUPAGE *page = menu->current_page;
 
-	if ((page->length > MENU_HEIGHT && settings.menu_warp) || page->current_posn > 0) {
+	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn > 0) {
 		page->current_posn--;
 
 		if (item_grabbed) {
@@ -85,7 +85,7 @@ void menupage_down(type_MENU *menu) {
 	int display = false;
 	type_MENUPAGE *page = menu->current_page;
 
-	if ((page->length > MENU_HEIGHT && settings.menu_warp) || page->current_posn < page->length - 1) {
+	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn < page->length - 1) {
 		page->current_posn++;
 
 		if (item_grabbed) {
@@ -114,7 +114,7 @@ void menupage_pgup(type_MENU *menu) {
 
 	page->current_posn -= MENU_HEIGHT - 1;
 
-	if (! (page->length > MENU_HEIGHT && settings.menu_warp))
+	if (! (page->length > MENU_HEIGHT && settings.menu_wrap))
 		page->current_posn = MAX(page->current_posn, 0);
 
 	if (page->current_line > 0) {
@@ -137,7 +137,7 @@ void menupage_pgdown(type_MENU *menu) {
 
 	page->current_posn += MENU_HEIGHT - 1;
 
-	if (! (page->length > MENU_HEIGHT && settings.menu_warp)) {
+	if (! (page->length > MENU_HEIGHT && settings.menu_wrap)) {
 		page->current_posn = MIN(page->current_posn, page->length - 1);
 	}
 
