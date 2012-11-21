@@ -141,7 +141,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
 === Presets Page ===
 
-Use this page to load, save, and rename [#The_presets presets]; the procedure to rename a preset is :
+Use this page to load, save, rename, and delete [#The_presets presets]; the procedure to rename a preset is :
 
  * Select the "Rename" option in the presets sub-menu.
  * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a value.
