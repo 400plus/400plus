@@ -254,7 +254,11 @@ void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
-	menu_scripts_ev = ec_normalize((menu_DPData.iso - DPData.iso) - (menu_DPData.tv_val - DPData.tv_val) - (menu_DPData.av_val - DPData.av_val));
+	int ev = (menu_DPData.iso - DPData.iso) - (menu_DPData.tv_val - DPData.tv_val) - (menu_DPData.av_val - DPData.av_val);
+
+	ev = CLAMP(ev, EV_CODE(-15, 0), EV_CODE(15, 0));
+
+	menu_scripts_ev = ec_normalize(ev);
 	menu_event_display();
 }
 
