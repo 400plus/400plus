@@ -129,12 +129,12 @@ type_MENUPAGE restore_page = {
 type_MENUITEM menu_settings_items[] = {
 	MENUITEM_LANG   (LP_WORD(L_I_LANGUAGE),         &settings.language,               reload_language_and_refresh),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_ISO_IN_VF),        &settings.iso_in_viewfinder,      NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_I_RESTORE),          &restore_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_SCRIPTS),          &scripts_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_BUTTONS),          &buttons_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PRESETS),          &presets_page,                    NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_MENUS),            &menus_page,                      NULL),
 	MENUITEM_SUBMENU(LP_WORD(L_S_PAGES),            &pages_page,                      NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_I_RESTORE),          &restore_page,                    NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu,        NULL),
 };
 
