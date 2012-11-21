@@ -85,26 +85,12 @@ void presets_restore() {
 
 void presets_delete() {
 	int  id;
-	int  file    = -1;
-	int  version = 0x0000;
 	char filename[16];
 
 	for(id = 0; id < 9; id++) {
 		get_preset_filename(filename, id);
 
-		if ((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644)) == -1)
-			goto end;
-
-		if (FIO_WriteFile(file, (void*)&version, sizeof(version)) != sizeof(version))
-			goto end;
-
-		if (FIO_CloseFile(file) == -1)
-			goto end;
-end:
-		if (file != -1)
-			FIO_CloseFile(file);
-
-		file = -1;
+		FIO_RemoveFile(filename);
 	}
 }
 
