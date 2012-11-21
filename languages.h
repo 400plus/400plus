@@ -44,6 +44,7 @@
 	LANG_PAIR( I_LOAD,               "Load"               ) \
 	LANG_PAIR( I_SAVE,               "Save"               ) \
 	LANG_PAIR( I_RENAME,             "Rename"             ) \
+	LANG_PAIR( I_DELETE,             "Delete"             ) \
 	LANG_PAIR( S_AUTOISO,            "AutoISO"            ) \
 	LANG_PAIR( I_AUTOISO_ENABLE,     "Enable"             ) \
 	LANG_PAIR( I_AUTOISO_MINISO,     "Min ISO"            ) \

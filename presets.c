@@ -85,13 +85,9 @@ void presets_restore() {
 
 void presets_delete() {
 	int  id;
-	char filename[16];
 
-	for(id = 0; id < 9; id++) {
-		get_preset_filename(filename, id);
-
-		FIO_RemoveFile(filename);
-	}
+	for(id = 0; id < 9; id++)
+		preset_delete(id);
 }
 
 int preset_read(int id) {
@@ -160,6 +156,22 @@ end:
 	if (file != -1)
 		FIO_CloseFile(file);
 
+	return result;
+}
+
+int preset_delete(int id) {
+	int  result = false;
+
+	char filename[16];
+
+	get_preset_filename(filename, id);
+
+	if (FIO_RemoveFile(filename) == -1)
+		goto end;
+
+	result = true;
+
+end:
 	return result;
 }
 
