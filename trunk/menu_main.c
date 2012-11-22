@@ -90,6 +90,8 @@ type_MENUPAGE main_list = {
 };
 
 void menu_main_start() {
+	menu_main.current_posn = settings.menu_current_posn;
+
 	menu_create(&menu_main);
 
 	if (settings.menu_entermain)
@@ -97,6 +99,8 @@ void menu_main_start() {
 }
 
 void menu_main_save(type_MENU *menu) {
+	settings.menu_current_posn = menu_main.current_posn;
+
 	settings_write();
 	presets_write();
 	lang_pack_config();
