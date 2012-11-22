@@ -248,6 +248,8 @@ But we can temporarily select a high sensitivity and large aperture (ISO1600 and
 
 NOTE: The long exposure calculator will only apply the values presented on the display when the exposure time (Tv) is one minute or longer; for shorter exposure times, the "Apply" button will simply be inactive.
 
+NOTICE: The Ev field in this calculator cannot display values smaller than -15EV or larger than +15EV.
+
 TIP: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
 
 === DOF Calculator ===
