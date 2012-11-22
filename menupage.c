@@ -157,7 +157,6 @@ void menupage_drag_drop(type_MENU *menu) {
 
 	if (page->ordering) {
 		item_grabbed  = ! item_grabbed;
-		menu->changed = true;
 		menu_event_refresh();
 	}
 }
