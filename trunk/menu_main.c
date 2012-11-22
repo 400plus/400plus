@@ -97,11 +97,9 @@ void menu_main_start() {
 }
 
 void menu_main_save(type_MENU *menu) {
-	if (menu->changed) {
-		settings_write();
-		presets_write();
-		lang_pack_config();
-	}
+	settings_write();
+	presets_write();
+	lang_pack_config();
 }
 
 void list_display(type_MENU *menu) {

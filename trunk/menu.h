@@ -71,7 +71,6 @@ struct MENU {
 	int              *ordering;
 	int               current_posn;
 	type_MENUPAGE    *current_page;
-	int               changed;
 };
 
 extern dpr_data_t menu_DPData;

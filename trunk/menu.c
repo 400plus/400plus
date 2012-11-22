@@ -306,7 +306,6 @@ void menu_repeat_right(type_MENU *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = true;
 		menu_event_refresh();
 	}
 }
@@ -321,7 +320,6 @@ void menu_repeat_left(type_MENU *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = true;
 		menu_event_refresh();
 	}
 }
