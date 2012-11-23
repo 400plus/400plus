@@ -293,6 +293,8 @@ void rename_save(type_MENU *menu) {
 
 	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)
 		rename_filename[i] = '\0';
+
+	menu->changed = true;
 }
 
 void rename_display(type_MENU *menu) {

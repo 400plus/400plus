@@ -99,11 +99,13 @@ void menu_main_start() {
 }
 
 void menu_main_save(type_MENU *menu) {
-	settings.menu_current_posn = menu_main.current_posn;
+	if (menu->changed || settings.menu_current_posn != menu_main.current_posn) {
+		settings.menu_current_posn = menu_main.current_posn;
 
-	settings_write();
-	presets_write();
-	lang_pack_config();
+		settings_write();
+		presets_write();
+		lang_pack_config();
+	}
 }
 
 void list_display(type_MENU *menu) {
