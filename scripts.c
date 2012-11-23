@@ -228,6 +228,8 @@ void script_stop() {
 }
 
 void script_restore_parameters() {
+	wait_for_camera();
+
 	send_to_intercom(IC_SET_AE,     1, st_DPData.ae);
 	send_to_intercom(IC_SET_EFCOMP, 1, st_DPData.efcomp);
 	send_to_intercom(IC_SET_TV_VAL, 1, st_DPData.tv_val);
@@ -236,6 +238,8 @@ void script_restore_parameters() {
 }
 
 void script_restore() {
+	wait_for_camera();
+
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_DPData.cf_mirror_up_lock);
 	send_to_intercom(IC_SET_AE_BKT,            1, st_DPData.ae_bkt);
 
@@ -338,7 +342,6 @@ void action_ext_aeb() {
 
 		// First photo taken using default values
 		shutter_release();
-		wait_for_camera();
 		frames--;
 
 		// Grab the parameters used by the camera
@@ -346,8 +349,10 @@ void action_ext_aeb() {
 		av_inc = av_dec = status.last_shot_av;
 
 		// Enter manual mode...
-		if (DPData.ae != AE_MODE_M)
+		if (DPData.ae != AE_MODE_M) {
+			wait_for_camera();
 			send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
+		}
 
 		// ...and do the rest ourselves
 		while(frames) {
@@ -393,6 +398,8 @@ void action_iso_aeb() {
 
 	for (i = 0; i < 5; i++) {
 		if (settings.iso_aeb[i]) {
+			wait_for_camera();
+
 			send_to_intercom(IC_SET_ISO, 2, 0x40 | ((i + 1) << 3));
 			SleepTask(WAIT_USER_ACTION);
 			shutter_release();
@@ -416,6 +423,8 @@ void action_efl_aeb() {
 
 	while(frames) {
 		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
+			wait_for_camera();
+
 			ef_inc = ec_add(ef_inc, settings.efl_aeb_ev);
 			send_to_intercom(IC_SET_EFCOMP, 1, ef_inc);
 
@@ -427,6 +436,8 @@ void action_efl_aeb() {
 		}
 
 		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
+			wait_for_camera();
+
 			ef_dec = ec_sub(ef_dec, settings.efl_aeb_ev);
 			send_to_intercom(IC_SET_EFCOMP, 1, ef_dec);
 
