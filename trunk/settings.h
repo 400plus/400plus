@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x3D
+#define SETTINGS_VERSION  0x3E
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -132,6 +132,7 @@ typedef struct {
 	int menu_navmain;
 	int menu_entermain;
 	int menu_current_posn;
+	int menu_autosave;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;

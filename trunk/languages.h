@@ -144,6 +144,7 @@
 	LANG_PAIR( I_WRAP_MENUS,         "Menus wrap"         ) \
 	LANG_PAIR( I_NAVIGATE_MAIN,      "Navigate to main"   ) \
 	LANG_PAIR( I_ENTER_MAIN,         "Enter to main"      ) \
+	LANG_PAIR( I_AUTOSAVE,           "Autosave"           ) \
 	LANG_PAIR( I_RESTORE,            "Restore config."    ) \
 	LANG_PAIR( I_RESTORE_SETTINGS,   "Restore settings"   ) \
 	LANG_PAIR( I_RESTORE_PRESETS,    "Restore presets"    ) \
