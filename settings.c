@@ -66,6 +66,7 @@ type_SETTINGS settings_default = {
 	language         : 0,
 	menu_navmain     : false,
 	menu_entermain   : false,
+	menu_autosave    : true,
 };
 
 type_SETTINGS settings;
