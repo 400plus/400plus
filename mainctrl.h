@@ -1,13 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MAINCTRL_H_
 #define MAINCTRL_H_
-
-#include "firmware.h"
 
 typedef enum {
 	MC_INFOANDCTRL          = 0x01,

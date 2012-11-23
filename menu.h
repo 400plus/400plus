@@ -1,13 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MENU_H_
 #define MENU_H_
-
-#include <camera.h>
 
 #define MENU_WIDTH  27
 #define MENU_HEIGHT  5
@@ -61,19 +53,20 @@ typedef enum {
 	MENU_EVENT_LAST  = MENU_EVENT_COUNT - 1
 } type_MENU_EVENT;
 
-typedef void(*type_MENUACTION)(type_MENU *menu);
+typedef void(*type_MENUTASK)(type_MENU *menu);
 
 struct MENU {
 	type_MENU_COLOR   color;
 	int               length;
 	type_MENUPAGE   **pages;
-	type_MENUACTION   actions[MENU_EVENT_COUNT];
+	type_MENUTASK     tasks[MENU_EVENT_COUNT];
 	int              *ordering;
 	int               current_posn;
 	type_MENUPAGE    *current_page;
+	int               changed;
 };
 
-extern dpr_data_t menu_DPData;
+extern type_CAMERA_MODE  menu_cameraMode;
 
 extern void menu_create (type_MENU * menu);
 extern void menu_close  ();

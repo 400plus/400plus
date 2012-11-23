@@ -1,14 +1,7 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef PRESETS_H_
 #define PRESETS_H_
 
-#include <camera.h>
-
+#include "main.h"
 #include "settings.h"
 
 #define PRESETS_VERSION 0x02
@@ -16,8 +9,8 @@
 #define PRESETS_FILE    "A:/PRESET_%u"
 
 typedef struct {
-	dpr_data_t     DPData;
-	type_SETTINGS  settings;
+	type_CAMERA_MODE camera_mode;
+	type_SETTINGS    settings;
 } type_PRESET;
 
 typedef struct {
@@ -29,23 +22,17 @@ typedef struct {
 	int  recall_cfn;
 	int  order[9];
 	char names[9][32];
-	int  last_preset;
 } type_PRESETS_CONFIG;
 
 extern type_PRESETS_CONFIG presets_config;
 
-extern void presets_read   ();
-extern void presets_write  ();
-extern void presets_restore();
-extern void presets_delete ();
+extern void presets_read();
+extern void presets_write();
 
-extern int  preset_read  (int id);
-extern int  preset_write (int id);
-extern int  preset_delete(int id);
-
+extern int  preset_read (int id);
+extern int  preset_write(int id);
 extern void preset_apply();
 extern void preset_apply_full();
-
 extern void preset_recall();
 extern void preset_recall_full();
 

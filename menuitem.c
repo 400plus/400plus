@@ -1,20 +1,24 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdio.h>
-
-#include "macros.h"
+#include "main.h"
 #include "firmware.h"
 
-#include "exposure.h"
-#include "languages.h"
 #include "menu.h"
+#include "languages.h"
 #include "utils.h"
 
 #include "menuitem.h"
+
+OPTIONLIST_DEF(bool,      LP_WORD(L_V_NO), LP_WORD(L_V_YES))
+OPTIONLIST_DEF(flash,     LP_WORD(L_V_ENABLED), LP_WORD(L_V_DISABLED), LP_WORD(L_V_EXT_ONLY))
+OPTIONLIST_DEF(action,    LP_WORD(L_V_ONE_SHOT), LP_WORD(L_V_EXT_AEB), LP_WORD(L_V_EFL_AEB), LP_WORD(L_V_ISO_AEB), LP_WORD(L_V_LEXP))
+OPTIONLIST_DEF(logfile,   LP_WORD(L_V_OVERWRITE), LP_WORD(L_V_NEW), LP_WORD(L_V_APPEND));
+OPTIONLIST_DEF(btnactn,   LP_WORD(L_V_NONE), LP_WORD(L_V_INTISO), LP_WORD(L_V_REPEAT), LP_WORD(L_I_MIRROR_LOCKUP), LP_WORD(L_I_AEB), LP_WORD(L_V_HACK_MENU));
+OPTIONLIST_DEF(direction, "+", "-", "+/-");
+OPTIONLIST_DEF(languages, "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                          "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                          "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"); // place holders
+OPTIONLIST_DEF(vformat,   "25", "30", "50", "60");
+OPTIONLIST_DEF(scrind,    LP_WORD(L_V_NONE), LP_WORD(L_V_SLOW), LP_WORD(L_V_MEDIUM), LP_WORD(L_V_FAST));
+OPTIONLIST_DEF(scrlcd,    LP_WORD(L_V_KEEP), LP_WORD(L_V_DIM), LP_WORD(L_V_OFF));
 
 void menuitem_print(char *buffer, const char *name, const char *parameter, const int length);
 
@@ -22,13 +26,13 @@ void menuitem_display(const type_MENUITEM *item, char *buffer, const int length)
 	menuitem_print(buffer, item->name, "", length);
 }
 
-void menuitem_display_ec(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_ev(const type_MENUITEM *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
-	if (item->parm.menuitem_ec.zero_means_off && *item->parm.menuitem_ec.value == 0) {
+	if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value == 0) {
 		menuitem_print(buffer, item->name, LP_WORD(L_V_OFF), length);
 	} else {
-		ec_print(value, *item->parm.menuitem_ec.value);
+		ev_print(value, *item->parm.menuitem_ev.value);
 		menuitem_print(buffer, item->name, value, length);
 	}
 }
@@ -44,13 +48,6 @@ void menuitem_display_tv(const type_MENUITEM *item, char *buffer, const int leng
 	char value[LP_MAX_WORD];
 
 	tv_print(value, *item->parm.menuitem_tv.value);
-	menuitem_print(buffer, item->name, value, length);
-}
-
-void menuitem_display_bulb(const type_MENUITEM *item, char *buffer, const int length) {
-	char value[LP_MAX_WORD];
-
-	bulb_print(value, *item->parm.menuitem_tv.value);
 	menuitem_print(buffer, item->name, value, length);
 }
 
@@ -108,8 +105,8 @@ void menuitem_print(char *buffer, const char *name, const char *parameter, const
 		sprintf(buffer, "%s %.*s.", name, strlen_utf8(parameter) + pad - 1, parameter);
 }
 
-void menuitem_inc_ec(const type_MENUITEM *item, const int repeating) {
-	*item->parm.menuitem_ec.value = ec_inc(*item->parm.menuitem_ec.value);
+void menuitem_inc_ev(const type_MENUITEM *item, const int repeating) {
+	*item->parm.menuitem_ev.value = ev_inc(*item->parm.menuitem_ev.value);
 }
 
 void menuitem_inc_av(const type_MENUITEM *item, const int repeating) {
@@ -117,11 +114,10 @@ void menuitem_inc_av(const type_MENUITEM *item, const int repeating) {
 }
 
 void menuitem_inc_tv(const type_MENUITEM *item, const int repeating) {
-	*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
-}
-
-void menuitem_inc_bulb(const type_MENUITEM *item, const int repeating) {
-	*item->parm.menuitem_tv.value = bulb_next(*item->parm.menuitem_tv.value);
+	if (repeating || item->parm.menuitem_tv.bulb)
+		*item->parm.menuitem_tv.value = tv_next(*item->parm.menuitem_tv.value);
+	else
+		*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
 }
 
 void menuitem_inc_iso(const type_MENUITEM *item, const int repeating) {
@@ -164,11 +160,11 @@ void menuitem_inc_sub(const type_MENUITEM *item, const int repeating) {
 		menu_set_page(item->parm.menuitem_submenu.page);
 }
 
-void menuitem_dec_ec(const type_MENUITEM *item, const int repeating) {
-	if (item->parm.menuitem_ec.zero_means_off && *item->parm.menuitem_ec.value < 0x05)
-		*item->parm.menuitem_ec.value = item->parm.menuitem_ec.can_do_zero ? 0x00 : (DPData.cf_explevel_inc_third ? 0x04 : 0x03);
+void menuitem_dec_ev(const type_MENUITEM *item, const int repeating) {
+	if (item->parm.menuitem_ev.zero_means_off && *item->parm.menuitem_ev.value < 0x05)
+		*item->parm.menuitem_ev.value = item->parm.menuitem_ev.can_do_zero ? 0x00 : (cameraMode->cf_explevel_inc_third ? 0x04 : 0x03);
 	else
-		*item->parm.menuitem_ec.value = ec_dec(*item->parm.menuitem_ec.value);
+		*item->parm.menuitem_ev.value = ev_dec(*item->parm.menuitem_ev.value);
 }
 
 void menuitem_dec_av(const type_MENUITEM *item, const int repeating) {
@@ -176,11 +172,10 @@ void menuitem_dec_av(const type_MENUITEM *item, const int repeating) {
 }
 
 void menuitem_dec_tv(const type_MENUITEM *item, const int repeating) {
-	*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
-}
-
-void menuitem_dec_bulb(const type_MENUITEM *item, const int repeating) {
-	*item->parm.menuitem_tv.value = bulb_prev(*item->parm.menuitem_tv.value);
+	if (repeating || item->parm.menuitem_tv.bulb)
+		*item->parm.menuitem_tv.value = tv_prev(*item->parm.menuitem_tv.value);
+	else
+		*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
 }
 
 void menuitem_dec_iso(const type_MENUITEM *item, const int repeating) {

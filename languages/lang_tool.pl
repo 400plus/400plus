@@ -26,7 +26,7 @@ binmode STDIN, ":encoding(utf8)";
 my @camera_languages = ( # excluding 'English', as it's hardcoded in the hack
 	'German', 'French', 'Dutch', 'Danish', 'Finnish',
 	'Italian', 'Norwegian', 'Swedish', 'Spanish',
-	'Russian', 'Simplified_Chinese', 'Traditional_Chinese',
+	'Russian', 'Simplified_Chinese', 'Traditional_Chanise',
 	'Korean', 'Japanese', 'Polish',
 );
 my %out_hash;

@@ -1,14 +1,8 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x3D
+#define SETTINGS_VERSION  0x39
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -61,24 +55,6 @@ typedef enum {
 	SCRIPT_LCD_LAST  = SCRIPT_LCD_COUNT - 1
 } type_SCRIPT_LCD;
 
-typedef enum {
-	LOGFILE_MODE_OVERWRITE,
-	LOGFILE_MODE_NEW,
-	LOGFILE_MODE_APPEND,
-	LOGFILE_MODE_COUNT,
-	LOGFILE_MODE_FIRST = 0,
-	LOGFILE_MODE_LAST  = LOGFILE_MODE_COUNT - 1
-} type_LOGFILE_MODE;
-
-typedef enum {
-	FLASH_MODE_ENABLED,
-	FLASH_MODE_DISABLED,
-	FLASH_MODE_EXTONLY,
-	FLASH_MODE_COUNT,
-	FLASH_MODE_FIRST = 0,
-	FLASH_MODE_LAST  = FLASH_MODE_COUNT - 1
-} type_FLASH_MODE;
-
 typedef struct {
 	int iso_in_viewfinder;
 	int autoiso_enable;
@@ -128,10 +104,6 @@ typedef struct {
 	int button_trash;
 	int button_disp;
 	int language;
-	int menu_wrap;
-	int menu_navmain;
-	int menu_entermain;
-	int menu_current_posn;
 } type_SETTINGS;
 
 extern type_SETTINGS settings;
@@ -139,6 +111,5 @@ extern type_SETTINGS settings;
 extern int  settings_read();
 extern void settings_write();
 extern void settings_apply();
-extern void settings_restore();
 
 #endif /* SETTINGS_H_ */

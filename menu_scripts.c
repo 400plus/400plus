@@ -1,17 +1,7 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdbool.h>
-
-#include "macros.h"
 #include "main.h"
 #include "firmware.h"
 
 #include "display.h"
-#include "exposure.h"
 #include "languages.h"
 #include "menu.h"
 #include "menupage.h"
@@ -36,6 +26,7 @@ void menu_dof_calc_open (type_MENU *menu);
 
 void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
 void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
+void menu_scripts_apply_calc_av    (const type_MENUITEM *item);
 void menu_scripts_apply_calc_ev    (const type_MENUITEM *item);
 void menu_scripts_apply_calc       (const type_MENUITEM *item);
 
@@ -54,15 +45,15 @@ void menu_scripts_wave         (const type_MENUITEM *item);
 void menu_scripts_self_timer   (const type_MENUITEM *item);
 void menu_scripts_long_exp     (const type_MENUITEM *item);
 
-void menu_scripts_launch (action_r script);
+void menu_scripts_launch (type_TASK script);
 
 type_MENUITEM ext_aeb_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
 	MENUITEM_BRACKET(LP_WORD(L_I_FRAMES),    &settings.eaeb_frames,    NULL),
 	MENUITEM_EVEAEB (LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,        NULL),
 	MENUITEM_EAEBDIR(LP_WORD(L_I_DIRECTION), &settings.eaeb_direction, NULL),
-	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min,    menu_scripts_apply_eaeb_tvmin),
-	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max,    menu_scripts_apply_eaeb_tvmax)
+	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min, menu_scripts_apply_eaeb_tvmin),
+	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max, menu_scripts_apply_eaeb_tvmax)
 };
 
 type_MENUITEM efl_aeb_items[] = {
@@ -104,26 +95,26 @@ type_MENUITEM timer_items[] = {
 };
 
 type_MENUITEM lexp_calc_items[] = {
-	MENUITEM_BASEISO(LP_WORD(L_I_ISO),    &menu_DPData.iso,        menu_scripts_apply_calc_ev),
-	MENUITEM_BULB   (LP_WORD(L_I_TV_VAL), &menu_DPData.tv_val,     menu_scripts_apply_calc_ev),
-	MENUITEM_AV     (LP_WORD(L_I_AV_VAL), &menu_DPData.av_val,     menu_scripts_apply_calc_ev),
+	MENUITEM_BASEISO(LP_WORD(L_I_ISO),    &menu_cameraMode.iso,    menu_scripts_apply_calc_ev),
+	MENUITEM_BULB   (LP_WORD(L_I_TV_VAL), &menu_cameraMode.tv_val, menu_scripts_apply_calc_ev),
+	MENUITEM_AV     (LP_WORD(L_I_AV_VAL), &menu_cameraMode.av_val, menu_scripts_apply_calc_av),
 	MENUITEM_EVINFO (LP_WORD(L_I_EV_VAL), &menu_scripts_ev,        NULL),
 	MENUITEM_LAUNCH (LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
 };
 
 type_MENUITEM dof_calc_items[] = {
 	MENUITEM_FLENGTH(LP_WORD(L_I_FLENGTH), &menu_scripts_fl,        menu_scripts_apply_dof),
-	MENUITEM_AV     (LP_WORD(L_I_AV_VAL),  &menu_DPData.av_val,     menu_scripts_apply_dof_av),
+	MENUITEM_AV     (LP_WORD(L_I_AV_VAL),  &menu_cameraMode.av_val, menu_scripts_apply_dof_av),
 	MENUITEM_FDIST  (LP_WORD(L_I_FDIST),   &menu_scripts_fd,        menu_scripts_apply_dof),
 	MENUITEM_INFO   (LP_WORD(L_I_DOFMIN),   menu_scripts_dof_min),
 	MENUITEM_INFO   (LP_WORD(L_I_DOFMAX),   menu_scripts_dof_max),
 };
 
 type_MENUPAGE lexp_calc_page = {
-	name    : LP_WORD(L_S_CALCULATOR),
-	length  : LENGTH(lexp_calc_items),
-	items   : lexp_calc_items,
-	actions : {
+	name   : LP_WORD(L_S_CALCULATOR),
+	length : LENGTH(lexp_calc_items),
+	items  : lexp_calc_items,
+	tasks  : {
 		[MENU_EVENT_OPEN] = menu_lexp_calc_open,
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -136,74 +127,74 @@ type_MENUITEM lexp_items[] = {
 };
 
 type_MENUPAGE ext_aeb_page = {
-	name    : LP_WORD(L_S_EXT_AEB),
-	length  : LENGTH(ext_aeb_items),
-	items   : ext_aeb_items,
-	actions : {
+	name   : LP_WORD(L_S_EXT_AEB),
+	length : LENGTH(ext_aeb_items),
+	items  : ext_aeb_items,
+	tasks  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE efl_aeb_page = {
-	name    : LP_WORD(L_S_EFL_AEB),
-	length  : LENGTH(efl_aeb_items),
-	items   : efl_aeb_items,
-	actions : {
+	name   : LP_WORD(L_S_EFL_AEB),
+	length : LENGTH(efl_aeb_items),
+	items  : efl_aeb_items,
+	tasks  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE iso_aeb_page = {
-	name    : LP_WORD(L_S_ISO_AEB),
-	length  : LENGTH(iso_aeb_items),
-	items   : iso_aeb_items,
-	actions : {
+	name   : LP_WORD(L_S_ISO_AEB),
+	length : LENGTH(iso_aeb_items),
+	items  : iso_aeb_items,
+	tasks  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE interval_page = {
-	name    : LP_WORD(L_S_INTERVAL),
-	length  : LENGTH(interval_items),
-	items   : interval_items,
-	actions : {
+	name   : LP_WORD(L_S_INTERVAL),
+	length : LENGTH(interval_items),
+	items  : interval_items,
+	tasks  : {
 		[MENU_EVENT_OPEN] = menu_scripts_open_timelapse,
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE wave_page = {
-	name    : LP_WORD(L_S_HANDWAVE),
-	length  : LENGTH(wave_items),
-	items   : wave_items,
-	actions : {
+	name   : LP_WORD(L_S_HANDWAVE),
+	length : LENGTH(wave_items),
+	items  : wave_items,
+	tasks  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE timer_page = {
-	name    : LP_WORD(L_S_TIMER),
-	length  : LENGTH(timer_items),
-	items   : timer_items,
-	actions : {
+	name   : LP_WORD(L_S_TIMER),
+	length : LENGTH(timer_items),
+	items  : timer_items,
+	tasks  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE lexp_page = {
-	name    : LP_WORD(L_S_LEXP),
-	length  : LENGTH(lexp_items),
-	items   : lexp_items,
-	actions : {
+	name   : LP_WORD(L_S_LEXP),
+	length : LENGTH(lexp_items),
+	items  : lexp_items,
+	tasks  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUPAGE dof_calc_page = {
-	name    : LP_WORD(L_S_DOF_CALC),
-	length  : LENGTH(dof_calc_items),
-	items   : dof_calc_items,
-	actions : {
+	name   : LP_WORD(L_S_DOF_CALC),
+	length : LENGTH(dof_calc_items),
+	items  : dof_calc_items,
+	tasks  : {
 		[MENU_EVENT_OPEN] = menu_dof_calc_open,
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -222,7 +213,7 @@ type_MENUITEM menupage_scripts_items[] = {
 
 type_MENUPAGE menupage_scripts = {
 	name      : LP_WORD(L_P_SCRIPTS),
-	sibilings : true,
+	sibilings : TRUE,
 	length    : LENGTH(menupage_scripts_items),
 	items     : menupage_scripts_items,
 	ordering  : settings.scripts_order,
@@ -230,17 +221,17 @@ type_MENUPAGE menupage_scripts = {
 
 void menu_lexp_calc_open (type_MENU *menu) {
 	// Copy current parameters from camera to menu
-	menu_DPData.iso    = DPData.iso;
-	menu_DPData.tv_val = DPData.tv_val;
-	menu_DPData.av_val = DPData.av_val;
+	menu_cameraMode.iso    = cameraMode->iso;
+	menu_cameraMode.tv_val = cameraMode->tv_val;
+	menu_cameraMode.av_val = cameraMode->av_val;
 
 	// Clear sub-stop exposure time, as we still do not support it
-	menu_scripts_ev = menu_DPData.tv_val & 0x07;
-	menu_DPData.tv_val &= 0xF8;
+	menu_scripts_ev = menu_cameraMode.tv_val & 0x07;
+	menu_cameraMode.tv_val &= 0xF8;
 }
 
 void menu_dof_calc_open (type_MENU *menu) {
-	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_DPData.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
+	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_cameraMode.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 }
 
 void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
@@ -253,21 +244,27 @@ void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 	menu_event_display();
 }
 
+void menu_scripts_apply_calc_av(const type_MENUITEM *item) {
+	int min = MAX(cameraMode->avo,   0x08);
+	int max = MIN(cameraMode->avmax, 0x67);
+
+	menu_cameraMode.av_val = MAX(menu_cameraMode.av_val, min);
+	menu_cameraMode.av_val = MIN(menu_cameraMode.av_val, max);
+
+	menu_scripts_apply_calc_ev(item);
+}
+
 void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
-	int ev = (menu_DPData.iso - DPData.iso) - (menu_DPData.tv_val - DPData.tv_val) - (menu_DPData.av_val - DPData.av_val);
-
-	ev = CLAMP(ev, EV_CODE(-15, 0), EV_CODE(15, 0));
-
-	menu_scripts_ev = ec_normalize(ev);
+	menu_scripts_ev = ev_normalize((menu_cameraMode.iso - cameraMode->iso) - ev_sub(menu_cameraMode.tv_val, cameraMode->tv_val) - ev_sub(menu_cameraMode.av_val, cameraMode->av_val));
 	menu_event_display();
 }
 
 void menu_scripts_apply_calc(const type_MENUITEM *item) {
-	if (menu_DPData.tv_val < 0x10) {
-		settings.lexp_time = 60 * (1 << (1 - (menu_DPData.tv_val >> 3)));
+	if (menu_cameraMode.tv_val < 0x10) {
+		settings.lexp_time = 60 * (1 << (1 - (menu_cameraMode.tv_val >> 3)));
 
-		send_to_intercom(IC_SET_AV_VAL, 1, menu_DPData.av_val);
-		send_to_intercom(IC_SET_ISO,    2, menu_DPData.iso);
+		send_to_intercom(IC_SET_AV_VAL, 1, menu_cameraMode.av_val);
+		send_to_intercom(IC_SET_ISO,    2, menu_cameraMode.iso);
 
 		menu_scripts_ev = 0x00;
 		menu_return();
@@ -275,12 +272,18 @@ void menu_scripts_apply_calc(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
+	int min = MAX(cameraMode->avo,   0x08);
+	int max = MIN(cameraMode->avmax, 0x67);
+
+	*item->parm.menuitem_av.value = MAX(*item->parm.menuitem_av.value, min);
+	*item->parm.menuitem_av.value = MIN(*item->parm.menuitem_av.value, max);
+
 	send_to_intercom(IC_SET_AV_VAL, 1, *item->parm.menuitem_av.value);
 	menu_scripts_apply_dof(item);
 }
 
 void menu_scripts_apply_dof(const type_MENUITEM *item) {
-	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_DPData.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
+	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_cameraMode.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 	menu_event_display();
 }
 
@@ -343,8 +346,8 @@ void menu_scripts_long_exp(const type_MENUITEM *item) {
 	menu_scripts_launch(script_long_exp);
 }
 
-void menu_scripts_launch(action_r script) {
-	enqueue_action(menu_close);
-	enqueue_action(restore_display);
-	enqueue_action(script);
+void menu_scripts_launch(type_TASK script) {
+	ENQUEUE_TASK(menu_close);
+	ENQUEUE_TASK(restore_display);
+	ENQUEUE_TASK(script);
 }
