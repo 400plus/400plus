@@ -136,6 +136,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element.
     * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_the_menu Navigating the menu]).
     * Enter to main: when active (set to Yes), `400plus` will directly enter the main page in the menu, instead of going to the last visited page.
+    * Autosave: when active (set to Yes), `400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down the camera..
  * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
 
