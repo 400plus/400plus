@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-15*_
+ * Faster and more stable scripts.
+
 _*20120415-14*_
  * Fixed a bug in AutoISO with manual mode.
 
