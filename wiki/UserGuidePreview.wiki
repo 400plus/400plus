@@ -183,7 +183,7 @@ Supposing a configuration of 5 shots at 1EV separation, this is how each _direct
  * ` + ` : One photo at current EV, and the rest above it: 0EV, +1EV, +2EV, +3EV, +4EV.
  * ` - ` : One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.
 
-In 'M' mode with the aperture value set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 32 minutes can be used in this mode.
+In 'M' mode with the shutter speed set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 32 minutes can be used in this mode.
 
 == Flash AEB ==
 
