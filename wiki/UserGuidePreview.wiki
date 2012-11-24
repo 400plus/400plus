@@ -219,7 +219,7 @@ Exposure : * *       * * * * * * *       * *
 
 Notice that the third photograph does not take place 5 seconds after the second one, but at second 15.
 
-*NOTE*: `400plus` will not validate that the values introduced by the user make sense at all: it will not complaint if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
+*NOTE*: `400plus` will not validate that the values introduced by the user make sense at all: it will not complain if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
 
 === Time-lapse calculator ===
 
