@@ -69,9 +69,9 @@ typedef enum {
 	IC_SET_CF_FLASH_SYNC_REAR      = 0x38, // C.Fn-09
 	IC_SET_CF_SAFETY_SHIFT         = 0x39, //
 	IC_SET_CF_LENS_BUTTON          = 0x3A, //
-	IC_SET_CF_ORIGINAL_EVAL        = 0x3D, //
-	IC_SET_CF_QR_MAGNIFY           = 0x3C, // C.Fn-10
 	IC_SET_CF_TFT_ON_POWER_ON      = 0x3B, // C.Fn-11
+	IC_SET_CF_QR_MAGNIFY           = 0x3C, // C.Fn-10
+	IC_SET_CF_ORIGINAL_EVAL        = 0x3D, //
 	IC_DIALOGON                    = 0x50, //
 	IC_DIALOGOFF                   = 0x51, //
 	IC_SHUTDOWN                    = 0x52, //
