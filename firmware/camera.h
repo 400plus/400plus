@@ -85,8 +85,8 @@ struct dpr_data_t {              // [*] Used and tested, others unknown
 	int cf_qr_magnify;           // 0x00dc
 	int batt_bclevel;            // 0x00e0
 	int batt_type;               // 0x00e4
-	int print_user_property;     // 0x00e8
-	int printer_property;        // 0x00ec
+	int print_user_property;     // 0x00e8 (s/int/void */)
+	int printer_property;        // 0x00ec (s/int/void */)
 	int cluster_size;            // 0x00f0
 	int remain_cluster;          // 0x00f4
 	int file_id;                 // 0x00f8
@@ -105,8 +105,8 @@ struct dpr_data_t {              // [*] Used and tested, others unknown
 	int status_busy_flag;        // 0x012c [*]
 	int special_bc_result;       // 0x0130
 	int reset_offtimer;          // 0x0134
-	int printer_device_property; // 0x0138
-	int printer_job_property;    // 0x013c
+	int printer_device_property; // 0x0138 (s/int/void */)
+	int printer_job_property;    // 0x013c (s/int/void */)
 	int dpof_setting;            // 0x0140
 	int gui_mode;                // 0x0144
 	int dp_request_return;       // 0x0148
