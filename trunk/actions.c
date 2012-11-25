@@ -306,6 +306,9 @@ void button_action(type_BUTTON_ACTION action) {
 	case BUTTON_ACTION_HACK_MENU:
 		menu_main_start();
 		break;
+	case BUTTON_ACTION_TOGGLE_FLASH:
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, !DPData.cf_emit_flash);
+		break;
 	default:
 		break;
 	}
