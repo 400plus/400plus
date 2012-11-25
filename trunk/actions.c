@@ -308,6 +308,9 @@ void button_action(type_BUTTON_ACTION action) {
 		break;
 	case BUTTON_ACTION_TOGGLE_FLASH:
 		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, !DPData.cf_emit_flash);
+		char buf[20];
+		sprintf(buf, "%-11s: %-5s",LP_WORD(L_S_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_V_NO) : LP_WORD(L_V_YES)));
+		bmp_printf_timed(250, FONT_LARGE, 0, 0, buf);
 		break;
 	default:
 		break;
