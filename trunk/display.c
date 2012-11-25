@@ -160,5 +160,5 @@ void display_brightness() {
 
 void display_overlay() {
 	if (status.preset_active && presets_config.last_preset)
-		bmp_printf(FONT_SMALL, 16, 96, "%s", presets_config.names[presets_config.last_preset - 1]);
+		bmp_printf(FONT_SMALL, 265, 96, "%s", presets_config.names[presets_config.last_preset - 1]);
 }
