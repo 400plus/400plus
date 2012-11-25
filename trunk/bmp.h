@@ -22,7 +22,8 @@
 #include "font.h"
 #include "firmware.h"
 
-#define vram_start (0x212D08)
+#define vram_start (0x212D7C)
+//#define vram_start (0x212D08)
 #define vram_end   (vram_start + (360*240))
 #define vram_size  (vram_end   - vram_start)
 
@@ -73,6 +74,17 @@ static inline unsigned fontspec_height(unsigned fontspec) {
 extern void bmp_printf(unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...) __attribute__((format(printf,4,5)));
 extern void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, int len);
 extern void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s);
+
+#define bmp_printf_timed(time, font, x, y, f...) do { \
+	bmp_printf(font, x, y, ##f);                  \
+	signed int z = time;                          \
+	while (z>0) {                                 \
+		bmp_printf(font, x, y, ##f);          \
+		SleepTask(20);                        \
+		z -= 20;                              \
+	}                                             \
+	display_refresh();                            \
+} while (0)
 
 /** Fill the screen with a bitmap palette */
 extern void bmp_draw_palette( void );
