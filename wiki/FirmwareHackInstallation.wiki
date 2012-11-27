@@ -28,11 +28,12 @@ The following steps prepare your camera to execute `400plus` each time it start 
 
 == Preparing each card ==
 
-The following steps prepare a card to contain `400plus``  and be recognized by the camera; this procedure must be done for each card:
+The following steps prepare a card to contain `400plus`  and be recognized by the camera; this procedure must be done for each card:
 
   #. First step is to format the CF card, preferably using the camera, but you can format it on the PC, too.
   #. Now the card must be made _bootable_, so the camera recognizes it:
-    * *Windows*: use [http://pel.hu/down/EOScard.exe EOScard] by [http://chdk.setepontos.com/index.php?topic=4214.msg58253#msg58253 pelican], you need to check EOS_DEVELOP and BOOTDISK like shown [http://chdk.wikia.com/wiki/EOScard here].<br>_,,[NOTE: Some Win7 users reported that no method was working for them; install VirtualBox with Linux LiveCD or WinXP running in it, and use the appropriate method inside the VM, after attaching the card reader to the VM],,_
+    * *Windows XP*: use [http://pel.hu/eoscard/ EOScard]; you need to check both EOS_DEVELOP and BOOTDISK, but neither CHDK nor ML.
+    * *Windows 7*: Try fist the method described above for WinXP. Some Win7 users reported that no method was working for them, however; in that case, install VirtualBox with a Linux LiveCD or WinXP running in it, and then use the appropriate method inside the VM (after attaching the card reader to the VM).
     * *Mac*: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
     * *Linux*: use the direct method (below) or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version).
     * *Direct method* for Linux, Mac, and Windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
