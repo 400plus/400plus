@@ -15,6 +15,17 @@
 		sizeof( struct struct_name ) == size ? 0 : -1 \
 	]
 
+struct vram_info_t {
+	unsigned char * data;
+	int             width;
+	int             pitch;
+	int             height;
+	int             number; // the vram number
+};
+SIZE_CHECK_STRUCT(vram_info_t, 0x14);
+typedef struct vram_info_t vram_info_t;
+extern vram_info_t VramInfo[2];
+
 struct lens_info_t {
 	short id;
 	short max_mm;

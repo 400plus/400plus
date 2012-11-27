@@ -36,7 +36,7 @@ extern int VramAddr; // MEM:0x00019638 (defined in camera.S)
 #define vram_size  (vram_end   - vram_start)
 
 static inline int *bmp_vram(void) {
-	int *x = (int*)vram_start;  //~ location of bmp buffer in 5dc.
+	int *x = (int*)vram_start;  //~ location of bmp buffer
 	return x;
 }
 
