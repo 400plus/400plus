@@ -31,6 +31,10 @@ type_PRESETS_CONFIG presets_default = {
 
 type_PRESETS_CONFIG presets_config;
 
+int status_read  (char *name);
+int status_write (char *name);
+int status_delete(char *name);
+
 void sub_preset_recall(int full);
 
 void presets_read() {
@@ -90,17 +94,37 @@ void presets_delete() {
 }
 
 int preset_read(int id) {
+	char filename[STATUS_NAME_LEN];
+
+	get_preset_filename(filename, id);
+
+	return status_read(filename);
+}
+
+int preset_write(int id) {
+	char filename[STATUS_NAME_LEN];
+
+	get_preset_filename(filename, id);
+
+	return status_write(filename);
+}
+
+int preset_delete(int id) {
+	char filename[STATUS_NAME_LEN];
+
+	get_preset_filename(filename, id);
+
+	return status_delete(filename);
+}
+
+int status_read(char *name) {
 	int result  = false;
 	int file    = -1;
 	int version =  0;
 
-	char filename[16];
-
 	type_PRESET buffer;
 
-	get_preset_filename(filename, id);
-
-	if ((file = FIO_OpenFile(filename, O_RDONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(name, O_RDONLY, 644)) == -1)
 		goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
@@ -122,22 +146,18 @@ end:
 	return result;
 }
 
-int preset_write(int id) {
+int status_write(char *name) {
 	const int version = SETTINGS_VERSION;
 
 	int  result = false;
 	int  file   = -1;
-
-	char filename[16];
 
 	type_PRESET buffer = {
 		settings : settings,
 		DPData   : DPData
 	};
 
-	get_preset_filename(filename, id);
-
-	if ((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644)) == -1)
+	if ((file = FIO_OpenFile(name, O_CREAT | O_WRONLY , 644)) == -1)
 		goto end;
 
 	if (FIO_WriteFile(file, (void*)&version, sizeof(version)) != sizeof(version))
@@ -158,20 +178,8 @@ end:
 	return result;
 }
 
-int preset_delete(int id) {
-	int  result = false;
-
-	char filename[16];
-
-	get_preset_filename(filename, id);
-
-	if (FIO_RemoveFile(filename) == -1)
-		goto end;
-
-	result = true;
-
-end:
-	return result;
+int status_delete(char *name) {
+	return (FIO_RemoveFile(name) != -1);
 }
 
 void preset_apply() {
