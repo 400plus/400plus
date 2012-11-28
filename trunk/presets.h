@@ -20,7 +20,7 @@
 typedef struct {
 	dpr_data_t     DPData;
 	type_SETTINGS  settings;
-} type_PRESET;
+} snapshot_t;
 
 typedef struct {
 	int  use_adep;
@@ -41,7 +41,7 @@ extern void presets_write  ();
 extern void presets_restore();
 extern void presets_delete ();
 
-extern int  preset_read  (int id);
+extern int  preset_read  (int id, snapshot_t *preset);
 extern int  preset_write (int id);
 extern int  preset_delete(int id);
 
