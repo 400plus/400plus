@@ -31,9 +31,9 @@ type_PRESETS_CONFIG presets_default = {
 
 type_PRESETS_CONFIG presets_config;
 
-int status_read  (char *name);
-int status_write (char *name);
-int status_delete(char *name);
+int snapshot_read  (char *name);
+int snapshot_write (char *name);
+int snapshot_delete(char *name);
 
 void sub_preset_recall(int full);
 
@@ -94,30 +94,30 @@ void presets_delete() {
 }
 
 int preset_read(int id) {
-	char filename[STATUS_NAME_LEN];
+	char filename[FILENAME_LENGTH];
 
 	get_preset_filename(filename, id);
 
-	return status_read(filename);
+	return snapshot_read(filename);
 }
 
 int preset_write(int id) {
-	char filename[STATUS_NAME_LEN];
+	char filename[FILENAME_LENGTH];
 
 	get_preset_filename(filename, id);
 
-	return status_write(filename);
+	return snapshot_write(filename);
 }
 
 int preset_delete(int id) {
-	char filename[STATUS_NAME_LEN];
+	char filename[FILENAME_LENGTH];
 
 	get_preset_filename(filename, id);
 
-	return status_delete(filename);
+	return snapshot_delete(filename);
 }
 
-int status_read(char *name) {
+int snapshot_read(char *name) {
 	int result  = false;
 	int file    = -1;
 	int version =  0;
@@ -146,7 +146,7 @@ end:
 	return result;
 }
 
-int status_write(char *name) {
+int snapshot_write(char *name) {
 	const int version = SETTINGS_VERSION;
 
 	int  result = false;
@@ -178,7 +178,7 @@ end:
 	return result;
 }
 
-int status_delete(char *name) {
+int snapshot_delete(char *name) {
 	return (FIO_RemoveFile(name) != -1);
 }
 
