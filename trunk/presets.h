@@ -45,10 +45,10 @@ extern int  preset_read  (int id, snapshot_t *preset);
 extern int  preset_write (int id);
 extern int  preset_delete(int id);
 
-extern void preset_apply();
-extern void preset_apply_full();
+extern void snapshot_apply     ();
+extern void snapshot_apply_full();
 
-extern void preset_recall();
+extern void preset_recall     ();
 extern void preset_recall_full();
 
 extern void get_preset_filename(char *filename, int id);
