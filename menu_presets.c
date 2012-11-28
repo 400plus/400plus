@@ -262,9 +262,11 @@ void preset_load_8() { preset_load(8); }
 void preset_load_9() { preset_load(9); }
 
 void preset_load(int id) {
+	snapshot_t preset;
+
 	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP) {
-		if (preset_read(id)) {
-			preset_apply_full();
+		if (preset_read(id, &preset)) {
+			preset_apply_full(&preset);
 
 			status.preset_active       = true;
 			presets_config.last_preset = id;

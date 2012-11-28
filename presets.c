@@ -17,8 +17,6 @@
 
 #include "presets.h"
 
-type_PRESET preset;
-
 type_PRESETS_CONFIG presets_default = {
 	use_adep        : true,
 	recall_camera   : true,
@@ -31,7 +29,7 @@ type_PRESETS_CONFIG presets_default = {
 
 type_PRESETS_CONFIG presets_config;
 
-int snapshot_read  (char *name);
+int snapshot_read  (char *name, snapshot_t *snapshot);
 int snapshot_write (char *name);
 int snapshot_delete(char *name);
 
@@ -93,12 +91,12 @@ void presets_delete() {
 		preset_delete(id);
 }
 
-int preset_read(int id) {
+int preset_read(int id, snapshot_t *preset) {
 	char filename[FILENAME_LENGTH];
 
 	get_preset_filename(filename, id);
 
-	return snapshot_read(filename);
+	return snapshot_read(filename, preset);
 }
 
 int preset_write(int id) {
@@ -117,12 +115,12 @@ int preset_delete(int id) {
 	return snapshot_delete(filename);
 }
 
-int snapshot_read(char *name) {
+int snapshot_read(char *name, snapshot_t *snapshot) {
 	int result  = false;
 	int file    = -1;
 	int version =  0;
 
-	type_PRESET buffer;
+	snapshot_t buffer;
 
 	if ((file = FIO_OpenFile(name, O_RDONLY, 644)) == -1)
 		goto end;
@@ -136,7 +134,8 @@ int snapshot_read(char *name) {
 	if (FIO_ReadFile(file, &buffer, sizeof(buffer)) != sizeof(buffer))
 		goto end;
 
-	preset = buffer;
+	*snapshot = buffer;
+
 	result = true;
 
 end:
@@ -152,7 +151,7 @@ int snapshot_write(char *name) {
 	int  result = false;
 	int  file   = -1;
 
-	type_PRESET buffer = {
+	snapshot_t buffer = {
 		settings : settings,
 		DPData   : DPData
 	};
@@ -182,87 +181,87 @@ int snapshot_delete(char *name) {
 	return (FIO_RemoveFile(name) != -1);
 }
 
-void preset_apply() {
+void preset_apply(snapshot_t *snapshot) {
 	if (presets_config.recall_camera) {
 		status.ignore_ae_change = true;
-		send_to_intercom(IC_SET_AE, 1, preset.DPData.ae);
+		send_to_intercom(IC_SET_AE, 1, snapshot->DPData.ae);
 	}
 }
 
-void preset_apply_full() {
-	preset_apply();
+void preset_apply_full(snapshot_t *snapshot) {
+	preset_apply(snapshot);
 
 	if (presets_config.recall_camera) {
-		send_to_intercom(IC_SET_METERING,   1, preset.DPData.metering);
-		send_to_intercom(IC_SET_EFCOMP,     1, preset.DPData.efcomp);
-		send_to_intercom(IC_SET_DRIVE,      1, preset.DPData.drive);
-		send_to_intercom(IC_SET_WB,         1, preset.DPData.wb);
-		send_to_intercom(IC_SET_AF_POINT,   2, preset.DPData.af_point);
-		send_to_intercom(IC_SET_TV_VAL,     1, preset.DPData.tv_val);
-		send_to_intercom(IC_SET_AV_VAL,     1, preset.DPData.av_val);
-		send_to_intercom(IC_SET_AV_COMP,    1, preset.DPData.av_comp);
-		send_to_intercom(IC_SET_ISO,        2, preset.DPData.iso);
-		send_to_intercom(IC_SET_RED_EYE,    1, preset.DPData.red_eye);
-		send_to_intercom(IC_SET_AE_BKT,     1, preset.DPData.ae_bkt);
-		send_to_intercom(IC_SET_WB_BKT,     1, preset.DPData.wb_bkt);
-		send_to_intercom(IC_SET_BEEP,       1, preset.DPData.beep);
-		send_to_intercom(IC_SET_COLOR_TEMP, 2, preset.DPData.color_temp);
-		send_to_intercom(IC_SET_WBCOMP_GM,  1, preset.DPData.wbcomp_gm);
-		send_to_intercom(IC_SET_WBCOMP_AB,  1, preset.DPData.wbcomp_ab);
+		send_to_intercom(IC_SET_METERING,   1, snapshot->DPData.metering);
+		send_to_intercom(IC_SET_EFCOMP,     1, snapshot->DPData.efcomp);
+		send_to_intercom(IC_SET_DRIVE,      1, snapshot->DPData.drive);
+		send_to_intercom(IC_SET_WB,         1, snapshot->DPData.wb);
+		send_to_intercom(IC_SET_AF_POINT,   2, snapshot->DPData.af_point);
+		send_to_intercom(IC_SET_TV_VAL,     1, snapshot->DPData.tv_val);
+		send_to_intercom(IC_SET_AV_VAL,     1, snapshot->DPData.av_val);
+		send_to_intercom(IC_SET_AV_COMP,    1, snapshot->DPData.av_comp);
+		send_to_intercom(IC_SET_ISO,        2, snapshot->DPData.iso);
+		send_to_intercom(IC_SET_RED_EYE,    1, snapshot->DPData.red_eye);
+		send_to_intercom(IC_SET_AE_BKT,     1, snapshot->DPData.ae_bkt);
+		send_to_intercom(IC_SET_WB_BKT,     1, snapshot->DPData.wb_bkt);
+		send_to_intercom(IC_SET_BEEP,       1, snapshot->DPData.beep);
+		send_to_intercom(IC_SET_COLOR_TEMP, 2, snapshot->DPData.color_temp);
+		send_to_intercom(IC_SET_WBCOMP_GM,  1, snapshot->DPData.wbcomp_gm);
+		send_to_intercom(IC_SET_WBCOMP_AB,  1, snapshot->DPData.wbcomp_ab);
 
 		/**
 		 *  We cannot switch AF off when loading a preset,
 		 *  because the switch on the lens could be set to on.
 		 */
-		if (preset.DPData.af)
-			send_to_intercom(IC_SET_AF, 1, preset.DPData.af);
+		if (snapshot->DPData.af)
+			send_to_intercom(IC_SET_AF, 1, snapshot->DPData.af);
 	}
 
 	if (presets_config.recall_settings) {
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, 2, preset.DPData.auto_power_off);
-		send_to_intercom(IC_SET_VIEW_TYPE,      1, preset.DPData.view_type);
-		send_to_intercom(IC_SET_REVIEW_TIME,    1, preset.DPData.review_time);
-		send_to_intercom(IC_SET_AUTO_ROTATE,    1, preset.DPData.auto_rotate);
-		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, preset.DPData.lcd_brightness);
-		send_to_intercom(IC_SET_DATE_TIME,      1, preset.DPData.date_time);
-		send_to_intercom(IC_SET_FILE_NUMBERING, 1, preset.DPData.file_numbering);
-		send_to_intercom(IC_SET_LANGUAGE,       1, preset.DPData.language);
-		send_to_intercom(IC_SET_VIDEO_SYSTEM,   1, preset.DPData.video_system);
-		send_to_intercom(IC_SET_HISTOGRAM,      1, preset.DPData.histogram);
-		send_to_intercom(IC_SET_COLOR_SPACE,    1, preset.DPData.color_space);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 2, snapshot->DPData.auto_power_off);
+		send_to_intercom(IC_SET_VIEW_TYPE,      1, snapshot->DPData.view_type);
+		send_to_intercom(IC_SET_REVIEW_TIME,    1, snapshot->DPData.review_time);
+		send_to_intercom(IC_SET_AUTO_ROTATE,    1, snapshot->DPData.auto_rotate);
+		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, snapshot->DPData.lcd_brightness);
+		send_to_intercom(IC_SET_DATE_TIME,      1, snapshot->DPData.date_time);
+		send_to_intercom(IC_SET_FILE_NUMBERING, 1, snapshot->DPData.file_numbering);
+		send_to_intercom(IC_SET_LANGUAGE,       1, snapshot->DPData.language);
+		send_to_intercom(IC_SET_VIDEO_SYSTEM,   1, snapshot->DPData.video_system);
+		send_to_intercom(IC_SET_HISTOGRAM,      1, snapshot->DPData.histogram);
+		send_to_intercom(IC_SET_COLOR_SPACE,    1, snapshot->DPData.color_space);
 	}
 
 	if (presets_config.recall_image) {
-		send_to_intercom(IC_SET_IMG_FORMAT,  1, preset.DPData.img_format);
-		send_to_intercom(IC_SET_IMG_SIZE,    1, preset.DPData.img_size);
-		send_to_intercom(IC_SET_IMG_QUALITY, 1, preset.DPData.img_quality);
+		send_to_intercom(IC_SET_IMG_FORMAT,  1, snapshot->DPData.img_format);
+		send_to_intercom(IC_SET_IMG_SIZE,    1, snapshot->DPData.img_size);
+		send_to_intercom(IC_SET_IMG_QUALITY, 1, snapshot->DPData.img_quality);
 	}
 
 	if (presets_config.recall_cfn) {
-		send_to_intercom(IC_SET_CF_SET_BUTTON_FUNC,      1, preset.DPData.cf_set_button_func);
-		send_to_intercom(IC_SET_CF_NR_FOR_LONG_EXPOSURE, 1, preset.DPData.cf_nr_for_long_exposure);
-		send_to_intercom(IC_SET_CF_EFAV_FIX_X,           1, preset.DPData.cf_efav_fix_x);
-		send_to_intercom(IC_SET_CF_AFAEL_ACTIVE_BUTTON,  1, preset.DPData.cf_afael_active_button);
-		send_to_intercom(IC_SET_CF_EMIT_AUX,             1, preset.DPData.cf_emit_aux);
-		send_to_intercom(IC_SET_CF_EXPLEVEL_INC_THIRD,   1, preset.DPData.cf_explevel_inc_third);
-		send_to_intercom(IC_SET_CF_EMIT_FLASH,           1, preset.DPData.cf_emit_flash);
-		send_to_intercom(IC_SET_CF_EXTEND_ISO,           1, preset.DPData.cf_extend_iso);
-		send_to_intercom(IC_SET_CF_AEB_SEQUENCE,         1, preset.DPData.cf_aeb_sequence);
-		send_to_intercom(IC_SET_CF_SI_INDICATE,          1, preset.DPData.cf_si_indicate);
-		send_to_intercom(IC_SET_CF_MENU_POS,             1, preset.DPData.cf_menu_pos);
-		send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,       1, preset.DPData.cf_mirror_up_lock);
-		send_to_intercom(IC_SET_CF_FPSEL_METHOD,         1, preset.DPData.cf_fpsel_method);
-		send_to_intercom(IC_SET_CF_FLASH_METERING,       1, preset.DPData.cf_flash_metering);
-		send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR,      1, preset.DPData.cf_flash_sync_rear);
-		send_to_intercom(IC_SET_CF_SAFETY_SHIFT,         1, preset.DPData.cf_safety_shift);
-		send_to_intercom(IC_SET_CF_LENS_BUTTON,          1, preset.DPData.cf_lens_button);
-		send_to_intercom(IC_SET_CF_ORIGINAL_EVAL,        1, preset.DPData.cf_original_eval);
-		send_to_intercom(IC_SET_CF_QR_MAGNIFY,           1, preset.DPData.cf_qr_magnify);
-		send_to_intercom(IC_SET_CF_TFT_ON_POWER_ON,      1, preset.DPData.cf_tft_on_power_on);
+		send_to_intercom(IC_SET_CF_SET_BUTTON_FUNC,      1, snapshot->DPData.cf_set_button_func);
+		send_to_intercom(IC_SET_CF_NR_FOR_LONG_EXPOSURE, 1, snapshot->DPData.cf_nr_for_long_exposure);
+		send_to_intercom(IC_SET_CF_EFAV_FIX_X,           1, snapshot->DPData.cf_efav_fix_x);
+		send_to_intercom(IC_SET_CF_AFAEL_ACTIVE_BUTTON,  1, snapshot->DPData.cf_afael_active_button);
+		send_to_intercom(IC_SET_CF_EMIT_AUX,             1, snapshot->DPData.cf_emit_aux);
+		send_to_intercom(IC_SET_CF_EXPLEVEL_INC_THIRD,   1, snapshot->DPData.cf_explevel_inc_third);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH,           1, snapshot->DPData.cf_emit_flash);
+		send_to_intercom(IC_SET_CF_EXTEND_ISO,           1, snapshot->DPData.cf_extend_iso);
+		send_to_intercom(IC_SET_CF_AEB_SEQUENCE,         1, snapshot->DPData.cf_aeb_sequence);
+		send_to_intercom(IC_SET_CF_SI_INDICATE,          1, snapshot->DPData.cf_si_indicate);
+		send_to_intercom(IC_SET_CF_MENU_POS,             1, snapshot->DPData.cf_menu_pos);
+		send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK,       1, snapshot->DPData.cf_mirror_up_lock);
+		send_to_intercom(IC_SET_CF_FPSEL_METHOD,         1, snapshot->DPData.cf_fpsel_method);
+		send_to_intercom(IC_SET_CF_FLASH_METERING,       1, snapshot->DPData.cf_flash_metering);
+		send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR,      1, snapshot->DPData.cf_flash_sync_rear);
+		send_to_intercom(IC_SET_CF_SAFETY_SHIFT,         1, snapshot->DPData.cf_safety_shift);
+		send_to_intercom(IC_SET_CF_LENS_BUTTON,          1, snapshot->DPData.cf_lens_button);
+		send_to_intercom(IC_SET_CF_ORIGINAL_EVAL,        1, snapshot->DPData.cf_original_eval);
+		send_to_intercom(IC_SET_CF_QR_MAGNIFY,           1, snapshot->DPData.cf_qr_magnify);
+		send_to_intercom(IC_SET_CF_TFT_ON_POWER_ON,      1, snapshot->DPData.cf_tft_on_power_on);
 	}
 
 	if (presets_config.recall_400plus) {
-		settings = preset.settings;
+		settings = snapshot->settings;
 		settings_apply();
 	}
 }
@@ -276,18 +275,20 @@ void preset_recall_full() {
 }
 
 void sub_preset_recall(int full) {
+	snapshot_t preset;
+
 	// Preventively, we assume no preset is active now
 	status.preset_active = false;
 
-	// Only if configured to hijack ADEP and enterng ADEP
+	// Only if configured to hijack ADEP and entering ADEP
 	if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
 		// Only if a preset was loaded, and we can read it back
-		if (presets_config.last_preset && preset_read(presets_config.last_preset)) {
+		if (presets_config.last_preset && preset_read(presets_config.last_preset, &preset)) {
 			// Apply full preset or just revert AE mode
 			if (full)
-				preset_apply_full();
+				preset_apply_full(&preset);
 			else
-				preset_apply();
+				preset_apply(&preset);
 
 			// Well, looks like we did recall a preset after all
 			status.preset_active = true;
