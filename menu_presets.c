@@ -266,7 +266,7 @@ void preset_load(int id) {
 
 	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP) {
 		if (preset_read(id, &preset)) {
-			preset_apply_full(&preset);
+			snapshot_apply_full(&preset);
 
 			status.preset_active       = true;
 			presets_config.last_preset = id;

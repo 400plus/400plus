@@ -181,15 +181,15 @@ int snapshot_delete(char *name) {
 	return (FIO_RemoveFile(name) != -1);
 }
 
-void preset_apply(snapshot_t *snapshot) {
+void snapshot_apply(snapshot_t *snapshot) {
 	if (presets_config.recall_camera) {
 		status.ignore_ae_change = true;
 		send_to_intercom(IC_SET_AE, 1, snapshot->DPData.ae);
 	}
 }
 
-void preset_apply_full(snapshot_t *snapshot) {
-	preset_apply(snapshot);
+void snapshot_apply_full(snapshot_t *snapshot) {
+	snapshot_apply(snapshot);
 
 	if (presets_config.recall_camera) {
 		send_to_intercom(IC_SET_METERING,   1, snapshot->DPData.metering);
@@ -286,9 +286,9 @@ void sub_preset_recall(int full) {
 		if (presets_config.last_preset && preset_read(presets_config.last_preset, &preset)) {
 			// Apply full preset or just revert AE mode
 			if (full)
-				preset_apply_full(&preset);
+				snapshot_apply_full(&preset);
 			else
-				preset_apply(&preset);
+				snapshot_apply(&preset);
 
 			// Well, looks like we did recall a preset after all
 			status.preset_active = true;
