@@ -209,15 +209,15 @@ type_MENUPAGE menupage_preset_9 = {
 };
 
 type_MENUITEM preset_items[] = {
-	MENUITEM_SUBMENU(presets_config.names[0], &menupage_preset_1, preset_load_1),
-	MENUITEM_SUBMENU(presets_config.names[1], &menupage_preset_2, preset_load_2),
-	MENUITEM_SUBMENU(presets_config.names[2], &menupage_preset_3, preset_load_3),
-	MENUITEM_SUBMENU(presets_config.names[3], &menupage_preset_4, preset_load_4),
-	MENUITEM_SUBMENU(presets_config.names[4], &menupage_preset_5, preset_load_5),
-	MENUITEM_SUBMENU(presets_config.names[5], &menupage_preset_6, preset_load_6),
-	MENUITEM_SUBMENU(presets_config.names[6], &menupage_preset_7, preset_load_7),
-	MENUITEM_SUBMENU(presets_config.names[7], &menupage_preset_8, preset_load_8),
-	MENUITEM_SUBMENU(presets_config.names[8], &menupage_preset_9, preset_load_9),
+	MENUITEM_SUBMENU(presets_config.names[0], &menupage_preset_1, preset_save_1),
+	MENUITEM_SUBMENU(presets_config.names[1], &menupage_preset_2, preset_save_2),
+	MENUITEM_SUBMENU(presets_config.names[2], &menupage_preset_3, preset_save_3),
+	MENUITEM_SUBMENU(presets_config.names[3], &menupage_preset_4, preset_save_4),
+	MENUITEM_SUBMENU(presets_config.names[4], &menupage_preset_5, preset_save_5),
+	MENUITEM_SUBMENU(presets_config.names[5], &menupage_preset_6, preset_save_6),
+	MENUITEM_SUBMENU(presets_config.names[6], &menupage_preset_7, preset_save_7),
+	MENUITEM_SUBMENU(presets_config.names[7], &menupage_preset_8, preset_save_8),
+	MENUITEM_SUBMENU(presets_config.names[8], &menupage_preset_9, preset_save_9),
 };
 
 type_MENUPAGE menupage_presets = {
@@ -238,6 +238,18 @@ void menu_preset_open() {
 		menupage_presets.highlighted_item = presets_config.last_preset;
 	} else {
 		menupage_presets.highlight        = false;
+	}
+
+	if (status.main_dial_ae == AE_MODE_ADEP) {
+		preset_items[0].action = preset_load_1;
+		preset_items[1].action = preset_load_2;
+		preset_items[2].action = preset_load_3;
+		preset_items[3].action = preset_load_4;
+		preset_items[4].action = preset_load_5;
+		preset_items[5].action = preset_load_6;
+		preset_items[6].action = preset_load_7;
+		preset_items[7].action = preset_load_8;
+		preset_items[8].action = preset_load_9;
 	}
 }
 
