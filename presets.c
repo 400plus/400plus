@@ -18,7 +18,6 @@
 #include "presets.h"
 
 type_PRESETS_CONFIG presets_default = {
-	use_adep        : true,
 	recall_camera   : true,
 	recall_400plus  : true,
 	recall_settings : false,
@@ -281,7 +280,7 @@ void sub_preset_recall(int full) {
 	status.preset_active = false;
 
 	// Only if configured to hijack ADEP and entering ADEP
-	if (presets_config.use_adep && status.main_dial_ae == AE_MODE_ADEP) {
+	if (status.main_dial_ae == AE_MODE_ADEP) {
 		// Only if a preset was loaded, and we can read it back
 		if (presets_config.last_preset && preset_read(presets_config.last_preset, &preset)) {
 			// Apply full preset or just revert AE mode
@@ -292,11 +291,11 @@ void sub_preset_recall(int full) {
 
 			// Well, looks like we did recall a preset after all
 			status.preset_active = true;
-
-			// Refresh display to show new preset
-			display_refresh();
 		}
 	}
+
+	// Refresh display to show new preset (or lack of thereof)
+	display_refresh();
 }
 
 void get_preset_filename(char *filename, int id) {
