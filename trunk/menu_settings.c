@@ -43,7 +43,6 @@ type_MENUITEM buttons_items[] = {
 };
 
 type_MENUITEM presets_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_ADEP),     &presets_config.use_adep,        NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_CAMERA),   &presets_config.recall_camera,   NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_400PLUS),  &presets_config.recall_400plus,  NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_SETTINGS), &presets_config.recall_settings, NULL),
