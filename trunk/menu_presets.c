@@ -250,6 +250,16 @@ void menu_preset_open() {
 		preset_items[6].action = preset_load_7;
 		preset_items[7].action = preset_load_8;
 		preset_items[8].action = preset_load_9;
+	} else {
+		preset_items[0].action = preset_save_1;
+		preset_items[1].action = preset_save_2;
+		preset_items[2].action = preset_save_3;
+		preset_items[3].action = preset_save_4;
+		preset_items[4].action = preset_save_5;
+		preset_items[5].action = preset_save_6;
+		preset_items[6].action = preset_save_7;
+		preset_items[7].action = preset_save_8;
+		preset_items[8].action = preset_save_9;
 	}
 }
 
