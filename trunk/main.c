@@ -107,8 +107,6 @@ void message_logger (char *message);
 void initialize() {
 	action_queue = (int*)CreateMessageQueue("action_queue", 0x40);
 	CreateTask("Action Dispatcher", 25, 0x2000, action_dispatcher, 0);
-
-	enqueue_action(start_up);
 }
 
 void initialize_display() {
@@ -288,10 +286,12 @@ int proxy_button_av(char *message) {
 int proxy_main_dial(char *message) {
 	static int first = true;
 
-	if (first)
+	if (first) {
 		first = false;
-	else
+		enqueue_action(start_up);
+	} else {
 		status.main_dial_moved = true;
+	}
 
 	return false;
 }
