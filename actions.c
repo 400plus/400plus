@@ -5,6 +5,7 @@
  */
 
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "macros.h"
 #include "main.h"
@@ -30,9 +31,6 @@ void repeat_last_script();
 void button_action(type_BUTTON_ACTION action);
 
 void start_up() {
-	// Wait for camera to settle down
-	SleepTask(1000);
-
 	// Read settings from file
 	settings_read();
 
@@ -45,8 +43,6 @@ void start_up() {
 
 	// Read presets from file
 	presets_read();
-
-	SleepTask(100);
 
 #if 0
 	// vram testing
