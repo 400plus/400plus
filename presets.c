@@ -181,10 +181,8 @@ int snapshot_delete(char *name) {
 }
 
 void snapshot_apply(snapshot_t *snapshot) {
-	if (presets_config.recall_camera) {
-		status.ignore_ae_change = true;
+	if (presets_config.recall_camera)
 		send_to_intercom(IC_SET_AE, 1, snapshot->DPData.ae);
-	}
 }
 
 void snapshot_apply_full(snapshot_t *snapshot) {
@@ -286,8 +284,9 @@ void sub_preset_recall(int full) {
 			// Apply full preset or just revert AE mode
 			if (full)
 				snapshot_apply_full(&preset);
-			else
+			else {
 				snapshot_apply(&preset);
+			}
 
 			// Well, looks like we did recall a preset after all
 			status.preset_active = true;

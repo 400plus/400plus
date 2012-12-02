@@ -91,6 +91,8 @@ typedef enum {
 	IC_CARD_FULL_MSG_IN_VF         = 0x6B, //
 	IC_CHANGE_BAT_AND_OTHER_DIALOGS= 0x6C, //
 	IC_SET_BURST_COUNTER           = 0x6D, //
+	IC_HELLO_WORD                  = 0x6E, // ? [First message received at intercom proxy; mostly empty]
+	IC_INITIALIZATION              = 0x70, // ? [Second message at intercom; unknown contents]
 	IC_POWER_FLAG                  = 0x72, //
 	IC_BUZZER                      = 0x73, //
 	IC_TEMP                        = 0x74, //
@@ -98,6 +100,7 @@ typedef enum {
 	IC_MEASUREMENT                 = 0x81, //
 	IC_SHOOTING                    = 0x83, // ?
 	IC_TIMERCOUNTER                = 0x8C, //
+	IC_MAIN_DIAL                   = 0x8D, //
 	IC_SETTINGS_0                  = 0x90, //
 	IC_SETTINGS_1                  = 0x91, //
 	IC_SETTINGS_2                  = 0x92, //

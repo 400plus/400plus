@@ -24,7 +24,7 @@ typedef struct {
 	int         afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int         main_dial_ae;      // AE mode selected in the main dial
 	int         preset_active;     // There is a preset active
-	int         ignore_ae_change;  // Ignore next AE change
+	int         main_dial_moved;   // Main dial has just moved
 	int         measuring;         // Camera is measuring the scene
 	tv_t        measured_tv;       // Shutter speed as proposed by the metering
 	av_t        measured_av;       // Aperture as proposed by the metering
@@ -33,7 +33,7 @@ typedef struct {
 	int         last_shot_av;      // Aperture of the last shot taken
 	ec_t        ev_comp;           // Exposure compensation for AutoISO + M
 	type_SCRIPT last_script;       // Last executed script
-} type_STATUS;
+} status_t;
 
 // Our own code
 extern void initialize();
@@ -42,6 +42,6 @@ extern void intercom_proxy(const int handler, char *message);
 extern void enqueue_action(action_r action);
 
 // Shared globals
-extern type_STATUS status;
+extern status_t status;
 
 #endif /* MAIN_H_ */

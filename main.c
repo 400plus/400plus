@@ -28,14 +28,14 @@
 int *action_queue;
 
 // Global status
-type_STATUS status = {
+status_t status = {
 	button_down       : BUTTON_NONE,
 	script_running    : false,
 	script_stopping   : false,
 	iso_in_viewfinder : false,
 	afp_dialog        : false,
-	ignore_ae_change  : false,
 	measuring         : false,
+	main_dial_moved   : true,
 	ev_comp           : 0x00,
 };
 
@@ -60,6 +60,7 @@ int proxy_button_right   (char *message);
 int proxy_button_left    (char *message);
 int proxy_button_dp      (char *message);
 int proxy_button_av      (char *message);
+int proxy_main_dial      (char *message);
 
 proxy_r listeners_script[0x100] = {
 	[IC_SHUTDOWN]  = proxy_script_restore,
@@ -95,6 +96,7 @@ proxy_r listeners_main[0x100] = {
 	[IC_BUTTON_LEFT]  = proxy_button_left,
 	[IC_BUTTON_DP]    = proxy_button_dp,
 	[IC_BUTTON_AV]    = proxy_button_av,
+	[IC_MAIN_DIAL]    = proxy_main_dial,
 };
 
 
@@ -231,13 +233,11 @@ int proxy_measurement(char *message) {
 }
 
 int proxy_settings0(char *message) {
-	if (status.ignore_ae_change) {
-		// Ignore first AE change coming from a preset being applied
-		status.ignore_ae_change = false;
-	} else {
-		// Handle preset recall when dial moved to A-DEP
-		status.main_dial_ae = message[2];
-		enqueue_action(preset_recall_full);
+	if (status.main_dial_moved) {
+		status.main_dial_moved = false;
+		status.main_dial_ae    = message[2];
+
+		enqueue_action(preset_recall);
 	}
 
 	return false;
@@ -283,4 +283,15 @@ int proxy_button_dp(char *message) {
 
 int proxy_button_av(char *message) {
 	return button_handler(BUTTON_AV, message[2]);
+}
+
+int proxy_main_dial(char *message) {
+	static int first = true;
+
+	if (first)
+		first = false;
+	else
+		status.main_dial_moved = true;
+
+	return false;
 }
