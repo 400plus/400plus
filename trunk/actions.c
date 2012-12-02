@@ -87,9 +87,6 @@ void start_up() {
 	// turn off the blue led after it was lighten by our my_task_MainCtrl()
 	eventproc_EdLedOff();
 
-	// If needed, recall last active preset
-	preset_recall();
-
 #if 0
 	debug_log("=== DUMPING DDD ===");
 	printf_DDD_log( (void*)(int)(0x00007604+0x38) );

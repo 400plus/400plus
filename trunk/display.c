@@ -27,11 +27,9 @@ void display_refresh_iso();
 static dialog_t *countdown_dialog = NULL;
 
 void restore_display() {
-	display_overlay();
-
 	SleepTask(100);
 
-	if (! status.menu_running && DPData.ae < AE_MODE_AUTO)
+	if (FLAG_GUI_MODE == GUIMODE_OLC && DPData.ae < AE_MODE_AUTO)
 		display_refresh();
 }
 
