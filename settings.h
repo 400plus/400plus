@@ -81,7 +81,7 @@ typedef enum {
 } type_FLASH_MODE;
 
 typedef struct {
-	int iso_in_viewfinder;
+	int use_dpad;
 	int autoiso_enable;
 	int autoiso_miniso;
 	int autoiso_maxiso;
