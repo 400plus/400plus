@@ -97,7 +97,7 @@ type_MENUPAGE menupage_params = {
 	sibilings : true,
 	length    : LENGTH(menupage_params_items),
 	items     : menupage_params_items,
-	ordering  : settings.params_order,
+	ordering  : menu_order.params_order,
 };
 
 void menu_params_apply_autoiso_miniso(const type_MENUITEM *item) {

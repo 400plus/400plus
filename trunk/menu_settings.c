@@ -45,6 +45,7 @@ type_MENUITEM buttons_items[] = {
 type_MENUITEM presets_items[] = {
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_CAMERA),   &presets_config.recall_camera,   NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_400PLUS),  &presets_config.recall_400plus,  NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_ORDERING), &presets_config.recall_ordering, NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_SETTINGS), &presets_config.recall_settings, NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_IMAGE),    &presets_config.recall_image,    NULL),
 	MENUITEM_BOOLEAN(LP_WORD(L_I_PRESETS_CFN),      &presets_config.recall_cfn,      NULL),
@@ -111,7 +112,7 @@ type_MENUPAGE pages_page = {
 	name     : LP_WORD(L_S_PAGES),
 	length   : LENGTH(pages_items),
 	items    : pages_items,
-	ordering : settings.main_order,
+	ordering : menu_order.main_order,
 	actions  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -143,7 +144,7 @@ type_MENUPAGE menupage_settings = {
 	sibilings : true,
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
-	ordering  : settings.settings_order,
+	ordering  : menu_order.settings_order,
 	actions   : {
 		[MENU_EVENT_OPEN] = menu_settings_open,
 	}

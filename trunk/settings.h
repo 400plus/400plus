@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x3E
+#define SETTINGS_VERSION  0x3F
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -112,12 +112,6 @@ typedef struct {
 	int remote_delay;
 	int timer_timeout;
 	int timer_action;
-	int main_order[10];
-	int params_order[10];
-	int scripts_order[10];
-	int info_order[10];
-	int developer_order[10];
-	int settings_order[10];
 	int keep_power_on;
 	int script_lcd;
 	int script_indicator;
@@ -134,9 +128,20 @@ typedef struct {
 	int menu_entermain;
 	int menu_current_posn;
 	int menu_autosave;
-} type_SETTINGS;
+} settings_t;
 
-extern type_SETTINGS settings;
+extern settings_t settings;
+
+typedef struct {
+	int main_order[10];
+	int params_order[10];
+	int scripts_order[10];
+	int info_order[10];
+	int developer_order[10];
+	int settings_order[10];
+} menu_order_t;
+
+extern menu_order_t menu_order;
 
 extern int  settings_read();
 extern void settings_write();

@@ -225,7 +225,7 @@ type_MENUPAGE menupage_scripts = {
 	sibilings : true,
 	length    : LENGTH(menupage_scripts_items),
 	items     : menupage_scripts_items,
-	ordering  : settings.scripts_order,
+	ordering  : menu_order.scripts_order,
 };
 
 void menu_lexp_calc_open (type_MENU *menu) {

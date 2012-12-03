@@ -28,5 +28,5 @@ type_MENUPAGE menupage_info = {
 	sibilings   : true,
 	length      : LENGTH(menupage_info_items),
 	items       : menupage_info_items,
-	ordering    : settings.info_order,
+	ordering    : menu_order.info_order,
 };
