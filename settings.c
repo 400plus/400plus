@@ -15,7 +15,7 @@
 
 #include "settings.h"
 
-type_SETTINGS settings_default = {
+settings_t settings_default = {
 	iso_in_viewfinder: false,
 	autoiso_enable   : false,
 	autoiso_miniso   : 0x48, // ISO100
@@ -47,12 +47,6 @@ type_SETTINGS settings_default = {
 	remote_delay     : false,
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_SHOT,
-	main_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	params_order     : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	scripts_order    : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	info_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	developer_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	settings_order   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	keep_power_on    : true,
 	script_lcd       : SCRIPT_LCD_KEEP,
 	script_indicator : SCRIPT_INDICATOR_MEDIUM,
@@ -69,7 +63,17 @@ type_SETTINGS settings_default = {
 	menu_autosave    : true,
 };
 
-type_SETTINGS settings;
+menu_order_t menu_order_default = {
+	main_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	params_order     : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	scripts_order    : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	info_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	developer_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	settings_order   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+};
+
+settings_t   settings;
+menu_order_t menu_order;
 
 int settings_read() {
 	int result  = false;
@@ -77,9 +81,11 @@ int settings_read() {
 	int file    = -1;
 	int version =  0;
 
-	type_SETTINGS buffer;
+	settings_t   settings_buffer;
+	menu_order_t menu_order_buffer;
 
-	settings = settings_default;
+	settings   = settings_default;
+	menu_order = menu_order_default;
 
 	if ((file = FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644)) == -1)
 		goto end;
@@ -90,10 +96,15 @@ int settings_read() {
 	if (version != SETTINGS_VERSION)
 		goto end;
 
-	if (FIO_ReadFile(file, &buffer, sizeof(buffer)) != sizeof(buffer))
+	if (FIO_ReadFile(file, &settings_buffer, sizeof(settings_buffer)) != sizeof(settings_buffer))
 		goto end;
 
-	settings = buffer;
+	if (FIO_ReadFile(file, &menu_order_buffer, sizeof(menu_order_buffer)) != sizeof(menu_order_buffer))
+		goto end;
+
+	settings   = settings_buffer;
+	menu_order = menu_order_buffer;
+
 	result   = true;
 
 end:
@@ -109,7 +120,10 @@ void settings_write() {
 
 	if (file != -1) {
 		FIO_WriteFile(file, (void*)&version, sizeof(version));
-		FIO_WriteFile(file, &settings, sizeof(settings));
+
+		FIO_WriteFile(file, &settings,   sizeof(settings));
+		FIO_WriteFile(file, &menu_order, sizeof(menu_order));
+
 		FIO_CloseFile(file);
 	}
 }
@@ -131,7 +145,8 @@ extern void settings_apply() {
 }
 
 void settings_restore() {
-	settings = settings_default;
+	settings   = settings_default;
+	menu_order = menu_order_default;
 
 	settings_apply();
 	settings_write();

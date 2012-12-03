@@ -62,7 +62,7 @@ type_MENUPAGE menupage_developer = {
 	name      : LP_WORD(L_P_DEVELOPERS),
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
-	ordering  : settings.developer_order,
+	ordering  : menu_order.developer_order,
 	actions  : {
 		[MENU_EVENT_AV] = menu_return,
 	}

@@ -13,27 +13,29 @@
 
 #define FILENAME_LENGTH 16
 
-#define PRESETS_VERSION 0x03
+#define PRESETS_VERSION 0x04
 #define PRESETS_CONFIG  "A:/PRESETS"
 #define PRESETS_FILE    "A:/PRESET_%u"
 
 typedef struct {
-	dpr_data_t     DPData;
-	type_SETTINGS  settings;
+	dpr_data_t   DPData;
+	settings_t   settings;
+	menu_order_t menu_order;
 } snapshot_t;
 
 typedef struct {
 	int  recall_camera;
 	int  recall_400plus;
+	int  recall_ordering;
 	int  recall_settings;
 	int  recall_image;
 	int  recall_cfn;
 	int  order[9];
 	char names[9][32];
 	int  last_preset;
-} type_PRESETS_CONFIG;
+} presets_config_t;
 
-extern type_PRESETS_CONFIG presets_config;
+extern presets_config_t presets_config;
 
 extern void presets_read   ();
 extern void presets_write  ();

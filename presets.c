@@ -17,16 +17,17 @@
 
 #include "presets.h"
 
-type_PRESETS_CONFIG presets_default = {
+presets_config_t presets_default = {
 	recall_camera   : true,
 	recall_400plus  : true,
+	recall_ordering : false,
 	recall_settings : false,
 	recall_image    : true,
 	recall_cfn      : true,
 	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8}
 };
 
-type_PRESETS_CONFIG presets_config;
+presets_config_t presets_config;
 
 int snapshot_read  (char *name, snapshot_t *snapshot);
 int snapshot_write (char *name);
@@ -39,7 +40,7 @@ void presets_read() {
 	int file    = -1;
 	int version =  0;
 
-	type_PRESETS_CONFIG buffer;
+	presets_config_t buffer;
 
 	for (id = 0; id < 9; id ++)
 		sprintf(presets_default.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), 1 + id);
@@ -151,8 +152,9 @@ int snapshot_write(char *name) {
 	int  file   = -1;
 
 	snapshot_t buffer = {
-		settings : settings,
-		DPData   : DPData
+		DPData     : DPData,
+		settings   : settings,
+		menu_order : menu_order,
 	};
 
 	if ((file = FIO_OpenFile(name, O_CREAT | O_WRONLY , 644)) == -1)
@@ -255,6 +257,10 @@ void snapshot_apply_full(snapshot_t *snapshot) {
 		send_to_intercom(IC_SET_CF_ORIGINAL_EVAL,        1, snapshot->DPData.cf_original_eval);
 		send_to_intercom(IC_SET_CF_QR_MAGNIFY,           1, snapshot->DPData.cf_qr_magnify);
 		send_to_intercom(IC_SET_CF_TFT_ON_POWER_ON,      1, snapshot->DPData.cf_tft_on_power_on);
+	}
+
+	if (presets_config.recall_ordering) {
+		menu_order = snapshot->menu_order;
 	}
 
 	if (presets_config.recall_400plus) {

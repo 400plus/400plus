@@ -91,6 +91,7 @@
 	LANG_PAIR( I_PRESETS_ADEP,       "Use A-DEP"          ) \
 	LANG_PAIR( I_PRESETS_CAMERA,     "Camera"             ) \
 	LANG_PAIR( I_PRESETS_400PLUS,    "400plus"            ) \
+	LANG_PAIR( I_PRESETS_ORDERING,   "Menu order"         ) \
 	LANG_PAIR( I_PRESETS_SETTINGS,   "Settings"           ) \
 	LANG_PAIR( I_PRESETS_IMAGE,      "Image"              ) \
 	LANG_PAIR( I_PRESETS_CFN,        "Custom Fn"          ) \
