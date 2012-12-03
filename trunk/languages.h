@@ -97,7 +97,7 @@
 	LANG_PAIR( I_PRESETS_CFN,        "Custom Fn"          ) \
 	LANG_PAIR( I_IR_REMOTE_ENABLE,   "IR remote enable"   ) \
 	LANG_PAIR( I_IR_REMOTE_DELAY,    "IR remote delay"    ) \
-	LANG_PAIR( I_ISO_IN_VF,          "ISO in viewfinder"  ) \
+	LANG_PAIR( I_USE_DPAD,           "Use D-Pad"          ) \
 	LANG_PAIR( I_BUTTON_DISP,        "Better DISP button" ) \
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"   ) \
 	LANG_PAIR( I_LANGUAGE,           "Language"           ) \

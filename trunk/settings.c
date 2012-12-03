@@ -16,7 +16,7 @@
 #include "settings.h"
 
 settings_t settings_default = {
-	iso_in_viewfinder: false,
+	use_dpad         : true,
 	autoiso_enable   : false,
 	autoiso_miniso   : 0x48, // ISO100
 	autoiso_maxiso   : 0x68, // ISO1600

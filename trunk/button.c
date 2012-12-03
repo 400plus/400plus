@@ -10,11 +10,12 @@
 #include "main.h"
 #include "macros.h"
 
+#include "actions.h"
 #include "af_patterns.h"
 #include "display.h"
 #include "menu.h"
 #include "menu_main.h"
-#include "actions.h"
+#include "settings.h"
 #include "utils.h"
 #include "viewfinder.h"
 
@@ -25,6 +26,11 @@ typedef struct {
 	action_r action_press;
 	action_r action_release;
 } reaction_r;
+
+typedef struct  {
+	int        *condition;
+	reaction_r *reaction;
+} chain_r;
 
 reaction_r button_actions_main[BUTTON_COUNT] = {
 	[BUTTON_DP]    = {true,  menu_main_start},
@@ -70,6 +76,7 @@ reaction_r button_actions_iso[BUTTON_COUNT] = {
 };
 
 reaction_r button_actions_face[BUTTON_COUNT] = {
+	[BUTTON_SET]   = {true},
 	[BUTTON_UP]    = {true, viewfinder_up,    viewfinder_end},
 	[BUTTON_DOWN]  = {true},
 	[BUTTON_RIGHT] = {true, viewfinder_right, viewfinder_end},
@@ -85,15 +92,15 @@ reaction_r button_actions_af[BUTTON_COUNT] = {
 	[BUTTON_DISP]  = {true},
 };
 
-reaction_r *button_chains[GUIMODE_COUNT] = {
-	[GUIMODE_OLC]       = button_actions_main,
-	[GUIMODE_OFF]       = button_actions_main,
-	[GUIMODE_400PLUS]   = button_actions_400plus,
-	[GUIMODE_METER]     = button_actions_meter,
-	[GUIMODE_WB]        = button_actions_wb,
-	[GUIMODE_ISO]       = button_actions_iso,
-	[GUIMODE_FACE]      = button_actions_face,
-	[GUIMODE_AFPATTERN] = button_actions_af,
+chain_r button_chains[GUIMODE_COUNT] = {
+	[GUIMODE_OLC]       = {NULL, button_actions_main},
+	[GUIMODE_OFF]       = {NULL, button_actions_main},
+	[GUIMODE_METER]     = {NULL, button_actions_meter},
+	[GUIMODE_WB]        = {NULL, button_actions_wb},
+	[GUIMODE_ISO]       = {NULL, button_actions_iso},
+	[GUIMODE_AFPATTERN] = {NULL, button_actions_af},
+	[GUIMODE_400PLUS]   = {NULL, button_actions_400plus},
+	[GUIMODE_FACE]      = {&settings.use_dpad, button_actions_face},
 };
 
 int can_hold[BUTTON_COUNT] = {
@@ -110,7 +117,7 @@ int button_handler(type_BUTTON button, int is_button_down) {
 
 	int gui_mode;
 
-	reaction_r *chain;
+	chain_r    *chain;
 	reaction_r *reaction;
 
 	// Check first for button-down events
@@ -123,12 +130,13 @@ int button_handler(type_BUTTON button, int is_button_down) {
 		else
 			gui_mode = FLAG_GUI_MODE;
 
-		// Check whether this mode has an assigned chain
-		if((chain = button_chains[gui_mode]) == NULL) {
+
+		if((chain = &button_chains[gui_mode]) == NULL) {
+			// This mode does not have an assigned chain
 			return false;
-		} else {
+		} else if (!chain->condition || *chain->condition) {
 			// Check that we have an action assigned to this button
-			if ((reaction = &chain[button]) == NULL) {
+			if ((reaction = &chain->reaction[button]) == NULL) {
 				return false;
 			} else {
 				// Launch the defined action
@@ -147,6 +155,9 @@ int button_handler(type_BUTTON button, int is_button_down) {
 				// Decide how to respond to this button
 				return reaction->block;
 			}
+		} else {
+			// This mode is configured off
+			return false;
 		}
 	} else {
 		// Check for button-up events and act immediately
