@@ -283,8 +283,8 @@ void sub_preset_recall(int full) {
 	// Preventively, we assume no preset is active now
 	status.preset_active = false;
 
-	// Only if configured to hijack ADEP and entering ADEP
-	if (status.main_dial_ae == AE_MODE_ADEP) {
+	// Only if entering AUTO
+	if (status.main_dial_ae == AE_MODE_AUTO) {
 		// Only if a preset was loaded, and we can read it back
 		if (presets_config.last_preset && preset_read(presets_config.last_preset, &preset)) {
 			// Apply full preset or just revert AE mode
