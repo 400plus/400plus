@@ -129,6 +129,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
     * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
     * 400plus: when active (set to Yes), loading a preset recalls `400plus`' own settings (scripts, ...).
+    * Menu order: when active (set to Yes), loading a preset recalls the order of items within menus.
     * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
     * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
     * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
