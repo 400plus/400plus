@@ -66,6 +66,7 @@ typedef union {
 } type_MENUITEM_PARM;
 
 struct MENUITEM {
+	int   id;
 	char *name;
 	int   readonly;
 	type_MENUITEM_PARM  parm;
@@ -76,7 +77,8 @@ struct MENUITEM {
 	void (*change) (const type_MENUITEM *item);
 };
 
-#define MENUITEM_EC(_NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
+#define MENUITEM_EC(_ID_, _NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
+	id       : _ID_, \
 	name     : _NAME_, \
 	readonly : _RO_, \
 	parm     : { menuitem_ec : { \
@@ -90,9 +92,10 @@ struct MENUITEM {
 	change   : _CHANGE_ \
 }
 
-#define MENUITEM_AV(_NAME_, _VALUE_, _CHANGE_) { \
-	name  : _NAME_, \
-	parm  : { menuitem_av : { \
+#define MENUITEM_AV(_ID_, _NAME_, _VALUE_, _CHANGE_) { \
+	id      : _ID_, \
+	name    : _NAME_, \
+	parm    : { menuitem_av : { \
 			value : _VALUE_, \
 	}}, \
 	display : menuitem_display_av, \
@@ -101,9 +104,10 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_TV(_NAME_, _VALUE_, _CHANGE_) { \
-	name  : _NAME_, \
-	parm  : { menuitem_tv : { \
+#define MENUITEM_TV(_ID_, _NAME_, _VALUE_, _CHANGE_) { \
+	id      : _ID_, \
+	name    : _NAME_, \
+	parm    : { menuitem_tv : { \
 		value : _VALUE_, \
 	}}, \
 	display : menuitem_display_tv, \
@@ -112,9 +116,10 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_BULB(_NAME_, _VALUE_, _CHANGE_) { \
-	name  : _NAME_, \
-	parm  : { menuitem_tv : { \
+#define MENUITEM_BULB(_ID_, _NAME_, _VALUE_, _CHANGE_) { \
+	id      : _ID_, \
+	name    : _NAME_, \
+	parm    : { menuitem_tv : { \
 		value : _VALUE_, \
 	}}, \
 	display : menuitem_display_bulb,  \
@@ -123,9 +128,10 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_ISO(_NAME_, _VALUE_, _FULL_, _CHANGE_)  { \
-	name  : _NAME_, \
-	parm  : { menuitem_iso : { \
+#define MENUITEM_ISO(_ID_, _NAME_, _VALUE_, _FULL_, _CHANGE_)  { \
+	id      : _ID_, \
+	name    : _NAME_, \
+	parm    : { menuitem_iso : { \
 		value : _VALUE_, \
 		full  : _FULL_, \
 	}}, \
@@ -135,7 +141,8 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_INT(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _CHANGE_) { \
+#define MENUITEM_INT(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _CHANGE_) { \
+	id       : _ID_, \
 	name     : _NAME_, \
 	readonly : _RO_, \
 	parm     : {menuitem_int : { \
@@ -153,7 +160,8 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_TIME(_NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _CHANGE_) { \
+#define MENUITEM_TIME(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _CHANGE_) { \
+	id       : _ID_, \
 	name     : _NAME_, \
 	readonly : _RO_, \
 	parm     : {menuitem_int : { \
@@ -169,7 +177,8 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_FLENGTH(_NAME_, _VALUE_, _CHANGE_) { \
+#define MENUITEM_FLENGTH(_ID_, _NAME_, _VALUE_, _CHANGE_) { \
+	id       : _ID_, \
 	name     : _NAME_, \
 	parm     : {menuitem_int : { \
 		value                : _VALUE_, \
@@ -181,7 +190,8 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_ENUM(_NAME_, _VALUE_, _CYCLE_, _TEXTS_, _CHANGE_)  { \
+#define MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, _CYCLE_, _TEXTS_, _CHANGE_)  { \
+	id    : _ID_, \
 	name  : _NAME_, \
 	parm  : { menuitem_enum : { \
 		value : _VALUE_, \
@@ -194,13 +204,15 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_LAUNCH(_NAME_, _ACTION_)  { \
-	name  : _NAME_, \
+#define MENUITEM_LAUNCH(_ID_, _NAME_, _ACTION_)  { \
+	id      : _ID_, \
+	name    : _NAME_, \
 	display : menuitem_display,  \
 	action  : _ACTION_, \
 }
 
-#define MENUITEM_SUBMENU(_NAME_, _PAGE_, _ACTION_) { \
+#define MENUITEM_SUBMENU(_ID_, _NAME_, _PAGE_, _ACTION_) { \
+	id    : _ID_, \
 	name  : _NAME_, \
 	parm  : { menuitem_submenu : { \
 		page : _PAGE_, \
@@ -210,12 +222,14 @@ struct MENUITEM {
 	action  : _ACTION_, \
 }
 
-#define MENUITEM_PAGE(_NAME_) { \
+#define MENUITEM_PAGE(_ID_, _NAME_) { \
+	id      : _ID_, \
 	name    : _NAME_, \
 	display : menuitem_display, \
 }
 
-#define MENUITEM_INFO(_NAME_, _VALUE_) { \
+#define MENUITEM_INFO(_ID_, _NAME_, _VALUE_) { \
+	id    : _ID_, \
 	name  : _NAME_, \
 	parm  : { menuitem_info : { \
 		value : _VALUE_, \
@@ -223,35 +237,35 @@ struct MENUITEM {
 	display : menuitem_display_info, \
 }
 
-#define MENUITEM_EVCOMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, false, true,  false, _ON_CHANGE_)
-#define MENUITEM_EVSEP( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, false, true,  true,  _ON_CHANGE_)
-#define MENUITEM_EVEAEB(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, false, false, true,  _ON_CHANGE_)
-#define MENUITEM_EVINFO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_NAME_, _VALUE_, true,  true,  false, _ON_CHANGE_)
+#define MENUITEM_EVCOMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, false, true,  false, _ON_CHANGE_)
+#define MENUITEM_EVSEP( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, false, true,  true,  _ON_CHANGE_)
+#define MENUITEM_EVEAEB(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, false, false, true,  _ON_CHANGE_)
+#define MENUITEM_EVINFO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, true,  true,  false, _ON_CHANGE_)
 
-#define MENUITEM_BASEISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, true,  _ON_CHANGE_)
-#define MENUITEM_FULLISO(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_NAME_, _VALUE_, false, _ON_CHANGE_)
+#define MENUITEM_BASEISO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_ID_, _NAME_, _VALUE_, true,  _ON_CHANGE_)
+#define MENUITEM_FULLISO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_ID_, _NAME_, _VALUE_, false, _ON_CHANGE_)
 
-#define MENUITEM_BOOLEAN( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_bool,      _ON_CHANGE_)
-#define MENUITEM_AFFLASH( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_flash,     _ON_CHANGE_)
-#define MENUITEM_ACTION(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_action,    _ON_CHANGE_)
-#define MENUITEM_LOGFILE( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_logfile,   _ON_CHANGE_)
-#define MENUITEM_BTNACTN( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_btnactn,   _ON_CHANGE_)
-#define MENUITEM_EAEBDIR( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_direction, _ON_CHANGE_)
-#define MENUITEM_LANG(    _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_languages, _ON_CHANGE_)
-#define MENUITEM_VFORMAT( _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_vformat,   _ON_CHANGE_)
-#define MENUITEM_SCRIND(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_scrind,    _ON_CHANGE_)
-#define MENUITEM_SCRLCD(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_NAME_, _VALUE_, true, &menuoptions_scrlcd,    _ON_CHANGE_)
+#define MENUITEM_BOOLEAN(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_bool,      _ON_CHANGE_)
+#define MENUITEM_AFFLASH(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_flash,     _ON_CHANGE_)
+#define MENUITEM_ACTION( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_action,    _ON_CHANGE_)
+#define MENUITEM_LOGFILE(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_logfile,   _ON_CHANGE_)
+#define MENUITEM_BTNACTN(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_btnactn,   _ON_CHANGE_)
+#define MENUITEM_EAEBDIR(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_direction, _ON_CHANGE_)
+#define MENUITEM_LANG(   _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_languages, _ON_CHANGE_)
+#define MENUITEM_VFORMAT(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_vformat,   _ON_CHANGE_)
+#define MENUITEM_SCRIND( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_scrind,    _ON_CHANGE_)
+#define MENUITEM_SCRLCD( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_scrlcd,    _ON_CHANGE_)
 
-#define MENUITEM_CLRTEMP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, false, 1800, 11000, 100, 500, false, "%5u", _ON_CHANGE_)
-#define MENUITEM_COUNTER(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, false,    0,   250,   1,  10, true,  "%3u", _ON_CHANGE_)
-#define MENUITEM_BRACKET(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, false,    3,     9,   2,   2, false, "%1u", _ON_CHANGE_)
-#define MENUITEM_FDIST(  _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_NAME_, _VALUE_, false,    1,  1000,   1,  10, false, "%4u", _ON_CHANGE_)
+#define MENUITEM_CLRTEMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false, 1800, 11000, 100, 500, false, "%5u", _ON_CHANGE_)
+#define MENUITEM_COUNTER(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,   250,   1,  10, true,  "%3u", _ON_CHANGE_)
+#define MENUITEM_BRACKET(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    3,     9,   2,   2, false, "%1u", _ON_CHANGE_)
+#define MENUITEM_FDIST(  _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    1,  1000,   1,  10, false, "%4u", _ON_CHANGE_)
 
-#define MENUITEM_PARAM(_NAME_, _VALUE_) MENUITEM_INT(_NAME_, _VALUE_, true, 0, 0, 0, 0, false, "%u", NULL)
+#define MENUITEM_PARAM(_ID_, _NAME_, _VALUE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, true, 0, 0, 0, 0, false, "%u", NULL)
 
-#define MENUITEM_TIMEOUT(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, false,    1,   300,   1,  10, _ON_CHANGE_)
-#define MENUITEM_LONGEXP(_NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_NAME_, _VALUE_, false,   15,  6000,  15,  60, _ON_CHANGE_)
-#define MENUITEM_INFTIME(_NAME_, _VALUE_)              MENUITEM_TIME(_NAME_, _VALUE_, true,     1,   100,   1,   5, NULL)
+#define MENUITEM_TIMEOUT(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    1,   300,   1,  10, _ON_CHANGE_)
+#define MENUITEM_LONGEXP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,   15,  6000,  15,  60, _ON_CHANGE_)
+#define MENUITEM_INFTIME(_ID_, _NAME_, _VALUE_)              MENUITEM_TIME(_ID_, _NAME_, _VALUE_, true,     1,   100,   1,   5, NULL)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_ec   (const type_MENUITEM *item, char *buffer, const int length);

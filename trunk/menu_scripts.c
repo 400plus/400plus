@@ -57,66 +57,66 @@ void menu_scripts_long_exp     (const type_MENUITEM *item);
 void menu_scripts_launch (action_r script);
 
 type_MENUITEM ext_aeb_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
-	MENUITEM_BRACKET(LP_WORD(L_I_FRAMES),    &settings.eaeb_frames,    NULL),
-	MENUITEM_EVEAEB (LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,        NULL),
-	MENUITEM_EAEBDIR(LP_WORD(L_I_DIRECTION), &settings.eaeb_direction, NULL),
-	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min,    menu_scripts_apply_eaeb_tvmin),
-	MENUITEM_BULB   (LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max,    menu_scripts_apply_eaeb_tvmax)
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
+	MENUITEM_BRACKET(0, LP_WORD(L_I_FRAMES),    &settings.eaeb_frames,    NULL),
+	MENUITEM_EVEAEB (0, LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,        NULL),
+	MENUITEM_EAEBDIR(0, LP_WORD(L_I_DIRECTION), &settings.eaeb_direction, NULL),
+	MENUITEM_BULB   (0, LP_WORD(L_I_MANUAL_L),  &settings.eaeb_tv_min,    menu_scripts_apply_eaeb_tvmin),
+	MENUITEM_BULB   (0, LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max,    menu_scripts_apply_eaeb_tvmax)
 };
 
 type_MENUITEM efl_aeb_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),     &settings.efl_aeb_delay,     NULL),
-	MENUITEM_BRACKET(LP_WORD(L_I_FRAMES),    &settings.efl_aeb_frames,    NULL),
-	MENUITEM_EVEAEB (LP_WORD(L_I_STEP_EV),   &settings.efl_aeb_ev,        NULL),
-	MENUITEM_EAEBDIR(LP_WORD(L_I_DIRECTION), &settings.efl_aeb_direction, NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),     &settings.efl_aeb_delay,     NULL),
+	MENUITEM_BRACKET(0, LP_WORD(L_I_FRAMES),    &settings.efl_aeb_frames,    NULL),
+	MENUITEM_EVEAEB (0, LP_WORD(L_I_STEP_EV),   &settings.efl_aeb_ev,        NULL),
+	MENUITEM_EAEBDIR(0, LP_WORD(L_I_DIRECTION), &settings.efl_aeb_direction, NULL),
 };
 
 type_MENUITEM iso_aeb_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY), &settings.iso_aeb_delay, NULL),
-	MENUITEM_BOOLEAN(" 100",             &settings.iso_aeb[0],    NULL),
-	MENUITEM_BOOLEAN(" 200",             &settings.iso_aeb[1],    NULL),
-	MENUITEM_BOOLEAN(" 400",             &settings.iso_aeb[2],    NULL),
-	MENUITEM_BOOLEAN(" 800",             &settings.iso_aeb[3],    NULL),
-	MENUITEM_BOOLEAN("1600",             &settings.iso_aeb[4],    NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY), &settings.iso_aeb_delay, NULL),
+	MENUITEM_BOOLEAN(0, " 100",             &settings.iso_aeb[0],    NULL),
+	MENUITEM_BOOLEAN(0, " 200",             &settings.iso_aeb[1],    NULL),
+	MENUITEM_BOOLEAN(0, " 400",             &settings.iso_aeb[2],    NULL),
+	MENUITEM_BOOLEAN(0, " 800",             &settings.iso_aeb[3],    NULL),
+	MENUITEM_BOOLEAN(0, "1600",             &settings.iso_aeb[4],    NULL),
 };
 
 type_MENUITEM interval_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),    &settings.interval_delay,  NULL),
-	MENUITEM_ACTION (LP_WORD(L_I_ACTION),   &settings.interval_action, NULL),
-	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S),   &settings.interval_time,   menu_scripts_update_timelapse),
-	MENUITEM_COUNTER(LP_WORD(L_I_SHOTS),    &settings.interval_shots,  menu_scripts_update_timelapse),
-	MENUITEM_VFORMAT(LP_WORD(L_I_VFORMAT),  &menu_scripts_vformat,     menu_scripts_update_timelapse),
-	MENUITEM_INFTIME(LP_WORD(L_I_RECTIME),  &menu_scripts_rectime),
-	MENUITEM_INFTIME(LP_WORD(L_I_PLAYTIME), &menu_scripts_playtime),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),    &settings.interval_delay,  NULL),
+	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION),   &settings.interval_action, NULL),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S),   &settings.interval_time,   menu_scripts_update_timelapse),
+	MENUITEM_COUNTER(0, LP_WORD(L_I_SHOTS),    &settings.interval_shots,  menu_scripts_update_timelapse),
+	MENUITEM_VFORMAT(0, LP_WORD(L_I_VFORMAT),  &menu_scripts_vformat,     menu_scripts_update_timelapse),
+	MENUITEM_INFTIME(0, LP_WORD(L_I_RECTIME),  &menu_scripts_rectime),
+	MENUITEM_INFTIME(0, LP_WORD(L_I_PLAYTIME), &menu_scripts_playtime),
 };
 
 type_MENUITEM wave_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),   &settings.wave_delay,   NULL),
-	MENUITEM_ACTION (LP_WORD(L_I_ACTION),  &settings.wave_action,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_REPEAT),  &settings.wave_repeat,  NULL),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_INSTANT), &settings.wave_instant, NULL)
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),   &settings.wave_delay,   NULL),
+	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION),  &settings.wave_action,  NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_REPEAT),  &settings.wave_repeat,  NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_INSTANT), &settings.wave_instant, NULL)
 };
 
 type_MENUITEM timer_items[] = {
-	MENUITEM_TIMEOUT(LP_WORD(L_I_TIME_S), &settings.timer_timeout, NULL),
-	MENUITEM_ACTION (LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S), &settings.timer_timeout, NULL),
+	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
 type_MENUITEM lexp_calc_items[] = {
-	MENUITEM_BASEISO(LP_WORD(L_I_ISO),    &menu_DPData.iso,        menu_scripts_apply_calc_ev),
-	MENUITEM_BULB   (LP_WORD(L_I_TV_VAL), &menu_DPData.tv_val,     menu_scripts_apply_calc_ev),
-	MENUITEM_AV     (LP_WORD(L_I_AV_VAL), &menu_DPData.av_val,     menu_scripts_apply_calc_ev),
-	MENUITEM_EVINFO (LP_WORD(L_I_EV_VAL), &menu_scripts_ev,        NULL),
-	MENUITEM_LAUNCH (LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
+	MENUITEM_BASEISO(0, LP_WORD(L_I_ISO),    &menu_DPData.iso,         menu_scripts_apply_calc_ev),
+	MENUITEM_BULB   (0, LP_WORD(L_I_TV_VAL), &menu_DPData.tv_val,      menu_scripts_apply_calc_ev),
+	MENUITEM_AV     (0, LP_WORD(L_I_AV_VAL), &menu_DPData.av_val,      menu_scripts_apply_calc_ev),
+	MENUITEM_EVINFO (0, LP_WORD(L_I_EV_VAL), &menu_scripts_ev,         NULL),
+	MENUITEM_LAUNCH (0, LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
 };
 
 type_MENUITEM dof_calc_items[] = {
-	MENUITEM_FLENGTH(LP_WORD(L_I_FLENGTH), &menu_scripts_fl,        menu_scripts_apply_dof),
-	MENUITEM_AV     (LP_WORD(L_I_AV_VAL),  &menu_DPData.av_val,     menu_scripts_apply_dof_av),
-	MENUITEM_FDIST  (LP_WORD(L_I_FDIST),   &menu_scripts_fd,        menu_scripts_apply_dof),
-	MENUITEM_INFO   (LP_WORD(L_I_DOFMIN),   menu_scripts_dof_min),
-	MENUITEM_INFO   (LP_WORD(L_I_DOFMAX),   menu_scripts_dof_max),
+	MENUITEM_FLENGTH(0, LP_WORD(L_I_FLENGTH), &menu_scripts_fl,        menu_scripts_apply_dof),
+	MENUITEM_AV     (0, LP_WORD(L_I_AV_VAL),  &menu_DPData.av_val,     menu_scripts_apply_dof_av),
+	MENUITEM_FDIST  (0, LP_WORD(L_I_FDIST),   &menu_scripts_fd,        menu_scripts_apply_dof),
+	MENUITEM_INFO   (0, LP_WORD(L_I_DOFMIN),   menu_scripts_dof_min),
+	MENUITEM_INFO   (0, LP_WORD(L_I_DOFMAX),   menu_scripts_dof_max),
 };
 
 type_MENUPAGE lexp_calc_page = {
@@ -130,9 +130,9 @@ type_MENUPAGE lexp_calc_page = {
 };
 
 type_MENUITEM lexp_items[] = {
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DELAY),      &settings.lexp_delay, NULL),
-	MENUITEM_LONGEXP(LP_WORD(L_I_TIME_S),     &settings.lexp_time,  NULL),
-	MENUITEM_SUBMENU(LP_WORD(L_S_CALCULATOR), &lexp_calc_page,      NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),      &settings.lexp_delay, NULL),
+	MENUITEM_LONGEXP(0, LP_WORD(L_I_TIME_S),     &settings.lexp_time,  NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_CALCULATOR), &lexp_calc_page,      NULL),
 };
 
 type_MENUPAGE ext_aeb_page = {
@@ -210,14 +210,14 @@ type_MENUPAGE dof_calc_page = {
 };
 
 type_MENUITEM menupage_scripts_items[] = {
-	MENUITEM_SUBMENU(LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
-	MENUITEM_SUBMENU(LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
-	MENUITEM_SUBMENU(LP_WORD(L_S_ISO_AEB),   &iso_aeb_page,   menu_scripts_iso_aeb),
-	MENUITEM_SUBMENU(LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
-	MENUITEM_SUBMENU(LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
-	MENUITEM_SUBMENU(LP_WORD(L_S_TIMER),     &timer_page,     menu_scripts_self_timer),
-	MENUITEM_SUBMENU(LP_WORD(L_S_LEXP),      &lexp_page,      menu_scripts_long_exp),
-	MENUITEM_SUBMENU(LP_WORD(L_S_DOF_CALC),  &dof_calc_page,  NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_ISO_AEB),   &iso_aeb_page,   menu_scripts_iso_aeb),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_TIMER),     &timer_page,     menu_scripts_self_timer),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_LEXP),      &lexp_page,      menu_scripts_long_exp),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_DOF_CALC),  &dof_calc_page,  NULL),
 };
 
 type_MENUPAGE menupage_scripts = {
