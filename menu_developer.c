@@ -38,10 +38,10 @@ static int   curr_palette = 0;
 static void test_dialog_create();
 
 type_MENUITEM menu_developer_items[] = {
-	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
-	MENUITEM_LAUNCH(LP_WORD(L_I_PRINT_INFO),          print_info),
-	MENUITEM_BOOLEAN(LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
-	MENUITEM_LOGFILE(LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_PRINT_INFO),          print_info),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
+	MENUITEM_LOGFILE(0, LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
 #ifdef MEM_DUMP
 	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_MEMORY),         dump_memory_after_5s),
 #endif
