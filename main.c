@@ -231,11 +231,16 @@ int proxy_measurement(char *message) {
 }
 
 int proxy_settings0(char *message) {
+	static int first = true;
+
 	if (status.main_dial_moved) {
 		status.main_dial_moved = false;
 		status.main_dial_ae    = message[2];
 
-		enqueue_action(preset_recall);
+		if (first)
+			first = false;
+		else
+			enqueue_action(preset_recall);
 	}
 
 	return false;
@@ -289,6 +294,7 @@ int proxy_main_dial(char *message) {
 	if (first) {
 		first = false;
 		enqueue_action(start_up);
+		enqueue_action(preset_recall);
 	} else {
 		status.main_dial_moved = true;
 	}

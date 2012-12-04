@@ -32,6 +32,8 @@ void preset_save_7();
 void preset_save_8();
 void preset_save_9();
 
+void preset_save(int id);
+
 void preset_load_1();
 void preset_load_2();
 void preset_load_3();
@@ -209,15 +211,15 @@ type_MENUPAGE menupage_preset_9 = {
 };
 
 type_MENUITEM preset_items[] = {
-	MENUITEM_SUBMENU(presets_config.names[0], &menupage_preset_1, preset_save_1),
-	MENUITEM_SUBMENU(presets_config.names[1], &menupage_preset_2, preset_save_2),
-	MENUITEM_SUBMENU(presets_config.names[2], &menupage_preset_3, preset_save_3),
-	MENUITEM_SUBMENU(presets_config.names[3], &menupage_preset_4, preset_save_4),
-	MENUITEM_SUBMENU(presets_config.names[4], &menupage_preset_5, preset_save_5),
-	MENUITEM_SUBMENU(presets_config.names[5], &menupage_preset_6, preset_save_6),
-	MENUITEM_SUBMENU(presets_config.names[6], &menupage_preset_7, preset_save_7),
-	MENUITEM_SUBMENU(presets_config.names[7], &menupage_preset_8, preset_save_8),
-	MENUITEM_SUBMENU(presets_config.names[8], &menupage_preset_9, preset_save_9),
+	MENUITEM_SUBMENU(presets_config.names[0], &menupage_preset_1, NULL),
+	MENUITEM_SUBMENU(presets_config.names[1], &menupage_preset_2, NULL),
+	MENUITEM_SUBMENU(presets_config.names[2], &menupage_preset_3, NULL),
+	MENUITEM_SUBMENU(presets_config.names[3], &menupage_preset_4, NULL),
+	MENUITEM_SUBMENU(presets_config.names[4], &menupage_preset_5, NULL),
+	MENUITEM_SUBMENU(presets_config.names[5], &menupage_preset_6, NULL),
+	MENUITEM_SUBMENU(presets_config.names[6], &menupage_preset_7, NULL),
+	MENUITEM_SUBMENU(presets_config.names[7], &menupage_preset_8, NULL),
+	MENUITEM_SUBMENU(presets_config.names[8], &menupage_preset_9, NULL),
 };
 
 type_MENUPAGE menupage_presets = {
@@ -240,7 +242,7 @@ void menu_preset_open() {
 		menupage_presets.highlight        = false;
 	}
 
-	if (status.main_dial_ae == AE_MODE_ADEP) {
+	if (status.main_dial_ae == AE_MODE_AUTO) {
 		preset_items[0].action = preset_load_1;
 		preset_items[1].action = preset_load_2;
 		preset_items[2].action = preset_load_3;
@@ -250,7 +252,7 @@ void menu_preset_open() {
 		preset_items[6].action = preset_load_7;
 		preset_items[7].action = preset_load_8;
 		preset_items[8].action = preset_load_9;
-	} else {
+	} else if (status.main_dial_ae < AE_MODE_AUTO){
 		preset_items[0].action = preset_save_1;
 		preset_items[1].action = preset_save_2;
 		preset_items[2].action = preset_save_3;
@@ -260,18 +262,34 @@ void menu_preset_open() {
 		preset_items[6].action = preset_save_7;
 		preset_items[7].action = preset_save_8;
 		preset_items[8].action = preset_save_9;
+	} else {
+		preset_items[0].action = NULL;
+		preset_items[1].action = NULL;
+		preset_items[2].action = NULL;
+		preset_items[3].action = NULL;
+		preset_items[4].action = NULL;
+		preset_items[5].action = NULL;
+		preset_items[6].action = NULL;
+		preset_items[7].action = NULL;
+		preset_items[8].action = NULL;
 	}
 }
 
-void preset_save_1() { if (preset_write(1)) beep(); }
-void preset_save_2() { if (preset_write(2)) beep(); }
-void preset_save_3() { if (preset_write(3)) beep(); }
-void preset_save_4() { if (preset_write(4)) beep(); }
-void preset_save_5() { if (preset_write(5)) beep(); }
-void preset_save_6() { if (preset_write(6)) beep(); }
-void preset_save_7() { if (preset_write(7)) beep(); }
-void preset_save_8() { if (preset_write(8)) beep(); }
-void preset_save_9() { if (preset_write(9)) beep(); }
+void preset_save_1() { preset_save(1); }
+void preset_save_2() { preset_save(2); }
+void preset_save_3() { preset_save(3); }
+void preset_save_4() { preset_save(4); }
+void preset_save_5() { preset_save(5); }
+void preset_save_6() { preset_save(6); }
+void preset_save_7() { preset_save(7); }
+void preset_save_8() { preset_save(8); }
+void preset_save_9() { preset_save(9); }
+
+void preset_save(int id) {
+	if (status.main_dial_ae < AE_MODE_AUTO)
+		if (preset_write(id))
+			beep();
+}
 
 void preset_load_1() { preset_load(1); }
 void preset_load_2() { preset_load(2); }
@@ -286,7 +304,7 @@ void preset_load_9() { preset_load(9); }
 void preset_load(int id) {
 	snapshot_t preset;
 
-	if (status.main_dial_ae == AE_MODE_ADEP) {
+	if (status.main_dial_ae == AE_MODE_AUTO) {
 		if (preset_read(id, &preset)) {
 			snapshot_apply_full(&preset);
 

@@ -100,7 +100,7 @@ typedef enum {
 	IC_MEASUREMENT                 = 0x81, //
 	IC_SHOOTING                    = 0x83, // ?
 	IC_TIMERCOUNTER                = 0x8C, //
-	IC_MAIN_DIAL                   = 0x8D, //
+	IC_MAIN_DIAL                   = 0x8D, // ? [Appears when the main dial moves, but contains no info]
 	IC_SETTINGS_0                  = 0x90, //
 	IC_SETTINGS_1                  = 0x91, //
 	IC_SETTINGS_2                  = 0x92, //
