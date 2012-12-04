@@ -109,7 +109,6 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 === Settings Page ===
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
- * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viewfinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
  * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
     * Restore settings: Restore all settings (but presets) back to default values.
     * Restore presets: Restore all preset-related configuration back to default values (_notice that presets themselves are not deleted_).
@@ -118,6 +117,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * LCD display: configure the brightness of the LCD display while a script is running.
     * Indicator: configure the blinking frequency of the blue LED while a script is running..
  * _*Config. Buttons*:_ In this sub-menu, users can configure the behavior of some special buttons:
+    * Use D-Pad: When active (set to Yes), the buttons on the cursor pad change their function while the user is looking through the viewfinder; see [#ISO_in_viewfinder ISO in viewfinder] and [#AutoISO_and_M_mode AutoISO and M mode] for more info.
     * Better DISP button: When active (set to Yes), the `DISP` button will change the display brightness in small increments, instead of just switch it on/off.
     * JUMP: Assign an action to the `JUMP` button while in the main dialog:
       * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
@@ -306,11 +306,11 @@ In P mode, AutoISO _tries_ to behave just like in Av mode, and raises the ISO va
 
 In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
 
-To change the exposure compensation in M mode, use the `LEFT` and `RIGHT` keys while looking through the viewfinder.
+You can change the exposure compensation in M mode, if the "Use D-Pad" option is active (set to Yes), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
 
 = ISO in viewfinder =
 
-When this option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on Tv and M mode, the new ISO value is also displayed on the viewfinder:
+When the "Use D-Pad" option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on Tv and M mode, the new ISO value is also displayed on the viewfinder:
 
  * Set the camera to M or Tv mode.
  * Look through the viewfinder, and half-press the shutter button; you should see the current measurement (shutter speed, aperture, ...).
@@ -342,10 +342,6 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 = Other freebies =
 
 Other changes to the camera behavior, not described above.
-
-== The nose affair ==
-
-While looking through the viewfinder, the `ISO` and `WB` buttons become inactive. This is done to prevent accidental changes to camera settings from pressing your nose (or cheek) up against the camera body.
 
 == Multi-language support ==
 
