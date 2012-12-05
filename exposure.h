@@ -24,6 +24,9 @@ typedef unsigned char iso_t;
 #define EC_MIN  EV_CODE(-6, 0)  // +6EV
 #define EC_MAX  EV_CODE(+6, 0)  // -6EV
 
+#define AV_MIN EV_CODE( 1, 0)  // f/1.0
+#define AV_MAX EV_CODE(13, 0)  // f/64
+
 #define TV_MIN EV_CODE( 2, 0)  // 30"
 #define TV_MAX EV_CODE(23, 0)  // 1/4000s
 
