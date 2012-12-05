@@ -37,11 +37,7 @@ char *rename_filename;
 int   x, y, z;
 int   caps;
 
-void rename_display_up1 (const type_MENUITEM *item, char *buffer, const int length);
-void rename_display_up2 (const type_MENUITEM *item, char *buffer, const int length);
-void rename_display_up3 (const type_MENUITEM *item, char *buffer, const int length);
-void rename_display_up4 (const type_MENUITEM *item, char *buffer, const int length);
-void rename_display_up  (const int id,              char *buffer, const int length);
+void rename_display_up  (const type_MENUITEM *item, char *buffer, const int length);
 void rename_display_down(const type_MENUITEM *item, char *buffer, const int length);
 
 void rename_up  (type_MENU *menu);
@@ -68,25 +64,29 @@ void rename_display_line(type_MENUPAGE *page, const int line);
 
 type_MENUITEM menupage_rename_items[] = {
 	{
-		display : rename_display_up1,
+		id      : 0,
+		display : rename_display_up,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
 	},
 	{
-		display : rename_display_up2,
+		id      : 1,
+		display : rename_display_up,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
 	},
 	{
-		display : rename_display_up3,
+		id      : 2,
+		display : rename_display_up,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
 	},
 	{
-		display : rename_display_up4,
+		id      : 3,
+		display : rename_display_up,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
@@ -130,13 +130,9 @@ void rename_create(char *filename) {
 	menu_highlight(x);
 }
 
-void rename_display_up1 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (0, buffer, length); };
-void rename_display_up2 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (1, buffer, length); };
-void rename_display_up3 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (2, buffer, length); };
-void rename_display_up4 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (3, buffer, length); };
-
-void rename_display_up(const int id, char *buffer, const int length) {
+void rename_display_up(const type_MENUITEM *item, char *buffer, const int length) {
 	int i, j = 0;
+	int id = item->id;
 
 	for (i = 0; i < 9; i++) {
 		if (id == x && i == y) {
