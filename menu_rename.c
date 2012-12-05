@@ -53,9 +53,6 @@ void rename_left   (const type_MENUITEM *item, const int repeating);
 void rename_prev(type_MENU *menu);
 void rename_next(type_MENU *menu);
 
-void rename_repeat_prev(type_MENU *menu, const int repeating);
-void rename_repeat_next(type_MENU *menu, const int repeating);
-
 void rename_action(const type_MENUITEM *item);
 
 void rename_caps  (type_MENU *menu);
@@ -215,14 +212,6 @@ void rename_left(const type_MENUITEM *item, const int repeating) {
 }
 
 void rename_prev(type_MENU *menu) {
-	menu_repeat(menu, rename_repeat_prev);
-}
-
-void rename_next(type_MENU *menu) {
-	menu_repeat(menu, rename_repeat_next);
-}
-
-void rename_repeat_prev(type_MENU *menu, const int repeating) {
 	if (z != 0) {
 		z--;
 		rename_display_line(&menupage_rename, 4);
@@ -230,7 +219,7 @@ void rename_repeat_prev(type_MENU *menu, const int repeating) {
 	}
 }
 
-void rename_repeat_next(type_MENU *menu, const int repeating) {
+void rename_next(type_MENU *menu) {
 	if (z != 24) {
 		z++;
 
