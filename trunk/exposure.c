@@ -26,6 +26,7 @@ static char *av_strings[][4] = {
 	{ "22",  "25",  "27",  "29"},
 	{ "32",  "36",  "38",  "40"},
 	{ "45",  "48",  "52",  "60"},
+	{ "64",   "",     "",    ""},
 };
 
 static char *tv_strings[][4] = {
@@ -46,7 +47,7 @@ static char *tv_strings[][4] = {
 	{ "1/500",  "1/640",  "1/750",  "1/800"},
 	{"1/1000", "1/1250", "1/1500", "1/1600"},
 	{"1/2000", "1/2500", "1/3000", "1/3200"},
-	{"1/4000",  "",            "",       ""},
+	{"1/4000",       "",       "",       ""},
 };
 
 
@@ -152,15 +153,17 @@ void ec_print(char *dest, ec_t ec) {
 /* AV related --------------------------------------------------------- */
 
 av_t av_add(av_t ying, av_t yang) {
-	av_t av = ev_normalize(ying + yang);
+	av_t  av = ev_normalize(ying + yang);
+	av_t max = DPData.ef_lens_exist ? DPData.avmax : AV_MAX;
 
-	return MIN(av, DPData.avmax);
+	return MIN(av, max);
 }
 
 av_t av_sub(av_t ying, av_t yang) {
-	av_t av = ev_normalize(ying - yang);
+	av_t av  = ev_normalize(ying - yang);
+	av_t min = DPData.ef_lens_exist ? DPData.avo: AV_MIN;
 
-	return MAX(av, DPData.avo);
+	return MAX(av, min);
 }
 
 av_t av_inc(av_t av) {
