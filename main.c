@@ -62,13 +62,13 @@ int proxy_button_dp      (char *message);
 int proxy_button_av      (char *message);
 int proxy_main_dial      (char *message);
 
-proxy_r listeners_script[0x100] = {
+proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]  = proxy_script_restore,
 	[IC_SHOOTING]  = proxy_script_shot,
 	[IC_BUTTON_DP] = proxy_script_stop,
 };
 
-proxy_r listeners_menu[0x100] = {
+proxy_t listeners_menu[0x100] = {
 	[IC_DIALOGOFF]    = proxy_dialog_exit,
 	[IC_BUTTON_DIAL]  = proxy_button_dial,
 	[IC_BUTTON_DISP]  = proxy_button_disp,
@@ -79,7 +79,7 @@ proxy_r listeners_menu[0x100] = {
 	[IC_BUTTON_AV]    = proxy_button_av,
 };
 
-proxy_r listeners_main[0x100] = {
+proxy_t listeners_main[0x100] = {
 	[IC_SET_LANGUAGE] = proxy_set_language,
 	[IC_DIALOGON]     = proxy_dialog_enter,
 	[IC_MEASURING]    = proxy_measuring,
@@ -115,8 +115,8 @@ void initialize_display() {
 }
 
 void intercom_proxy(const int handler, char *message) {
-	proxy_r  listener;
-	proxy_r *listeners;
+	proxy_t  listener;
+	proxy_t *listeners;
 
 #ifdef ENABLE_DEBUG
 	message_logger(message);
@@ -138,7 +138,7 @@ void intercom_proxy(const int handler, char *message) {
 }
 
 void action_dispatcher () {
-	action_r action;
+	action_t action;
 
 	// Loop while receiving messages
 	for (;;) {
@@ -147,7 +147,7 @@ void action_dispatcher () {
 	}
 }
 
-void enqueue_action(action_r action) {
+void enqueue_action(action_t action) {
 	TryPostMessageQueue(action_queue, (action), false);
 }
 
