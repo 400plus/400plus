@@ -54,7 +54,7 @@ void menu_scripts_wave         (const type_MENUITEM *item);
 void menu_scripts_self_timer   (const type_MENUITEM *item);
 void menu_scripts_long_exp     (const type_MENUITEM *item);
 
-void menu_scripts_launch (action_r script);
+void menu_scripts_launch (action_t script);
 
 type_MENUITEM ext_aeb_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
@@ -343,7 +343,7 @@ void menu_scripts_long_exp(const type_MENUITEM *item) {
 	menu_scripts_launch(script_long_exp);
 }
 
-void menu_scripts_launch(action_r script) {
+void menu_scripts_launch(action_t script) {
 	enqueue_action(menu_close);
 	enqueue_action(restore_display);
 	enqueue_action(script);

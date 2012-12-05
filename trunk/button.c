@@ -23,16 +23,16 @@
 
 typedef struct {
 	int      block;
-	action_r action_press;
-	action_r action_release;
-} reaction_r;
+	action_t action_press;
+	action_t action_release;
+} reaction_t;
 
 typedef struct  {
 	int        *condition;
-	reaction_r *reaction;
-} chain_r;
+	reaction_t *reaction;
+} chain_t;
 
-reaction_r button_actions_main[BUTTON_COUNT] = {
+reaction_t button_actions_main[BUTTON_COUNT] = {
 	[BUTTON_DP]    = {true,  menu_main_start},
 	[BUTTON_DISP]  = {true,  display_brightness},
 	[BUTTON_JUMP]  = {true,  button_jump_action},
@@ -43,7 +43,7 @@ reaction_r button_actions_main[BUTTON_COUNT] = {
 	[BUTTON_LEFT]  = {false, restore_metering},
 };
 
-reaction_r button_actions_400plus[BUTTON_COUNT] = {
+reaction_t button_actions_400plus[BUTTON_COUNT] = {
 	[BUTTON_DP]         = {true,  menu_event_dp},
 //	[BUTTON_DISP]       = {true,  menu_event_disp},
 	[BUTTON_MENU]       = {true,  menu_event_menu},
@@ -62,20 +62,20 @@ reaction_r button_actions_400plus[BUTTON_COUNT] = {
 	[BUTTON_LEFT]       = {true,  menu_event_left},
 };
 
-reaction_r button_actions_meter[BUTTON_COUNT] = {
+reaction_t button_actions_meter[BUTTON_COUNT] = {
 	[BUTTON_DP] = {true, set_metering_spot},
 };
 
-reaction_r button_actions_wb[BUTTON_COUNT] = {
+reaction_t button_actions_wb[BUTTON_COUNT] = {
 	[BUTTON_DP] = {true, set_whitebalance_colortemp},
 };
 
-reaction_r button_actions_iso[BUTTON_COUNT] = {
+reaction_t button_actions_iso[BUTTON_COUNT] = {
 	[BUTTON_DP]  = {true,  autoiso_enable},
 	[BUTTON_SET] = {false, autoiso_disable},
 };
 
-reaction_r button_actions_face[BUTTON_COUNT] = {
+reaction_t button_actions_face[BUTTON_COUNT] = {
 	[BUTTON_SET]   = {true},
 	[BUTTON_UP]    = {true, viewfinder_up,    viewfinder_end},
 	[BUTTON_DOWN]  = {true},
@@ -83,7 +83,7 @@ reaction_r button_actions_face[BUTTON_COUNT] = {
 	[BUTTON_LEFT]  = {true, viewfinder_left,  viewfinder_end},
 };
 
-reaction_r button_actions_af[BUTTON_COUNT] = {
+reaction_t button_actions_af[BUTTON_COUNT] = {
 	[BUTTON_SET]   = {true, afp_center},
 	[BUTTON_UP]    = {true, afp_top},
 	[BUTTON_DOWN]  = {true, afp_bottom},
@@ -92,7 +92,7 @@ reaction_r button_actions_af[BUTTON_COUNT] = {
 	[BUTTON_DISP]  = {true},
 };
 
-chain_r button_chains[GUIMODE_COUNT] = {
+chain_t button_chains[GUIMODE_COUNT] = {
 	[GUIMODE_OLC]       = {NULL, button_actions_main},
 	[GUIMODE_OFF]       = {NULL, button_actions_main},
 	[GUIMODE_METER]     = {NULL, button_actions_meter},
@@ -111,14 +111,14 @@ int can_hold[BUTTON_COUNT] = {
 	[BUTTON_LEFT]  = true,
 };
 
-int button_handler(type_BUTTON button, int is_button_down) {
-	static action_r   button_up_action = NULL;  // Action that must be executed when the current button is released
+int button_handler(button_t button, int is_button_down) {
+	static action_t   button_up_action = NULL;  // Action that must be executed when the current button is released
 	static int        button_up_block  = false; // Reaction when the current button is released
 
 	int gui_mode;
 
-	chain_r    *chain;
-	reaction_r *reaction;
+	chain_t    *chain;
+	reaction_t *reaction;
 
 	// Check first for button-down events
 	if (is_button_down) {

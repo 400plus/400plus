@@ -124,7 +124,7 @@ void menu_finish() {
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	int ret;
-	type_BUTTON button;
+	button_t button;
 
 // FW:FF915990
 // this seems to be one of the addresses where the handler is called

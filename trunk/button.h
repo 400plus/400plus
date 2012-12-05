@@ -27,8 +27,8 @@ typedef enum {
 	BUTTON_RIGHT,
 	BUTTON_LEFT,
 	BUTTON_COUNT,
-} type_BUTTON;
+} button_t;
 
-int button_handler(type_BUTTON button, int is_button_down);
+int button_handler(button_t button, int is_button_down);
 
 #endif

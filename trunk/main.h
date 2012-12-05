@@ -11,8 +11,8 @@
 #include "scripts.h"
 
 // Action definitions
-typedef void(*action_r)(void);
-typedef int (*proxy_r) (char*);
+typedef void(*action_t)(void);
+typedef int (*proxy_t) (char*);
 
 // Global status
 typedef struct {
@@ -39,7 +39,7 @@ typedef struct {
 extern void initialize();
 extern void initialize_display();
 extern void intercom_proxy(const int handler, char *message);
-extern void enqueue_action(action_r action);
+extern void enqueue_action(action_t action);
 
 // Shared globals
 extern status_t status;
