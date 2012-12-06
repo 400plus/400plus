@@ -35,6 +35,9 @@ int snapshot_delete(char *name);
 
 void sub_preset_recall(int full);
 
+void get_preset_filename(char *filename, int id);
+void get_mode_filename  (char *filename, AE_MODE mode);
+
 void presets_read() {
 	int id;
 	int file    = -1;
@@ -115,6 +118,14 @@ int preset_delete(int id) {
 	return snapshot_delete(filename);
 }
 
+int mode_write(AE_MODE mode) {
+	char filename[FILENAME_LENGTH];
+
+	get_mode_filename(filename, mode);
+
+	return snapshot_write(filename);
+}
+
 int snapshot_read(char *name, snapshot_t *snapshot) {
 	int result  = false;
 	int file    = -1;
@@ -189,6 +200,10 @@ void snapshot_apply(snapshot_t *snapshot) {
 
 void snapshot_apply_full(snapshot_t *snapshot) {
 	snapshot_apply(snapshot);
+
+	// Save current mode before overwriting other parameters
+	if (!status.preset_active)
+		mode_write(DPData.ae);
 
 	if (presets_config.recall_camera) {
 		send_to_intercom(IC_SET_METERING,   1, snapshot->DPData.metering);
@@ -278,10 +293,9 @@ void preset_recall_full() {
 }
 
 void sub_preset_recall(int full) {
-	snapshot_t preset;
+	int preset_active = false;
 
-	// Preventively, we assume no preset is active now
-	status.preset_active = false;
+	snapshot_t preset;
 
 	// Only if entering AUTO
 	if (status.main_dial_ae == AE_MODE_AUTO) {
@@ -295,9 +309,12 @@ void sub_preset_recall(int full) {
 			}
 
 			// Well, looks like we did recall a preset after all
-			status.preset_active = true;
+			preset_active = true;
 		}
 	}
+
+	// Update current status
+	status.preset_active = preset_active;
 
 	// Refresh display to show new preset (or lack of thereof)
 	display_refresh();
@@ -305,4 +322,31 @@ void sub_preset_recall(int full) {
 
 void get_preset_filename(char *filename, int id) {
 	sprintf(filename, PRESETS_FILE, id);
+}
+
+void get_mode_filename(char *filename, AE_MODE mode) {
+	char id;
+
+	switch(mode) {
+	case AE_MODE_P:
+		id = 'P';
+		break;
+	case AE_MODE_TV:
+		id = 'T';
+		break;
+	case AE_MODE_AV:
+		id = 'A';
+		break;
+	case AE_MODE_M:
+		id = 'M';
+		break;
+	case AE_MODE_ADEP:
+		id = 'D';
+		break;
+	default:
+		id = 'X';
+		break;
+	}
+
+	sprintf(filename, MODES_FILE, id);
 }
