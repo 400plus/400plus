@@ -15,7 +15,9 @@
 
 #define PRESETS_VERSION 0x04
 #define PRESETS_CONFIG  "A:/PRESETS"
+
 #define PRESETS_FILE    "A:/PRESET_%u"
+#define MODES_FILE      "A:/MODE_%c"
 
 typedef struct {
 	dpr_data_t   DPData;
@@ -46,12 +48,12 @@ extern int  preset_read  (int id, snapshot_t *preset);
 extern int  preset_write (int id);
 extern int  preset_delete(int id);
 
+extern int  mode_write (AE_MODE mode);
+
 extern void snapshot_apply     ();
 extern void snapshot_apply_full();
 
 extern void preset_recall     ();
 extern void preset_recall_full();
-
-extern void get_preset_filename(char *filename, int id);
 
 #endif /* PRESETS_H_ */
