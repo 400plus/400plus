@@ -28,79 +28,150 @@ typedef struct {
 } reaction_t;
 
 typedef struct  {
-	int        *condition;
-	reaction_t *reaction;
+	int         *condition;
+	reaction_t **reaction;
 } chain_t;
 
-reaction_t button_actions_main[BUTTON_COUNT] = {
-	[BUTTON_DP]    = {true,  menu_main_start},
-	[BUTTON_DISP]  = {true,  display_brightness},
-	[BUTTON_JUMP]  = {true,  button_jump_action},
-	[BUTTON_TRASH] = {true,  button_trash_action},
-	[BUTTON_AV]    = {false, toggle_img_format},
-	[BUTTON_UP]    = {false, restore_iso},
-	[BUTTON_DOWN]  = {false, restore_wb},
-	[BUTTON_LEFT]  = {false, restore_metering},
+reaction_t
+	reaction_main_dp    = {true,  menu_main_start},
+	reaction_main_disp  = {true,  display_brightness} ,
+	reaction_main_jump  = {true,  button_jump_action},
+	reaction_main_trash = {true,  button_trash_action},
+	reaction_main_av    = {false, toggle_img_format},
+	reaction_main_up    = {false, restore_iso},
+	reaction_main_down  = {false, restore_wb},
+	reaction_main_left  = {false, restore_metering}
+;
+
+reaction_t *button_actions_main[BUTTON_COUNT] = {
+	[BUTTON_DP]    = &reaction_main_dp,
+	[BUTTON_DISP]  = &reaction_main_disp,
+	[BUTTON_JUMP]  = &reaction_main_jump,
+	[BUTTON_TRASH] = &reaction_main_trash,
+	[BUTTON_AV]    = &reaction_main_av,
+	[BUTTON_UP]    = &reaction_main_up,
+	[BUTTON_DOWN]  = &reaction_main_down,
+	[BUTTON_LEFT]  = &reaction_main_left,
 };
 
-reaction_t button_actions_400plus[BUTTON_COUNT] = {
-	[BUTTON_DP]         = {true,  menu_event_dp},
-//	[BUTTON_DISP]       = {true,  menu_event_disp},
-	[BUTTON_MENU]       = {true,  menu_event_menu},
-	[BUTTON_JUMP]       = {true,  menu_event_jump},
-	[BUTTON_PLAY]       = {true,  menu_event_play},
-	[BUTTON_TRASH]      = {true,  menu_event_trash},
-	[BUTTON_DIAL_LEFT]  = {true,  menu_event_prev},
-	[BUTTON_DIAL_RIGHT] = {true,  menu_event_next},
-	[BUTTON_ZOOM_OUT]   = {true,  menu_event_out},
-	[BUTTON_ZOOM_IN]    = {true,  menu_event_in},
-	[BUTTON_AV]         = {true,  menu_event_av, menu_event_av_up},
-	[BUTTON_SET]        = {true,  menu_event_set},
-	[BUTTON_UP]         = {true,  menu_event_up},
-	[BUTTON_DOWN]       = {true,  menu_event_down},
-	[BUTTON_RIGHT]      = {true,  menu_event_right},
-	[BUTTON_LEFT]       = {true,  menu_event_left},
+reaction_t
+	reaction_400plus_dp         = {true,  menu_event_dp},
+//	reaction_400plus_disp       = {true,  menu_event_disp},
+	reaction_400plus_menu       = {true,  menu_event_menu},
+	reaction_400plus_jump       = {true,  menu_event_jump},
+	reaction_400plus_play       = {true,  menu_event_play},
+	reaction_400plus_trash      = {true,  menu_event_trash},
+	reaction_400plus_dial_left  = {true,  menu_event_prev},
+	reaction_400plus_dial_right = {true,  menu_event_next},
+	reaction_400plus_zoom_out   = {true,  menu_event_out},
+	reaction_400plus_zoom_in    = {true,  menu_event_in},
+	reaction_400plus_av         = {true,  menu_event_av, menu_event_av_up},
+	reaction_400plus_set        = {true,  menu_event_set},
+	reaction_400plus_up         = {true,  menu_event_up},
+	reaction_400plus_down       = {true,  menu_event_down},
+	reaction_400plus_right      = {true,  menu_event_right},
+	reaction_400plus_left       = {true,  menu_event_left}
+;
+
+
+reaction_t *button_actions_400plus[BUTTON_COUNT] = {
+	[BUTTON_DP]         = &reaction_400plus_dp,
+//	[BUTTON_DISP]       = &reaction_400plus_disp,
+	[BUTTON_MENU]       = &reaction_400plus_menu,
+	[BUTTON_JUMP]       = &reaction_400plus_menu,
+	[BUTTON_PLAY]       = &reaction_400plus_play,
+	[BUTTON_TRASH]      = &reaction_400plus_trash,
+	[BUTTON_DIAL_LEFT]  = &reaction_400plus_dial_left,
+	[BUTTON_DIAL_RIGHT] = &reaction_400plus_dial_right,
+	[BUTTON_ZOOM_OUT]   = &reaction_400plus_zoom_out,
+	[BUTTON_ZOOM_IN]    = &reaction_400plus_zoom_in,
+	[BUTTON_AV]         = &reaction_400plus_av,
+	[BUTTON_SET]        = &reaction_400plus_set,
+	[BUTTON_UP]         = &reaction_400plus_up,
+	[BUTTON_DOWN]       = &reaction_400plus_down,
+	[BUTTON_RIGHT]      = &reaction_400plus_right,
+	[BUTTON_LEFT]       = &reaction_400plus_left,
 };
 
-reaction_t button_actions_meter[BUTTON_COUNT] = {
-	[BUTTON_DP] = {true, set_metering_spot},
+reaction_t
+	reaction_meter_dp = {true, set_metering_spot}
+;
+
+reaction_t *button_actions_meter[BUTTON_COUNT] = {
+	[BUTTON_DP] = &reaction_meter_dp,
 };
 
-reaction_t button_actions_wb[BUTTON_COUNT] = {
-	[BUTTON_DP] = {true, set_whitebalance_colortemp},
+reaction_t
+	reaction_wb_dp = {true, set_whitebalance_colortemp}
+;
+
+reaction_t *button_actions_wb[BUTTON_COUNT] = {
+	[BUTTON_DP] = &reaction_wb_dp,
 };
 
-reaction_t button_actions_iso[BUTTON_COUNT] = {
-	[BUTTON_DP]  = {true,  autoiso_enable},
-	[BUTTON_SET] = {false, autoiso_disable},
+reaction_t
+	reaction_iso_dp  = {true,  autoiso_enable},
+	reaction_iso_set = {false, autoiso_disable}
+;
+
+reaction_t *button_actions_iso[BUTTON_COUNT] = {
+	[BUTTON_DP]  = &reaction_iso_dp,
+	[BUTTON_SET] = &reaction_iso_set,
 };
 
-reaction_t button_actions_face[BUTTON_COUNT] = {
-	[BUTTON_SET]   = {true},
-	[BUTTON_UP]    = {true, viewfinder_up,    viewfinder_end},
-	[BUTTON_DOWN]  = {true},
-	[BUTTON_RIGHT] = {true, viewfinder_right, viewfinder_end},
-	[BUTTON_LEFT]  = {true, viewfinder_left,  viewfinder_end},
+reaction_t
+	reaction_face_set   = {true},
+	reaction_face_up    = {true, viewfinder_up,    viewfinder_end},
+	reaction_face_down  = {true},
+	reaction_face_right = {true, viewfinder_right, viewfinder_end},
+	reaction_face_left  = {true, viewfinder_left,  viewfinder_end}
+;
+
+reaction_t *button_actions_face[BUTTON_COUNT] = {
+	[BUTTON_SET]   = &reaction_face_set,
+	[BUTTON_UP]    = &reaction_face_up,
+	[BUTTON_DOWN]  = &reaction_face_down,
+	[BUTTON_RIGHT] = &reaction_face_right,
+	[BUTTON_LEFT]  = &reaction_face_left,
 };
 
-reaction_t button_actions_af[BUTTON_COUNT] = {
-	[BUTTON_SET]   = {true, afp_center},
-	[BUTTON_UP]    = {true, afp_top},
-	[BUTTON_DOWN]  = {true, afp_bottom},
-	[BUTTON_RIGHT] = {true, afp_right},
-	[BUTTON_LEFT]  = {true, afp_left},
-	[BUTTON_DISP]  = {true},
+reaction_t
+	reaction_af_set   = {true, afp_center},
+	reaction_af_up    = {true, afp_top},
+	reaction_af_down  = {true, afp_bottom},
+	reaction_af_right = {true, afp_right},
+	reaction_af_left  = {true, afp_left},
+	reaction_af_disp  = {true}
+;
+
+reaction_t *button_actions_af[BUTTON_COUNT] = {
+	[BUTTON_SET]   = &reaction_af_set,
+	[BUTTON_UP]    = &reaction_af_up,
+	[BUTTON_DOWN]  = &reaction_af_down,
+	[BUTTON_RIGHT] = &reaction_af_right,
+	[BUTTON_LEFT]  = &reaction_af_left,
+	[BUTTON_DISP]  = &reaction_af_disp,
 };
 
-chain_t button_chains[GUIMODE_COUNT] = {
-	[GUIMODE_OLC]       = {NULL, button_actions_main},
-	[GUIMODE_OFF]       = {NULL, button_actions_main},
-	[GUIMODE_METER]     = {NULL, button_actions_meter},
-	[GUIMODE_WB]        = {NULL, button_actions_wb},
-	[GUIMODE_ISO]       = {NULL, button_actions_iso},
-	[GUIMODE_AFPATTERN] = {NULL, button_actions_af},
-	[GUIMODE_400PLUS]   = {NULL, button_actions_400plus},
-	[GUIMODE_FACE]      = {&settings.use_dpad, button_actions_face},
+chain_t
+	chain_actions_main    = {NULL,               button_actions_main},
+	chain_actions_400plus = {NULL,               button_actions_meter},
+	chain_actions_meter   = {NULL,               button_actions_wb},
+	chain_actions_wb      = {NULL,               button_actions_iso},
+	chain_actions_iso     = {NULL,               button_actions_af},
+	chain_actions_face    = {NULL,               button_actions_400plus},
+	chain_actions_af      = {&settings.use_dpad, button_actions_face}
+;
+
+chain_t *button_chains[GUIMODE_COUNT] = {
+	[GUIMODE_OLC]       = &chain_actions_main,
+	[GUIMODE_OFF]       = &chain_actions_main,
+	[GUIMODE_METER]     = &chain_actions_400plus,
+	[GUIMODE_WB]        = &chain_actions_meter,
+	[GUIMODE_ISO]       = &chain_actions_wb,
+	[GUIMODE_AFPATTERN] = &chain_actions_iso,
+	[GUIMODE_400PLUS]   = &chain_actions_face,
+	[GUIMODE_FACE]      = &chain_actions_af,
 };
 
 int can_hold[BUTTON_COUNT] = {
@@ -131,12 +202,12 @@ int button_handler(button_t button, int is_button_down) {
 			gui_mode = FLAG_GUI_MODE;
 
 
-		if((chain = &button_chains[gui_mode]) == NULL) {
+		if((chain = button_chains[gui_mode]) == NULL) {
 			// This mode does not have an assigned chain
 			return false;
 		} else if (!chain->condition || *chain->condition) {
 			// Check that we have an action assigned to this button
-			if ((reaction = &chain->reaction[button]) == NULL) {
+			if ((reaction = chain->reaction[button]) == NULL) {
 				return false;
 			} else {
 				// Launch the defined action
