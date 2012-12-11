@@ -51,7 +51,7 @@ int proxy_measuring      (char *message);
 int proxy_measurement    (char *message);
 int proxy_settings0      (char *message);
 int proxy_settings3      (char *message);
-int proxy_button_dial    (char *message);
+int proxy_button_wheel   (char *message);
 int proxy_button_disp    (char *message);
 int proxy_button_set     (char *message);
 int proxy_button_up      (char *message);
@@ -69,34 +69,34 @@ proxy_t listeners_script[0x100] = {
 };
 
 proxy_t listeners_menu[0x100] = {
-	[IC_DIALOGOFF]    = proxy_dialog_exit,
-	[IC_BUTTON_DIAL]  = proxy_button_dial,
-	[IC_BUTTON_DISP]  = proxy_button_disp,
-	[IC_BUTTON_SET]   = proxy_button_set,
-	[IC_BUTTON_RIGHT] = proxy_button_right,
-	[IC_BUTTON_LEFT]  = proxy_button_left,
-	[IC_BUTTON_DP]    = proxy_button_dp,
-	[IC_BUTTON_AV]    = proxy_button_av,
+	[IC_DIALOGOFF]     = proxy_dialog_exit,
+	[IC_BUTTON_WHEEL]  = proxy_button_wheel,
+	[IC_BUTTON_DISP]   = proxy_button_disp,
+	[IC_BUTTON_SET]    = proxy_button_set,
+	[IC_BUTTON_RIGHT]  = proxy_button_right,
+	[IC_BUTTON_LEFT]   = proxy_button_left,
+	[IC_BUTTON_DP]     = proxy_button_dp,
+	[IC_BUTTON_AV]     = proxy_button_av,
 };
 
 proxy_t listeners_main[0x100] = {
-	[IC_SET_LANGUAGE] = proxy_set_language,
-	[IC_DIALOGON]     = proxy_dialog_enter,
-	[IC_MEASURING]    = proxy_measuring,
-	[IC_MEASUREMENT]  = proxy_measurement,
-	[IC_SETTINGS_0]   = proxy_settings0,
-	[IC_SETTINGS_3]   = proxy_settings3,
-	[IC_AFPDLGOFF]    = proxy_dialog_afoff,
-	[IC_BUTTON_DIAL]  = proxy_button_dial,
-	[IC_BUTTON_DISP]  = proxy_button_disp,
-	[IC_BUTTON_SET]   = proxy_button_set,
-	[IC_BUTTON_UP]    = proxy_button_up,
-	[IC_BUTTON_DOWN]  = proxy_button_down,
-	[IC_BUTTON_RIGHT] = proxy_button_right,
-	[IC_BUTTON_LEFT]  = proxy_button_left,
-	[IC_BUTTON_DP]    = proxy_button_dp,
-	[IC_BUTTON_AV]    = proxy_button_av,
-	[IC_MAIN_DIAL]    = proxy_main_dial,
+	[IC_SET_LANGUAGE]  = proxy_set_language,
+	[IC_DIALOGON]      = proxy_dialog_enter,
+	[IC_MEASURING]     = proxy_measuring,
+	[IC_MEASUREMENT]   = proxy_measurement,
+	[IC_SETTINGS_0]    = proxy_settings0,
+	[IC_SETTINGS_3]    = proxy_settings3,
+	[IC_AFPDLGOFF]     = proxy_dialog_afoff,
+	[IC_BUTTON_WHEEL]  = proxy_button_wheel,
+	[IC_BUTTON_DISP]   = proxy_button_disp,
+	[IC_BUTTON_SET]    = proxy_button_set,
+	[IC_BUTTON_UP]     = proxy_button_up,
+	[IC_BUTTON_DOWN]   = proxy_button_down,
+	[IC_BUTTON_RIGHT]  = proxy_button_right,
+	[IC_BUTTON_LEFT]   = proxy_button_left,
+	[IC_BUTTON_DP]     = proxy_button_dp,
+	[IC_BUTTON_AV]     = proxy_button_av,
+	[IC_MAIN_DIAL]     = proxy_main_dial,
 };
 
 
@@ -252,8 +252,8 @@ int proxy_settings3(char *message) {
 	return false;
 }
 
-int proxy_button_dial(char *message) {
-	return button_handler((message[2] & 0x80) ? BUTTON_DIAL_LEFT : BUTTON_DIAL_RIGHT, true);
+int proxy_button_wheel(char *message) {
+	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, true);
 }
 
 int proxy_button_disp(char *message) {

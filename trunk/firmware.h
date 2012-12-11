@@ -113,10 +113,10 @@ typedef enum {
 	IC_BUTTON_SET                  = 0xA6, //
 	IC_AFPDLGOFF                   = 0xA7, // hmm it seems like dialog destroy after all
 	// and 0xA8 is perhaps dialog create.
-	IC_BUTTON_DIAL                 = 0xA9, //
-	IC_BUTTON_DIAL1                = 0xAA, // does the same as DIAL
-	IC_BUTTON_DIAL_LEFT            = ( 1 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
-	IC_BUTTON_DIAL_RIGHT           = ( 2 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
+	IC_BUTTON_WHEEL                = 0xA9, //
+	IC_BUTTON_WHEEL1               = 0xAA, // does the same as WHEEL
+	IC_BUTTON_WHEEL_LEFT           = ( 1 << 8 ) | IC_BUTTON_WHEEL, // Fictitious btn
+	IC_BUTTON_WHEEL_RIGHT          = ( 2 << 8 ) | IC_BUTTON_WHEEL, // Fictitious btn
 	IC_BUTTON_CARD_DOOR            = 0xAB, //
 	IC_BUTTON_UNK1                 = 0xAC, //
 	IC_BUTTON_POWER                = 0xAE, // change_menupos ?
