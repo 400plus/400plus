@@ -51,16 +51,9 @@ int proxy_measuring      (char *message);
 int proxy_measurement    (char *message);
 int proxy_settings0      (char *message);
 int proxy_settings3      (char *message);
-int proxy_button_wheel   (char *message);
-int proxy_button_disp    (char *message);
-int proxy_button_set     (char *message);
-int proxy_button_up      (char *message);
-int proxy_button_down    (char *message);
-int proxy_button_right   (char *message);
-int proxy_button_left    (char *message);
-int proxy_button_dp      (char *message);
-int proxy_button_av      (char *message);
-int proxy_main_dial      (char *message);
+int proxy_button         (char *message);
+int proxy_wheel          (char *message);
+int proxy_dial           (char *message);
 
 proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]  = proxy_script_restore,
@@ -70,13 +63,13 @@ proxy_t listeners_script[0x100] = {
 
 proxy_t listeners_menu[0x100] = {
 	[IC_DIALOGOFF]     = proxy_dialog_exit,
-	[IC_BUTTON_WHEEL]  = proxy_button_wheel,
-	[IC_BUTTON_DISP]   = proxy_button_disp,
-	[IC_BUTTON_SET]    = proxy_button_set,
-	[IC_BUTTON_RIGHT]  = proxy_button_right,
-	[IC_BUTTON_LEFT]   = proxy_button_left,
-	[IC_BUTTON_DP]     = proxy_button_dp,
-	[IC_BUTTON_AV]     = proxy_button_av,
+	[IC_BUTTON_WHEEL]  = proxy_wheel,
+	[IC_BUTTON_DISP]   = proxy_button,
+	[IC_BUTTON_SET]    = proxy_button,
+	[IC_BUTTON_RIGHT]  = proxy_button,
+	[IC_BUTTON_LEFT]   = proxy_button,
+	[IC_BUTTON_DP]     = proxy_button,
+	[IC_BUTTON_AV]     = proxy_button,
 };
 
 proxy_t listeners_main[0x100] = {
@@ -87,19 +80,28 @@ proxy_t listeners_main[0x100] = {
 	[IC_SETTINGS_0]    = proxy_settings0,
 	[IC_SETTINGS_3]    = proxy_settings3,
 	[IC_AFPDLGOFF]     = proxy_dialog_afoff,
-	[IC_BUTTON_WHEEL]  = proxy_button_wheel,
-	[IC_BUTTON_DISP]   = proxy_button_disp,
-	[IC_BUTTON_SET]    = proxy_button_set,
-	[IC_BUTTON_UP]     = proxy_button_up,
-	[IC_BUTTON_DOWN]   = proxy_button_down,
-	[IC_BUTTON_RIGHT]  = proxy_button_right,
-	[IC_BUTTON_LEFT]   = proxy_button_left,
-	[IC_BUTTON_DP]     = proxy_button_dp,
-	[IC_BUTTON_AV]     = proxy_button_av,
-	[IC_MAIN_DIAL]     = proxy_main_dial,
+	[IC_BUTTON_WHEEL]  = proxy_wheel,
+	[IC_BUTTON_DISP]   = proxy_button,
+	[IC_BUTTON_SET]    = proxy_button,
+	[IC_BUTTON_UP]     = proxy_button,
+	[IC_BUTTON_DOWN]   = proxy_button,
+	[IC_BUTTON_RIGHT]  = proxy_button,
+	[IC_BUTTON_LEFT]   = proxy_button,
+	[IC_BUTTON_DP]     = proxy_button,
+	[IC_BUTTON_AV]     = proxy_button,
+	[IC_MAIN_DIAL]     = proxy_dial,
 };
 
-
+button_t message2button[0x100] = {
+	[IC_BUTTON_DISP]   = BUTTON_DISP,
+	[IC_BUTTON_SET]    = BUTTON_SET,
+	[IC_BUTTON_UP]     = BUTTON_UP,
+	[IC_BUTTON_DOWN]   = BUTTON_DOWN,
+	[IC_BUTTON_RIGHT]  = BUTTON_RIGHT,
+	[IC_BUTTON_LEFT]   = BUTTON_LEFT,
+	[IC_BUTTON_DP]     = BUTTON_DP,
+	[IC_BUTTON_AV]     = BUTTON_AV,
+};
 
 void action_dispatcher();
 void message_logger (char *message);
@@ -252,43 +254,15 @@ int proxy_settings3(char *message) {
 	return false;
 }
 
-int proxy_button_wheel(char *message) {
+int proxy_button(char *message) {
+	return button_handler(message2button[message[1]], message[0] > 3 ? message[2] : true);
+}
+
+int proxy_wheel(char *message) {
 	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, true);
 }
 
-int proxy_button_disp(char *message) {
-	return button_handler(BUTTON_DISP, true);
-}
-
-int proxy_button_set(char *message) {
-	return button_handler(BUTTON_SET, true);
-}
-
-int proxy_button_up(char *message) {
-	return button_handler(BUTTON_UP, message[2]);
-}
-
-int proxy_button_down(char *message) {
-	return button_handler(BUTTON_DOWN, message[2]);
-}
-
-int proxy_button_right(char *message) {
-	return button_handler(BUTTON_RIGHT, message[2]);
-}
-
-int proxy_button_left(char *message) {
-	return button_handler(BUTTON_LEFT, message[2]);
-}
-
-int proxy_button_dp(char *message) {
-	return button_handler(BUTTON_DP, true);
-}
-
-int proxy_button_av(char *message) {
-	return button_handler(BUTTON_AV, message[2]);
-}
-
-int proxy_main_dial(char *message) {
+int proxy_dial(char *message) {
 	static int first = true;
 
 	if (first) {
