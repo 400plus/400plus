@@ -229,7 +229,7 @@ void menu_preset_load   (const type_MENUITEM *item) {
 
 	if (status.main_dial_ae == AE_MODE_AUTO) {
 		if (preset_read(item->id, &preset)) {
-			snapshot_apply_full(&preset);
+			snapshot_apply(&preset);
 
 			status.preset_active       = true;
 			presets_config.last_preset = item->id;
