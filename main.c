@@ -242,7 +242,7 @@ int proxy_settings0(char *message) {
 		if (first)
 			first = false;
 		else
-			enqueue_action(preset_recall_full);
+			enqueue_action(preset_apply);
 	}
 
 	return false;

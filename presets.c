@@ -288,7 +288,7 @@ void preset_recall() {
 	sub_preset_recall(false);
 }
 
-void preset_recall_full() {
+void preset_apply() {
 	sub_preset_recall(true);
 }
 
