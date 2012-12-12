@@ -33,7 +33,7 @@ int snapshot_read  (char *name, snapshot_t *snapshot);
 int snapshot_write (char *name);
 int snapshot_delete(char *name);
 
-void sub_preset_recall(int full);
+void preset_recall_apply(int full);
 
 void get_preset_filename(char *filename, int id);
 void get_mode_filename  (char *filename, AE_MODE mode);
@@ -285,14 +285,14 @@ void snapshot_apply(snapshot_t *snapshot) {
 }
 
 void preset_recall() {
-	sub_preset_recall(false);
+	preset_recall_apply(false);
 }
 
 void preset_apply() {
-	sub_preset_recall(true);
+	preset_recall_apply(true);
 }
 
-void sub_preset_recall(int full) {
+void preset_recall_apply(int full) {
 	int preset_active = false;
 
 	snapshot_t preset;
