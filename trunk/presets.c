@@ -193,13 +193,13 @@ int snapshot_delete(char *name) {
 	return (FIO_RemoveFile(name) != -1);
 }
 
-void snapshot_apply(snapshot_t *snapshot) {
+void snapshot_recall(snapshot_t *snapshot) {
 	if (presets_config.recall_camera)
 		send_to_intercom(IC_SET_AE, 1, snapshot->DPData.ae);
 }
 
 void snapshot_apply_full(snapshot_t *snapshot) {
-	snapshot_apply(snapshot);
+	snapshot_recall(snapshot);
 
 	// Save current mode before overwriting other parameters
 	if (!status.preset_active)
@@ -305,7 +305,7 @@ void sub_preset_recall(int full) {
 			if (full)
 				snapshot_apply_full(&preset);
 			else {
-				snapshot_apply(&preset);
+				snapshot_recall(&preset);
 			}
 
 			// Well, looks like we did recall a preset after all
