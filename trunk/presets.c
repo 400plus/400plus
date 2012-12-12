@@ -198,7 +198,7 @@ void snapshot_recall(snapshot_t *snapshot) {
 		send_to_intercom(IC_SET_AE, 1, snapshot->DPData.ae);
 }
 
-void snapshot_apply_full(snapshot_t *snapshot) {
+void snapshot_apply(snapshot_t *snapshot) {
 	snapshot_recall(snapshot);
 
 	// Save current mode before overwriting other parameters
@@ -303,7 +303,7 @@ void sub_preset_recall(int full) {
 		if (presets_config.last_preset && preset_read(presets_config.last_preset, &preset)) {
 			// Apply full preset or just revert AE mode
 			if (full)
-				snapshot_apply_full(&preset);
+				snapshot_apply(&preset);
 			else {
 				snapshot_recall(&preset);
 			}
