@@ -50,10 +50,10 @@ extern int  preset_delete(int id);
 
 extern int  mode_write (AE_MODE mode);
 
-extern void snapshot_recall    ();
-extern void snapshot_apply();
+extern void snapshot_recall ();
+extern void snapshot_apply  ();
 
-extern void preset_recall     ();
-extern void preset_recall_full();
+extern void preset_recall ();
+extern void preset_apply  ();
 
 #endif /* PRESETS_H_ */
