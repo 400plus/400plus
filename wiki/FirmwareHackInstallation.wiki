@@ -63,7 +63,7 @@ To update from a previous version of `400plus`, just overwrite the `autoexec.bin
 
 == Removing 400plus ==
 
-The first step of the installation procedure cannot be undone, and the camera will always try to execute `400plus` _if it is in the CF card_; thus, formating all your cards will remove `4000plus` for all practical purposes.
+The first step of the installation procedure cannot be undone, and the camera will always try to execute `400plus` _if it is in the CF card_; thus, formating all your cards will remove `400plus` for all practical purposes.
 
 == What's next ==
 
