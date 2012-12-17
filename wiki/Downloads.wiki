@@ -1,20 +1,26 @@
 #summary Download page for 400plus
 
-_Please, read "[AWordOfWarning A Word of Warning]" at our Wiki before doing downloading anything; thanks._
 
-= Downloads =
+||*ATTENTION*: _Please, read "[AWordOfWarning A Word of Warning]" at our Wiki before doing downloading anything from here; thanks._||
 
-There are several types of downloads available here:
+= General Downloads =
 
-  * *Firmware Hack Installation:* You will need this file to prepare your camera; please see the installation instructions for more information.
-    * [http://code.google.com/p/400plus/downloads/list?can=2&q=Hack-activation+firmware Hack-activation firmware].
+Installation files made available to the general user
 
-  * *Official Releases:* Ready to use packages with our latest official releases, intended for general usage; normal users need to download and install only binaries, while source code packages are targeted to people interested in development.
-    * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured Official releases].
-      * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable Binaries].
-      * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DSource Source code].
+  * *Hack-activation Firmware:* You will need this file to prepare your camera; please see the [FirmwareHackInstallation installation instructions] for more information.
+    * [http://code.google.com/p/400plus/downloads/list?can=2&q=Hack-activation+firmware Hack-activation Firmware].
+
+  * *Official Releases:* Ready to use packages with our latest official releases.
+    * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable Official releases].
   
-  * *Nightly builds:* Created automatically every night, directly from the latest version available in our repository, and intended to be used only for testing purposes; users are not expected to use these files.
+= Development Downloads =
+
+The files available below are intended to be used for testing or development purposes only, and are not suited for end-users; please, install one of the files at the [#General_Downloads General Downloads section] if you plan to actually use your camera.
+
+  * *Source Code:* Targeted to people interested in development, these packages contain the source code used to build each official release.
+      * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DSource Source Code].
+
+  * *Nightly builds:* Binaries created automatically every night, directly from the latest version available in our repository.
     * [http://code.google.com/p/400plus/downloads/list?q=label%3ANightlyBuild Nightly builds].
 
   * *All Downloads:* A complete list of all files currently available.
