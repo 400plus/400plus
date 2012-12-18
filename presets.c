@@ -199,10 +199,6 @@ void snapshot_recall(snapshot_t *snapshot) {
 }
 
 void snapshot_apply(snapshot_t *snapshot) {
-	// Save current mode before overwriting other parameters
-	if (!status.preset_active)
-		mode_write(DPData.ae);
-
 	if (presets_config.recall_camera) {
 		send_to_intercom(IC_SET_METERING,   1, snapshot->DPData.metering);
 		send_to_intercom(IC_SET_EFCOMP,     1, snapshot->DPData.efcomp);
@@ -302,9 +298,14 @@ void preset_recall_apply(int full) {
 			// First revert to AE mode
 			snapshot_recall(&preset);
 
-			// Then apply full preset
-			if (full)
+			if (full) {
+				// Save current mode before overwriting other parameters
+				if (!status.preset_active)
+					mode_write(DPData.ae);
+
+				// Then apply full preset
 				snapshot_apply(&preset);
+			}
 
 			// Well, looks like we did recall a preset after all
 			preset_active = true;
