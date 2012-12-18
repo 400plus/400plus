@@ -243,8 +243,10 @@ void menu_preset_load   (const type_MENUITEM *item) {
 
 void menu_preset_save   (const type_MENUITEM *item) {
 	if (status.main_dial_ae < AE_MODE_AUTO)
-		if (preset_write(item->id))
+		if (preset_write(item->id)) {
 			beep();
+			menu_close();
+		}
 }
 
 void menu_preset_rename (const type_MENUITEM *item) {
