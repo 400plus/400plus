@@ -199,8 +199,6 @@ void snapshot_recall(snapshot_t *snapshot) {
 }
 
 void snapshot_apply(snapshot_t *snapshot) {
-	snapshot_recall(snapshot);
-
 	// Save current mode before overwriting other parameters
 	if (!status.preset_active)
 		mode_write(DPData.ae);
@@ -301,12 +299,12 @@ void preset_recall_apply(int full) {
 	if (status.main_dial_ae == AE_MODE_AUTO) {
 		// Only if a preset was loaded, and we can read it back
 		if (presets_config.last_preset && preset_read(presets_config.last_preset, &preset)) {
-			// Apply full preset or just revert AE mode
+			// First revert to AE mode
+			snapshot_recall(&preset);
+
+			// Then apply full preset
 			if (full)
 				snapshot_apply(&preset);
-			else {
-				snapshot_recall(&preset);
-			}
 
 			// Well, looks like we did recall a preset after all
 			preset_active = true;
