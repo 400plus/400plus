@@ -254,6 +254,8 @@ void menu_preset_rename (const type_MENUITEM *item) {
 }
 
 void menu_preset_delete (const type_MENUITEM *item) {
-	preset_delete(item->id);
-	beep();
+	if (preset_delete(item->id)) {
+		beep();
+		menu_close();
+	}
 }
