@@ -39,16 +39,18 @@ typedef struct {
 
 extern presets_config_t presets_config;
 
-extern void presets_read   ();
-extern void presets_write  ();
-extern void presets_restore();
-extern void presets_delete ();
+extern void presets_read    ();
+extern void presets_write   ();
+extern void presets_restore ();
+extern void presets_delete  ();
 
-extern int  preset_read  (int id, snapshot_t *preset);
-extern int  preset_write (int id);
-extern int  preset_delete(int id);
+extern int  preset_read   (int id, snapshot_t *preset);
+extern int  preset_write  (int id);
+extern int  preset_delete (int id);
 
-extern int  mode_write (AE_MODE mode);
+extern int  mode_read   (AE_MODE ae_mode, snapshot_t *snapshot);
+extern int  mode_write  (AE_MODE ae_mode);
+extern int  mode_delete (AE_MODE ae_mode);
 
 extern void snapshot_recall ();
 extern void snapshot_apply  ();

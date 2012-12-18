@@ -36,7 +36,7 @@ int snapshot_delete(char *name);
 void preset_recall_apply(int full);
 
 void get_preset_filename(char *filename, int id);
-void get_mode_filename  (char *filename, AE_MODE mode);
+void get_mode_filename  (char *filename, AE_MODE ae_mode);
 
 void presets_read() {
 	int id;
@@ -118,12 +118,28 @@ int preset_delete(int id) {
 	return snapshot_delete(filename);
 }
 
-int mode_write(AE_MODE mode) {
+int mode_read(AE_MODE ae_mode, snapshot_t *mode) {
 	char filename[FILENAME_LENGTH];
 
-	get_mode_filename(filename, mode);
+	get_mode_filename(filename, ae_mode);
+
+	return snapshot_read(filename, mode);
+}
+
+int mode_write(AE_MODE ae_mode) {
+	char filename[FILENAME_LENGTH];
+
+	get_mode_filename(filename, ae_mode);
 
 	return snapshot_write(filename);
+}
+
+int mode_delete(AE_MODE ae_mode) {
+	char filename[FILENAME_LENGTH];
+
+	get_preset_filename(filename, ae_mode);
+
+	return snapshot_delete(filename);
 }
 
 int snapshot_read(char *name, snapshot_t *snapshot) {
@@ -289,14 +305,25 @@ void preset_apply() {
 void preset_recall_apply(int full) {
 	int preset_active = false;
 
-	snapshot_t preset;
+	snapshot_t snapshot;
 
-	// Only if entering AUTO
-	if (status.main_dial_ae == AE_MODE_AUTO) {
+	switch(status.main_dial_ae) {
+	case AE_MODE_P:
+	case AE_MODE_TV:
+	case AE_MODE_AV:
+	case AE_MODE_M:
+	case AE_MODE_ADEP:
+		// Try to find a mode file, and load it
+		if (mode_read(status.main_dial_ae, &snapshot)) {
+			mode_delete(status.main_dial_ae);
+			snapshot_apply(&snapshot);
+		}
+		break;
+	case AE_MODE_AUTO:
 		// Only if a preset was loaded, and we can read it back
-		if (presets_config.last_preset && preset_read(presets_config.last_preset, &preset)) {
+		if (presets_config.last_preset && preset_read(presets_config.last_preset, &snapshot)) {
 			// First revert to AE mode
-			snapshot_recall(&preset);
+			snapshot_recall(&snapshot);
 
 			if (full) {
 				// Save current mode before overwriting other parameters
@@ -304,12 +331,15 @@ void preset_recall_apply(int full) {
 					mode_write(DPData.ae);
 
 				// Then apply full preset
-				snapshot_apply(&preset);
+				snapshot_apply(&snapshot);
 			}
 
 			// Well, looks like we did recall a preset after all
 			preset_active = true;
 		}
+		break;
+	default:
+		break;
 	}
 
 	// Update current status
@@ -323,10 +353,10 @@ void get_preset_filename(char *filename, int id) {
 	sprintf(filename, PRESETS_FILE, id);
 }
 
-void get_mode_filename(char *filename, AE_MODE mode) {
+void get_mode_filename(char *filename, AE_MODE ae_mode) {
 	char id;
 
-	switch(mode) {
+	switch(ae_mode) {
 	case AE_MODE_P:
 		id = 'P';
 		break;
