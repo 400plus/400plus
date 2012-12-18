@@ -134,7 +134,7 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
     * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
  * _*Config. Menus*_: This sub-menu configures the behavior of [#The_menu the menu]:
-    * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element.
+    * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element (notice that by design, the main menu always warps, regardless of this option).
     * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_the_menu Navigating the menu]).
     * Enter to main: when active (set to Yes), `400plus` will directly enter the main page in the menu, instead of going to the last visited page.
     * Autosave: when active (set to Yes), `400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down the camera..
