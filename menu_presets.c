@@ -1,15 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdbool.h>
-
-#include "macros.h"
 #include "main.h"
 
-#include "display.h"
 #include "languages.h"
 #include "menu.h"
 #include "menupage.h"
@@ -23,241 +13,262 @@
 
 void menu_preset_open();
 
-void menupage_preset_load (type_MENU *menu);
-void menupage_preset_save (type_MENU *menu);
+void preset_save_1();
+void preset_save_2();
+void preset_save_3();
+void preset_save_4();
+void preset_save_5();
+void preset_save_6();
+void preset_save_7();
+void preset_save_8();
+void preset_save_9();
 
-void menu_preset_load   (const type_MENUITEM *item);
-void menu_preset_save   (const type_MENUITEM *item);
-void menu_preset_rename (const type_MENUITEM *item);
-void menu_preset_delete (const type_MENUITEM *item);
+void preset_save(int id);
+
+void preset_load_1();
+void preset_load_2();
+void preset_load_3();
+void preset_load_4();
+void preset_load_5();
+void preset_load_6();
+void preset_load_7();
+void preset_load_8();
+void preset_load_9();
+
+void preset_load(int id);
+
+void preset_rename_1();
+void preset_rename_2();
+void preset_rename_3();
+void preset_rename_4();
+void preset_rename_5();
+void preset_rename_6();
+void preset_rename_7();
+void preset_rename_8();
+void preset_rename_9();
+
+void preset_rename(int id);
 
 type_MENUITEM preset_1_items[] = {
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_1),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_1),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_1),
 };
 
 type_MENUITEM preset_2_items[] = {
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_2),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_2),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_2),
 };
 
 type_MENUITEM preset_3_items[] = {
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_3),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_3),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_3),
 };
 
 type_MENUITEM preset_4_items[] = {
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_4),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_4),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_4),
 };
 
 type_MENUITEM preset_5_items[] = {
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_5),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_5),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_5),
 };
 
 type_MENUITEM preset_6_items[] = {
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_6),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_6),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_6),
 };
 
 type_MENUITEM preset_7_items[] = {
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_7),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_7),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_7),
 };
 
 type_MENUITEM preset_8_items[] = {
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_8),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_8),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_8),
 };
 
 type_MENUITEM preset_9_items[] = {
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_SAVE),   menu_preset_save),
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_DELETE), menu_preset_delete),
+	MENUITEM_LAUNCH(LP_WORD(L_I_LOAD),   preset_load_9),
+	MENUITEM_LAUNCH(LP_WORD(L_I_SAVE),   preset_save_9),
+	MENUITEM_LAUNCH(LP_WORD(L_I_RENAME), preset_rename_9),
 };
 
 type_MENUPAGE menupage_preset_1 = {
-	name    : presets_config.names[0],
-	length  : LENGTH(preset_1_items),
-	items   : preset_1_items,
-	actions : {
+	name   : presets_config.names[0],
+	length : LENGTH(preset_1_items),
+	items  : preset_1_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_2 = {
-	name    : presets_config.names[1],
-	length  : LENGTH(preset_2_items),
-	items   : preset_2_items,
-	actions : {
+	name   : presets_config.names[1],
+	length : LENGTH(preset_2_items),
+	items  : preset_2_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_3 = {
-	name    : presets_config.names[2],
-	length  : LENGTH(preset_3_items),
-	items   : preset_3_items,
-	actions : {
+	name   : presets_config.names[2],
+	length : LENGTH(preset_3_items),
+	items  : preset_3_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_4 = {
-	name    : presets_config.names[3],
-	length  : LENGTH(preset_4_items),
-	items   : preset_4_items,
-	actions : {
+	name   : presets_config.names[3],
+	length : LENGTH(preset_4_items),
+	items  : preset_4_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_5 = {
-	name    : presets_config.names[4],
-	length  : LENGTH(preset_5_items),
-	items   : preset_5_items,
-	actions : {
+	name   : presets_config.names[4],
+	length : LENGTH(preset_5_items),
+	items  : preset_5_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_6 = {
-	name    : presets_config.names[5],
-	length  : LENGTH(preset_6_items),
-	items   : preset_6_items,
-	actions : {
+	name   : presets_config.names[5],
+	length : LENGTH(preset_6_items),
+	items  : preset_6_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_7 = {
-	name    : presets_config.names[6],
-	length  : LENGTH(preset_7_items),
-	items   : preset_7_items,
-	actions : {
+	name   : presets_config.names[6],
+	length : LENGTH(preset_7_items),
+	items  : preset_7_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_8 = {
-	name    : presets_config.names[7],
-	length  : LENGTH(preset_8_items),
-	items   : preset_8_items,
-	actions : {
+	name   : presets_config.names[7],
+	length : LENGTH(preset_8_items),
+	items  : preset_8_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUPAGE menupage_preset_9 = {
-	name    : presets_config.names[8],
-	length  : LENGTH(preset_9_items),
-	items   : preset_9_items,
-	actions : {
+	name   : presets_config.names[8],
+	length : LENGTH(preset_9_items),
+	items  : preset_9_items,
+	tasks  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
 };
 
 type_MENUITEM preset_items[] = {
-	MENUITEM_SUBMENU(1, presets_config.names[0], &menupage_preset_1, NULL),
-	MENUITEM_SUBMENU(2, presets_config.names[1], &menupage_preset_2, NULL),
-	MENUITEM_SUBMENU(3, presets_config.names[2], &menupage_preset_3, NULL),
-	MENUITEM_SUBMENU(4, presets_config.names[3], &menupage_preset_4, NULL),
-	MENUITEM_SUBMENU(5, presets_config.names[4], &menupage_preset_5, NULL),
-	MENUITEM_SUBMENU(6, presets_config.names[5], &menupage_preset_6, NULL),
-	MENUITEM_SUBMENU(7, presets_config.names[6], &menupage_preset_7, NULL),
-	MENUITEM_SUBMENU(8, presets_config.names[7], &menupage_preset_8, NULL),
-	MENUITEM_SUBMENU(9, presets_config.names[8], &menupage_preset_9, NULL),
+	MENUITEM_SUBMENU(presets_config.names[0], &menupage_preset_1, preset_load_1),
+	MENUITEM_SUBMENU(presets_config.names[1], &menupage_preset_2, preset_load_2),
+	MENUITEM_SUBMENU(presets_config.names[2], &menupage_preset_3, preset_load_3),
+	MENUITEM_SUBMENU(presets_config.names[3], &menupage_preset_4, preset_load_4),
+	MENUITEM_SUBMENU(presets_config.names[4], &menupage_preset_5, preset_load_5),
+	MENUITEM_SUBMENU(presets_config.names[5], &menupage_preset_6, preset_load_6),
+	MENUITEM_SUBMENU(presets_config.names[6], &menupage_preset_7, preset_load_7),
+	MENUITEM_SUBMENU(presets_config.names[7], &menupage_preset_8, preset_load_8),
+	MENUITEM_SUBMENU(presets_config.names[8], &menupage_preset_9, preset_load_9),
 };
 
 type_MENUPAGE menupage_presets = {
 	name      : LP_WORD(L_P_PRESETS),
-	sibilings : true,
+	sibilings : TRUE,
 	length    : LENGTH(preset_items),
 	items     : preset_items,
-	rename    : true,
+	rename    : TRUE,
 	ordering  : presets_config.order,
-	actions   : {
+	tasks     : {
 		[MENU_EVENT_OPEN] = menu_preset_open,
 	}
 };
 
 void menu_preset_open() {
-	menupage_presets.highlight        = status.preset_active ? true : false;
-	menupage_presets.highlighted_item = presets_config.last_preset;
-
-	if (status.main_dial_ae == AE_MODE_AUTO)
-		menupage_presets.actions[MENU_EVENT_SET] = menupage_preset_load;
-	else if (status.main_dial_ae < AE_MODE_AUTO)
-		menupage_presets.actions[MENU_EVENT_SET] = menupage_preset_save;
-	else
-		menupage_presets.actions[MENU_EVENT_SET] = NULL;
-}
-
-void menupage_preset_load (type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
-
-	menu_preset_load(item);
-}
-
-void menupage_preset_save (type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
-
-	menu_preset_save(item);
-}
-
-void menu_preset_load   (const type_MENUITEM *item) {
-	snapshot_t preset;
-
-	if (status.main_dial_ae == AE_MODE_AUTO) {
-		if (preset_read(item->id, &preset)) {
-			snapshot_recall(&preset);
-			snapshot_apply (&preset);
-
-			status.preset_active       = true;
-			presets_config.last_preset = item->id;
-
-			beep();
-			menu_close();
-			presets_write();
-		}
+	if (status.last_preset) {
+		menupage_presets.highlight        = TRUE;
+		menupage_presets.highlighted_item = status.last_preset;
+	} else {
+		menupage_presets.highlight        = FALSE;
 	}
 }
 
-void menu_preset_save   (const type_MENUITEM *item) {
-	if (status.main_dial_ae < AE_MODE_AUTO)
-		if (preset_write(item->id)) {
-			beep();
-			menu_close();
-		}
-}
+void preset_save_1() { preset_save(1); }
+void preset_save_2() { preset_save(2); }
+void preset_save_3() { preset_save(3); }
+void preset_save_4() { preset_save(4); }
+void preset_save_5() { preset_save(5); }
+void preset_save_6() { preset_save(6); }
+void preset_save_7() { preset_save(7); }
+void preset_save_8() { preset_save(8); }
+void preset_save_9() { preset_save(9); }
 
-void menu_preset_rename (const type_MENUITEM *item) {
-	rename_create(presets_config.names[item->id - 1]);
-}
+void preset_save(int id) {
+	if (preset_write(id)) {
+		status.last_preset = id;
 
-void menu_preset_delete (const type_MENUITEM *item) {
-	if (preset_delete(item->id)) {
 		beep();
-		menu_close();
 	}
+}
+
+void preset_load_1() { preset_load(1); }
+void preset_load_2() { preset_load(2); }
+void preset_load_3() { preset_load(3); }
+void preset_load_4() { preset_load(4); }
+void preset_load_5() { preset_load(5); }
+void preset_load_6() { preset_load(6); }
+void preset_load_7() { preset_load(7); }
+void preset_load_8() { preset_load(8); }
+void preset_load_9() { preset_load(9); }
+
+void preset_load(int id) {
+	if (!presets_config.use_adep || status.main_dial_ae == AE_MODE_ADEP) {
+		if (preset_read(id)) {
+			preset_apply_full();
+			preset_write(0);
+
+			status.last_preset = id;
+
+			beep();
+			menu_close();
+		}
+	}
+}
+
+void preset_rename_1() { preset_rename(1); }
+void preset_rename_2() { preset_rename(2); }
+void preset_rename_3() { preset_rename(3); }
+void preset_rename_4() { preset_rename(4); }
+void preset_rename_5() { preset_rename(5); }
+void preset_rename_6() { preset_rename(6); }
+void preset_rename_7() { preset_rename(7); }
+void preset_rename_8() { preset_rename(8); }
+void preset_rename_9() { preset_rename(9); }
+
+void preset_rename(int id) {
+	rename_create(presets_config.names[id - 1]);
 }

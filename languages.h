@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef LANGUAGES_H_
 #define LANGUAGES_H_
 
@@ -28,9 +22,7 @@
 	LANG_PAIR( I_RELEASE_COUNT,      "Release count"      ) \
 	LANG_PAIR( I_BODY_ID,            "Body ID"            ) \
 	LANG_PAIR( I_VERSION,            "Version"            ) \
-	LANG_PAIR( I_DUMP_MEMORY,        "Dump RAM after 5s"  ) \
-	LANG_PAIR( I_MEMSPY_ENABLE,      "MemSpy Enable"      ) \
-	LANG_PAIR( I_MEMSPY_DISABLE,     "MemSpy Disable"     ) \
+	LANG_PAIR( I_DUMP_MEMORY,        "Dump RAM  !Wait-For-Beep!" ) \
 	LANG_PAIR( I_DUMP_LOG_TO_FILE,   "Dump log to file"   ) \
 	LANG_PAIR( I_PRINT_INFO,         "Print info to log"  ) \
 	LANG_PAIR( I_ENTER_FACTORY_MODE, "Enter factory Mode" ) \
@@ -44,7 +36,6 @@
 	LANG_PAIR( I_LOAD,               "Load"               ) \
 	LANG_PAIR( I_SAVE,               "Save"               ) \
 	LANG_PAIR( I_RENAME,             "Rename"             ) \
-	LANG_PAIR( I_DELETE,             "Delete"             ) \
 	LANG_PAIR( S_AUTOISO,            "AutoISO"            ) \
 	LANG_PAIR( I_AUTOISO_ENABLE,     "Enable"             ) \
 	LANG_PAIR( I_AUTOISO_MINISO,     "Min ISO"            ) \
@@ -91,13 +82,12 @@
 	LANG_PAIR( I_PRESETS_ADEP,       "Use A-DEP"          ) \
 	LANG_PAIR( I_PRESETS_CAMERA,     "Camera"             ) \
 	LANG_PAIR( I_PRESETS_400PLUS,    "400plus"            ) \
-	LANG_PAIR( I_PRESETS_ORDERING,   "Menu order"         ) \
 	LANG_PAIR( I_PRESETS_SETTINGS,   "Settings"           ) \
 	LANG_PAIR( I_PRESETS_IMAGE,      "Image"              ) \
 	LANG_PAIR( I_PRESETS_CFN,        "Custom Fn"          ) \
 	LANG_PAIR( I_IR_REMOTE_ENABLE,   "IR remote enable"   ) \
 	LANG_PAIR( I_IR_REMOTE_DELAY,    "IR remote delay"    ) \
-	LANG_PAIR( I_USE_DPAD,           "Use D-Pad"          ) \
+	LANG_PAIR( I_ISO_IN_VF,          "ISO in viewfinder"  ) \
 	LANG_PAIR( I_BUTTON_DISP,        "Better DISP button" ) \
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"   ) \
 	LANG_PAIR( I_LANGUAGE,           "Language"           ) \
@@ -114,7 +104,6 @@
 	LANG_PAIR( S_BUTTONS,            "Config. Buttons"    ) \
 	LANG_PAIR( S_PRESETS,            "Config. Presets"    ) \
 	LANG_PAIR( S_PAGES,              "Config. Pages"      ) \
-	LANG_PAIR( S_MENUS,              "Config. Menus"      ) \
 	LANG_PAIR( V_OFF,                "Off"                ) \
 	LANG_PAIR( V_NO_LIMIT,           "No Limit"           ) \
 	LANG_PAIR( V_YES,                "Yes"                ) \
@@ -139,18 +128,8 @@
 	LANG_PAIR( V_INTISO,             "Intermediate ISO"   ) \
 	LANG_PAIR( V_REPEAT,             "Repeat last script" ) \
 	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"  ) \
-	LANG_PAIR( V_TOGGLE_FLASH,       "Flash on/off"       ) \
 	LANG_PAIR( S_PRESET_NAME,        "Preset"             ) \
 	LANG_PAIR( S_INFINITE,           "INF!"               ) \
-	LANG_PAIR( V_CAMERA,             "Camera"             ) \
-	LANG_PAIR( I_WRAP_MENUS,         "Menus wrap"         ) \
-	LANG_PAIR( I_NAVIGATE_MAIN,      "Navigate to main"   ) \
-	LANG_PAIR( I_ENTER_MAIN,         "Enter to main"      ) \
-	LANG_PAIR( I_AUTOSAVE,           "Autosave"           ) \
-	LANG_PAIR( I_RESTORE,            "Restore config."    ) \
-	LANG_PAIR( I_RESTORE_SETTINGS,   "Restore settings"   ) \
-	LANG_PAIR( I_RESTORE_PRESETS,    "Restore presets"    ) \
-	LANG_PAIR( I_DELETE_PRESETS,     "Delete presets"     ) \
 
 enum LANG_WORDS_ENUM {
 	#define LANG_PAIR(key, val) L_##key,

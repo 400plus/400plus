@@ -1,15 +1,6 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdbool.h>
-
-#include "macros.h"
 #include "main.h"
+#include "firmware.h"
 
-#include "button.h"
 #include "languages.h"
 #include "menupage.h"
 #include "menuitem.h"
@@ -19,11 +10,24 @@
 
 #include "menu.h"
 
-dpr_data_t menu_DPData;
+type_CAMERA_MODE menu_cameraMode;
 
 void *menu_handler;
 
-type_MENU *current_menu;
+type_MENU     *current_menu;
+
+type_ACTION callbacks_standard[] = {
+	{GUI_BUTTON_MENU,           FALSE, TRUE,  {menu_event_menu}},
+//	{GUI_BUTTON_DISP,           FALSE, TRUE,  {menu_event_disp}},
+	{GUI_BUTTON_JUMP,           FALSE, TRUE,  {menu_event_jump}},
+	{GUI_BUTTON_PLAY,           FALSE, TRUE,  {menu_event_play}},
+	{GUI_BUTTON_TRASH,          FALSE, TRUE,  {menu_event_trash}},
+	{GUI_BUTTON_UP,             FALSE, TRUE,  {menu_event_up}},
+	{GUI_BUTTON_DOWN,           FALSE, TRUE,  {menu_event_down}},
+	{GUI_BUTTON_ZOOM_OUT_PRESS, FALSE, TRUE,  {menu_event_out}},
+	{GUI_BUTTON_ZOOM_IN_PRESS,  FALSE, TRUE,  {menu_event_in}},
+	END_OF_LIST
+};
 
 void menu_initialize();
 void menu_destroy();
@@ -57,10 +61,10 @@ void menu_create(type_MENU *menu) {
 	SleepTask(100);
 
 	FLAG_GUI_MODE = 0x2D; // In theory, we do not need this, but menu_close does not work properly without it...
-	//DPData.gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
+	//cameraMode->gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
 
-	current_menu = menu;
-	menu_DPData  = DPData;
+	current_menu    = menu;
+	menu_cameraMode = *cameraMode;
 
 	menu_destroy();
 	menu_initialize();
@@ -84,28 +88,27 @@ void menu_create(type_MENU *menu) {
 void menu_close() {
 /*
 	GUI_Lock();
-	GUI_PalleteInit();
+    GUI_PalleteInit();
 
 	DeleteDialogBox(menu_handler);
 	menu_destroy();
 	menu_finish();
 
 	GUI_StartMode(GUIMODE_OLC);
-	CreateDialogBox_OlMain();
-	GUIMode = GUIMODE_OLC;
+    CreateDialogBox_OlMain();
+    GUIMode = GUIMODE_OLC;
 
-	GUI_UnLock();
-	GUI_PalleteUnInit();
+    GUI_UnLock();
+    GUI_PalleteUnInit();
 */
-	press_button(IC_BUTTON_DISP);
-
+    press_button(IC_BUTTON_DISP);
 	menu_destroy();
 	menu_finish();
 }
 
 void menu_initialize() {
 	menu_return();
-	status.menu_running = true;
+	status.menu_running = TRUE;
 }
 
 void menu_destroy() {
@@ -119,12 +122,12 @@ void menu_destroy() {
 
 void menu_finish() {
 	menu_event_save();
-	status.menu_running = false;
+	status.menu_running = FALSE;
 }
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	int ret;
-	button_t button;
+	type_ACTION *action;
 
 // FW:FF915990
 // this seems to be one of the addresses where the handler is called
@@ -138,30 +141,29 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 	//debug_log("_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
 #endif
 
-	switch(event) {
-	case GUI_BUTTON_MENU            : button = BUTTON_MENU;     break;
-//	case GUI_BUTTON_DISP            : button = BUTTON_DISP;     break;
-	case GUI_BUTTON_JUMP            : button = BUTTON_JUMP;     break;
-	case GUI_BUTTON_PLAY            : button = BUTTON_PLAY;     break;
-	case GUI_BUTTON_TRASH           : button = BUTTON_TRASH;    break;
-	case GUI_BUTTON_UP              : button = BUTTON_UP;       break;
-	case GUI_BUTTON_DOWN            : button = BUTTON_DOWN;     break;
-	case GUI_BUTTON_ZOOM_OUT_PRESS  : button = BUTTON_ZOOM_OUT; break;
-	case GUI_BUTTON_ZOOM_IN_PRESS   : button = BUTTON_ZOOM_IN;  break;
-	default:
-		goto pass_event;
-	}
+	// Loop over all the actions from this action chain
+	for (action = callbacks_standard; ! IS_EOL(action); action++) {
 
-	if (button_handler(button, true))
-		return false;
+		// Check whether this action corresponds to the event received
+		if (action->button == event) {
+
+			// Launch the defined task
+			if (action->task[0])
+				action->task[0]();
+
+			// Decide how to respond to this button
+			if (action->block)
+				return FALSE;
+			else
+				goto pass_event;
+		}
+	}
 
 pass_event:
 	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
-
 #ifdef ENABLE_DEBUG
 	printf_log(1,6, "_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
 #endif
-
 	return ret;
 }
 
@@ -189,7 +191,7 @@ void menu_set_page(type_MENUPAGE *page) {
 
 void menu_highlight(const int line) {
 	GUI_Select_Item  (menu_handler, line + 1);
-	GUI_Highlight_Sub(menu_handler, line + 1, false);
+	GUI_Highlight_Sub(menu_handler, line + 1, FALSE);
 
 	menu_redraw();
 }
@@ -229,10 +231,10 @@ void menu_event(type_MENU_EVENT event) {
 	type_MENU     *menu = current_menu;
 	type_MENUPAGE *page = menu->current_page;
 
-	if (page->actions && page->actions[event])
-		page->actions[event](menu);
-	else if (menu->actions && menu->actions[event])
-		menu->actions[event](menu);
+	if (page->tasks && page->tasks[event])
+		page->tasks[event](menu);
+	else if (menu->tasks && menu->tasks[event])
+		menu->tasks[event](menu);
 }
 
 void menu_set(type_MENU *menu) {
@@ -283,14 +285,14 @@ void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repe
 
 	SleepTask(50);
 
-	action(menu, false);
+	action(menu, FALSE);
 	delay = AUTOREPEAT_DELAY_LONG;
 
 	do {
 		SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 		if (--delay == 0) {
-			action(menu, true);
+			action(menu, TRUE);
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
@@ -306,7 +308,7 @@ void menu_repeat_right(type_MENU *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = true;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }
@@ -321,7 +323,7 @@ void menu_repeat_left(type_MENU *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = true;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }

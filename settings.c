@@ -1,13 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdbool.h>
-
 #include "main.h"
 #include "firmware.h"
 
@@ -15,77 +5,64 @@
 
 #include "settings.h"
 
-settings_t settings_default = {
-	use_dpad         : true,
-	autoiso_enable   : false,
+type_SETTINGS settings = {
+	iso_in_viewfinder: FALSE,
+	autoiso_enable   : FALSE,
 	autoiso_miniso   : 0x48, // ISO100
 	autoiso_maxiso   : 0x68, // ISO1600
 	autoiso_mintv    : 0x68, // 1/60s
 	autoiso_maxav    : 0x28, // f/4.0
-	eaeb_delay       : false,
+	eaeb_delay       : FALSE,
 	eaeb_frames      : 3,
 	eaeb_ev          : 0x08, // 1EV
 	eaeb_tv_min      : 0x78, // 1/250s
 	eaeb_tv_max      : 0x68, // 1/60s
 	eaeb_direction   : EAEB_DIRECTION_BOTH,
-	efl_aeb_delay    : false,
+	efl_aeb_delay    : FALSE,
 	efl_aeb_frames   : 3,
 	efl_aeb_ev       : 0x08, // 1EV
 	efl_aeb_direction: EAEB_DIRECTION_BOTH,
-	iso_aeb_delay    : false,
-	iso_aeb          : {true, true, true, true, true},
-	interval_delay   : false,
+	iso_aeb_delay    : FALSE,
+	iso_aeb          : {TRUE, TRUE, TRUE, TRUE, TRUE},
+	interval_delay   : FALSE,
 	interval_time    : 2,
 	interval_action  : SHOT_ACTION_SHOT,
 	interval_shots   : 0,
-	wave_delay       : false,
+	wave_delay       : FALSE,
 	wave_action      : SHOT_ACTION_SHOT,
-	wave_repeat      : false,
-	wave_instant     : false,
-	lexp_delay       : false,
+	wave_repeat      : FALSE,
+	wave_instant     : FALSE,
+	lexp_delay       : FALSE,
 	lexp_time        : 60,
-	remote_delay     : false,
+	remote_delay     : FALSE,
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_SHOT,
-	keep_power_on    : true,
-	script_lcd       : SCRIPT_LCD_KEEP,
-	script_indicator : SCRIPT_INDICATOR_MEDIUM,
-	debug_on_poweron : false,
-	logfile_mode     : 0,
-	remote_enable    : false,
-	developers_menu  : false,
-	button_jump      : BUTTON_ACTION_ISO,
-	button_trash     : BUTTON_ACTION_SCRIPT,
-	button_disp      : false,
-	language         : 0,
-	menu_navmain     : false,
-	menu_entermain   : false,
-	menu_autosave    : true,
-};
-
-menu_order_t menu_order_default = {
 	main_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	params_order     : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	scripts_order    : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	info_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	developer_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 	settings_order   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	keep_power_on    : TRUE,
+	script_lcd       : SCRIPT_LCD_KEEP,
+	script_indicator : SCRIPT_INDICATOR_MEDIUM,
+	debug_on_poweron : FALSE,
+	logfile_mode     : 0,
+	remote_enable    : FALSE,
+	developers_menu  : FALSE,
+	button_jump      : BUTTON_ACTION_ISO,
+	button_trash     : BUTTON_ACTION_SCRIPT,
+	button_disp      : FALSE,
+	language         : 0,
 };
 
-settings_t   settings;
-menu_order_t menu_order;
-
 int settings_read() {
-	int result  = false;
+	int result  = FALSE;
 
 	int file    = -1;
 	int version =  0;
 
-	settings_t   settings_buffer;
-	menu_order_t menu_order_buffer;
-
-	settings   = settings_default;
-	menu_order = menu_order_default;
+	type_SETTINGS buffer;
 
 	if ((file = FIO_OpenFile(SETTINGS_FILE, O_RDONLY, 644)) == -1)
 		goto end;
@@ -96,16 +73,11 @@ int settings_read() {
 	if (version != SETTINGS_VERSION)
 		goto end;
 
-	if (FIO_ReadFile(file, &settings_buffer, sizeof(settings_buffer)) != sizeof(settings_buffer))
+	if (FIO_ReadFile(file, &buffer, sizeof(buffer)) != sizeof(buffer))
 		goto end;
 
-	if (FIO_ReadFile(file, &menu_order_buffer, sizeof(menu_order_buffer)) != sizeof(menu_order_buffer))
-		goto end;
-
-	settings   = settings_buffer;
-	menu_order = menu_order_buffer;
-
-	result   = true;
+	settings = buffer;
+	result   = TRUE;
 
 end:
 	if (file != -1)
@@ -120,10 +92,7 @@ void settings_write() {
 
 	if (file != -1) {
 		FIO_WriteFile(file, (void*)&version, sizeof(version));
-
-		FIO_WriteFile(file, &settings,   sizeof(settings));
-		FIO_WriteFile(file, &menu_order, sizeof(menu_order));
-
+		FIO_WriteFile(file, &settings, sizeof(settings));
 		FIO_CloseFile(file);
 	}
 }
@@ -142,12 +111,4 @@ extern void settings_apply() {
 	} else {
 		remote_off();
 	}
-}
-
-void settings_restore() {
-	settings   = settings_default;
-	menu_order = menu_order_default;
-
-	settings_apply();
-	settings_write();
 }

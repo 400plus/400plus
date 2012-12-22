@@ -1,13 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MAINCTRL_H_
 #define MAINCTRL_H_
-
-#include "firmware.h"
 
 typedef enum {
 	MC_INFOANDCTRL          = 0x01,
@@ -36,10 +28,10 @@ typedef enum {
 	MC_BUTTON_SET                  = IC_BUTTON_SET,
 	MC_DIALOG1                     = IC_AFPDLGOFF, // seems like dialog destroy
 	MC_DIALOG2                     = 0xA8, // could be dialog create
-	MC_BUTTON_WHEEL                = IC_BUTTON_WHEEL,
-	MC_BUTTON_WHEEL1               = IC_BUTTON_WHEEL1, // does the same as WHEEL
-	MC_BUTTON_WHEEL_LEFT           = ( 1 << 8 ) | IC_BUTTON_WHEEL, // Fictitious btn
-	MC_BUTTON_WHEEL_RIGHT          = ( 2 << 8 ) | IC_BUTTON_WHEEL, // Fictitious btn
+	MC_BUTTON_DIAL                 = IC_BUTTON_DIAL,
+	MC_BUTTON_DIAL1                = IC_BUTTON_DIAL1, // does the same as dial
+	MC_BUTTON_DIAL_LEFT            = ( 1 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
+	MC_BUTTON_DIAL_RIGHT           = ( 2 << 8 ) | IC_BUTTON_DIAL, // Fictitious btn
 	MC_BUTTON_CARD_DOOR_OPEN       = IC_BUTTON_CARD_DOOR,
 	MC_BUTTON_UNK1                 = IC_BUTTON_UNK1,
 	MC_BUTTON_POWER                = IC_BUTTON_POWER,

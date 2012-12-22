@@ -1,15 +1,8 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <strings.h>
-
 #include "main.h"
-#include "firmware.h"
 
 #include "init.h"
+
+#include "firmware.h"
 
 void my_romStart(int startType);
 int  my_usrInit(int startType);
@@ -33,12 +26,8 @@ void COPY() {
 
 // entry routine, entry.S calls this, so we enter here after power up.
 void my_romStart(int startType) {
-	if ((*(int*)BTN_ADDR_TRASH == BTN_PRESSED)) {
-		romStart(startType);
-	} else {
-		unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0 >> 2);
-		my_usrInit(startType);
-	}
+	unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0 >> 2);
+	my_usrInit(startType);
 }
 
 int my_usrInit(int startType) {
@@ -157,8 +146,10 @@ void my_task_Startup() {
 	dmSetPrintLevel(hDbgMgr, 0xFF, 0);
 #endif
 
-	initialize();
-	
+	//int disable_hack = cameraMode->forbid_rel;
+	int disable_hack = 0;
+	if (!disable_hack) initialize(); // task_dispatcher
+
 	sub_FFAFE5BC();
 	SetAssert();
 	EventProcedureServiceInit();
@@ -191,7 +182,11 @@ void my_task_Startup() {
 
 	SetAssertProc(AssertPrepare, 0);
 
-	my_InitializeIntercom(); // InitializeIntercom();
+	if (disable_hack) {
+		InitializeIntercom();
+	} else {
+		my_InitializeIntercom(); // InitializeIntercom();
+	}
 
 	AfeGainCmosParamInit();
 
@@ -260,7 +255,11 @@ void my_task_Startup() {
 
 	RegisterISR_EMERGENCY_CARDDOOR();
 
-	my_MainCtrlInit();
+	if (disable_hack) {
+		MainCtrlInit();
+	} else {
+		my_MainCtrlInit();
+	}
 
 	CaptureSemaphoreInit();
 
@@ -340,7 +339,11 @@ void my_task_Startup() {
 
 	CreateMemoryManagerPubInstance();
 
-	my_GUIInit(); //GUIInit();
+	if (disable_hack) {
+		GUIInit();
+	} else {
+		my_GUIInit(); //GUIInit();
+	}
 	GUIApiCalls();
 
 	InitializeImagePlayer();

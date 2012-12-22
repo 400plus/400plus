@@ -1,19 +1,9 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdio.h>
-#include <stdbool.h>
-
-#include "macros.h"
+#include "main.h"
 #include "firmware.h"
 
 #include "languages.h"
 #include "menu.h"
 #include "menuitem.h"
-#include "settings.h"
 #include "utils.h"
 
 #include "menupage.h"
@@ -28,7 +18,7 @@ int get_real_id(type_MENUPAGE *page, int item_pos);
 type_MENUITEM *get_item(type_MENUPAGE *page, int item_id);
 
 void menupage_initialize(type_MENUPAGE *page) {
-	item_grabbed = false;
+	item_grabbed = FALSE;
 }
 
 void menupage_display(type_MENU *menu) {
@@ -58,15 +48,15 @@ void menupage_display(type_MENU *menu) {
 }
 
 void menupage_up(type_MENU *menu) {
-	int display = false;
+	int display = FALSE;
 	type_MENUPAGE *page = menu->current_page;
 
-	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn > 0) {
+	if (page->length > MENU_HEIGHT || page->current_posn > 0) {
 		page->current_posn--;
 
 		if (item_grabbed) {
 			INT_SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn + 1)]);
-			display = true;
+			display = TRUE;
 		}
 	}
 
@@ -74,7 +64,7 @@ void menupage_up(type_MENU *menu) {
 		page->current_line--;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -82,70 +72,25 @@ void menupage_up(type_MENU *menu) {
 }
 
 void menupage_down(type_MENU *menu) {
-	int display = false;
 	type_MENUPAGE *page = menu->current_page;
 
-	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn < page->length - 1) {
+	const int height = MIN(MENU_HEIGHT, page->length) - 1;
+	int display = FALSE;
+
+	if (page->length > MENU_HEIGHT || page->current_posn < height) {
 		page->current_posn++;
 
 		if (item_grabbed) {
 			INT_SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn - 1)]);
-			display = true;
+			display = TRUE;
 		}
 	}
 
-	if (page->current_line < MIN(MENU_HEIGHT, page->length) - 1) {
+	if (page->current_line < height) {
 		page->current_line++;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
-	}
-
-	if (display)
-		menu_event_display();
-}
-
-void menupage_pgup(type_MENU *menu) {
-	int display = false;
-	type_MENUPAGE *page = menu->current_page;
-
-	if (item_grabbed)
-		return;
-
-	page->current_posn -= MENU_HEIGHT - 1;
-
-	if (! (page->length > MENU_HEIGHT && settings.menu_wrap))
-		page->current_posn = MAX(page->current_posn, 0);
-
-	if (page->current_line > 0) {
-		page->current_line = 0;
-		menu_highlight(page->current_line);
-	} else {
-		display = true;
-	}
-
-	if (display)
-		menu_event_display();
-}
-
-void menupage_pgdown(type_MENU *menu) {
-	int display = false;
-	type_MENUPAGE *page = menu->current_page;
-
-	if (item_grabbed)
-		return;
-
-	page->current_posn += MENU_HEIGHT - 1;
-
-	if (! (page->length > MENU_HEIGHT && settings.menu_wrap)) {
-		page->current_posn = MIN(page->current_posn, page->length - 1);
-	}
-
-	if (page->current_line < MIN(MENU_HEIGHT, page->length) - 1) {
-		page->current_line = MIN(MENU_HEIGHT, page->length) - 1;
-		menu_highlight(page->current_line);
-	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -157,7 +102,7 @@ void menupage_drag_drop(type_MENU *menu) {
 
 	if (page->ordering) {
 		item_grabbed  = ! item_grabbed;
-		menu->changed = true;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }
@@ -187,7 +132,7 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 
 		if (page->rename) {
 			message[i++] = '1' + get_real_id(page, item_id);
-			message[i++] = ':';
+			message[i++] = ' ';
 		}
 
 		if (item->action)

@@ -1,16 +1,10 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef UTILS_H_
 #define UTILS_H_
 
-#include <sys/types.h>
-
 // it's slow
 #undef FGETS_USE_SLOW
+
+#include "types.h"
 
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     5
@@ -18,6 +12,39 @@
 #define RELEASE_WAIT    250
 
 #define SHUTTER_LAG     125
+
+extern int ev_normalize(int ev);
+extern int ev_sgn(int ev);
+extern int ev_inc(int ev);
+extern int ev_dec(int ev);
+extern int ev_add(int ying, int yang);
+extern int ev_sub(int ying, int yang);
+
+extern int ev_normalize(int ev);
+
+extern int av_inc(int ev);
+extern int av_dec(int ev);
+extern int av_add(int ying, int yang);
+extern int av_sub(int ying, int yang);
+
+extern int tv_next(int ev);
+extern int tv_prev(int ev);
+extern int tv_inc(int ev);
+extern int tv_dec(int ev);
+extern int tv_add(int ying, int yang);
+extern int tv_sub(int ying, int yang);
+
+extern int iso_roll(int iso);
+extern int iso_next(int iso);
+extern int iso_prev(int iso);
+extern int iso_inc(int iso);
+extern int iso_dec(int iso);
+
+extern void ev_print(char *dest, int ev);
+extern void av_print(char *dest, int ev);
+extern void tv_print(char *dest, int ev);
+
+extern void iso_print(char *dest, int code);
 
 extern void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max);
 
@@ -28,7 +55,6 @@ extern void exit_factory_mode();
 extern void start_debug_mode();
 extern void dump_log();
 extern void dump_memory();
-extern void dump_memory_after_5s();
 extern void print_info();
 
 extern int send_to_intercom(int message, int length, int parm);

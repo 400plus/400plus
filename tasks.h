@@ -1,11 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#ifndef ACTIONS_H_
-#define ACTIONS_H_
+#ifndef TASKS_H_
+#define TASKS_H_
 
 extern void start_up();
 
@@ -28,7 +22,7 @@ extern void autoiso();
 extern void autoiso_enable();
 extern void autoiso_disable();
 
-extern void button_jump_action();
-extern void button_trash_action();
+extern void button_jump_task();
+extern void button_trash_task();
 
-#endif
+#endif /* TASKS_H_ */
