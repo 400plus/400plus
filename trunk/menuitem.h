@@ -65,6 +65,8 @@ typedef union {
 	type_MENUITEM_SUBMENU menuitem_submenu;
 } type_MENUITEM_PARM;
 
+typedef void (*itemaction_t)(const type_MENUITEM *item);
+
 struct MENUITEM {
 	int   id;
 	char *name;
@@ -73,8 +75,8 @@ struct MENUITEM {
 	void (*display)(const type_MENUITEM *item, char *buffer, const int length);
 	void (*inc)    (const type_MENUITEM *item, const int repeating);
 	void (*dec)    (const type_MENUITEM *item, const int repeating);
-	void (*action) (const type_MENUITEM *item);
-	void (*change) (const type_MENUITEM *item);
+	itemaction_t   action;
+	itemaction_t   change;
 };
 
 #define MENUITEM_EC(_ID_, _NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \

@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 
+#include "firmware.h"
 #include "macros.h"
 #include "main.h"
 
@@ -23,73 +24,64 @@
 
 void menu_preset_open();
 
-void menupage_preset_load (type_MENU *menu);
-void menupage_preset_save (type_MENU *menu);
+void menupage_preset_action (type_MENU *menu);
 
-void menu_preset_load   (const type_MENUITEM *item);
 void menu_preset_save   (const type_MENUITEM *item);
+void menu_preset_load   (const type_MENUITEM *item);
+void menu_preset_free   (const type_MENUITEM *item);
 void menu_preset_rename (const type_MENUITEM *item);
 void menu_preset_delete (const type_MENUITEM *item);
 
 type_MENUITEM preset_1_items[] = {
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(1, "",                  NULL),
 	MENUITEM_LAUNCH(1, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(1, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_2_items[] = {
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(2, "",                  NULL),
 	MENUITEM_LAUNCH(2, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(2, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_3_items[] = {
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(3, "",                  NULL),
 	MENUITEM_LAUNCH(3, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(3, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_4_items[] = {
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(4, "",                  NULL),
 	MENUITEM_LAUNCH(4, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(4, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_5_items[] = {
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(5, "",                  NULL),
 	MENUITEM_LAUNCH(5, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(5, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_6_items[] = {
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(6, "",                  NULL),
 	MENUITEM_LAUNCH(6, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(6, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_7_items[] = {
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(7, "",                  NULL),
 	MENUITEM_LAUNCH(7, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(7, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_8_items[] = {
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(8, "",                  NULL),
 	MENUITEM_LAUNCH(8, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(8, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
 type_MENUITEM preset_9_items[] = {
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_LOAD),   menu_preset_load),
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_SAVE),   menu_preset_save),
+	MENUITEM_LAUNCH(9, "",                  NULL),
 	MENUITEM_LAUNCH(9, LP_WORD(L_I_RENAME), menu_preset_rename),
 	MENUITEM_LAUNCH(9, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
@@ -196,36 +188,57 @@ type_MENUPAGE menupage_presets = {
 	ordering  : presets_config.order,
 	actions   : {
 		[MENU_EVENT_OPEN] = menu_preset_open,
+		[MENU_EVENT_SET ] = menupage_preset_action,
 	}
 };
 
 void menu_preset_open() {
+	int i;
+
 	menupage_presets.highlight        = status.preset_active ? true : false;
 	menupage_presets.highlighted_item = presets_config.last_preset;
 
 	if (status.main_dial_ae == AE_MODE_AUTO)
-		menupage_presets.actions[MENU_EVENT_SET] = menupage_preset_load;
+		for (i=0; i < 9; i++) {
+			if(status.preset_active && i +1 == presets_config.last_preset) {
+				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = LP_WORD(L_I_FREE);
+				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = menu_preset_free;
+			} else {
+				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = LP_WORD(L_I_LOAD);
+				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = menu_preset_load;
+			}
+		}
 	else if (status.main_dial_ae < AE_MODE_AUTO)
-		menupage_presets.actions[MENU_EVENT_SET] = menupage_preset_save;
+		for (i=0; i < 9; i++) {
+			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = LP_WORD(L_I_SAVE);
+			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = menu_preset_save;
+		}
 	else
-		menupage_presets.actions[MENU_EVENT_SET] = NULL;
+		for (i=0; i < 9; i++) {
+			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = "-";
+			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = NULL;
+		}
 }
 
-void menupage_preset_load (type_MENU *menu) {
+void menupage_preset_action(type_MENU *menu) {
 	type_MENUPAGE *page = menu->current_page;
 	type_MENUITEM *item = get_current_item(page);
 
-	menu_preset_load(item);
+	itemaction_t action = item->parm.menuitem_submenu.page->items[0].action;
+
+	if (action)
+		action(item);
 }
 
-void menupage_preset_save (type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
-
-	menu_preset_save(item);
+void menu_preset_save(const type_MENUITEM *item) {
+	if (status.main_dial_ae < AE_MODE_AUTO)
+		if (preset_write(item->id)) {
+			beep();
+			menu_close();
+		}
 }
 
-void menu_preset_load   (const type_MENUITEM *item) {
+void menu_preset_load(const type_MENUITEM *item) {
 	snapshot_t preset;
 
 	if (status.main_dial_ae == AE_MODE_AUTO) {
@@ -243,19 +256,24 @@ void menu_preset_load   (const type_MENUITEM *item) {
 	}
 }
 
-void menu_preset_save   (const type_MENUITEM *item) {
-	if (status.main_dial_ae < AE_MODE_AUTO)
-		if (preset_write(item->id)) {
-			beep();
-			menu_close();
-		}
+void menu_preset_free(const type_MENUITEM *item) {
+	if (status.main_dial_ae == AE_MODE_AUTO) {
+		status.preset_active       = false;
+		presets_config.last_preset = 0;
+
+		send_to_intercom(IC_SET_AE, 1, AE_MODE_AUTO);
+
+		beep();
+		menu_close();
+		presets_write();
+	}
 }
 
-void menu_preset_rename (const type_MENUITEM *item) {
+void menu_preset_rename(const type_MENUITEM *item) {
 	rename_create(presets_config.names[item->id - 1]);
 }
 
-void menu_preset_delete (const type_MENUITEM *item) {
+void menu_preset_delete(const type_MENUITEM *item) {
 	if (preset_delete(item->id)) {
 		beep();
 		menu_close();
