@@ -10,17 +10,17 @@
 #include "menu.h"
 
 struct MENUPAGE {
-	char            *name;
-	int              length;
-	type_MENUITEM   *items;
-	type_MENUACTION  actions[MENU_EVENT_COUNT];
-	int              sibilings;
-	int              rename;
-	int             *ordering;
-	int              highlight;
-	int              highlighted_item;
-	int              current_line;
-	int              current_posn;
+	char           *name;
+	int             length;
+	type_MENUITEM  *items;
+	menuaction_t    actions[MENU_EVENT_COUNT];
+	int             sibilings;
+	int             rename;
+	int            *ordering;
+	int             highlight;
+	int             highlighted_item;
+	int             current_line;
+	int             current_posn;
 };
 
 extern void menupage_initialize(type_MENUPAGE *page);

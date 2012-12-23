@@ -41,8 +41,9 @@
 	LANG_PAIR( I_AF_FLASH,           "AF Flash"           ) \
 	LANG_PAIR( I_MIRROR_LOCKUP,      "Mirror Lockup"      ) \
 	LANG_PAIR( I_FLASH_2ND_CURT,     "Flash 2nd curtain"  ) \
-	LANG_PAIR( I_LOAD,               "Load"               ) \
 	LANG_PAIR( I_SAVE,               "Save"               ) \
+	LANG_PAIR( I_LOAD,               "Load"               ) \
+	LANG_PAIR( I_FREE,               "Free"               ) \
 	LANG_PAIR( I_RENAME,             "Rename"             ) \
 	LANG_PAIR( I_DELETE,             "Delete"             ) \
 	LANG_PAIR( S_AUTOISO,            "AutoISO"            ) \
