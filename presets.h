@@ -19,6 +19,8 @@
 #define PRESETS_FILE    "A:/PRESET_%u"
 #define MODES_FILE      "A:/MODE_%c"
 
+#define PRESET_NONE -1
+
 typedef struct {
 	dpr_data_t   DPData;
 	settings_t   settings;

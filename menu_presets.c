@@ -188,7 +188,7 @@ void menu_preset_open() {
 
 	if (status.main_dial_ae == AE_MODE_AUTO)
 		for (i=0; i < 9; i++) {
-			if(status.preset_active && i +1 == presets_config.last_preset) {
+			if(status.preset_active && i + 1 == presets_config.last_preset) {
 				menupage_preset_items[i][0].name   = LP_WORD(L_I_FREE);
 				menupage_preset_items[i][0].action = menu_preset_free;
 			} else {
@@ -247,7 +247,7 @@ void menu_preset_load(const type_MENUITEM *item) {
 void menu_preset_free(const type_MENUITEM *item) {
 	if (status.main_dial_ae == AE_MODE_AUTO) {
 		status.preset_active       = false;
-		presets_config.last_preset = 0;
+		presets_config.last_preset = PRESET_NONE;
 
 		send_to_intercom(IC_SET_AE, 1, AE_MODE_AUTO);
 
