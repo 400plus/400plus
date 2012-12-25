@@ -86,97 +86,91 @@ type_MENUITEM preset_9_items[] = {
 	MENUITEM_LAUNCH(9, LP_WORD(L_I_DELETE), menu_preset_delete),
 };
 
-type_MENUPAGE menupage_preset_1 = {
-	name    : presets_config.names[0],
-	length  : LENGTH(preset_1_items),
-	items   : preset_1_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_2 = {
-	name    : presets_config.names[1],
-	length  : LENGTH(preset_2_items),
-	items   : preset_2_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_3 = {
-	name    : presets_config.names[2],
-	length  : LENGTH(preset_3_items),
-	items   : preset_3_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_4 = {
-	name    : presets_config.names[3],
-	length  : LENGTH(preset_4_items),
-	items   : preset_4_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_5 = {
-	name    : presets_config.names[4],
-	length  : LENGTH(preset_5_items),
-	items   : preset_5_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_6 = {
-	name    : presets_config.names[5],
-	length  : LENGTH(preset_6_items),
-	items   : preset_6_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_7 = {
-	name    : presets_config.names[6],
-	length  : LENGTH(preset_7_items),
-	items   : preset_7_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_8 = {
-	name    : presets_config.names[7],
-	length  : LENGTH(preset_8_items),
-	items   : preset_8_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
-	}
-};
-
-type_MENUPAGE menupage_preset_9 = {
-	name    : presets_config.names[8],
-	length  : LENGTH(preset_9_items),
-	items   : preset_9_items,
-	actions : {
-		[MENU_EVENT_AV]   = menu_return,
+type_MENUPAGE menupage_preset[] = {
+	{
+		name    : presets_config.names[0],
+		length  : LENGTH(preset_1_items),
+		items   : preset_1_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		},
+	},
+	{
+		name    : presets_config.names[1],
+		length  : LENGTH(preset_2_items),
+		items   : preset_2_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
+	},
+	{
+		name    : presets_config.names[2],
+		length  : LENGTH(preset_3_items),
+		items   : preset_3_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
+	},
+	{
+		name    : presets_config.names[3],
+		length  : LENGTH(preset_4_items),
+		items   : preset_4_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
+	},
+	{
+		name    : presets_config.names[4],
+		length  : LENGTH(preset_5_items),
+		items   : preset_5_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
+	},
+	{
+		name    : presets_config.names[5],
+		length  : LENGTH(preset_6_items),
+		items   : preset_6_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
+	},
+	{
+		name    : presets_config.names[6],
+		length  : LENGTH(preset_7_items),
+		items   : preset_7_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
+	},
+	{
+		name    : presets_config.names[7],
+		length  : LENGTH(preset_8_items),
+		items   : preset_8_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
+	},
+	{
+		name    : presets_config.names[8],
+		length  : LENGTH(preset_9_items),
+		items   : preset_9_items,
+		actions : {
+			[MENU_EVENT_AV]   = menu_return,
+		}
 	}
 };
 
 type_MENUITEM preset_items[] = {
-	MENUITEM_SUBMENU(1, presets_config.names[0], &menupage_preset_1, NULL),
-	MENUITEM_SUBMENU(2, presets_config.names[1], &menupage_preset_2, NULL),
-	MENUITEM_SUBMENU(3, presets_config.names[2], &menupage_preset_3, NULL),
-	MENUITEM_SUBMENU(4, presets_config.names[3], &menupage_preset_4, NULL),
-	MENUITEM_SUBMENU(5, presets_config.names[4], &menupage_preset_5, NULL),
-	MENUITEM_SUBMENU(6, presets_config.names[5], &menupage_preset_6, NULL),
-	MENUITEM_SUBMENU(7, presets_config.names[6], &menupage_preset_7, NULL),
-	MENUITEM_SUBMENU(8, presets_config.names[7], &menupage_preset_8, NULL),
-	MENUITEM_SUBMENU(9, presets_config.names[8], &menupage_preset_9, NULL),
+	MENUITEM_SUBMENU(1, presets_config.names[0], &menupage_preset[0], NULL),
+	MENUITEM_SUBMENU(2, presets_config.names[1], &menupage_preset[1], NULL),
+	MENUITEM_SUBMENU(3, presets_config.names[2], &menupage_preset[2], NULL),
+	MENUITEM_SUBMENU(4, presets_config.names[3], &menupage_preset[3], NULL),
+	MENUITEM_SUBMENU(5, presets_config.names[4], &menupage_preset[4], NULL),
+	MENUITEM_SUBMENU(6, presets_config.names[5], &menupage_preset[5], NULL),
+	MENUITEM_SUBMENU(7, presets_config.names[6], &menupage_preset[6], NULL),
+	MENUITEM_SUBMENU(8, presets_config.names[7], &menupage_preset[7], NULL),
+	MENUITEM_SUBMENU(9, presets_config.names[8], &menupage_preset[8], NULL),
 };
 
 type_MENUPAGE menupage_presets = {
