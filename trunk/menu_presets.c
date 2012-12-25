@@ -32,53 +32,7 @@ void menu_preset_free   (const type_MENUITEM *item);
 void menu_preset_rename (const type_MENUITEM *item);
 void menu_preset_delete (const type_MENUITEM *item);
 
-type_MENUITEM menupage_preset_items[PRESETS_MAX][3] = {
-	{
-		MENUITEM_LAUNCH(0, "",                  NULL),
-		MENUITEM_LAUNCH(0, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(0, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(1, "",                  NULL),
-		MENUITEM_LAUNCH(1, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(1, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(2, "",                  NULL),
-		MENUITEM_LAUNCH(2, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(2, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(3, "",                  NULL),
-		MENUITEM_LAUNCH(3, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(3, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(4, "",                  NULL),
-		MENUITEM_LAUNCH(4, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(4, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(5, "",                  NULL),
-		MENUITEM_LAUNCH(5, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(5, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(6, "",                  NULL),
-		MENUITEM_LAUNCH(6, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(6, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(7, "",                  NULL),
-		MENUITEM_LAUNCH(7, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(7, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(8, "",                  NULL),
-		MENUITEM_LAUNCH(8, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(8, LP_WORD(L_I_DELETE), menu_preset_delete),
-	}
-};
+type_MENUITEM menupage_preset_items[PRESETS_MAX][3];
 
 type_MENUPAGE menupage_preset[PRESETS_MAX] = {
 	{
@@ -186,22 +140,39 @@ void menu_preset_open() {
 	menupage_presets.highlight        = status.preset_active ? true : false;
 	menupage_presets.highlighted_item = presets_config.last_preset;
 
-	for (i=0; i < PRESETS_MAX; i++) {
+	for (i = 0; i < PRESETS_MAX; i++) {
 		if (status.main_dial_ae == AE_MODE_AUTO) {
 			if(status.preset_active && i == presets_config.last_preset) {
-				menupage_preset_items[i][0].name   = LP_WORD(L_I_FREE);
-				menupage_preset_items[i][0].action = menu_preset_free;
+				menupage_preset_items[i][0].id      = i;
+				menupage_preset_items[i][0].display = menuitem_display;
+				menupage_preset_items[i][0].name    = LP_WORD(L_I_FREE);
+				menupage_preset_items[i][0].action  = menu_preset_free;
 			} else {
-				menupage_preset_items[i][0].name   = LP_WORD(L_I_LOAD);
-				menupage_preset_items[i][0].action = menu_preset_load;
+				menupage_preset_items[i][0].id      = i;
+				menupage_preset_items[i][0].display = menuitem_display;
+				menupage_preset_items[i][0].name    = LP_WORD(L_I_LOAD);
+				menupage_preset_items[i][0].action  = menu_preset_load;
 			}
 		} else if (status.main_dial_ae < AE_MODE_AUTO) {
-			menupage_preset_items[i][0].name   = LP_WORD(L_I_SAVE);
-			menupage_preset_items[i][0].action = menu_preset_save;
+			menupage_preset_items[i][0].id      = i;
+			menupage_preset_items[i][0].display = menuitem_display;
+			menupage_preset_items[i][0].name    = LP_WORD(L_I_SAVE);
+			menupage_preset_items[i][0].action  = menu_preset_save;
 		} else {
-			menupage_preset_items[i][0].name   = "-";
-			menupage_preset_items[i][0].action = NULL;
+			menupage_preset_items[i][0].id      = i;
+			menupage_preset_items[i][0].display = menuitem_display;
+			menupage_preset_items[i][0].name    = "-";
 		}
+
+		menupage_preset_items[i][1].id      = i;
+		menupage_preset_items[i][1].display = menuitem_display;
+		menupage_preset_items[i][1].name    = LP_WORD(L_I_RENAME);
+		menupage_preset_items[i][1].action  = menu_preset_rename;
+
+		menupage_preset_items[i][2].id      = i;
+		menupage_preset_items[i][2].display = menuitem_display;
+		menupage_preset_items[i][2].name    = LP_WORD(L_I_DELETE);
+		menupage_preset_items[i][2].action  = menu_preset_delete;
 	}
 }
 
