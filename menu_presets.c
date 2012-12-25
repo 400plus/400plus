@@ -32,7 +32,7 @@ void menu_preset_free   (const type_MENUITEM *item);
 void menu_preset_rename (const type_MENUITEM *item);
 void menu_preset_delete (const type_MENUITEM *item);
 
-type_MENUITEM menupage_preset_items[][3] = {
+type_MENUITEM menupage_preset_items[PRESETS_MAX][3] = {
 	{
 		MENUITEM_LAUNCH(0, "",                  NULL),
 		MENUITEM_LAUNCH(0, LP_WORD(L_I_RENAME), menu_preset_rename),
@@ -80,7 +80,7 @@ type_MENUITEM menupage_preset_items[][3] = {
 	}
 };
 
-type_MENUPAGE menupage_preset[] = {
+type_MENUPAGE menupage_preset[PRESETS_MAX] = {
 	{
 		name    : presets_config.names[0],
 		length  : LENGTH(menupage_preset_items[0]),
@@ -155,7 +155,7 @@ type_MENUPAGE menupage_preset[] = {
 	}
 };
 
-type_MENUITEM preset_items[] = {
+type_MENUITEM preset_items[PRESETS_MAX] = {
 	MENUITEM_SUBMENU(0, presets_config.names[0], &menupage_preset[0], NULL),
 	MENUITEM_SUBMENU(1, presets_config.names[1], &menupage_preset[1], NULL),
 	MENUITEM_SUBMENU(2, presets_config.names[2], &menupage_preset[2], NULL),
