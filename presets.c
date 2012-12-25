@@ -24,7 +24,6 @@ presets_config_t presets_default = {
 	recall_settings : false,
 	recall_image    : true,
 	recall_cfn      : true,
-	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8},
 	last_preset     : PRESET_NONE
 };
 
@@ -46,8 +45,10 @@ void presets_read() {
 
 	presets_config_t buffer;
 
-	for (id = 0; id < 9; id ++)
+	for (id = 0; id < 9; id ++) {
 		sprintf(presets_default.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), 1 + id);
+		presets_default.order[id] = id;
+	}
 
 	presets_config = presets_default;
 
