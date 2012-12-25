@@ -189,22 +189,22 @@ void menu_preset_open() {
 	if (status.main_dial_ae == AE_MODE_AUTO)
 		for (i=0; i < 9; i++) {
 			if(status.preset_active && i +1 == presets_config.last_preset) {
-				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = LP_WORD(L_I_FREE);
-				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = menu_preset_free;
+				menupage_preset_items[i][0].name   = LP_WORD(L_I_FREE);
+				menupage_preset_items[i][0].action = menu_preset_free;
 			} else {
-				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = LP_WORD(L_I_LOAD);
-				menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = menu_preset_load;
+				menupage_preset_items[i][0].name   = LP_WORD(L_I_LOAD);
+				menupage_preset_items[i][0].action = menu_preset_load;
 			}
 		}
 	else if (status.main_dial_ae < AE_MODE_AUTO)
 		for (i=0; i < 9; i++) {
-			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = LP_WORD(L_I_SAVE);
-			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = menu_preset_save;
+			menupage_preset_items[i][0].name   = LP_WORD(L_I_SAVE);
+			menupage_preset_items[i][0].action = menu_preset_save;
 		}
 	else
 		for (i=0; i < 9; i++) {
-			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].name   = "-";
-			menupage_presets.items[i].parm.menuitem_submenu.page->items[0].action = NULL;
+			menupage_preset_items[i][0].name   = "-";
+			menupage_preset_items[i][0].action = NULL;
 		}
 }
 
