@@ -156,15 +156,15 @@ type_MENUPAGE menupage_preset[] = {
 };
 
 type_MENUITEM preset_items[] = {
-	MENUITEM_SUBMENU(1, presets_config.names[0], &menupage_preset[0], NULL),
-	MENUITEM_SUBMENU(2, presets_config.names[1], &menupage_preset[1], NULL),
-	MENUITEM_SUBMENU(3, presets_config.names[2], &menupage_preset[2], NULL),
-	MENUITEM_SUBMENU(4, presets_config.names[3], &menupage_preset[3], NULL),
-	MENUITEM_SUBMENU(5, presets_config.names[4], &menupage_preset[4], NULL),
-	MENUITEM_SUBMENU(6, presets_config.names[5], &menupage_preset[5], NULL),
-	MENUITEM_SUBMENU(7, presets_config.names[6], &menupage_preset[6], NULL),
-	MENUITEM_SUBMENU(8, presets_config.names[7], &menupage_preset[7], NULL),
-	MENUITEM_SUBMENU(9, presets_config.names[8], &menupage_preset[8], NULL),
+	MENUITEM_SUBMENU(0, presets_config.names[0], &menupage_preset[0], NULL),
+	MENUITEM_SUBMENU(1, presets_config.names[1], &menupage_preset[1], NULL),
+	MENUITEM_SUBMENU(2, presets_config.names[2], &menupage_preset[2], NULL),
+	MENUITEM_SUBMENU(3, presets_config.names[3], &menupage_preset[3], NULL),
+	MENUITEM_SUBMENU(4, presets_config.names[4], &menupage_preset[4], NULL),
+	MENUITEM_SUBMENU(5, presets_config.names[5], &menupage_preset[5], NULL),
+	MENUITEM_SUBMENU(6, presets_config.names[6], &menupage_preset[6], NULL),
+	MENUITEM_SUBMENU(7, presets_config.names[7], &menupage_preset[7], NULL),
+	MENUITEM_SUBMENU(8, presets_config.names[8], &menupage_preset[8], NULL),
 };
 
 type_MENUPAGE menupage_presets = {
