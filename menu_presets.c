@@ -34,6 +34,11 @@ void menu_preset_delete (const type_MENUITEM *item);
 
 type_MENUITEM menupage_preset_items[][3] = {
 	{
+		MENUITEM_LAUNCH(0, "",                  NULL),
+		MENUITEM_LAUNCH(0, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(0, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
 		MENUITEM_LAUNCH(1, "",                  NULL),
 		MENUITEM_LAUNCH(1, LP_WORD(L_I_RENAME), menu_preset_rename),
 		MENUITEM_LAUNCH(1, LP_WORD(L_I_DELETE), menu_preset_delete),
@@ -72,11 +77,6 @@ type_MENUITEM menupage_preset_items[][3] = {
 		MENUITEM_LAUNCH(8, "",                  NULL),
 		MENUITEM_LAUNCH(8, LP_WORD(L_I_RENAME), menu_preset_rename),
 		MENUITEM_LAUNCH(8, LP_WORD(L_I_DELETE), menu_preset_delete),
-	},
-	{
-		MENUITEM_LAUNCH(9, "",                  NULL),
-		MENUITEM_LAUNCH(9, LP_WORD(L_I_RENAME), menu_preset_rename),
-		MENUITEM_LAUNCH(9, LP_WORD(L_I_DELETE), menu_preset_delete),
 	}
 };
 
@@ -188,7 +188,7 @@ void menu_preset_open() {
 
 	if (status.main_dial_ae == AE_MODE_AUTO)
 		for (i=0; i < 9; i++) {
-			if(status.preset_active && i + 1 == presets_config.last_preset) {
+			if(status.preset_active && i == presets_config.last_preset) {
 				menupage_preset_items[i][0].name   = LP_WORD(L_I_FREE);
 				menupage_preset_items[i][0].action = menu_preset_free;
 			} else {
@@ -258,7 +258,7 @@ void menu_preset_free(const type_MENUITEM *item) {
 }
 
 void menu_preset_rename(const type_MENUITEM *item) {
-	rename_create(presets_config.names[item->id - 1]);
+	rename_create(presets_config.names[item->id]);
 }
 
 void menu_preset_delete(const type_MENUITEM *item) {

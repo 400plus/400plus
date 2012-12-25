@@ -46,7 +46,7 @@ void presets_read() {
 	presets_config_t buffer;
 
 	for (id = 0; id < 9; id ++) {
-		sprintf(presets_default.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), 1 + id);
+		sprintf(presets_default.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), id);
 		presets_default.order[id] = id;
 	}
 
