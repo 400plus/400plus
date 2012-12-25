@@ -24,7 +24,8 @@ presets_config_t presets_default = {
 	recall_settings : false,
 	recall_image    : true,
 	recall_cfn      : true,
-	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8}
+	order           : {0, 1, 2, 3, 4, 5, 6, 7, 8},
+	last_preset     : PRESET_NONE
 };
 
 presets_config_t presets_config;
@@ -321,7 +322,7 @@ void preset_recall_apply(int full) {
 		break;
 	case AE_MODE_AUTO:
 		// Only if a preset was loaded, and we can read it back
-		if (presets_config.last_preset && preset_read(presets_config.last_preset, &snapshot)) {
+		if (presets_config.last_preset != PRESET_NONE && preset_read(presets_config.last_preset, &snapshot)) {
 			// First revert to AE mode
 			snapshot_recall(&snapshot);
 
