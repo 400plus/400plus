@@ -32,129 +32,123 @@ void menu_preset_free   (const type_MENUITEM *item);
 void menu_preset_rename (const type_MENUITEM *item);
 void menu_preset_delete (const type_MENUITEM *item);
 
-type_MENUITEM preset_1_items[] = {
-	MENUITEM_LAUNCH(1, "",                  NULL),
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(1, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_2_items[] = {
-	MENUITEM_LAUNCH(2, "",                  NULL),
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(2, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_3_items[] = {
-	MENUITEM_LAUNCH(3, "",                  NULL),
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(3, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_4_items[] = {
-	MENUITEM_LAUNCH(4, "",                  NULL),
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(4, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_5_items[] = {
-	MENUITEM_LAUNCH(5, "",                  NULL),
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(5, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_6_items[] = {
-	MENUITEM_LAUNCH(6, "",                  NULL),
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(6, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_7_items[] = {
-	MENUITEM_LAUNCH(7, "",                  NULL),
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(7, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_8_items[] = {
-	MENUITEM_LAUNCH(8, "",                  NULL),
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(8, LP_WORD(L_I_DELETE), menu_preset_delete),
-};
-
-type_MENUITEM preset_9_items[] = {
-	MENUITEM_LAUNCH(9, "",                  NULL),
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_RENAME), menu_preset_rename),
-	MENUITEM_LAUNCH(9, LP_WORD(L_I_DELETE), menu_preset_delete),
+type_MENUITEM menupage_preset_items[][3] = {
+	{
+		MENUITEM_LAUNCH(1, "",                  NULL),
+		MENUITEM_LAUNCH(1, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(1, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(2, "",                  NULL),
+		MENUITEM_LAUNCH(2, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(2, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(3, "",                  NULL),
+		MENUITEM_LAUNCH(3, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(3, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(4, "",                  NULL),
+		MENUITEM_LAUNCH(4, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(4, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(5, "",                  NULL),
+		MENUITEM_LAUNCH(5, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(5, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(6, "",                  NULL),
+		MENUITEM_LAUNCH(6, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(6, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(7, "",                  NULL),
+		MENUITEM_LAUNCH(7, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(7, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(8, "",                  NULL),
+		MENUITEM_LAUNCH(8, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(8, LP_WORD(L_I_DELETE), menu_preset_delete),
+	},
+	{
+		MENUITEM_LAUNCH(9, "",                  NULL),
+		MENUITEM_LAUNCH(9, LP_WORD(L_I_RENAME), menu_preset_rename),
+		MENUITEM_LAUNCH(9, LP_WORD(L_I_DELETE), menu_preset_delete),
+	}
 };
 
 type_MENUPAGE menupage_preset[] = {
 	{
 		name    : presets_config.names[0],
-		length  : LENGTH(preset_1_items),
-		items   : preset_1_items,
+		length  : LENGTH(menupage_preset_items[0]),
+		items   : menupage_preset_items[0],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		},
 	},
 	{
 		name    : presets_config.names[1],
-		length  : LENGTH(preset_2_items),
-		items   : preset_2_items,
+		length  : LENGTH(menupage_preset_items[1]),
+		items   : menupage_preset_items[1],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
 	},
 	{
 		name    : presets_config.names[2],
-		length  : LENGTH(preset_3_items),
-		items   : preset_3_items,
+		length  : LENGTH(menupage_preset_items[2]),
+		items   : menupage_preset_items[2],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
 	},
 	{
 		name    : presets_config.names[3],
-		length  : LENGTH(preset_4_items),
-		items   : preset_4_items,
+		length  : LENGTH(menupage_preset_items[3]),
+		items   : menupage_preset_items[3],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
 	},
 	{
 		name    : presets_config.names[4],
-		length  : LENGTH(preset_5_items),
-		items   : preset_5_items,
+		length  : LENGTH(menupage_preset_items[4]),
+		items   : menupage_preset_items[4],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
 	},
 	{
 		name    : presets_config.names[5],
-		length  : LENGTH(preset_6_items),
-		items   : preset_6_items,
+		length  : LENGTH(menupage_preset_items[5]),
+		items   : menupage_preset_items[5],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
 	},
 	{
 		name    : presets_config.names[6],
-		length  : LENGTH(preset_7_items),
-		items   : preset_7_items,
+		length  : LENGTH(menupage_preset_items[6]),
+		items   : menupage_preset_items[6],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
 	},
 	{
 		name    : presets_config.names[7],
-		length  : LENGTH(preset_8_items),
-		items   : preset_8_items,
+		length  : LENGTH(menupage_preset_items[7]),
+		items   : menupage_preset_items[7],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
 	},
 	{
 		name    : presets_config.names[8],
-		length  : LENGTH(preset_9_items),
-		items   : preset_9_items,
+		length  : LENGTH(menupage_preset_items[8]),
+		items   : menupage_preset_items[8],
 		actions : {
 			[MENU_EVENT_AV]   = menu_return,
 		}
