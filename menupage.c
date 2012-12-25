@@ -180,7 +180,7 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 	if (item) {
 		if (page->ordering && item_grabbed && get_item_id(page, item_id) == get_item_id(page, page->current_posn))
 			message[i++] = '>';
-		else if (page->highlight && page->highlighted_item == 1 + get_real_id(page, item_id))
+		else if (page->highlight && page->highlighted_item == get_real_id(page, item_id))
 			message[i++] = '*';
 		else
 			message[i++] = ' ';
