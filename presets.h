@@ -14,9 +14,10 @@
 #define FILENAME_LENGTH 16
 
 #define PRESETS_VERSION 0x04
-#define PRESETS_CONFIG  "A:/PRESETS"
+#define PRESETS_MAX        9
 
-#define PRESETS_FILE    "A:/PRESET_%u"
+#define PRESETS_CONFIG  "A:/PRESETS"
+#define PRESETS_FILE    "A:/PRESET_%X"
 #define MODES_FILE      "A:/MODE_%c"
 
 #define PRESET_NONE -1
@@ -34,8 +35,8 @@ typedef struct {
 	int  recall_settings;
 	int  recall_image;
 	int  recall_cfn;
-	int  order[9];
-	char names[9][32];
+	int  order[PRESETS_MAX];
+	char names[PRESETS_MAX][32];
 	int  last_preset;
 } presets_config_t;
 
