@@ -45,8 +45,8 @@ void presets_read() {
 
 	presets_config_t buffer;
 
-	for (id = 0; id < 9; id ++) {
-		sprintf(presets_default.names[id], "%s %i", LP_WORD(L_S_PRESET_NAME), id);
+	for (id = 0; id < PRESETS_MAX; id ++) {
+		sprintf(presets_default.names[id], "%s %X", LP_WORD(L_S_PRESET_NAME), id);
 		presets_default.order[id] = id;
 	}
 
@@ -92,7 +92,7 @@ void presets_restore() {
 void presets_delete() {
 	int  id;
 
-	for(id = 0; id < 9; id++)
+	for(id = 0; id < PRESETS_MAX; id++)
 		preset_delete(id);
 }
 

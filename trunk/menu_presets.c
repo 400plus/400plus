@@ -187,7 +187,7 @@ void menu_preset_open() {
 	menupage_presets.highlighted_item = presets_config.last_preset;
 
 	if (status.main_dial_ae == AE_MODE_AUTO)
-		for (i=0; i < 9; i++) {
+		for (i=0; i < PRESETS_MAX; i++) {
 			if(status.preset_active && i == presets_config.last_preset) {
 				menupage_preset_items[i][0].name   = LP_WORD(L_I_FREE);
 				menupage_preset_items[i][0].action = menu_preset_free;
@@ -197,12 +197,12 @@ void menu_preset_open() {
 			}
 		}
 	else if (status.main_dial_ae < AE_MODE_AUTO)
-		for (i=0; i < 9; i++) {
+		for (i=0; i < PRESETS_MAX; i++) {
 			menupage_preset_items[i][0].name   = LP_WORD(L_I_SAVE);
 			menupage_preset_items[i][0].action = menu_preset_save;
 		}
 	else
-		for (i=0; i < 9; i++) {
+		for (i=0; i < PRESETS_MAX; i++) {
 			menupage_preset_items[i][0].name   = "-";
 			menupage_preset_items[i][0].action = NULL;
 		}
