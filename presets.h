@@ -13,8 +13,8 @@
 
 #define FILENAME_LENGTH 16
 
-#define PRESETS_VERSION 0x04
-#define PRESETS_MAX        9
+#define PRESETS_VERSION 0x05
+#define PRESETS_MAX       16
 
 #define PRESETS_CONFIG  "A:/PRESETS"
 #define PRESETS_FILE    "A:/PRESET_%X"
