@@ -41,7 +41,7 @@ type_MENUPAGE menupage_presets = {
 	sibilings : true,
 	length    : LENGTH(preset_items),
 	items     : preset_items,
-	rename    : true,
+	show_id   : true,
 	ordering  : presets_config.order,
 	actions   : {
 		[MENU_EVENT_OPEN] = menu_preset_open,

@@ -15,7 +15,7 @@ struct MENUPAGE {
 	type_MENUITEM  *items;
 	menuaction_t    actions[MENU_EVENT_COUNT];
 	int             sibilings;
-	int             rename;
+	int             show_id;
 	int            *ordering;
 	int             highlight;
 	int             highlighted_item;
