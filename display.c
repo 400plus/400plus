@@ -29,7 +29,7 @@ static dialog_t *countdown_dialog = NULL;
 void restore_display() {
 	SleepTask(100);
 
-	if (FLAG_GUI_MODE == GUIMODE_OLC && DPData.ae < AE_MODE_AUTO)
+	if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae))
 		display_refresh();
 }
 
