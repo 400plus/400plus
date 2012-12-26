@@ -36,17 +36,7 @@ type_MENUITEM menupage_preset_items[PRESETS_MAX][3];
 
 type_MENUPAGE menupage_preset[PRESETS_MAX];
 
-type_MENUITEM preset_items[PRESETS_MAX] = {
-	MENUITEM_SUBMENU(0, presets_config.names[0], &menupage_preset[0], NULL),
-	MENUITEM_SUBMENU(1, presets_config.names[1], &menupage_preset[1], NULL),
-	MENUITEM_SUBMENU(2, presets_config.names[2], &menupage_preset[2], NULL),
-	MENUITEM_SUBMENU(3, presets_config.names[3], &menupage_preset[3], NULL),
-	MENUITEM_SUBMENU(4, presets_config.names[4], &menupage_preset[4], NULL),
-	MENUITEM_SUBMENU(5, presets_config.names[5], &menupage_preset[5], NULL),
-	MENUITEM_SUBMENU(6, presets_config.names[6], &menupage_preset[6], NULL),
-	MENUITEM_SUBMENU(7, presets_config.names[7], &menupage_preset[7], NULL),
-	MENUITEM_SUBMENU(8, presets_config.names[8], &menupage_preset[8], NULL),
-};
+type_MENUITEM preset_items[PRESETS_MAX];
 
 type_MENUPAGE menupage_presets = {
 	name      : LP_WORD(L_P_PRESETS),
@@ -68,7 +58,7 @@ void menu_preset_open() {
 	menupage_presets.highlighted_item = presets_config.last_preset;
 
 	for (i = 0; i < PRESETS_MAX; i++) {
-		// Create irst item in sub-menu: FREE / LOAD / SAVE
+		// Create first item in sub-menu: FREE / LOAD / SAVE
 		if (status.main_dial_ae == AE_MODE_AUTO) {
 			if(status.preset_active && i == presets_config.last_preset) {
 				menupage_preset_items[i][0].id      = i;
@@ -104,12 +94,20 @@ void menu_preset_open() {
 		menupage_preset_items[i][2].name    = LP_WORD(L_I_DELETE);
 		menupage_preset_items[i][2].action  = menu_preset_delete;
 
-		// Configure submenu
+		// Configure sub-menu
 		menupage_preset[i].name    = presets_config.names[i];
 		menupage_preset[i].length  = LENGTH(menupage_preset_items[i]);
 		menupage_preset[i].items   = menupage_preset_items[i];
 
 		menupage_preset[i].actions[MENU_EVENT_AV] = menu_return;
+
+		// Add sub-menu to page
+		preset_items[i].id      = i;
+		preset_items[i].name    = presets_config.names[i];
+		preset_items[i].display = menuitem_display_sub;
+		preset_items[i].inc     = menuitem_inc_sub;
+
+		preset_items[i].parm.menuitem_submenu.page =  &menupage_preset[i];
 	}
 }
 
