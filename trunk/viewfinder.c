@@ -31,7 +31,7 @@ void viewfinder_right() {
 			viewfinder_change_evc(ec_inc(status.ev_comp));
 	} else {
 		// Only for creative modes
-		if (DPData.ae < AE_MODE_AUTO)
+		if (AE_IS_CREATIVE(DPData.ae))
 			viewfinder_change_iso(iso_next(DPData.iso));
 	}
 }
@@ -43,7 +43,7 @@ void viewfinder_left() {
 			viewfinder_change_evc(ec_dec(status.ev_comp));
 	} else {
 		// Only for creative modes
-		if (DPData.ae < AE_MODE_AUTO)
+		if (AE_IS_CREATIVE(DPData.ae))
 			viewfinder_change_iso(iso_prev(DPData.iso));
 	}
 }
@@ -55,7 +55,7 @@ void viewfinder_up() {
 			viewfinder_change_evc(0x00);
 	} else {
 		// Only for creative modes
-		if (DPData.ae < AE_MODE_AUTO)
+		if (AE_IS_CREATIVE(DPData.ae))
 			viewfinder_display_iso(DPData.iso);
 	}
 }

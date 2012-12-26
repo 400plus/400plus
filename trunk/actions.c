@@ -119,7 +119,7 @@ void set_whitebalance_colortemp() {
 }
 
 void set_intermediate_iso() {
-	if (DPData.ae < AE_MODE_AUTO) {
+	if (AE_IS_CREATIVE(DPData.ae)) {
 		send_to_intercom(IC_SET_ISO, 2, iso_roll(DPData.iso));
 		print_icu_info();
 		display_refresh();
@@ -129,7 +129,7 @@ void set_intermediate_iso() {
 void toggle_img_format() {
 	static int first_call = true;
 
-	if (!first_call && DPData.ae >= AE_MODE_AUTO) {
+	if (!first_call && AE_IS_AUTO(DPData.ae)) {
 		switch(DPData.img_format) {
 		case IMG_FORMAT_JPG:
 			send_to_intercom(IC_SET_IMG_FORMAT, 1, IMG_FORMAT_RAW);

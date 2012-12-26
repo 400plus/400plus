@@ -325,7 +325,7 @@ void action_ext_aeb() {
 			if (!can_continue())
 				break;
 		}
-	} else if (DPData.ae < AE_MODE_AUTO) {
+	} else if (AE_IS_CREATIVE(DPData.ae)) {
 		int tv_inc, av_inc;
 		int tv_dec, av_dec;
 
