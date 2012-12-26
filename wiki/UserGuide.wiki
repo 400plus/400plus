@@ -340,6 +340,7 @@ Currently 400plus supports nine (9) languages:
   * Finnish
   * French
   * German
+  * Hungarian
   * Italian
   * Polish
   * Russian
