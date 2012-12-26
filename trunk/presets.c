@@ -313,19 +313,13 @@ void preset_recall_apply(int full) {
 
 	snapshot_t snapshot;
 
-	switch(status.main_dial_ae) {
-	case AE_MODE_P:
-	case AE_MODE_TV:
-	case AE_MODE_AV:
-	case AE_MODE_M:
-	case AE_MODE_ADEP:
+	if(AE_IS_CREATIVE(status.main_dial_ae)) {
 		// Try to find a mode file, and load it
 		if (mode_read(status.main_dial_ae, &snapshot)) {
 			mode_delete(status.main_dial_ae);
 			snapshot_apply(&snapshot);
 		}
-		break;
-	case AE_MODE_AUTO:
+	} else {
 		// Only if a preset was loaded, and we can read it back
 		if (current_preset != PRESET_NONE && preset_read(current_preset, &snapshot)) {
 			// First revert to AE mode
@@ -343,9 +337,6 @@ void preset_recall_apply(int full) {
 			// Well, looks like we did recall a preset after all
 			preset_active = true;
 		}
-		break;
-	default:
-		break;
 	}
 
 	// Update current status
@@ -379,6 +370,7 @@ void get_mode_filename(char *filename, AE_MODE ae_mode) {
 		id = 'D';
 		break;
 	default:
+		// This should never happen...
 		id = 'X';
 		break;
 	}
@@ -387,7 +379,7 @@ void get_mode_filename(char *filename, AE_MODE ae_mode) {
 }
 
 int get_current_preset() {
-	if (status.main_dial_ae <= AE_MODE_AUTO)
+	if (AE_IS_AUTO(status.main_dial_ae))
 		return presets_config.assign[status.main_dial_ae - AE_MODE_AUTO];
 	else
 		return PRESET_NONE;
@@ -396,7 +388,7 @@ int get_current_preset() {
 void set_current_preset(int preset) {
 	status.preset_active = (preset != PRESET_NONE);
 
-	if (status.main_dial_ae <= AE_MODE_AUTO)
+	if (AE_IS_AUTO(status.main_dial_ae))
 		presets_config.assign[status.main_dial_ae - AE_MODE_AUTO] = preset;
 }
 
