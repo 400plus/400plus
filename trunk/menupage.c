@@ -185,8 +185,8 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 		else
 			message[i++] = ' ';
 
-		if (page->rename) {
-			sprintf(message + i, "%X:", get_real_id(page, item_id));
+		if (page->show_id) {
+			sprintf(message + i, "%X:", item->id);
 			i += 2;
 		}
 
