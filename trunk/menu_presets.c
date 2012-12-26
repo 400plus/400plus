@@ -24,8 +24,6 @@
 
 void menu_preset_open();
 
-void menupage_preset_action (type_MENU *menu);
-
 void menu_preset_save   (const type_MENUITEM *item);
 void menu_preset_load   (const type_MENUITEM *item);
 void menu_preset_free   (const type_MENUITEM *item);
@@ -47,7 +45,6 @@ type_MENUPAGE menupage_presets = {
 	ordering  : presets_config.order,
 	actions   : {
 		[MENU_EVENT_OPEN] = menu_preset_open,
-		[MENU_EVENT_SET ] = menupage_preset_action,
 	}
 };
 
@@ -106,19 +103,10 @@ void menu_preset_open() {
 		preset_items[i].name    = presets_config.names[i];
 		preset_items[i].display = menuitem_display_sub;
 		preset_items[i].inc     = menuitem_inc_sub;
+		preset_items[i].action  = menupage_preset_items[i][0].action;
 
 		preset_items[i].parm.menuitem_submenu.page =  &menupage_preset[i];
 	}
-}
-
-void menupage_preset_action(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
-
-	itemaction_t action = item->parm.menuitem_submenu.page->items[0].action;
-
-	if (action)
-		action(item);
 }
 
 void menu_preset_save(const type_MENUITEM *item) {
