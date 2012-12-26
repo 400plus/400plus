@@ -294,4 +294,7 @@ typedef enum {
 extern int permit_or_inhibit_release(int);
 extern int able_to_release(); // checks the "is_release_permitted" and "BurstCounter", return 1 if we can shoot
 
+#define AE_IS_AUTO(ae)     (ae) >= AE_MODE_AUTO
+#define AE_IS_CREATIVE(ae) (ae) <  AE_MODE_AUTO
+
 #endif

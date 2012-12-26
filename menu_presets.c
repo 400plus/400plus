@@ -57,7 +57,7 @@ void menu_preset_open() {
 
 	for (i = 0; i < PRESETS_MAX; i++) {
 		// Create first item in sub-menu: FREE / LOAD / SAVE
-		if (status.main_dial_ae == AE_MODE_AUTO) {
+		if (AE_IS_AUTO(status.main_dial_ae)) {
 			if(status.preset_active && i == current_preset) {
 				menupage_preset_items[i][0].id      = i;
 				menupage_preset_items[i][0].display = menuitem_display;
@@ -69,15 +69,11 @@ void menu_preset_open() {
 				menupage_preset_items[i][0].name    = LP_WORD(L_I_LOAD);
 				menupage_preset_items[i][0].action  = menu_preset_load;
 			}
-		} else if (status.main_dial_ae < AE_MODE_AUTO) {
+		} else {
 			menupage_preset_items[i][0].id      = i;
 			menupage_preset_items[i][0].display = menuitem_display;
 			menupage_preset_items[i][0].name    = LP_WORD(L_I_SAVE);
 			menupage_preset_items[i][0].action  = menu_preset_save;
-		} else {
-			menupage_preset_items[i][0].id      = i;
-			menupage_preset_items[i][0].display = menuitem_display;
-			menupage_preset_items[i][0].name    = "-";
 		}
 
 		// Create second item in sub-menu: RENAME
@@ -111,7 +107,7 @@ void menu_preset_open() {
 }
 
 void menu_preset_save(const type_MENUITEM *item) {
-	if (status.main_dial_ae < AE_MODE_AUTO)
+	if (AE_IS_CREATIVE(status.main_dial_ae))
 		if (preset_write(item->id)) {
 			beep();
 			menu_close();
@@ -121,7 +117,7 @@ void menu_preset_save(const type_MENUITEM *item) {
 void menu_preset_load(const type_MENUITEM *item) {
 	snapshot_t preset;
 
-	if (status.main_dial_ae == AE_MODE_AUTO) {
+	if (AE_IS_AUTO(status.main_dial_ae)) {
 		if (preset_read(item->id, &preset)) {
 			snapshot_recall(&preset);
 			snapshot_apply (&preset);
@@ -136,7 +132,7 @@ void menu_preset_load(const type_MENUITEM *item) {
 }
 
 void menu_preset_free(const type_MENUITEM *item) {
-	if (status.main_dial_ae == AE_MODE_AUTO) {
+	if (AE_IS_AUTO(status.main_dial_ae)) {
 		set_current_preset(PRESET_NONE);
 
 		send_to_intercom(IC_SET_AE, 1, AE_MODE_AUTO);
