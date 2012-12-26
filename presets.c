@@ -24,7 +24,6 @@ presets_config_t presets_default = {
 	recall_settings : false,
 	recall_image    : true,
 	recall_cfn      : true,
-	last_preset     : PRESET_NONE
 };
 
 presets_config_t presets_config;
@@ -48,6 +47,10 @@ void presets_read() {
 	for (id = 0; id < PRESETS_MAX; id ++) {
 		sprintf(presets_default.names[id], "%s %X", LP_WORD(L_S_PRESET_NAME), id);
 		presets_default.order[id] = id;
+	}
+
+	for (id = 0; id < PRESETS_MODES; id ++) {
+		presets_default.assign[id] = PRESET_NONE;
 	}
 
 	presets_config = presets_default;
@@ -305,7 +308,8 @@ void preset_apply() {
 }
 
 void preset_recall_apply(int full) {
-	int preset_active = false;
+	int preset_active  = false;
+	int current_preset = get_current_preset();
 
 	snapshot_t snapshot;
 
@@ -323,7 +327,7 @@ void preset_recall_apply(int full) {
 		break;
 	case AE_MODE_AUTO:
 		// Only if a preset was loaded, and we can read it back
-		if (presets_config.last_preset != PRESET_NONE && preset_read(presets_config.last_preset, &snapshot)) {
+		if (current_preset != PRESET_NONE && preset_read(current_preset, &snapshot)) {
 			// First revert to AE mode
 			snapshot_recall(&snapshot);
 
@@ -381,3 +385,18 @@ void get_mode_filename(char *filename, AE_MODE ae_mode) {
 
 	sprintf(filename, MODES_FILE, id);
 }
+
+int get_current_preset() {
+	if (status.main_dial_ae <= AE_MODE_AUTO)
+		return presets_config.assign[status.main_dial_ae - AE_MODE_AUTO];
+	else
+		return PRESET_NONE;
+}
+
+void set_current_preset(int preset) {
+	status.preset_active = (preset != PRESET_NONE);
+
+	if (status.main_dial_ae <= AE_MODE_AUTO)
+		presets_config.assign[status.main_dial_ae - AE_MODE_AUTO] = preset;
+}
+

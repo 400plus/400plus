@@ -13,8 +13,9 @@
 
 #define FILENAME_LENGTH 16
 
-#define PRESETS_VERSION 0x05
+#define PRESETS_VERSION 0x06
 #define PRESETS_MAX       16
+#define PRESETS_MODES      7
 
 #define PRESETS_CONFIG  "A:/PRESETS"
 #define PRESETS_FILE    "A:/PRESET_%X"
@@ -37,7 +38,7 @@ typedef struct {
 	int  recall_cfn;
 	int  order[PRESETS_MAX];
 	char names[PRESETS_MAX][32];
-	int  last_preset;
+	int  assign[PRESETS_MODES];
 } presets_config_t;
 
 extern presets_config_t presets_config;
@@ -60,5 +61,8 @@ extern void snapshot_apply  ();
 
 extern void preset_recall ();
 extern void preset_apply  ();
+
+extern int  get_current_preset();
+extern void set_current_preset(int preset);
 
 #endif /* PRESETS_H_ */

@@ -50,14 +50,15 @@ type_MENUPAGE menupage_presets = {
 
 void menu_preset_open() {
 	int i;
+	int current_preset = get_current_preset();
 
-	menupage_presets.highlight        = status.preset_active ? true : false;
-	menupage_presets.highlighted_item = presets_config.last_preset;
+	menupage_presets.highlight        = status.preset_active;
+	menupage_presets.highlighted_item = current_preset;
 
 	for (i = 0; i < PRESETS_MAX; i++) {
 		// Create first item in sub-menu: FREE / LOAD / SAVE
 		if (status.main_dial_ae == AE_MODE_AUTO) {
-			if(status.preset_active && i == presets_config.last_preset) {
+			if(status.preset_active && i == current_preset) {
 				menupage_preset_items[i][0].id      = i;
 				menupage_preset_items[i][0].display = menuitem_display;
 				menupage_preset_items[i][0].name    = LP_WORD(L_I_FREE);
@@ -125,8 +126,7 @@ void menu_preset_load(const type_MENUITEM *item) {
 			snapshot_recall(&preset);
 			snapshot_apply (&preset);
 
-			status.preset_active       = true;
-			presets_config.last_preset = item->id;
+			set_current_preset(item->id);
 
 			beep();
 			menu_close();
@@ -137,8 +137,7 @@ void menu_preset_load(const type_MENUITEM *item) {
 
 void menu_preset_free(const type_MENUITEM *item) {
 	if (status.main_dial_ae == AE_MODE_AUTO) {
-		status.preset_active       = false;
-		presets_config.last_preset = PRESET_NONE;
+		set_current_preset(PRESET_NONE);
 
 		send_to_intercom(IC_SET_AE, 1, AE_MODE_AUTO);
 
