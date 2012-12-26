@@ -34,80 +34,7 @@ void menu_preset_delete (const type_MENUITEM *item);
 
 type_MENUITEM menupage_preset_items[PRESETS_MAX][3];
 
-type_MENUPAGE menupage_preset[PRESETS_MAX] = {
-	{
-		name    : presets_config.names[0],
-		length  : LENGTH(menupage_preset_items[0]),
-		items   : menupage_preset_items[0],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		},
-	},
-	{
-		name    : presets_config.names[1],
-		length  : LENGTH(menupage_preset_items[1]),
-		items   : menupage_preset_items[1],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	},
-	{
-		name    : presets_config.names[2],
-		length  : LENGTH(menupage_preset_items[2]),
-		items   : menupage_preset_items[2],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	},
-	{
-		name    : presets_config.names[3],
-		length  : LENGTH(menupage_preset_items[3]),
-		items   : menupage_preset_items[3],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	},
-	{
-		name    : presets_config.names[4],
-		length  : LENGTH(menupage_preset_items[4]),
-		items   : menupage_preset_items[4],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	},
-	{
-		name    : presets_config.names[5],
-		length  : LENGTH(menupage_preset_items[5]),
-		items   : menupage_preset_items[5],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	},
-	{
-		name    : presets_config.names[6],
-		length  : LENGTH(menupage_preset_items[6]),
-		items   : menupage_preset_items[6],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	},
-	{
-		name    : presets_config.names[7],
-		length  : LENGTH(menupage_preset_items[7]),
-		items   : menupage_preset_items[7],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	},
-	{
-		name    : presets_config.names[8],
-		length  : LENGTH(menupage_preset_items[8]),
-		items   : menupage_preset_items[8],
-		actions : {
-			[MENU_EVENT_AV]   = menu_return,
-		}
-	}
-};
+type_MENUPAGE menupage_preset[PRESETS_MAX];
 
 type_MENUITEM preset_items[PRESETS_MAX] = {
 	MENUITEM_SUBMENU(0, presets_config.names[0], &menupage_preset[0], NULL),
@@ -141,6 +68,7 @@ void menu_preset_open() {
 	menupage_presets.highlighted_item = presets_config.last_preset;
 
 	for (i = 0; i < PRESETS_MAX; i++) {
+		// Create irst item in sub-menu: FREE / LOAD / SAVE
 		if (status.main_dial_ae == AE_MODE_AUTO) {
 			if(status.preset_active && i == presets_config.last_preset) {
 				menupage_preset_items[i][0].id      = i;
@@ -164,15 +92,24 @@ void menu_preset_open() {
 			menupage_preset_items[i][0].name    = "-";
 		}
 
+		// Create second item in sub-menu: RENAME
 		menupage_preset_items[i][1].id      = i;
 		menupage_preset_items[i][1].display = menuitem_display;
 		menupage_preset_items[i][1].name    = LP_WORD(L_I_RENAME);
 		menupage_preset_items[i][1].action  = menu_preset_rename;
 
+		// Create third item in sub-menu: DELETE
 		menupage_preset_items[i][2].id      = i;
 		menupage_preset_items[i][2].display = menuitem_display;
 		menupage_preset_items[i][2].name    = LP_WORD(L_I_DELETE);
 		menupage_preset_items[i][2].action  = menu_preset_delete;
+
+		// Configure submenu
+		menupage_preset[i].name    = presets_config.names[i];
+		menupage_preset[i].length  = LENGTH(menupage_preset_items[i]);
+		menupage_preset[i].items   = menupage_preset_items[i];
+
+		menupage_preset[i].actions[MENU_EVENT_AV] = menu_return;
 	}
 }
 
