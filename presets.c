@@ -215,8 +215,7 @@ int snapshot_delete(char *name) {
 }
 
 void snapshot_recall(snapshot_t *snapshot) {
-	if (presets_config.recall_camera)
-		send_to_intercom(IC_SET_AE, 1, snapshot->DPData.ae);
+	send_to_intercom(IC_SET_AE, 1, snapshot->DPData.ae);
 }
 
 void snapshot_apply(snapshot_t *snapshot) {
