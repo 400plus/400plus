@@ -37,20 +37,24 @@ The following steps prepare a card to contain `400plus`  and be recognized by th
     * *Mac*: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
     * *Linux*: use the direct method (below) or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version).
     * *Direct method* for Linux, Mac, and Windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
-      * FAT12 / FAT16 (CF cards up to 2GB)
+      * Find the device corresponding to your CF card (produces a list of devices, to see where your CF card is; easy way to find it is to match the size):
 {{{
-  dev=/dev/sdX1 # replace sdX1 with your CF device (first partition)
+  sudo fdisk -l
+}}}
+      * FAT12 / FAT16 (CF cards up to 2GB) (replace sdX1 with the name of the device corresponding to the first partition of your CF device):
+{{{
+  dev=/dev/sdX1
   echo EOS_DEVELOP | dd of="$dev" bs=1 seek=43 count=11
   echo BOOTDISK | dd of="$dev" bs=1 seek=64 count=8
 }}}
-      * FAT32 (CF cards 4GB or larger)
+      * FAT32 (CF cards 4GB or larger) (replace sdX1 with the name of the device corresponding to the first partition of your CF device):
 {{{
-  dev=/dev/sdX1 # replace sdX1 with your CF device (first partition)
+  dev=/dev/sdX1
   echo EOS_DEVELOP | dd of="$dev" bs=1 seek=71 count=11
   echo BOOTDISK | dd of="$dev" bs=1 seek=92 count=8
 }}}
       * exFAT
-        This is not going to work directly, because the sector checksums needs to be calculated and written back after writing the strings. Use the above methods.
+            This is not going to work directly, because the sector checksums needs to be calculated and written back after writing the strings. Use the above methods.
   #. Download the [http://code.google.com/p/400plus/downloads/list latest autoexec.bin], extract it, and copy to CF. 
   #. Put the languages.ini on the CF too, if you want support for additional languages.
   #. Insert the CF into camera... and you are done!
