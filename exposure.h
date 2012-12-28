@@ -30,6 +30,11 @@ typedef unsigned char iso_t;
 #define TV_MIN EV_CODE( 2, 0)  // 30"
 #define TV_MAX EV_CODE(23, 0)  // 1/4000s
 
+// We use a special "BULB" code to store large values for the EAEB script
+#define TV_BULB(code) ((code) + 0100)               // From Tv values to BULB values
+#define BULB_TV(code) ((code) - 0100)               // From BULB values to Tv values
+#define BULB_MN(code) (1 << ((0110 - code) / 0010)) // From BULB values to minutes
+
 #define BULB_MIN 0040  // 30'
 #define BULB_MAX 0330  // 1/4000s
 

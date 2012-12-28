@@ -11,6 +11,7 @@
 #include "main.h"
 #include "firmware.h"
 
+#include "exposure.h"
 #include "utils.h"
 
 #include "settings.h"
@@ -18,19 +19,19 @@
 settings_t settings_default = {
 	use_dpad         : true,
 	autoiso_enable   : false,
-	autoiso_miniso   : 0x48, // ISO100
-	autoiso_maxiso   : 0x68, // ISO1600
-	autoiso_mintv    : 0x68, // 1/60s
-	autoiso_maxav    : 0x28, // f/4.0
+	autoiso_miniso   : ISO_MIN, // ISO100
+	autoiso_maxiso   : ISO_MAX, // ISO1600
+	autoiso_mintv    : EV_CODE(13, 0), // 1/60s
+	autoiso_maxav    : EV_CODE( 5, 0), // f/4.0
 	eaeb_delay       : false,
 	eaeb_frames      : 3,
-	eaeb_ev          : 0x08, // 1EV
-	eaeb_tv_min      : 0x78, // 1/250s
-	eaeb_tv_max      : 0x68, // 1/60s
+	eaeb_ev          : EV_CODE( 1, 0), // 1EV
+	eaeb_tv_min      : TV_BULB(EV_CODE(15, 0)), // 1/250s
+	eaeb_tv_max      : TV_BULB(EV_CODE(13, 0)), // 1/60s
 	eaeb_direction   : EAEB_DIRECTION_BOTH,
 	efl_aeb_delay    : false,
 	efl_aeb_frames   : 3,
-	efl_aeb_ev       : 0x08, // 1EV
+	efl_aeb_ev       : EV_CODE( 1, 0), // 1EV
 	efl_aeb_direction: EAEB_DIRECTION_BOTH,
 	iso_aeb_delay    : false,
 	iso_aeb          : {true, true, true, true, true},

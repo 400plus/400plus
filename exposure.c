@@ -266,9 +266,9 @@ void tv_print(char *dest, tv_t tv) {
 
 void bulb_print(char *dest, tv_t tv) {
 	if (tv < 0120)
-		sprintf(dest, "%2i'", 1 << ((0110 - tv) / 0010));
+		sprintf(dest, "%2i'", BULB_MN(tv));
 	else
-		tv_print(dest, tv - 0100);
+		tv_print(dest, BULB_TV(tv));
 }
 
 /* ISO related --------------------------------------------------------- */
