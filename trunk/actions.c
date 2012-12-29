@@ -12,6 +12,7 @@
 #include "firmware.h"
 
 #include "bmp.h"
+#include "cmodes.h"
 #include "debug.h"
 #include "display.h"
 #include "exposure.h"
@@ -20,7 +21,6 @@
 #include "menu_main.h"
 #include "scripts.h"
 #include "settings.h"
-#include "snapshots.h"
 #include "utils.h"
 
 #include "actions.h"

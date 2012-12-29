@@ -7,6 +7,7 @@
 #include "macros.h"
 #include "firmware.h"
 
+#include "cmodes.h"
 #include "languages.h"
 #include "menu.h"
 #include "menupage.h"

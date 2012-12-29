@@ -13,12 +13,12 @@
 #include "actions.h"
 #include "af_patterns.h"
 #include "button.h"
+#include "cmodes.h"
 #include "display.h"
 #include "languages.h"
 #include "menu.h"
 #include "menu_main.h"
 #include "menu_rename.h"
-#include "snapshots.h"
 #include "utils.h"
 #include "viewfinder.h"
 

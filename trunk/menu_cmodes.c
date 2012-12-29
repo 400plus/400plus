@@ -10,6 +10,7 @@
 #include "macros.h"
 #include "main.h"
 
+#include "cmodes.h"
 #include "display.h"
 #include "languages.h"
 #include "menu.h"
@@ -17,7 +18,6 @@
 #include "menuitem.h"
 #include "menu_rename.h"
 #include "menu_settings.h"
-#include "snapshots.h"
 #include "utils.h"
 
 #include "menu_cmodes.h"
