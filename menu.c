@@ -13,7 +13,7 @@
 #include "languages.h"
 #include "menupage.h"
 #include "menuitem.h"
-#include "presets.h"
+#include "snapshots.h"
 #include "utils.h"
 #include "debug.h"
 

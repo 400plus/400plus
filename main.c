@@ -10,6 +10,7 @@
 #include "macros.h"
 #include "firmware.h"
 
+#include "actions.h"
 #include "af_patterns.h"
 #include "button.h"
 #include "display.h"
@@ -17,8 +18,7 @@
 #include "menu.h"
 #include "menu_main.h"
 #include "menu_rename.h"
-#include "presets.h"
-#include "actions.h"
+#include "snapshots.h"
 #include "utils.h"
 #include "viewfinder.h"
 
@@ -242,7 +242,7 @@ int proxy_settings0(char *message) {
 		if (first)
 			first = false;
 		else
-			enqueue_action(preset_apply);
+			enqueue_action(cmode_apply);
 	}
 
 	return false;
@@ -268,7 +268,7 @@ int proxy_dial(char *message) {
 	if (first) {
 		first = false;
 		enqueue_action(start_up);
-		enqueue_action(preset_recall);
+		enqueue_action(cmode_recall);
 	} else {
 		status.main_dial_moved = true;
 	}

@@ -13,8 +13,8 @@
 
 #include "bmp.h"
 #include "exposure.h"
-#include "presets.h"
 #include "settings.h"
+#include "snapshots.h"
 #include "utils.h"
 
 #include "display.h"
@@ -157,8 +157,8 @@ void display_brightness() {
 }
 
 void display_overlay() {
-	int current_preset = get_current_preset();
+	int current_cmode = get_current_cmode();
 
-	if (status.preset_active && current_preset != PRESET_NONE)
-		bmp_printf(FONT_SMALL, 16, 96, "%s", presets_config.names[current_preset]);
+	if (status.cmode_active && current_cmode != CMODE_NONE)
+		bmp_printf(FONT_SMALL, 16, 96, "%s", cmodes_config.names[current_cmode]);
 }

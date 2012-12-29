@@ -11,14 +11,14 @@
 #include "menu.h"
 #include "menupage.h"
 #include "menuitem.h"
+#include "menu_cmodes.h"
 #include "menu_developer.h"
 #include "menu_info.h"
 #include "menu_params.h"
-#include "menu_presets.h"
 #include "menu_scripts.h"
 #include "menu_settings.h"
-#include "presets.h"
 #include "settings.h"
+#include "snapshots.h"
 #include "utils.h"
 
 #include "menu_main.h"
@@ -38,7 +38,7 @@ type_MENUPAGE *menu_main_pages[] = {
 	[MENUPAGE_SCRIPTS]  = &menupage_scripts,
 	[MENUPAGE_INFO]     = &menupage_info,
 	[MENUPAGE_SETTINGS] = &menupage_settings,
-	[MENUPAGE_PRESETS]  = &menupage_presets,
+	[MENUPAGE_CMODES]   = &menupage_cmodes,
 };
 
 type_MENU menu_main = {
@@ -70,7 +70,7 @@ type_MENUITEM main_list_items[] = {
 	[MENUPAGE_SCRIPTS]  = MENUITEM_PAGE(0, LP_WORD(L_P_SCRIPTS)),
 	[MENUPAGE_INFO]     = MENUITEM_PAGE(0, LP_WORD(L_P_INFO)),
 	[MENUPAGE_SETTINGS] = MENUITEM_PAGE(0, LP_WORD(L_P_SETTINGS)),
-	[MENUPAGE_PRESETS]  = MENUITEM_PAGE(0, LP_WORD(L_P_PRESETS)),
+	[MENUPAGE_CMODES]   = MENUITEM_PAGE(0, LP_WORD(L_P_PRESETS)),
 };
 
 type_MENUPAGE main_list = {
@@ -107,7 +107,7 @@ void menu_main_save(type_MENU *menu) {
 
 	if (menu->changed) {
 		settings_write();
-		presets_write();
+		cmodes_write();
 		lang_pack_config();
 	}
 }
