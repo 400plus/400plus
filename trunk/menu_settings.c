@@ -14,8 +14,8 @@
 #include "menu.h"
 #include "menupage.h"
 #include "menuitem.h"
-#include "presets.h"
 #include "settings.h"
+#include "snapshots.h"
 #include "utils.h"
 
 #include "menu_settings.h"
@@ -25,8 +25,8 @@ extern char languages_found[MAX_LANGUAGES][LP_MAX_WORD];
 void menu_settings_open();
 
 void menu_restore_settings();
-void menu_restore_presets();
-void menu_delete_presets();
+void menu_restore_cmodes  ();
+void menu_delete_cmodes   ();
 
 void reload_language_and_refresh(const type_MENUITEM *item);
 
@@ -43,13 +43,13 @@ type_MENUITEM buttons_items[] = {
 	MENUITEM_BTNACTN(0, LP_WORD(L_I_BTN_TRASH),   &settings.button_trash, NULL),
 };
 
-type_MENUITEM presets_items[] = {
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_CAMERA),   &presets_config.recall_camera,   NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_400PLUS),  &presets_config.recall_400plus,  NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_ORDERING), &presets_config.recall_ordering, NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_SETTINGS), &presets_config.recall_settings, NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_IMAGE),    &presets_config.recall_image,    NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_CFN),      &presets_config.recall_cfn,      NULL),
+type_MENUITEM cmodes_items[] = {
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_CAMERA),   &cmodes_config.recall_camera,   NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_400PLUS),  &cmodes_config.recall_400plus,  NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_ORDERING), &cmodes_config.recall_ordering, NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_SETTINGS), &cmodes_config.recall_settings, NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_IMAGE),    &cmodes_config.recall_image,    NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PRESETS_CFN),      &cmodes_config.recall_cfn,      NULL),
 };
 
 type_MENUITEM menus_items[] = {
@@ -69,8 +69,8 @@ type_MENUITEM pages_items[] = {
 
 type_MENUITEM restore_items[] = {
 	MENUITEM_LAUNCH(0, LP_WORD(L_I_RESTORE_SETTINGS), menu_restore_settings),
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_RESTORE_PRESETS),  menu_restore_presets),
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_DELETE_PRESETS),   menu_delete_presets),
+	MENUITEM_LAUNCH(0, LP_WORD(L_I_RESTORE_PRESETS),  menu_restore_cmodes  ),
+	MENUITEM_LAUNCH(0, LP_WORD(L_I_DELETE_PRESETS),   menu_delete_cmodes   ),
 };
 
 type_MENUPAGE scripts_page = {
@@ -91,10 +91,10 @@ type_MENUPAGE buttons_page = {
 	}
 };
 
-type_MENUPAGE presets_page = {
+type_MENUPAGE cmodes_page = {
 	name    : LP_WORD(L_S_PRESETS),
-	length  : LENGTH(presets_items),
-	items   : presets_items,
+	length  : LENGTH(cmodes_items),
+	items   : cmodes_items,
 	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -132,7 +132,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_LANG   (0, LP_WORD(L_I_LANGUAGE),         &settings.language,        reload_language_and_refresh),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_SCRIPTS),          &scripts_page,             NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_BUTTONS),          &buttons_page,             NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_PRESETS),          &presets_page,             NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_PRESETS),          &cmodes_page,             NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_MENUS),            &menus_page,               NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_PAGES),            &pages_page,               NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_I_RESTORE),          &restore_page,             NULL),
@@ -170,14 +170,14 @@ void menu_restore_settings() {
 	beep();
 }
 
-void menu_restore_presets() {
-	presets_restore();
+void menu_restore_cmodes  () {
+	cmodes_restore();
 	menu_return();
 	beep();
 }
 
-void menu_delete_presets() {
-	presets_delete();
+void menu_delete_cmodes   () {
+	cmodes_delete();
 	menu_return();
 	beep();
 }

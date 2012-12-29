@@ -23,7 +23,7 @@ typedef struct {
 	int         iso_in_viewfinder; // ISO is being displayed in the viewfinder
 	int         afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int         main_dial_ae;      // AE mode selected in the main dial
-	int         preset_active;     // There is a preset active
+	int         cmode_active;      // There is a custom mode currently active
 	int         main_dial_moved;   // Main dial has just moved
 	int         measuring;         // Camera is measuring the scene
 	tv_t        measured_tv;       // Shutter speed as proposed by the metering

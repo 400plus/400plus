@@ -18,9 +18,9 @@
 #include "languages.h"
 #include "memspy.h"
 #include "menu_main.h"
-#include "presets.h"
 #include "scripts.h"
 #include "settings.h"
+#include "snapshots.h"
 #include "utils.h"
 
 #include "actions.h"
@@ -41,8 +41,8 @@ void start_up() {
 	// Set current language
 	lang_pack_init();
 
-	// Read presets from file
-	presets_read();
+	// Read custom modes configuration from file
+	cmodes_read();
 
 #if 0
 	// vram testing
