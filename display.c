@@ -12,9 +12,9 @@
 #include "main.h"
 
 #include "bmp.h"
+#include "cmodes.h"
 #include "exposure.h"
 #include "settings.h"
-#include "snapshots.h"
 #include "utils.h"
 
 #include "display.h"

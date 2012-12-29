@@ -9,13 +9,13 @@
 
 #include "macros.h"
 
+#include "cmodes.h"
 #include "display.h"
 #include "languages.h"
 #include "menu.h"
 #include "menupage.h"
 #include "menuitem.h"
 #include "settings.h"
-#include "snapshots.h"
 #include "utils.h"
 
 #include "menu_settings.h"
