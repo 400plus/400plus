@@ -37,7 +37,7 @@ type_MENUPAGE menupage_cmodes_submenus[CMODES_MAX];
 type_MENUITEM menupage_cmodes_items[CMODES_MAX];
 
 type_MENUPAGE menupage_cmodes = {
-	name      : LP_WORD(L_P_PRESETS),
+	name      : LP_WORD(L_P_CMODES),
 	sibilings : true,
 	length    : LENGTH(menupage_cmodes_items),
 	items     : menupage_cmodes_items,
@@ -61,12 +61,12 @@ void menu_cmodes_open() {
 			if(status.cmode_active && i == current_cmode) {
 				menupage_cmodes_subitems[i][0].id      = i;
 				menupage_cmodes_subitems[i][0].display = menuitem_display;
-				menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_FREE);
+				menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_UNASSIGN);
 				menupage_cmodes_subitems[i][0].action  = menu_cmodes_free;
 			} else {
 				menupage_cmodes_subitems[i][0].id      = i;
 				menupage_cmodes_subitems[i][0].display = menuitem_display;
-				menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_LOAD);
+				menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_ASSIGN);
 				menupage_cmodes_subitems[i][0].action  = menu_cmodes_load;
 			}
 		} else {

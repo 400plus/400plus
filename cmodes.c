@@ -46,7 +46,7 @@ void cmodes_read() {
 	cmodes_config_t buffer;
 
 	for (id = 0; id < CMODES_MAX; id ++) {
-		sprintf(cmodes_default.names[id], "%s %X", LP_WORD(L_S_PRESET_NAME), id);
+		sprintf(cmodes_default.names[id], "%s %X", LP_WORD(L_S_CMODE_NAME), id);
 		cmodes_default.order[id] = id;
 	}
 
