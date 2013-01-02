@@ -110,8 +110,9 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
  * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
-    * Restore settings: Restore all settings (but presets) back to default values.
-    * Restore presets: Restore all preset-related configuration back to default values (_notice that presets themselves are not deleted_).
+    * Restore settings: Restore all settings (but custom modes) back to default values.
+    * Restore custom modes: Restore all settings related to custom modes back to default values (_notice that this option does not delete custom modes themselves_).
+    * Delete custom modes: Actually delete all custom modes.
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
     * LCD display: configure the brightness of the LCD display while a script is running.
@@ -125,14 +126,13 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
       * Mirror lock-up: toggle the MLU option on / off.
       * AEB: Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).
     * TRASH: Same as the JUMP button.
- * _*Config. Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
-    * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
-    * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
-    * 400plus: when active (set to Yes), loading a preset recalls `400plus`' own settings (scripts, ...).
-    * Menu order: when active (set to Yes), loading a preset recalls the order of items within menus.
-    * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
-    * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
-    * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
+ * _*Config. Custom modes*_: This sub-menu configures the behavior of [#The_Custom_Modes the custom modes]:
+    * Camera: when active (set to Yes), loading a custom mode recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
+    * 400plus: when active (set to Yes), loading a custom mode recalls `400plus`' own settings (scripts, ...).
+    * Menu order: when active (set to Yes), loading a custom mode recalls the order of items within menus.
+    * Settings: when active (set to Yes), loading a custom mode recalls some of the rarely changed settings (language, video system, ...).
+    * Image: when active (set to Yes), loading a custom mode image related settings (RAW/JPEG, quality, ...).
+    * Custom Fn: when active (set to Yes), loading a custom mode recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
  * _*Config. Menus*_: This sub-menu configures the behavior of [#The_menu the menu]:
     * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element (notice that by design, the main menu always warps, regardless of this option).
     * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_the_menu Navigating the menu]).
@@ -141,19 +141,19 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
  * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
 
-=== Presets Page ===
+=== Custom Modes Page ===
 
-Use this page to load, save, rename, and delete [#The_presets presets]; the procedure to rename a preset is :
+Use this page to save, assign / unassign, rename, and delete [#The_Custom_Modes custom modes]; the procedure to rename a custom mode is:
 
- * Select the "Rename" option in the presets sub-menu.
+ * Select the "Rename" option in the custom modes sub-menu.
  * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a value.
  * Use the `MENU` button to toggle between lowercase / numbers and uppercase / symbols.
  * Use the `JUMP` button to change the case of the selected value on the name (bottom line).
  * Use the `SET` button to use the selected value in the name and advance the cursor to the next position.
- * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the preset name line (bottom line).
+ * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the custom mode name line (bottom line).
  * Press the `AV` button again to save your changes and return to the previous menu.
 
-Notice that there is always a number displayed on the left of each preset. This feature is handy when you want to copy presets to and from multiple CF cards and need to know the file names for each of your presets: the number on the left of a feature matches the number of the file created in the CF card.
+Notice that there is always a number displayed on the left of each custom mode. This feature is handy when you want to copy custom modes to and from multiple CF cards and need to know the file names for each of your custom modes: the number on the left of a feature matches the number of the file created in the CF card.
 
 === Developers Page ===
 
@@ -262,19 +262,15 @@ After entering the DOF Calculator, set the focal length of your lens, the apertu
 
 When the "Max. DOF (m)" entry displays "INF!", the hyperfocal distance has been reached, and thus everything from the near distance of acceptable focus up to the infinity will be sharp.
 
-= The presets =
+= The Custom Modes =
 
-A "preset" is a complete snapshot containing all of the camera settings and configuration parameters. Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Presets are stored on the CF card itself. Up to 9 presets can be stored. The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
+A custom mode is a complete snapshot containing all of the camera settings and configuration parameters. Custom modes can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Custom modes are stored on the CF card itself, and to 16 different custom modes can be stored in each card. The number of custom modes however is unlimited, due to the fact you may use multiple CF cards each containing up to 16 of them.
 
-== The A-DEP mode ==
+To create a custom mode, first set your camera into one of the _creative modes_ (`P`, `Tv`, `Av`, `M`, or `A-DEP`) and configure it to your liking; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the custom modes, and just press `SET` (or enter the sub-menu, and then select "Save" there). Repeat as many times as needed, and save up to 16 custom modes.
 
-Under normal circumstances, when a preset is loaded (recovered) all camera parameters are changed, even the AE mode. Take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected with the mode dial. Yet when the camera is powered off and back on, it will revert to the actual AE mode that the mode dial is set to.
+To use a custom mode, set your camera to one of the _auto modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom mode, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _auto mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _auto mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
 
-To solve this issue, there is an option to hijack the (mostly unused) A-DEP mode; when this option is active, the following changes will take place:
- * Presets can only be loaded when the camera is in A-DEP mode. Envision the word "Presets" instead of "A-DEP" on the mode dial.
- * When the camera is powered on in A-DEP mode, or when the user moves the mode dial to the A-DEP position, the last preset used is automatically loaded (recalled).
-
-When this option is not enabled, then when the A-DEP position is selected with the mode dial the camera will use the A-DEP mode as it normally would.
+To revert an _auto mode_ back to its original behavior, set the camera to that _auto mode_, enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active custom mode (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and select "Unassign").
 
 = AutoISO =
 
