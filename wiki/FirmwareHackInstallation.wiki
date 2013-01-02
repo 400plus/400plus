@@ -55,7 +55,7 @@ The following steps prepare a card to contain `400plus`  and be recognized by th
 }}}
       * exFAT
             This is not going to work directly, because the sector checksums needs to be calculated and written back after writing the strings. Use the above methods.
-  #. Download the [http://code.google.com/p/400plus/downloads/list latest autoexec.bin], extract it, and copy to CF. 
+  #. Download the [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable latest official release], extract it, and copy to CF. 
   #. Put the languages.ini on the CF too, if you want support for additional languages.
   #. Insert the CF into camera... and you are done!
 
