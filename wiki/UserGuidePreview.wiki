@@ -5,108 +5,82 @@
 *WARNING*: This guide refers to the _next_ major version, and may contain information about features not yet implemented in the official release.
 </font>
 
-= Table of Contents=
+= Table Of Contents =
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
 == What is 400plus? ==
 
-*400plus* is a free firmware enhancement software which offers additional functionality and capabilities to your Canon 400D/XTi camera in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up to enhance the native camera firmware but is not a permanent firmware upgrade and can easily be removed. It is designed specifically for the Canon 400D/XTi and will not work with other camera models.
+`400plus` is a free firmware enhancement software, which offers additional functionality and capabilities to your Canon 400D/XTi camera, in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up, to enhance the native camera firmware; but is not a permanent firmware upgrade, and can easily be removed.
 
-== User guide ==
+_It is designed specifically for the Canon 400D/XTi and will not work with other camera models._
+
+== User Guide ==
 
 This wiki page document will serve as the user guide for `400plus`. It is assumed in this document that the user has installed `400plus` prior to reading this guide and that it is working properly. For information about installing `400plus`, please see [FirmwareHackInstallation].
 
-= The menu =
+= The Menu =
 
-== Accessing the menu ==
+== Accessing The Menu ==
 
-To access the `400plus` menu, press the `DP` button from the main camera dialog. To exit the `400plus` menu, just half-press the shutter release button. _NOTE_: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
+To access `400plus`' menu, press the `DP` (`DIRECT PRINT`) button from within the main camera dialog; to exit `400plus`' menu, just half-press the shutter-release button. The `DP` button is located on the rear of the camera, at the left of the viewfinder, and beside the blue printer icon with a squiggly arrow line next to it.
 
-== Navigating the menu ==
+== Navigating The Menu ==
 
-`400plus` features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now use the front dial to select a page, and release the `AV` button to jump into it. If the "Navigate to main" option is active (see [#Settings_Page the settings page]), you can also press and immediately release the `AV` button to stay in the main page; once there, just use `UP` and `DOWN` to select a page, and `SET` to enter it.
+`400plus` features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel (notice the '`<<`' and '`>>`' indicators at the header of the menu). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now use the front dial to select a page, and release the `AV` button to jump into it. Moreover, if the "Navigate to main" option is active (see [#Settings_Page the settings page]), you can also press and immediately release the `AV` button to stay in the main page; once there, just use `UP` (`ISO`) and `DOWN` (`WB`) to select a page, and `SET` to enter it.
 
-To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons, (or `ZOOM IN` / `ZOOM OUT` buttons to move faster); then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (press and hold these buttons to change faster). Items with an exclamation mark '`!`' at the left perform an action; activate them with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
+To navigate within a page, use the `UP` and `DOWN` buttons, (or `ZOOM IN` and `ZOOM OUT`, to move faster); then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (hold these buttons down to change the value faster). Items with an exclamation mark '`!`' at the left perform an action: activate it with the `SET` button. And Items with a right sign '`>`' are sub-menus: enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
-== Configuring the menu ==
+== Configuring The Menu ==
 
-While in any page within the menu, you have the ability to change the order of the items for your own personal preference. To do this, just press the `PLAY` button to "grab" an item (a small ">" will be displayed at the left of the item). Now use the `UP` or `DOWN` buttons to position the menu item where you would like it to reside (you will see the menu item move to a new position). Finish the process by pressing the `PLAY` button again to save your changes.
+While in any page within the menu, you have the ability to change the order of the items to your own personal preference. To do this, just press the `PLAY` button to 'grab' an item (a small '`>`' will be displayed at the left of the item). Now use the `UP` and `DOWN` buttons to position the item where you would like it to reside (you will see the item actually move to the new position). Finish the process by pressing the `PLAY` button again, to save your changes.
 
-== Pages ==
+== Menu Pages ==
 
-=== Parameters ===
+=== Parameters Page ===
 
- * _*AutoISO*_: This sub-menu configures the behavior of [#AutoISO AutoISO].
-    * Enabled: when active (set to Yes), AutoISO is enabled.
-    * Min ISO: minimum ISO value that AutoISO will use.
-    * Max ISO: maximum ISO value that AutoISO will use.
-    * Min Tv : minimum shutter speed that AutoISO will try to maintain.
-    * Max Av : maximum diaphragm aperture that AutoISO will try to maintain `[*]`.
- * _*ISO*_: Roll through the intermediate ISO values. Values are 100 - 3000.
- * _*Av comp*_: Same as the _standard_ "Av compensation", but extends the range from -6 to +6 EV.
- * _*AEB*_: Same as the _standard_ "AEB", but extends the range from -6 to +6 EV.
- * _*Color Temp. (K)*_: Set a user-defined kelvin color temperature value, and change WB to "custom".
- * _*Mirror Lockup*_: Enable or disable "Mirror lockup" (same as Custom function - C.Fn 07).
- * _*Safety shift*_: When active (set to Yes), and if in `Tv` (resp. `Av`) mode, the camera will change the shutter speed (resp. diaphragm aperture) set by the user to avoid an under/over-exposure, if the value is too small/large for the scene.
- * _*Flash*_: Flash related settings:
-    * Flash comp: Same as the _standard_ "Flash compensation", but extends the range from -6 to +6 EV.
-    * Disable flash: Force the deactivation of the camera flash even if the flash has already been raised.
-    * AF Flash (assist beam): Enable or disable the activation of the flash (during the AF phase), even if it has been raised. Values are Enabled, Disabled, Ext Only (same as Custom Function - C.Fn 05).
-    * Flash 2curt (rear curtain flash): Control the shutter curtain sync. value (same as Custom Function - C.Fn 09).
- * _*IR Remote*_: Infrared remote settings:
-    * IR remote enable: When active (set to Yes), will allow the use of an IR remote. When set to No, this feature is disabled.
-    * IR remote delay: Select whether the camera should take the shot immediately or wait 2 seconds when using an IR remote.
+This page contains extensions to the camera's shooting parameters, and also provides a quick access to some commonly-used, but hard to reach, custom functions.
 
-_`[*]` Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
+||_*Item*_||_*Description*_||
+||Av comp||[#Extended_Exposure_Compensation Extended Exposure Compensation]||
+||AEB||[#Extended_Exposure_Compensation Extended Exposure Compensation]||
+||Color Temp. (K)||[#Custom_White_Balance Custom White Balance]||
+||AutoISO||[#AutoISO AutoISO]||
+||ISO||[#Extended_ISOs Extended ISOs]||
+||Safety Shift||[#Safety_Shift Safety Shift]||
+||Mirror Lockup||[#Other_Shortcuts Other Shortcuts]||
+||Flash > Disable flash||[#Flash_Configuration Flash Configuration]||
+||Flash > AF Flash||[#Other_Shortcuts Other Shortcuts]||
+||Flash > Flash 2curt||[#Other_Shortcuts Other Shortcuts]||
+||IR Remote||[#IR_Settings IR Settings]||
 
 === Scripts Page ===
 
- * _*Ext. AEB*_: This item launches and configures the [#Extended_AEB Extended AEB] script:
-    * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Frames: the number of frames (shots) the script should take. Values range from 1 to 9.
-    * Step (EV): the separation in EV (exposure value) between each frame (shot). Values range from +1/3EV to +6EV.
-    * Direction: specifies the _direction_ of the EAEB sequence.
-    * Bulb min: the minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
-    * Bulb max: the maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
- * _*Flash AEB*_: This item launches and configures the [#Flash_AEB Flash AEB] script:
- * _*ISO AEB*_: This item launches and configures the [#ISO_AEB ISO AEB] script; each item in the configuration sub-menu indicates whether the camera must fire a shot for that ISO value.
- * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
-    * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
-    * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
-    * Video format (fps): intended playback frame-rate, if preparing a time-lapse.
-    * Recording time: estimated time that the camera will need to record the entire time-lapse (informative only).
-    * Playback time: estimated playback time of the resulting time-lapse (informative only).
- * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
-    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
-    * Repeat: if active (set to Yes), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.
-    * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
- * _*Timer*_: This item launches and configures the [#Self_Timer Self Timer] script:
-    * Delay: the time (in minutes:seconds) that the script should wait before shooting. Values range from 00:00 to 05:00.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
- * _*Long exposure*_: This item launches and configures the [#Long_Exposure Long Exposure] script:
-    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Time: the length (in minutes:seconds) of the exposure. Values range from 00:15 to 100:00.
-    * Calculator: enter [#Long_Exposure_Calculator the long exposure calculator].
- * _*DOF Calculator*_: This item launches the [#DOF_Calculator DOF Calculator]:
-    * Focal length (mm): Len's focal length, in millimeters.
-    * Av: Lens aperture.
-    * Focus distance (m): Focusing distance.
-    * Min. DOF (m): Near distance of acceptable sharpness (informative only).
-    * Max. DOF (m): Far distance of acceptable sharpness (informative only).
+Scripts are little programs that control your camera, and automate certain tasks.
+
+||_*Item*_||_*Description*_||
+||Ext. AEB||[#Extended_AEB The Extended AEB Script]||
+||Flash AEB||[#Flash_AEB The Flash AEB Script]||
+||ISO AEB||[#ISO_AEB The ISO AEB Script]||
+||Interval||[#Intervalometer The Intervalometer]||
+||Handwave||[#Hand_Waving The Hand Waving Script]||
+||Timer||[#Self_Timer The Self-Timer]||
+||Long exposure||[#Long_Exposure The Long Exposure Script]||
+||DOF Calculator||[#DOF_Calculator The DOF Calculator]||
 
 === Info Page ===
+
+This page contains some useful information about your camera and `400plus`.
 
  * _*Release count*_: The total number of shots (actuations) made by this camera body.
  * _*Body ID*_: The "BodyID" of the camera body (an internal number, unique to each camera).
  * _*Version*_: The version number of the `400plus` software currently installed.
 
 === Settings Page ===
+
+Some advanced settings about your camera and `400plus`.
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
  * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
@@ -133,15 +107,17 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
     * Settings: when active (set to Yes), loading a custom mode recalls some of the rarely changed settings (language, video system, ...).
     * Image: when active (set to Yes), loading a custom mode image related settings (RAW/JPEG, quality, ...).
     * Custom Fn: when active (set to Yes), loading a custom mode recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
- * _*Config. Menus*_: This sub-menu configures the behavior of [#The_menu the menu]:
+ * _*Config. Menus*_: This sub-menu configures the behavior of [#The_Menu the menu]:
     * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element (notice that by design, the main menu always warps, regardless of this option).
-    * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_the_menu Navigating the menu]).
+    * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_The_Menu Navigating the menu]).
     * Enter to main: when active (set to Yes), `400plus` will directly enter the main page in the menu, instead of going to the last visited page.
     * Autosave: when active (set to Yes), `400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down the camera..
  * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
  * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
 
 === Custom Modes Page ===
+
+Custom modes are complete configurations of your camera, quickly accessible from the main dial.
 
 Use this page to save, assign / unassign, rename, and delete [#The_Custom_Modes custom modes]; the procedure to rename a custom mode is:
 
@@ -157,19 +133,151 @@ Notice that there is always a number displayed on the left of each custom mode. 
 
 === Developers Page ===
 
-*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button, while in the menu, to enter the developers' page.
-
 _This Page Is Intentionally Left Blank._
 
-*WARNING*: The options contained in this page should be used with great care, there is probably little to see here, unless you are developing your own hack.
+_*Note*_: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button while in the menu to enter the developers' page.
+
+_*Warning*_: The options contained in this page should be used with great care; there is probably little to see here, unless you are developing your own version of this hack.
+
+= Enhancements And Extensions =
+
+These are the enhancements and extensions that `400plus`provides.
+
+== Safety Shift ==
+
+Safety shift is a nice feature from our camera, used to avoid under/over-exposures in `Tv` and `Av` modes, when the metered exposure exceeds the limits of the lens and/or the camera.
+
+In `Tv` mode, the camera will lower the shutter speed set by the user, when the scene require an aperture larger than the lens can provide; and it will raise the shutter speed set by the user, when the scene requires an aperture smaller than the lens can provide. In `Av` mode, safety shift will override the aperture set by the user, when the scene requires a shutter speed out of the range provided by the camera.
+
+Safety shift is controlled with the "Safety Shift" switch in the [#Parameters_Page parameters page] at [#The_Menu the menu].
+
+== Spot Metering Mode ==
+
+The spot metering mode is similar to the _standard_ partial metering mode, but the area included in the metering is smaller (approx. 3.5% of the center of the viewfinder, vs. partial metering at approx. 9% of the center of the viewfinder). It works quite well when needed.
+
+To enable the spot metering mode, enter the metering mode selection dialog (press the `METERING` button from the main dialog) and then press `DP`; enter that dialog again, and select any other metering mode, to disable the spot metering mode.
+
+== Custom White Balance ==
+
+The custom white balance option uses the color temperature configured in the "Color Temp. (K)" item from the [#Parameters_Page parameters page] at [#The_Menu the menu] (notice also that changing that value in the menu also sets the white balance to custom, automatically).
+
+To enable the custom white balance, enter the white balance selection dialog (press the `WB` button from the main dialog) and then press `DP`; enter that dialog again, and select any other white balance, to disable the custom white balance.
+
+== AF-Pattern Selection ==
+
+`400plus` offers a range of additional AF-Pattern selections, instead of just the two (Manual AF point selection, and Automatic AF point selection) which are included standard in the camera. These additional AF-Pattern selections provide a wide range of multi-point selection patterns, using different combinations of the 9 focus points, for some creative AF capabilities.
+
+To use the additional AF-Pattern selections during shooting, press the `ZOOM IN` button to enter the standard "AF-Point Selection" dialog, then press the `ZOOM IN` button again to enter the new "AF-Pattern Selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons there to move around the different AF-Patterns available. Half-press the shutter-release button to exit the dialog.
+
+== Extended Exposure Compensation ==
+
+On the [#Parameters_Page parameters page] at [#The_Menu the menu], `400plus` allows to override the default ±2EV limit up to ±6EV on the following parameters:
+
+||_*Item*_||_*Parameter*_||
+||Av comp||Standard exposure compensation||
+||AEB||Separation for the auto exposure bracketing||
+||Flash comp||Flash exposure compensation||
+
+== Flash Configuration ==
+
+Flash can be completely disabled, and it will not fire even if has been raised, using the "Flash" > "Disable flash" option in the [#Parameters_Page parameters page] at [#The_Menu the menu].
+
+== Extended ISOs ==
+
+Extended (or intermediate) ISOs allow for finer-grained (1/8 EV) control of the ISO parameter for the creative modes.
+
+Extended ISOs are available at the "ISO" item in the [#Parameters_Page parameters page] at [#The_Menu the menu].
+
+=== Some notes about extended ISOs ===
+
+ * When use extended ISOs, the camera will not always display the correct ISO value; for example, an image shot at `ISO-3000` will show as `ISO-3200` during the review. This is a limitation of the original firmware.
+
+ * _Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image. They can be useful, however, when there is no time for any post-processing.
+
+ * The _missing_ `ISO-3200`. Previous versions of `400plus` supported `ISO-3200`; or more precisely, it _appeared_ to support it: while the camera displayed "`3200`" as the ISO value, images where actually being shot at `ISO-3000`. Recent versions of `400plus` correct this bug, and only values up to `ISO-3000` are supported now. Note, thus, that _an image shot at the 'new' `ISO-3000` will be exactly the same as if shot with the 'old' `ISO-3200`_.
+
+== AutoISO ==
+
+`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value accordingly. The behavior of AutoISO is different for each creative mode, but the idea is roughly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
+
+To enable AutoISO, enter the ISO selection dialog (press the `ISO` button from the main dialog) and then press `DP`; enter that dialog again, and select any other ISO value, to disable AutoISO. Alternatively, AutoISO can be configured in the "AutoISO" sub-menu in the [#Parameters_Page parameters page] at [#The_Menu the menu]:
+
+||_*Item*_||_*Description*_||
+||Enabled||When active (set to "Yes"), AutoISO is enabled.||
+||Min ISO||Minimum ISO value that AutoISO will use.||
+||Max ISO||Maximum ISO value that AutoISO will use.||
+||Min Tv||Minimum shutter speed that AutoISO will try to maintain.||
+||Max Av||Maximum diaphragm aperture that AutoISO will try to maintain `[*]`.||
+
+_`[*]` Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
+
+=== AutoISO In `Av` mode ===
+
+The intention of AutoISO in `Av` mode is to use the lowest possible ISO that ensures no motion blur.
+
+In normal `Av` mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` will always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will automatically raise the ISO value (up to "Max ISO") as needed.
+
+Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
+
+=== AutoISO In `Tv` mode ===
+
+In `Tv` mode, the intention of AutoISO is to use the lowest possible ISO that ensures an acceptable depth of field.
+
+In `Tv` mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an aperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
+
+Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in `Tv` mode. Also, the comment about Safety Shift and AutoISO at `Av` mode applies at Tv mode, too.
+
+=== AutoISO In `P` mode ===
+
+In `P` mode, AutoISO _tries_ to behave just like in `Av` mode, and will raise the ISO value to keep a minimum shutter speed; but, as the camera decides both aperture and shutter speed in this mode, there is no guarantee that raising the ISO will increase shutter speed: it tends to work correctly for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead of selecting a faster shutter speed.
+
+=== AutoISO In `M` mode ===
+
+In `M` mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in `M` mode, and this is the only mode where intermediate ISO values are used.
+
+You can change the exposure compensation in `M` mode, if the "Use D-Pad" option is active (set to Yes), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
+
+== ISO In Viewfinder ==
+
+When the "Use D-Pad" option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on `Tv` and `M` mode, the new ISO value is also displayed on the viewfinder:
+
+ * Set the camera to `M` or `Tv` mode.
+ * Look through the viewfinder, and half-press the shutter button; you should see the current measurements (shutter speed, aperture, ...).
+ * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or `UP` just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
+ * In `P` and `Av` modes, ISO can also be changed, but it is not displayed.
+
+_*Note*_: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled.
+
+== RAW Support For Scene Modes ==
+
+While in one of the scene modes, use the `AV` button to toggle between the following image type settings: `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used, by requirements of the original firmware.
+
+== IR Settings ==
+
+There are also some settings related to the infrared at the "ISO" item in the [#Parameters_Page parameters page] at [#The_Menu the menu].:
+
+||_*Item*_||_*Description*_||
+||IR remote enable||When active (set to "Yes"), will allow the use of an IR remote; when set to "No", camera will ignore an IR remote.||
+||IR remote delay||Select whether the camera should take a shot immediately, or wait 2 seconds when using an IR remote.||
+
+== Other Shortcuts ==
+
+For your convenience, the [#Parameters_Page parameters page] at [#The_Menu the menu] also provides several shortcuts to some commonly-used, but hard to reach, custom functions:
+
+||_*Item*_||_*C.Fn*_||
+||Mirror Lockup||07||
+||AF Flash||05||
+||Flash 2curt||09||
+
+== Standard Initialization ==
+
+To temporarily switch `400plus` completely off (for example, if you believe `400plus` is making your camera act weird), just press the `TRASH` button while the camera is powering on; the blue LED will not flash, and the camera will act as if `400plus` had never been installed. Notice that this change is not permanent, and you must hold the `TRASH` button each time the camera powers on, even when waking up from an automatic power off.
 
 = The scripts =
 
-When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second). To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
+To launch a script, just select it in the [#Scripts_Page scripts page] at [#The_Menu the menu] and press `SET` (unfortunately, scripts _still_ cannot be launched using the shutter-release button). When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second, by default). To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
 
-You can also pause a running script, by means of simply pressing the DISP button: this will put the camera into a low-power mode, and effectively stop all ongoing activity; press DISP again, to bring back the camera into life, and the script will continue normally.
-
-All scripts will check the card capacity before each shot; if the estimated number of shots available is lower than a fixed value (3), the scripts will stop executing.
+You can also pause a running script, by means of simply pressing the DISP button: this will put the camera into a low-power mode, and effectively stop all ongoing activity; press DISP again, to bring back the camera into life, and the script will continue normally. All scripts will check the card capacity before each shot; if the estimated number of shots available is lower than a fixed value (3), the scripts will stop executing.
 
 == Extended AEB ==
 
@@ -179,12 +287,28 @@ This script performs the same task as the _standard_ AEB option from the camera,
  * The camera will take all the shots in a sequence, automatically.
  * User can specify the _direction_ of the sequence.
 
-Supposing a configuration of 5 shots at 1EV separation, this is how each _direction_ is supposed to work:
- * `+/-` : One photo at current EV, and the rest above and below it: 0EV, +1EV, -1EV, +2EV, -2EV.
- * ` + ` : One photo at current EV, and the rest above it: 0EV, +1EV, +2EV, +3EV, +4EV.
- * ` - ` : One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.
+To configure and launch the Extended AEB script, use the "Ext. AEB" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
 
-In 'M' mode with the shutter speed set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 32 minutes can be used in this mode.
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
+||Frames||The number of frames (shots) the script should take. Values range from 1 to 9.||
+||Step (EV)||The separation in EV (exposure value) between each frame (shot). Values range from +1/3EV to +6EV.||
+||Direction||Specifies the _direction_ of the EAEB sequence.||
+||Bulb min||The minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.||
+||Bulb max||The maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.||
+
+Supposing a configuration of 5 shots at 1EV separation, this is how each _direction_ is supposed to work:
+
+||_*Value*_||_*Meaning*_||
+||`+/-`||One photo at current EV, and the rest above and below it: 0EV, +1EV, -1EV, +2EV, -2EV.||
+||` + `||One photo at current EV, and the rest above it: 0EV, +1EV, +2EV, +3EV, +4EV.||
+||` - `||One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.||
+
+=== Extended AEB In `BULB` mode ===
+
+In 'M' mode with the shutter speed set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by 1EV (in this mode, the separation configured is irrelevant).
+
+Notice also that exposure times as long as 32 minutes can be used in this mode.
 
 == Flash AEB ==
 
@@ -192,13 +316,20 @@ Similar to the [#Extended_AEB Extended AEB] script, but only the flash exposure 
 
 == ISO AEB ==
 
-Camera will make a photograph for each ISO configured.
-
-You probably want to set the camera to `M` mode prior to using this script.
+Camera will make a photograph for each ISO active. You probably want to set the camera to `M` mode prior to using this script.
 
 == Intervalometer ==
 
-This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example.
+This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example. To configure and launch the Intervalometer, use the "Interval" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
+
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
+||Time||The interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.||
+||Action||The action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).||
+||Shots||The total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.||
+||Video format (fps)||Intended playback frame-rate, if preparing a time-lapse.||
+||Recording time||Estimated time that the camera will need to record the entire time-lapse (informative only).||
+||Playback time||Estimated playback time of the resulting time-lapse (informative only).||
 
 === Strict scheduling ===
 
@@ -220,7 +351,7 @@ Exposure : * *       * * * * * * *       * *
 
 Notice that the third photograph does not take place 5 seconds after the second one, but at second 15.
 
-*NOTE*: `400plus` will not validate that the values introduced by the user make sense at all: it will not complain if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
+_*Note*_: `400plus` will not validate that the values introduced by the user make sense at all: it will not complain if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
 
 === Time-lapse calculator ===
 
@@ -230,13 +361,29 @@ If you plan to make a time-lapse movie with the photographs taken with this scri
 
 This script will fire the camera when the display-off sensor (at the rear of the camera) is triggered. Use this script to fire the camera without the need of a remote to help reduce camera shake. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, this script will wait until something (like your hand or finger) blocks the sensor and is then removed to fire the camera. However, if the "Instant" option is enabled, the script will fire the camera as soon as the sensor becomes blocked.
 
+To configure and launch the Hand Waving Script, use the "Handwave" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
+
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should take the shot immediately or wait for 2 seconds.||
+||Action||The action to be performed ("One Shot", "Extended AEB", "Flash AEB", "ISO AEB", "Long exposure").||
+||Repeat||If active (set to "Yes"), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.||
+||Instant||If selected (set to "Yes"), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.||
+
 == Self Timer ==
 
 This script simply adds a configurable pause before firing the camera.
 
+||_*Parameter*_||_*Description*_||
+||Delay||Te time (in minutes:seconds) that the script should wait before shooting; values range from 00:00 to 05:00.||
+||Action||The action to be performed ("One Shot", "Extended AEB", "Flash AEB", "ISO AEB", "Long exposure").||
+
 == Long Exposure ==
 
 Just that, a configurable long exposure, from 15 seconds to 100 minutes.
+
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should take the shot immediately or wait for 2 seconds.||
+||Time||The length (in minutes:seconds) of the exposure; values range from 00:15 to 100:00.||
 
 Notice that the camera has to be in M + BULB mode to take a long exposure; this script will set the camera for you, but configuring a suitable aperture is the responsibility of the user.
 
@@ -248,11 +395,11 @@ For example, let's suppose we want to photograph a night scene; we decide to use
 
 But we can temporarily select a high sensitivity and large aperture (ISO1600 and f/2.8, for example), measure the scene, and determine we would need a 15-second exposure with those parameters. Then we enter the long exposure calculator, lower the ISO value to 100, and close the diaphragm to f/8; the Ev indicator will display a value if -9, meaning that with the current parameters the exposure is 9 stops below the measured value. We can now increase the exposition time until the Ev indicator goes back to 0, meaning the current parameters would result in the same exposure than we had at the beginning; in our case, that means raising the exposure time from 15 seconds to 32 minutes. Finally, just press "Apply" to configure the camera with these parameters, and launch the long exposure script.
 
-NOTE: The long exposure calculator will only apply the values presented on the display when the exposure time (Tv) is one minute or longer; for shorter exposure times, the "Apply" button will simply be inactive.
+_*Note*_: The long exposure calculator will only apply the values presented on the display when the exposure time (Tv) is one minute or longer; for shorter exposure times, the "Apply" button will simply be inactive.
 
-NOTICE: The Ev field in this calculator cannot display values smaller than -15EV or larger than +15EV.
+_*Notice*_: The Ev field in this calculator cannot display values smaller than -15EV or larger than +15EV.
 
-TIP: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
+_*Tip*_: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
 
 === DOF Calculator ===
 
@@ -268,76 +415,9 @@ A custom mode is a complete snapshot containing all of the camera settings and c
 
 To create a custom mode, first set your camera into one of the _creative modes_ (`P`, `Tv`, `Av`, `M`, or `A-DEP`) and configure it to your liking; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the custom modes, and just press `SET` (or enter the sub-menu, and then select "Save" there). Repeat as many times as needed, and save up to 16 custom modes.
 
-To use a custom mode, set your camera to one of the _auto modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom mode, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _auto mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _auto mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
+To use a custom mode, set your camera to one of the _scene modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom mode, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _scene mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _scene mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
 
-To revert an _auto mode_ back to its original behavior, set the camera to that _auto mode_, enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active custom mode (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and select "Unassign").
-
-= AutoISO =
-
-`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value accordingly. The behavior of AutoISO is different for each creative mode, but the idea is roughly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
-
-To enable AutoISO for the creative modes, activate it at the settings menu, or pres `DP` at the ISO selection dialog; to disable it, use the settings menu or select any ISO value at the ISO selection dialog.
-
-== AutoISO and Av mode ==
-
-The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur.
-
-In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` will always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will automatically raise the ISO value (up to "Max ISO") as needed.
-
-Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
-
-== AutoISO and Tv mode ==
-
-In Tv mode, the intention of AutoISO is to use the lowest possible ISO that ensures an acceptable depth of field.
-
-In Tv mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an aperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
-
-Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shift and AutoISO at Av mode applies at Tv mode, too.
-
-== AutoISO and P mode ==
-
-In P mode, AutoISO _tries_ to behave just like in Av mode, and raises the ISO value to keep a minimum shutter speed; but, as the camera decides both aperture and shutter speed in this mode, there is no guarantee that raising the ISO will increase shutter speed: it tends to work correctly for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead of selecting a faster shutter speed.
-
-== AutoISO and M mode ==
-
-In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
-
-You can change the exposure compensation in M mode, if the "Use D-Pad" option is active (set to Yes), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
-
-= ISO in viewfinder =
-
-When the "Use D-Pad" option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on Tv and M mode, the new ISO value is also displayed on the viewfinder:
-
- * Set the camera to M or Tv mode.
- * Look through the viewfinder, and half-press the shutter button; you should see the current measurement (shutter speed, aperture, ...).
- * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or UP just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
- * In P and Av modes, ISO can also be changed, but it is not displayed.
-
-*NOTE*: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled, even if it has been enable in the settings menu.
-
-= The AF-Pattern point selection =
-
-`400plus` offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
-
-To use the additional AF-Pattern point selections during shooting, press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog, then press the `ZOOM IN` button again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the different AF selection patterns available. Half-press the shutter release button to exit the dialog.
-
-= The goodies =
-
-The following *_goodies_* have been added to the camera to enhance its capabilities.
-
-== In the basic zone ==
-
-  * Use the `AV` button to toggle between image quality settings `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used.
-
-== In the creative zone ==
-
-  * In the ISO selection dialog, press `DP` to activate [#AutoISO AutoISO]; select any ISO value to deactivate it.
-  * In the Metering mode selection dialog, press `DP` to set Spot metering (see [#Spot_metering_mode Notes / Spot metering mode]).
-  * In the White balance selection dialog, press `DP` to set the user-defined white balance kelvin temperature.
-
-= Other freebies =
-
-Other changes to the camera behavior, not described above.
+To revert an _scene mode_ back to its original behavior, set the camera to that _scene mode_, enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active custom mode (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and select "Unassign").
 
 == Multi-language support ==
 
@@ -356,35 +436,10 @@ Currently `400plus` supports nine (9) languages:
 
 The desire is to have `400plus` be supported in as many languages as possible! If you are interested in assisting in the conversion of `400plus` to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
 
-== Standard Initialization ==
-
-To temporarily switch `400plus` completely off (for example, if you believe `400plus` is making your camera act weird), just press the `TRASH` button while the camera is powering on.
-
-= Notes =
-
-Some notes and comments.
-
-== The _missing_ ISO-3200 ==
-
-Previous versions of `400plus` supported ISO-3200; or more precisely, it _appeared_ to support it: while the camera displayed "3200" as the ISO value, images where actually being shot at ISO-3000. Latest versions of `400plus` correct this bug, and thus only values up to ISO-3000 are supported now.
-
-Note, thus, that _an image shot at the new ISO-3000 will be exactly the same as if shot with the old ISO-3200_.
-
-== Extended ISOs ==
-
-_Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image. They can be useful, however, when there is no time for any post-processing.
-
-Please, notice that the camera will not always display the correct ISO value; for example, an image shot at ISO-3000 will show as ISO-3200 during the review.
-
-== Spot metering mode ==
-
-The spot metering mode is similar to the _standard_ "partial metering" mode, but the area included in the metering is smaller (approx. 3.5% of the center of the viewfinder vs. partial metering at approx. 9% of the center of the viewfinder). It works quite well when needed.
-
 = Known bugs =
 
 The following relevant bugs have been reported and confirmed:
 
  * Issue #156: Auto-focus Assist Beam not fired from 430EX when using extended AF patterns.
- * Issue #153: Standard menu flashes before shortcuts menu.
 
 ||*ATTENTION*: _Please, use the comments section below exclusively for comments (typos, clarifications, suggestions) about this page; open an issue to request support or suggest a new feature, and visit the forum for general discussions about the project._||
