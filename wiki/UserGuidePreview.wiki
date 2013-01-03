@@ -85,40 +85,17 @@ This page contains some useful information about your camera and `400plus`.
 
 === Settings Page ===
 
-Some advanced settings about your camera and `400plus`.
+Some advanced settings about your camera and `400plus`; please, see [#Settings Settings] for more information.
 
- * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
- * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
-    * Restore settings: Restore all settings (but custom modes) back to default values.
-    * Restore custom modes: Restore all settings related to custom modes back to default values (_notice that this option does not delete custom modes themselves_).
-    * Delete custom modes: Actually delete all custom modes.
- * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
-    * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
-    * LCD display: configure the brightness of the LCD display while a script is running.
-    * Indicator: configure the blinking frequency of the blue LED while a script is running..
- * _*Config. Buttons*:_ In this sub-menu, users can configure the behavior of some special buttons:
-    * Use D-Pad: When active (set to Yes), the buttons on the cursor pad change their function while the user is looking through the viewfinder; see [#ISO_in_viewfinder ISO in viewfinder] and [#AutoISO_and_M_mode AutoISO and M mode] for more info.
-    * Better DISP button: When active (set to Yes), the `DISP` button will change the display brightness in small increments, instead of just switch it on/off.
-    * JUMP: Assign an action to the `JUMP` button while in the main dialog:
-      * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
-      * Repeat last script: repeat last script executed.
-      * Mirror lock-up: toggle the MLU option on / off.
-      * AEB: Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).
-    * TRASH: Same as the JUMP button.
- * _*Config. Custom modes*_: This sub-menu configures the behavior of [#The_Custom_Modes the custom modes]:
-    * Camera: when active (set to Yes), loading a custom mode recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
-    * 400plus: when active (set to Yes), loading a custom mode recalls `400plus`' own settings (scripts, ...).
-    * Menu order: when active (set to Yes), loading a custom mode recalls the order of items within menus.
-    * Settings: when active (set to Yes), loading a custom mode recalls some of the rarely changed settings (language, video system, ...).
-    * Image: when active (set to Yes), loading a custom mode image related settings (RAW/JPEG, quality, ...).
-    * Custom Fn: when active (set to Yes), loading a custom mode recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
- * _*Config. Menus*_: This sub-menu configures the behavior of [#The_Menu the menu]:
-    * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element (notice that by design, the main menu always warps, regardless of this option).
-    * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_The_Menu Navigating the menu]).
-    * Enter to main: when active (set to Yes), `400plus` will directly enter the main page in the menu, instead of going to the last visited page.
-    * Autosave: when active (set to Yes), `400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down the camera..
- * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
- * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
+||_*Item*_||_*Description*_||
+||Language||[#Internationalization Internationalization]||
+||Restore config.||[#Restore_Configuration Restore Configuration]||
+||Config. Scripts||[#Configuring_Scripts Configuring Scripts]||
+||Config. Buttons||[#Configuring_Scripts Configuring Buttons]||
+||Config. Custom modes||[#Configuring_Custom_Modes Configuring Custom Modes]||
+||Config. Menus||[#Configuring_Menus Configuring Menus]||
+||Config. Pages||[#Configuring_Pages Configuring Pages]||
+||Developers menu||[#Developers_Page Developers Page]||
 
 === Custom Modes Page ===
 
@@ -428,17 +405,23 @@ From the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu] you can 
 
  * Select the "Rename" option in the sub-menu for any custom mode.
  * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a character.
- * Use the `MENU` button to toggle between lowercase characters + numbers and uppercase characers + symbols.
+ * Use the `MENU` button to toggle between lowercase characters + numbers and uppercase characters + symbols.
  * Use the `JUMP` button to change the case of the selected value on the name (bottom line).
  * Use the `SET` button to copy the selected character to the name, and advance the cursor to the next position.
  * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the name (bottom line).
  * Press the `AV` button to save your changes and return to the previous menu.
 
-Notice that there is always a character displayed on the left of each custom mode. This feature may come handy when you want to copy custom modes to and from multiple CF cards, and need to know the filename for each of your custom modes: the character on the left of a custom mode matches the last character n the name of the corresponding file created in the CF card.
+Notice that there is always a character displayed on the left of each custom mode. This feature may come handy when you want to copy custom modes to and from multiple CF cards, and need to know the file-name for each of your custom modes: the character on the left of a custom mode matches the last character n the name of the corresponding file created in the CF card.
 
-== Multi-language support ==
+----
 
-Currently `400plus` supports nine (9) languages:
+= Settings =
+
+The [#Settings_Page settings page] at [#The_Menu the menu] offers some advanced setting to configure both your camera and `400plus`.
+
+== Internationalization ==
+
+Currently `400plus` supports several languages:
 
   * English
   * Finnish
@@ -451,7 +434,74 @@ Currently `400plus` supports nine (9) languages:
   * Simplified Chinese
   * Spanish
 
-The desire is to have `400plus` be supported in as many languages as possible! If you are interested in assisting in the conversion of `400plus` to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
+You can select an specific language for the menus, using the "Language" item in the [#Settings_Page settings page] at [#The_Menu the menu], or just leave it as "Camera" to use the same language configured at the camera menus.
+
+Our desire is to have `400plus` be supported in as many languages as possible! If you are interested in assisting in the translation of `400plus` to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
+
+== Restore Configuration ==
+
+This sub-menu allows to restore some configuration parameters back to their default values.
+
+||_*Item*_||_*Description*_||
+||Restore settings||Restore all settings (but custom modes) back to default values||
+||Restore custom modes||Restore all settings related to custom modes back to default values (_notice that this option does not delete custom modes themselves_)||
+||Delete custom modes||Actually delete all custom modes.||
+
+_*Note*_: There is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone.
+
+== Configuring Scripts ==
+
+Some configuration regarding [#The_scripts the scripts]:
+
+||_*Item*_||_*Description*_||
+||Disable power-off||When active (set to "Yes"), the Auto power-off option of the camera is disabled; useful when using long delays in the intervalometer.||
+||LCD display||Configure the brightness of the LCD display while a script is running; saves battery, and reduces glare during night shots.||
+||Indicator||Configure the blinking frequency of the blue LED while a script is running.||
+
+== Configuring Buttons ==
+
+Some unused buttons can be configured here to extend the camera's behavior:
+
+||_*Item*_||_*Description*_||
+||Use D-Pad||When active (set to "Yes"), the buttons on the cursor pad will change their function while the user is looking through the viewfinder; see [#ISO_In_Viewfinder ISO In Viewfinder] and [#AutoISO_In_M_Mode AutoISO In M Mode] for more info.||
+||Better DISP button||When active (set to "Yes"), the `DISP` button will change the display brightness in small increments, instead of just switch it on/off.||
+||JUMP||Assign an action to the `JUMP` button while in the main dialog.||
+||TRASH||Same as the JUMP button.||
+
+The following actions can be assigned to the `JUMP` and `TRASH` buttons:
+
+  * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Extended ISOs]).
+  * Repeat last script: repeat last script executed.
+  * Mirror lock-up: toggle the MLU option on / off.
+  * AEB: Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).
+
+== Configuring Custom Modes ==
+
+When a custom mode is assigned to a scene mode, you will normally expect `400plus` to load most parameters from the custom mode, but not all of them. For example, it is quite unlikely that you will want to have the menus ordered differently for each custom mode; you will probably want to be able to retain the order of the menus across custom modes.
+
+This sub-menu of the [#Settings_Page settings page] at [#The_Menu the menu], you can select which parameters will be loaded from a custom mode when it is assigned to a scene mode:
+
+||_*Item*_||_*Description*_||
+||Camera||Camera's shooting parameters: shutter speed, aperture, ISO, ...||
+||400plus||`400plus`' own settings: language, scripts, buttons, ...||
+||Menu order||Order of all items within menus.||
+||Settings||Some rarely changed settings: language, video system, ...||
+||Image||Image related settings: RAW/JPEG, quality, ...||
+||Custom Fn||Custom function (C.Fn) settings: mirror lock-up, long-exposure noise-reduction, ...||
+
+== Configuring Menus ==
+
+Even how the menus work can be configured in `400plus`:
+
+||_*Item*_||_*Description*_||
+||Warp menus||Long menus will warp around when the user moves the cursor past the last element (notice that by design, the main menu always warps, regardless of this option).||
+||Navigate to main||You can navigate to the main page in the menu (see [#Navigating_The_Menu Navigating the menu]).||
+||Enter to main||`400plus` will directly enter the main page in the menu, instead of going to the last visited page.||
+||Autosave||`400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down the camera.||
+
+== Configuring Pages ==
+
+Use the "Config. Pages" item in the [#Settings_Page settings page] at [#The_Menu the menu] to configure order how the pages must be displayed. Simply enter the sub-menu, and reorder the items there: the pages at the main menu follow the same other than the items in this sub-menu.
 
 ----
 
