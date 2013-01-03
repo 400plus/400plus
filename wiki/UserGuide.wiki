@@ -1,7 +1,11 @@
-#summary [Guide][English] User Guide for 400plus
+#summary [Guide][English][Preview] User Guide for 400plus - preview
 #labels Featured
 
-= Table of Contents=
+<font color="red">
+*WARNING*: This guide refers to the _next_ major version, and may contain information about features not yet implemented in the official release.
+</font>
+
+= Table Of Contents =
 
 <wiki:toc max_depth="1" />
 
@@ -9,27 +13,29 @@
 
 == What is 400plus? ==
 
-*400plus* is a free firmware enhancement software which offers additional functionality and capabilities to your Canon 400D/XTi camera in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up to enhance the native camera firmware but is not a permanent firmware upgrade and can easily be removed. It is designed specifically for the Canon 400D/XTi and will not work with other camera models.
+`400plus` is a free firmware enhancement software, which offers additional functionality and capabilities to your Canon 400D/XTi camera, in both a non-destructive, and non-permanent way. It works by loading into your camera's memory automatically upon boot-up, to enhance the native camera firmware; but is not a permanent firmware upgrade, and can easily be removed.
 
-== User guide ==
+_It is designed specifically for the Canon 400D/XTi and will not work with other camera models._
 
-This wiki page document will serve as the user guide for 400plus. It is assumed in this document that the user has installed 400plus prior to reading this guide and that it is working properly. For information about installing 400plus, please see [FirmwareHackInstallation].
+== User Guide ==
 
-= The menu =
+This wiki page document will serve as the user guide for `400plus`. It is assumed in this document that the user has installed `400plus` prior to reading this guide and that it is working properly. For information about installing `400plus`, please see [FirmwareHackInstallation].
 
-== Accessing the menu ==
+= The Menu =
 
-To access the 400plus menu, press the `DP` button from the main camera dialog. To exit the 400plus menu, just half-press the shutter release button. _NOTE_: The `DP` button is located on the rear of the camera at the left of the viewfinder (beside the blue printer icon with the squiggly arrow line next to it).
+== Accessing The Menu ==
 
-== Navigating the menu ==
+To access `400plus`' menu, press the `DP` (`DIRECT PRINT`) button from within the main camera dialog; to exit `400plus`' menu, just half-press the shutter release button. The `DP` button is located on the rear of the camera, at the left of the viewfinder, and beside the blue printer icon with a squiggly arrow line next to it.
 
-400plus features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel or the `ZOOM IN` / `ZOOM OUT` buttons (notice the `<<` and `>>` at the header). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now use the front dial to select a page, and release the `AV` button to jump into it.
+== Navigating The Menu ==
 
-To navigate within a page, use the `UP` (`ISO`) and `DOWN` (`WB`) buttons; then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (press and hold these buttons to change faster). Items with an exclamation mark '`!`' at the left perform an action; activate them with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
+`400plus` features a multi-page menu, where each page is dedicated to a certain task. To navigate the pages, use the front wheel (notice the '`<<`' and '`>>`' indicators at the header of the menu). There is also a method to quickly access any page: press and hold the `AV` button down, then a list of all available pages will appear; now use the front dial to select a page, and release the `AV` button to jump into it. Moreover, if the "Navigate to main" option is active (see [#Settings_Page the settings page]), you can also press and immediately release the `AV` button to stay in the main page; once there, just use `UP` (`ISO`) and `DOWN` (`WB`) to select a page, and `SET` to enter it.
 
-== Configuring the menu ==
+To navigate within a page, use the `UP` and `DOWN` buttons, (or `ZOOM IN` and `ZOOM OUT`, to move faster); then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (hold these buttons down to change the value faster). Items with an exclamation mark '`!`' at the left perform an action: activate it with the `SET` button. And Items with a right sign '`>`' are sub-menus; enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
-While in any page within the menu, you have the ability to change the order of the items for your own personal preference. To do this, just press the `PLAY` button to "grab" an item (a small ">" will be displayed at the left of the item). Now use the `UP` or `DOWN` buttons to position the menu item where you would like it to reside (you will see the menu item move to a new position). Finish the process by pressing the `PLAY` button again to save your changes.
+== Configuring The Menu ==
+
+While in any page within the menu, you have the ability to change the order of the items to your own personal preference. To do this, just press the `PLAY` button to 'grab' an item (a small '`>`' will be displayed at the left of the item). Now use the `UP` and `DOWN` buttons to position the item where you would like it to reside (you will see the item actually move to the new position). Finish the process by pressing the `PLAY` button again, to save your changes.
 
 == Pages ==
 
@@ -100,18 +106,21 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
  * _*Release count*_: The total number of shots (actuations) made by this camera body.
  * _*Body ID*_: The "BodyID" of the camera body (an internal number, unique to each camera).
- * _*Version*_: The version number of the 400plus software currently installed.
+ * _*Version*_: The version number of the `400plus` software currently installed.
 
 === Settings Page ===
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
- * _*ISO in viewfinder*_: When active (set to Yes), use the buttons on the pad to display and change the ISO while looking through the viefinder; see [#ISO_in_viewfinder ISO in viewfinder] for more info.
- * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
+ * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
+    * Restore settings: Restore all settings (but custom modes) back to default values.
+    * Restore custom modes: Restore all settings related to custom modes back to default values (_notice that this option does not delete custom modes themselves_).
+    * Delete custom modes: Actually delete all custom modes.
  * _*Config. Scripts*_: This sub-menu configures the behavior of [#The_scripts the scripts].
     * Disable power-off: when active (set to Yes), the Auto power-off option of the camera is disabled. The value is restored after the script has completed.
     * LCD display: configure the brightness of the LCD display while a script is running.
     * Indicator: configure the blinking frequency of the blue LED while a script is running..
  * _*Config. Buttons*:_ In this sub-menu, users can configure the behavior of some special buttons:
+    * Use D-Pad: When active (set to Yes), the buttons on the cursor pad change their function while the user is looking through the viewfinder; see [#ISO_in_viewfinder ISO in viewfinder] and [#AutoISO_and_M_mode AutoISO and M mode] for more info.
     * Better DISP button: When active (set to Yes), the `DISP` button will change the display brightness in small increments, instead of just switch it on/off.
     * JUMP: Assign an action to the `JUMP` button while in the main dialog:
       * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Notes / Extended ISOs]).
@@ -119,28 +128,34 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
       * Mirror lock-up: toggle the MLU option on / off.
       * AEB: Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).
     * TRASH: Same as the JUMP button.
- * _*Config. Presets*_: This sub-menu configures the behavior of [#The_presets the presets]:
-    * Use A-DEP: when active (set to Yes), the `A-DEP` mode is hijacked for [#The_presets the presets]. See [#The_A-DEP_mode the A-DEP mode] for more information.
-    * Camera: when active (set to Yes), loading a preset recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
-    * 400plus: when active (set to Yes), loading a preset recalls 400plus' own settings (scripts, ...).
-    * Settings: when active (set to Yes), loading a preset recalls some of the rarely changed settings (language, video system, ...).
-    * Image: when active (set to Yes), loading a preset recalls image related settings (RAW/JPEG, quality, ...).
-    * Custom Fn: when active (set to Yes), loading a preset recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
+ * _*Config. Custom modes*_: This sub-menu configures the behavior of [#The_Custom_Modes the custom modes]:
+    * Camera: when active (set to Yes), loading a custom mode recalls the camera's shooting parameters (shutter speed, aperture, ISO, ...).
+    * 400plus: when active (set to Yes), loading a custom mode recalls `400plus`' own settings (scripts, ...).
+    * Menu order: when active (set to Yes), loading a custom mode recalls the order of items within menus.
+    * Settings: when active (set to Yes), loading a custom mode recalls some of the rarely changed settings (language, video system, ...).
+    * Image: when active (set to Yes), loading a custom mode image related settings (RAW/JPEG, quality, ...).
+    * Custom Fn: when active (set to Yes), loading a custom mode recalls custom function (C.Fn) settings (mirror lock-up, long-exposure noise-reduction, ...).
+ * _*Config. Menus*_: This sub-menu configures the behavior of [#The_Menu the menu]:
+    * Warp menus: when active (set to Yes), long menus will warp around when the user moves the cursor past the last element (notice that by design, the main menu always warps, regardless of this option).
+    * Navigate to main: when active (set to Yes), you can navigate to the main page in the menu(see [#Navigating_The_Menu Navigating the menu]).
+    * Enter to main: when active (set to Yes), `400plus` will directly enter the main page in the menu, instead of going to the last visited page.
+    * Autosave: when active (set to Yes), `400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down the camera..
  * _*Config. Pages*_: Use this sub-menu to configure the order how the pages must be displayed.
+ * _*Developers menu*_: When active (set to Yes), the developers menu will be accessible as a page.
 
-=== Presets Page ===
+=== Custom Modes Page ===
 
-Use this page to load, save, and rename [#The_presets presets]; the procedure to rename a preset is :
+Use this page to save, assign / unassign, rename, and delete [#The_Custom_Modes custom modes]; the procedure to rename a custom mode is:
 
- * Select the "Rename" option in the presets sub-menu.
+ * Select the "Rename" option in the custom modes sub-menu.
  * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a value.
  * Use the `MENU` button to toggle between lowercase / numbers and uppercase / symbols.
  * Use the `JUMP` button to change the case of the selected value on the name (bottom line).
  * Use the `SET` button to use the selected value in the name and advance the cursor to the next position.
- * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the preset name line (bottom line).
+ * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the custom mode name line (bottom line).
  * Press the `AV` button again to save your changes and return to the previous menu.
 
-Notice that there is always a number displayed on the left of each preset. This feature is handy when you want to copy presets to and from multiple CF cards and need to know the file names for each of your presets: the number on the left of a feature matches the number of the file created in the CF card.
+Notice that there is always a number displayed on the left of each custom mode. This feature is handy when you want to copy custom modes to and from multiple CF cards and need to know the file names for each of your custom modes: the number on the left of a feature matches the number of the file created in the CF card.
 
 === Developers Page ===
 
@@ -207,7 +222,7 @@ Exposure : * *       * * * * * * *       * *
 
 Notice that the third photograph does not take place 5 seconds after the second one, but at second 15.
 
-*NOTE*: '400plus' will not validate that the values introduced by the user make sense at all: it will not complain if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
+*NOTE*: `400plus` will not validate that the values introduced by the user make sense at all: it will not complain if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
 
 === Time-lapse calculator ===
 
@@ -237,6 +252,8 @@ But we can temporarily select a high sensitivity and large aperture (ISO1600 and
 
 NOTE: The long exposure calculator will only apply the values presented on the display when the exposure time (Tv) is one minute or longer; for shorter exposure times, the "Apply" button will simply be inactive.
 
+NOTICE: The Ev field in this calculator cannot display values smaller than -15EV or larger than +15EV.
+
 TIP: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
 
 === DOF Calculator ===
@@ -247,23 +264,19 @@ After entering the DOF Calculator, set the focal length of your lens, the apertu
 
 When the "Max. DOF (m)" entry displays "INF!", the hyperfocal distance has been reached, and thus everything from the near distance of acceptable focus up to the infinity will be sharp.
 
-= The presets =
+= The Custom Modes =
 
-A "preset" is a complete snapshot containing all of the camera settings and configuration parameters. Presets can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Presets are stored on the CF card itself. Up to 9 presets can be stored. The number of presets however is unlimited due to the fact you may use multiple CF cards each containing up to 9 presets.
+A custom mode is a complete snapshot containing all of the camera settings and configuration parameters. Custom modes can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Custom modes are stored on the CF card itself, and to 16 different custom modes can be stored in each card. The number of custom modes however is unlimited, due to the fact you may use multiple CF cards each containing up to 16 of them.
 
-== The A-DEP mode ==
+To create a custom mode, first set your camera into one of the _creative modes_ (`P`, `Tv`, `Av`, `M`, or `A-DEP`) and configure it to your liking; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the custom modes, and just press `SET` (or enter the sub-menu, and then select "Save" there). Repeat as many times as needed, and save up to 16 custom modes.
 
-Under normal circumstances, when a preset is loaded (recovered) all camera parameters are changed, even the AE mode. Take notice that the camera may then operate in an AE mode which is different from the AE mode currently selected with the mode dial. Yet when the camera is powered off and back on, it will revert to the actual AE mode that the mode dial is set to.
+To use a custom mode, set your camera to one of the _auto modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom mode, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _auto mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _auto mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
 
-To solve this issue, there is an option to hijack the (mostly unused) A-DEP mode; when this option is active, the following changes will take place:
- * Presets can only be loaded when the camera is in A-DEP mode. Envision the word "Presets" instead of "A-DEP" on the mode dial.
- * When the camera is powered on in A-DEP mode, or when the user moves the mode dial to the A-DEP position, the last preset used is automatically loaded (recalled).
-
-When this option is not enabled, then when the A-DEP position is selected with the mode dial the camera will use the A-DEP mode as it normally would.
+To revert an _auto mode_ back to its original behavior, set the camera to that _auto mode_, enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active custom mode (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and select "Unassign").
 
 = AutoISO =
 
-`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value acordingly. The behaviour of AutoISO is different for each creative mode, but the idea is roughtly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
+`400plus` has support for AutoISO in creative modes, using our own algorithms. It works by reading the measurements that the camera makes, when you half-press the shutter button, and changing the ISO value accordingly. The behavior of AutoISO is different for each creative mode, but the idea is roughly the same: use the lowest possible ISO to maintain a suitable speed or aperture.
 
 To enable AutoISO for the creative modes, activate it at the settings menu, or pres `DP` at the ISO selection dialog; to disable it, use the settings menu or select any ISO value at the ISO selection dialog.
 
@@ -271,7 +284,7 @@ To enable AutoISO for the creative modes, activate it at the settings menu, or p
 
 The intention of AutoISO in Av mode is to use the lowest possible ISO that ensures no motion blur.
 
-In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` will always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will authomaticaly raise the ISO value (up to "Max ISO") as needed.
+In _normal_ Av mode, the user selects ISO and aperture, and the camera decides the shutter speed according to the scene. But when AutoISO is active, `400plus` will always try to use the lowest possible ISO value (as configured by "Min ISO"), unless the shutter speed gets too low (as configured by "Min Tv"); when that happens, `400plus` will automatically raise the ISO value (up to "Max ISO") as needed.
 
 Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
 
@@ -279,9 +292,9 @@ Please, note that when both Safety Shift and AutoISO are enabled, the camera cou
 
 In Tv mode, the intention of AutoISO is to use the lowest possible ISO that ensures an acceptable depth of field.
 
-In Tv mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an apperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
+In Tv mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an aperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
 
-Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shif and AutoISO at Av mode applies at Tv mode, too.
+Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in Tv mode. Also, the comment about Safety Shift and AutoISO at Av mode applies at Tv mode, too.
 
 == AutoISO and P mode ==
 
@@ -291,11 +304,11 @@ In P mode, AutoISO _tries_ to behave just like in Av mode, and raises the ISO va
 
 In M mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in M mode, and this is the only mode where intermediate ISO values are used.
 
-To change the exposure compensation in M mode, use the `LEFT` and `RIGHT` keys while looking through the viewfinder.
+You can change the exposure compensation in M mode, if the "Use D-Pad" option is active (set to Yes), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
 
 = ISO in viewfinder =
 
-When this option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on Tv and M mode, the new ISO value is also displayed on the viewfinder:
+When the "Use D-Pad" option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on Tv and M mode, the new ISO value is also displayed on the viewfinder:
 
  * Set the camera to M or Tv mode.
  * Look through the viewfinder, and half-press the shutter button; you should see the current measurement (shutter speed, aperture, ...).
@@ -306,7 +319,7 @@ When this option is active (set to Yes), and if the camera is set in any creativ
 
 = The AF-Pattern point selection =
 
-400plus offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
+`400plus` offers a range of additional AF-Pattern point selections instead of just the two (Manual AF point selection, Automatic selection) which are included standard in the camera. These additional AF-pattern point selections provide a wide range of multi-point selection patterns using different combinations of the 9 focus points for some creative AF capabilities.
 
 To use the additional AF-Pattern point selections during shooting, press the `ZOOM IN` button to enter the _standard_ "AF-Point selection" dialog, then press the `ZOOM IN` button again to enter the new "AF-Pattern selection" dialog. Use the `UP`, `DOWN`, `LEFT`, `RIGHT`, and `SET` buttons to move around the different AF selection patterns available. Half-press the shutter release button to exit the dialog.
 
@@ -328,13 +341,9 @@ The following *_goodies_* have been added to the camera to enhance its capabilit
 
 Other changes to the camera behavior, not described above.
 
-== The nose affair ==
-
-While looking through the viewfinder, the `ISO` and `WB` buttons become inactive. This is done to prevent accidental changes to camera settings from pressing your nose (or cheek) up against the camera body.
-
 == Multi-language support ==
 
-Currently 400plus supports nine (9) languages:
+Currently `400plus` supports nine (9) languages:
 
   * English
   * Finnish
@@ -347,7 +356,11 @@ Currently 400plus supports nine (9) languages:
   * Simplified Chinese
   * Spanish
 
-The desire is to have 400plus be supported in as many languages as possible! If you are interested in assisting in the conversion of 400plus to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
+The desire is to have `400plus` be supported in as many languages as possible! If you are interested in assisting in the conversion of `400plus` to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
+
+== Standard Initialization ==
+
+To temporarily switch `400plus` completely off (for example, if you believe `400plus` is making your camera act weird), just press the `TRASH` button while the camera is powering on.
 
 = Notes =
 
@@ -355,7 +368,7 @@ Some notes and comments.
 
 == The _missing_ ISO-3200 ==
 
-Previous versions of `400plus` supported ISO-3200; or more precisely, it _appeared_ to support it: while the camera displayed "3200" as the ISO value, images where actually being shot at ISO-3000. Latests versions of `400plus` correct this bug, and thus only values up to ISO-3000 are supported now.
+Previous versions of `400plus` supported ISO-3200; or more precisely, it _appeared_ to support it: while the camera displayed "3200" as the ISO value, images where actually being shot at ISO-3000. Latest versions of `400plus` correct this bug, and thus only values up to ISO-3000 are supported now.
 
 Note, thus, that _an image shot at the new ISO-3000 will be exactly the same as if shot with the old ISO-3200_.
 
