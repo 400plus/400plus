@@ -39,7 +39,9 @@ While in any page within the menu, you have the ability to change the order of t
 
 == Pages ==
 
-=== Parameters ===
+=== Parameters Page ===
+
+This page contains extensions to the camera's shooting parameters, and also provides a quick access to some commonly-used but yet hard-to-find options.
 
  * _*AutoISO*_: This sub-menu configures the behavior of [#AutoISO AutoISO].
     * Enabled: when active (set to Yes), AutoISO is enabled.
@@ -65,6 +67,8 @@ While in any page within the menu, you have the ability to change the order of t
 _`[*]` Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
 
 === Scripts Page ===
+
+Scripts are little programs that control your camera, and automate certain tasks.
 
  * _*Ext. AEB*_: This item launches and configures the [#Extended_AEB Extended AEB] script:
     * Delay: select whether this script should start shooting immediately or wait 2 seconds.
@@ -104,11 +108,15 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
 === Info Page ===
 
+This page contains some useful information about your camera and `400plus`.
+
  * _*Release count*_: The total number of shots (actuations) made by this camera body.
  * _*Body ID*_: The "BodyID" of the camera body (an internal number, unique to each camera).
  * _*Version*_: The version number of the `400plus` software currently installed.
 
 === Settings Page ===
+
+Some settings about `400plus` itself.
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
  * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
@@ -145,6 +153,8 @@ _`[*]` Note that the range of values that this parameter admits is limited by th
 
 === Custom Modes Page ===
 
+Custom modes are complete configurations of your camera, quickly accessible from the main dial.
+
 Use this page to save, assign / unassign, rename, and delete [#The_Custom_Modes custom modes]; the procedure to rename a custom mode is:
 
  * Select the "Rename" option in the custom modes sub-menu.
@@ -159,11 +169,11 @@ Notice that there is always a number displayed on the left of each custom mode. 
 
 === Developers Page ===
 
-*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button, while in the menu, to enter the developers' page.
-
 _This Page Is Intentionally Left Blank._
 
-*WARNING*: The options contained in this page should be used with great care, there is probably little to see here, unless you are developing your own hack.
+*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button while in the menu to enter the developers' page.
+
+*WARNING*: The options contained in this page should be used with great care; there is probably little to see here, unless you are developing your own version of this hack.
 
 = The scripts =
 
