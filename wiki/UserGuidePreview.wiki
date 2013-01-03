@@ -122,19 +122,7 @@ Some advanced settings about your camera and `400plus`.
 
 === Custom Modes Page ===
 
-Custom modes are complete configurations of your camera, quickly accessible from the main dial.
-
-Use this page to save, assign / unassign, rename, and delete [#The_Custom_Modes custom modes]; the procedure to rename a custom mode is:
-
- * Select the "Rename" option in the custom modes sub-menu.
- * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a value.
- * Use the `MENU` button to toggle between lowercase / numbers and uppercase / symbols.
- * Use the `JUMP` button to change the case of the selected value on the name (bottom line).
- * Use the `SET` button to use the selected value in the name and advance the cursor to the next position.
- * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the custom mode name line (bottom line).
- * Press the `AV` button again to save your changes and return to the previous menu.
-
-Notice that there is always a number displayed on the left of each custom mode. This feature is handy when you want to copy custom modes to and from multiple CF cards and need to know the file names for each of your custom modes: the number on the left of a feature matches the number of the file created in the CF card.
+Custom modes are complete configurations of your camera, quickly accessible from the main dial; see [#Custom_Modes Custom Modes] below for more information.
 
 === Developers Page ===
 
@@ -420,13 +408,33 @@ When the "Max. DOF (m)" entry displays "INF!", the hyperfocal distance has been 
 
 = The Custom Modes =
 
-A custom mode is a complete snapshot containing all of the camera settings and configuration parameters. Custom modes can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Custom modes are stored on the CF card itself, and to 16 different custom modes can be stored in each card. The number of custom modes however is unlimited, due to the fact you may use multiple CF cards each containing up to 16 of them.
+== Introduction to Custom Modes ==
+
+A custom mode is a complete snapshot containing all of the camera settings and configuration parameters. Custom modes can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Custom modes are stored on the CF card itself, and up to 16 different custom modes can be stored in each card. The number of custom modes however is unlimited, due to the fact you may use multiple CF cards each containing up to 16 of them.
+
+== Creating Custom Modes ==
 
 To create a custom mode, first set your camera into one of the _creative modes_ (`P`, `Tv`, `Av`, `M`, or `A-DEP`) and configure it to your liking; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the custom modes, and just press `SET` (or enter the sub-menu, and then select "Save" there). Repeat as many times as needed, and save up to 16 custom modes.
 
-To use a custom mode, set your camera to one of the _scene modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom mode, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _scene mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _scene mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
+== Using Custom Modes ==
 
-To revert an _scene mode_ back to its original behavior, set the camera to that _scene mode_, enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active custom mode (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and select "Unassign").
+To use a custom mode, set your camera to one of the _scene modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom modes, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _scene mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _scene mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
+
+To revert a _scene mode_ back to its original behavior, set the camera to that _scene mode_ (the assigned _custom mode_ will automatically be recalled), enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active custom mode (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and then select "Unassign").
+
+== Renaming Custom Modes ==
+
+From the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu] you can rename any of the _custom modes_ using the following procedure:
+
+ * Select the "Rename" option in the sub-menu for any custom mode.
+ * Use `UP` / `DOWN` / `LEFT` / `RIGHT` buttons to select a character.
+ * Use the `MENU` button to toggle between lowercase characters + numbers and uppercase characers + symbols.
+ * Use the `JUMP` button to change the case of the selected value on the name (bottom line).
+ * Use the `SET` button to copy the selected character to the name, and advance the cursor to the next position.
+ * Use the front (main) dial or the `ZOOM IN` / `ZOOM OUT` buttons to move the cursor within the name (bottom line).
+ * Press the `AV` button to save your changes and return to the previous menu.
+
+Notice that there is always a character displayed on the left of each custom mode. This feature may come handy when you want to copy custom modes to and from multiple CF cards, and need to know the filename for each of your custom modes: the character on the left of a custom mode matches the last character n the name of the corresponding file created in the CF card.
 
 == Multi-language support ==
 
