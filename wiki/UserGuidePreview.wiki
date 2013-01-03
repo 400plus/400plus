@@ -1,13 +1,15 @@
 #summary [Guide][English][Preview] User Guide for 400plus - preview
 #labels Preview
 
-<font color="red">
-*WARNING*: This guide refers to the _next_ major version, and may contain information about features not yet implemented in the official release.
-</font>
+||<font color="red"> _*Warning*_: This guide refers to the _next_ major version, and may contain information about features not yet implemented in the official release.</font>||
+
+----
 
 = Table Of Contents =
 
 <wiki:toc max_depth="2" />
+
+----
 
 = Introduction =
 
@@ -20,6 +22,8 @@ _It is designed specifically for the Canon 400D/XTi and will not work with other
 == User Guide ==
 
 This wiki page document will serve as the user guide for `400plus`. It is assumed in this document that the user has installed `400plus` prior to reading this guide and that it is working properly. For information about installing `400plus`, please see [FirmwareHackInstallation].
+
+----
 
 = The Menu =
 
@@ -74,9 +78,10 @@ Scripts are little programs that control your camera, and automate certain tasks
 
 This page contains some useful information about your camera and `400plus`.
 
- * _*Release count*_: The total number of shots (actuations) made by this camera body.
- * _*Body ID*_: The "BodyID" of the camera body (an internal number, unique to each camera).
- * _*Version*_: The version number of the `400plus` software currently installed.
+||_*Item*_||_*Description*_||
+||Release count||The total number of shots (actuations) made by this camera body.||
+||Body ID||The "BodyID" of the camera body (an internal number, unique to each camera).||
+||Version||The version number of the `400plus` software currently installed.||
 
 === Settings Page ===
 
@@ -138,6 +143,8 @@ _This Page Is Intentionally Left Blank._
 _*Note*_: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button while in the menu to enter the developers' page.
 
 _*Warning*_: The options contained in this page should be used with great care; there is probably little to see here, unless you are developing your own version of this hack.
+
+----
 
 = Enhancements And Extensions =
 
@@ -409,6 +416,8 @@ After entering the DOF Calculator, set the focal length of your lens, the apertu
 
 When the "Max. DOF (m)" entry displays "INF!", the hyperfocal distance has been reached, and thus everything from the near distance of acceptable focus up to the infinity will be sharp.
 
+----
+
 = The Custom Modes =
 
 A custom mode is a complete snapshot containing all of the camera settings and configuration parameters. Custom modes can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Custom modes are stored on the CF card itself, and to 16 different custom modes can be stored in each card. The number of custom modes however is unlimited, due to the fact you may use multiple CF cards each containing up to 16 of them.
@@ -435,6 +444,8 @@ Currently `400plus` supports nine (9) languages:
   * Spanish
 
 The desire is to have `400plus` be supported in as many languages as possible! If you are interested in assisting in the conversion of `400plus` to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
+
+----
 
 = Known bugs =
 
