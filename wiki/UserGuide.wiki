@@ -60,41 +60,15 @@ This page contains extensions to the camera's shooting parameters, and also prov
 
 Scripts are little programs that control your camera, and automate certain tasks.
 
- * _*Ext. AEB*_: This item launches and configures the [#Extended_AEB Extended AEB] script:
-    * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Frames: the number of frames (shots) the script should take. Values range from 1 to 9.
-    * Step (EV): the separation in EV (exposure value) between each frame (shot). Values range from +1/3EV to +6EV.
-    * Direction: specifies the _direction_ of the EAEB sequence.
-    * Bulb min: the minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
-    * Bulb max: the maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.
- * _*Flash AEB*_: This item launches and configures the [#Flash_AEB Flash AEB] script:
- * _*ISO AEB*_: This item launches and configures the [#ISO_AEB ISO AEB] script; each item in the configuration sub-menu indicates whether the camera must fire a shot for that ISO value.
- * _*Interval*_: This item launches and configures the [#Intervalometer Intervalometer] script:
-    * Delay: select whether this script should start shooting immediately or wait 2 seconds.
-    * Time: the interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
-    * Shots: the total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.
-    * Video format (fps): intended playback frame-rate, if preparing a time-lapse.
-    * Recording time: estimated time that the camera will need to record the entire time-lapse (informative only).
-    * Playback time: estimated playback time of the resulting time-lapse (informative only).
- * _*Handwave*_: This item launches and configures the [#Hand_Waving Hand Waving] script:
-    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
-    * Repeat: if active (set to Yes), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.
-    * Instant: if selected (set to Yes), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.
- * _*Timer*_: This item launches and configures the [#Self_Timer Self Timer] script:
-    * Delay: the time (in minutes:seconds) that the script should wait before shooting. Values range from 00:00 to 05:00.
-    * Action: the action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).
- * _*Long exposure*_: This item launches and configures the [#Long_Exposure Long Exposure] script:
-    * Delay: select whether this script should take the shot immediately or wait for 2 seconds.
-    * Time: the length (in minutes:seconds) of the exposure. Values range from 00:15 to 100:00.
-    * Calculator: enter [#Long_Exposure_Calculator the long exposure calculator].
- * _*DOF Calculator*_: This item launches the [#DOF_Calculator DOF Calculator]:
-    * Focal length (mm): Len's focal length, in millimeters.
-    * Av: Lens aperture.
-    * Focus distance (m): Focusing distance.
-    * Min. DOF (m): Near distance of acceptable sharpness (informative only).
-    * Max. DOF (m): Far distance of acceptable sharpness (informative only).
+||_*Item*_||_*Description*_||
+||Ext. AEB||[#Extended_AEB The Extended AEB Script]||
+||Flash AEB||[#Flash_AEB The Flash AEB Script]||
+||ISO AEB||[#ISO_AEB The ISO AEB Script]||
+||Interval||[#Intervalometer The Intervalometer]||
+||Handwave||[#Hand_Waving The Hand Waving Script]||
+||Timer||[#Self_Timer The Self-Timer]||
+||Long exposure||[#Long_Exposure The Long Exposure Script]||
+||DOF Calculator||[#DOF_Calculator The DOF Calculator]||
 
 === Info Page ===
 
@@ -106,7 +80,7 @@ This page contains some useful information about your camera and `400plus`.
 
 === Settings Page ===
 
-Some settings about `400plus` itself.
+Some advanced settings about your camera and `400plus`.
 
  * _*Language*_: Set the language for the menus from `400plus`; leave as "`Camera`" to use the same language configured at the camera menus.
  * _*Restore config.*_: This sub-menu allows to restore configuration parameters back to the default values (_notice that there is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone_):
@@ -161,9 +135,9 @@ Notice that there is always a number displayed on the left of each custom mode. 
 
 _This Page Is Intentionally Left Blank._
 
-*NOTE*: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button while in the menu to enter the developers' page.
+_*Note*_: The developers page is disabled by default, and must be enabled in the [#Settings_Page settings page] prior to accessing it; moreover, the developers' page lays outside the normal page navigation: press the `TRASH` button while in the menu to enter the developers' page.
 
-*WARNING*: The options contained in this page should be used with great care; there is probably little to see here, unless you are developing your own version of this hack.
+_*Warning*_: The options contained in this page should be used with great care; there is probably little to see here, unless you are developing your own version of this hack.
 
 = Enhancements And Extensions =
 
@@ -237,7 +211,7 @@ To enable AutoISO, enter the ISO selection dialog (press the `ISO` button from t
 
 _`[*]` Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
 
-=== AutoISO in `Av` mode ===
+=== AutoISO In `Av` mode ===
 
 The intention of AutoISO in `Av` mode is to use the lowest possible ISO that ensures no motion blur.
 
@@ -245,7 +219,7 @@ In normal `Av` mode, the user selects ISO and aperture, and the camera decides t
 
 Please, note that when both Safety Shift and AutoISO are enabled, the camera could drop shutter speed below the configured "Min Tv", if "Max ISO" is reached, in order to maintain a correct exposure.
 
-=== AutoISO in `Tv` mode ===
+=== AutoISO In `Tv` mode ===
 
 In `Tv` mode, the intention of AutoISO is to use the lowest possible ISO that ensures an acceptable depth of field.
 
@@ -253,17 +227,17 @@ In `Tv` mode, AutoISO will try to keep ISO as low as possible (as configured by 
 
 Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in `Tv` mode. Also, the comment about Safety Shift and AutoISO at `Av` mode applies at Tv mode, too.
 
-=== AutoISO in `P` mode ===
+=== AutoISO In `P` mode ===
 
 In `P` mode, AutoISO _tries_ to behave just like in `Av` mode, and will raise the ISO value to keep a minimum shutter speed; but, as the camera decides both aperture and shutter speed in this mode, there is no guarantee that raising the ISO will increase shutter speed: it tends to work correctly for small values of "Min Tv", but for larger values the camera usually decides to close the diaphragm instead of selecting a faster shutter speed.
 
-=== AutoISO in `M` mode ===
+=== AutoISO In `M` mode ===
 
 In `M` mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in `M` mode, and this is the only mode where intermediate ISO values are used.
 
 You can change the exposure compensation in `M` mode, if the "Use D-Pad" option is active (set to Yes), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
 
-== ISO in Viewfinder ==
+== ISO In Viewfinder ==
 
 When the "Use D-Pad" option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on `Tv` and `M` mode, the new ISO value is also displayed on the viewfinder:
 
@@ -272,7 +246,7 @@ When the "Use D-Pad" option is active (set to Yes), and if the camera is set in 
  * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or `UP` just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
  * In `P` and `Av` modes, ISO can also be changed, but it is not displayed.
 
-*Note*: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled.
+_*Note*_: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled.
 
 == RAW Support For Scene Modes ==
 
@@ -301,11 +275,9 @@ To temporarily switch `400plus` completely off (for example, if you believe `400
 
 = The scripts =
 
-When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second). To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
+To launch a script, just select it in the [#Scripts_Page scripts page] at [#The_Menu the menu] and press `SET` (unfortunately, scripts _still_ cannot be launched using the shutter-release button). When a script starts or stops, a _beep_ will be heard; and while a script is running, the `DP` button will flash (approx. twice per second, by default). To stop a running script, press the `DP` button again; sometimes the camera may not stop immediately, so hold the `DP` button until you hear a _beep_ that signals the effective end of the script.
 
-You can also pause a running script, by means of simply pressing the DISP button: this will put the camera into a low-power mode, and effectively stop all ongoing activity; press DISP again, to bring back the camera into life, and the script will continue normally.
-
-All scripts will check the card capacity before each shot; if the estimated number of shots available is lower than a fixed value (3), the scripts will stop executing.
+You can also pause a running script, by means of simply pressing the DISP button: this will put the camera into a low-power mode, and effectively stop all ongoing activity; press DISP again, to bring back the camera into life, and the script will continue normally. All scripts will check the card capacity before each shot; if the estimated number of shots available is lower than a fixed value (3), the scripts will stop executing.
 
 == Extended AEB ==
 
@@ -315,12 +287,28 @@ This script performs the same task as the _standard_ AEB option from the camera,
  * The camera will take all the shots in a sequence, automatically.
  * User can specify the _direction_ of the sequence.
 
-Supposing a configuration of 5 shots at 1EV separation, this is how each _direction_ is supposed to work:
- * `+/-` : One photo at current EV, and the rest above and below it: 0EV, +1EV, -1EV, +2EV, -2EV.
- * ` + ` : One photo at current EV, and the rest above it: 0EV, +1EV, +2EV, +3EV, +4EV.
- * ` - ` : One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.
+To configure and launch the Extended AEB script, use the "Ext. AEB" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
 
-In 'M' mode with the shutter speed set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by the "Step (EV)" value. Notice also that exposure times as long as 32 minutes can be used in this mode.
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
+||Frames||The number of frames (shots) the script should take. Values range from 1 to 9.||
+||Step (EV)||The separation in EV (exposure value) between each frame (shot). Values range from +1/3EV to +6EV.||
+||Direction||Specifies the _direction_ of the EAEB sequence.||
+||Bulb min||The minimum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.||
+||Bulb max||The maximum shutter speed in `BULB` mode. Values range from 1/4000th of a second to 32 minutes.||
+
+Supposing a configuration of 5 shots at 1EV separation, this is how each _direction_ is supposed to work:
+
+||_*Value*_||_*Meaning*_||
+||`+/-`||One photo at current EV, and the rest above and below it: 0EV, +1EV, -1EV, +2EV, -2EV.||
+||` + `||One photo at current EV, and the rest above it: 0EV, +1EV, +2EV, +3EV, +4EV.||
+||` - `||One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.||
+
+=== Extended AEB In `BULB` mode ===
+
+In 'M' mode with the shutter speed set to `BULB`, this script will fire the camera as many times as needed (in this mode, the number of shots configured is irrelevant), with shutter speeds ranging from the "Bulb min:" value to the "Bulb max:" value, separating each shot by 1EV (in this mode, the separation configured is irrelevant). 
+
+Notice also that exposure times as long as 32 minutes can be used in this mode.
 
 == Flash AEB ==
 
@@ -328,13 +316,20 @@ Similar to the [#Extended_AEB Extended AEB] script, but only the flash exposure 
 
 == ISO AEB ==
 
-Camera will make a photograph for each ISO configured.
-
-You probably want to set the camera to `M` mode prior to using this script.
+Camera will make a photograph for each ISO active. You probably want to set the camera to `M` mode prior to using this script.
 
 == Intervalometer ==
 
-This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example.
+This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example. To configure and launch the Intervalometer, use the "Interval" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
+
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
+||Time||The interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.||
+||Action||The action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).||
+||Shots||The total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.||
+||Video format (fps)||Intended playback frame-rate, if preparing a time-lapse.||
+||Recording time||Estimated time that the camera will need to record the entire time-lapse (informative only).||
+||Playback time||Estimated playback time of the resulting time-lapse (informative only).||
 
 === Strict scheduling ===
 
@@ -356,7 +351,7 @@ Exposure : * *       * * * * * * *       * *
 
 Notice that the third photograph does not take place 5 seconds after the second one, but at second 15.
 
-*NOTE*: `400plus` will not validate that the values introduced by the user make sense at all: it will not complain if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
+_*Note*_: `400plus` will not validate that the values introduced by the user make sense at all: it will not complain if you set an interval time of 10 seconds with and exposure time of 15 seconds, for example; it is the sole responsibility of the user to avoid these situations.
 
 === Time-lapse calculator ===
 
@@ -366,13 +361,29 @@ If you plan to make a time-lapse movie with the photographs taken with this scri
 
 This script will fire the camera when the display-off sensor (at the rear of the camera) is triggered. Use this script to fire the camera without the need of a remote to help reduce camera shake. If the "Repeat" option is active, this script will not end after being triggered, but will repeat itself again so you can take more shots. By default, this script will wait until something (like your hand or finger) blocks the sensor and is then removed to fire the camera. However, if the "Instant" option is enabled, the script will fire the camera as soon as the sensor becomes blocked.
 
+To configure and launch the Hand Waving Script, use the "Handwave" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
+
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should take the shot immediately or wait for 2 seconds.||
+||Action||The action to be performed ("One Shot", "Extended AEB", "Flash AEB", "ISO AEB", "Long exposure").||
+||Repeat||If active (set to "Yes"), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.||
+||Instant||If selected (set to "Yes"), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.||
+
 == Self Timer ==
 
 This script simply adds a configurable pause before firing the camera.
 
+||_*Parameter*_||_*Description*_||
+||Delay||Te time (in minutes:seconds) that the script should wait before shooting; values range from 00:00 to 05:00.||
+||Action||The action to be performed ("One Shot", "Extended AEB", "Flash AEB", "ISO AEB", "Long exposure").||
+
 == Long Exposure ==
 
 Just that, a configurable long exposure, from 15 seconds to 100 minutes.
+
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should take the shot immediately or wait for 2 seconds.||
+||Time||The length (in minutes:seconds) of the exposure; values range from 00:15 to 100:00.||
 
 Notice that the camera has to be in M + BULB mode to take a long exposure; this script will set the camera for you, but configuring a suitable aperture is the responsibility of the user.
 
@@ -384,11 +395,11 @@ For example, let's suppose we want to photograph a night scene; we decide to use
 
 But we can temporarily select a high sensitivity and large aperture (ISO1600 and f/2.8, for example), measure the scene, and determine we would need a 15-second exposure with those parameters. Then we enter the long exposure calculator, lower the ISO value to 100, and close the diaphragm to f/8; the Ev indicator will display a value if -9, meaning that with the current parameters the exposure is 9 stops below the measured value. We can now increase the exposition time until the Ev indicator goes back to 0, meaning the current parameters would result in the same exposure than we had at the beginning; in our case, that means raising the exposure time from 15 seconds to 32 minutes. Finally, just press "Apply" to configure the camera with these parameters, and launch the long exposure script.
 
-NOTE: The long exposure calculator will only apply the values presented on the display when the exposure time (Tv) is one minute or longer; for shorter exposure times, the "Apply" button will simply be inactive.
+_*Note*_: The long exposure calculator will only apply the values presented on the display when the exposure time (Tv) is one minute or longer; for shorter exposure times, the "Apply" button will simply be inactive.
 
-NOTICE: The Ev field in this calculator cannot display values smaller than -15EV or larger than +15EV.
+_*Notice*_: The Ev field in this calculator cannot display values smaller than -15EV or larger than +15EV.
 
-TIP: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
+_*Tip*_: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
 
 === DOF Calculator ===
 
