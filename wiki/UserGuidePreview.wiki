@@ -37,10 +37,6 @@ To access `400plus`' menu, press the `DP` (`DIRECT PRINT`) button from within th
 
 To navigate within a page, use the `UP` and `DOWN` buttons, (or `ZOOM IN` and `ZOOM OUT`, to move faster); then use the `LEFT` (`METERING`) and `RIGHT` (`AF`) buttons to change the value of the selected item (hold these buttons down to change the value faster). Items with an exclamation mark '`!`' at the left perform an action: activate it with the `SET` button. And Items with a right sign '`>`' are sub-menus: enter them with the `RIGHT` button, and return back to the main page with the `AV` button. Notice that some items can both perform an action and have a sub-menu.
 
-== Configuring The Menu ==
-
-While in any page within the menu, you have the ability to change the order of the items to your own personal preference. To do this, just press the `PLAY` button to 'grab' an item (a small '`>`' will be displayed at the left of the item). Now use the `UP` and `DOWN` buttons to position the item where you would like it to reside (you will see the item actually move to the new position). Finish the process by pressing the `PLAY` button again, to save your changes.
-
 == Menu Pages ==
 
 === Parameters Page ===
@@ -109,11 +105,15 @@ _*Note*_: The developers page is disabled by default, and must be enabled in the
 
 _*Warning*_: The options contained in this page should be used with great care; there is probably little to see here, unless you are developing your own version of this hack.
 
+== Configuring The Menu ==
+
+While in any page within the menu, you have the ability to change the order of the items to your own personal preference. To do this, just press the `PLAY` button to 'grab' an item (a small '`>`' will be displayed at the left of the item). Now use the `UP` and `DOWN` buttons to position the item where you would like it to reside (you will see the item actually move to the new position). Finish the process by pressing the `PLAY` button again, to save your changes.
+
 ----
 
 = Enhancements And Extensions =
 
-These are the enhancements and extensions that `400plus`provides.
+These are the enhancements and extensions that `400plus` provides.
 
 == Safety Shift ==
 
@@ -162,7 +162,7 @@ Extended ISOs are available at the "ISO" item in the [#Parameters_Page parameter
 
 === Some notes about extended ISOs ===
 
- * When use extended ISOs, the camera will not always display the correct ISO value; for example, an image shot at `ISO-3000` will show as `ISO-3200` during the review. This is a limitation of the original firmware.
+ * When using extended ISOs, the camera will not always display the correct ISO value; for example, an image shot at `ISO-3000` will show as `ISO-3200` during the review. This is a limitation of the original firmware.
 
  * _Non-standard_ ISO values are software-only calculated values, and technically offer little to no gain over shooting at the standard _base_ ISO values and later post-processing the image. They can be useful, however, when there is no time for any post-processing.
 
@@ -211,7 +211,7 @@ You can change the exposure compensation in `M` mode, if the "Use D-Pad" option 
 
 == ISO In Viewfinder ==
 
-When the "Use D-Pad" option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on `Tv` and `M` mode, the new ISO value is also displayed on the viewfinder:
+When the "Use D-Pad" option is active (set to "Yes"), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on `Tv` and `M` mode, the new ISO value is also displayed on the viewfinder:
 
  * Set the camera to `M` or `Tv` mode.
  * Look through the viewfinder, and half-press the shutter button; you should see the current measurements (shutter speed, aperture...).
@@ -241,6 +241,8 @@ For your convenience, the [#Parameters_Page parameters page] at [#The_Menu the m
 ||AF Flash||05||
 ||Flash 2curt||09||
 
+While the camera is displaying the main dialog, `400plus` can assign special actions to the (otherwise unused) `JUMP` and `TRASH` buttons; please, see [#Configuring_Buttons the button configuration] section for more information.
+
 == Standard Initialization ==
 
 To temporarily switch `400plus` completely off (for example, if you believe `400plus` is making your camera act weird), just press the `TRASH` button while the camera is powering on; the blue LED will not flash, and the camera will act as if `400plus` had never been installed. Notice that this change is not permanent, and you must hold the `TRASH` button each time the camera powers on, even when waking up from an automatic power off.
@@ -255,7 +257,7 @@ You can also pause a running script, by means of simply pressing the DISP button
 
 This script performs the same task as the _standard_ AEB option from the camera, but with a few nice enhancements:
  * Up to 9 shots may be specified.
- * The separation between shots is configurable up to +-6 EV.
+ * The separation between shots is configurable up to ±6 EV.
  * The camera will take all the shots in a sequence, automatically.
  * User can specify the _direction_ of the sequence.
 
@@ -275,6 +277,12 @@ Supposing a configuration of 5 shots at 1EV separation, this is how each _direct
 ||`+/-`||One photo at current EV, and the rest above and below it: 0EV, +1EV, -1EV, +2EV, -2EV.||
 ||` + `||One photo at current EV, and the rest above it: 0EV, +1EV, +2EV, +3EV, +4EV.||
 ||` - `||One photo at current EV, and the rest below it: 0EV, -1EV, -2EV, -3EV, -4EV.||
+
+_*Note:_*
+
+Previous versions of this script just adjusted the EV compensation between shots; this method has one major drawback: if the light in the scene changes during the sequence, the camera may change the exposure settings between shots, and this script will end applying different compensations to unrelated exposures; the final result is not what the user would expect.
+
+Newer versions fire the first shot without changing any parameter, but the settings used by camera get recorded; then, the camera is set into `M` mode, and the rest of the sequence is taken using parameters calculated by this script. This ensures a correct sequence, regardless of changes in the scene; but has one inconvenience: some computer programs that detect sequences of AEB shots get confused, and the images do not seem to be related at all.
 
 === Extended AEB In `BULB` mode ===
 
@@ -297,7 +305,7 @@ This script will fire the camera as many times as configured (or endlessly), wit
 ||_*Parameter*_||_*Description*_||
 ||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
 ||Time||The interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.||
-||Action||The action to be performed (One Shot, Extended AEB, Flash AEB, ISO AEB, Long exposure).||
+||Action||See [#Script_Chaining Script Chaining].||
 ||Shots||The total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.||
 ||Video format (fps)||Intended playback frame-rate, if preparing a time-lapse.||
 ||Recording time||Estimated time that the camera will need to record the entire time-lapse (informative only).||
@@ -314,7 +322,7 @@ Time (s) : # · · · · # · · · · # · · · · # · · · ·
 Exposure : * *       * * * *   *         * *
 }}}
 
-Notice how the length of pause between the end of an exposure and the beginning of the next one adapts to the exposure time, so photographs always start at regular intervals. Now, imagine that one of the exposures takes longer than 5 seconds (let's say 7):
+Notice how the length of the pause between the end of an exposure and the beginning of the next one adapts to the exposure time, so photographs always start at regular intervals. Now, imagine that one of the exposures takes longer than 5 seconds (let's say 7):
 
 {{{
 Time (s) : # · · · · # · · · · # · · · · # · · · ·
@@ -337,7 +345,7 @@ To configure and launch the Hand Waving Script, use the "Handwave" sub-menu in t
 
 ||_*Parameter*_||_*Description*_||
 ||Delay||Select whether this script should take the shot immediately or wait for 2 seconds.||
-||Action||The action to be performed ("One Shot", "Extended AEB", "Flash AEB", "ISO AEB", "Long exposure").||
+||Action||See [#Script_Chaining Script Chaining].||
 ||Repeat||If active (set to "Yes"), the script will restart itself after is has completed. This allows you to wave your hand repeatedly to continue using the script.||
 ||Instant||If selected (set to "Yes"), the script will take a shot as soon as a hand is detected; otherwise, the script will wait until the hand is removed.||
 
@@ -347,7 +355,7 @@ This script simply adds a configurable pause before firing the camera.
 
 ||_*Parameter*_||_*Description*_||
 ||Delay||Te time (in minutes:seconds) that the script should wait before shooting; values range from 00:00 to 05:00.||
-||Action||The action to be performed ("One Shot", "Extended AEB", "Flash AEB", "ISO AEB", "Long exposure").||
+||Action||See [#Script_Chaining Script Chaining].||
 
 == Long Exposure ==
 
@@ -380,6 +388,12 @@ The DOF Calculator can help determine the depth of field of a scene, or the rang
 After entering the DOF Calculator, set the focal length of your lens, the aperture you are using, and the distance from the camera to the subject. The script will then display the near and far distances of acceptable sharpness. You can now change the aperture and / or the focusing distance until the depth of field displayed matches the part of your scene that you deem as important and want to remain in-focus.
 
 When the "Max. DOF (m)" entry displays "INF!", the hyperfocal distance has been reached, and thus everything from the near distance of acceptable focus up to the infinity will be sharp.
+
+== Script Chaining ==
+
+Some scripts ([#Intervalometer Intervalometer], [#Hand_Waving Hand Waving], and [#Self_Timer Self-Timer]) have an "Action" parameter, that allows the user to select another script (from [#Extended_AEB "Extended AEB"], [#Flash_AEB "Flash AEB"], [#ISO_AEB "ISO AEB"], and [#Long_Exposure "Long exposure"]) that will be used when the _parent_ scripts decides to _shoot_.
+
+This allows for the easy chaining of scripts: for example, the [#Intervalometer Intervalometer] can be used to fire a sequence of 3 shots, using the [#Extended_AEB Extended EAEB] script, every 5 minutes.
 
 ----
 
@@ -470,10 +484,12 @@ Some unused buttons can be configured here to extend the camera's behavior:
 
 The following actions can be assigned to the `JUMP` and `TRASH` buttons:
 
-  * Intermediate ISO: bump ISO by 1/8 EV (see [#Extended_ISOs Extended ISOs]).
-  * Repeat last script: repeat last script executed.
-  * Mirror lock-up: toggle the MLU option on / off.
-  * AEB: Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).
+||_*Value*_||_*Description*_||
+||Intermediate ISO||Bump ISO by 1/8 EV (see [#Extended_ISOs Extended ISOs]).||
+||Repeat last script||Repeat last script executed.||
+||Mirror lock-up||Toggle the MLU option on / off.||
+||AEB||Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).||
+||Flash on/off||Toggle the flash on and off, even if it has been raised.||
 
 == Configuring Custom Modes ==
 
@@ -497,7 +513,7 @@ Even how the menus work can be configured in `400plus`:
 ||Warp menus||Long menus will warp around when the user moves the cursor past the last element (notice that by design, the main menu always warps, regardless of this option).||
 ||Navigate to main||You can navigate to the main page in the menu (see [#Navigating_The_Menu Navigating the menu]).||
 ||Enter to main||`400plus` will directly enter the main page in the menu, instead of going to the last visited page.||
-||Autosave||`400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down the camera.||
+||Autosave||`400plus` will save the current page each time you exit the menu, and go back directly to that page when you enter the menu again, even if you shut down your camera.||
 
 == Configuring Pages ==
 
