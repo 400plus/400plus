@@ -102,7 +102,7 @@ void menu_main_start() {
 
 void menu_main_save(type_MENU *menu) {
 	if (settings.menu_autosave)
-		menu->changed = (settings.menu_current_posn != menu_main.current_posn);
+		menu->changed = menu->changed || (settings.menu_current_posn != menu_main.current_posn);
 
 	settings.menu_current_posn = menu_main.current_posn;
 
