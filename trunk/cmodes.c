@@ -143,7 +143,7 @@ int amode_write(AE_MODE ae_mode) {
 int amode_delete(AE_MODE ae_mode) {
 	char filename[FILENAME_LENGTH];
 
-	get_cmode_filename(filename, ae_mode);
+	get_amode_filename(filename, ae_mode);
 
 	return snapshot_delete(filename);
 }
