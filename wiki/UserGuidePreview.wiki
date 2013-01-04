@@ -1,7 +1,7 @@
 #summary [Guide][English][Preview] User Guide for 400plus - preview
 #labels Preview
 
-||<font color="red"> _*Warning*_: This guide refers to the _next_ major version, and may contain information about features not yet implemented in the official release.</font>||
+||<font color="red">_*Warning*_: This guide refers to the _next_ major version, and may contain information about features not yet implemented in the official release.</font>||
 
 ----
 
@@ -85,7 +85,7 @@ This page contains some useful information about your camera and `400plus`.
 
 === Settings Page ===
 
-Some advanced settings about your camera and `400plus`; please, see [#Settings Settings] for more information.
+Some advanced settings about your camera and `400plus`; please, see [#Configuration Configuration] for more information.
 
 ||_*Item*_||_*Description*_||
 ||Language||[#Internationalization Internationalization]||
@@ -214,7 +214,7 @@ You can change the exposure compensation in `M` mode, if the "Use D-Pad" option 
 When the "Use D-Pad" option is active (set to Yes), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on `Tv` and `M` mode, the new ISO value is also displayed on the viewfinder:
 
  * Set the camera to `M` or `Tv` mode.
- * Look through the viewfinder, and half-press the shutter button; you should see the current measurements (shutter speed, aperture, ...).
+ * Look through the viewfinder, and half-press the shutter button; you should see the current measurements (shutter speed, aperture...).
  * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or `UP` just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
  * In `P` and `Av` modes, ISO can also be changed, but it is not displayed.
 
@@ -415,7 +415,7 @@ Notice that there is always a character displayed on the left of each custom mod
 
 ----
 
-= Settings =
+= Configuration =
 
 The [#Settings_Page settings page] at [#The_Menu the menu] offers some advanced setting to configure both your camera and `400plus`.
 
@@ -487,7 +487,7 @@ This sub-menu of the [#Settings_Page settings page] at [#The_Menu the menu], you
 ||Menu order||Order of all items within menus.||
 ||Settings||Some rarely changed settings: language, video system, ...||
 ||Image||Image related settings: RAW/JPEG, quality, ...||
-||Custom Fn||Custom function (C.Fn) settings: mirror lock-up, long-exposure noise-reduction, ...||
+||Custom Fn||Custom function (C.Fn) settings: mirror lock-up, long-exposure noise-reduction...||
 
 == Configuring Menus ==
 
@@ -505,10 +505,4 @@ Use the "Config. Pages" item in the [#Settings_Page settings page] at [#The_Menu
 
 ----
 
-= Known bugs =
-
-The following relevant bugs have been reported and confirmed:
-
- * Issue #156: Auto-focus Assist Beam not fired from 430EX when using extended AF patterns.
-
-||*ATTENTION*: _Please, use the comments section below exclusively for comments (typos, clarifications, suggestions) about this page; open an issue to request support or suggest a new feature, and visit the forum for general discussions about the project._||
+||<font color="red">*_Attention_*: Please, use the comments section below exclusively for comments about this page: typos, clarifications, suggestions...; open an issue to request support or suggest a new feature, and visit the forum for general discussions about the project.</font>||
