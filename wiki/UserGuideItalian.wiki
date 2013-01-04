@@ -1,5 +1,9 @@
 #summary [Guide][Italian] Manuale Utente 400D+.
-#labels Italian
+#labels Italian,Deprecated
+
+||<font color="red">*_Note_*: Due to lack of maintenance, this guide has been deprecated; please use the English version of the [UserGuide user guide].</font>||
+
+<wiki:comment>
 
 <font color="red">
 *WARNING*: This guide is at least one major version behind the latest official release, and thus may contain inaccuracies or outdated information.
@@ -268,3 +272,5 @@ Sono stati riportati e confermati i seguenti malfunzionamenti di una certa rilev
 
  * Issue #15: Cambi di esposizione nell'esecuzione dell'AEB Est. .
  * Issue #130: non vengono ripristinate le configurazioni se la camera viene spenta mentre uno script è attivo.
+
+<wiki:comment>
