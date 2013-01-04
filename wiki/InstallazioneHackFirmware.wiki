@@ -1,5 +1,9 @@
 #summary [Install][Italian] Installazione Hack Firmware
-#labels Italian
+#labels Italian,Deprecated
+
+||<font color="red">*_Note_*: Due to lack of maintenance, this guide has been deprecated; please use the English version of the [FirmwareHackInstallation firmware hack installation guide].</font>||
+
+<wiki:comment>
 
 = Introduzione =
 
@@ -66,3 +70,5 @@ Il prmo passaggio della procedure di installazione non può essere annullato al 
   * [http://code.google.com/p/400d/downloads/detail?name=400d_autoexec_bin_guide.doc&can=2&q= Huong dan cai dat]
   * [http://chdk.wikia.com/wiki/400D 400d page on wikia]
   * [http://chdk.setepontos.com/index.php/topic,4214.msg39827.html#msg39827 whim's post]
+
+</wiki:comment>
