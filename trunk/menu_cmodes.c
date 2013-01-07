@@ -30,8 +30,8 @@ void menu_cmodes_free   (const type_MENUITEM *item);
 void menu_cmodes_rename (const type_MENUITEM *item);
 void menu_cmodes_delete (const type_MENUITEM *item);
 
-// One sub-menu for each custom mode, and 3 items on each sub-menu
-type_MENUITEM menupage_cmodes_subitems[CMODES_MAX][3];
+// One sub-menu for each custom mode, and 3 / 4 items on each sub-menu
+type_MENUITEM menupage_cmodes_subitems[CMODES_MAX][4];
 type_MENUPAGE menupage_cmodes_submenus[CMODES_MAX];
 
 type_MENUITEM menupage_cmodes_items[CMODES_MAX];
@@ -49,27 +49,41 @@ type_MENUPAGE menupage_cmodes = {
 };
 
 void menu_cmodes_open() {
-	int i;
+	int i, length;
 	int current_cmode = get_current_cmode();
 
 	menupage_cmodes.highlight        = status.cmode_active;
 	menupage_cmodes.highlighted_item = current_cmode;
 
 	for (i = 0; i < CMODES_MAX; i++) {
-		// Create first item in sub-menu: FREE / LOAD / SAVE
 		if (AE_IS_AUTO(status.main_dial_ae)) {
 			if(status.cmode_active && i == current_cmode) {
+				length = 4;
+
+				// Current custom mode: create first item in sub-menu: UPDATE
 				menupage_cmodes_subitems[i][0].id      = i;
 				menupage_cmodes_subitems[i][0].display = menuitem_display;
-				menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_UNASSIGN);
-				menupage_cmodes_subitems[i][0].action  = menu_cmodes_free;
+				menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_UPDATE);
+				menupage_cmodes_subitems[i][0].action  = menu_cmodes_save;
+
+				// Current custom mode: create extra item in sub-menu: UNASSIGN
+				menupage_cmodes_subitems[i][3].id      = i;
+				menupage_cmodes_subitems[i][3].display = menuitem_display;
+				menupage_cmodes_subitems[i][3].name    = LP_WORD(L_I_UNASSIGN);
+				menupage_cmodes_subitems[i][3].action  = menu_cmodes_free;
 			} else {
+				length = 3;
+
+				// Other custom mode: create first item in sub-menu: ASSIGN
 				menupage_cmodes_subitems[i][0].id      = i;
 				menupage_cmodes_subitems[i][0].display = menuitem_display;
 				menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_ASSIGN);
 				menupage_cmodes_subitems[i][0].action  = menu_cmodes_load;
 			}
 		} else {
+			length = 3;
+
+			// Creative mode: create first item in sub-menu: SAVE
 			menupage_cmodes_subitems[i][0].id      = i;
 			menupage_cmodes_subitems[i][0].display = menuitem_display;
 			menupage_cmodes_subitems[i][0].name    = LP_WORD(L_I_SAVE);
@@ -90,7 +104,7 @@ void menu_cmodes_open() {
 
 		// Configure sub-menu
 		menupage_cmodes_submenus[i].name    = cmodes_config.names[i];
-		menupage_cmodes_submenus[i].length  = LENGTH(menupage_cmodes_subitems[i]);
+		menupage_cmodes_submenus[i].length  = length;
 		menupage_cmodes_submenus[i].items   = menupage_cmodes_subitems[i];
 
 		menupage_cmodes_submenus[i].actions[MENU_EVENT_AV] = menu_return;
@@ -107,7 +121,7 @@ void menu_cmodes_open() {
 }
 
 void menu_cmodes_save(const type_MENUITEM *item) {
-	if (AE_IS_CREATIVE(status.main_dial_ae))
+	if (AE_IS_CREATIVE(status.main_dial_ae) || status.cmode_active)
 		if (cmode_write(item->id)) {
 			beep();
 			menu_close();

@@ -28,6 +28,15 @@ int get_real_id(type_MENUPAGE *page, int item_pos);
 type_MENUITEM *get_item(type_MENUPAGE *page, int item_id);
 
 void menupage_initialize(type_MENUPAGE *page) {
+	// Correct position if menu has shrunk since last time
+	int offset = page->current_line - (page->length - 1);
+
+	if (offset > 0) {
+		page->current_posn -= offset;
+		page->current_line -= offset;
+	}
+
+	// Release item if was grabbed last time we left menu
 	item_grabbed = false;
 }
 

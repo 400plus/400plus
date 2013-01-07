@@ -43,6 +43,7 @@
 	LANG_PAIR( I_SAVE,               "Save"                      ) \
 	LANG_PAIR( I_ASSIGN,             "Assign"                    ) \
 	LANG_PAIR( I_UNASSIGN,           "Unassign"                  ) \
+	LANG_PAIR( I_UPDATE,             "Update"                    ) \
 	LANG_PAIR( I_RENAME,             "Rename"                    ) \
 	LANG_PAIR( I_DELETE,             "Delete"                    ) \
 	LANG_PAIR( S_AUTOISO,            "AutoISO"                   ) \
