@@ -207,7 +207,7 @@ In `P` mode, AutoISO _tries_ to behave just like in `Av` mode, and will raise th
 
 In `M` mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in `M` mode, and this is the only mode where intermediate ISO values are used.
 
-You can change the exposure compensation in `M` mode, if the "Use D-Pad" option is active (set to Yes), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
+You can change the exposure compensation in `M` mode, if the "Use D-Pad" option is active (set to "Yes"), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
 
 == ISO In Viewfinder ==
 
@@ -409,9 +409,17 @@ To create a custom mode, first set your camera into one of the _creative modes_ 
 
 == Using Custom Modes ==
 
-To use a custom mode, set your camera to one of the _scene modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom modes, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _scene mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _scene mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
+To create a new custom mode, set your camera to one of the _scene modes_ ("AUTO", "Portrait", "Landscape", "Macro", "Sports", "Night", or "No flash") that you want to use as a _custom mode_; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the previously saved custom modes, and just press `SET` (or enter the sub-menu, and then select "Assign" there). Your _scene mode_ is now acting as a _custom mode_. Notice that you can assign any _custom mode_ to any _scene mode_, so up to 7 custom modes (from the 16 available) can be assigned at the same time.
 
-To revert a _scene mode_ back to its original behavior, set the camera to that _scene mode_ (the assigned _custom mode_ will automatically be recalled), enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active custom mode (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and then select "Unassign").
+== Changing Custom Modes ==
+
+Once a mode has been assigned, you can easily update it: just set the camera to the _scene mode_ where that _custom mode_ is assigned, then change any parameter in your camera; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active _custom mode_ (it will be marked with an asterisk '`*`'), and just press `SET` (or enter the sub-menu, and then select "Update").
+
+== Reverting Scene Modes ==
+
+To revert a _scene mode_ back to its original behavior, set the camera to that _scene mode_ (the assigned _custom mode_ will automatically be recalled), enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select the current active _custom mode_ (it will be marked with an asterisk '`*`'), and select "Unassign" in the corresponding sub-menu).
+
+Notice that this action does not delete or change the _custom mode_ at all, it just unassigns it from the current _scene mode_.
 
 == Renaming Custom Modes ==
 
