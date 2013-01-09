@@ -149,7 +149,6 @@ void menu_cmodes_free(const type_MENUITEM *item) {
 	if (AE_IS_AUTO(status.main_dial_ae)) {
 		set_current_cmode(CMODE_NONE);
 
-		status.main_dial_moved = false;
 		send_to_intercom(IC_SET_AE, status.main_dial_ae);
 
 		beep();

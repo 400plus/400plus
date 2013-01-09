@@ -16,6 +16,7 @@
 #include <clock.h>
 #include <camera.h>
 
+#include "main.h"
 #include "macros.h"
 
 #include "languages.h"
@@ -209,6 +210,9 @@ int send_to_intercom(int message, int parm) {
 	int result, length = 1;
 
 	switch (message) {
+	case IC_SET_AE:
+		status.ignore_ae_change = true;
+		break;
 	case IC_SET_REALTIME_ISO_0:
 	case IC_SET_REALTIME_ISO_1:
 		length = 0;

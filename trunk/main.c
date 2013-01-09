@@ -35,7 +35,6 @@ status_t status = {
 	iso_in_viewfinder : false,
 	afp_dialog        : false,
 	measuring         : false,
-	main_dial_moved   : true,
 	ev_comp           : 0x00,
 };
 
@@ -237,8 +236,9 @@ int proxy_measurement(char *message) {
 int proxy_settings0(char *message) {
 	static int first = true;
 
-	if (status.main_dial_moved) {
-		status.main_dial_moved = false;
+	if (status.ignore_ae_change) {
+		status.ignore_ae_change = false;
+	} else {
 		status.main_dial_ae    = message[2];
 
 		if (first)
@@ -271,8 +271,6 @@ int proxy_dial(char *message) {
 		first = false;
 		enqueue_action(start_up);
 		enqueue_action(cmode_recall);
-	} else {
-		status.main_dial_moved = true;
 	}
 
 	return false;
