@@ -24,7 +24,7 @@ typedef struct {
 	int         afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int         main_dial_ae;      // AE mode selected in the main dial
 	int         cmode_active;      // There is a custom mode currently active
-	int         main_dial_moved;   // Main dial has just moved
+	int         ignore_ae_change;  // Ignore next AE change: it was produced internally
 	int         measuring;         // Camera is measuring the scene
 	tv_t        measured_tv;       // Shutter speed as proposed by the metering
 	av_t        measured_av;       // Aperture as proposed by the metering
