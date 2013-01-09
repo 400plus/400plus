@@ -137,13 +137,13 @@ void display_brightness() {
 	if (settings.button_disp)
 		switch(FLAG_GUI_MODE) {
 		case GUIMODE_OFF:
-			send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
+			send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1);
 			press_button(IC_BUTTON_DISP);
 			break;
 
 		case GUIMODE_OLC:
 			if (DPData.lcd_brightness < 7)
-				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1 + DPData.lcd_brightness);
+				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1 + DPData.lcd_brightness);
 			else
 				press_button(IC_BUTTON_DISP);
 			break;

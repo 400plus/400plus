@@ -31,7 +31,7 @@ extern void dump_memory();
 extern void dump_memory_after_5s();
 extern void print_info();
 
-extern int send_to_intercom(int message, int length, int parm);
+extern int send_to_intercom(int message, int parm);
 
 extern void wait_for_camera();
 

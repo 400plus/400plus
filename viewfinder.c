@@ -64,8 +64,8 @@ void viewfinder_end() {
 	// Only if being displayed
 	if (status.iso_in_viewfinder) {
 		// Restore previous state
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, vf_DPData.cf_emit_aux);
-		send_to_intercom(IC_SET_TV_VAL,        1, vf_DPData.tv_val);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, vf_DPData.cf_emit_aux);
+		send_to_intercom(IC_SET_TV_VAL,        vf_DPData.tv_val);
 
 		// Reset flag, viewfinder restored
 		status.iso_in_viewfinder = false;
@@ -74,7 +74,7 @@ void viewfinder_end() {
 
 void viewfinder_change_iso(const int iso) {
 	// Set new ISO
-	send_to_intercom(IC_SET_ISO, 2, iso);
+	send_to_intercom(IC_SET_ISO, iso);
 
 	// Display new ISO
 	viewfinder_display_iso(iso);
@@ -87,8 +87,8 @@ void viewfinder_display_iso(const int iso) {
 		vf_DPData = DPData;
 
 		// Change to Tv=ISO, no flash
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, true);
-		send_to_intercom(IC_SET_TV_VAL,        1, (iso & 0xF8) + 0x25);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, true);
+		send_to_intercom(IC_SET_TV_VAL,        (iso & 0xF8) + 0x25);
 
 		// Set flag to restore viewfinder later
 		status.iso_in_viewfinder = true;

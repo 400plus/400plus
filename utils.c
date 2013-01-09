@@ -205,8 +205,22 @@ void start_debug_mode() {
 	beep();
 }
 
-int send_to_intercom(int message, int length, int parm) {
-	int result = SendToIntercom(message, length, parm);
+int send_to_intercom(int message, int parm) {
+	int result, length = 1;
+
+	switch (message) {
+	case IC_SET_REALTIME_ISO_0:
+	case IC_SET_REALTIME_ISO_1:
+		length = 0;
+		break;
+	case IC_SET_ISO:
+	case IC_SET_AF_POINT:
+	case IC_SET_COLOR_TEMP:
+		length = 2;
+		break;
+	}
+
+	result = SendToIntercom(message, length, parm);
 	SleepTask(INTERCOM_WAIT);
 
 	return result;
