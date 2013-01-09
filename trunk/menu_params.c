@@ -111,44 +111,44 @@ void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
 }
 
 void menu_params_apply_iso(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_ISO, 2, *item->parm.menuitem_iso.value);
+	send_to_intercom(IC_SET_ISO, *item->parm.menuitem_iso.value);
 }
 
 void menu_params_apply_av_comp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_AV_COMP, 1, *item->parm.menuitem_ec.value);
+	send_to_intercom(IC_SET_AV_COMP, *item->parm.menuitem_ec.value);
 }
 
 void menu_params_apply_efcomp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_EFCOMP, 1, *item->parm.menuitem_ec.value);
+	send_to_intercom(IC_SET_EFCOMP, *item->parm.menuitem_ec.value);
 }
 
 void menu_params_apply_cf_emit_flash(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_ae_bkt(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_AE_BKT, 1, *item->parm.menuitem_ec.value);
+	send_to_intercom(IC_SET_AE_BKT, *item->parm.menuitem_ec.value);
 }
 
 void menu_params_apply_color_temp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_WB,         1, WB_MODE_COLORTEMP);
-	send_to_intercom(IC_SET_COLOR_TEMP, 2, *item->parm.menuitem_int.value);
+	send_to_intercom(IC_SET_WB,         WB_MODE_COLORTEMP);
+	send_to_intercom(IC_SET_COLOR_TEMP, *item->parm.menuitem_int.value);
 }
 
 void menu_params_apply_cf_emit_aux(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_EMIT_AUX, 1, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_EMIT_AUX, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_cf_mirror_up_lock(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_cf_flash_sync_rear(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_cf_safety_shift(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_remote_enable(const type_MENUITEM *item) {

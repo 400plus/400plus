@@ -74,11 +74,11 @@ void start_up() {
 	}
 
 	// Enable (hidden) CFn.8 for ISO H
-	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1, 1);
+	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1);
 
 	// Enable realtime ISO change
-	send_to_intercom(IC_SET_REALTIME_ISO_0, 0, 0);
-	send_to_intercom(IC_SET_REALTIME_ISO_1, 0, 0);
+	send_to_intercom(IC_SET_REALTIME_ISO_0, 0);
+	send_to_intercom(IC_SET_REALTIME_ISO_1, 0);
 
 	// turn off the blue led after it was lighten by our my_task_MainCtrl()
 	eventproc_EdLedOff();
@@ -104,7 +104,7 @@ void start_up() {
 
 void set_metering_spot() {
 	press_button(IC_BUTTON_SET);
-	send_to_intercom(IC_SET_METERING, 1, METERING_MODE_SPOT);
+	send_to_intercom(IC_SET_METERING, METERING_MODE_SPOT);
 	print_icu_info();
 
 	beep();
@@ -112,7 +112,7 @@ void set_metering_spot() {
 
 void set_whitebalance_colortemp() {
 	press_button(IC_BUTTON_SET);
-	send_to_intercom(IC_SET_WB, 1, WB_MODE_COLORTEMP);
+	send_to_intercom(IC_SET_WB, WB_MODE_COLORTEMP);
 	print_icu_info();
 
 	beep();
@@ -120,7 +120,7 @@ void set_whitebalance_colortemp() {
 
 void set_intermediate_iso() {
 	if (AE_IS_CREATIVE(DPData.ae)) {
-		send_to_intercom(IC_SET_ISO, 2, iso_roll(DPData.iso));
+		send_to_intercom(IC_SET_ISO, iso_roll(DPData.iso));
 		print_icu_info();
 		display_refresh();
 	}
@@ -132,47 +132,47 @@ void toggle_img_format() {
 	if (!first_call && AE_IS_AUTO(DPData.ae)) {
 		switch(DPData.img_format) {
 		case IMG_FORMAT_JPG:
-			send_to_intercom(IC_SET_IMG_FORMAT, 1, IMG_FORMAT_RAW);
+			send_to_intercom(IC_SET_IMG_FORMAT, IMG_FORMAT_RAW);
 			break;
 		case IMG_FORMAT_RAW:
-			send_to_intercom(IC_SET_IMG_FORMAT, 1, IMG_FORMAT_JPG | IMG_FORMAT_RAW);
+			send_to_intercom(IC_SET_IMG_FORMAT, IMG_FORMAT_JPG | IMG_FORMAT_RAW);
 			break;
 		case IMG_FORMAT_JPG | IMG_FORMAT_RAW:
-			send_to_intercom(IC_SET_IMG_FORMAT, 1, IMG_FORMAT_JPG);
+			send_to_intercom(IC_SET_IMG_FORMAT, IMG_FORMAT_JPG);
 			break;
 		}
 
-		send_to_intercom(IC_SET_IMG_QUALITY, 1, IMG_QUALITY_HIGH);
-		send_to_intercom(IC_SET_IMG_SIZE,    1, IMG_SIZE_L);
+		send_to_intercom(IC_SET_IMG_QUALITY, IMG_QUALITY_HIGH);
+		send_to_intercom(IC_SET_IMG_SIZE,    IMG_SIZE_L);
 	}
 
 	first_call = false;
 }
 
 void toggle_CfMLU() {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, DPData.cf_mirror_up_lock ^ 0x01);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, DPData.cf_mirror_up_lock ^ 0x01);
 }
 
 void toggle_CfFlashSyncRear() {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, DPData.cf_flash_sync_rear ^ 0x01);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, DPData.cf_flash_sync_rear ^ 0x01);
 }
 
 void toggle_AEB() {
-	send_to_intercom(IC_SET_AE_BKT, 1, (EV_TRUNC(DPData.ae_bkt) + 0010) % 0030);
+	send_to_intercom(IC_SET_AE_BKT, (EV_TRUNC(DPData.ae_bkt) + 0010) % 0030);
 }
 
 void restore_iso() {
-	send_to_intercom(IC_SET_ISO, 2, EV_TRUNC(DPData.iso));
+	send_to_intercom(IC_SET_ISO, EV_TRUNC(DPData.iso));
 }
 
 void restore_wb() {
 	if (DPData.wb == WB_MODE_COLORTEMP)
-		send_to_intercom(IC_SET_WB, 1, WB_MODE_AUTO);
+		send_to_intercom(IC_SET_WB, WB_MODE_AUTO);
 }
 
 void restore_metering() {
 	if (DPData.metering == METERING_MODE_SPOT)
-		send_to_intercom(IC_SET_METERING, 1, METERING_MODE_EVAL);
+		send_to_intercom(IC_SET_METERING, METERING_MODE_EVAL);
 }
 
 void autoiso() {
@@ -192,7 +192,7 @@ void autoiso() {
 			newiso = MIN(newiso, ISO_EXT);
 			newiso = MAX(newiso, ISO_MIN);
 
-			send_to_intercom(IC_SET_ISO, 2, newiso);
+			send_to_intercom(IC_SET_ISO, newiso);
 			enqueue_action(restore_display);
 		}
 
@@ -223,7 +223,7 @@ void autoiso() {
 		newiso = MIN(newiso, settings.autoiso_maxiso);
 		newiso = MAX(newiso, settings.autoiso_miniso);
 
-		send_to_intercom(IC_SET_ISO, 2, EV_TRUNC(newiso));
+		send_to_intercom(IC_SET_ISO, EV_TRUNC(newiso));
 		enqueue_action(restore_display);
 	}
 }
@@ -300,7 +300,7 @@ void button_action(type_BUTTON_ACTION action) {
 		menu_main_start();
 		break;
 	case BUTTON_ACTION_TOGGLE_FLASH:
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, !DPData.cf_emit_flash);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
 		char buf[20];
 		sprintf(buf, "%-11s: %-5s",LP_WORD(L_S_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_V_NO) : LP_WORD(L_V_YES)));
 		bmp_printf_timed(250, FONT_LARGE, 0, 0, buf);

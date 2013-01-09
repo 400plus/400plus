@@ -266,8 +266,8 @@ void menu_scripts_apply_calc(const type_MENUITEM *item) {
 	if (menu_DPData.tv_val < 0x10) {
 		settings.lexp_time = 60 * (1 << (1 - (menu_DPData.tv_val >> 3)));
 
-		send_to_intercom(IC_SET_AV_VAL, 1, menu_DPData.av_val);
-		send_to_intercom(IC_SET_ISO,    2, menu_DPData.iso);
+		send_to_intercom(IC_SET_AV_VAL, menu_DPData.av_val);
+		send_to_intercom(IC_SET_ISO,    menu_DPData.iso);
 
 		menu_scripts_ev = 0x00;
 		menu_return();
@@ -275,7 +275,7 @@ void menu_scripts_apply_calc(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_AV_VAL, 1, *item->parm.menuitem_av.value);
+	send_to_intercom(IC_SET_AV_VAL, *item->parm.menuitem_av.value);
 	menu_scripts_apply_dof(item);
 }
 
