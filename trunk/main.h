@@ -29,8 +29,8 @@ typedef struct {
 	tv_t        measured_tv;       // Shutter speed as proposed by the metering
 	av_t        measured_av;       // Aperture as proposed by the metering
 	ev_t        measured_ev;       // Exposure deviation as measured by the camera
-	int         last_shot_tv;      // Shutter speed of the last shot taken
-	int         last_shot_av;      // Aperture of the last shot taken
+	tv_t        last_shot_tv;      // Shutter speed of the last shot taken
+	av_t        last_shot_av;      // Aperture of the last shot taken
 	ec_t        ev_comp;           // Exposure compensation for AutoISO + M
 	type_SCRIPT last_script;       // Last executed script
 } status_t;

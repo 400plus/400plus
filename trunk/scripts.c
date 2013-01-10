@@ -307,7 +307,7 @@ void script_action(type_SHOT_ACTION action) {
 
 void action_ext_aeb() {
 	if (DPData.tv_val == TV_VAL_BULB) {
-		int tv_val;
+		tv_t tv_val;
 
 		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = bulb_next(tv_val)) {
 			wait_for_camera();
@@ -326,8 +326,8 @@ void action_ext_aeb() {
 				break;
 		}
 	} else if (AE_IS_CREATIVE(DPData.ae)) {
-		int tv_inc, av_inc;
-		int tv_dec, av_dec;
+		tv_t tv_inc, tv_dec;
+		av_t av_inc, av_dec;
 
 		int tv_sep = 0x00, av_sep = 0x00;
 		int frames = settings.eaeb_frames;
@@ -415,8 +415,8 @@ void action_iso_aeb() {
 void action_efl_aeb() {
 	int frames = settings.efl_aeb_frames;
 
-	int ef_inc = DPData.efcomp;
-	int ef_dec = DPData.efcomp;
+	ec_t ef_inc = DPData.efcomp;
+	ec_t ef_dec = DPData.efcomp;
 
 	shutter_release();
 	frames--;
