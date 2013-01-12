@@ -281,7 +281,7 @@ void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repe
 	int delay;
 	int button = status.button_down;
 
-	SleepTask(50);
+	SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 	action(menu, false);
 	delay = AUTOREPEAT_DELAY_LONG;

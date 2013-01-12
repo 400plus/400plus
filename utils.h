@@ -13,7 +13,7 @@
 #undef FGETS_USE_SLOW
 
 #define BEEP_LED_LENGTH  25
-#define INTERCOM_WAIT     5
+#define INTERCOM_WAIT     1
 #define EVENT_WAIT        5
 #define RELEASE_WAIT    250
 
