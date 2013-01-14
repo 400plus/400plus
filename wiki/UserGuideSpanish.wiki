@@ -208,9 +208,31 @@ Probablemente desees configurar la cámara en el modo M antes de usar este guió
 
 Este guión disparará la cámara tantas veces como se haya configurado (o sin fin), con una demora configurable entre disparos. Úsalo, por ejemplo, para crear películas de _stop-motion_.
 
+=== Programación Estricta ===
+
 Ten en cuenta que 400plus siempre tratará de mantener una cadencia constante de disparos, independientemente del tiempo de exposición: si está configurada para disparar, por ejemplo, a intervalos de 15s, entonces hará una fotografía exactamente cada 15 segundos, incluso si la exposición es de 10s. Si un disparo en la secuencia tiene un tiempo de exposición más largo que el intervalo de tiempo configurado, 400plus se saltará tantos disparos como sea necesario y reprogramará la secuencia. Esto también ocurrirá cuando el intervalómetro esté configurado para disparar cualquier acción multi-disparo.
 
-Si pretendes hacer una película de time-lapse con las fotografías tomadas con esta secuencia de comandos, puedes especificar la velocidad de fotogramas prevista, y el guión calculará el tiempo de reproducción resultante. Estos parámetros son meramente informativos y no tienen ninguna influencia en el guión.
+Por ejemplo, imagina un intervalo de 5 segundos, y exposiciones que oscilan entre 1 y 4 segundos (supongamos que la cámara está en el modo Av, y las condiciones de iluminación cambian durante la secuencia de comandos):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * *   *         * *
+}}}
+
+Observa cómo la longitud de la pausa entre el final de una exposición y el comienzo de la siguiente se adapta al tiempo de exposición, por lo que las fotografías siempre comienzan a intervalos regulares. Ahora imagina que una de las exposiciones tarda más de 5 segundos (digamos 7):
+
+{{{
+Time (s) : # · · · · # · · · · # · · · · # · · · ·
+Exposure : * *       * * * * * * *       * *
+}}}
+
+Fíjate que la tercera toma no tiene lugar 5 segundos después de la segunda, sino al segundo 15.
+
+*NOTA*: '400plus' no validará que los valores introducidos por el usuario tengan sentido en absoluto: no se 'quejará' si, por ejemplo, estableces un intervalo de tiempo de 10 segundos y un tiempo de exposición de 15; es el usuario el único responsable de evitar estas situaciones.
+
+=== Calculador de Time-lapse ===
+
+Si pretendes hacer una película de time-lapse con las fotografías tomadas con esta secuencia de comandos, puedes especificar la velocidad de fotogramas deseada, y el guión calculará el tiempo de reproducción resultante. Estos parámetros son meramente informativos y no tienen ninguna influencia en el guión.
 
 == Toma por Visor (ondeo) ==
 
