@@ -262,7 +262,7 @@ SUGERENCIA: Si planeas usar un filtro de densidad neutra, puedes medir la escena
 
 == Calculadora DOF ==
 
-La Calculadora DOF puede ayudar a determinar la profundidad de campo de una escena, o el rango de distancias que serán fotografiados en foco; para obtener más información acerca de este concepto, por favor visita [http://www.dofmaster.com/index.html].
+La Calculadora DOF puede ayudar a determinar la profundidad de campo de una escena, o el rango de distancias que serán fotografiados en foco; para obtener más información acerca de este concepto, por favor visita [http://www.dofmaster.com/index.html DOF Master].
 
 Después de entrar en la calculadora DOF, ajusta la distancia focal de la lente, la apertura que estás utilizando, y la distancia desde la cámara al sujeto. El guión mostrará entonces las distancias próxima y lejana de nitidez aceptable. Ahora puedes cambiar la apertura y/o la distancia de enfoque hasta que la profundidad de campo que se muestra coincida con la parte de la escena que tú consideres importante y quieras que permanezca detro de foco.
 
