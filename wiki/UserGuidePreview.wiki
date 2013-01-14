@@ -403,6 +403,12 @@ This allows for the easy chaining of scripts: for example, the [#Intervalometer 
 
 A custom mode is a complete snapshot containing all of the camera settings and configuration parameters. Custom modes can be used to pre-configure the camera for a specific shooting situation (like "landscape", "portrait", "low-light", "birds-in-flight", etc.), and allow you to have quick access to these configurations while shooting. Custom modes are stored on the CF card itself, and up to 16 different custom modes can be stored in each card. The number of custom modes however is unlimited, due to the fact you may use multiple CF cards each containing up to 16 of them.
 
+=== Some Notes On Custom Modes ===
+
+Every time you move the main dial to a _scene mode_ where a _custom mode_ has been attached, and every time your camera powers on, while the main dial is set into a _scene mode_ where a _custom mode_ has been attached, `400plus` must wait for the camera to initialize the _scene mode_ and then apply the attached _custom mode_. This process requires some time, hundredths of a second in fact, but under certain circumstances your camera could take a shot before the _custom mode_ has been completely applied, thus resulting in a shot being taken using the _scene mode_ underneath.
+
+For this reason, it is advised to wait for a second after moving the main dial to a _scene mode_ where a _custom mode_ has been attached, before taking a shot. Likewise, when waking up the camera from the auto power off state, do not keep the shutter button pressed down until a shot has been taken; press and release the shutter button instead, then press it again when the camera is fully awake, to take the first shot.
+
 == Creating Custom Modes ==
 
 To create a custom mode, first set your camera into one of the _creative modes_ (`P`, `Tv`, `Av`, `M`, or `A-DEP`) and configure it to your liking; now enter the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu], select one of the custom modes, and just press `SET` (or enter the sub-menu, and then select "Save" there). Repeat as many times as needed, and save up to 16 custom modes.
