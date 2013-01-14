@@ -389,7 +389,7 @@ Ten en cuenta que la cámara no siempre mostrará en la pantalla el valor ISO co
 
 == Modo de medicion puntual ==
 
-El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña (aproximadamente 3.5% del centro del visor frente a la medición parcial de aproximadamente 9% del centro del visor).
+El modo de medición puntual es como el modo de "medición parcial" estándar, pero el área comprendida dentro de la medición es más pequeña (aproximadamente 3.5% del centro del visor frente a la medición parcial de aproximadamente 9% del centro del visor). Funciona bastante bien cuando se necesita. 
 
 = Errores conocidos =
 
