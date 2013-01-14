@@ -356,12 +356,13 @@ Mientras se mira por el visor, los botones de ISO y WB están inactivos, para pr
 
 == Soporte mult-idioma ==
 
-Actualmente, 400plus soporta 9 idiomas:
+Actualmente, 400plus soporta 10 idiomas:
 
  * Inglés.
  * Finlandés.
  * Francés.
  * Alemán.
+ * Húngaro.
  * Italiano.
  * Polaco.
  * Ruso.
