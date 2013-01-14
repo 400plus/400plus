@@ -324,6 +324,8 @@ Cuando esta opción está activa (puesta en "Sí"), y si la cámara está en cua
  * A continuación, pulsa los botones IZQUIERDA y DERECHA para cambiar el valor ISO (o ARRIBA para que aparezca); el nuevo valor se visualiza en el visor, en el mismo lugar donde normalmente se muestra la velocidad de obturación, mientras que el botón esté presionado.
  * En los modos P y Av, el valor ISO también se puede cambiar, pero no se muestra.
 
+*NOTA*: Si la función personalizada "_01 - SET button/Cross keys funct._" está ajustada a "_4 : Cross keys:AF frame Selec._", esta función quedará desactivada, incluso si ha sido habilitada en el menú de ajustes.
+
 = Seleccion del patron AF =
 
 400plus ofrece un rango adicional de selección de puntos del patrón AF, en vez de los sólo dos (selección manual del punto AF y selección automática) que vienen estándar en la cámara. Este modo adicional permite una amplia gama de patrones de selección de puntos múltiples usando diferentes combinaciones de los 9 puntos de enfoque.
