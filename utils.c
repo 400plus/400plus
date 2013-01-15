@@ -260,8 +260,15 @@ void wait_for_camera() {
 int shutter_release() {
 	wait_for_camera();
 
-	int result = eventproc_Release();
-	SleepTask(INTERCOM_WAIT);
+	shutter_lock = true;
+
+	int result = press_button(IC_BUTTON_FULL_SHUTTER);
+
+	if (DPData.drive == DRIVE_MODE_TIMER)
+		SleepTask(2000);
+
+	while (shutter_lock)
+		SleepTask(RELEASE_WAIT);
 
 	return result;
 }
