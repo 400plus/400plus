@@ -176,7 +176,8 @@ typedef enum {
 // [3] Values for "drive"
 typedef enum {
 	DRIVE_MODE_SINGLE = 0,
-	DRIVE_MODE_BURST  = 1
+	DRIVE_MODE_BURST  = 1,
+	DRIVE_MODE_TIMER  = 2
 } DRIVE_MODE;
 
 // [4] Values for "wb"
@@ -290,6 +291,8 @@ typedef enum {
 //    yyy = Int. value: 000 => BaseEV, 011 => BaseEV + 1/3EV, 100 => BaseEV + 1/2EV, 101 => BaseEv + 2/3EV [*]
 // [*]: Could this be like [J], so 011 => BaseEV + 3/8EV , 100 => BaseEV + 4/8EV, 101 => BaseEv + 5/8EV?
 //      Could we have eight intermediate EV's, instead of three?
+
+extern int shutter_lock;
 
 extern int permit_or_inhibit_release(int);
 extern int able_to_release(); // checks the "is_release_permitted" and "BurstCounter", return 1 if we can shoot
