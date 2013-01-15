@@ -213,6 +213,7 @@ int send_to_intercom(int message, int parm) {
 	case IC_SET_AE:
 		status.ignore_ae_change = true;
 		break;
+	case IC_RELEASE:
 	case IC_SET_REALTIME_ISO_0:
 	case IC_SET_REALTIME_ISO_1:
 		length = 0;
@@ -262,7 +263,7 @@ int shutter_release() {
 
 	shutter_lock = true;
 
-	int result = press_button(IC_BUTTON_FULL_SHUTTER);
+	int result = send_to_intercom(IC_RELEASE, 0);
 
 	if (DPData.drive == DRIVE_MODE_TIMER)
 		SleepTask(2000);
