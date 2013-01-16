@@ -395,6 +395,12 @@ Some scripts ([#Intervalometer Intervalometer], [#Hand_Waving Hand Waving], and 
 
 This allows for the easy chaining of scripts: for example, the [#Intervalometer Intervalometer] can be used to fire a sequence of 3 shots, using the [#Extended_AEB Extended EAEB] script, every 5 minutes.
 
+== Self-Timer and Mirror Lock-Up ==
+
+Most scripts have a "2s delay" option; when this option is active, the script will wait 2 seconds before taking the first shot; if two scripts have been chained (see [Script_Chaining script chaining]) only the _parent_ script will wait. Notice that this pause is performed by `400plus`, it is not related to the "self-timer" feature from your camera (there will be no visual or audible signaling). On the other hand, you also have the option to set the "drive mode" from your camera to "self-timer"; that option will affect each shot taken by any script, and your camera's self-timer will be used.
+
+_*Note*_: Due to technical reasons, when the self-timer is active `400plus` will also activate the MLU option for the duration of any script; if the self-timer is disabled, the MLU option will be disabled too.
+
 ----
 
 = The Custom Modes =
