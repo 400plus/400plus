@@ -193,8 +193,11 @@ void script_start() {
 
 	st_DPData = DPData;
 
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, false);
-	send_to_intercom(IC_SET_AE_BKT,            0x00);
+	// Force MLU to on if drive mode is self-timer, force MLU to off otherwise
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, DPData.drive == DRIVE_MODE_TIMER);
+
+	// To avoid interferences with our EAEB script, disable AEB
+	send_to_intercom(IC_SET_AE_BKT, EC_ZERO);
 
 	if (settings.keep_power_on)
 		send_to_intercom(IC_SET_AUTO_POWER_OFF, false);

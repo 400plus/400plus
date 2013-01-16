@@ -41,6 +41,8 @@ static float f_number[][8] = {
 	{45.255f, 47.258f, 49.351f, 51.536f, 53.817f, 56.200f, 58.688f, 61.287f},
 	{64.000f, 66.834f, 69.792f, 72.882f, 76.109f, 79.479f, 82.998f, 86.672f}
 };
+void lock_sutter     ();
+void wait_for_shutter();
 
 void display_float(char *dest, float value);
 
@@ -253,6 +255,15 @@ int shutter_release_disasm() {
 }
 #endif
 
+void lock_sutter() {
+	shutter_lock = true;
+}
+
+void wait_for_shutter() {
+	while (shutter_lock)
+		SleepTask(RELEASE_WAIT);
+}
+
 void wait_for_camera() {
 	while (! able_to_release())
 		SleepTask(RELEASE_WAIT);
@@ -260,28 +271,38 @@ void wait_for_camera() {
 
 int shutter_release() {
 	wait_for_camera();
+	lock_sutter    ();
 
-	shutter_lock = true;
-
-	int result = send_to_intercom(IC_RELEASE, 0);
+	int result = press_button(IC_BUTTON_FULL_SHUTTER);
 
 	if (DPData.drive == DRIVE_MODE_TIMER)
-		SleepTask(2000);
+		SleepTask(SELF_TIMER_MS);
 
-	while (shutter_lock)
-		SleepTask(RELEASE_WAIT);
+	wait_for_shutter();
 
 	return result;
 }
 
 int shutter_release_bulb(int time) {
+	int  button;
+	long delay;
+
+	if (DPData.drive == DRIVE_MODE_TIMER) {
+		button = IC_BUTTON_FULL_SHUTTER;
+		delay  = 2000 + 1000 * time + SHUTTER_LAG;
+	} else {
+		button = IC_BUTTON_HALF_SHUTTER;
+		delay  = 1000 * time + SHUTTER_LAG;
+	}
+
 	wait_for_camera();
+	lock_sutter    ();
 
-	press_button(IC_BUTTON_HALF_SHUTTER);
-	SleepTask(1000 * time + SHUTTER_LAG);
+	press_button(button);
+	SleepTask   (delay);
+	press_button(button);
 
-	press_button(IC_BUTTON_HALF_SHUTTER);
-	SleepTask(INTERCOM_WAIT);
+	wait_for_shutter();
 
 	return 0;
 }

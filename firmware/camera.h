@@ -300,4 +300,6 @@ extern int able_to_release(); // checks the "is_release_permitted" and "BurstCou
 #define AE_IS_AUTO(ae)     (ae) >= AE_MODE_AUTO
 #define AE_IS_CREATIVE(ae) (ae) <  AE_MODE_AUTO
 
+#define SELF_TIMER_MS 2000
+
 #endif
