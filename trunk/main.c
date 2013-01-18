@@ -52,7 +52,7 @@ int proxy_settings0      (char *message);
 int proxy_settings3      (char *message);
 int proxy_button         (char *message);
 int proxy_wheel          (char *message);
-int proxy_dial           (char *message);
+int proxy_initialize     (char *message);
 
 proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]  = proxy_script_restore,
@@ -76,6 +76,7 @@ proxy_t listeners_main[0x100] = {
 	[IC_DIALOGON]      = proxy_dialog_enter,
 	[IC_MEASURING]     = proxy_measuring,
 	[IC_MEASUREMENT]   = proxy_measurement,
+	[IC_UNKNOWN_8D]    = proxy_initialize,
 	[IC_SETTINGS_0]    = proxy_settings0,
 	[IC_SETTINGS_3]    = proxy_settings3,
 	[IC_AFPDLGOFF]     = proxy_dialog_afoff,
@@ -88,7 +89,6 @@ proxy_t listeners_main[0x100] = {
 	[IC_BUTTON_LEFT]   = proxy_button,
 	[IC_BUTTON_DP]     = proxy_button,
 	[IC_BUTTON_AV]     = proxy_button,
-	[IC_MAIN_DIAL]     = proxy_dial,
 };
 
 button_t message2button[0x100] = {
@@ -233,18 +233,32 @@ int proxy_measurement(char *message) {
 	return false;
 }
 
+int proxy_initialize(char *message) {
+	static int first = true;
+
+	if (first) {
+		first = false;
+
+		enqueue_action(start_up);
+		enqueue_action(cmode_recall);
+	}
+
+	return false;
+}
+
 int proxy_settings0(char *message) {
 	static int first = true;
 
 	if (status.ignore_ae_change) {
 		status.ignore_ae_change = false;
 	} else {
-		status.main_dial_ae    = message[2];
+		status.main_dial_ae = message[2];
 
-		if (first)
+		if (first) {
 			first = false;
-		else
+		} else {
 			enqueue_action(cmode_apply);
+		}
 	}
 
 	return false;
@@ -262,16 +276,4 @@ int proxy_button(char *message) {
 
 int proxy_wheel(char *message) {
 	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, true);
-}
-
-int proxy_dial(char *message) {
-	static int first = true;
-
-	if (first) {
-		first = false;
-		enqueue_action(start_up);
-		enqueue_action(cmode_recall);
-	}
-
-	return false;
 }
