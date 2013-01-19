@@ -193,7 +193,7 @@ void autoiso() {
 			enqueue_action(restore_display);
 		} else {
 			// M mode: set ISO to match exposure
-			ec = - (status.measured_ev - status.ev_comp);
+			ec = - (status.measured_ec - status.ev_comp);
 
 			// Normalize an apply new ISO
 			if (ec != EC_ZERO) {
