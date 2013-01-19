@@ -103,7 +103,7 @@ void display_refresh_iso() {
 		if (!settings.autoiso_enable || status.measuring)
 	default:
 			iso_print(tmp, DPData.iso);
-		break;
+	break;
 	}
 
 	dialog_set_property_str(hMainDialog, 0x04, tmp);

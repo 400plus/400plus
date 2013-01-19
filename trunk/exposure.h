@@ -20,6 +20,8 @@ typedef unsigned char iso_t;
 
 #define EV_TRUNC(code) EV_CODE(EV_VAL(code), 0)
 
+#define EV_ZERO EV_CODE( 0, 0)  //  0EV
+
 #define EC_ZERO EV_CODE( 0, 0)  //  0EV
 #define EC_MIN  EV_CODE(-6, 0)  // +6EV
 #define EC_MAX  EV_CODE(+6, 0)  // -6EV

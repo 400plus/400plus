@@ -178,19 +178,20 @@ void restore_metering() {
 void autoiso() {
 	ev_t limit;
 
-	ec_t ev      = EC_ZERO;
-	ec_t measure = EC_ZERO;
+	ec_t ec = EC_ZERO;
+	ev_t ev = EV_ZERO;
 
-	iso_t newiso = DPData.iso;
+	iso_t newiso;
 
 	switch(DPData.ae) {
 	case AE_MODE_M:
-		ev = status.measured_ev - status.ev_comp;
+		// M mode: set ISO to match exposure
+		ec = - (status.measured_ev - status.ev_comp);
 
-		if (ev != EC_ZERO) {
-			newiso = (DPData.iso - ev);
-			newiso = MIN(newiso, ISO_EXT);
-			newiso = MAX(newiso, ISO_MIN);
+		// Normalize an apply new ISO
+		if (ec != EC_ZERO) {
+			newiso = DPData.iso + ec;
+			newiso = CLAMP(newiso, ISO_MIN, ISO_EXT);
 
 			send_to_intercom(IC_SET_ISO, newiso);
 			enqueue_action(restore_display);
@@ -199,31 +200,34 @@ void autoiso() {
 		return;
 	case AE_MODE_P:
 	case AE_MODE_AV:
-		measure = status.measured_tv;
-		limit   = settings.autoiso_mintv;
+		// P / Av mode: raise ISO if shutter time is lower than limit
+		ev    = status.measured_tv;
+		limit = settings.autoiso_mintv;
 		break;
 	case AE_MODE_TV:
-		measure = status.measured_av;
-		limit   = settings.autoiso_maxav;
+		// Tv mode: raise ISO if apperture is larger than lens' max plus offset
+		ev    = status.measured_av;
+		limit = DPData.avo + settings.autoiso_maxav;
 		break;
 	default:
-		break;
+		return;
 	}
 
-	if (measure != EC_ZERO) {
-		if (measure < limit)
-			ev = (limit - measure) + 0010;
-		else if (measure >= limit + 0010)
-			ev = (limit - measure);
-	}
-
+	// Decide whether we need to change current ISO
 	if (ev != EC_ZERO) {
-		newiso = (DPData.iso + ev);
+		if (ev < limit)
+			ec = (limit - ev) + EV_CODE(1, 0);
+		else if (ev >= limit + EV_CODE(1, 0))
+			ec = (limit - ev);
+	}
 
-		newiso = MIN(newiso, settings.autoiso_maxiso);
-		newiso = MAX(newiso, settings.autoiso_miniso);
+	// Normalize an apply new ISO
+	if (ec != EC_ZERO) {
+		newiso = DPData.iso + ec;
+		newiso = CLAMP(newiso, settings.autoiso_miniso, settings.autoiso_maxiso);
+		newiso = EV_TRUNC(newiso);
 
-		send_to_intercom(IC_SET_ISO, EV_TRUNC(newiso));
+		send_to_intercom(IC_SET_ISO, newiso);
 		enqueue_action(restore_display);
 	}
 }
