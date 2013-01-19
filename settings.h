@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x3F
+#define SETTINGS_VERSION  0x40
 
 typedef enum {
 	SHOT_ACTION_SHOT,

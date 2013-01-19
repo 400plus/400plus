@@ -38,7 +38,7 @@ type_MENUITEM autoiso_items[] = {
 	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso, menu_params_apply_autoiso_miniso),
 	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso, menu_params_apply_autoiso_maxiso),
 	MENUITEM_TV     (0, LP_WORD(L_I_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL),
-	MENUITEM_AV     (0, LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
+	MENUITEM_EVEAEB (0, LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
 };
 
 type_MENUPAGE autoiso_page = {

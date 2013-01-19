@@ -22,7 +22,7 @@ settings_t settings_default = {
 	autoiso_miniso   : ISO_MIN, // ISO100
 	autoiso_maxiso   : ISO_MAX, // ISO1600
 	autoiso_mintv    : EV_CODE(13, 0), // 1/60s
-	autoiso_maxav    : EV_CODE( 5, 0), // f/4.0
+	autoiso_maxav    : EV_CODE( 1, 0), // 1EV
 	eaeb_delay       : false,
 	eaeb_frames      : 3,
 	eaeb_ev          : EV_CODE( 1, 0), // 1EV
