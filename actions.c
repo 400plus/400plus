@@ -198,7 +198,8 @@ void autoiso() {
 			// Normalize an apply new ISO
 			if (ec != EC_ZERO) {
 				newiso = DPData.iso + ec;
-				newiso = CLAMP(newiso, ISO_MIN, ISO_EXT);
+				newiso = CLAMP(newiso, settings.autoiso_miniso, settings.autoiso_maxiso);
+				newiso = EV_ROUND(newiso);
 
 				send_to_intercom(IC_SET_ISO, newiso);
 				enqueue_action(restore_display);
