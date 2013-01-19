@@ -185,16 +185,24 @@ void autoiso() {
 
 	switch(DPData.ae) {
 	case AE_MODE_M:
-		// M mode: set ISO to match exposure
-		ec = - (status.measured_ev - status.ev_comp);
+		if (DPData.tv_val == TV_VAL_BULB) {
+			// BULB mode: disable AutoISO and set ISO100
+			settings.autoiso_enable = false;
 
-		// Normalize an apply new ISO
-		if (ec != EC_ZERO) {
-			newiso = DPData.iso + ec;
-			newiso = CLAMP(newiso, ISO_MIN, ISO_EXT);
-
-			send_to_intercom(IC_SET_ISO, newiso);
+			send_to_intercom(IC_SET_ISO, ISO_MIN);
 			enqueue_action(restore_display);
+		} else {
+			// M mode: set ISO to match exposure
+			ec = - (status.measured_ev - status.ev_comp);
+
+			// Normalize an apply new ISO
+			if (ec != EC_ZERO) {
+				newiso = DPData.iso + ec;
+				newiso = CLAMP(newiso, ISO_MIN, ISO_EXT);
+
+				send_to_intercom(IC_SET_ISO, newiso);
+				enqueue_action(restore_display);
+			}
 		}
 
 		return;
