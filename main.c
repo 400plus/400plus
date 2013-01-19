@@ -222,7 +222,7 @@ int proxy_measurement(char *message) {
 	if (status.measuring) {
 		status.measured_tv = message[2];
 		status.measured_av = message[3];
-		status.measured_ev = message[4];
+		status.measured_ec = message[4];
 
 		if (settings.autoiso_enable)
 			enqueue_action(autoiso);
