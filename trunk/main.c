@@ -242,7 +242,7 @@ int proxy_initialize(char *message) {
 		first = false;
 
 		enqueue_action(start_up);
-		enqueue_action(cmode_recall);
+
 	}
 
 	return false;
