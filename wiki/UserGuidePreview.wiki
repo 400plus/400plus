@@ -179,9 +179,7 @@ To enable AutoISO, enter the ISO selection dialog (press the `ISO` button from t
 ||Min ISO||Minimum ISO value that AutoISO will use.||
 ||Max ISO||Maximum ISO value that AutoISO will use.||
 ||Min Tv||Minimum shutter speed that AutoISO will try to maintain.||
-||Max Av||Maximum diaphragm aperture that AutoISO will try to maintain `[*]`.||
-
-_`[*]` Note that the range of values that this parameter admits is limited by the physical capabilities of your lens; on a zoom lens, the maximum aperture of the lens can be different for each zoom position. Please, take this fact into account when setting this value_.
+||Max Av||Maximum aperture (relative to maximum aperture supported by the lens) that AutoISO will try to maintain.||
 
 === AutoISO In `Av` mode ===
 
@@ -197,7 +195,9 @@ In `Tv` mode, the intention of AutoISO is to use the lowest possible ISO that en
 
 In `Tv` mode, AutoISO will try to keep ISO as low as possible (as configured by "Min ISO"), unless the scene requires an aperture larger than desired (as configured at "Max Av"); then, AutoISO will raise the ISO value (up to "Max ISO") as needed.
 
-Please, note that you must set "Max Av" at most just above the maximum aperture of the lens that you're using. For example, if your lens is f/4, "Max Av" should be set no lower than f/5.6; take into account that zoom lenses can have different maximum apertures, depending on the focal length you are using. Otherwise, AutoISO will not function properly in `Tv` mode. Also, the comment about Safety Shift and AutoISO at `Av` mode applies at Tv mode, too.
+Please, note that the "Max Av" parameter is the _difference_ between the maximum aperture supported by your lens and the maximum aperture that AutoISO will allow before raising the ISO value: for example, on a f/4 lens, setting "Max Av" to +1EV means that AutoISO should raise the ISO whenever the camera sets an aperture of f/5.6 or greater. On a zoom lens with a variable maximum aperture, "Max Av" is always based on the maximum aperture supported by your lens at each moment.
+
+In `Tv` mode, it is perfectly possible to combine both Safety Shift and AutoISO at the same time: when AutoISO can no longer increase the ISO value, the camera will use a larger aperture, and when the lens' maximum aperture is reached, Safety Shift will force a longer exposure time.
 
 === AutoISO In `P` mode ===
 
@@ -205,9 +205,11 @@ In `P` mode, AutoISO _tries_ to behave just like in `Av` mode, and will raise th
 
 === AutoISO In `M` mode ===
 
-In `M` mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the exact ISO to match the scene. None of the configuration parameters affect AutoISO in `M` mode, and this is the only mode where intermediate ISO values are used.
+In `M` mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the most suitable ISO value to match the scene.
 
 You can change the exposure compensation in `M` mode, if the "Use D-Pad" option is active (set to "Yes"), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
+
+If you change the exposure time up to the `BULB` mode while AutoISO is active, your camera will emit a short beep, and `400plus` will disable AutoISO, and set the ISO parameter to a fixed value of 100.
 
 == ISO In Viewfinder ==
 
