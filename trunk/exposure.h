@@ -45,6 +45,12 @@ typedef unsigned char iso_t;
 #define ISO_MAX EV_CODE(13, 0)
 #define ISO_EXT EV_CODE(13, 7)
 
+#define ISO_100  EV_CODE( 9, 0)
+#define ISO_200  EV_CODE(10, 0)
+#define ISO_400  EV_CODE(11, 0)
+#define ISO_800  EV_CODE(12, 0)
+#define ISO_1600 EV_CODE(13, 0)
+
 extern ec_t ec_normalize(ec_t ec);
 
 extern ec_t ec_inc(ec_t ev);

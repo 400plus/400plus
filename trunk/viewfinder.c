@@ -63,9 +63,20 @@ void viewfinder_up() {
 void viewfinder_end() {
 	// Only if being displayed
 	if (status.iso_in_viewfinder) {
-		// Restore previous state
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, vf_DPData.cf_emit_aux);
-		send_to_intercom(IC_SET_TV_VAL,        vf_DPData.tv_val);
+		switch (DPData.ae) {
+		case AE_MODE_M:
+		case AE_MODE_TV:
+			// Restore previous state
+			send_to_intercom(IC_SET_CF_EMIT_FLASH, vf_DPData.cf_emit_aux);
+			send_to_intercom(IC_SET_TV_VAL,        vf_DPData.tv_val);
+			break;
+		case AE_MODE_P:
+		case AE_MODE_AV:
+			send_to_intercom(IC_SET_BURST_COUNTER, 9);
+			break;
+		default:
+			break;
+		}
 
 		// Reset flag, viewfinder restored
 		status.iso_in_viewfinder = false;
@@ -81,18 +92,47 @@ void viewfinder_change_iso(const int iso) {
 }
 
 void viewfinder_display_iso(const int iso) {
-	// Display new ISO only in M and Tv modes
-	if (DPData.ae == AE_MODE_M || DPData.ae == AE_MODE_TV) {
-		// Save current state
-		vf_DPData = DPData;
+	// Save current state
+	vf_DPData = DPData;
 
+	switch (DPData.ae) {
+	// Display ISO as shutter speed
+	case AE_MODE_M:
+	case AE_MODE_TV:
 		// Change to Tv=ISO, no flash
 		send_to_intercom(IC_SET_CF_EMIT_FLASH, true);
 		send_to_intercom(IC_SET_TV_VAL,        (iso & 0xF8) + 0x25);
 
-		// Set flag to restore viewfinder later
-		status.iso_in_viewfinder = true;
+		break;
+	// Display ISO as burst counter
+	case AE_MODE_P:
+	case AE_MODE_AV:
+		switch (iso) {
+		case ISO_100:
+			send_to_intercom(IC_SET_BURST_COUNTER, 1);
+			break;
+		case ISO_200:
+			send_to_intercom(IC_SET_BURST_COUNTER, 2);
+			break;
+		case ISO_400:
+			send_to_intercom(IC_SET_BURST_COUNTER, 4);
+			break;
+		case ISO_800:
+			send_to_intercom(IC_SET_BURST_COUNTER, 8);
+			break;
+		case ISO_1600:
+			send_to_intercom(IC_SET_BURST_COUNTER, 9);
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
 	}
+
+	// Set flag to restore viewfinder later
+	status.iso_in_viewfinder = true;
 }
 
 void viewfinder_change_evc(const int ev_comp) {
