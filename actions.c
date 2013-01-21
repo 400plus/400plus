@@ -38,11 +38,30 @@ void start_up() {
 	if (settings.debug_on_poweron)
 		start_debug_mode();
 
+	// Enable (hidden) CFn.8 for ISO H
+	// enable IR remote
+	// i'm not sure where to call this? perhaps this isn't the right place.
+	if (settings.remote_enable)
+		remote_on();
+
+	// Enable extended ISOs
+	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1);
+
+	// Enable realtime ISO change
+	send_to_intercom(IC_SET_REALTIME_ISO_0, 0);
+	send_to_intercom(IC_SET_REALTIME_ISO_1, 0);
+
+	// turn off the blue led after it was lighten by our my_task_MainCtrl()
+	eventproc_EdLedOff();
+
 	// Set current language
-	lang_pack_init();
+	enqueue_action(lang_pack_init);
 
 	// Read custom modes configuration from file
-	cmodes_read();
+	enqueue_action(cmodes_read);
+
+	// And optionally apply a custom mode
+	enqueue_action(cmode_recall);
 
 #if 0
 	// vram testing
@@ -66,22 +85,6 @@ void start_up() {
 	debug_log("starting memspy task");
 	CreateTask("memspy", 0x1e, 0x1000, memspy_task, 0);
 #endif
-
-	// enable IR remote
-	// i'm not sure where to call this? perhaps this isnt the right place.
-	if (settings.remote_enable) {
-		remote_on();
-	}
-
-	// Enable (hidden) CFn.8 for ISO H
-	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1);
-
-	// Enable realtime ISO change
-	send_to_intercom(IC_SET_REALTIME_ISO_0, 0);
-	send_to_intercom(IC_SET_REALTIME_ISO_1, 0);
-
-	// turn off the blue led after it was lighten by our my_task_MainCtrl()
-	eventproc_EdLedOff();
 
 #if 0
 	debug_log("=== DUMPING DDD ===");
