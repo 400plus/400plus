@@ -53,6 +53,7 @@ int proxy_settings3      (char *message);
 int proxy_button         (char *message);
 int proxy_wheel          (char *message);
 int proxy_initialize     (char *message);
+int proxy_tv             (char *message);
 
 proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]  = proxy_script_restore,
@@ -72,6 +73,7 @@ proxy_t listeners_menu[0x100] = {
 };
 
 proxy_t listeners_main[0x100] = {
+	[IC_SET_TV_VAL]    = proxy_tv,
 	[IC_SET_LANGUAGE]  = proxy_set_language,
 	[IC_DIALOGON]      = proxy_dialog_enter,
 	[IC_MEASURING]     = proxy_measuring,
@@ -276,4 +278,11 @@ int proxy_button(char *message) {
 
 int proxy_wheel(char *message) {
 	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, true);
+}
+
+int proxy_tv(char *message) {
+	if (settings.autoiso_enable && message[2] == TV_VAL_BULB)
+		enqueue_action(autoiso_disable_bulb);
+
+	return false;
 }
