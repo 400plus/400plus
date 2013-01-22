@@ -213,12 +213,20 @@ If you change the exposure time up to the `BULB` mode while AutoISO is active, y
 
 == ISO In Viewfinder ==
 
-When the "Use D-Pad" option is active (set to "Yes"), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder; on `Tv` and `M` mode, the new ISO value is also displayed on the viewfinder:
+When the "Use D-Pad" option is active (set to "Yes"), and if the camera is set in any creative mode, you can change the ISO value while looking through the viewfinder:
 
  * Set the camera to `M` or `Tv` mode.
  * Look through the viewfinder, and half-press the shutter button; you should see the current measurements (shutter speed, aperture...).
- * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or `UP` just to display it); the new value is displayed in the viewfinder, in the same place where shutter speed is normally shown, while the button is pressed down.
- * In `P` and `Av` modes, ISO can also be changed, but it is not displayed.
+ * Now press the `LEFT` and `RIGHT` buttons to change the ISO value (or `UP` just to display it); while the button is kept pressed down, the new value will be displayed in the viewfinder, in the same place where shutter speed is normally shown.
+
+In `P` and `Av` modes, ISO can also be changed through the viewfinder, but its value is displayed in the "burst counter" (the single-digit number, at the far right of your viewfinder, that shows the number of shots remaining for a burst), using the following codes:
+
+||_*Burst counter*_||_*ISO value*_||
+||1|| 100||
+||2|| 200||
+||4|| 400||
+||8|| 800||
+||9||1600||
 
 _*Note*_: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled.
 
