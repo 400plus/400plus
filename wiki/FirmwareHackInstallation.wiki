@@ -31,12 +31,17 @@ The following steps prepare a card to contain `400plus`  and be recognized by th
   #. Now the card must be made _bootable_, so the camera recognizes it:
     * *Windows XP*: use [http://pel.hu/eoscard/ EOScard]; you need to check both EOS_DEVELOP and BOOTDISK, but neither CHDK nor ML.
     * *Windows 7*: Try first the method described above for WinXP. Some Win7 users reported that no method was working for them, however; in that case, install VirtualBox with a Linux LiveCD or WinXP running in it, and then use the appropriate method inside the VM (after attaching the card reader to the VM).
-    * *Mac*: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
+    * *Mac*: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool. (select "Make DSLR Bootable")
     * *Linux*: use the direct method (below) or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version).
     * *Direct method* for Linux, Mac, and Windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
       * Find the device corresponding to your CF card (produces a list of devices, to see where your CF card is; easy way to find it is to match the size):
+        * Linux:
 {{{
   sudo fdisk -l
+}}}
+        * Mac (first unmount the image)
+{{{
+  diskutil list
 }}}
       * FAT12 / FAT16 (CF cards up to 2GB) (replace sdX1 with the name of the device corresponding to the first partition of your CF device):
 {{{
