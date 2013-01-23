@@ -30,7 +30,7 @@ The following steps prepare a card to contain `400plus`  and be recognized by th
   #. First step is to format the CF card, preferably using the camera, but you can format it on the PC, too.
   #. Now the card must be made _bootable_, so the camera recognizes it:
     * *Windows XP*: use [http://pel.hu/eoscard/ EOScard]; you need to check both EOS_DEVELOP and BOOTDISK, but neither CHDK nor ML.
-    * *Windows 7*: Try fist the method described above for WinXP. Some Win7 users reported that no method was working for them, however; in that case, install VirtualBox with a Linux LiveCD or WinXP running in it, and then use the appropriate method inside the VM (after attaching the card reader to the VM).
+    * *Windows 7*: Try first the method described above for WinXP. Some Win7 users reported that no method was working for them, however; in that case, install VirtualBox with a Linux LiveCD or WinXP running in it, and then use the appropriate method inside the VM (after attaching the card reader to the VM).
     * *Mac*: use zeno's [http://www.zenoshrdlu.com/macboot/macboot.html MacBoot] automated tool.
     * *Linux*: use the direct method (below) or use the method and files described [http://groups.google.com/group/ml-devel/browse_thread/thread/1161d4e6e93232de here] (use the second version).
     * *Direct method* for Linux, Mac, and Windows with [http://www.cygwin.com/ cygwin] or [http://www.chrysocome.net/dd dd]:
@@ -63,8 +63,10 @@ _If the blue LED of your camera briefly lights up when the camera is turned on, 
 To update from a previous version of `400plus`, just overwrite the `autoexec.bin` and `languages.ini` files in all your cards.
 
 == Removing 400plus ==
-
-The first step of the installation procedure cannot be undone, and the camera will always try to execute `400plus` _if it is in the CF card_; thus, formating all your cards will remove `400plus` for all practical purposes.
+  * Permanently remove 400plus
+    The first step of the installation procedure cannot be undone (at least for now), and the camera will always try to execute `400plus` _if it is in the CF card_; thus, formating all your cards will remove `400plus` for all practical purposes.
+  * Temporarily disable 400plus
+    Power Off the camera, then press and hold the *TRASH* button. While holding the button, power on the camera, it should boot without 400plus.
 
 == What's next ==
 
