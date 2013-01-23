@@ -28,8 +28,8 @@ typedef struct {
 } reaction_t;
 
 typedef struct  {
-	int         *condition;
 	reaction_t **reaction;
+	int         *condition;
 } chain_t;
 
 reaction_t
@@ -154,13 +154,13 @@ reaction_t *button_actions_af[BUTTON_COUNT] = {
 };
 
 chain_t
-	chain_actions_main    = {NULL,               button_actions_main},
-	chain_actions_400plus = {NULL,               button_actions_meter},
-	chain_actions_meter   = {NULL,               button_actions_wb},
-	chain_actions_wb      = {NULL,               button_actions_iso},
-	chain_actions_iso     = {NULL,               button_actions_af},
-	chain_actions_face    = {NULL,               button_actions_400plus},
-	chain_actions_af      = {&settings.use_dpad, button_actions_face}
+	chain_actions_main    = {button_actions_main},
+	chain_actions_400plus = {button_actions_meter},
+	chain_actions_meter   = {button_actions_wb},
+	chain_actions_wb      = {button_actions_iso},
+	chain_actions_iso     = {button_actions_af},
+	chain_actions_face    = {button_actions_400plus},
+	chain_actions_af      = {button_actions_face, &settings.use_dpad}
 ;
 
 chain_t *button_chains[GUIMODE_COUNT] = {
