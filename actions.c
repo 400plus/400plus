@@ -189,7 +189,7 @@ void autoiso() {
 	switch(DPData.ae) {
 	case AE_MODE_M:
 		if (DPData.tv_val == TV_VAL_BULB) {
-			enqueue_action(autoiso_disable_bulb);
+			enqueue_action(autoiso_disable_restore);
 		} else {
 			// M mode: set ISO to match exposure
 			ec = - (status.measured_ec - status.ev_comp);
@@ -259,7 +259,7 @@ void autoiso_disable() {
 	}
 }
 
-void autoiso_disable_bulb() {
+void autoiso_disable_restore() {
 	settings.autoiso_enable = false;
 
 	send_to_intercom(IC_SET_ISO, ISO_MIN);

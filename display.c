@@ -162,5 +162,8 @@ void display_overlay() {
 
 		if (status.cmode_active && current_cmode != CMODE_NONE)
 			bmp_printf(FONT_SMALL, 16, 96, "%s", cmodes_config.names[current_cmode]);
+
+		if (status.fexp)
+			bmp_printf(FONT_SMALL, 138, 32, "#");
 	}
 }

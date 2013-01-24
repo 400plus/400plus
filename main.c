@@ -15,6 +15,7 @@
 #include "button.h"
 #include "cmodes.h"
 #include "display.h"
+#include "fexp.h"
 #include "languages.h"
 #include "menu.h"
 #include "menu_main.h"
@@ -54,6 +55,7 @@ int proxy_button         (char *message);
 int proxy_wheel          (char *message);
 int proxy_initialize     (char *message);
 int proxy_tv             (char *message);
+int proxy_av             (char *message);
 
 proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]  = proxy_script_restore,
@@ -74,6 +76,7 @@ proxy_t listeners_menu[0x100] = {
 
 proxy_t listeners_main[0x100] = {
 	[IC_SET_TV_VAL]    = proxy_tv,
+	[IC_SET_AV_VAL]    = proxy_av,
 	[IC_SET_LANGUAGE]  = proxy_set_language,
 	[IC_DIALOGON]      = proxy_dialog_enter,
 	[IC_MEASURING]     = proxy_measuring,
@@ -125,17 +128,21 @@ void intercom_proxy(const int handler, char *message) {
 	message_logger(message);
 #endif
 
-	// Fast path for the case of a running script
-	if (status.script_running)
-		listeners = listeners_script;
-	else if (status.menu_running)
-		listeners = listeners_menu;
-	else
-		listeners = listeners_main;
+	if (status.ignore_msg == message [1]) {
+		status.ignore_msg = false;
+	} else {
+		// Fast path for the case of a running script
+		if (status.script_running)
+			listeners = listeners_script;
+		else if (status.menu_running)
+			listeners = listeners_menu;
+		else
+			listeners = listeners_main;
 
-	if ((listener = listeners[message[1]]) != NULL)
-		if (listener(message))
-			return;
+		if ((listener = listeners[message[1]]) != NULL)
+			if (listener(message))
+				return;
+	}
 
 	IntercomHandler(handler, message);
 }
@@ -242,7 +249,6 @@ int proxy_initialize(char *message) {
 		first = false;
 
 		enqueue_action(start_up);
-
 	}
 
 	return false;
@@ -251,16 +257,15 @@ int proxy_initialize(char *message) {
 int proxy_settings0(char *message) {
 	static int first = true;
 
-	if (status.ignore_ae_change) {
-		status.ignore_ae_change = false;
-	} else {
-		status.main_dial_ae = message[2];
+	status.main_dial_ae = message[2];
 
-		if (first) {
-			first = false;
-		} else {
-			enqueue_action(cmode_apply);
-		}
+	if (first) {
+		first = false;
+	} else {
+		if (status.fexp)
+			enqueue_action(fexp_disable);
+
+		enqueue_action(cmode_apply);
 	}
 
 	return false;
@@ -280,9 +285,23 @@ int proxy_wheel(char *message) {
 	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, true);
 }
 
+int proxy_av(char *message) {
+	if (status.fexp)
+		enqueue_action(fexp_update_tv);
+
+	return false;
+}
 int proxy_tv(char *message) {
-	if (settings.autoiso_enable && message[2] == TV_VAL_BULB)
-		enqueue_action(autoiso_disable_bulb);
+	if (message[2] == TV_VAL_BULB) {
+		if (settings.autoiso_enable)
+			enqueue_action(autoiso_disable_restore);
+
+		if (status.fexp)
+			enqueue_action(fexp_disable);
+	} else {
+		if (status.fexp)
+			enqueue_action(fexp_update_av);
+	}
 
 	return false;
 }

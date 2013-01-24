@@ -213,7 +213,9 @@ int send_to_intercom(int message, int parm) {
 
 	switch (message) {
 	case IC_SET_AE:
-		status.ignore_ae_change = true;
+	case IC_SET_AV_VAL:
+	case IC_SET_TV_VAL:
+		status.ignore_msg = message;
 		break;
 	case IC_RELEASE:
 	case IC_SET_REALTIME_ISO_0:
