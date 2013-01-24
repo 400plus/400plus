@@ -11,6 +11,7 @@
 #include "firmware.h"
 
 #include "actions.h"
+#include "autoiso.h"
 #include "af_patterns.h"
 #include "button.h"
 #include "cmodes.h"

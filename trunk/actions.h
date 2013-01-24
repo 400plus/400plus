@@ -24,11 +24,6 @@ extern void set_intermediate_iso();
 extern void set_metering_spot();
 extern void set_whitebalance_colortemp();
 
-extern void autoiso();
-extern void autoiso_enable();
-extern void autoiso_disable();
-extern void autoiso_disable_restore();
-
 extern void button_jump_action();
 extern void button_trash_action();
 

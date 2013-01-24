@@ -11,6 +11,7 @@
 #include "macros.h"
 
 #include "actions.h"
+#include "autoiso.h"
 #include "af_patterns.h"
 #include "display.h"
 #include "fexp.h"
