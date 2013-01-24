@@ -13,6 +13,7 @@
 #include "actions.h"
 #include "af_patterns.h"
 #include "display.h"
+#include "fexp.h"
 #include "menu.h"
 #include "menu_main.h"
 #include "settings.h"
@@ -120,7 +121,7 @@ reaction_t *button_actions_iso[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_face_set   = {true},
+	reaction_face_set   = {true, fexp_toggle},
 	reaction_face_up    = {true, viewfinder_up,    viewfinder_end},
 	reaction_face_down  = {true},
 	reaction_face_right = {true, viewfinder_right, viewfinder_end},

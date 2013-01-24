@@ -51,6 +51,7 @@ typedef unsigned char iso_t;
 #define ISO_800  EV_CODE(12, 0)
 #define ISO_1600 EV_CODE(13, 0)
 
+extern ev_t ev_normalize(ev_t ec);
 extern ec_t ec_normalize(ec_t ec);
 
 extern ec_t ec_inc(ec_t ev);
