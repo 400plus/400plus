@@ -240,6 +240,14 @@ To use this feature, the "Use D-Pad" option must be active (set to "Yes"); then,
 
 _*Note*_: When setting the shutter speed to `BULB`, changing to another exposure mode other than `M`, or switching the camera off, `400plus` will automatically disable this feature.
 
+== Quick exposure for `M` mode ==
+
+The quick exposure for `M` mode is intended to help you to find a 'good enough' exposure while in `M` mode; this feature is just like giving a quick peek into `P` mode.
+
+To use this feature, the "Use D-Pad" option must be active (set to "Yes"); then, look through the viewfinder and press the `DOWN` button. Notice how the exposure and aperture change, and how the exposure indicator (both in the main display and the viewfinder) shows now a value of 0 EV.
+
+Once `400plus` has set an exposure time and an aperture, you are free to change those parameters to meet your needs.
+
 == RAW Support For Scene Modes ==
 
 While in one of the scene modes, use the `AV` button to toggle between the following image type settings: `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used, by requirements of the original firmware.
