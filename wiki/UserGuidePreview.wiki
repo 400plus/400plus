@@ -230,6 +230,16 @@ In `P` and `Av` modes, ISO can also be changed through the viewfinder, but its v
 
 _*Note*_: When custom function "_01 - SET button/Cross keys funct._" is set to "_4 : Cross keys:AF frame Selec._", this feature will remain disabled.
 
+== Fixed exposure for `M` mode ==
+
+While in `M` mode, `400plus` allows you to 'fix' the exposure to a certain value, and keep it stable even if you change the aperture or the exposure time: when you change on of those two values, `400plus` will automatically change the other one, in the opposite direction.
+
+For example, suppose you set the camera to 1/100s and f/4.0 and then activate this feature. Now, if you change the exposure time to 1/50s, the aperture will jump to f/5.6; and if you change the aperture to f/2.8, the shutter speed will jump to 1/200s.
+
+To use this feature, the "Use D-Pad" option must be active (set to "Yes"); then, look through the viewfinder and press the `SET` button. A small "`#`" symbol will be shown on the main display, just between the shutter speed and the aperture, to indicate that the feature is active. To deactivate it, just press `SET` again while looking through the viewfinder.
+
+_*Note*_: When setting the shutter speed to `BULB`, changing to another exposure mode other than `M`, or switching the camera off, `400plus` will automatically disable this feature.
+
 == RAW Support For Scene Modes ==
 
 While in one of the scene modes, use the `AV` button to toggle between the following image type settings: `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used, by requirements of the original firmware.
