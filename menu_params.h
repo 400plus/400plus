@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MENU_PARAMS_H_
 #define MENU_PARAMS_H_
 

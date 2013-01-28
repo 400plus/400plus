@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 /* inih -- simple .INI file parser
 
 inih is released under the New BSD license (see LICENSE.txt). Go to the project
@@ -12,10 +6,9 @@ home page for more info:
 http://code.google.com/p/inih/
 */
 
-#include <fcntl.h>
-#include <ctype.h>
-#include <string.h>
-#include <unistd.h>
+//#include <stdio.h>
+//#include <ctype.h> // 0xAF - linker cannot see __ctype_ptr__  and we have VxWorks isspace() already, so this is not needed
+//#include <string.h>
 
 #include "ini.h"
 #include "utils.h"

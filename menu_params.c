@@ -1,12 +1,4 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <stdbool.h>
-
-#include "macros.h"
+#include "main.h"
 #include "firmware.h"
 
 #include "languages.h"
@@ -20,6 +12,7 @@
 
 void menu_params_apply_autoiso_miniso     (const type_MENUITEM *item);
 void menu_params_apply_autoiso_maxiso     (const type_MENUITEM *item);
+void menu_params_apply_autoiso_maxav      (const type_MENUITEM *item);
 void menu_params_apply_iso                (const type_MENUITEM *item);
 void menu_params_apply_av_comp            (const type_MENUITEM *item);
 void menu_params_apply_efcomp             (const type_MENUITEM *item);
@@ -34,70 +27,70 @@ void menu_params_apply_remote_enable      (const type_MENUITEM *item);
 void menu_params_apply_remote_delay       (const type_MENUITEM *item);
 
 type_MENUITEM autoiso_items[] = {
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
-	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso, menu_params_apply_autoiso_miniso),
-	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso, menu_params_apply_autoiso_maxiso),
-	MENUITEM_TV     (0, LP_WORD(L_I_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL),
-	MENUITEM_EVEAEB (0, LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
+	MENUITEM_BASEISO(LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso, menu_params_apply_autoiso_miniso),
+	MENUITEM_BASEISO(LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso, menu_params_apply_autoiso_maxiso),
+	MENUITEM_TV     (LP_WORD(L_I_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL),
+	MENUITEM_AV     (LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  menu_params_apply_autoiso_maxav),
 };
 
 type_MENUPAGE autoiso_page = {
 	name     : LP_WORD(L_S_AUTOISO),
 	length   : LENGTH(autoiso_items),
 	items    : autoiso_items,
-	actions  : {
+	tasks    : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUITEM flash_items[] = {
-	MENUITEM_EVCOMP (0, LP_WORD(L_I_FLASH_COMP),    &menu_DPData.efcomp,             menu_params_apply_efcomp),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_USE_FLASH),     &menu_DPData.cf_emit_flash,      menu_params_apply_cf_emit_flash),
-	MENUITEM_AFFLASH(0, LP_WORD(L_I_AF_FLASH),      &menu_DPData.cf_emit_aux,        menu_params_apply_cf_emit_aux),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_FLASH_2ND_CURT),&menu_DPData.cf_flash_sync_rear, menu_params_apply_cf_flash_sync_rear),
+	MENUITEM_EVCOMP (LP_WORD(L_I_FLASH_COMP),    &menu_cameraMode.efcomp,             menu_params_apply_efcomp),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_USE_FLASH),     &menu_cameraMode.cf_emit_flash,      menu_params_apply_cf_emit_flash),
+	MENUITEM_AFFLASH(LP_WORD(L_I_AF_FLASH),      &menu_cameraMode.cf_emit_aux,        menu_params_apply_cf_emit_aux),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_FLASH_2ND_CURT),&menu_cameraMode.cf_flash_sync_rear, menu_params_apply_cf_flash_sync_rear),
 };
 
 type_MENUPAGE flash_page = {
 	name     : LP_WORD(L_S_FLASH),
 	length   : LENGTH(flash_items),
 	items    : flash_items,
-	actions  : {
+	tasks    : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUITEM ir_items[] = {
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_params_apply_remote_enable),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_params_apply_remote_delay),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_params_apply_remote_enable),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_params_apply_remote_delay),
 };
 
 type_MENUPAGE ir_page = {
 	name     : LP_WORD(L_S_IR),
 	length   : LENGTH(ir_items),
 	items    : ir_items,
-	actions  : {
+	tasks    : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
 
 type_MENUITEM menupage_params_items[] = {
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_AUTOISO),       &autoiso_page,                  NULL),
-	MENUITEM_FULLISO(0, LP_WORD(L_I_ISO),           &menu_DPData.iso,               menu_params_apply_iso),
-	MENUITEM_EVCOMP (0, LP_WORD(L_I_AV_COMP),       &menu_DPData.av_comp,           menu_params_apply_av_comp),
-	MENUITEM_EVSEP  (0, LP_WORD(L_I_AEB),           &menu_DPData.ae_bkt,            menu_params_apply_ae_bkt),
-	MENUITEM_CLRTEMP(0, LP_WORD(L_I_COLOR_TEMP_K),  &menu_DPData.color_temp,        menu_params_apply_color_temp),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_MIRROR_LOCKUP), &menu_DPData.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_SAFETY_SHIFT),  &menu_DPData.cf_safety_shift,   menu_params_apply_cf_safety_shift),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_FLASH),         &flash_page,                    NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_IR),            &ir_page,                       NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_AUTOISO),       &autoiso_page,                      NULL),
+	MENUITEM_FULLISO(LP_WORD(L_I_ISO),           &menu_cameraMode.iso,               menu_params_apply_iso),
+	MENUITEM_EVCOMP (LP_WORD(L_I_AV_COMP),       &menu_cameraMode.av_comp,           menu_params_apply_av_comp),
+	MENUITEM_EVSEP  (LP_WORD(L_I_AEB),           &menu_cameraMode.ae_bkt,            menu_params_apply_ae_bkt),
+	MENUITEM_CLRTEMP(LP_WORD(L_I_COLOR_TEMP_K),  &menu_cameraMode.color_temp,        menu_params_apply_color_temp),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_MIRROR_LOCKUP), &menu_cameraMode.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_SAFETY_SHIFT),  &menu_cameraMode.cf_safety_shift,   menu_params_apply_cf_safety_shift),
+	MENUITEM_SUBMENU(LP_WORD(L_S_FLASH),         &flash_page,                        NULL),
+	MENUITEM_SUBMENU(LP_WORD(L_S_IR),            &ir_page,                           NULL),
 };
 
 type_MENUPAGE menupage_params = {
 	name      : LP_WORD(L_P_PARAMS),
-	sibilings : true,
+	sibilings : TRUE,
 	length    : LENGTH(menupage_params_items),
 	items     : menupage_params_items,
-	ordering  : menu_order.params_order,
+	ordering  : settings.params_order,
 };
 
 void menu_params_apply_autoiso_miniso(const type_MENUITEM *item) {
@@ -110,45 +103,55 @@ void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
 	menu_event_display();
 }
 
+void menu_params_apply_autoiso_maxav(const type_MENUITEM *item) {
+	int min = MAX(cameraMode->avo,   0x08);
+	int max = MIN(cameraMode->avmax, 0x67);
+
+	settings.autoiso_maxav = MAX(settings.autoiso_maxav, min);
+	settings.autoiso_maxav = MIN(settings.autoiso_maxav, max);
+
+	menu_event_refresh();
+}
+
 void menu_params_apply_iso(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_ISO, *item->parm.menuitem_iso.value);
+	send_to_intercom(IC_SET_ISO, 2, *item->parm.menuitem_iso.value);
 }
 
 void menu_params_apply_av_comp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_AV_COMP, *item->parm.menuitem_ec.value);
+	send_to_intercom(IC_SET_AV_COMP, 1, *item->parm.menuitem_ev.value);
 }
 
 void menu_params_apply_efcomp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_EFCOMP, *item->parm.menuitem_ec.value);
+	send_to_intercom(IC_SET_EFCOMP, 1, *item->parm.menuitem_ev.value);
 }
 
 void menu_params_apply_cf_emit_flash(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_EMIT_FLASH, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_ae_bkt(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_AE_BKT, *item->parm.menuitem_ec.value);
+	send_to_intercom(IC_SET_AE_BKT, 1, *item->parm.menuitem_ev.value);
 }
 
 void menu_params_apply_color_temp(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_WB,         WB_MODE_COLORTEMP);
-	send_to_intercom(IC_SET_COLOR_TEMP, *item->parm.menuitem_int.value);
+	send_to_intercom(IC_SET_WB,         1, WB_MODE_COLORTEMP);
+	send_to_intercom(IC_SET_COLOR_TEMP, 2, *item->parm.menuitem_int.value);
 }
 
 void menu_params_apply_cf_emit_aux(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_EMIT_AUX, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_EMIT_AUX, 1, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_cf_mirror_up_lock(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_cf_flash_sync_rear(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_cf_safety_shift(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, *item->parm.menuitem_enum.value);
+	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, 1, *item->parm.menuitem_enum.value);
 }
 
 void menu_params_apply_remote_enable(const type_MENUITEM *item) {

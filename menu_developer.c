@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 // to enable specific functionality compile with the following flags:
 // -DBREAK_CAMERA   - enable "factory mode" menus
 // -DTEST_DIALOGS   - enable dialogs testing menu
@@ -14,10 +8,8 @@
 // MENU -> exit test mode
 // JUMP -> change color palette (some dialogs are seen in special palettes)
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include "macros.h"
+#include "main.h"
+#include "firmware.h"
 
 #include "debug.h"
 #include "languages.h"
@@ -27,7 +19,6 @@
 #include "menu_settings.h"
 #include "utils.h"
 #include "settings.h"
-#include "memspy.h"
 
 #include "menu_developer.h"
 
@@ -38,16 +29,12 @@ static int   curr_palette = 0;
 static void test_dialog_create();
 
 type_MENUITEM menu_developer_items[] = {
-	MENUITEM_LAUNCH( 0, LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
-	MENUITEM_LAUNCH( 0, LP_WORD(L_I_PRINT_INFO),          print_info),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
-	MENUITEM_LOGFILE(0, LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
+	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
+	MENUITEM_LAUNCH(LP_WORD(L_I_PRINT_INFO),          print_info),
+	MENUITEM_BOOLEAN(LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
+	MENUITEM_LOGFILE(LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
 #ifdef MEM_DUMP
-	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_MEMORY),         dump_memory_after_5s),
-#endif
-#ifdef MEMSPY
-	MENUITEM_LAUNCH(LP_WORD(L_I_MEMSPY_ENABLE),       memspy_enable),
-	MENUITEM_LAUNCH(LP_WORD(L_I_MEMSPY_DISABLE),      memspy_disable),
+	MENUITEM_LAUNCH(LP_WORD(L_I_DUMP_MEMORY),         dump_memory),
 #endif
 #ifdef BREAK_CAMERA
 	MENUITEM_LAUNCH(LP_WORD(L_I_ENTER_FACTORY_MODE),  enter_factory_mode),
@@ -62,8 +49,8 @@ type_MENUPAGE menupage_developer = {
 	name      : LP_WORD(L_P_DEVELOPERS),
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
-	ordering  : menu_order.developer_order,
-	actions  : {
+	ordering  : settings.developer_order,
+	tasks  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
 };
@@ -127,7 +114,6 @@ static void test_dialog_create() {
 
 	dialog_redraw(menu_handler);
 }
-
 
 #if 0
 

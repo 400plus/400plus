@@ -1,13 +1,5 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <string.h>
-#include <stdbool.h>
-
-#include "macros.h"
+#include "main.h"
+#include "firmware.h"
 
 #include "languages.h"
 #include "menu.h"
@@ -37,7 +29,11 @@ char *rename_filename;
 int   x, y, z;
 int   caps;
 
-void rename_display_up  (const type_MENUITEM *item, char *buffer, const int length);
+void rename_display_up1 (const type_MENUITEM *item, char *buffer, const int length);
+void rename_display_up2 (const type_MENUITEM *item, char *buffer, const int length);
+void rename_display_up3 (const type_MENUITEM *item, char *buffer, const int length);
+void rename_display_up4 (const type_MENUITEM *item, char *buffer, const int length);
+void rename_display_up  (const int id,              char *buffer, const int length);
 void rename_display_down(const type_MENUITEM *item, char *buffer, const int length);
 
 void rename_up  (type_MENU *menu);
@@ -48,6 +44,9 @@ void rename_left   (const type_MENUITEM *item, const int repeating);
 
 void rename_prev(type_MENU *menu);
 void rename_next(type_MENU *menu);
+
+void rename_repeat_prev(type_MENU *menu, const int repeating);
+void rename_repeat_next(type_MENU *menu, const int repeating);
 
 void rename_action(const type_MENUITEM *item);
 
@@ -64,29 +63,25 @@ void rename_display_line(type_MENUPAGE *page, const int line);
 
 type_MENUITEM menupage_rename_items[] = {
 	{
-		id      : 0,
-		display : rename_display_up,
+		display : rename_display_up1,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
 	},
 	{
-		id      : 1,
-		display : rename_display_up,
+		display : rename_display_up2,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
 	},
 	{
-		id      : 2,
-		display : rename_display_up,
+		display : rename_display_up3,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
 	},
 	{
-		id      : 3,
-		display : rename_display_up,
+		display : rename_display_up4,
 		inc     : rename_right,
 		dec     : rename_left,
 		action  : rename_action,
@@ -100,7 +95,7 @@ type_MENUPAGE menupage_rename = {
 	name      : LP_WORD(L_P_RENAME),
 	length    : LENGTH(menupage_rename_items),
 	items     : menupage_rename_items,
-	actions   : {
+	tasks     : {
 		[MENU_EVENT_UP]      = rename_up,
 		[MENU_EVENT_DOWN]    = rename_down,
 		[MENU_EVENT_OUT]     = rename_prev,
@@ -124,15 +119,19 @@ void rename_create(char *filename) {
 	menupage_rename.current_line = x;
 	menupage_rename.current_posn = x;
 
-	caps = false;
+	caps = FALSE;
 
 	menu_set_page(&menupage_rename);
 	menu_highlight(x);
 }
 
-void rename_display_up(const type_MENUITEM *item, char *buffer, const int length) {
+void rename_display_up1 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (0, buffer, length); };
+void rename_display_up2 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (1, buffer, length); };
+void rename_display_up3 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (2, buffer, length); };
+void rename_display_up4 (const type_MENUITEM *item, char *buffer, const int length) { rename_display_up (3, buffer, length); };
+
+void rename_display_up(const int id, char *buffer, const int length) {
 	int i, j = 0;
-	int id = item->id;
 
 	for (i = 0; i < 9; i++) {
 		if (id == x && i == y) {
@@ -208,6 +207,14 @@ void rename_left(const type_MENUITEM *item, const int repeating) {
 }
 
 void rename_prev(type_MENU *menu) {
+	menu_repeat(menu, rename_repeat_prev);
+}
+
+void rename_next(type_MENU *menu) {
+	menu_repeat(menu, rename_repeat_next);
+}
+
+void rename_repeat_prev(type_MENU *menu, const int repeating) {
 	if (z != 0) {
 		z--;
 		rename_display_line(&menupage_rename, 4);
@@ -215,7 +222,7 @@ void rename_prev(type_MENU *menu) {
 	}
 }
 
-void rename_next(type_MENU *menu) {
+void rename_repeat_next(type_MENU *menu, const int repeating) {
 	if (z != 24) {
 		z++;
 
@@ -279,7 +286,7 @@ void rename_save(type_MENU *menu) {
 	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)
 		rename_filename[i] = '\0';
 
-	menu->changed = true;
+	menu->changed = TRUE;
 }
 
 void rename_display(type_MENU *menu) {

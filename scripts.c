@@ -1,17 +1,7 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
-#include <camera.h>
-#include <stdbool.h>
-
 #include "main.h"
 #include "firmware.h"
 
 #include "display.h"
-#include "exposure.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -19,14 +9,13 @@
 
 int *feedback_task = NULL;
 
-dpr_data_t st_DPData;
+type_CAMERA_MODE st_cameraMode;
 
 void script_start();
 void script_stop();
 void script_feedback();
 
 void script_action(type_SHOT_ACTION action);
-
 void action_ext_aeb();
 void action_efl_aeb();
 void action_iso_aeb();
@@ -102,10 +91,10 @@ void script_interval() {
 			// Calculate how much time is left until target, and wait;
 			// automatically aim for the next target, if already missed this
 			gap    = target - timestamp();
-			pause  = gap % delay;
-			pause += pause > 0 ? 0 : delay;
+            pause  = gap % delay;
+            pause += pause > 0 ? 0 : delay;
 
-			script_delay(pause);
+            script_delay(pause);
 		}
 
 		if (!can_continue())
@@ -116,8 +105,8 @@ void script_interval() {
 		// Recalculate the next target,
 		// but considering we may have already missed it
 		jump    = (pause % delay) - gap;
-		jump   += jump > delay ? 0 : delay;
-		target += jump;
+        jump   += jump > delay ? 0 : delay;
+        target += jump;
 	}
 
 	script_stop();
@@ -188,23 +177,20 @@ void script_long_exp() {
 void script_start() {
 	beep();
 
-	status.script_running  = true;
-	status.script_stopping = false;
+	status.script_running  = TRUE;
+	status.script_stopping = FALSE;
 
-	st_DPData = DPData;
+	st_cameraMode = *cameraMode;
 
-	// Force MLU to on if drive mode is self-timer, force MLU to off otherwise
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, DPData.drive == DRIVE_MODE_TIMER);
-
-	// To avoid interferences with our EAEB script, disable AEB
-	send_to_intercom(IC_SET_AE_BKT, EC_ZERO);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, FALSE);
+	send_to_intercom(IC_SET_AE_BKT,            1, 0x00);
 
 	if (settings.keep_power_on)
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, FALSE);
 
 	switch (settings.script_lcd) {
 	case SCRIPT_LCD_DIM:
-		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1);
+		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1, 1);
 		break;
 	case SCRIPT_LCD_OFF:
 		display_off();
@@ -224,8 +210,8 @@ void script_start() {
 void script_stop() {
 	beep();
 
-	status.script_running  = false;
-	status.script_stopping = true;
+	status.script_running  = FALSE;
+	status.script_stopping = TRUE;
 
 	script_restore();
 }
@@ -233,21 +219,21 @@ void script_stop() {
 void script_restore_parameters() {
 	wait_for_camera();
 
-	send_to_intercom(IC_SET_AE,     st_DPData.ae);
-	send_to_intercom(IC_SET_EFCOMP, st_DPData.efcomp);
-	send_to_intercom(IC_SET_TV_VAL, st_DPData.tv_val);
-	send_to_intercom(IC_SET_AV_VAL, st_DPData.av_val);
-	send_to_intercom(IC_SET_ISO,    st_DPData.iso);
+	send_to_intercom(IC_SET_AE,     1, st_cameraMode.ae);
+	send_to_intercom(IC_SET_EFCOMP, 1, st_cameraMode.efcomp);
+	send_to_intercom(IC_SET_TV_VAL, 1, st_cameraMode.tv_val);
+	send_to_intercom(IC_SET_AV_VAL, 1, st_cameraMode.av_val);
+	send_to_intercom(IC_SET_ISO,    2, st_cameraMode.iso);
 }
 
 void script_restore() {
 	wait_for_camera();
 
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, st_DPData.cf_mirror_up_lock);
-	send_to_intercom(IC_SET_AE_BKT,            st_DPData.ae_bkt);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1, st_cameraMode.cf_mirror_up_lock);
+	send_to_intercom(IC_SET_AE_BKT,            1, st_cameraMode.ae_bkt);
 
-	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    st_DPData.lcd_brightness);
-	send_to_intercom(IC_SET_AUTO_POWER_OFF,    st_DPData.auto_power_off);
+	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    1, st_cameraMode.lcd_brightness);
+	send_to_intercom(IC_SET_AUTO_POWER_OFF,    1, st_cameraMode.auto_power_off);
 
 	display_on();
 }
@@ -309,33 +295,33 @@ void script_action(type_SHOT_ACTION action) {
 }
 
 void action_ext_aeb() {
-	if (DPData.tv_val == TV_VAL_BULB) {
-		tv_t tv_val;
+	if (cameraMode->tv_val == TV_VAL_BULB) {
+		int tv_val;
 
-		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = bulb_next(tv_val)) {
+		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = tv_next(tv_val)) {
 			wait_for_camera();
 
-			if (tv_val < 0120) {
-				if (DPData.tv_val != TV_VAL_BULB)
-					send_to_intercom(IC_SET_TV_VAL, TV_VAL_BULB);
+			if (tv_val < 0x10) {
+				if (cameraMode->tv_val != TV_VAL_BULB)
+					send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
-				shutter_release_bulb(60 * BULB_MN(tv_val));
+				shutter_release_bulb(60 * (1 << (1 - (tv_val >> 3))));
 			} else {
-				send_to_intercom(IC_SET_TV_VAL, BULB_TV(tv_val));
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_val);
 				shutter_release();
 			}
 
 			if (!can_continue())
 				break;
 		}
-	} else if (AE_IS_CREATIVE(DPData.ae)) {
-		tv_t tv_inc, tv_dec;
-		av_t av_inc, av_dec;
+	} else if (cameraMode->ae < AE_MODE_AUTO) {
+		int tv_inc, av_inc;
+		int tv_dec, av_dec;
 
 		int tv_sep = 0x00, av_sep = 0x00;
 		int frames = settings.eaeb_frames;
 
-		if (DPData.ae == AE_MODE_TV) {
+		if (cameraMode->ae == AE_MODE_TV) {
 			// Fixed Tv, Variable Av
 			av_sep = settings.eaeb_ev;
 		} else {
@@ -352,9 +338,9 @@ void action_ext_aeb() {
 		av_inc = av_dec = status.last_shot_av;
 
 		// Enter manual mode...
-		if (DPData.ae != AE_MODE_M) {
+		if (cameraMode->ae != AE_MODE_M) {
 			wait_for_camera();
-			send_to_intercom(IC_SET_AE, AE_MODE_M);
+			send_to_intercom(IC_SET_AE, 1, AE_MODE_M);
 		}
 
 		// ...and do the rest ourselves
@@ -365,8 +351,8 @@ void action_ext_aeb() {
 				tv_inc = tv_add(tv_inc, tv_sep);
 				av_inc = av_add(av_inc, av_sep);
 
-				send_to_intercom(IC_SET_TV_VAL, tv_inc);
-				send_to_intercom(IC_SET_AV_VAL, av_inc);
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_inc);
+				send_to_intercom(IC_SET_AV_VAL, 1, av_inc);
 
 				shutter_release();
 				frames--;
@@ -381,8 +367,8 @@ void action_ext_aeb() {
 				tv_dec = tv_sub(tv_dec, tv_sep);
 				av_dec = av_sub(av_dec, av_sep);
 
-				send_to_intercom(IC_SET_TV_VAL, tv_dec);
-				send_to_intercom(IC_SET_AV_VAL, av_dec);
+				send_to_intercom(IC_SET_TV_VAL, 1, tv_dec);
+				send_to_intercom(IC_SET_AV_VAL, 1, av_dec);
 
 				shutter_release();
 				frames--;
@@ -403,7 +389,7 @@ void action_iso_aeb() {
 		if (settings.iso_aeb[i]) {
 			wait_for_camera();
 
-			send_to_intercom(IC_SET_ISO, 0x40 | ((i + 1) << 3));
+			send_to_intercom(IC_SET_ISO, 2, 0x40 | ((i + 1) << 3));
 			SleepTask(WAIT_USER_ACTION);
 			shutter_release();
 
@@ -418,8 +404,8 @@ void action_iso_aeb() {
 void action_efl_aeb() {
 	int frames = settings.efl_aeb_frames;
 
-	ec_t ef_inc = DPData.efcomp;
-	ec_t ef_dec = DPData.efcomp;
+	int ef_inc = cameraMode->efcomp;
+	int ef_dec = cameraMode->efcomp;
 
 	shutter_release();
 	frames--;
@@ -428,8 +414,8 @@ void action_efl_aeb() {
 		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
 			wait_for_camera();
 
-			ef_inc = ec_add(ef_inc, settings.efl_aeb_ev);
-			send_to_intercom(IC_SET_EFCOMP, ef_inc);
+			ef_inc = ev_add(ef_inc, settings.efl_aeb_ev);
+			send_to_intercom(IC_SET_EFCOMP, 1, ef_inc);
 
 			shutter_release();
 			frames--;
@@ -441,8 +427,8 @@ void action_efl_aeb() {
 		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
 			wait_for_camera();
 
-			ef_dec = ec_sub(ef_dec, settings.efl_aeb_ev);
-			send_to_intercom(IC_SET_EFCOMP, ef_dec);
+			ef_dec = ev_sub(ef_dec, settings.efl_aeb_ev);
+			send_to_intercom(IC_SET_EFCOMP, 1, ef_dec);
 
 			shutter_release();
 			frames--;
@@ -458,11 +444,11 @@ void action_efl_aeb() {
 void action_long_exp() {
 	wait_for_camera();
 
-	if (DPData.ae != AE_MODE_M)
-		send_to_intercom(IC_SET_AE,     AE_MODE_M);
+	if (cameraMode->ae != AE_MODE_M)
+		send_to_intercom(IC_SET_AE,     1, AE_MODE_M);
 
-	if (DPData.tv_val != TV_VAL_BULB)
-		send_to_intercom(IC_SET_TV_VAL, TV_VAL_BULB);
+	if (cameraMode->tv_val != TV_VAL_BULB)
+		send_to_intercom(IC_SET_TV_VAL, 1, TV_VAL_BULB);
 
 	shutter_release_bulb(settings.lexp_time);
 }
@@ -482,5 +468,5 @@ void script_delay(int delay) {
 }
 
 int can_continue() {
-	return ! (status.script_stopping || DPData.avail_shot < SCRIPT_MIN_SHOTS);
+	return ! (status.script_stopping || cameraMode->avail_shot < SCRIPT_MIN_SHOTS);
 }
