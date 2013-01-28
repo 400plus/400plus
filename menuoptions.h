@@ -22,5 +22,6 @@ extern type_LIST menuoptions_languages;
 extern type_LIST menuoptions_vformat;
 extern type_LIST menuoptions_scrind;
 extern type_LIST menuoptions_scrlcd;
+extern type_LIST menuoptions_qexp_weight;
 
 #endif

@@ -12,10 +12,13 @@
 #include "camera.h"
 
 #include "exposure.h"
+#include "settings.h"
 #include "utils.h"
 
 void qexp() {
-	ec_t tmp, tmp2;
+	int weight;
+
+	ec_t diff, ec_tmp;
 
 	av_t av = status.measured_av;
 	tv_t tv = status.measured_tv;
@@ -24,58 +27,67 @@ void qexp() {
 	av_t av_max = DPData.ef_lens_exist ? DPData.avmax : AV_MAX;
 	av_t av_min = DPData.ef_lens_exist ? DPData.avo   : AV_MIN;
 
-	if (ec != 0) {
+	if (status.measuring && ec != 0) {
 		// Set lens to maximum aperture
-		tmp = av_min - av;
+		diff = av_min - av;
 
-		av += tmp;
-		ec -= tmp;
+		av += diff;
+		ec -= diff;
 
 		// Set shutter to 1/60
-		tmp = EV_CODE(13, 0) - tv;
+		diff = settings.qexp_mintv - tv;
 
-		tv += tmp;
-		ec -= tmp;
+		tv += diff;
+		ec -= diff;
 
 		// If under-exposing, increase shutter speed
 		if (ec < 0) {
-			tmp = MAX(tv + ec, TV_MIN) - tv;
+			diff = MAX(tv + ec, TV_MIN) - tv;
 
-			tv += tmp;
-			ec -= tmp;
+			tv += diff;
+			ec -= diff;
 		}
 
 		// If over-exposing, split the blame
 		if (ec > 0) {
-			tmp2 = ec / 2;
+			ec_tmp = ec;
 
-			tmp = MIN(av + tmp2, av_max) - av;
+			switch (settings.qexp_weight) {
+			default:
+			case QEXP_WEIGHT_NONE: weight = 2; break;
+			case QEXP_WEIGHT_AV  : weight = 3; break;
+			case QEXP_WEIGHT_TV  : weight = 1; break;
+			}
 
-			av += tmp;
-			ec -= tmp;
+			diff = MIN(av + weight * ec_tmp / 4, av_max) - av;
 
-			tmp  = MIN(tv + tmp2, TV_MAX) - tv;
+			av += diff;
+			ec -= diff;
 
-			tv += tmp;
-			ec -= tmp;
+			weight = 3 - weight;
+
+			diff  = MIN(tv + weight * ec_tmp / 4, TV_MAX) - tv;
+
+			tv += diff;
+			ec -= diff;
 		}
 
 		// If still over-exposing, one of Av / Tv reached a maximum
 		if (ec > 0) {
-			tmp = MIN(tv + ec, TV_MAX) - tv;
+			diff = MIN(tv + ec, TV_MAX) - tv;
 
-			tv += tmp;
-			ec -= tmp;
+			tv += diff;
+			ec -= diff;
 
-			tmp = MIN(av + ec, av_max) - av;
+			diff = MIN(av + ec, av_max) - av;
 
-			av += tmp;
-			ec -= tmp;
+			av += diff;
+			ec -= diff;
 		}
 
 		send_to_intercom(IC_SET_AV_VAL, ev_normalize(av));
 		send_to_intercom(IC_SET_TV_VAL, ev_normalize(tv));
-	}
 
-	beep();
+		beep();
+	}
 }

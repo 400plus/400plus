@@ -79,6 +79,12 @@ char *menuoptions_scrlcd_strings[SCRIPT_LCD_COUNT] = {
 	[SCRIPT_LCD_OFF]  = LP_WORD(L_V_OFF),
 };
 
+char *menuoptions_qexp_weight_strings[QEXP_WEIGHT_COUNT] = {
+	[QEXP_WEIGHT_NONE] = LP_WORD(L_V_NONE),
+	[QEXP_WEIGHT_AV]   = LP_WORD(L_V_AV),
+	[QEXP_WEIGHT_TV]   = LP_WORD(L_V_TV),
+};
+
 type_LIST menuoptions_bool = {
 		length : LENGTH(menuoptions_bool_strings),
 		data   : menuoptions_bool_strings
@@ -129,3 +135,7 @@ type_LIST menuoptions_scrlcd = {
 		data   : menuoptions_scrlcd_strings
 };
 
+type_LIST menuoptions_qexp_weight = {
+		length : LENGTH(menuoptions_qexp_weight_strings),
+		data   : menuoptions_qexp_weight_strings
+};

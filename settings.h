@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x40
+#define SETTINGS_VERSION  0x41
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -80,6 +80,15 @@ typedef enum {
 	FLASH_MODE_LAST  = FLASH_MODE_COUNT - 1
 } type_FLASH_MODE;
 
+typedef enum {
+	QEXP_WEIGHT_NONE,
+	QEXP_WEIGHT_AV,
+	QEXP_WEIGHT_TV,
+	QEXP_WEIGHT_COUNT,
+	QEXP_WEIGHT_FIRST = 0,
+	QEXP_WEIGHT_LAST  = QEXP_WEIGHT_COUNT - 1
+} qexp_weight_t;
+
 typedef struct {
 	int use_dpad;
 	int autoiso_enable;
@@ -128,6 +137,8 @@ typedef struct {
 	int menu_entermain;
 	int menu_current_posn;
 	int menu_autosave;
+	int qexp_mintv;
+	int qexp_weight;
 } settings_t;
 
 extern settings_t settings;
