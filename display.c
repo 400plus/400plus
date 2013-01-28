@@ -161,9 +161,9 @@ void display_overlay() {
 		int current_cmode = get_current_cmode();
 
 		if (status.cmode_active && current_cmode != CMODE_NONE)
-			bmp_printf(FONT_SMALL, 16, 96, "%s", cmodes_config.names[current_cmode]);
+			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 16, 96, "%s", cmodes_config.names[current_cmode]);
 
 		if (status.fexp)
-			bmp_printf(FONT_SMALL, 138, 32, "#");
+			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 138, 32, "#");
 	}
 }
