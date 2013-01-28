@@ -115,6 +115,7 @@
 	LANG_PAIR( S_CMODES,             "Config. Custom modes"      ) \
 	LANG_PAIR( S_PAGES,              "Config. Pages"             ) \
 	LANG_PAIR( S_MENUS,              "Config. Menus"             ) \
+	LANG_PAIR( S_QEXP,               "Config. Quick exposure"    ) \
 	LANG_PAIR( V_OFF,                "Off"                       ) \
 	LANG_PAIR( V_NO_LIMIT,           "No Limit"                  ) \
 	LANG_PAIR( V_YES,                "Yes"                       ) \
@@ -151,6 +152,11 @@
 	LANG_PAIR( I_RESTORE_SETTINGS,   "Restore settings"          ) \
 	LANG_PAIR( I_RESTORE_CMODES,     "Restore custom modes"      ) \
 	LANG_PAIR( I_DELETE_CMODES,      "Delete custom modes"       ) \
+	LANG_PAIR( I_QEXP_MINTV,         "Min Tv"                    ) \
+	LANG_PAIR( I_QEXP_WEIGTH,        "Weight"                    ) \
+	LANG_PAIR( V_BOTH,               "Both"                      ) \
+	LANG_PAIR( V_AV,                 "Av"                        ) \
+	LANG_PAIR( V_TV,                 "Tv"                        ) \
 
 enum LANG_WORDS_ENUM {
 #define LANG_PAIR(key, val) L_##key,

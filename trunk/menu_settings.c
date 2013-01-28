@@ -59,12 +59,17 @@ type_MENUITEM menus_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOSAVE),      &settings.menu_autosave,  NULL),
 };
 
+type_MENUITEM qexp_items[] = {
+	MENUITEM_TV(    0, LP_WORD(L_I_QEXP_MINTV),  &settings.qexp_mintv,  NULL),
+	MENUITEM_WEIGTH(0, LP_WORD(L_I_QEXP_WEIGTH), &settings.qexp_weight, NULL),
+};
+
 type_MENUITEM pages_items[] = {
 	MENUITEM_INFO(0, LP_WORD(L_P_PARAMS),     NULL),
 	MENUITEM_INFO(0, LP_WORD(L_P_SCRIPTS),    NULL),
 	MENUITEM_INFO(0, LP_WORD(L_P_INFO),       NULL),
 	MENUITEM_INFO(0, LP_WORD(L_P_SETTINGS),   NULL),
-	MENUITEM_INFO(0, LP_WORD(L_P_CMODES),    NULL),
+	MENUITEM_INFO(0, LP_WORD(L_P_CMODES),     NULL),
 };
 
 type_MENUITEM restore_items[] = {
@@ -109,6 +114,15 @@ type_MENUPAGE menus_page = {
 	}
 };
 
+type_MENUPAGE qexp_page = {
+	name     : LP_WORD(L_S_QEXP),
+	length   : LENGTH(qexp_items),
+	items    : qexp_items,
+	actions  : {
+		[MENU_EVENT_AV]   = menu_return,
+	}
+};
+
 type_MENUPAGE pages_page = {
 	name     : LP_WORD(L_S_PAGES),
 	length   : LENGTH(pages_items),
@@ -132,8 +146,9 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_LANG   (0, LP_WORD(L_I_LANGUAGE),         &settings.language,        reload_language_and_refresh),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_SCRIPTS),          &scripts_page,             NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_BUTTONS),          &buttons_page,             NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_CMODES),           &cmodes_page,             NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_CMODES),           &cmodes_page,              NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_MENUS),            &menus_page,               NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_QEXP),             &qexp_page,                NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_PAGES),            &pages_page,               NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_I_RESTORE),          &restore_page,             NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu, NULL),
