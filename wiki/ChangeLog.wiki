@@ -1,5 +1,8 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20120415-17*_
+ * Fixed Polish translation.
+
 _*20120415-16*_
  * Added Hungarian translation (thanks Novák István).
 
