@@ -87,7 +87,7 @@ void my_MC_T_Button(mc_table_t * event) {
 		break;
 
 	case MC_BUTTON_UNK2: // 162+26 = 188
-		beep();SleepTask(500);beep(); // if you hear 2 beeps, please tell me which btn you've pressed.
+		//beep();SleepTask(500);beep(); // if you hear 2 beeps, please tell me which btn you've pressed.
 		eventproc_TFTOff();
 		break;
 
