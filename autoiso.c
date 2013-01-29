@@ -103,7 +103,7 @@ void autoiso_disable_restore() {
 	settings.autoiso_enable = false;
 
 	send_to_intercom(IC_SET_ISO, ISO_MIN);
-	enqueue_action(restore_display);
 
-	beep();
+	enqueue_action(restore_display);
+	enqueue_action(beep);
 }

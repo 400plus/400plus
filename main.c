@@ -264,7 +264,7 @@ int proxy_settings0(char *message) {
 		first = false;
 	} else {
 		if (status.fexp)
-			enqueue_action(fexp_disable);
+			fexp_disable();
 
 		enqueue_action(cmode_apply);
 	}
@@ -298,11 +298,11 @@ int proxy_tv(char *message) {
 			enqueue_action(autoiso_disable_restore);
 
 		if (status.fexp)
-			enqueue_action(fexp_disable);
-	} else {
-		if (status.fexp)
-			enqueue_action(fexp_update_av);
+			fexp_disable();
 	}
+
+	if (status.fexp)
+		enqueue_action(fexp_update_av);
 
 	return false;
 }
