@@ -243,11 +243,13 @@ _*Note*_: When setting the shutter speed to `BULB`, changing to another exposure
 
 == Quick exposure for `M` mode ==
 
-The quick exposure for `M` mode is intended to help you to find a 'good enough' exposure while in `M` mode; this feature is just like giving a quick peek into `P` mode.
+The Quick Exposure for `M` mode is intended to help you to find a 'good enough' exposure while in `M` mode; this feature is just like giving a quick peek into `P` mode.
 
 To use this feature, the "Use D-Pad" option must be active (set to "Yes"); then, look through the viewfinder and press the `DOWN` button. Notice how the exposure and aperture change, and how the exposure indicator (both in the main display and the viewfinder) shows now a value of 0 EV.
 
-Once `400plus` has set an exposure time and an aperture, you are free to change those parameters to meet your needs.
+For technical reasons, the camera must be `measuring` for Quick Exposure to work; just ensure that the viewfinder is active (half-press the shutter button otherwise) previous to using this feature.
+
+Once Quick Exposure has set an exposure time and an aperture, you are free to change those parameters to meet your needs.
 
 === Configuring Quick Exposure ===
 
