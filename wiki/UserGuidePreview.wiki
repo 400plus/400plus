@@ -106,7 +106,7 @@ _*Note*_: The developers page is disabled by default, and must be enabled in the
 
 _*Warning*_: The options contained in this page should be used with great care; there is probably little to see here, unless you are developing your own version of this hack.
 
-== Configuring The Menu ==
+== Personalizing The Menu ==
 
 While in any page within the menu, you have the ability to change the order of the items to your own personal preference. To do this, just press the `PLAY` button to 'grab' an item (a small '`>`' will be displayed at the left of the item). Now use the `UP` and `DOWN` buttons to position the item where you would like it to reside (you will see the item actually move to the new position). Finish the process by pressing the `PLAY` button again, to save your changes.
 
