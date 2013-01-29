@@ -89,6 +89,7 @@ Some advanced settings about your camera and `400plus`; please, see [#Configurat
 ||Config. Scripts||[#Configuring_Scripts Configuring Scripts]||
 ||Config. Buttons||[#Configuring_Scripts Configuring Buttons]||
 ||Config. Custom modes||[#Configuring_Custom_Modes Configuring Custom Modes]||
+||Config. Quick exposure||[#Configuring_Quick_Exposure Configuring Quick Exposure]||
 ||Config. Menus||[#Configuring_Menus Configuring Menus]||
 ||Config. Pages||[#Configuring_Pages Configuring Pages]||
 ||Developers menu||[#Developers_Page Developers Page]||
@@ -248,13 +249,25 @@ To use this feature, the "Use D-Pad" option must be active (set to "Yes"); then,
 
 Once `400plus` has set an exposure time and an aperture, you are free to change those parameters to meet your needs.
 
+=== Configuring Quick Exposure ===
+
+There are some configuration options at the "Config. Quick Exposure" item in the [#Settings_Page settings page] at [#The_Menu the menu]:
+
+||_*Item*_||_*Description*_||
+||Min. Tv||Minimum shutter speed targeted||
+||Weighting||Weighting method used||
+
+As long as there is enough light in the scene, Quick Exposure will maintain an exposure time shorter than the "Min. Tv" value. But on low light conditions, when even opening the diaphragm to its widest aperture is not enough, Quick Exposure will use longer exposure times to avoid underexposure. Ideally, you might want to set "Min. Tv" to a value around 1 divided by the focal length of your lens.
+
+On bright scenes, the "Weighting" functions controls which exposure parameter (from shutter speed and diaphragm aperture) must be favored to adjust the exposure. When this parameter is set to "Tv", Quick Exposure will tend to use shorter exposure times; use this value for action scenes, for example. When this parameter is set to "Av", Quick Exposure will tend to use smaller apertures; use this value to achieve a greater depth of field. Finally, when set to "None", Quick Exposure will balance between using shorter exposures and smaller apertures.
+
 == RAW Support For Scene Modes ==
 
 While in one of the scene modes, use the `AV` button to toggle between the following image type settings: `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used, by requirements of the original firmware.
 
 == IR Settings ==
 
-There are also some settings related to the infrared at the "ISO" item in the [#Parameters_Page parameters page] at [#The_Menu the menu].:
+There are also some settings related to the infrared at the "ISO" item in the [#Parameters_Page parameters page] at [#The_Menu the menu]:
 
 ||_*Item*_||_*Description*_||
 ||IR remote enable||When active (set to "Yes"), will allow the use of an IR remote; when set to "No", camera will ignore an IR remote.||
