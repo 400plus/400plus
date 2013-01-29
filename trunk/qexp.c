@@ -7,6 +7,8 @@
  *
  */
 
+#include <stdbool.h>
+
 #include "main.h"
 #include "macros.h"
 #include "camera.h"
@@ -27,7 +29,7 @@ void qexp() {
 	av_t av_max = DPData.ef_lens_exist ? DPData.avmax : AV_MAX;
 	av_t av_min = DPData.ef_lens_exist ? DPData.avo   : AV_MIN;
 
-	if (status.measuring && ec != 0) {
+	if (status.measuring) {
 		// Set lens to maximum aperture
 		diff = av_min - av;
 
@@ -85,8 +87,13 @@ void qexp() {
 			ec -= diff;
 		}
 
+		int fexp = status.fexp;
+		status.fexp = false;
+
 		send_to_intercom(IC_SET_AV_VAL, ev_normalize(av));
 		send_to_intercom(IC_SET_TV_VAL, ev_normalize(tv));
+
+		status.fexp = fexp;
 
 		beep();
 	}
