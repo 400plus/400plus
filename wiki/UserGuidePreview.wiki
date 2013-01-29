@@ -488,6 +488,22 @@ From the [#Custom_Modes_Page custom modes page] in [#The_Menu the menu] you can 
 
 Notice that there is always a character displayed on the left of each custom mode. This feature may come handy when you want to copy custom modes to and from multiple CF cards, and need to know the file-name for each of your custom modes: the character on the left of a custom mode matches the last character n the name of the corresponding file created in the CF card.
 
+== Configuring Custom Modes ==
+
+When a custom mode is assigned to a scene mode, you will normally expect `400plus` to load most parameters from the custom mode, but not all of them. For example, it is quite unlikely that you will want to have the menus ordered differently for each custom mode; you will probably want to be able to retain the order of the menus across custom modes.
+
+This sub-menu of the [#Settings_Page settings page] at [#The_Menu the menu], you can select which parameters will be loaded from a custom mode when it is assigned to a scene mode:
+
+||_*Item*_||_*Description*_||
+||Camera||Camera's shooting parameters: shutter speed, aperture, ISO, ...||
+||400plus||`400plus`' own settings: language, scripts, buttons, ...||
+||Menu order||Order of all items within menus.||
+||Settings||Some rarely changed settings: language, video system, ...||
+||Image||Image related settings: RAW/JPEG, quality, ...||
+||Custom Fn||Custom function (C.Fn) settings: mirror lock-up, long-exposure noise-reduction...||
+
+
+
 ----
 
 = Configuration =
@@ -551,20 +567,6 @@ The following actions can be assigned to the `JUMP` and `TRASH` buttons:
 ||Mirror lock-up||Toggle the MLU option on / off.||
 ||AEB||Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).||
 ||Flash on/off||Toggle the flash on and off, even if it has been raised.||
-
-== Configuring Custom Modes ==
-
-When a custom mode is assigned to a scene mode, you will normally expect `400plus` to load most parameters from the custom mode, but not all of them. For example, it is quite unlikely that you will want to have the menus ordered differently for each custom mode; you will probably want to be able to retain the order of the menus across custom modes.
-
-This sub-menu of the [#Settings_Page settings page] at [#The_Menu the menu], you can select which parameters will be loaded from a custom mode when it is assigned to a scene mode:
-
-||_*Item*_||_*Description*_||
-||Camera||Camera's shooting parameters: shutter speed, aperture, ISO, ...||
-||400plus||`400plus`' own settings: language, scripts, buttons, ...||
-||Menu order||Order of all items within menus.||
-||Settings||Some rarely changed settings: language, video system, ...||
-||Image||Image related settings: RAW/JPEG, quality, ...||
-||Custom Fn||Custom function (C.Fn) settings: mirror lock-up, long-exposure noise-reduction...||
 
 == Configuring Menus ==
 
