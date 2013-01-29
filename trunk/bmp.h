@@ -43,7 +43,6 @@ static inline int *bmp_vram(void) {
 #define BMPPITCH 360
 
 #define FONT_MASK               0x000F0000
-//~ #define FONT_HUGE           0x00080000
 #define FONT_LARGE              0x00030000
 #define FONT_MED                0x00020000
 #define FONT_SMALL              0x00010000
@@ -63,7 +62,6 @@ static inline struct font * fontspec_font(unsigned fontspec) {
 	case FONT_SMALL:	return &font_small;
 	case FONT_MED:		return &font_med;
 	case FONT_LARGE:	return &font_large;
-	//case FONT_HUGE:		return &font_huge;
 	}
 }
 
