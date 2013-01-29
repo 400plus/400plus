@@ -50,14 +50,14 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 		// move to the next scanline
 		front_row += pitch;
 
-		uint32_t pixels = font->bitmap[ c + (i << 7) ];
+		uint16_t pixels = font->bitmap[ c + (i << 7) ];
 		uint8_t pixel;
 
 		for( j=0 ; j<font->width/4 ; j++ ) {
 			uint32_t bmp_pixels = 0;
 			for( pixel=0 ; pixel<4 ; pixel++, pixels <<=1 ) {
 				bmp_pixels >>= 8;
-				bmp_pixels |= (pixels & 0x80000000) ? fg_color : bg_color;
+				bmp_pixels |= (pixels & 0x8000) ? fg_color : bg_color;
 			}
 
 			if ( (int)row < vram_end && (int)row >= vram_start ) {
@@ -66,10 +66,6 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 				debug_log("VRAM: draw outside vram region (0x%08X)", row);
 				return;
 			}
-
-			// handle characters wider than 32 bits
-			if( j == 28/4 )
-				pixels = font->bitmap[ c + ((i+128) << 7) ];
 		}
 	}
 
@@ -158,25 +154,11 @@ void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, in
 
 /** Draw a picture of the BMP color palette. */
 void bmp_draw_palette( void ) {
-	uint32_t x, y, msb, lsb;
-	const uint32_t height = 15;
-	const uint32_t width = 22;
+	uint8_t *bitmap = (uint8_t*) ((int)bmp_vram());
+	uint32_t x, y;
 
-	for( msb=0 ; msb<16; msb++ ) {
-		for( y=0 ; y<height; y++ ) {
-			int * const row = (int*) (int)bmp_vram() + (y + height*msb) * BMPPITCH;
-
-			for( lsb=0 ; lsb<16 ; lsb++ ) {
-				for( x=0 ; x<width ; x++ )
-					row[x+width*lsb] = (msb << 4) | lsb;
-			}
-		}
-	}
-
-	static int written;
-	if( !written )
-		//dispcheck();
-		written = 1;
-	SleepTask(2000);
+	for (x = 0; x < 16 * 8; x++)
+		for (y = 0; y < 16 * 8; y++)
+			bitmap[x + y * 360] = (x / 8) | ((y / 8) << 4);
 }
 
