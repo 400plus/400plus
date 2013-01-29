@@ -442,6 +442,15 @@ Most scripts have a "2s delay" option; when this option is active, the script wi
 
 _*Note*_: Due to technical reasons, when the self-timer is active `400plus` will also activate the MLU option for the duration of any script; if the self-timer is disabled, the MLU option will be disabled too.
 
+== Configuring Scripts ==
+
+There are some configuration options at the "Config. Scripts" item in the [#Settings_Page settings page] at [#The_Menu the menu]:
+
+||_*Item*_||_*Description*_||
+||Disable power-off||When active (set to "Yes"), the Auto power-off option of the camera is disabled; useful when using long delays in the intervalometer.||
+||LCD display||Configure the brightness of the LCD display while a script is running; saves battery, and reduces glare during night shots.||
+||Indicator||Configure the blinking frequency of the blue LED while a script is running.||
+
 ----
 
 = The Custom Modes =
@@ -502,8 +511,6 @@ This sub-menu of the [#Settings_Page settings page] at [#The_Menu the menu], you
 ||Image||Image related settings: RAW/JPEG, quality, ...||
 ||Custom Fn||Custom function (C.Fn) settings: mirror lock-up, long-exposure noise-reduction...||
 
-
-
 ----
 
 = Configuration =
@@ -539,15 +546,6 @@ This sub-menu allows to restore some configuration parameters back to their defa
 ||Delete custom modes||Actually delete all custom modes.||
 
 _*Note*_: There is no confirmation dialog for the actions in this sub-menu; once you press the `SET` button, your configuration will be gone.
-
-== Configuring Scripts ==
-
-Some configuration regarding [#The_scripts the scripts]:
-
-||_*Item*_||_*Description*_||
-||Disable power-off||When active (set to "Yes"), the Auto power-off option of the camera is disabled; useful when using long delays in the intervalometer.||
-||LCD display||Configure the brightness of the LCD display while a script is running; saves battery, and reduces glare during night shots.||
-||Indicator||Configure the blinking frequency of the blue LED while a script is running.||
 
 == Configuring Buttons ==
 
