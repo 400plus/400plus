@@ -20,21 +20,20 @@
 #include "fexp.h"
 
 void fexp_disable () {
-	if (status.fexp) {
-		status.fexp = false;
-
-		beep();
-	}
+	status.fexp = false;
+	enqueue_action(beep);
 }
 
 void fexp_toggle() {
-	if (status.fexp || DPData.ae != AE_MODE_M) {
-		fexp_disable();
-	} else {
-		status.fexp    = true;
-		status.fexp_ev = (int)DPData.av_val + (int)DPData.tv_val;
+	if (DPData.ae == AE_MODE_M) {
+		if (status.fexp) {
+			fexp_disable();
+		} else {
+			status.fexp    = true;
+			status.fexp_ev = (int)DPData.av_val + (int)DPData.tv_val;
 
-		beep();
+			enqueue_action(beep);
+		}
 	}
 }
 
