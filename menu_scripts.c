@@ -84,7 +84,7 @@ type_MENUITEM iso_aeb_items[] = {
 type_MENUITEM interval_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),    &settings.interval_delay,  NULL),
 	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION),   &settings.interval_action, NULL),
-	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S),   &settings.interval_time,   menu_scripts_update_timelapse),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_IS_TIME),  &settings.interval_time,   menu_scripts_update_timelapse),
 	MENUITEM_COUNTER(0, LP_WORD(L_I_SHOTS),    &settings.interval_shots,  menu_scripts_update_timelapse),
 	MENUITEM_VFORMAT(0, LP_WORD(L_I_VFORMAT),  &menu_scripts_vformat,     menu_scripts_update_timelapse),
 	MENUITEM_INFTIME(0, LP_WORD(L_I_RECTIME),  &menu_scripts_rectime),
