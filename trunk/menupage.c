@@ -74,7 +74,7 @@ void menupage_up(type_MENU *menu) {
 		page->current_posn--;
 
 		if (item_grabbed) {
-			INT_SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn + 1)]);
+			SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn + 1)]);
 			display = true;
 		}
 	}
@@ -98,7 +98,7 @@ void menupage_down(type_MENU *menu) {
 		page->current_posn++;
 
 		if (item_grabbed) {
-			INT_SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn - 1)]);
+			SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn - 1)]);
 			display = true;
 		}
 	}
