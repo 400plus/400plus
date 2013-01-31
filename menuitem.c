@@ -75,11 +75,16 @@ void menuitem_display_int(const type_MENUITEM *item, char *buffer, const int len
 void menuitem_display_time(const type_MENUITEM *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
-	if (*item->parm.menuitem_int.value < 3600) {
-		sprintf(value, "%02i:%02i", *item->parm.menuitem_int.value / 60, *item->parm.menuitem_int.value % 60);
-	} else {
-		sprintf(value, "%02i:%02i:%02i", *item->parm.menuitem_int.value / 3600, (*item->parm.menuitem_int.value % 3600) / 60, *item->parm.menuitem_int.value % 60);
-	}
+	int h = *item->parm.menuitem_int.value / 3600;
+	int m = *item->parm.menuitem_int.value % 3600 / 60;
+	int s = *item->parm.menuitem_int.value % 60;
+
+	if (h > 0)
+		sprintf(value, "%02i:%02i:%02i", h, m, s);
+	else if (m > 0)
+		sprintf(value,      "%02i:%02i",    m, s);
+	else
+		sprintf(value,           "%02i",       s);
 
 	menuitem_print(buffer, item->name, value, length);
 }
@@ -132,7 +137,21 @@ void menuitem_inc_iso(const type_MENUITEM *item, const int repeating) {
 }
 
 void menuitem_inc_int(const type_MENUITEM *item, const int repeating) {
-	*item->parm.menuitem_int.value += repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+	int small_step = item->parm.menuitem_int.small_step;
+	int big_step   = item->parm.menuitem_int.big_step;
+
+	if (item->parm.menuitem_int.base_log > 0) {
+		while (*item->parm.menuitem_int.value / item->parm.menuitem_int.base_log >= big_step) {
+			SWAP(small_step, big_step);
+			big_step *= item->parm.menuitem_int.base_log;
+		}
+	}
+
+	int step = repeating ? big_step : small_step;
+
+	*item->parm.menuitem_int.value += step;
+	*item->parm.menuitem_int.value  = step * (*item->parm.menuitem_int.value / step);
+
 	*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 }
 
@@ -191,7 +210,21 @@ void menuitem_dec_iso(const type_MENUITEM *item, const int repeating) {
 }
 
 void menuitem_dec_int(const type_MENUITEM *item, const int repeating) {
-	*item->parm.menuitem_int.value -= repeating ? item->parm.menuitem_int.big_step : item->parm.menuitem_int.small_step;
+	int small_step = item->parm.menuitem_int.small_step;
+	int big_step   = item->parm.menuitem_int.big_step;
+
+	if (item->parm.menuitem_int.base_log > 0) {
+		while (*item->parm.menuitem_int.value / item->parm.menuitem_int.base_log > big_step) {
+			SWAP(small_step, big_step);
+			big_step *= item->parm.menuitem_int.base_log;
+		}
+	}
+
+	int step = repeating ? big_step : small_step;
+
+	*item->parm.menuitem_int.value -= step;
+	*item->parm.menuitem_int.value  = step * (*item->parm.menuitem_int.value / step);
+
 	*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
 }
 

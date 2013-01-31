@@ -36,6 +36,7 @@ typedef struct {
 	int    max;
 	int    small_step;
 	int    big_step;
+	int    base_log;
 	int    zero_means_unlimited;
 	char  *format;
 } type_MENUITEM_INT;
@@ -143,7 +144,7 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_INT(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _ZMU_, _FORMAT_, _CHANGE_) { \
+#define MENUITEM_INT(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _LOG_, _ZMU_, _FORMAT_, _CHANGE_) { \
 	id       : _ID_, \
 	name     : _NAME_, \
 	readonly : _RO_, \
@@ -153,6 +154,7 @@ struct MENUITEM {
 		max                  : _MAX_, \
 		small_step           : _SMALL_, \
 		big_step             : _BIG_, \
+		base_log             : _LOG_, \
 		zero_means_unlimited : _ZMU_, \
 		format               : _FORMAT_, \
 	}}, \
@@ -162,7 +164,7 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_TIME(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _CHANGE_) { \
+#define MENUITEM_TIME(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _LOG_, _CHANGE_) { \
 	id       : _ID_, \
 	name     : _NAME_, \
 	readonly : _RO_, \
@@ -172,6 +174,7 @@ struct MENUITEM {
 		max                  : _MAX_, \
 		small_step           : _SMALL_, \
 		big_step             : _BIG_, \
+		base_log             : _LOG_, \
 	}}, \
 	display : menuitem_display_time, \
 	inc     : menuitem_inc_int, \
@@ -259,16 +262,16 @@ struct MENUITEM {
 #define MENUITEM_SCRLCD( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_scrlcd,      _ON_CHANGE_)
 #define MENUITEM_WEIGTH( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_qexp_weight, _ON_CHANGE_)
 
-#define MENUITEM_CLRTEMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false, 1800, 11000, 100, 500, false, "%5u", _ON_CHANGE_)
-#define MENUITEM_COUNTER(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,   250,   1,  10, true,  "%3u", _ON_CHANGE_)
-#define MENUITEM_BRACKET(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    3,     9,   2,   2, false, "%1u", _ON_CHANGE_)
-#define MENUITEM_FDIST(  _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    1,  1000,   1,  10, false, "%4u", _ON_CHANGE_)
+#define MENUITEM_CLRTEMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false, 1800, 11000, 100, 500,  0, false, "%5u", _ON_CHANGE_)
+#define MENUITEM_COUNTER(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, true,  "%4u", _ON_CHANGE_)
+#define MENUITEM_BRACKET(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    3,     9,   2,   2,  0, false, "%1u", _ON_CHANGE_)
+#define MENUITEM_FDIST(  _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    1,  1000,   1,  10,  0, false, "%4u", _ON_CHANGE_)
 
-#define MENUITEM_PARAM(_ID_, _NAME_, _VALUE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, true, 0, 0, 0, 0, false, "%u", NULL)
+#define MENUITEM_PARAM(_ID_, _NAME_, _VALUE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, true, 0, 0, 0, 0, 0, false, "%u", NULL)
 
-#define MENUITEM_TIMEOUT(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    1,   300,   1,  10, _ON_CHANGE_)
-#define MENUITEM_LONGEXP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,   15,  6000,  15,  60, _ON_CHANGE_)
-#define MENUITEM_INFTIME(_ID_, _NAME_, _VALUE_)              MENUITEM_TIME(_ID_, _NAME_, _VALUE_, true,     1,   100,   1,   5, NULL)
+#define MENUITEM_TIMEOUT(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    1, 18000,   1,  10, 60, _ON_CHANGE_)
+#define MENUITEM_LONGEXP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,   15,  6000,  15,  60,  0, _ON_CHANGE_)
+#define MENUITEM_INFTIME(_ID_, _NAME_, _VALUE_)              MENUITEM_TIME(_ID_, _NAME_, _VALUE_, true,     1, 18000,   1,  10, 60, NULL)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
 extern void menuitem_display_ec   (const type_MENUITEM *item, char *buffer, const int length);
