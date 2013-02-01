@@ -347,9 +347,9 @@ This script will fire the camera as many times as configured (or endlessly), wit
 
 ||_*Parameter*_||_*Description*_||
 ||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
-||Time||The interval time (in minutes:seconds) between each shot (or group of shots). Values range from 00:01 to 05:00.||
+||Intershot time||The interval time (in hours:minutes:seconds) between each shot (or group of shots); values range from 0:00:01 to 5:00:00.||
 ||Action||See [#Script_Chaining Script Chaining].||
-||Shots||The total number of frames (shots) the script will take. Values range from 1 to 250 and also include a "No Limit" value to shoot endlessly.||
+||Shots||The total number of frames (shots) the script will take; values range from 1 to 9000 and also include a "No Limit" value to shoot endlessly.||
 ||Video format (fps)||Intended playback frame-rate, if preparing a time-lapse.||
 ||Recording time||Estimated time that the camera will need to record the entire time-lapse (informative only).||
 ||Playback time||Estimated playback time of the resulting time-lapse (informative only).||
@@ -397,7 +397,7 @@ To configure and launch the Hand Waving Script, use the "Handwave" sub-menu in t
 This script simply adds a configurable pause before firing the camera.
 
 ||_*Parameter*_||_*Description*_||
-||Delay||Te time (in minutes:seconds) that the script should wait before shooting; values range from 00:00 to 05:00.||
+||Delay||Te time (in hours:minutes:seconds) that the script should wait before shooting; values range from 0:00:00 to 5:00:00.||
 ||Action||See [#Script_Chaining Script Chaining].||
 
 == Long Exposure ==
