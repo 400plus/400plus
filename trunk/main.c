@@ -16,11 +16,13 @@
 #include "button.h"
 #include "cmodes.h"
 #include "display.h"
+#include "exposure.h"
 #include "fexp.h"
 #include "languages.h"
 #include "menu.h"
 #include "menu_main.h"
 #include "menu_rename.h"
+#include "msm.h"
 #include "utils.h"
 #include "viewfinder.h"
 
@@ -34,10 +36,15 @@ status_t status = {
 	button_down       : BUTTON_NONE,
 	script_running    : false,
 	script_stopping   : false,
-	iso_in_viewfinder : false,
 	afp_dialog        : false,
 	measuring         : false,
-	ev_comp           : 0x00,
+	fexp              : false,
+	msm_count         : 0,
+	msm_tv            : EV_ZERO,
+	msm_av            : EV_ZERO,
+	ev_comp           : EC_ZERO,
+	ignore_msg        : false,
+	vf_status         : VF_STATUS_NONE,
 };
 
 // Proxy listeners
@@ -57,6 +64,7 @@ int proxy_wheel          (char *message);
 int proxy_initialize     (char *message);
 int proxy_tv             (char *message);
 int proxy_av             (char *message);
+int proxy_shot           (char *message);
 
 proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]  = proxy_script_restore,
@@ -80,6 +88,7 @@ proxy_t listeners_main[0x100] = {
 	[IC_SET_AV_VAL]    = proxy_av,
 	[IC_SET_LANGUAGE]  = proxy_set_language,
 	[IC_DIALOGON]      = proxy_dialog_enter,
+	[IC_BC_LEVEL]      = proxy_shot,
 	[IC_MEASURING]     = proxy_measuring,
 	[IC_MEASUREMENT]   = proxy_measurement,
 	[IC_UNKNOWN_8D]    = proxy_initialize,
@@ -303,6 +312,13 @@ int proxy_tv(char *message) {
 
 	if (status.fexp)
 		enqueue_action(fexp_update_av);
+
+	return false;
+}
+
+int proxy_shot(char *message) {
+	if (status.msm_active)
+		enqueue_action(msm_stop);
 
 	return false;
 }

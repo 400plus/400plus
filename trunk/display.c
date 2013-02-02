@@ -45,9 +45,9 @@ void display_refresh() {
 
 	display_refresh_iso();
 
-	dialog_redraw(hMainDialog);
-
 	display_overlay();
+
+	dialog_redraw(hMainDialog);
 }
 
 void display_refresh_meteringmode() {

@@ -11,6 +11,8 @@
 #include "firmware.h"
 
 #include "exposure.h"
+#include "fexp.h"
+#include "msm.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -60,9 +62,36 @@ void viewfinder_up() {
 	}
 }
 
+void viewfinder_down() {
+	switch (DPData.ae) {
+	case AE_MODE_P:
+	case AE_MODE_TV:
+	case AE_MODE_AV:
+		msm_register();
+		break;
+	default:
+		break;
+	}
+}
+
+void viewfinder_set() {
+	switch (DPData.ae) {
+	case AE_MODE_M:
+		fexp_toggle();
+		break;
+	case AE_MODE_P:
+	case AE_MODE_TV:
+	case AE_MODE_AV:
+		msm_start();
+		break;
+	default:
+		break;
+	}
+}
+
 void viewfinder_end() {
-	// Only if being displayed
-	if (status.iso_in_viewfinder) {
+	switch(status.vf_status) {
+	case(VF_STATUS_ISO):
 		switch (DPData.ae) {
 		case AE_MODE_M:
 		case AE_MODE_TV:
@@ -78,9 +107,15 @@ void viewfinder_end() {
 			break;
 		}
 
-		// Reset flag, viewfinder restored
-		status.iso_in_viewfinder = false;
+		break;
+	case(VF_STATUS_MSM):
+		msm_release();
+		break;
+	default:
+		break;
 	}
+
+	status.vf_status = VF_STATUS_NONE;
 }
 
 void viewfinder_change_iso(const int iso) {
@@ -132,7 +167,7 @@ void viewfinder_display_iso(const int iso) {
 	}
 
 	// Set flag to restore viewfinder later
-	status.iso_in_viewfinder = true;
+	status.vf_status = VF_STATUS_ISO;
 }
 
 void viewfinder_change_evc(const int ev_comp) {
