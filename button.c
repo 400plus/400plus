@@ -123,9 +123,9 @@ reaction_t *button_actions_iso[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_face_set   = {true, fexp_toggle},
+	reaction_face_set   = {true, viewfinder_set},
 	reaction_face_up    = {true, viewfinder_up,    viewfinder_end},
-	reaction_face_down  = {true, qexp},
+	reaction_face_down  = {true, viewfinder_down,  viewfinder_end},
 	reaction_face_right = {true, viewfinder_right, viewfinder_end},
 	reaction_face_left  = {true, viewfinder_left,  viewfinder_end}
 ;
