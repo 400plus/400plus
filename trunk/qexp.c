@@ -87,13 +87,8 @@ void qexp() {
 			ec -= diff;
 		}
 
-		int fexp = status.fexp;
-		status.fexp = false;
-
 		send_to_intercom(IC_SET_AV_VAL, ev_normalize(av));
 		send_to_intercom(IC_SET_TV_VAL, ev_normalize(tv));
-
-		status.fexp = fexp;
 
 		beep();
 	}
