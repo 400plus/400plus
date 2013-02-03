@@ -17,9 +17,14 @@
 
 #include "msm.h"
 
+int msm_timestamp;  // Multi-spot metering: timestap when button was held down
+
 int  msm_ae_return; // Multi-spot metering: AE mode to return after first shot
 tv_t msm_tv_return; // Multi-spot metering: Tv value in M mode to return
 av_t msm_av_return; // Multi-spot metering: Av value in M mode to return
+
+tv_t msm_tv_last; // Multi-spot metering: last Tv value registered
+av_t msm_av_last; // Multi-spot metering: last Av value registered
 
 void msm_reset() {
 	status.msm_count = 0;
@@ -28,15 +33,12 @@ void msm_reset() {
 }
 
 void msm_register() {
+	msm_timestamp = timestamp();
+
 	if (status.measuring) {
-		status.msm_count++;
-
-		status.msm_tv += status.measured_tv;
-		status.msm_av += status.measured_av;
-
-		if (status.msm_count < 9) {
+		if (status.msm_count < 8) {
 			status.vf_status = VF_STATUS_MSM;
-			send_to_intercom(IC_SET_BURST_COUNTER, status.msm_count);
+			send_to_intercom(IC_SET_BURST_COUNTER, status.msm_count + 1);
 		}
 
 		beep();
@@ -45,6 +47,23 @@ void msm_register() {
 
 void msm_release() {
 	send_to_intercom(IC_SET_BURST_COUNTER, 9);
+
+	if (status.measuring && timestamp() - msm_timestamp < MSM_TIMEOUT) {
+		status.msm_count++;
+
+		status.msm_tv += status.measured_tv;
+		status.msm_av += status.measured_av;
+
+		msm_tv_last    = status.measured_tv;
+		msm_av_last    = status.measured_av;
+	} else if (status.msm_count > 0) {
+		status.msm_count--;
+
+		status.msm_tv -= msm_tv_last;
+		status.msm_av -= msm_av_last;
+
+		beep();
+	}
 }
 
 void msm_start() {
