@@ -8,12 +8,13 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x41
+#define SETTINGS_VERSION  0x42
 
 typedef enum {
 	SHOT_ACTION_SHOT,
 	SHOT_ACTION_EXT_AEB,
 	SHOT_ACTION_EFL_AEB,
+	SHOT_ACTION_APT_AEB,
 	SHOT_ACTION_ISO_AEB,
 	SHOT_ACTION_LONG_EXP,
 	SHOT_ACTION_COUNT,
@@ -106,6 +107,10 @@ typedef struct {
 	int efl_aeb_frames;
 	int efl_aeb_ev;
 	int efl_aeb_direction;
+	int apt_aeb_delay;
+	int apt_aeb_frames;
+	int apt_aeb_ev;
+	int apt_aeb_direction;
 	int iso_aeb_delay;
 	int iso_aeb[5];
 	int interval_delay;

@@ -48,6 +48,7 @@ void menu_scripts_calc_timelapse  ();
 
 void menu_scripts_ext_aeb      (const type_MENUITEM *item);
 void menu_scripts_efl_aeb      (const type_MENUITEM *item);
+void menu_scripts_apt_aeb      (const type_MENUITEM *item);
 void menu_scripts_iso_aeb      (const type_MENUITEM *item);
 void menu_scripts_interval     (const type_MENUITEM *item);
 void menu_scripts_wave         (const type_MENUITEM *item);
@@ -70,6 +71,13 @@ type_MENUITEM efl_aeb_items[] = {
 	MENUITEM_BRACKET(0, LP_WORD(L_I_FRAMES),    &settings.efl_aeb_frames,    NULL),
 	MENUITEM_EVEAEB (0, LP_WORD(L_I_STEP_EV),   &settings.efl_aeb_ev,        NULL),
 	MENUITEM_EAEBDIR(0, LP_WORD(L_I_DIRECTION), &settings.efl_aeb_direction, NULL),
+};
+
+type_MENUITEM apt_aeb_items[] = {
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),     &settings.apt_aeb_delay,     NULL),
+	MENUITEM_BRACKET(0, LP_WORD(L_I_FRAMES),    &settings.apt_aeb_frames,    NULL),
+	MENUITEM_EVEAEB (0, LP_WORD(L_I_STEP_EV),   &settings.apt_aeb_ev,        NULL),
+	MENUITEM_EAEBDIR(0, LP_WORD(L_I_DIRECTION), &settings.apt_aeb_direction, NULL),
 };
 
 type_MENUITEM iso_aeb_items[] = {
@@ -153,6 +161,15 @@ type_MENUPAGE efl_aeb_page = {
 	}
 };
 
+type_MENUPAGE apt_aeb_page = {
+	name    : LP_WORD(L_S_APT_AEB),
+	length  : LENGTH(apt_aeb_items),
+	items   : apt_aeb_items,
+	actions : {
+		[MENU_EVENT_AV] = menu_return,
+	}
+};
+
 type_MENUPAGE iso_aeb_page = {
 	name    : LP_WORD(L_S_ISO_AEB),
 	length  : LENGTH(iso_aeb_items),
@@ -212,6 +229,7 @@ type_MENUPAGE dof_calc_page = {
 type_MENUITEM menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_APT_AEB),   &apt_aeb_page,   menu_scripts_apt_aeb),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_ISO_AEB),   &iso_aeb_page,   menu_scripts_iso_aeb),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
@@ -321,6 +339,10 @@ void menu_scripts_ext_aeb(const type_MENUITEM *item) {
 
 void menu_scripts_efl_aeb(const type_MENUITEM *item) {
 	menu_scripts_launch(script_efl_aeb);
+}
+
+void menu_scripts_apt_aeb(const type_MENUITEM *item) {
+	menu_scripts_launch(script_apt_aeb);
 }
 
 void menu_scripts_iso_aeb(const type_MENUITEM *item) {

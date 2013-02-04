@@ -30,6 +30,7 @@ void script_action(type_SHOT_ACTION action);
 
 void action_ext_aeb();
 void action_efl_aeb();
+void action_apt_aeb();
 void action_iso_aeb();
 void action_long_exp();
 
@@ -63,6 +64,20 @@ void script_efl_aeb() {
 	script_stop();
 
 	status.last_script = SCRIPT_EFL_AEB;
+}
+
+void script_apt_aeb() {
+	script_start();
+
+	if (settings.apt_aeb_delay)
+		script_delay(SCRIPT_DELAY_START);
+
+	if (can_continue())
+		script_action(SHOT_ACTION_APT_AEB);
+
+	script_stop();
+
+	status.last_script = SCRIPT_APT_AEB;
 }
 
 void script_iso_aeb() {
@@ -303,6 +318,9 @@ void script_action(type_SHOT_ACTION action) {
 	case SHOT_ACTION_EFL_AEB:
 		action_efl_aeb();
 		break;
+	case SHOT_ACTION_APT_AEB:
+		action_apt_aeb();
+		break;
 	case SHOT_ACTION_ISO_AEB:
 		action_iso_aeb();
 		break;
@@ -431,7 +449,7 @@ void action_efl_aeb() {
 	frames--;
 
 	while(frames) {
-		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
+		if (settings.efl_aeb_direction == EAEB_DIRECTION_BOTH || settings.efl_aeb_direction == EAEB_DIRECTION_DOWN) {
 			wait_for_camera();
 
 			ef_inc = ec_add(ef_inc, settings.efl_aeb_ev);
@@ -444,11 +462,69 @@ void action_efl_aeb() {
 				break;
 		}
 
-		if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
+		if (settings.efl_aeb_direction == EAEB_DIRECTION_BOTH || settings.efl_aeb_direction == EAEB_DIRECTION_UP) {
 			wait_for_camera();
 
 			ef_dec = ec_sub(ef_dec, settings.efl_aeb_ev);
 			send_to_intercom(IC_SET_EFCOMP, ef_dec);
+
+			shutter_release();
+			frames--;
+
+			if (!can_continue())
+				break;
+		}
+	}
+
+	script_restore_parameters();
+}
+
+void action_apt_aeb() {
+	int frames = settings.apt_aeb_frames;
+
+	tv_t tv_inc, tv_dec;
+	av_t av_inc, av_dec;
+
+	// First photo taken using default values
+	shutter_release();
+	frames--;
+
+	// Grab the parameters used by the camera
+	tv_inc = tv_dec = status.last_shot_tv;
+	av_inc = av_dec = status.last_shot_av;
+
+	// Enter manual mode...
+	if (DPData.ae != AE_MODE_M) {
+		wait_for_camera();
+		send_to_intercom(IC_SET_AE, AE_MODE_M);
+	}
+
+	// ...and do the rest ourselves
+	while(frames) {
+		if (settings.apt_aeb_direction == EAEB_DIRECTION_BOTH || settings.apt_aeb_direction == EAEB_DIRECTION_DOWN) {
+			wait_for_camera();
+
+			tv_inc = tv_add(tv_inc, settings.apt_aeb_ev);
+			send_to_intercom(IC_SET_TV_VAL, tv_inc);
+
+			av_inc = av_sub(av_inc, settings.apt_aeb_ev);
+			send_to_intercom(IC_SET_AV_VAL, av_inc);
+
+			shutter_release();
+			frames--;
+
+			if (!can_continue())
+				break;
+		}
+
+		if (settings.apt_aeb_direction == EAEB_DIRECTION_BOTH || settings.apt_aeb_direction == EAEB_DIRECTION_UP) {
+			wait_for_camera();
+
+			tv_dec = tv_sub(tv_dec, settings.apt_aeb_ev);
+			send_to_intercom(IC_SET_TV_VAL, tv_dec);
+
+			av_dec = av_add(av_dec, settings.apt_aeb_ev);
+			send_to_intercom(IC_SET_AV_VAL, av_dec);
 
 			shutter_release();
 			frames--;

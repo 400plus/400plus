@@ -161,7 +161,7 @@ av_t av_add(av_t ying, av_t yang) {
 
 av_t av_sub(av_t ying, av_t yang) {
 	av_t av  = ev_normalize(ying - yang);
-	av_t min = DPData.ef_lens_exist ? DPData.avo: AV_MIN;
+	av_t min = DPData.ef_lens_exist ? DPData.avo : AV_MIN;
 
 	return MAX(av, min);
 }
