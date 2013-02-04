@@ -8,6 +8,7 @@
 #include <stdbool.h>
 
 #include "main.h"
+#include "macros.h"
 #include "firmware.h"
 
 #include "display.h"
@@ -89,7 +90,7 @@ void script_interval() {
 		script_delay(SCRIPT_DELAY_START);
 
 	// "target" is the timestamp when we are supposed to shot
-	target = timestamp();
+	target  = timestamp();
 
 	for (i = 0; i < settings.interval_shots || settings.interval_shots == 0; i++) {
 		// We pause before each shot, after waiting for the camera to finish the previous one
@@ -158,9 +159,14 @@ void script_wave() {
 }
 
 void script_self_timer() {
-	script_start();
+	int delay;
 
-	script_delay(settings.timer_timeout * SCRIPT_DELAY_RESOLUTION);
+	delay  = settings.timer_timeout * SCRIPT_DELAY_RESOLUTION;
+	delay -= DPData.drive == DRIVE_MODE_TIMER ? SELF_TIMER_MS : 0;
+	delay  = MAX(delay, 0);
+
+	script_start();
+	script_delay(delay);
 
 	if (can_continue())
 		script_action(settings.timer_action);
