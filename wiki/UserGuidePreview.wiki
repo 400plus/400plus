@@ -263,6 +263,20 @@ As long as there is enough light in the scene, Quick Exposure will maintain an e
 
 On bright scenes, the "Weighting" functions controls which exposure parameter (from shutter speed and diaphragm aperture) must be favored to adjust the exposure. When this parameter is set to "Tv", Quick Exposure will tend to use shorter exposure times; use this value for action scenes, for example. When this parameter is set to "Av", Quick Exposure will tend to use smaller apertures; use this value to achieve a greater depth of field. Finally, when set to "None", Quick Exposure will balance between using shorter exposures and smaller apertures.
 
+== Multi-spot metering ==
+
+Multi-spot metering is best explained in this [http://www.learn.usa.canon.com/resources/articles/2011/multispot_metering_markiii_cameras_article.htmlp guide from Canon]; basically, it allows you to take more than one metering for a scene, and take a photograph using the average exposure. Multi-spot metering is always active, and does not need to be explicitly enabled by the user, but in only works in `P`, `Tv`, and `Av` modes. The "Use D-Pad" option must be active (set to "Yes") to use this feature.
+
+To use multi-spot metering, follow this procedure:
+
+  * Set the camera to one of `P`, `Tv`, `Av` modes.
+  * Look through the viewfinder, and take a measurement (just half-press the shutter button, so the viewfinder lights up).
+  * Now, while looking through the viewfinder, press the `DOWN` button; you'll hear a beep, and `400plus` will register that measurement.
+  * Repeat this procedure to add as many readings as you need; after each reading is registered, the "burst counter" in the view finder will display the number of readings registered (notice that, while the counter has a upper limit of 9, `400plus' does not have a limit on the number of readings you can register).
+  * If you want to delete the last reading, just press the `DOWN` button and hold it for two seconds; you'll hear another beep confirming the delete.
+  * Once you have taken enough readings, press the `SET` button (keep looking through the viewfinder); `400plus` will set your camera to `M` mode, with the aperture and shutter speed set to the average of the apertures and shutter speeds from the readings registered.
+  * Take a photograph, and `400plus` will automatically revert back to the `P` / `Av` / `Tv` mode you where using.
+
 == RAW Support For Scene Modes ==
 
 While in one of the scene modes, use the `AV` button to toggle between the following image type settings: `JPEG`, `RAW`, and `JPEG+RAW`. Notice that quality and size are changed to "HIGH+L" each time this option is used, by requirements of the original firmware.
