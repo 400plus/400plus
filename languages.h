@@ -78,6 +78,7 @@
 	LANG_PAIR( I_DIRECTION,          "Direction"                 ) \
 	LANG_PAIR( S_EXT_AEB,            "Extended AEB"              ) \
 	LANG_PAIR( S_EFL_AEB,            "Flash AEB"                 ) \
+	LANG_PAIR( S_APT_AEB,            "Aperture AEB"              ) \
 	LANG_PAIR( S_ISO_AEB,            "ISO AEB"                   ) \
 	LANG_PAIR( S_INTERVAL,           "Intervalometer"            ) \
 	LANG_PAIR( S_HANDWAVE,           "Handwaving"                ) \
@@ -127,6 +128,7 @@
 	LANG_PAIR( V_ONE_SHOT,           "One Shot"                  ) \
 	LANG_PAIR( V_EXT_AEB,            "Ext. AEB"                  ) \
 	LANG_PAIR( V_EFL_AEB,            "Flash AEB"                 ) \
+	LANG_PAIR( V_APT_AEB,            "Apt. AEB"                  ) \
 	LANG_PAIR( V_ISO_AEB,            "ISO AEB"                   ) \
 	LANG_PAIR( V_LEXP,               "Long exp."                 ) \
 	LANG_PAIR( V_NEW,                "New"                       ) \

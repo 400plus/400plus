@@ -33,6 +33,10 @@ settings_t settings_default = {
 	efl_aeb_frames   : 3,
 	efl_aeb_ev       : EV_CODE( 1, 0), // 1EV
 	efl_aeb_direction: EAEB_DIRECTION_BOTH,
+	apt_aeb_delay    : false,
+	apt_aeb_frames   : 3,
+	apt_aeb_ev       : EV_CODE( 1, 0), // 1EV
+	apt_aeb_direction: EAEB_DIRECTION_BOTH,
 	iso_aeb_delay    : false,
 	iso_aeb          : {true, true, true, true, true},
 	interval_delay   : false,
