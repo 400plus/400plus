@@ -63,6 +63,7 @@ settings_t settings_default = {
 	button_trash     : BUTTON_ACTION_SCRIPT,
 	button_disp      : false,
 	language         : 0,
+	digital_iso_step : 0,
 	menu_navmain     : false,
 	menu_entermain   : false,
 	menu_autosave    : true,

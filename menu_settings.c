@@ -143,15 +143,16 @@ type_MENUPAGE restore_page = {
 };
 
 type_MENUITEM menu_settings_items[] = {
-	MENUITEM_LANG   (0, LP_WORD(L_I_LANGUAGE),         &settings.language,        reload_language_and_refresh),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_SCRIPTS),          &scripts_page,             NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_BUTTONS),          &buttons_page,             NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_CMODES),           &cmodes_page,              NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_MENUS),            &menus_page,               NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_QEXP),             &qexp_page,                NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_PAGES),            &pages_page,               NULL),
-	MENUITEM_SUBMENU(0, LP_WORD(L_I_RESTORE),          &restore_page,             NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu, NULL),
+	MENUITEM_LANG   (0, LP_WORD(L_I_LANGUAGE),         &settings.language,         reload_language_and_refresh),
+	MENUITEM_DIG_ISO(0, LP_WORD(L_I_DIG_ISO_STEP),     &settings.digital_iso_step, NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_SCRIPTS),          &scripts_page,              NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_BUTTONS),          &buttons_page,              NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_CMODES),           &cmodes_page,               NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_MENUS),            &menus_page,                NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_QEXP),             &qexp_page,                 NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_PAGES),            &pages_page,                NULL),
+	MENUITEM_SUBMENU(0, LP_WORD(L_I_RESTORE),          &restore_page,              NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu,  NULL),
 };
 
 type_MENUPAGE menupage_settings = {

@@ -103,6 +103,7 @@
 	LANG_PAIR( I_BUTTON_DISP,        "Better DISP button"        ) \
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"          ) \
 	LANG_PAIR( I_LANGUAGE,           "Language"                  ) \
+	LANG_PAIR( I_DIG_ISO_STEP,       "Digital ISO step"          ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"              ) \
 	LANG_PAIR( I_TV_VAL,             "Tv"                        ) \
 	LANG_PAIR( I_AV_VAL,             "Av"                        ) \
