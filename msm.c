@@ -82,8 +82,8 @@ void msm_start() {
 	if (status.msm_count > 0) {
 		status.msm_active = true;
 
-		tv_t tv = EV_ROUND(status.msm_tv / status.msm_count);
-		av_t av = EV_ROUND(status.msm_av / status.msm_count);
+		tv_t tv = ev_normalize(status.msm_tv / status.msm_count);
+		av_t av = ev_normalize(status.msm_av / status.msm_count);
 
 		av_t av_max = DPData.ef_lens_exist ? DPData.avmax : AV_MAX;
 		av_t av_min = DPData.ef_lens_exist ? DPData.avo   : AV_MIN;
