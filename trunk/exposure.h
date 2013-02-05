@@ -19,7 +19,7 @@ typedef unsigned char iso_t;
 #define EV_SUB(code)  ((code) - 0010 * EV_VAL(code))
 
 #define EV_TRUNC(code) EV_CODE(EV_VAL(code), 0)
-#define EV_ROUND(code) EV_CODE(EV_VAL(code + EV_CODE(0, 4)), 0)
+#define EV_ROUND(code) EV_TRUNC(code + EV_CODE(0, 4))
 
 #define EV_ZERO EV_CODE( 0, 0)  //  0EV
 
