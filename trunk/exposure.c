@@ -10,6 +10,7 @@
 #include <camera.h>
 
 #include "macros.h"
+#include "settings.h"
 
 #include "exposure.h"
 
@@ -274,7 +275,11 @@ void bulb_print(char *dest, tv_t tv) {
 /* ISO related --------------------------------------------------------- */
 
 iso_t iso_roll(iso_t iso) {
-	iso = EV_CODE(EV_VAL(iso), (EV_SUB(iso) + 1) % 8);
+	int step = (1 << settings.digital_iso_step);
+	int mask = 0x100 - step;
+
+	iso = iso & mask;
+	iso = EV_CODE(EV_VAL(iso), (EV_SUB(iso) + step) % 8);
 
 	return MIN(iso, ISO_EXT);
 }
@@ -292,13 +297,19 @@ iso_t iso_prev(iso_t iso) {
 }
 
 iso_t iso_inc(iso_t iso) {
-	iso++;
+	int step = (1 << settings.digital_iso_step);
+	int mask = 0x100 - step;
+
+	iso = (iso + step) & mask;
 
 	return MIN(iso, ISO_EXT);
 }
 
 iso_t iso_dec(iso_t iso) {
-	iso--;
+	int step = (1 << settings.digital_iso_step);
+	int mask = 0x100 - step;
+
+	iso = (iso - step) & mask;
 
 	return MAX(iso, ISO_MIN);
 }

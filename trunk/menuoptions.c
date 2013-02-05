@@ -86,57 +86,68 @@ char *menuoptions_qexp_weight_strings[QEXP_WEIGHT_COUNT] = {
 	[QEXP_WEIGHT_TV]   = LP_WORD(L_V_TV),
 };
 
+char *menuoptions_digiso_steps_strings[] = {
+	[0] = "1/8 EV",
+	[1] = "1/4 EV",
+	[2] = "1/2 EV",
+};
+
 type_LIST menuoptions_bool = {
-		length : LENGTH(menuoptions_bool_strings),
-		data   : menuoptions_bool_strings
+	length : LENGTH(menuoptions_bool_strings),
+	data   : menuoptions_bool_strings
 };
 
 type_LIST menuoptions_flash = {
-		length : LENGTH(menuoptions_flash_strings),
-		data   : menuoptions_flash_strings
+	length : LENGTH(menuoptions_flash_strings),
+	data   : menuoptions_flash_strings
 };
 
 type_LIST menuoptions_action = {
-		length : LENGTH(menuoptions_action_strings),
-		data   : menuoptions_action_strings
+	length : LENGTH(menuoptions_action_strings),
+	data   : menuoptions_action_strings
 };
 
 type_LIST menuoptions_logfile = {
-		length : LENGTH(menuoptions_logfile_strings),
-		data   : menuoptions_logfile_strings
+	length : LENGTH(menuoptions_logfile_strings),
+	data   : menuoptions_logfile_strings
 };
 
 type_LIST menuoptions_btnactn = {
-		length : LENGTH(menuoptions_btnactn_strings),
-		data   : menuoptions_btnactn_strings
+	length : LENGTH(menuoptions_btnactn_strings),
+	data   : menuoptions_btnactn_strings
 };
 
 type_LIST menuoptions_direction = {
-		length : LENGTH(menuoptions_direction_strings),
-		data   : menuoptions_direction_strings
+	length : LENGTH(menuoptions_direction_strings),
+	data   : menuoptions_direction_strings
 };
 
 type_LIST menuoptions_languages = {
-		length : LENGTH(menuoptions_languages_strings),
-		data   : menuoptions_languages_strings
+	length : LENGTH(menuoptions_languages_strings),
+	data   : menuoptions_languages_strings
 };
 
 type_LIST menuoptions_vformat = {
-		length : LENGTH(menuoptions_vformat_strings),
-		data   : menuoptions_vformat_strings
+	length : LENGTH(menuoptions_vformat_strings),
+	data   : menuoptions_vformat_strings
 };
 
 type_LIST menuoptions_scrind = {
-		length : LENGTH(menuoptions_scrind_strings),
-		data   : menuoptions_scrind_strings
+	length : LENGTH(menuoptions_scrind_strings),
+	data   : menuoptions_scrind_strings
 };
 
 type_LIST menuoptions_scrlcd = {
-		length : LENGTH(menuoptions_scrlcd_strings),
-		data   : menuoptions_scrlcd_strings
+	length : LENGTH(menuoptions_scrlcd_strings),
+	data   : menuoptions_scrlcd_strings
 };
 
 type_LIST menuoptions_qexp_weight = {
-		length : LENGTH(menuoptions_qexp_weight_strings),
-		data   : menuoptions_qexp_weight_strings
+	length : LENGTH(menuoptions_qexp_weight_strings),
+	data   : menuoptions_qexp_weight_strings
+};
+
+type_LIST menuoptions_digiso_steps = {
+	length : LENGTH(menuoptions_digiso_steps_strings),
+	data   : menuoptions_digiso_steps_strings
 };
