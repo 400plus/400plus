@@ -36,6 +36,9 @@ void autoiso() {
 
 			// Normalize an apply new ISO
 			if (ec != EC_ZERO) {
+				if (settings.autoiso_relaxed)
+					ec = (ec - 1) / 3;
+
 				newiso = DPData.iso + ec;
 				newiso = CLAMP(newiso, settings.autoiso_miniso, settings.autoiso_maxiso);
 				newiso = EV_ROUND(newiso);

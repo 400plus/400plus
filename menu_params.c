@@ -34,11 +34,12 @@ void menu_params_apply_remote_enable      (const type_MENUITEM *item);
 void menu_params_apply_remote_delay       (const type_MENUITEM *item);
 
 type_MENUITEM autoiso_items[] = {
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOISO_ENABLE), &settings.autoiso_enable, NULL),
-	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso, menu_params_apply_autoiso_miniso),
-	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso, menu_params_apply_autoiso_maxiso),
-	MENUITEM_TV     (0, LP_WORD(L_I_AUTOISO_MINTV),  &settings.autoiso_mintv,  NULL),
-	MENUITEM_EVEAEB (0, LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,  NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOISO_ENABLE), &settings.autoiso_enable,  NULL),
+	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso,  menu_params_apply_autoiso_miniso),
+	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso,  menu_params_apply_autoiso_maxiso),
+	MENUITEM_TV     (0, LP_WORD(L_I_AUTOISO_MINTV),  &settings.autoiso_mintv,   NULL),
+	MENUITEM_EVEAEB (0, LP_WORD(L_I_AUTOISO_MAXAV),  &settings.autoiso_maxav,   NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOISO_RELAX),  &settings.autoiso_relaxed, NULL),
 };
 
 type_MENUPAGE autoiso_page = {

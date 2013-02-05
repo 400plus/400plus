@@ -52,6 +52,7 @@
 	LANG_PAIR( I_AUTOISO_MAXISO,     "Max ISO"                   ) \
 	LANG_PAIR( I_AUTOISO_MINTV,      "Min Tv"                    ) \
 	LANG_PAIR( I_AUTOISO_MAXAV,      "Max Av"                    ) \
+	LANG_PAIR( I_AUTOISO_RELAX,      "Relaxed"                   ) \
 	LANG_PAIR( S_FLASH,              "Flash"                     ) \
 	LANG_PAIR( S_IR,                 "Infrared Remote"           ) \
 	LANG_PAIR( I_ISO,                "ISO"                       ) \
