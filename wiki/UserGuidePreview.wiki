@@ -63,6 +63,7 @@ Scripts are little programs that control your camera, and automate certain tasks
 ||_*Item*_||_*Description*_||
 ||Ext. AEB||[#Extended_AEB The Extended AEB Script]||
 ||Flash AEB||[#Flash_AEB The Flash AEB Script]||
+||Aperture AEB||[#Aperture_AEB The Aperture AEB Script]||
 ||ISO AEB||[#ISO_AEB The ISO AEB Script]||
 ||Interval||[#Intervalometer The Intervalometer]||
 ||Handwave||[#Hand_Waving The Hand Waving Script]||
@@ -351,6 +352,10 @@ Notice also that exposure times as long as 32 minutes can be used in this mode.
 
 Similar to the [#Extended_AEB Extended AEB] script, but only the flash exposure compensation will change.
 
+== Aperture AEB ==
+
+Similar to the [#Extended_AEB Extended AEB] script too, and also called [http://en.wikipedia.org/wiki/Bracketing#Depth-of-field_bracketing depth-of-field bracketing]; in this case, the script changes both the aperture and shutter speed at the same time, but in different directions to maintain a constant exposure.
+
 == ISO AEB ==
 
 Camera will make a photograph for each ISO active. You probably want to set the camera to `M` mode prior to using this script.
@@ -448,7 +453,7 @@ When the "Max. DOF (m)" entry displays "INF!", the hyperfocal distance has been 
 
 == Script Chaining ==
 
-Some scripts ([#Intervalometer Intervalometer], [#Hand_Waving Hand Waving], and [#Self_Timer Self-Timer]) have an "Action" parameter, that allows the user to select another script (from [#Extended_AEB "Extended AEB"], [#Flash_AEB "Flash AEB"], [#ISO_AEB "ISO AEB"], and [#Long_Exposure "Long exposure"]) that will be used when the _parent_ scripts decides to _shoot_.
+Some scripts ([#Intervalometer Intervalometer], [#Hand_Waving Hand Waving], and [#Self_Timer Self-Timer]) have an "Action" parameter, that allows the user to select another script (from [#Extended_AEB "Extended AEB"], [#Flash_AEB "Flash AEB"], [#Aperture_AEB "Aperture AEB"], [#ISO_AEB "ISO AEB"], and [#Long_Exposure "Long exposure"]) that will be used when the _parent_ scripts decides to _shoot_.
 
 This allows for the easy chaining of scripts: for example, the [#Intervalometer Intervalometer] can be used to fire a sequence of 3 shots, using the [#Extended_AEB Extended EAEB] script, every 5 minutes.
 
