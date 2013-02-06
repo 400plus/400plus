@@ -86,7 +86,9 @@ BOLD="\033[1m"
 NORM="\033[0m"
 ECHO="/bin/echo"
 
-all: i18n $(PROJECT).BIN
+all: $(PROJECT).BIN languages.ini languages/new_lang.ini
+	@$(ECHO) -e $(BOLD)[ALL]$(NORM)
+	@ls -l AUTOEXEC.BIN
 
 release: clean
 	@$(ECHO) -e $(BOLD)[RELEASE]$(NORM)
@@ -107,10 +109,6 @@ $(PROJECT).BIN: $(PROJECT).arm.elf
 	@$(ECHO) -e $(BOLD)[OBJCOPY]:$(NORM) $@
 	$(OBJCOPY) -O binary $(PROJECT).arm.elf $(PROJECT).BIN
 
-	@$(ECHO) -e $(BOLD)[BIN]$(NORM)
-	@rm -f $(PROJECT).arm.elf
-	@ls -l AUTOEXEC.BIN
-
 $(PROJECT).arm.elf: $(OBJS) link.script
 	@$(ECHO) -e $(BOLD)[LINK]:$(NORM) $@
 	$(CC) $(CFLAGS) -Wl,-T,link.script -lgcc -o $@ $^
@@ -126,9 +124,7 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 clean:
 	@$(ECHO) -e $(BOLD)[CLEAN]$(NORM)
 	rm -f $(OBJS) .*.o.d
-	rm -f $(PROJECT).arm.elf
-
-i18n: languages.ini languages/new_lang.ini
+	rm -f $(PROJECT).arm.elf $(PROJECT).BIN
 
 languages.ini: languages.h languages/*.ini
 	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
