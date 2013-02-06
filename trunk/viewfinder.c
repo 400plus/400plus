@@ -8,6 +8,7 @@
 #include <stdbool.h>
 
 #include "main.h"
+#include "macros.h"
 #include "firmware.h"
 
 #include "exposure.h"
@@ -21,10 +22,10 @@
 
 dpr_data_t vf_DPData;
 
-void viewfinder_change_iso (const int iso);
-void viewfinder_display_iso(const int iso);
+void viewfinder_change_iso (iso_t iso);
+void viewfinder_display_iso(iso_t iso);
 
-void viewfinder_change_evc(const int av_comp);
+void viewfinder_change_evc(ec_t av_comp);
 
 void viewfinder_right() {
 	if (settings.autoiso_enable) {
@@ -54,7 +55,7 @@ void viewfinder_up() {
 	if (settings.autoiso_enable) {
 		// AutoISO + M => reset exposure compensation
 		if (DPData.ae == AE_MODE_M)
-			viewfinder_change_evc(0x00);
+			viewfinder_change_evc(EV_ZERO);
 	} else {
 		// Only for creative modes
 		if (AE_IS_CREATIVE(DPData.ae))
@@ -118,7 +119,7 @@ void viewfinder_end() {
 	status.vf_status = VF_STATUS_NONE;
 }
 
-void viewfinder_change_iso(const int iso) {
+void viewfinder_change_iso(iso_t iso) {
 	// Set new ISO
 	send_to_intercom(IC_SET_ISO, iso);
 
@@ -126,7 +127,7 @@ void viewfinder_change_iso(const int iso) {
 	viewfinder_display_iso(iso);
 }
 
-void viewfinder_display_iso(const int iso) {
+void viewfinder_display_iso(iso_t iso) {
 	// Save current state
 	vf_DPData = DPData;
 
@@ -170,7 +171,6 @@ void viewfinder_display_iso(const int iso) {
 	status.vf_status = VF_STATUS_ISO;
 }
 
-void viewfinder_change_evc(const int ev_comp) {
-	if (((ev_comp & 0x80) && ev_comp >= 0xF0) || ev_comp <= 0x10)
-		status.ev_comp = ev_comp;
+void viewfinder_change_evc(ec_t ev_comp) {
+	status.ev_comp = CLAMP(ev_comp, EV_CODE(-2, 0), EV_CODE(2,0));
 }
