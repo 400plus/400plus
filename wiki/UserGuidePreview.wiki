@@ -187,6 +187,7 @@ To enable AutoISO, enter the ISO selection dialog (press the `ISO` button from t
 ||Max ISO||Maximum ISO value that AutoISO will use.||
 ||Min Tv||Minimum shutter speed that AutoISO will try to maintain.||
 ||Max Av||Maximum aperture (relative to maximum aperture supported by the lens) that AutoISO will try to maintain.||
+||Relaxed||When active (set to "Yes"), AutoISO in M mode will allow larger exposure deviations.||
 
 === AutoISO In `Av` mode ===
 
@@ -213,6 +214,8 @@ In `P` mode, AutoISO _tries_ to behave just like in `Av` mode, and will raise th
 === AutoISO In `M` mode ===
 
 In `M` mode, the behavior of AutoISO is completely different to other modes: in this case, the user selects both the aperture and the shutter speed, and `400plus` will set the most suitable ISO value to match the scene.
+
+If the "Relaxed" parameter is active (set to "Yes"), AutoISO will allow larger exposure deviations (±2EV), before raising or lowering the ISO value, instead of the default ±1EV. Use this option if you plan to use advanced metering techniques, such as the [http://en.wikipedia.org/wiki/Zone_System zone system].
 
 You can change the exposure compensation in `M` mode, if the "Use D-Pad" option is active (set to "Yes"), using the `LEFT` and `RIGHT` keys while looking through the viewfinder.
 
