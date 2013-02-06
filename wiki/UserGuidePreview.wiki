@@ -86,6 +86,7 @@ Some advanced settings about your camera and `400plus`; please, see [#Configurat
 
 ||_*Item*_||_*Description*_||
 ||Language||[#Internationalization Internationalization]||
+||Digital ISO step||[#Configuring_Extended_ISOs Configuring Extended ISOs]||
 ||Restore config.||[#Restore_Configuration Restore Configuration]||
 ||Config. Scripts||[#Configuring_Scripts Configuring Scripts]||
 ||Config. Buttons||[#Configuring_Scripts Configuring Buttons]||
@@ -160,7 +161,11 @@ Flash can be completely disabled, and it will not fire even if has been raised, 
 
 Extended (or intermediate) ISOs allow for finer-grained (1/8 EV) control of the ISO parameter for the creative modes.
 
-Extended ISOs are available at the "ISO" item in the [#Parameters_Page parameters page] at [#The_Menu the menu].
+Extended ISOs are available at the "ISO" item in the [#Parameters_Page parameters page] at [#The_Menu the menu]; you can also use extended ISOs with the `TRASH` or `JUMP` buttons, if configured (see [#Configuring_Buttons configuring buttons]).
+
+=== Configuring Extended ISOs ===
+
+The "Digital ISO step" entry in the [#Settings_Page settings page] at [#The_Menu the menu] controls the size of the step ("1/8 EV", "1/4 EV", or "1/2 EV") used by `400plus` for extended ISOs.
 
 === Some notes about extended ISOs ===
 
