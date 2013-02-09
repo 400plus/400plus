@@ -12,12 +12,18 @@
 // it's slow
 #undef FGETS_USE_SLOW
 
+#define TIME_RESOLUTION 1000
+
 #define BEEP_LED_LENGTH  25
 #define INTERCOM_WAIT     1
 #define EVENT_WAIT        5
 #define RELEASE_WAIT    250
 
-#define SHUTTER_LAG     125
+#define SHUTTER_LAG_1ST 250
+#define SHUTTER_LAG_2ND 100
+
+#define MIRROR_LAG_1ST 2000
+#define MIRROR_LAG_2ND 2100
 
 extern void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max);
 

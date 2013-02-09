@@ -97,7 +97,7 @@ void script_iso_aeb() {
 void script_interval() {
 	int i;
 	int target, gap = 0, pause = 0, jump = 0;
-	int delay = settings.interval_time * SCRIPT_DELAY_RESOLUTION;
+	int delay = settings.interval_time * TIME_RESOLUTION;
 
 	script_start();
 
@@ -176,7 +176,7 @@ void script_wave() {
 void script_self_timer() {
 	int delay;
 
-	delay  = settings.timer_timeout * SCRIPT_DELAY_RESOLUTION;
+	delay  = settings.timer_timeout * TIME_RESOLUTION;
 	delay -= DPData.drive == DRIVE_MODE_TIMER ? SELF_TIMER_MS : 0;
 	delay  = MAX(delay, 0);
 
@@ -343,7 +343,7 @@ void action_ext_aeb() {
 				if (DPData.tv_val != TV_VAL_BULB)
 					send_to_intercom(IC_SET_TV_VAL, TV_VAL_BULB);
 
-				shutter_release_bulb(60 * BULB_MN(tv_val));
+				shutter_release_bulb(60 * BULB_MN(tv_val) * TIME_RESOLUTION);
 			} else {
 				send_to_intercom(IC_SET_TV_VAL, BULB_TV(tv_val));
 				shutter_release();
@@ -546,7 +546,7 @@ void action_long_exp() {
 	if (DPData.tv_val != TV_VAL_BULB)
 		send_to_intercom(IC_SET_TV_VAL, TV_VAL_BULB);
 
-	shutter_release_bulb(settings.lexp_time);
+	shutter_release_bulb(settings.lexp_time * TIME_RESOLUTION);
 }
 
 void script_delay(int delay) {
