@@ -374,7 +374,7 @@ This script will fire the camera as many times as configured (or endlessly), wit
 
 ||_*Parameter*_||_*Description*_||
 ||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
-||Intershot time||The interval time (in hours:minutes:seconds) between each shot (or group of shots); values range from 0:00:01 to 5:00:00.||
+||Interval||The interval time (in hours:minutes:seconds) between each shot (or group of shots); values range from 0:00:01 to 5:00:00.||
 ||Action||See [#Script_Chaining Script Chaining].||
 ||Shots||The total number of frames (shots) the script will take; values range from 1 to 9000 and also include a "No Limit" value to shoot endlessly.||
 ||Video format (fps)||Intended playback frame-rate, if preparing a time-lapse.||
