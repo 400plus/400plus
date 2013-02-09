@@ -4,14 +4,15 @@
  * $Author$
  */
 
+#include <sys/types.h>
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <stdbool.h> // needed for "true"/"false"
+#include <stdbool.h>
 
 #include <clock.h>
 #include <camera.h>
@@ -288,15 +289,28 @@ int shutter_release() {
 }
 
 int shutter_release_bulb(int time) {
+	static int first = true;
+
 	int  button;
 	long delay;
 
+	int shutter_lag, mirror_lag;
+
+	if (first) {
+		first = false;
+		shutter_lag = SHUTTER_LAG_1ST;
+		mirror_lag  = MIRROR_LAG_1ST;
+	} else {
+		shutter_lag = SHUTTER_LAG_2ND;
+		mirror_lag  = MIRROR_LAG_2ND;
+	}
+
 	if (DPData.drive == DRIVE_MODE_TIMER) {
 		button = IC_BUTTON_FULL_SHUTTER;
-		delay  = 2000 + 1000 * time + SHUTTER_LAG;
+		delay  = time + shutter_lag + mirror_lag;
 	} else {
 		button = IC_BUTTON_HALF_SHUTTER;
-		delay  = 1000 * time + SHUTTER_LAG;
+		delay  = time + shutter_lag;
 	}
 
 	wait_for_camera();

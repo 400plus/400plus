@@ -17,11 +17,8 @@
 // Pooling time while delaying script
 #define SCRIPT_DELAY_TIME 250
 
-// 1s resolution
-#define SCRIPT_DELAY_RESOLUTION 1000
-
 // Standard delay before starting (2s)
-#define SCRIPT_DELAY_START 2 * SCRIPT_DELAY_RESOLUTION
+#define SCRIPT_DELAY_START 2 * TIME_RESOLUTION
 
 // Minimum number of shots available on card
 #define SCRIPT_MIN_SHOTS 3
