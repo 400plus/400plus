@@ -69,7 +69,7 @@
 	LANG_PAIR( I_STEP_EV,            "Step (EV)"                 ) \
 	LANG_PAIR( I_MANUAL_L,           "Bulb min"                  ) \
 	LANG_PAIR( I_MANUAL_R,           "Bulb max"                  ) \
-	LANG_PAIR( I_IS_TIME,            "Intershot time"            ) \
+	LANG_PAIR( I_INTERVAL,           "Interval"                  ) \
 	LANG_PAIR( I_TIME_S,             "Time"                      ) \
 	LANG_PAIR( I_EAEB,               "EAEB"                      ) \
 	LANG_PAIR( I_SHOTS,              "Shots"                     ) \
