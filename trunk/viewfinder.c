@@ -13,6 +13,7 @@
 
 #include "exposure.h"
 #include "fexp.h"
+#include "qexp.h"
 #include "msm.h"
 #include "settings.h"
 #include "utils.h"
@@ -65,6 +66,9 @@ void viewfinder_up() {
 
 void viewfinder_down() {
 	switch (DPData.ae) {
+	case AE_MODE_M:
+		qexp();
+		break;
 	case AE_MODE_P:
 	case AE_MODE_TV:
 	case AE_MODE_AV:
