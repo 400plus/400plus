@@ -139,7 +139,7 @@ type_MENUPAGE lexp_calc_page = {
 
 type_MENUITEM lexp_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),      &settings.lexp_delay, NULL),
-	MENUITEM_LONGEXP(0, LP_WORD(L_I_TIME_S),     &settings.lexp_time,  NULL),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S),     &settings.lexp_time,  NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_CALCULATOR), &lexp_calc_page,      NULL),
 };
 
@@ -281,13 +281,14 @@ void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_calc(const type_MENUITEM *item) {
-	if (menu_DPData.tv_val < 0x10) {
-		settings.lexp_time = 60 * (1 << (1 - (menu_DPData.tv_val >> 3)));
+	if (menu_DPData.tv_val < BULB_VAL) {
+
+		settings.lexp_time = 60 * BULB_MN(menu_DPData.tv_val);
 
 		send_to_intercom(IC_SET_AV_VAL, menu_DPData.av_val);
 		send_to_intercom(IC_SET_ISO,    menu_DPData.iso);
 
-		menu_scripts_ev = 0x00;
+		menu_scripts_ev = EV_ZERO;
 		menu_return();
 	}
 }

@@ -339,7 +339,7 @@ void action_ext_aeb() {
 		for (tv_val = settings.eaeb_tv_max; tv_val <= settings.eaeb_tv_min; tv_val = bulb_next(tv_val)) {
 			wait_for_camera();
 
-			if (tv_val < 0120) {
+			if (tv_val < BULB_VAL) {
 				if (DPData.tv_val != TV_VAL_BULB)
 					send_to_intercom(IC_SET_TV_VAL, TV_VAL_BULB);
 
