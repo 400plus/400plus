@@ -40,6 +40,7 @@ typedef unsigned char iso_t;
 
 #define BULB_MIN 0040  // 30'
 #define BULB_MAX 0330  // 1/4000s
+#define BULB_VAL 0120  // 30"
 
 #define ISO_MIN EV_CODE( 9, 0)
 #define ISO_MAX EV_CODE(13, 0)

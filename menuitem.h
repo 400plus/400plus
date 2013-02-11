@@ -271,7 +271,6 @@ struct MENUITEM {
 #define MENUITEM_PARAM(_ID_, _NAME_, _VALUE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, true, 0, 0, 0, 0, 0, false, "%u", NULL)
 
 #define MENUITEM_TIMEOUT(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    1, 18000,   1,  10, 60, _ON_CHANGE_)
-#define MENUITEM_LONGEXP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,   15,  6000,  15,  60,  0, _ON_CHANGE_)
 #define MENUITEM_INFTIME(_ID_, _NAME_, _VALUE_)              MENUITEM_TIME(_ID_, _NAME_, _VALUE_, true,     1, 18000,   1,  10, 60, NULL)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
