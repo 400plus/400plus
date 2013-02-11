@@ -127,7 +127,7 @@ void dump_memory() {
 		int addr=0;
 		int power_off_state = DPData.auto_power_off;
 
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, false);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
 
 		while (addr<0x800000) { // dump 8MB of RAM
 			char buf[0x800];
@@ -141,7 +141,7 @@ void dump_memory() {
 		}
 		FIO_CloseFile(file);
 
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, 1, power_off_state);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, power_off_state);
 	}
 	beep();
 }
