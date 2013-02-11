@@ -429,11 +429,11 @@ This script simply adds a configurable pause before firing the camera.
 
 == Long Exposure ==
 
-Just that, a configurable long exposure, from 15 seconds to 100 minutes.
+Just that, a configurable long exposure, from 1 seconds to 5 hours.
 
 ||_*Parameter*_||_*Description*_||
 ||Delay||Select whether this script should take the shot immediately or wait for 2 seconds.||
-||Time||The length (in minutes:seconds) of the exposure; values range from 00:15 to 100:00.||
+||Time||The length (in minutes:seconds) of the exposure; values range from 00:00:01 to 05:00:00.||
 
 Notice that the camera has to be in M + BULB mode to take a long exposure; this script will set the camera for you, but configuring a suitable aperture is the responsibility of the user.
 
