@@ -12,6 +12,7 @@ SECTIONS {
 
 		/* For some unknown reason (related to the floating point calls), these must go now */
 		utils.o;
+		float.o;
 		funclist.o;
 
 		/* And now comes the rest */
