@@ -30,6 +30,7 @@ typedef enum {
 	SCRIPT_EFL_AEB,
 	SCRIPT_APT_AEB,
 	SCRIPT_INTERVAL,
+	SCRIPT_BRAMP,
 	SCRIPT_WAVE,
 	SCRIPT_TIMER,
 	SCRIPT_LONG_EXP,
@@ -43,6 +44,7 @@ extern void script_efl_aeb();
 extern void script_apt_aeb();
 extern void script_iso_aeb();
 extern void script_interval();
+extern void script_bramp();
 extern void script_wave();
 extern void script_self_timer();
 extern void script_long_exp();

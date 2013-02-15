@@ -267,10 +267,12 @@ struct MENUITEM {
 #define MENUITEM_COUNTER(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, true,  "%4u", _ON_CHANGE_)
 #define MENUITEM_BRACKET(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    3,     9,   2,   2,  0, false, "%1u", _ON_CHANGE_)
 #define MENUITEM_FDIST(  _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    1,  1000,   1,  10,  0, false, "%4u", _ON_CHANGE_)
+#define MENUITEM_BRSHOTS(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, false, "%4u", _ON_CHANGE_)
 
 #define MENUITEM_PARAM(_ID_, _NAME_, _VALUE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, true, 0, 0, 0, 0, 0, false, "%u", NULL)
 
 #define MENUITEM_TIMEOUT(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    1, 18000,   1,  10, 60, _ON_CHANGE_)
+#define MENUITEM_BRTIME( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    0, 18000,   1,  10, 60, _ON_CHANGE_)
 #define MENUITEM_INFTIME(_ID_, _NAME_, _VALUE_)              MENUITEM_TIME(_ID_, _NAME_, _VALUE_, true,     1, 18000,   1,  10, 60, NULL)
 
 extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);

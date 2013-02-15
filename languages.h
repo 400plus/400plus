@@ -70,8 +70,12 @@
 	LANG_PAIR( I_MANUAL_L,           "Bulb min"                  ) \
 	LANG_PAIR( I_MANUAL_R,           "Bulb max"                  ) \
 	LANG_PAIR( I_INTERVAL,           "Interval"                  ) \
-	LANG_PAIR( I_TIME_S,             "Time"                      ) \
-	LANG_PAIR( I_EAEB,               "EAEB"                      ) \
+	LANG_PAIR( I_TIME_S,             "Exposure"                  ) \
+	LANG_PAIR( I_RAMP_T,             "Ramp size (time)"          ) \
+	LANG_PAIR( I_RAMP_S,             "Ramp size (shots)"         ) \
+	LANG_PAIR( I_RAMPING_EXP,        "Ramping (exposure)"        ) \
+	LANG_PAIR( I_RAMPING_TIME,       "Ramping (interval)"        ) \
+    LANG_PAIR( I_EAEB,               "EAEB"                      ) \
 	LANG_PAIR( I_SHOTS,              "Shots"                     ) \
 	LANG_PAIR( I_VFORMAT,            "Video format (fps)"        ) \
 	LANG_PAIR( I_RECTIME,            "Recording time"            ) \
@@ -82,6 +86,7 @@
 	LANG_PAIR( S_APT_AEB,            "Aperture AEB"              ) \
 	LANG_PAIR( S_ISO_AEB,            "ISO AEB"                   ) \
 	LANG_PAIR( S_INTERVAL,           "Intervalometer"            ) \
+	LANG_PAIR( S_BRAMP,              "Bulb ramping"              ) \
 	LANG_PAIR( S_HANDWAVE,           "Handwaving"                ) \
 	LANG_PAIR( S_TIMER,              "Self-Timer"                ) \
 	LANG_PAIR( S_LEXP,               "Long exposures"            ) \
