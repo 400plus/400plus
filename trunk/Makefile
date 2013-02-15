@@ -75,7 +75,7 @@ LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start
 OBJCOPY := $(CROSS_COMPILE)objcopy
 
 S_SRCS := $(wildcard *.S) $(wildcard vxworks/*.S) $(wildcard firmware/*.S)
-C_SRCS := $(wildcard *.c) $(wildcard vxworks/*.c) $(wildcard firmware/*.C)
+C_SRCS := $(wildcard *.c) $(wildcard vxworks/*.c) $(wildcard firmware/*.c)
 
 S_OBJS := $(S_SRCS:.S=.o)
 C_OBJS := $(C_SRCS:.c=.o)

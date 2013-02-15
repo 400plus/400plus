@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x44
+#define SETTINGS_VERSION  0x45
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -118,6 +118,14 @@ typedef struct {
 	int interval_time;
 	int interval_action;
 	int interval_shots;
+	int bramp_delay;
+	int bramp_time;
+	int bramp_shots;
+	int bramp_exp;
+	int bramp_ramp_t;
+	int bramp_ramp_s;
+	int bramp_ramp_exp;
+	int bramp_ramp_time;
 	int wave_delay;
 	int wave_action;
 	int wave_repeat;

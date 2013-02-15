@@ -51,6 +51,7 @@ void menu_scripts_efl_aeb      (const type_MENUITEM *item);
 void menu_scripts_apt_aeb      (const type_MENUITEM *item);
 void menu_scripts_iso_aeb      (const type_MENUITEM *item);
 void menu_scripts_interval     (const type_MENUITEM *item);
+void menu_scripts_bramp        (const type_MENUITEM *item);
 void menu_scripts_wave         (const type_MENUITEM *item);
 void menu_scripts_self_timer   (const type_MENUITEM *item);
 void menu_scripts_long_exp     (const type_MENUITEM *item);
@@ -97,6 +98,17 @@ type_MENUITEM interval_items[] = {
 	MENUITEM_VFORMAT(0, LP_WORD(L_I_VFORMAT),  &menu_scripts_vformat,     menu_scripts_update_timelapse),
 	MENUITEM_INFTIME(0, LP_WORD(L_I_RECTIME),  &menu_scripts_rectime),
 	MENUITEM_INFTIME(0, LP_WORD(L_I_PLAYTIME), &menu_scripts_playtime),
+};
+
+type_MENUITEM bramp_items[] = {
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),        &settings.bramp_delay,     NULL),
+	MENUITEM_COUNTER(0, LP_WORD(L_I_SHOTS),        &settings.bramp_shots,     NULL),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_INTERVAL),     &settings.bramp_time,      NULL),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S),       &settings.bramp_exp,       NULL),
+	MENUITEM_BRTIME( 0, LP_WORD(L_I_RAMP_T),       &settings.bramp_ramp_t,    NULL),
+	MENUITEM_BRSHOTS(0, LP_WORD(L_I_RAMP_S),       &settings.bramp_ramp_s,    NULL),
+	MENUITEM_EVCOMP (0, LP_WORD(L_I_RAMPING_TIME), &settings.bramp_ramp_time, NULL),
+	MENUITEM_EVCOMP (0, LP_WORD(L_I_RAMPING_EXP),  &settings.bramp_ramp_exp,  NULL),
 };
 
 type_MENUITEM wave_items[] = {
@@ -189,6 +201,15 @@ type_MENUPAGE interval_page = {
 	}
 };
 
+type_MENUPAGE bramp_page = {
+	name    : LP_WORD(L_S_BRAMP),
+	length  : LENGTH(bramp_items),
+	items   : bramp_items,
+	actions : {
+		[MENU_EVENT_AV] = menu_return,
+	}
+};
+
 type_MENUPAGE wave_page = {
 	name    : LP_WORD(L_S_HANDWAVE),
 	length  : LENGTH(wave_items),
@@ -232,6 +253,7 @@ type_MENUITEM menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_APT_AEB),   &apt_aeb_page,   menu_scripts_apt_aeb),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_ISO_AEB),   &iso_aeb_page,   menu_scripts_iso_aeb),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_BRAMP),     &bramp_page,     menu_scripts_bramp),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_TIMER),     &timer_page,     menu_scripts_self_timer),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_LEXP),      &lexp_page,      menu_scripts_long_exp),
@@ -352,6 +374,10 @@ void menu_scripts_iso_aeb(const type_MENUITEM *item) {
 
 void menu_scripts_interval(const type_MENUITEM *item) {
 	menu_scripts_launch(script_interval);
+}
+
+void menu_scripts_bramp(const type_MENUITEM *item) {
+	menu_scripts_launch(script_bramp);
 }
 
 void menu_scripts_wave(const type_MENUITEM *item) {

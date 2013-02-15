@@ -4,8 +4,9 @@
  * $Author$
  */
 
-#include <camera.h>
 #include <stdbool.h>
+
+#include <camera.h>
 
 #include "main.h"
 #include "macros.h"
@@ -13,6 +14,7 @@
 
 #include "display.h"
 #include "exposure.h"
+#include "float.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -139,6 +141,61 @@ void script_interval() {
 	script_stop();
 
 	status.last_script = SCRIPT_INTERVAL;
+}
+
+void script_bramp() {
+	script_start();
+
+	if (settings.bramp_delay)
+		script_delay(SCRIPT_DELAY_START);
+
+	if (DPData.ae != AE_MODE_M)
+		send_to_intercom(IC_SET_AE,     AE_MODE_M);
+
+	if (DPData.tv_val != TV_VAL_BULB)
+		send_to_intercom(IC_SET_TV_VAL, TV_VAL_BULB);
+
+	int shot, pause;
+
+	int target = timestamp();
+
+	float coef_expo  = (float)settings.bramp_ramp_exp  / (float)settings.bramp_ramp_s / 8.0f;
+	float coef_delay = (float)settings.bramp_ramp_time / (float)settings.bramp_ramp_s / 8.0f;
+
+	for (shot = 0; shot < settings.bramp_shots || settings.bramp_shots == 0; shot++) {
+		int delay = (float)TIME_RESOLUTION * (float)settings.bramp_time * float_pow(2.0f, (float)shot * coef_delay);
+
+		if (shot > 0) {
+			wait_for_camera();
+
+			if (!can_continue())
+				break;
+
+			pause = target - timestamp();
+
+			if (pause > 9000)
+				break;
+			else if (pause > 0)
+				script_delay(pause);
+			else
+				beep();
+		}
+
+		target += delay;
+
+		int expo = (float)TIME_RESOLUTION * (float)settings.bramp_exp  * float_pow(2.0f, (float)shot * coef_expo);
+
+		if (expo > 9000)
+			break;
+		else if (expo > 0)
+			shutter_release_bulb(expo);
+		else
+			beep();
+	}
+
+	script_stop();
+
+	status.last_script = SCRIPT_BRAMP;
 }
 
 void script_wave() {
