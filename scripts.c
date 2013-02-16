@@ -155,15 +155,33 @@ void script_bramp() {
 	if (DPData.tv_val != TV_VAL_BULB)
 		send_to_intercom(IC_SET_TV_VAL, TV_VAL_BULB);
 
-	int shot, pause;
+	float coef_s_expo, coef_s_delay, coef_t_expo, coef_t_delay;
 
-	int target = timestamp();
+	if (settings.bramp_ramp_s > 0) {
+		coef_s_expo  = ((float)settings.bramp_ramp_exp  / 8.0f) / (float)settings.bramp_ramp_s;
+		coef_s_delay = ((float)settings.bramp_ramp_time / 8.0f) / (float)settings.bramp_ramp_s;
+	} else {
+		coef_s_expo  = 0.0f;
+		coef_s_delay = 0.0f;
+	}
 
-	float coef_expo  = (float)settings.bramp_ramp_exp  / (float)settings.bramp_ramp_s / 8.0f;
-	float coef_delay = (float)settings.bramp_ramp_time / (float)settings.bramp_ramp_s / 8.0f;
+	if (settings.bramp_ramp_t > 0) {
+		coef_t_expo  = ((float)settings.bramp_ramp_exp  / 8.0f) / ((float)settings.bramp_ramp_t * (float)TIME_RESOLUTION);
+		coef_t_delay = ((float)settings.bramp_ramp_time / 8.0f) / ((float)settings.bramp_ramp_t * (float)TIME_RESOLUTION);
+	} else {
+		coef_t_expo  = 0.0f;
+		coef_t_delay = 0.0f;
+	}
+
+	int shot;
+
+	int start  = timestamp();
+	int target = start;
 
 	for (shot = 0; shot < settings.bramp_shots || settings.bramp_shots == 0; shot++) {
-		int delay = (float)TIME_RESOLUTION * (float)settings.bramp_time * float_pow(2.0f, (float)shot * coef_delay);
+		int delay = (float)TIME_RESOLUTION * (float)settings.bramp_time *
+				float_pow(2.0f, (float)shot * coef_s_delay) *
+				float_pow(2.0f, (float)(timestamp() - start) * coef_t_delay);
 
 		if (shot > 0) {
 			wait_for_camera();
@@ -171,11 +189,11 @@ void script_bramp() {
 			if (!can_continue())
 				break;
 
-			pause = target - timestamp();
+			int pause = target - timestamp();
 
-			if (pause > 9000)
+			if (pause > BRAMP_MAX_INTERVAL)
 				break;
-			else if (pause > 0)
+			else if (pause > BRAMP_MIN_INTERVAL)
 				script_delay(pause);
 			else
 				beep();
@@ -183,11 +201,13 @@ void script_bramp() {
 
 		target += delay;
 
-		int expo = (float)TIME_RESOLUTION * (float)settings.bramp_exp  * float_pow(2.0f, (float)shot * coef_expo);
+		int expo = (float)TIME_RESOLUTION * (float)settings.bramp_exp  *
+				float_pow(2.0f, (float)shot * coef_s_expo) *
+				float_pow(2.0f, (float)(timestamp() - start) * coef_t_expo);
 
-		if (expo > 9000)
+		if (expo > BRAMP_MAX_EXPOSURE)
 			break;
-		else if (expo > 0)
+		else if (expo > BRAMP_MIN_EXPOSURE)
 			shutter_release_bulb(expo);
 		else
 			beep();
