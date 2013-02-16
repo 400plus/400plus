@@ -23,6 +23,13 @@
 // Minimum number of shots available on card
 #define SCRIPT_MIN_SHOTS 3
 
+// Bulb ramping limits
+#define BRAMP_MAX_INTERVAL 9000
+#define BRAMP_MAX_EXPOSURE 9000
+
+#define BRAMP_MIN_INTERVAL  99
+#define BRAMP_MIN_EXPOSURE 999
+
 typedef enum {
 	SCRIPT_NONE,
 	SCRIPT_EXT_AEB,
