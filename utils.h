@@ -9,6 +9,28 @@
 
 #include <sys/types.h>
 
+#define PathBase    "A:/400Plus/"
+#define PathLogs    PathBase "logs/"
+#define PathLang    PathBase "lang/"
+#define PathPresets PathBase "presets/"
+
+// this is the way canon checks the pointers
+// if (PTR_VALID(some_ptr)) { ... } else { ... }
+// this will check if the pointer is even and not 0
+// returns the pointer if it's valid, otherwise returns 0;
+#define PTR_VALID(x)  ((x&1)-1 & x)
+
+#define MEM(mem) (*(int*)((int)(mem)))
+
+// ((((int)(x)) & 0xF0000000) == 0xC0000000) ? shamem_read(x) : 
+
+#define MEMX(x) ( \
+	((((int)(x)) & 0xF0000000) == 0xE0000000) ? (int)0xDEADBEAF : \
+	((((int)(x)) & 0xF0000000) == 0x70000000) ? (int)0xDEADBEAF : \
+	((((int)(x)) & 0xF0000000) == 0x80000000) ? (int)0xDEADBEAF : \
+	*(int*)(x) \
+)
+
 // it's slow
 #undef FGETS_USE_SLOW
 
@@ -49,6 +71,7 @@ extern int  press_button(int button);
 
 extern int remote_on();
 extern int remote_off();
+void remote_delay(int x);
 
 extern int display_on();
 extern int display_off();
