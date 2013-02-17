@@ -69,7 +69,8 @@ type_MENUPAGE flash_page = {
 
 type_MENUITEM ir_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_params_apply_remote_enable),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_params_apply_remote_delay),
+	// disable IR remote delay, since it doesnt seem to work (see remote_delay() in utils.c)
+	//MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_params_apply_remote_delay),
 };
 
 type_MENUPAGE ir_page = {
@@ -161,10 +162,8 @@ void menu_params_apply_remote_enable(const type_MENUITEM *item) {
 
 void menu_params_apply_remote_delay(const type_MENUITEM *item) {
 	if(*item->parm.menuitem_enum.value){
-		RemReleaseSelfMax = 4500;
-		RemReleaseInstMin = 5560;
+		remote_delay(1);
 	} else {
-		RemReleaseSelfMax = 6160;
-		RemReleaseInstMin = 7410;
+		remote_delay(0);
 	}
 }

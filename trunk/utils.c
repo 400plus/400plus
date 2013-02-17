@@ -338,6 +338,16 @@ int remote_off() {
 	return result;
 }
 
+void remote_delay(int x) {
+	if (x) {
+		RemReleaseSelfMax = 4500;
+		RemReleaseInstMin = 5560;
+	} else {
+		RemReleaseSelfMax = 6160;
+		RemReleaseInstMin = 7410;
+	}
+}
+
 int display_on() {
 	int result = SetTurnDisplayEvent_1_after_2();
 	SleepTask(EVENT_WAIT);

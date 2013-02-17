@@ -145,8 +145,12 @@ void set_intermediate_iso() {
 
 void drivemode_set() {
 	if (settings.remote_enable) {
-		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote");
+		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote enable");
 		remote_on();
+	}
+	if (settings.remote_delay) {
+		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote delay");
+		remote_delay(1);
 	}
 }
 
