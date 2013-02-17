@@ -43,18 +43,18 @@ type_MENUITEM menu_developer_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
 	MENUITEM_LOGFILE(0, LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
 #ifdef MEM_DUMP
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_DUMP_MEMORY),         dump_memory_after_5s),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_DUMP_MEMORY),         dump_memory_after_5s),
 #endif
 #ifdef MEMSPY
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_MEMSPY_ENABLE),       memspy_enable),
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_MEMSPY_DISABLE),      memspy_disable),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_MEMSPY_ENABLE),       memspy_enable),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_MEMSPY_DISABLE),      memspy_disable),
 #endif
 #ifdef BREAK_CAMERA
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_ENTER_FACTORY_MODE),  enter_factory_mode),
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_EXIT_FACTORY_MODE),   exit_factory_mode),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_ENTER_FACTORY_MODE),  enter_factory_mode),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_EXIT_FACTORY_MODE),   exit_factory_mode),
 #endif
 #ifdef TEST_DIALOGS
-	MENUITEM_LAUNCH(0, LP_WORD(L_I_TEST_DIALOGS),        test_dialog_create),
+	MENUITEM_LAUNCH( 0, LP_WORD(L_I_TEST_DIALOGS),        test_dialog_create),
 #endif
 };
 
