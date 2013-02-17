@@ -9,6 +9,7 @@
 #include "firmware.h"
 #include "main.h"
 #include "macros.h"
+#include "debug.h"
 
 #include "actions.h"
 #include "autoiso.h"
@@ -156,12 +157,20 @@ reaction_t *button_actions_af[BUTTON_COUNT] = {
 	[BUTTON_DISP]  = &reaction_af_disp,
 };
 
+reaction_t
+	reaction_drive_set    = {false, drivemode_set};
+
+reaction_t *button_actions_drive[BUTTON_COUNT] = {
+	[BUTTON_SET]   = &reaction_drive_set,
+};
+
 chain_t
 	chain_actions_main    = {button_actions_main},
 	chain_actions_400plus = {button_actions_meter},
 	chain_actions_meter   = {button_actions_wb},
 	chain_actions_wb      = {button_actions_iso},
 	chain_actions_iso     = {button_actions_af},
+	chain_actions_drive   = {button_actions_drive},
 	chain_actions_face    = {button_actions_400plus},
 	chain_actions_af      = {button_actions_face, &settings.use_dpad}
 ;
@@ -173,6 +182,7 @@ chain_t *button_chains[GUIMODE_COUNT] = {
 	[GUIMODE_WB]        = &chain_actions_meter,
 	[GUIMODE_ISO]       = &chain_actions_wb,
 	[GUIMODE_AFPATTERN] = &chain_actions_iso,
+	[GUIMODE_DRIVE]     = &chain_actions_drive,
 	[GUIMODE_400PLUS]   = &chain_actions_face,
 	[GUIMODE_FACE]      = &chain_actions_af,
 };
@@ -207,10 +217,12 @@ int button_handler(button_t button, int is_button_down) {
 
 		if((chain = button_chains[gui_mode]) == NULL) {
 			// This mode does not have an assigned chain
+			//debug_log("gui_mode[0x%X]: no btn chain", gui_mode);
 			return false;
 		} else if (!chain->condition || *chain->condition) {
 			// Check that we have an action assigned to this button
 			if ((reaction = chain->reaction[button]) == NULL) {
+				//debug_log("gui_mode[0x%X]: btn[0x%X] no action", gui_mode, button);
 				return false;
 			} else {
 				// Launch the defined action

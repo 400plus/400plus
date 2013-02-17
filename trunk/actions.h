@@ -27,4 +27,6 @@ extern void set_whitebalance_colortemp();
 extern void button_jump_action();
 extern void button_trash_action();
 
+void drivemode_set();
+
 #endif

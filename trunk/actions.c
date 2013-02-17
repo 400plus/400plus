@@ -31,6 +31,20 @@ void repeat_last_script();
 void button_action(type_BUTTON_ACTION action);
 
 void start_up() {
+
+#if 0
+	debug_log("AF: Creating directories (%#x)", GetErrorNum());
+
+	if (FIO_CreateDirectory(PathBase))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathBase ")", GetErrorNum());
+	if (FIO_CreateDirectory(PathLogs))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathLogs ")", GetErrorNum());
+	if (FIO_CreateDirectory(PathLang))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathLang ")", GetErrorNum());
+	if (FIO_CreateDirectory(PathPresets))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathPresets ")", GetErrorNum());
+#endif
+
 	// Read settings from file
 	settings_read();
 
@@ -126,6 +140,13 @@ void set_intermediate_iso() {
 		send_to_intercom(IC_SET_ISO, iso_roll(DPData.iso));
 		print_icu_info();
 		display_refresh();
+	}
+}
+
+void drivemode_set() {
+	if (settings.remote_enable) {
+		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote");
+		remote_on();
 	}
 }
 
