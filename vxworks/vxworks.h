@@ -174,10 +174,10 @@ typedef struct wind_wd_utarget {
 } wind_wd_utarget_t;
 typedef void (*wind_tick_handler_t)(long);
 
-#ifdef errno
-#undef errno
-#endif
-#define errno (*wind_current_context_errno())
+//#ifdef errno
+//#undef errno
+//#endif
+//#define errno (*wind_current_context_errno())
 
 int intCount(void);
 int intLevelSet(int level);
