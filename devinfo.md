@@ -138,11 +138,7 @@ the a540 camera (which is vxworks) sees them at:
 
 ## force MF for lens (may be)
 we can try setting cameraMode->ef\_lens\_exist=0 to force, not sure if it works.
-if it works, it could be useful for bracketing...
-
-## Help translators
-make a perl script to extract the lang keys and put them in the end of the
-languages.ini as comments
+but if it works, it could be useful for bracketing...
 
 ## HELP messages
 make them show on key press (when over some menu item) zoom-in btn is good
@@ -162,7 +158,7 @@ them and update the copy buffer.
 
 Let's suppose there is some _hMessageQueue_ we know about and want to 
 intercept, but we do not know what routine reads that queue, or just do not 
-want to dissasemble it. However, we can be pretty sure that the firmware will 
+want to disassemble it. However, we can be pretty sure that the firmware will 
 do something similar to this (example extracted form _main_ctrl_):
 
 	// code should be indented one tab right.
@@ -174,7 +170,7 @@ do something similar to this (example extracted form _main_ctrl_):
 		}
 	}
 
-Now, we coud insert a proxy, that will read all messages in that queue before 
+Now, we could insert a proxy, that will read all messages in that queue before 
 they reach _firmware_routine_, like this:
 
 	proxy_routine() {
@@ -219,7 +215,9 @@ this is still a good way to catch if something is happening.
 
 i will continue my investigations...
 
-
+// 0xAF:
+now while i'm reading what i've done there, i think i did not dereferenced
+the hMainMessQueue and this is the problem... should be checked again.
 
 ## try to get the booting logs from the beginning
 Use the blinking driver for vxworks from owerlord as base.
@@ -228,16 +226,6 @@ Probably make another driver, which just stores messages to big buffer
 
 ## Doxygen comments in code
 Comment the code with doxygen comments.
-
-## Temporarily disable the hack
-1. write a temp file to the CF
-2. __`reboot()`__ or use the __WDT__ routines to block the __WDT__ pings
-and get rebooted.
-3. find the __BL__'s __FIO__ routines (atleast __`open()`__) and check
-for the temp file existence.
-4. remove the file if exists.
-5. call __OFW__'s init procedure if the temp file was there.
-(start normally, skip the hack)
 
 ## Auto-Protect option
 Check if it's possible to make the files _Read-Only_ (with __RO__ attribute)
