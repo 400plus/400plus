@@ -142,7 +142,11 @@ void menu_params_apply_cf_emit_aux(const type_MENUITEM *item) {
 }
 
 void menu_params_apply_cf_mirror_up_lock(const type_MENUITEM *item) {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, *item->parm.menuitem_enum.value);
+	if (!settings.remote_enable) {
+		send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, *item->parm.menuitem_enum.value);
+	} else {
+		menu_DPData.cf_mirror_up_lock = 0;
+	}
 }
 
 void menu_params_apply_cf_flash_sync_rear(const type_MENUITEM *item) {
