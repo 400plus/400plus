@@ -61,14 +61,15 @@ This page contains extensions to the camera's shooting parameters, and also prov
 Scripts are little programs that control your camera, and automate certain tasks.
 
 ||_*Item*_||_*Description*_||
-||Ext. AEB||[#Extended_AEB The Extended AEB Script]||
+||Extended AEB||[#Extended_AEB The Extended AEB Script]||
 ||Flash AEB||[#Flash_AEB The Flash AEB Script]||
 ||Aperture AEB||[#Aperture_AEB The Aperture AEB Script]||
 ||ISO AEB||[#ISO_AEB The ISO AEB Script]||
-||Interval||[#Intervalometer The Intervalometer]||
-||Handwave||[#Hand_Waving The Hand Waving Script]||
-||Timer||[#Self_Timer The Self-Timer]||
-||Long exposure||[#Long_Exposure The Long Exposure Script]||
+||Intervalometer||[#Intervalometer The Intervalometer]||
+||Bulb ramping||[#Bulb_Ramping Bulb Ramping]||
+||Handwaving||[#Hand_Waving The Hand Waving Script]||
+||Self-Timer||[#Self_Timer The Self-Timer]||
+||Long exposures||[#Long_Exposure The Long Exposure Script]||
 ||DOF Calculator||[#DOF_Calculator The DOF Calculator]||
 
 === Info Page ===
@@ -330,7 +331,7 @@ This script performs the same task as the _standard_ AEB option from the camera,
 To configure and launch the Extended AEB script, use the "Ext. AEB" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
 
 ||_*Parameter*_||_*Description*_||
-||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
+||Delay||Select whether this script should start shooting immediately or wait for 2 seconds.||
 ||Frames||The number of frames (shots) the script should take. Values range from 1 to 9.||
 ||Step (EV)||The separation in EV (exposure value) between each frame (shot). Values range from +1/3EV to +6EV.||
 ||Direction||Specifies the _direction_ of the EAEB sequence.||
@@ -373,10 +374,10 @@ Camera will make a photograph for each ISO active. You probably want to set the 
 This script will fire the camera as many times as configured (or endlessly), with a configurable delay between shots; use this script to create _stop-motion_ movies, for example. To configure and launch the Intervalometer, use the "Interval" sub-menu in the [#Scripts_Page scripts page] at [#The_Menu the menu]:
 
 ||_*Parameter*_||_*Description*_||
-||Delay||Select whether this script should start shooting immediately or wait 2 seconds.||
+||Delay||Select whether this script should start shooting immediately or wait for 2 seconds.||
 ||Interval||The interval time (in hours:minutes:seconds) between each shot (or group of shots); values range from 0:00:01 to 5:00:00.||
 ||Action||See [#Script_Chaining Script Chaining].||
-||Shots||The total number of frames (shots) the script will take; values range from 1 to 9000 and also include a "No Limit" value to shoot endlessly.||
+||Shots||The total number of frames (shots) the script will take; values range from 1 to 9000, and also include a "No Limit" value to shoot endlessly.||
 ||Video format (fps)||Intended playback frame-rate, if preparing a time-lapse.||
 ||Recording time||Estimated time that the camera will need to record the entire time-lapse (informative only).||
 ||Playback time||Estimated playback time of the resulting time-lapse (informative only).||
@@ -406,6 +407,28 @@ _*Note*_: `400plus` will not validate that the values introduced by the user mak
 === Time-lapse calculator ===
 
 If you plan to make a time-lapse movie with the photographs taken with this script, you can specify a desired reproduction frame-rate, and the script will calculate the resulting reproduction time. These parameters are purely informative, and have no influence on the script.
+
+== Bulb ramping ==
+
+The bulb ramping script is similar to the intervalometer, but with the added peculiarities that it is used for long exposures (1s and longer) only, and that `400plus` will gradually change the exposure time and / or the duration of the interval between shots. Bulb ramping is used mostly to make time-lapses in situations when the amount of light is expected to change, such as sunsets.
+
+||_*Parameter*_||_*Description*_||
+||Delay||Select whether this script should start shooting immediately or wait for 2 seconds.||
+||Shots||The total number of frames (shots) the script will take; values range from 1 to 9000, and also include a "No Limit" value to shoot endlessly.||
+||Interval||The initial interval time (in hours:minutes:seconds) between each shot; values range from 0:00:01 to 5:00:00.||
+||Exposure||The length (in minutes:seconds) of the first exposure; values range from 00:00:01 to 05:00:00.||
+||Ramp size (time)||The length (in minutes:seconds) of the ramp; values range from 00:00:01 to 05:00:00.||
+||Ramp size (shots)||The length (in number of shots) of the ramp; values range from 0 to 9000.||
+||Ramping (interval)||The strength (in EV stops) of the ramp, as applied to the interval time; values range from -6 to +6.||
+||Ramping (exposure)||The strength (in EV stops) of the ramp, as applied to the exposure time; values range from -6 to +6.||
+
+Just as the intervalomenter, when the bulb ramping script is started, the camera will take a first shot (its length configured by "Exposure"), then a pause will follow (its length configured by "Interval"), and back to the beginning until the limit set by "Shots" is reached; but as the execution of the bulb ramping continues, the length of both the exposure and the pause between exposures will change smoothly, acording to the other parameters.
+
+For example, if "Ramp size (shots)" is set to 5 shots, and "Ramping (exposure)" to +1EV, then the length of the exposure will double for every five shots taken; or, if "Ramp size (time)" is set to 1 hour, and "Ramping (exposure)" is set to -1EV, then the length of the interval between shots will half for every hour that the script has been running.
+
+Notice that these changes happen gradually, there is never an abrupt change in exposure time or interval length. And also notice that there is one single ramp size, determined by the combination of "Ramp size (shots)" and "Ramp size (time)"; that ramp size is used to alter both the exposure time and the interval between shots, with a strength determined by their respective parameters.
+
+_*Note*:_ It is quite easy to configure the script with an impossible set of parameters, or with a set of parameters that will quickly degrade to an impossible to meet schedule. If the script detects that the interval between two shot or the length of an exposure are too short, it will produce a beeping sound. If the interval or the exposure are too long, the script will stop.
 
 == Hand Waving ==
 
@@ -451,7 +474,7 @@ _*Notice*_: The Ev field in this calculator cannot display values smaller than -
 
 _*Tip*_: If you plan to use a ND filter, you can measure the scene without the ND; then enter the long exposure calculator and adjust the exposure to get an Ev result inverse to the value of the ND filter. For example, assuming we have an ND8 filter (8 steps of light reduction): if the camera measures 1/120s f/4.0 ISO1600 without the filter, then select 2' f/8.0 ISO100 to achieve a Ev of +8.
 
-=== DOF Calculator ===
+== DOF Calculator ==
 
 The DOF Calculator can help determine the depth of field of a scene, or the range of distances that will be photographed as sharp; for more information about this concept, please visit [http://www.dofmaster.com/index.html DOF Master].
 
