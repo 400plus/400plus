@@ -326,6 +326,8 @@ int press_button(int button) {
 
 int remote_on() {
 	int result = eventproc_RemOn();
+	// disable MLU, since it's not working correctly with IR
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 0);
 	SleepTask(EVENT_WAIT);
 
 	return result;
