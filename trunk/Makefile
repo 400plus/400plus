@@ -69,7 +69,7 @@ AS      := $(CROSS_COMPILE)as
 ASFLAGS := $(COMMON_FLAGS)
 
 LD      := $(CROSS_COMPILE)ld
-#LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lgcc
+#LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start -lm -lgcc -lc
 LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -e _start
 
 OBJCOPY := $(CROSS_COMPILE)objcopy
@@ -111,7 +111,7 @@ $(PROJECT).BIN: $(PROJECT).arm.elf
 
 $(PROJECT).arm.elf: $(OBJS) link.script
 	@$(ECHO) -e $(BOLD)[LINK]:$(NORM) $@
-	$(CC) $(CFLAGS) -Wl,-T,link.script -lgcc -o $@ $^
+	$(CC) $(CFLAGS) -Wl,-T,link.script -o $@ $^ -lm -lgcc -lc
 
 %.o: %.c
 	@$(ECHO) -e $(BOLD)[C]:$(NORM) $<
