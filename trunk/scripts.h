@@ -24,10 +24,10 @@
 #define SCRIPT_MIN_SHOTS 3
 
 // Bulb ramping limits
-#define BRAMP_MAX_INTERVAL 9000
-#define BRAMP_MAX_EXPOSURE 9000
+#define BRAMP_MAX_INTERVAL 18000
+#define BRAMP_MAX_EXPOSURE 18000
 
-#define BRAMP_MIN_INTERVAL  99
+#define BRAMP_MIN_INTERVAL   9
 #define BRAMP_MIN_EXPOSURE 999
 
 typedef enum {
