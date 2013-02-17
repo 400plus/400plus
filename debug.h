@@ -9,29 +9,12 @@
 
 #include "firmware.h"
 #include "mainctrl.h"
+#include "utils.h"
 
 #define LEDRED (*((int*)0xC02200A0))
 #define LEDBLUE (*((int*)0xC0220000))
 #define LEDON   0x46
 #define LEDOFF  0x44
-
-// this is the way canon checks the pointers
-// if (PTR_VALID(some_ptr)) { ... } else { ... }
-// this will check if the pointer is even and not 0
-// returns the pointer if it's valid, otherwise returns 0;
-#define PTR_VALID(x)  ((x&1)-1 & x)
-
-#define MEM(mem) (*(int*)((int)(mem)))
-
-// ((((int)(x)) & 0xF0000000) == 0xC0000000) ? shamem_read(x) : 
-
-#define MEMX(x) ( \
-	((((int)(x)) & 0xF0000000) == 0xE0000000) ? (int)0xDEADBEAF : \
-	((((int)(x)) & 0xF0000000) == 0x70000000) ? (int)0xDEADBEAF : \
-	((((int)(x)) & 0xF0000000) == 0x80000000) ? (int)0xDEADBEAF : \
-	*(int*)(x) \
-)
-
 
 typedef enum {
 	DEBUG_GENERIC    = 0x00, // +SFACT
