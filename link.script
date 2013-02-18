@@ -7,15 +7,6 @@
 SECTIONS {
 	first 0x7E0000 :
 	{
-		/* I guess this one must go first, as it contains the entry point */
-		entry.o;
-
-		/* For some unknown reason (related to the floating point calls), these must go now */
-		utils.o;
-		float.o;
-		funclist.o;
-
-		/* And now comes the rest */
 		*.o;
 	}
 }
