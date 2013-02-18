@@ -308,16 +308,13 @@ void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_calc(const type_MENUITEM *item) {
-	if (menu_DPData.tv_val < BULB_VAL) {
+	settings.lexp_time = menu_scripts_tv;
 
-		settings.lexp_time = menu_scripts_tv;
+	send_to_intercom(IC_SET_AV_VAL, menu_scripts_av);
+	send_to_intercom(IC_SET_ISO,    menu_scripts_iso);
 
-		send_to_intercom(IC_SET_AV_VAL, menu_scripts_av);
-		send_to_intercom(IC_SET_ISO,    menu_scripts_iso);
-
-		menu_scripts_ev = EV_ZERO;
-		menu_return();
-	}
+	menu_scripts_ev = EV_ZERO;
+	menu_return();
 }
 
 void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
