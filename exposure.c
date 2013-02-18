@@ -9,6 +9,7 @@
 
 #include <camera.h>
 
+#include "float.h"
 #include "macros.h"
 #include "settings.h"
 
@@ -78,6 +79,10 @@ char ev_normalization[2][8] = {
 };
 
 /* EV related --------------------------------------------------------- */
+
+ev_t ev_time(int s) {
+	return EV_CODE(7, 0) - 8.0f * float_log(s) / float_log(2);
+}
 
 ev_t ev_normalize(ev_t ec) {
 	return ec + SIGN(ec) * ev_normalization[DPData.cf_explevel_inc_third][abs(EV_SUB(ec))];

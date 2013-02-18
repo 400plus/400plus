@@ -22,10 +22,14 @@
 
 #include "menu_scripts.h"
 
-int menu_scripts_ev = 0x00;
+int menu_scripts_ev;  // Long-exposure calculator: calculated EV
+int menu_scripts_tv;  // Long-exposure calculator: initial Tv
+int menu_scripts_av;  // Long-exposure calculator: initial Av
+int menu_scripts_iso; // Long-exposure calculator: initial Av
 
-int menu_scripts_fl =  50;
-int menu_scripts_fd =  10;
+int menu_scripts_fl = MENU_SCRIPTS_FL; // DOF calculator: initial focal length
+int menu_scripts_fd = MENU_SCRIPTS_FD; // DOF calculator: initial focusing distance
+
 char menu_scripts_dof_min[LP_MAX_WORD], menu_scripts_dof_max[LP_MAX_WORD];
 
 int menu_scripts_vformat = VIDEO_FORMAT_25FPS;
@@ -124,9 +128,9 @@ type_MENUITEM timer_items[] = {
 };
 
 type_MENUITEM lexp_calc_items[] = {
-	MENUITEM_BASEISO(0, LP_WORD(L_I_ISO),    &menu_DPData.iso,         menu_scripts_apply_calc_ev),
-	MENUITEM_BULB   (0, LP_WORD(L_I_TV_VAL), &menu_DPData.tv_val,      menu_scripts_apply_calc_ev),
-	MENUITEM_AV     (0, LP_WORD(L_I_AV_VAL), &menu_DPData.av_val,      menu_scripts_apply_calc_ev),
+	MENUITEM_BASEISO(0, LP_WORD(L_I_ISO),    &menu_scripts_iso,        menu_scripts_apply_calc_ev),
+	MENUITEM_AV     (0, LP_WORD(L_I_AV_VAL), &menu_scripts_av,         menu_scripts_apply_calc_ev),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TV_VAL), &menu_scripts_tv,         menu_scripts_apply_calc_ev),
 	MENUITEM_EVINFO (0, LP_WORD(L_I_EV_VAL), &menu_scripts_ev,         NULL),
 	MENUITEM_LAUNCH (0, LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
 };
@@ -270,13 +274,14 @@ type_MENUPAGE menupage_scripts = {
 
 void menu_lexp_calc_open (type_MENU *menu) {
 	// Copy current parameters from camera to menu
-	menu_DPData.iso    = DPData.iso;
-	menu_DPData.tv_val = DPData.tv_val;
-	menu_DPData.av_val = DPData.av_val;
+	menu_scripts_iso = DPData.iso;
+	menu_scripts_av  = DPData.av_val;
 
-	// Clear sub-stop exposure time, as we still do not support it
-	menu_scripts_ev = menu_DPData.tv_val & 0x07;
-	menu_DPData.tv_val &= 0xF8;
+	// Start with a common exposure time
+	menu_scripts_tv = settings.lexp_time;
+
+	// Adjust exposure compensation
+	menu_scripts_ev = DPData.tv_val - ev_time(settings.lexp_time);
 }
 
 void menu_dof_calc_open (type_MENU *menu) {
@@ -294,7 +299,7 @@ void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
 }
 
 void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
-	int ev = (menu_DPData.iso - DPData.iso) - (menu_DPData.tv_val - DPData.tv_val) - (menu_DPData.av_val - DPData.av_val);
+	int ev = (menu_scripts_iso - DPData.iso) - (ev_time(menu_scripts_tv) - DPData.tv_val) - (menu_scripts_av - DPData.av_val);
 
 	ev = CLAMP(ev, EV_CODE(-15, 0), EV_CODE(15, 0));
 
@@ -305,10 +310,10 @@ void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
 void menu_scripts_apply_calc(const type_MENUITEM *item) {
 	if (menu_DPData.tv_val < BULB_VAL) {
 
-		settings.lexp_time = 60 * BULB_MN(menu_DPData.tv_val);
+		settings.lexp_time = menu_scripts_tv;
 
-		send_to_intercom(IC_SET_AV_VAL, menu_DPData.av_val);
-		send_to_intercom(IC_SET_ISO,    menu_DPData.iso);
+		send_to_intercom(IC_SET_AV_VAL, menu_scripts_av);
+		send_to_intercom(IC_SET_ISO,    menu_scripts_iso);
 
 		menu_scripts_ev = EV_ZERO;
 		menu_return();
