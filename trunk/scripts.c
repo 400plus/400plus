@@ -300,6 +300,9 @@ void script_start() {
 	if (settings.keep_power_on)
 		send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
 
+	if (settings.review_off)
+		send_to_intercom(IC_SET_REVIEW_TIME, REVIEW_OFF);
+
 	switch (settings.script_lcd) {
 	case SCRIPT_LCD_DIM:
 		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1);
@@ -346,6 +349,7 @@ void script_restore() {
 
 	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    st_DPData.lcd_brightness);
 	send_to_intercom(IC_SET_AUTO_POWER_OFF,    st_DPData.auto_power_off);
+	send_to_intercom(IC_SET_REVIEW_TIME,       st_DPData.review_time);
 
 	display_on();
 }

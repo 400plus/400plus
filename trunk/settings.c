@@ -62,6 +62,7 @@ settings_t settings_default = {
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_SHOT,
 	keep_power_on    : true,
+	review_off       : false,
 	script_lcd       : SCRIPT_LCD_KEEP,
 	script_indicator : SCRIPT_INDICATOR_MEDIUM,
 	debug_on_poweron : false,

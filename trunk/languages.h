@@ -93,6 +93,7 @@
 	LANG_PAIR( S_CALCULATOR,         "Calculator"                ) \
 	LANG_PAIR( S_DOF_CALC,           "DOF Calculator"            ) \
 	LANG_PAIR( I_KEEP_POWER_ON,      "Disable power-off"         ) \
+	LANG_PAIR( I_REVIEW_OFF,         "Disable review"            ) \
 	LANG_PAIR( I_INDICATOR,          "Indicator"                 ) \
 	LANG_PAIR( I_LCD_SCRIPT,         "LCD display"               ) \
 	LANG_PAIR( I_BTN_JUMP,           "Jump"                      ) \

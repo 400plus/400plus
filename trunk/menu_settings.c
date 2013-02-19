@@ -32,6 +32,7 @@ void reload_language_and_refresh(const type_MENUITEM *item);
 
 type_MENUITEM scripts_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_KEEP_POWER_ON), &settings.keep_power_on,    NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_REVIEW_OFF),    &settings.review_off,       NULL),
 	MENUITEM_SCRLCD( 0, LP_WORD(L_I_LCD_SCRIPT),    &settings.script_lcd,       NULL),
 	MENUITEM_SCRIND( 0, LP_WORD(L_I_INDICATOR),     &settings.script_indicator, NULL),
 };
