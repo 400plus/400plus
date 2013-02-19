@@ -308,7 +308,8 @@ void script_start() {
 		send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1);
 		break;
 	case SCRIPT_LCD_OFF:
-		display_off();
+		if (FLAG_DISPLAY_ON)
+			press_button(IC_BUTTON_DISP);
 		break;
 	default:
 		break;
@@ -347,11 +348,20 @@ void script_restore() {
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, st_DPData.cf_mirror_up_lock);
 	send_to_intercom(IC_SET_AE_BKT,            st_DPData.ae_bkt);
 
-	send_to_intercom(IC_SET_LCD_BRIGHTNESS,    st_DPData.lcd_brightness);
 	send_to_intercom(IC_SET_AUTO_POWER_OFF,    st_DPData.auto_power_off);
 	send_to_intercom(IC_SET_REVIEW_TIME,       st_DPData.review_time);
 
-	display_on();
+	switch (settings.script_lcd) {
+	case SCRIPT_LCD_DIM:
+		send_to_intercom(IC_SET_LCD_BRIGHTNESS, st_DPData.lcd_brightness);
+		break;
+	case SCRIPT_LCD_OFF:
+		if (! FLAG_DISPLAY_ON)
+			press_button(IC_BUTTON_DISP);
+		break;
+	default:
+		break;
+	}
 }
 
 void script_feedback() {
