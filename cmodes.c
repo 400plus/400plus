@@ -202,7 +202,7 @@ void get_cmode_filename(char *filename, int cmode_id) {
 void get_amode_filename(char *filename, AE_MODE ae_mode) {
 	char id;
 
-	switch(ae_mode) {
+	switch (ae_mode) {
 	case AE_MODE_P:
 		id = 'P';
 		break;

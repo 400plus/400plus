@@ -26,7 +26,7 @@ void autoiso() {
 
 	iso_t newiso;
 
-	switch(DPData.ae) {
+	switch (DPData.ae) {
 	case AE_MODE_M:
 		if (DPData.tv_val == TV_VAL_BULB) {
 			enqueue_action(autoiso_disable_restore);

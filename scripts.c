@@ -463,7 +463,7 @@ void action_ext_aeb() {
 		}
 
 		// ...and do the rest ourselves
-		while(frames) {
+		while (frames) {
 			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
 				wait_for_camera();
 
@@ -529,7 +529,7 @@ void action_efl_aeb() {
 	shutter_release();
 	frames--;
 
-	while(frames) {
+	while (frames) {
 		if (settings.efl_aeb_direction == EAEB_DIRECTION_BOTH || settings.efl_aeb_direction == EAEB_DIRECTION_DOWN) {
 			wait_for_camera();
 
@@ -581,7 +581,7 @@ void action_apt_aeb() {
 	}
 
 	// ...and do the rest ourselves
-	while(frames) {
+	while (frames) {
 		if (settings.apt_aeb_direction == EAEB_DIRECTION_BOTH || settings.apt_aeb_direction == EAEB_DIRECTION_DOWN) {
 			wait_for_camera();
 
@@ -631,7 +631,7 @@ void action_long_exp() {
 }
 
 void script_delay(int delay) {
-	while(delay > SCRIPT_DELAY_TIME) {
+	while (delay > SCRIPT_DELAY_TIME) {
 		SleepTask(SCRIPT_DELAY_TIME);
 
 		if (!can_continue())

@@ -44,7 +44,7 @@ void msm_register() {
 		beep();
 	}
 
-	while(status.button_down == BUTTON_DOWN) {
+	while (status.button_down == BUTTON_DOWN) {
 		if (timestamp() - ts_start > MSM_TIMEOUT) {
 			if (last_flag) {
 				status.msm_count--;

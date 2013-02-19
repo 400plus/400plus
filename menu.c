@@ -138,7 +138,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 	//debug_log("_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
 #endif
 
-	switch(event) {
+	switch (event) {
 	case GUI_BUTTON_MENU            : button = BUTTON_MENU;     break;
 //	case GUI_BUTTON_DISP            : button = BUTTON_DISP;     break;
 	case GUI_BUTTON_JUMP            : button = BUTTON_JUMP;     break;

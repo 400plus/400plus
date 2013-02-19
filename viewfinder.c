@@ -95,7 +95,7 @@ void viewfinder_set() {
 }
 
 void viewfinder_end() {
-	switch(status.vf_status) {
+	switch (status.vf_status) {
 	case(VF_STATUS_ISO):
 		switch (DPData.ae) {
 		case AE_MODE_M:
