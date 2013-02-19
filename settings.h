@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x45
+#define SETTINGS_VERSION  0x46
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -136,6 +136,7 @@ typedef struct {
 	int timer_timeout;
 	int timer_action;
 	int keep_power_on;
+	int review_off;
 	int script_lcd;
 	int script_indicator;
 	int debug_on_poweron;
