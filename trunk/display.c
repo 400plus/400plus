@@ -95,7 +95,7 @@ void display_refresh_flashcomp() {
 void display_refresh_iso() {
 	char tmp[32] = "AUTO";
 
-	switch(DPData.ae) {
+	switch (DPData.ae) {
 	case AE_MODE_P:
 	case AE_MODE_TV:
 	case AE_MODE_AV:
@@ -135,7 +135,7 @@ void display_countdown(int seconds) {
 
 void display_brightness() {
 	if (settings.button_disp)
-		switch(FLAG_GUI_MODE) {
+		switch (FLAG_GUI_MODE) {
 		case GUIMODE_OFF:
 			send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1);
 			press_button(IC_BUTTON_DISP);

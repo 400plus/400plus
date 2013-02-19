@@ -148,9 +148,10 @@ void drivemode_set() {
 		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote enable");
 		remote_on();
 	}
+
 	if (settings.remote_delay) {
 		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote delay");
-		remote_delay(1);
+		remote_delay(true);
 	}
 }
 
@@ -158,7 +159,7 @@ void toggle_img_format() {
 	static int first_call = true;
 
 	if (!first_call && AE_IS_AUTO(DPData.ae)) {
-		switch(DPData.img_format) {
+		switch (DPData.img_format) {
 		case IMG_FORMAT_JPG:
 			send_to_intercom(IC_SET_IMG_FORMAT, IMG_FORMAT_RAW);
 			break;
