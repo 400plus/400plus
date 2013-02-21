@@ -49,7 +49,6 @@ status_t status = {
 
 // Proxy listeners
 int proxy_script_restore (char *message);
-int proxy_script_shot    (char *message);
 int proxy_script_stop    (char *message);
 int proxy_set_language   (char *message);
 int proxy_dialog_enter   (char *message);
@@ -57,7 +56,8 @@ int proxy_dialog_exit    (char *message);
 int proxy_dialog_afoff   (char *message);
 int proxy_measuring      (char *message);
 int proxy_measurement    (char *message);
-int proxy_focal_length   (char *message);
+int proxy_shoot_start    (char *message);
+int proxy_shoot_finish   (char *message);
 int proxy_settings0      (char *message);
 int proxy_settings3      (char *message);
 int proxy_button         (char *message);
@@ -65,11 +65,10 @@ int proxy_wheel          (char *message);
 int proxy_initialize     (char *message);
 int proxy_tv             (char *message);
 int proxy_av             (char *message);
-int proxy_shot           (char *message);
 
 proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]    = proxy_script_restore,
-	[IC_SHOOT_START] = proxy_script_shot,
+	[IC_SHOOT_START] = proxy_shoot_start,
 	[IC_BUTTON_DP]   = proxy_script_stop,
 };
 
@@ -89,10 +88,9 @@ proxy_t listeners_main[0x100] = {
 	[IC_SET_AV_VAL]    = proxy_av,
 	[IC_SET_LANGUAGE]  = proxy_set_language,
 	[IC_DIALOGON]      = proxy_dialog_enter,
-	[IC_BC_LEVEL]      = proxy_shot,
 	[IC_MEASURING]     = proxy_measuring,
 	[IC_MEASUREMENT]   = proxy_measurement,
-	[IC_SHOOT_FINISH]  = proxy_focal_length,
+	[IC_SHOOT_FINISH]  = proxy_shoot_finish,
 	[IC_UNKNOWN_8D]    = proxy_initialize,
 	[IC_SETTINGS_0]    = proxy_settings0,
 	[IC_SETTINGS_3]    = proxy_settings3,
@@ -190,13 +188,6 @@ int proxy_script_restore(char *message) {
 	return false;
 }
 
-int proxy_script_shot(char *message) {
-	status.last_shot_tv = message[2];
-	status.last_shot_av = message[3];
-
-	return false;
-}
-
 int proxy_script_stop(char *message) {
 	status.script_stopping = true;
 
@@ -254,8 +245,18 @@ int proxy_measurement(char *message) {
 	return false;
 }
 
-int proxy_focal_length(char *message) {
+int proxy_shoot_start(char *message) {
+	status.last_shot_tv = message[2];
+	status.last_shot_av = message[3];
+
+	return false;
+}
+
+int proxy_shoot_finish(char *message) {
 	status.last_shot_fl = message[2];
+
+	if (status.msm_active)
+		enqueue_action(msm_stop);
 
 	return false;
 }
@@ -320,13 +321,6 @@ int proxy_tv(char *message) {
 
 	if (status.fexp)
 		enqueue_action(fexp_update_av);
-
-	return false;
-}
-
-int proxy_shot(char *message) {
-	if (status.msm_active)
-		enqueue_action(msm_stop);
 
 	return false;
 }
