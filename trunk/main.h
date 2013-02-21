@@ -36,6 +36,7 @@ typedef struct {
 	ec_t        measured_ec;       // Exposure deviation as measured by the camera (M) or set by the user (P, Tv, Av)
 	tv_t        last_shot_tv;      // Shutter speed of the last shot taken
 	av_t        last_shot_av;      // Aperture of the last shot taken
+	int         last_shot_fl;      // Focal length during last shot
 	int         fexp;              // Fixed exposure is active
 	int       	fexp_ev;           // Combined exposure value for fixed exposure
 	int         msm_count;         // Multi-spot metering: count of registered points

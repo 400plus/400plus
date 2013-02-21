@@ -99,6 +99,7 @@ typedef enum {
 	IC_MEASURING                   = 0x80, //
 	IC_MEASUREMENT                 = 0x81, //
 	IC_SHOOTING                    = 0x83, // ?
+	IC_FOCAL_LENGTH                = 0x85, // ? [MSG[2] contains focal length]
 	IC_TIMERCOUNTER                = 0x8C, //
 	IC_UNKNOWN_8D                  = 0x8D, // ? [Appears after initialization, but contains no info]
 	IC_UNKNOWN_8E                  = 0x8E, // ? [Appears after initialization; unknown contents]

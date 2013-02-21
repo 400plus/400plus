@@ -285,6 +285,9 @@ void menu_lexp_calc_open (type_MENU *menu) {
 }
 
 void menu_dof_calc_open (type_MENU *menu) {
+	if (status.last_shot_fl != 0x00)
+		menu_scripts_fl = status.last_shot_fl;
+
 	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_DPData.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 }
 
