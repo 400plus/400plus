@@ -27,6 +27,7 @@ dpr_data_t st_DPData;
 void script_start();
 void script_stop();
 void script_feedback();
+void script_restore_parameters();
 
 void script_action(type_SHOT_ACTION action);
 
@@ -278,6 +279,7 @@ void script_long_exp() {
 	if (can_continue())
 		script_action(SHOT_ACTION_LONG_EXP);
 
+	script_restore_parameters();
 	script_stop();
 
 	status.last_script = SCRIPT_LONG_EXP;
@@ -335,10 +337,10 @@ void script_stop() {
 void script_restore_parameters() {
 	wait_for_camera();
 
-	send_to_intercom(IC_SET_AE,     st_DPData.ae);
 	send_to_intercom(IC_SET_EFCOMP, st_DPData.efcomp);
 	send_to_intercom(IC_SET_TV_VAL, st_DPData.tv_val);
 	send_to_intercom(IC_SET_AV_VAL, st_DPData.av_val);
+	send_to_intercom(IC_SET_AE,     st_DPData.ae);
 	send_to_intercom(IC_SET_ISO,    st_DPData.iso);
 }
 
