@@ -57,6 +57,7 @@ int proxy_dialog_exit    (char *message);
 int proxy_dialog_afoff   (char *message);
 int proxy_measuring      (char *message);
 int proxy_measurement    (char *message);
+int proxy_focal_length   (char *message);
 int proxy_settings0      (char *message);
 int proxy_settings3      (char *message);
 int proxy_button         (char *message);
@@ -91,6 +92,7 @@ proxy_t listeners_main[0x100] = {
 	[IC_BC_LEVEL]      = proxy_shot,
 	[IC_MEASURING]     = proxy_measuring,
 	[IC_MEASUREMENT]   = proxy_measurement,
+	[IC_FOCAL_LENGTH]  = proxy_focal_length,
 	[IC_UNKNOWN_8D]    = proxy_initialize,
 	[IC_SETTINGS_0]    = proxy_settings0,
 	[IC_SETTINGS_3]    = proxy_settings3,
@@ -248,6 +250,12 @@ int proxy_measurement(char *message) {
 	}
 
 	enqueue_action(display_overlay);
+
+	return false;
+}
+
+int proxy_focal_length(char *message) {
+	status.last_shot_fl = message[2];
 
 	return false;
 }
