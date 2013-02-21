@@ -68,9 +68,9 @@ int proxy_av             (char *message);
 int proxy_shot           (char *message);
 
 proxy_t listeners_script[0x100] = {
-	[IC_SHUTDOWN]  = proxy_script_restore,
-	[IC_SHOOTING]  = proxy_script_shot,
-	[IC_BUTTON_DP] = proxy_script_stop,
+	[IC_SHUTDOWN]    = proxy_script_restore,
+	[IC_SHOOT_START] = proxy_script_shot,
+	[IC_BUTTON_DP]   = proxy_script_stop,
 };
 
 proxy_t listeners_menu[0x100] = {
@@ -92,7 +92,7 @@ proxy_t listeners_main[0x100] = {
 	[IC_BC_LEVEL]      = proxy_shot,
 	[IC_MEASURING]     = proxy_measuring,
 	[IC_MEASUREMENT]   = proxy_measurement,
-	[IC_FOCAL_LENGTH]  = proxy_focal_length,
+	[IC_SHOOT_FINISH]  = proxy_focal_length,
 	[IC_UNKNOWN_8D]    = proxy_initialize,
 	[IC_SETTINGS_0]    = proxy_settings0,
 	[IC_SETTINGS_3]    = proxy_settings3,
