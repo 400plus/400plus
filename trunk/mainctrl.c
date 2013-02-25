@@ -244,7 +244,6 @@ void my_task_MainCtrl() {
 		} else {
 			printf("!!!!! should not be here, the OFW never checks this situation.\n");
 		}
-
 	} // while(1)
 }
 

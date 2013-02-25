@@ -51,7 +51,6 @@ typedef struct {
 
 // Our own code
 extern void initialize();
-extern void initialize_display();
 extern void intercom_proxy(const int handler, char *message);
 extern void enqueue_action(action_t action);
 

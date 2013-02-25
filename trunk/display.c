@@ -26,6 +26,11 @@ void display_refresh_iso();
 
 static dialog_t *countdown_dialog = NULL;
 
+void initialize_display() {
+	if (!status.script_running)
+		enqueue_action(restore_display);
+}
+
 void restore_display() {
 	SleepTask(100);
 
@@ -45,9 +50,9 @@ void display_refresh() {
 
 	display_refresh_iso();
 
-	display_overlay();
-
 	dialog_redraw(hMainDialog);
+
+	enqueue_action(display_overlay);
 }
 
 void display_refresh_meteringmode() {
@@ -157,13 +162,18 @@ void display_brightness() {
 }
 
 void display_overlay() {
-	if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae)) {
-		int current_cmode = get_current_cmode();
+	int i;
 
-		if (status.cmode_active && current_cmode != CMODE_NONE)
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 16, 96, "%s", cmodes_config.names[current_cmode]);
+	for (i = 0; i < OVERLAY_RETRY; i++)
+		if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae)) {
+			int current_cmode = get_current_cmode();
 
-		if (status.fexp)
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 138, 32, "#");
-	}
+			if (status.cmode_active && current_cmode != CMODE_NONE)
+				bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 16, 96, "%s", cmodes_config.names[current_cmode]);
+
+			if (status.fexp)
+				bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 138, 32, "#");
+
+			SleepTask(OVERLAY_DELAY);
+		}
 }
