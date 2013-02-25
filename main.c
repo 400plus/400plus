@@ -125,11 +125,6 @@ void initialize() {
 	CreateTask("Action Dispatcher", 25, 0x2000, action_dispatcher, 0);
 }
 
-void initialize_display() {
-	if (!status.script_running)
-		enqueue_action(restore_display);
-}
-
 void intercom_proxy(const int handler, char *message) {
 	proxy_t  listener;
 	proxy_t *listeners;
