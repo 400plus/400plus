@@ -293,11 +293,13 @@ While in one of the scene modes, use the `AV` button to toggle between the follo
 
 == IR Settings ==
 
-There are also some settings related to the infrared at the "ISO" item in the [#Parameters_Page parameters page] at [#The_Menu the menu]:
+There are also some settings related to an infrared remote controller at the "IR Settings" item in the [#Parameters_Page parameters page] at [#The_Menu the menu]:
 
 ||_*Item*_||_*Description*_||
 ||IR remote enable||When active (set to "Yes"), will allow the use of an IR remote; when set to "No", camera will ignore an IR remote.||
 ||IR remote delay||Select whether the camera should take a shot immediately, or wait 2 seconds when using an IR remote.||
+
+_*Note:*_ Due to a technical limitation, the camera cannot lock the mirror up while using an infrared remote controller; thus `400plus` will disable the MLU custom function when an IR remote is active.
 
 == Other Shortcuts ==
 
