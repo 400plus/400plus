@@ -128,7 +128,7 @@ type_MENUPAGE pages_page = {
 	name     : LP_WORD(L_S_PAGES),
 	length   : LENGTH(pages_items),
 	items    : pages_items,
-	ordering : menu_order.main_order,
+	ordering : menu_order.main,
 	actions  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -161,7 +161,7 @@ type_MENUPAGE menupage_settings = {
 	sibilings : true,
 	length    : LENGTH(menu_settings_items),
 	items     : menu_settings_items,
-	ordering  : menu_order.settings_order,
+	ordering  : menu_order.settings,
 	actions   : {
 		[MENU_EVENT_OPEN] = menu_settings_open,
 	}

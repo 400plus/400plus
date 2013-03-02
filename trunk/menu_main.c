@@ -45,7 +45,7 @@ type_MENUPAGE *menu_main_pages[] = {
 type_MENU menu_main = {
 	length   : LENGTH(menu_main_pages),
 	pages    : menu_main_pages,
-	ordering : menu_order.main_order,
+	ordering : menu_order.main,
 	actions  : {
 		[MENU_EVENT_PLAY]    = menupage_drag_drop,
 		[MENU_EVENT_UP]      = menupage_up,
@@ -87,7 +87,7 @@ type_MENUPAGE main_list = {
 		[MENU_EVENT_AV_UP]  = list_hide,
 		[MENU_EVENT_SET]    = page_display,
 	},
-	ordering : menu_order.main_order,
+	ordering : menu_order.main,
 };
 
 void menu_main_start() {

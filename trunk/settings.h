@@ -160,12 +160,12 @@ typedef struct {
 extern settings_t settings;
 
 typedef struct {
-	int main_order[10];
-	int params_order[10];
-	int scripts_order[10];
-	int info_order[10];
-	int developer_order[10];
-	int settings_order[10];
+	int main      [10];
+	int params    [10];
+	int scripts   [10];
+	int info      [10];
+	int developer [10];
+	int settings  [10];
 } menu_order_t;
 
 extern menu_order_t menu_order;
