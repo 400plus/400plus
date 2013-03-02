@@ -168,6 +168,23 @@
 	LANG_PAIR( V_BOTH,               "Both"                      ) \
 	LANG_PAIR( V_AV,                 "Av"                        ) \
 	LANG_PAIR( V_TV,                 "Tv"                        ) \
+	LANG_PAIR( S_NAMED_TEMPS,        "Named color temps."        ) \
+	LANG_PAIR( V_NAMED_TEMP_0,       "Match flame"               ) \
+	LANG_PAIR( V_NAMED_TEMP_1,       "Candle flame"              ) \
+	LANG_PAIR( V_NAMED_TEMP_2,       "Tungsten light"            ) \
+	LANG_PAIR( V_NAMED_TEMP_3,       "Fl. Warm White"            ) \
+	LANG_PAIR( V_NAMED_TEMP_4,       "Fl. White"                 ) \
+	LANG_PAIR( V_NAMED_TEMP_5,       "Fl. Cool White"            ) \
+	LANG_PAIR( V_NAMED_TEMP_6,       "Fl. Daylight"              ) \
+	LANG_PAIR( V_NAMED_TEMP_7,       "Daylight"                  ) \
+	LANG_PAIR( V_NAMED_TEMP_8,       "Sunny"                     ) \
+	LANG_PAIR( V_NAMED_TEMP_9,       "Flash"                     ) \
+	LANG_PAIR( V_NAMED_TEMP_A,       "Cloudy"                    ) \
+	LANG_PAIR( V_NAMED_TEMP_B,       "Shade"                     ) \
+	LANG_PAIR( V_NAMED_TEMP_C,       "D50"                       ) \
+	LANG_PAIR( V_NAMED_TEMP_D,       "D55"                       ) \
+	LANG_PAIR( V_NAMED_TEMP_E,       "D65"                       ) \
+	LANG_PAIR( V_NAMED_TEMP_F,       "D75"                       ) \
 
 enum LANG_WORDS_ENUM {
 #define LANG_PAIR(key, val) L_##key,

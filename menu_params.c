@@ -13,6 +13,7 @@
 #include "menu.h"
 #include "menupage.h"
 #include "menuitem.h"
+#include "menu_rename.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -26,12 +27,15 @@ void menu_params_apply_efcomp             (const type_MENUITEM *item);
 void menu_params_apply_cf_emit_flash      (const type_MENUITEM *item);
 void menu_params_apply_ae_bkt             (const type_MENUITEM *item);
 void menu_params_apply_color_temp         (const type_MENUITEM *item);
+void menu_params_apply_named_temp         (const type_MENUITEM *item);
 void menu_params_apply_cf_emit_aux        (const type_MENUITEM *item);
 void menu_params_apply_cf_mirror_up_lock  (const type_MENUITEM *item);
 void menu_params_apply_cf_flash_sync_rear (const type_MENUITEM *item);
 void menu_params_apply_cf_safety_shift    (const type_MENUITEM *item);
 void menu_params_apply_remote_enable      (const type_MENUITEM *item);
 void menu_params_apply_remote_delay       (const type_MENUITEM *item);
+
+void menu_params_rename (type_MENU *menu);
 
 type_MENUITEM autoiso_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOISO_ENABLE), &settings.autoiso_enable,  NULL),
@@ -48,6 +52,37 @@ type_MENUPAGE autoiso_page = {
 	items    : autoiso_items,
 	actions  : {
 		[MENU_EVENT_AV] = menu_return,
+	}
+};
+
+type_MENUITEM named_temps_items[] = {
+	MENUITEM_NAMEDCT( 0, named_temps.names[ 0], &named_temps.temps[ 0], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 1, named_temps.names[ 1], &named_temps.temps[ 1], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 2, named_temps.names[ 2], &named_temps.temps[ 2], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 3, named_temps.names[ 3], &named_temps.temps[ 3], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 4, named_temps.names[ 4], &named_temps.temps[ 4], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 5, named_temps.names[ 5], &named_temps.temps[ 5], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 6, named_temps.names[ 6], &named_temps.temps[ 6], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 7, named_temps.names[ 7], &named_temps.temps[ 7], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 8, named_temps.names[ 8], &named_temps.temps[ 8], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT( 9, named_temps.names[ 9], &named_temps.temps[ 9], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT(10, named_temps.names[10], &named_temps.temps[10], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT(11, named_temps.names[11], &named_temps.temps[11], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT(12, named_temps.names[12], &named_temps.temps[12], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT(13, named_temps.names[13], &named_temps.temps[13], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT(14, named_temps.names[14], &named_temps.temps[14], menu_params_apply_named_temp),
+	MENUITEM_NAMEDCT(15, named_temps.names[15], &named_temps.temps[15], menu_params_apply_named_temp),
+};
+
+type_MENUPAGE named_temps_page = {
+	name     : LP_WORD(L_S_NAMED_TEMPS),
+	length   : LENGTH(named_temps_items),
+	items    : named_temps_items,
+	ordering : menu_order.named_temps,
+	actions  : {
+		[MENU_EVENT_OPEN] = named_temps_init,
+		[MENU_EVENT_AV]   = menu_return,
+		[MENU_EVENT_JUMP] = menu_params_rename,
 	}
 };
 
@@ -88,6 +123,7 @@ type_MENUITEM menupage_params_items[] = {
 	MENUITEM_EVCOMP (0, LP_WORD(L_I_AV_COMP),       &menu_DPData.av_comp,           menu_params_apply_av_comp),
 	MENUITEM_EVSEP  (0, LP_WORD(L_I_AEB),           &menu_DPData.ae_bkt,            menu_params_apply_ae_bkt),
 	MENUITEM_CLRTEMP(0, LP_WORD(L_I_COLOR_TEMP_K),  &menu_DPData.color_temp,        menu_params_apply_color_temp),
+	MENUITEM_SUBMENU(0, LP_WORD(L_S_NAMED_TEMPS),   &named_temps_page,              NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_MIRROR_LOCKUP), &menu_DPData.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_SAFETY_SHIFT),  &menu_DPData.cf_safety_shift,   menu_params_apply_cf_safety_shift),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_FLASH),         &flash_page,                    NULL),
@@ -137,6 +173,13 @@ void menu_params_apply_color_temp(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_COLOR_TEMP, *item->parm.menuitem_int.value);
 }
 
+void menu_params_apply_named_temp(const type_MENUITEM *item) {
+	menu_params_apply_color_temp(item);
+
+	beep();
+	menu_close();
+}
+
 void menu_params_apply_cf_emit_aux(const type_MENUITEM *item) {
 	send_to_intercom(IC_SET_CF_EMIT_AUX, *item->parm.menuitem_enum.value);
 }
@@ -170,4 +213,12 @@ void menu_params_apply_remote_delay(const type_MENUITEM *item) {
 	} else {
 		remote_delay(0);
 	}
+}
+
+void menu_params_rename (type_MENU *menu) {
+	type_MENUPAGE *page = menu->current_page;
+	type_MENUITEM *item = get_current_item(page);
+
+	rename_create(named_temps.names[item->id]);
+	beep();
 }

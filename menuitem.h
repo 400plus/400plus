@@ -144,7 +144,7 @@ struct MENUITEM {
 	change  : _CHANGE_ \
 }
 
-#define MENUITEM_INT(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _LOG_, _ZMU_, _FORMAT_, _CHANGE_) { \
+#define MENUITEM_INT(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _LOG_, _ZMU_, _FORMAT_, _CHANGE_, _ACTION_) { \
 	id       : _ID_, \
 	name     : _NAME_, \
 	readonly : _RO_, \
@@ -161,7 +161,8 @@ struct MENUITEM {
 	display : menuitem_display_int, \
 	inc     : menuitem_inc_int, \
 	dec     : menuitem_dec_int, \
-	change  : _CHANGE_ \
+	change  : _CHANGE_, \
+	action  : _ACTION_ \
 }
 
 #define MENUITEM_TIME(_ID_, _NAME_, _VALUE_, _RO_, _MIN_, _MAX_, _SMALL_, _BIG_, _LOG_, _CHANGE_) { \
@@ -263,13 +264,15 @@ struct MENUITEM {
 #define MENUITEM_WEIGTH( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_qexp_weight,  _ON_CHANGE_)
 #define MENUITEM_DIG_ISO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_digiso_steps, _ON_CHANGE_)
 
-#define MENUITEM_CLRTEMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false, 1800, 11000, 100, 500,  0, false, "%5u", _ON_CHANGE_)
-#define MENUITEM_COUNTER(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, true,  "%4u", _ON_CHANGE_)
-#define MENUITEM_BRACKET(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    3,     9,   2,   2,  0, false, "%1u", _ON_CHANGE_)
-#define MENUITEM_FDIST(  _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    1,  1000,   1,  10,  0, false, "%4u", _ON_CHANGE_)
-#define MENUITEM_BRSHOTS(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, false, "%4u", _ON_CHANGE_)
+#define MENUITEM_CLRTEMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false, 1800, 11000, 100, 500,  0, false, "%5u", _ON_CHANGE_, NULL)
+#define MENUITEM_COUNTER(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, true,  "%4u", _ON_CHANGE_, NULL)
+#define MENUITEM_BRACKET(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    3,     9,   2,   2,  0, false, "%1u", _ON_CHANGE_, NULL)
+#define MENUITEM_FDIST(  _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    1,  1000,   1,  10,  0, false, "%4u", _ON_CHANGE_, NULL)
+#define MENUITEM_BRSHOTS(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, false, "%4u", _ON_CHANGE_, NULL)
 
-#define MENUITEM_PARAM(_ID_, _NAME_, _VALUE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, true, 0, 0, 0, 0, 0, false, "%u", NULL)
+#define MENUITEM_NAMEDCT(_ID_, _NAME_, _VALUE_, _ACTION_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false, 1800, 11000,  25, 100,  0, false, "%5u", NULL, _ACTION_)
+
+#define MENUITEM_PARAM(_ID_, _NAME_, _VALUE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, true, 0, 0, 0, 0, 0, false, "%u", NULL, NULL)
 
 #define MENUITEM_TIMEOUT(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    1, 18000,   1,  10, 60, _ON_CHANGE_)
 #define MENUITEM_BRTIME( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    0, 18000,   1,  10, 60, _ON_CHANGE_)
