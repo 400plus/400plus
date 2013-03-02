@@ -82,12 +82,12 @@ settings_t settings_default = {
 };
 
 menu_order_t menu_order_default = {
-	main_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	params_order     : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	scripts_order    : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	info_order       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	developer_order  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	settings_order   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	main       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	params     : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	scripts    : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	info       : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	developer  : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+	settings   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
 };
 
 settings_t   settings;
