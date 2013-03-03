@@ -47,6 +47,7 @@ This page contains extensions to the camera's shooting parameters, and also prov
 ||Av comp||[#Extended_Exposure_Compensation Extended Exposure Compensation]||
 ||AEB||[#Extended_Exposure_Compensation Extended Exposure Compensation]||
 ||Color Temp. (K)||[#Custom_White_Balance Custom White Balance]||
+||Named Color Temps.||[#Named_Color_Temperatures Named Color Temperatures]||
 ||AutoISO||[#AutoISO AutoISO]||
 ||ISO||[#Extended_ISOs Extended ISOs]||
 ||Safety Shift||[#Safety_Shift Safety Shift]||
@@ -138,6 +139,10 @@ To enable the spot metering mode, enter the metering mode selection dialog (pres
 The custom white balance option uses the color temperature configured in the "Color Temp. (K)" item from the [#Parameters_Page parameters page] at [#The_Menu the menu] (notice also that changing that value in the menu also sets the white balance to custom, automatically).
 
 To enable the custom white balance, enter the white balance selection dialog (press the `WB` button from the main dialog) and then press `DP`; enter that dialog again, and select any other white balance, to disable the custom white balance.
+
+== Named Color Temperatures ==
+
+The named color temperatures menu extends the functionality of the custom white balance menu: instead of having to remember several color temperatures for different situations, you can store up to sixteen values here, and assign a name to each one. To set one of the available color temperatures, just press `SET`; use `RIGHT` and `LEFT` to change its value, and `JUMP` to rename it.
 
 == AF-Pattern Selection ==
 
