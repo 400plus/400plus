@@ -19,25 +19,25 @@
 
 #include "menu_params.h"
 
-void menu_params_apply_autoiso_miniso     (const type_MENUITEM *item);
-void menu_params_apply_autoiso_maxiso     (const type_MENUITEM *item);
-void menu_params_apply_iso                (const type_MENUITEM *item);
-void menu_params_apply_av_comp            (const type_MENUITEM *item);
-void menu_params_apply_efcomp             (const type_MENUITEM *item);
-void menu_params_apply_cf_emit_flash      (const type_MENUITEM *item);
-void menu_params_apply_ae_bkt             (const type_MENUITEM *item);
-void menu_params_apply_color_temp         (const type_MENUITEM *item);
-void menu_params_apply_named_temp         (const type_MENUITEM *item);
-void menu_params_apply_cf_emit_aux        (const type_MENUITEM *item);
-void menu_params_apply_cf_mirror_up_lock  (const type_MENUITEM *item);
-void menu_params_apply_cf_flash_sync_rear (const type_MENUITEM *item);
-void menu_params_apply_cf_safety_shift    (const type_MENUITEM *item);
-void menu_params_apply_remote_enable      (const type_MENUITEM *item);
-void menu_params_apply_remote_delay       (const type_MENUITEM *item);
+void menu_params_apply_autoiso_miniso     (const menuitem_t *item);
+void menu_params_apply_autoiso_maxiso     (const menuitem_t *item);
+void menu_params_apply_iso                (const menuitem_t *item);
+void menu_params_apply_av_comp            (const menuitem_t *item);
+void menu_params_apply_efcomp             (const menuitem_t *item);
+void menu_params_apply_cf_emit_flash      (const menuitem_t *item);
+void menu_params_apply_ae_bkt             (const menuitem_t *item);
+void menu_params_apply_color_temp         (const menuitem_t *item);
+void menu_params_apply_named_temp         (const menuitem_t *item);
+void menu_params_apply_cf_emit_aux        (const menuitem_t *item);
+void menu_params_apply_cf_mirror_up_lock  (const menuitem_t *item);
+void menu_params_apply_cf_flash_sync_rear (const menuitem_t *item);
+void menu_params_apply_cf_safety_shift    (const menuitem_t *item);
+void menu_params_apply_remote_enable      (const menuitem_t *item);
+void menu_params_apply_remote_delay       (const menuitem_t *item);
 
-void menu_params_rename (type_MENU *menu);
+void menu_params_rename (menu_t *menu);
 
-type_MENUITEM autoiso_items[] = {
+menuitem_t autoiso_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOISO_ENABLE), &settings.autoiso_enable,  NULL),
 	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MINISO), &settings.autoiso_miniso,  menu_params_apply_autoiso_miniso),
 	MENUITEM_BASEISO(0, LP_WORD(L_I_AUTOISO_MAXISO), &settings.autoiso_maxiso,  menu_params_apply_autoiso_maxiso),
@@ -46,7 +46,7 @@ type_MENUITEM autoiso_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOISO_RELAX),  &settings.autoiso_relaxed, NULL),
 };
 
-type_MENUPAGE autoiso_page = {
+menupage_t autoiso_page = {
 	name     : LP_WORD(L_S_AUTOISO),
 	length   : LENGTH(autoiso_items),
 	items    : autoiso_items,
@@ -55,7 +55,7 @@ type_MENUPAGE autoiso_page = {
 	}
 };
 
-type_MENUITEM named_temps_items[] = {
+menuitem_t named_temps_items[] = {
 	MENUITEM_NAMEDCT( 0, named_temps.names[ 0], &named_temps.temps[ 0], menu_params_apply_named_temp),
 	MENUITEM_NAMEDCT( 1, named_temps.names[ 1], &named_temps.temps[ 1], menu_params_apply_named_temp),
 	MENUITEM_NAMEDCT( 2, named_temps.names[ 2], &named_temps.temps[ 2], menu_params_apply_named_temp),
@@ -74,7 +74,7 @@ type_MENUITEM named_temps_items[] = {
 	MENUITEM_NAMEDCT(15, named_temps.names[15], &named_temps.temps[15], menu_params_apply_named_temp),
 };
 
-type_MENUPAGE named_temps_page = {
+menupage_t named_temps_page = {
 	name     : LP_WORD(L_S_NAMED_TEMPS),
 	length   : LENGTH(named_temps_items),
 	items    : named_temps_items,
@@ -86,14 +86,14 @@ type_MENUPAGE named_temps_page = {
 	}
 };
 
-type_MENUITEM flash_items[] = {
+menuitem_t flash_items[] = {
 	MENUITEM_EVCOMP (0, LP_WORD(L_I_FLASH_COMP),    &menu_DPData.efcomp,             menu_params_apply_efcomp),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_USE_FLASH),     &menu_DPData.cf_emit_flash,      menu_params_apply_cf_emit_flash),
 	MENUITEM_AFFLASH(0, LP_WORD(L_I_AF_FLASH),      &menu_DPData.cf_emit_aux,        menu_params_apply_cf_emit_aux),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_FLASH_2ND_CURT),&menu_DPData.cf_flash_sync_rear, menu_params_apply_cf_flash_sync_rear),
 };
 
-type_MENUPAGE flash_page = {
+menupage_t flash_page = {
 	name     : LP_WORD(L_S_FLASH),
 	length   : LENGTH(flash_items),
 	items    : flash_items,
@@ -102,13 +102,13 @@ type_MENUPAGE flash_page = {
 	}
 };
 
-type_MENUITEM ir_items[] = {
+menuitem_t ir_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,          menu_params_apply_remote_enable),
 	// disable IR remote delay, since it doesnt seem to work (see remote_delay() in utils.c)
 	//MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_DELAY),  &settings.remote_delay,           menu_params_apply_remote_delay),
 };
 
-type_MENUPAGE ir_page = {
+menupage_t ir_page = {
 	name     : LP_WORD(L_S_IR),
 	length   : LENGTH(ir_items),
 	items    : ir_items,
@@ -117,7 +117,7 @@ type_MENUPAGE ir_page = {
 	}
 };
 
-type_MENUITEM menupage_params_items[] = {
+menuitem_t menupage_params_items[] = {
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_AUTOISO),       &autoiso_page,                  NULL),
 	MENUITEM_FULLISO(0, LP_WORD(L_I_ISO),           &menu_DPData.iso,               menu_params_apply_iso),
 	MENUITEM_EVCOMP (0, LP_WORD(L_I_AV_COMP),       &menu_DPData.av_comp,           menu_params_apply_av_comp),
@@ -130,7 +130,7 @@ type_MENUITEM menupage_params_items[] = {
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_IR),            &ir_page,                       NULL),
 };
 
-type_MENUPAGE menupage_params = {
+menupage_t menupage_params = {
 	name      : LP_WORD(L_P_PARAMS),
 	sibilings : true,
 	length    : LENGTH(menupage_params_items),
@@ -138,53 +138,53 @@ type_MENUPAGE menupage_params = {
 	ordering  : menu_order.params,
 };
 
-void menu_params_apply_autoiso_miniso(const type_MENUITEM *item) {
+void menu_params_apply_autoiso_miniso(const menuitem_t *item) {
 	settings.autoiso_maxiso = MAX(settings.autoiso_miniso, settings.autoiso_maxiso);
 	menu_event_display();
 }
 
-void menu_params_apply_autoiso_maxiso(const type_MENUITEM *item) {
+void menu_params_apply_autoiso_maxiso(const menuitem_t *item) {
 	settings.autoiso_miniso = MIN(settings.autoiso_miniso, settings.autoiso_maxiso);
 	menu_event_display();
 }
 
-void menu_params_apply_iso(const type_MENUITEM *item) {
+void menu_params_apply_iso(const menuitem_t *item) {
 	send_to_intercom(IC_SET_ISO, *item->parm.menuitem_iso.value);
 }
 
-void menu_params_apply_av_comp(const type_MENUITEM *item) {
+void menu_params_apply_av_comp(const menuitem_t *item) {
 	send_to_intercom(IC_SET_AV_COMP, *item->parm.menuitem_ec.value);
 }
 
-void menu_params_apply_efcomp(const type_MENUITEM *item) {
+void menu_params_apply_efcomp(const menuitem_t *item) {
 	send_to_intercom(IC_SET_EFCOMP, *item->parm.menuitem_ec.value);
 }
 
-void menu_params_apply_cf_emit_flash(const type_MENUITEM *item) {
+void menu_params_apply_cf_emit_flash(const menuitem_t *item) {
 	send_to_intercom(IC_SET_CF_EMIT_FLASH, *item->parm.menuitem_enum.value);
 }
 
-void menu_params_apply_ae_bkt(const type_MENUITEM *item) {
+void menu_params_apply_ae_bkt(const menuitem_t *item) {
 	send_to_intercom(IC_SET_AE_BKT, *item->parm.menuitem_ec.value);
 }
 
-void menu_params_apply_color_temp(const type_MENUITEM *item) {
+void menu_params_apply_color_temp(const menuitem_t *item) {
 	send_to_intercom(IC_SET_WB,         WB_MODE_COLORTEMP);
 	send_to_intercom(IC_SET_COLOR_TEMP, *item->parm.menuitem_int.value);
 }
 
-void menu_params_apply_named_temp(const type_MENUITEM *item) {
+void menu_params_apply_named_temp(const menuitem_t *item) {
 	menu_params_apply_color_temp(item);
 
 	beep();
 	menu_close();
 }
 
-void menu_params_apply_cf_emit_aux(const type_MENUITEM *item) {
+void menu_params_apply_cf_emit_aux(const menuitem_t *item) {
 	send_to_intercom(IC_SET_CF_EMIT_AUX, *item->parm.menuitem_enum.value);
 }
 
-void menu_params_apply_cf_mirror_up_lock(const type_MENUITEM *item) {
+void menu_params_apply_cf_mirror_up_lock(const menuitem_t *item) {
 	if (!settings.remote_enable) {
 		send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, *item->parm.menuitem_enum.value);
 	} else {
@@ -192,22 +192,22 @@ void menu_params_apply_cf_mirror_up_lock(const type_MENUITEM *item) {
 	}
 }
 
-void menu_params_apply_cf_flash_sync_rear(const type_MENUITEM *item) {
+void menu_params_apply_cf_flash_sync_rear(const menuitem_t *item) {
 	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, *item->parm.menuitem_enum.value);
 }
 
-void menu_params_apply_cf_safety_shift(const type_MENUITEM *item) {
+void menu_params_apply_cf_safety_shift(const menuitem_t *item) {
 	send_to_intercom(IC_SET_CF_SAFETY_SHIFT, *item->parm.menuitem_enum.value);
 }
 
-void menu_params_apply_remote_enable(const type_MENUITEM *item) {
+void menu_params_apply_remote_enable(const menuitem_t *item) {
 	if(*item->parm.menuitem_enum.value)
 		remote_on();
 	else
 		remote_off();
 }
 
-void menu_params_apply_remote_delay(const type_MENUITEM *item) {
+void menu_params_apply_remote_delay(const menuitem_t *item) {
 	if(*item->parm.menuitem_enum.value){
 		remote_delay(1);
 	} else {
@@ -215,9 +215,9 @@ void menu_params_apply_remote_delay(const type_MENUITEM *item) {
 	}
 }
 
-void menu_params_rename (type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
+void menu_params_rename (menu_t *menu) {
+	menupage_t *page = menu->current_page;
+	menuitem_t *item = get_current_item(page);
 
 	rename_create(named_temps.names[item->id]);
 	beep();

@@ -35,34 +35,34 @@ char menu_scripts_dof_min[LP_MAX_WORD], menu_scripts_dof_max[LP_MAX_WORD];
 int menu_scripts_vformat = VIDEO_FORMAT_25FPS;
 int menu_scripts_rectime = 0, menu_scripts_playtime = 0;
 
-void menu_lexp_calc_open(type_MENU *menu);
-void menu_dof_calc_open (type_MENU *menu);
+void menu_lexp_calc_open(menu_t *menu);
+void menu_dof_calc_open (menu_t *menu);
 
-void menu_scripts_apply_eaeb_tvmin (const type_MENUITEM *item);
-void menu_scripts_apply_eaeb_tvmax (const type_MENUITEM *item);
-void menu_scripts_apply_calc_ev    (const type_MENUITEM *item);
-void menu_scripts_apply_calc       (const type_MENUITEM *item);
+void menu_scripts_apply_eaeb_tvmin (const menuitem_t *item);
+void menu_scripts_apply_eaeb_tvmax (const menuitem_t *item);
+void menu_scripts_apply_calc_ev    (const menuitem_t *item);
+void menu_scripts_apply_calc       (const menuitem_t *item);
 
-void menu_scripts_apply_dof_av(const type_MENUITEM *item);
-void menu_scripts_apply_dof   (const type_MENUITEM *item);
+void menu_scripts_apply_dof_av(const menuitem_t *item);
+void menu_scripts_apply_dof   (const menuitem_t *item);
 
-void menu_scripts_open_timelapse  (type_MENU *menu);
-void menu_scripts_update_timelapse(const type_MENUITEM *item);
+void menu_scripts_open_timelapse  (menu_t *menu);
+void menu_scripts_update_timelapse(const menuitem_t *item);
 void menu_scripts_calc_timelapse  ();
 
-void menu_scripts_ext_aeb      (const type_MENUITEM *item);
-void menu_scripts_efl_aeb      (const type_MENUITEM *item);
-void menu_scripts_apt_aeb      (const type_MENUITEM *item);
-void menu_scripts_iso_aeb      (const type_MENUITEM *item);
-void menu_scripts_interval     (const type_MENUITEM *item);
-void menu_scripts_bramp        (const type_MENUITEM *item);
-void menu_scripts_wave         (const type_MENUITEM *item);
-void menu_scripts_self_timer   (const type_MENUITEM *item);
-void menu_scripts_long_exp     (const type_MENUITEM *item);
+void menu_scripts_ext_aeb      (const menuitem_t *item);
+void menu_scripts_efl_aeb      (const menuitem_t *item);
+void menu_scripts_apt_aeb      (const menuitem_t *item);
+void menu_scripts_iso_aeb      (const menuitem_t *item);
+void menu_scripts_interval     (const menuitem_t *item);
+void menu_scripts_bramp        (const menuitem_t *item);
+void menu_scripts_wave         (const menuitem_t *item);
+void menu_scripts_self_timer   (const menuitem_t *item);
+void menu_scripts_long_exp     (const menuitem_t *item);
 
 void menu_scripts_launch (action_t script);
 
-type_MENUITEM ext_aeb_items[] = {
+menuitem_t ext_aeb_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),     &settings.eaeb_delay,     NULL),
 	MENUITEM_BRACKET(0, LP_WORD(L_I_FRAMES),    &settings.eaeb_frames,    NULL),
 	MENUITEM_EVEAEB (0, LP_WORD(L_I_STEP_EV),   &settings.eaeb_ev,        NULL),
@@ -71,21 +71,21 @@ type_MENUITEM ext_aeb_items[] = {
 	MENUITEM_BULB   (0, LP_WORD(L_I_MANUAL_R),  &settings.eaeb_tv_max,    menu_scripts_apply_eaeb_tvmax)
 };
 
-type_MENUITEM efl_aeb_items[] = {
+menuitem_t efl_aeb_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),     &settings.efl_aeb_delay,     NULL),
 	MENUITEM_BRACKET(0, LP_WORD(L_I_FRAMES),    &settings.efl_aeb_frames,    NULL),
 	MENUITEM_EVEAEB (0, LP_WORD(L_I_STEP_EV),   &settings.efl_aeb_ev,        NULL),
 	MENUITEM_EAEBDIR(0, LP_WORD(L_I_DIRECTION), &settings.efl_aeb_direction, NULL),
 };
 
-type_MENUITEM apt_aeb_items[] = {
+menuitem_t apt_aeb_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),     &settings.apt_aeb_delay,     NULL),
 	MENUITEM_BRACKET(0, LP_WORD(L_I_FRAMES),    &settings.apt_aeb_frames,    NULL),
 	MENUITEM_EVEAEB (0, LP_WORD(L_I_STEP_EV),   &settings.apt_aeb_ev,        NULL),
 	MENUITEM_EAEBDIR(0, LP_WORD(L_I_DIRECTION), &settings.apt_aeb_direction, NULL),
 };
 
-type_MENUITEM iso_aeb_items[] = {
+menuitem_t iso_aeb_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY), &settings.iso_aeb_delay, NULL),
 	MENUITEM_BOOLEAN(0, " 100",             &settings.iso_aeb[0],    NULL),
 	MENUITEM_BOOLEAN(0, " 200",             &settings.iso_aeb[1],    NULL),
@@ -94,7 +94,7 @@ type_MENUITEM iso_aeb_items[] = {
 	MENUITEM_BOOLEAN(0, "1600",             &settings.iso_aeb[4],    NULL),
 };
 
-type_MENUITEM interval_items[] = {
+menuitem_t interval_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),    &settings.interval_delay,  NULL),
 	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION),   &settings.interval_action, NULL),
 	MENUITEM_TIMEOUT(0, LP_WORD(L_I_INTERVAL), &settings.interval_time,   menu_scripts_update_timelapse),
@@ -104,7 +104,7 @@ type_MENUITEM interval_items[] = {
 	MENUITEM_INFTIME(0, LP_WORD(L_I_PLAYTIME), &menu_scripts_playtime),
 };
 
-type_MENUITEM bramp_items[] = {
+menuitem_t bramp_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),        &settings.bramp_delay,     NULL),
 	MENUITEM_COUNTER(0, LP_WORD(L_I_SHOTS),        &settings.bramp_shots,     NULL),
 	MENUITEM_TIMEOUT(0, LP_WORD(L_I_INTERVAL),     &settings.bramp_time,      NULL),
@@ -115,19 +115,19 @@ type_MENUITEM bramp_items[] = {
 	MENUITEM_EVCOMP (0, LP_WORD(L_I_RAMPING_EXP),  &settings.bramp_ramp_exp,  NULL),
 };
 
-type_MENUITEM wave_items[] = {
+menuitem_t wave_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),   &settings.wave_delay,   NULL),
 	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION),  &settings.wave_action,  NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_REPEAT),  &settings.wave_repeat,  NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_INSTANT), &settings.wave_instant, NULL)
 };
 
-type_MENUITEM timer_items[] = {
+menuitem_t timer_items[] = {
 	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S), &settings.timer_timeout, NULL),
 	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
-type_MENUITEM lexp_calc_items[] = {
+menuitem_t lexp_calc_items[] = {
 	MENUITEM_BASEISO(0, LP_WORD(L_I_ISO),    &menu_scripts_iso,        menu_scripts_apply_calc_ev),
 	MENUITEM_AV     (0, LP_WORD(L_I_AV_VAL), &menu_scripts_av,         menu_scripts_apply_calc_ev),
 	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TV_VAL), &menu_scripts_tv,         menu_scripts_apply_calc_ev),
@@ -135,7 +135,7 @@ type_MENUITEM lexp_calc_items[] = {
 	MENUITEM_LAUNCH (0, LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
 };
 
-type_MENUITEM dof_calc_items[] = {
+menuitem_t dof_calc_items[] = {
 	MENUITEM_FLENGTH(0, LP_WORD(L_I_FLENGTH), &menu_scripts_fl,        menu_scripts_apply_dof),
 	MENUITEM_AV     (0, LP_WORD(L_I_AV_VAL),  &menu_DPData.av_val,     menu_scripts_apply_dof_av),
 	MENUITEM_FDIST  (0, LP_WORD(L_I_FDIST),   &menu_scripts_fd,        menu_scripts_apply_dof),
@@ -143,7 +143,7 @@ type_MENUITEM dof_calc_items[] = {
 	MENUITEM_INFO   (0, LP_WORD(L_I_DOFMAX),   menu_scripts_dof_max),
 };
 
-type_MENUPAGE lexp_calc_page = {
+menupage_t lexp_calc_page = {
 	name    : LP_WORD(L_S_CALCULATOR),
 	length  : LENGTH(lexp_calc_items),
 	items   : lexp_calc_items,
@@ -153,13 +153,13 @@ type_MENUPAGE lexp_calc_page = {
 	}
 };
 
-type_MENUITEM lexp_items[] = {
+menuitem_t lexp_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),      &settings.lexp_delay, NULL),
 	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S),     &settings.lexp_time,  NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_CALCULATOR), &lexp_calc_page,      NULL),
 };
 
-type_MENUPAGE ext_aeb_page = {
+menupage_t ext_aeb_page = {
 	name    : LP_WORD(L_S_EXT_AEB),
 	length  : LENGTH(ext_aeb_items),
 	items   : ext_aeb_items,
@@ -168,7 +168,7 @@ type_MENUPAGE ext_aeb_page = {
 	}
 };
 
-type_MENUPAGE efl_aeb_page = {
+menupage_t efl_aeb_page = {
 	name    : LP_WORD(L_S_EFL_AEB),
 	length  : LENGTH(efl_aeb_items),
 	items   : efl_aeb_items,
@@ -177,7 +177,7 @@ type_MENUPAGE efl_aeb_page = {
 	}
 };
 
-type_MENUPAGE apt_aeb_page = {
+menupage_t apt_aeb_page = {
 	name    : LP_WORD(L_S_APT_AEB),
 	length  : LENGTH(apt_aeb_items),
 	items   : apt_aeb_items,
@@ -186,7 +186,7 @@ type_MENUPAGE apt_aeb_page = {
 	}
 };
 
-type_MENUPAGE iso_aeb_page = {
+menupage_t iso_aeb_page = {
 	name    : LP_WORD(L_S_ISO_AEB),
 	length  : LENGTH(iso_aeb_items),
 	items   : iso_aeb_items,
@@ -195,7 +195,7 @@ type_MENUPAGE iso_aeb_page = {
 	}
 };
 
-type_MENUPAGE interval_page = {
+menupage_t interval_page = {
 	name    : LP_WORD(L_S_INTERVAL),
 	length  : LENGTH(interval_items),
 	items   : interval_items,
@@ -205,7 +205,7 @@ type_MENUPAGE interval_page = {
 	}
 };
 
-type_MENUPAGE bramp_page = {
+menupage_t bramp_page = {
 	name    : LP_WORD(L_S_BRAMP),
 	length  : LENGTH(bramp_items),
 	items   : bramp_items,
@@ -214,7 +214,7 @@ type_MENUPAGE bramp_page = {
 	}
 };
 
-type_MENUPAGE wave_page = {
+menupage_t wave_page = {
 	name    : LP_WORD(L_S_HANDWAVE),
 	length  : LENGTH(wave_items),
 	items   : wave_items,
@@ -223,7 +223,7 @@ type_MENUPAGE wave_page = {
 	}
 };
 
-type_MENUPAGE timer_page = {
+menupage_t timer_page = {
 	name    : LP_WORD(L_S_TIMER),
 	length  : LENGTH(timer_items),
 	items   : timer_items,
@@ -232,7 +232,7 @@ type_MENUPAGE timer_page = {
 	}
 };
 
-type_MENUPAGE lexp_page = {
+menupage_t lexp_page = {
 	name    : LP_WORD(L_S_LEXP),
 	length  : LENGTH(lexp_items),
 	items   : lexp_items,
@@ -241,7 +241,7 @@ type_MENUPAGE lexp_page = {
 	}
 };
 
-type_MENUPAGE dof_calc_page = {
+menupage_t dof_calc_page = {
 	name    : LP_WORD(L_S_DOF_CALC),
 	length  : LENGTH(dof_calc_items),
 	items   : dof_calc_items,
@@ -251,7 +251,7 @@ type_MENUPAGE dof_calc_page = {
 	}
 };
 
-type_MENUITEM menupage_scripts_items[] = {
+menuitem_t menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_APT_AEB),   &apt_aeb_page,   menu_scripts_apt_aeb),
@@ -264,7 +264,7 @@ type_MENUITEM menupage_scripts_items[] = {
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_DOF_CALC),  &dof_calc_page,  NULL),
 };
 
-type_MENUPAGE menupage_scripts = {
+menupage_t menupage_scripts = {
 	name      : LP_WORD(L_P_SCRIPTS),
 	sibilings : true,
 	length    : LENGTH(menupage_scripts_items),
@@ -272,7 +272,7 @@ type_MENUPAGE menupage_scripts = {
 	ordering  : menu_order.scripts,
 };
 
-void menu_lexp_calc_open (type_MENU *menu) {
+void menu_lexp_calc_open (menu_t *menu) {
 	// Copy current parameters from camera to menu
 	menu_scripts_iso = DPData.iso;
 	menu_scripts_av  = DPData.av_val;
@@ -284,24 +284,24 @@ void menu_lexp_calc_open (type_MENU *menu) {
 	menu_scripts_ev = DPData.tv_val - ev_time(settings.lexp_time);
 }
 
-void menu_dof_calc_open (type_MENU *menu) {
+void menu_dof_calc_open (menu_t *menu) {
 	if (status.last_shot_fl != 0x00)
 		menu_scripts_fl = status.last_shot_fl;
 
 	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_DPData.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 }
 
-void menu_scripts_apply_eaeb_tvmin(const type_MENUITEM *item) {
+void menu_scripts_apply_eaeb_tvmin(const menuitem_t *item) {
 	settings.eaeb_tv_max = MIN(settings.eaeb_tv_min, settings.eaeb_tv_max);
 	menu_event_display();
 }
 
-void menu_scripts_apply_eaeb_tvmax(const type_MENUITEM *item) {
+void menu_scripts_apply_eaeb_tvmax(const menuitem_t *item) {
 	settings.eaeb_tv_min = MAX(settings.eaeb_tv_min, settings.eaeb_tv_max);
 	menu_event_display();
 }
 
-void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
+void menu_scripts_apply_calc_ev(const menuitem_t *item) {
 	int ev = (menu_scripts_iso - DPData.iso) - (ev_time(menu_scripts_tv) - DPData.tv_val) - (menu_scripts_av - DPData.av_val);
 
 	ev = CLAMP(ev, EV_CODE(-15, 0), EV_CODE(15, 0));
@@ -310,7 +310,7 @@ void menu_scripts_apply_calc_ev(const type_MENUITEM *item) {
 	menu_event_display();
 }
 
-void menu_scripts_apply_calc(const type_MENUITEM *item) {
+void menu_scripts_apply_calc(const menuitem_t *item) {
 	settings.lexp_time = menu_scripts_tv;
 
 	send_to_intercom(IC_SET_AV_VAL, menu_scripts_av);
@@ -320,21 +320,21 @@ void menu_scripts_apply_calc(const type_MENUITEM *item) {
 	menu_return();
 }
 
-void menu_scripts_apply_dof_av(const type_MENUITEM *item) {
+void menu_scripts_apply_dof_av(const menuitem_t *item) {
 	send_to_intercom(IC_SET_AV_VAL, *item->parm.menuitem_av.value);
 	menu_scripts_apply_dof(item);
 }
 
-void menu_scripts_apply_dof(const type_MENUITEM *item) {
+void menu_scripts_apply_dof(const menuitem_t *item) {
 	calculate_dof(menu_scripts_fl, menu_scripts_fd, menu_DPData.av_val, menu_scripts_dof_min, menu_scripts_dof_max);
 	menu_event_display();
 }
 
-void menu_scripts_open_timelapse(type_MENU *menu) {
+void menu_scripts_open_timelapse(menu_t *menu) {
 	menu_scripts_calc_timelapse();
 }
 
-void menu_scripts_update_timelapse(const type_MENUITEM *item) {
+void menu_scripts_update_timelapse(const menuitem_t *item) {
 	menu_scripts_calc_timelapse();
 	menu_event_display();
 }
@@ -361,39 +361,39 @@ void menu_scripts_calc_timelapse() {
 	}
 }
 
-void menu_scripts_ext_aeb(const type_MENUITEM *item) {
+void menu_scripts_ext_aeb(const menuitem_t *item) {
 	menu_scripts_launch(script_ext_aeb);
 }
 
-void menu_scripts_efl_aeb(const type_MENUITEM *item) {
+void menu_scripts_efl_aeb(const menuitem_t *item) {
 	menu_scripts_launch(script_efl_aeb);
 }
 
-void menu_scripts_apt_aeb(const type_MENUITEM *item) {
+void menu_scripts_apt_aeb(const menuitem_t *item) {
 	menu_scripts_launch(script_apt_aeb);
 }
 
-void menu_scripts_iso_aeb(const type_MENUITEM *item) {
+void menu_scripts_iso_aeb(const menuitem_t *item) {
 	menu_scripts_launch(script_iso_aeb);
 }
 
-void menu_scripts_interval(const type_MENUITEM *item) {
+void menu_scripts_interval(const menuitem_t *item) {
 	menu_scripts_launch(script_interval);
 }
 
-void menu_scripts_bramp(const type_MENUITEM *item) {
+void menu_scripts_bramp(const menuitem_t *item) {
 	menu_scripts_launch(script_bramp);
 }
 
-void menu_scripts_wave(const type_MENUITEM *item) {
+void menu_scripts_wave(const menuitem_t *item) {
 	menu_scripts_launch(script_wave);
 }
 
-void menu_scripts_self_timer(const type_MENUITEM *item) {
+void menu_scripts_self_timer(const menuitem_t *item) {
 	menu_scripts_launch(script_self_timer);
 }
 
-void menu_scripts_long_exp(const type_MENUITEM *item) {
+void menu_scripts_long_exp(const menuitem_t *item) {
 	menu_scripts_launch(script_long_exp);
 }
 

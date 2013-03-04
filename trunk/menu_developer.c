@@ -37,7 +37,7 @@ static int   curr_palette = 0;
 
 static void test_dialog_create();
 
-type_MENUITEM menu_developer_items[] = {
+menuitem_t menu_developer_items[] = {
 	MENUITEM_LAUNCH( 0, LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
 	MENUITEM_LAUNCH( 0, LP_WORD(L_I_PRINT_INFO),          print_info),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
@@ -58,7 +58,7 @@ type_MENUITEM menu_developer_items[] = {
 #endif
 };
 
-type_MENUPAGE menupage_developer = {
+menupage_t menupage_developer = {
 	name      : LP_WORD(L_P_DEVELOPERS),
 	length    : LENGTH(menu_developer_items),
 	items     : menu_developer_items,
@@ -68,7 +68,7 @@ type_MENUPAGE menupage_developer = {
 	}
 };
 
-void menupage_developer_start(type_MENU *menu) {
+void menupage_developer_start(menu_t *menu) {
 	if (settings.developers_menu) {
 		menu_set_page(&menupage_developer);
 	}

@@ -7,7 +7,7 @@
 #ifndef MENU_SCRIPTS_H_
 #define MENU_SCRIPTS_H_
 
-extern type_MENUPAGE menupage_scripts;
+extern menupage_t menupage_scripts;
 
 #define MENU_SCRIPTS_FL 50 // DOF calculator: initial focal length (mm)
 #define MENU_SCRIPTS_FD 10 // DOF calculator: initial focusing distance (m)

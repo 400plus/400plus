@@ -24,19 +24,19 @@
 
 void menu_cmodes_open();
 
-void menu_cmodes_save   (const type_MENUITEM *item);
-void menu_cmodes_load   (const type_MENUITEM *item);
-void menu_cmodes_free   (const type_MENUITEM *item);
-void menu_cmodes_rename (const type_MENUITEM *item);
-void menu_cmodes_delete (const type_MENUITEM *item);
+void menu_cmodes_save   (const menuitem_t *item);
+void menu_cmodes_load   (const menuitem_t *item);
+void menu_cmodes_free   (const menuitem_t *item);
+void menu_cmodes_rename (const menuitem_t *item);
+void menu_cmodes_delete (const menuitem_t *item);
 
 // One sub-menu for each custom mode, and 3 / 4 items on each sub-menu
-type_MENUITEM menupage_cmodes_subitems[CMODES_MAX][4];
-type_MENUPAGE menupage_cmodes_submenus[CMODES_MAX];
+menuitem_t menupage_cmodes_subitems[CMODES_MAX][4];
+menupage_t menupage_cmodes_submenus[CMODES_MAX];
 
-type_MENUITEM menupage_cmodes_items[CMODES_MAX];
+menuitem_t menupage_cmodes_items[CMODES_MAX];
 
-type_MENUPAGE menupage_cmodes = {
+menupage_t menupage_cmodes = {
 	name      : LP_WORD(L_P_CMODES),
 	sibilings : true,
 	length    : LENGTH(menupage_cmodes_items),
@@ -120,7 +120,7 @@ void menu_cmodes_open() {
 	}
 }
 
-void menu_cmodes_save(const type_MENUITEM *item) {
+void menu_cmodes_save(const menuitem_t *item) {
 	if (AE_IS_CREATIVE(status.main_dial_ae) || status.cmode_active)
 		if (cmode_write(item->id)) {
 			beep();
@@ -128,7 +128,7 @@ void menu_cmodes_save(const type_MENUITEM *item) {
 		}
 }
 
-void menu_cmodes_load(const type_MENUITEM *item) {
+void menu_cmodes_load(const menuitem_t *item) {
 	snapshot_t cmode;
 
 	if (AE_IS_AUTO(status.main_dial_ae)) {
@@ -145,7 +145,7 @@ void menu_cmodes_load(const type_MENUITEM *item) {
 	}
 }
 
-void menu_cmodes_free(const type_MENUITEM *item) {
+void menu_cmodes_free(const menuitem_t *item) {
 	if (AE_IS_AUTO(status.main_dial_ae)) {
 		set_current_cmode(CMODE_NONE);
 
@@ -157,11 +157,11 @@ void menu_cmodes_free(const type_MENUITEM *item) {
 	}
 }
 
-void menu_cmodes_rename(const type_MENUITEM *item) {
+void menu_cmodes_rename(const menuitem_t *item) {
 	rename_create(cmodes_config.names[item->id]);
 }
 
-void menu_cmodes_delete(const type_MENUITEM *item) {
+void menu_cmodes_delete(const menuitem_t *item) {
 	if (cmode_delete(item->id)) {
 		beep();
 		menu_close();

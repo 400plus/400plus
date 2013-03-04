@@ -28,23 +28,23 @@ void menu_restore_settings();
 void menu_restore_cmodes  ();
 void menu_delete_cmodes   ();
 
-void reload_language_and_refresh(const type_MENUITEM *item);
+void reload_language_and_refresh(const menuitem_t *item);
 
-type_MENUITEM scripts_items[] = {
+menuitem_t scripts_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_KEEP_POWER_ON), &settings.keep_power_on,    NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_REVIEW_OFF),    &settings.review_off,       NULL),
 	MENUITEM_SCRLCD( 0, LP_WORD(L_I_LCD_SCRIPT),    &settings.script_lcd,       NULL),
 	MENUITEM_SCRIND( 0, LP_WORD(L_I_INDICATOR),     &settings.script_indicator, NULL),
 };
 
-type_MENUITEM buttons_items[] = {
+menuitem_t buttons_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_USE_DPAD),    &settings.use_dpad,     NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_BUTTON_DISP), &settings.button_disp,  NULL),
 	MENUITEM_BTNACTN(0, LP_WORD(L_I_BTN_JUMP),    &settings.button_jump,  NULL),
 	MENUITEM_BTNACTN(0, LP_WORD(L_I_BTN_TRASH),   &settings.button_trash, NULL),
 };
 
-type_MENUITEM cmodes_items[] = {
+menuitem_t cmodes_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_CMODES_CAMERA),   &cmodes_config.recall_camera,   NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_CMODES_400PLUS),  &cmodes_config.recall_400plus,  NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_CMODES_ORDERING), &cmodes_config.recall_ordering, NULL),
@@ -53,19 +53,19 @@ type_MENUITEM cmodes_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_CMODES_CFN),      &cmodes_config.recall_cfn,      NULL),
 };
 
-type_MENUITEM menus_items[] = {
+menuitem_t menus_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_WRAP_MENUS),    &settings.menu_wrap,      NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_NAVIGATE_MAIN), &settings.menu_navmain,   NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_ENTER_MAIN),    &settings.menu_entermain, NULL),
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_AUTOSAVE),      &settings.menu_autosave,  NULL),
 };
 
-type_MENUITEM qexp_items[] = {
+menuitem_t qexp_items[] = {
 	MENUITEM_TV(    0, LP_WORD(L_I_QEXP_MINTV),  &settings.qexp_mintv,  NULL),
 	MENUITEM_WEIGTH(0, LP_WORD(L_I_QEXP_WEIGTH), &settings.qexp_weight, NULL),
 };
 
-type_MENUITEM pages_items[] = {
+menuitem_t pages_items[] = {
 	MENUITEM_INFO(0, LP_WORD(L_P_PARAMS),     NULL),
 	MENUITEM_INFO(0, LP_WORD(L_P_SCRIPTS),    NULL),
 	MENUITEM_INFO(0, LP_WORD(L_P_INFO),       NULL),
@@ -73,13 +73,13 @@ type_MENUITEM pages_items[] = {
 	MENUITEM_INFO(0, LP_WORD(L_P_CMODES),     NULL),
 };
 
-type_MENUITEM restore_items[] = {
+menuitem_t restore_items[] = {
 	MENUITEM_LAUNCH(0, LP_WORD(L_I_RESTORE_SETTINGS), menu_restore_settings),
 	MENUITEM_LAUNCH(0, LP_WORD(L_I_RESTORE_CMODES),   menu_restore_cmodes  ),
 	MENUITEM_LAUNCH(0, LP_WORD(L_I_DELETE_CMODES),    menu_delete_cmodes   ),
 };
 
-type_MENUPAGE scripts_page = {
+menupage_t scripts_page = {
 	name    : LP_WORD(L_S_SCRIPTS),
 	length  : LENGTH(scripts_items),
 	items   : scripts_items,
@@ -88,7 +88,7 @@ type_MENUPAGE scripts_page = {
 	}
 };
 
-type_MENUPAGE buttons_page = {
+menupage_t buttons_page = {
 	name    : LP_WORD(L_S_BUTTONS),
 	length  : LENGTH(buttons_items),
 	items   : buttons_items,
@@ -97,7 +97,7 @@ type_MENUPAGE buttons_page = {
 	}
 };
 
-type_MENUPAGE cmodes_page = {
+menupage_t cmodes_page = {
 	name    : LP_WORD(L_S_CMODES),
 	length  : LENGTH(cmodes_items),
 	items   : cmodes_items,
@@ -106,7 +106,7 @@ type_MENUPAGE cmodes_page = {
 	}
 };
 
-type_MENUPAGE menus_page = {
+menupage_t menus_page = {
 	name    : LP_WORD(L_S_MENUS),
 	length  : LENGTH(menus_items),
 	items   : menus_items,
@@ -115,7 +115,7 @@ type_MENUPAGE menus_page = {
 	}
 };
 
-type_MENUPAGE qexp_page = {
+menupage_t qexp_page = {
 	name     : LP_WORD(L_S_QEXP),
 	length   : LENGTH(qexp_items),
 	items    : qexp_items,
@@ -124,7 +124,7 @@ type_MENUPAGE qexp_page = {
 	}
 };
 
-type_MENUPAGE pages_page = {
+menupage_t pages_page = {
 	name     : LP_WORD(L_S_PAGES),
 	length   : LENGTH(pages_items),
 	items    : pages_items,
@@ -134,7 +134,7 @@ type_MENUPAGE pages_page = {
 	}
 };
 
-type_MENUPAGE restore_page = {
+menupage_t restore_page = {
 	name     : LP_WORD(L_I_RESTORE),
 	length   : LENGTH(restore_items),
 	items    : restore_items,
@@ -143,7 +143,7 @@ type_MENUPAGE restore_page = {
 	}
 };
 
-type_MENUITEM menu_settings_items[] = {
+menuitem_t menu_settings_items[] = {
 	MENUITEM_LANG   (0, LP_WORD(L_I_LANGUAGE),         &settings.language,         reload_language_and_refresh),
 	MENUITEM_DIG_ISO(0, LP_WORD(L_I_DIG_ISO_STEP),     &settings.digital_iso_step, NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_SCRIPTS),          &scripts_page,              NULL),
@@ -156,7 +156,7 @@ type_MENUITEM menu_settings_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DEVELOPERS_MENU),  &settings.developers_menu,  NULL),
 };
 
-type_MENUPAGE menupage_settings = {
+menupage_t menupage_settings = {
 	name      : LP_WORD(L_P_SETTINGS),
 	sibilings : true,
 	length    : LENGTH(menu_settings_items),
@@ -167,7 +167,7 @@ type_MENUPAGE menupage_settings = {
 	}
 };
 
-void reload_language_and_refresh(const type_MENUITEM *item) {
+void reload_language_and_refresh(const menuitem_t *item) {
 	lang_pack_config();
 	menu_event_display();
 }

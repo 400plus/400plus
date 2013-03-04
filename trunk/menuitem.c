@@ -18,11 +18,11 @@
 
 void menuitem_print(char *buffer, const char *name, const char *parameter, const int length);
 
-void menuitem_display(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display(const menuitem_t *item, char *buffer, const int length) {
 	menuitem_print(buffer, item->name, "", length);
 }
 
-void menuitem_display_ec(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_ec(const menuitem_t *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
 	if (item->parm.menuitem_ec.zero_means_off && *item->parm.menuitem_ec.value == 0) {
@@ -33,35 +33,35 @@ void menuitem_display_ec(const type_MENUITEM *item, char *buffer, const int leng
 	}
 }
 
-void menuitem_display_av(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_av(const menuitem_t *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
 	av_print(value, *item->parm.menuitem_av.value);
 	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_tv(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_tv(const menuitem_t *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
 	tv_print(value, *item->parm.menuitem_tv.value);
 	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_bulb(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_bulb(const menuitem_t *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
 	bulb_print(value, *item->parm.menuitem_tv.value);
 	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_iso(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_iso(const menuitem_t *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
 	iso_print(value, *item->parm.menuitem_iso.value);
 	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_int(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_int(const menuitem_t *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
 	if (item->parm.menuitem_int.zero_means_unlimited && *item->parm.menuitem_int.value == 0) {
@@ -72,7 +72,7 @@ void menuitem_display_int(const type_MENUITEM *item, char *buffer, const int len
 	}
 }
 
-void menuitem_display_time(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_time(const menuitem_t *item, char *buffer, const int length) {
 	char value[LP_MAX_WORD];
 
 	int h, m, s = *item->parm.menuitem_int.value;
@@ -95,18 +95,18 @@ void menuitem_display_time(const type_MENUITEM *item, char *buffer, const int le
 	menuitem_print(buffer, item->name, value, length);
 }
 
-void menuitem_display_enum(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_enum(const menuitem_t *item, char *buffer, const int length) {
 	if (*item->parm.menuitem_enum.value >= 0 && *item->parm.menuitem_enum.value < item->parm.menuitem_enum.list->length)
 		menuitem_print(buffer, item->name, item->parm.menuitem_enum.list->data[*item->parm.menuitem_enum.value], length);
 	else
 		menuitem_print(buffer, item->name, "?", length);
 }
 
-void menuitem_display_info(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_info(const menuitem_t *item, char *buffer, const int length) {
 	menuitem_print(buffer, item->name, item->parm.menuitem_info.value ? item->parm.menuitem_info.value : "", length);
 }
 
-void menuitem_display_sub(const type_MENUITEM *item, char *buffer, const int length) {
+void menuitem_display_sub(const menuitem_t *item, char *buffer, const int length) {
 	menuitem_print(buffer, item->name, ">", length);
 }
 
@@ -119,30 +119,30 @@ void menuitem_print(char *buffer, const char *name, const char *parameter, const
 		sprintf(buffer, "%s %.*s.", name, strlen_utf8(parameter) + pad - 1, parameter);
 }
 
-void menuitem_inc_ec(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_ec(const menuitem_t *item, const int repeating) {
 	*item->parm.menuitem_ec.value = ec_inc(*item->parm.menuitem_ec.value);
 }
 
-void menuitem_inc_av(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_av(const menuitem_t *item, const int repeating) {
 	*item->parm.menuitem_av.value = av_inc(*item->parm.menuitem_av.value);
 }
 
-void menuitem_inc_tv(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_tv(const menuitem_t *item, const int repeating) {
 	*item->parm.menuitem_tv.value = tv_inc(*item->parm.menuitem_tv.value);
 }
 
-void menuitem_inc_bulb(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_bulb(const menuitem_t *item, const int repeating) {
 	*item->parm.menuitem_tv.value = bulb_next(*item->parm.menuitem_tv.value);
 }
 
-void menuitem_inc_iso(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_iso(const menuitem_t *item, const int repeating) {
 	if (repeating || item->parm.menuitem_iso.full)
 		*item->parm.menuitem_iso.value = MAX(*item->parm.menuitem_iso.value, iso_next(*item->parm.menuitem_iso.value));
 	else
 		*item->parm.menuitem_iso.value = iso_inc(*item->parm.menuitem_iso.value);
 }
 
-void menuitem_inc_int(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_int(const menuitem_t *item, const int repeating) {
 	int small_step = item->parm.menuitem_int.small_step;
 	int big_step   = item->parm.menuitem_int.big_step;
 
@@ -161,7 +161,7 @@ void menuitem_inc_int(const type_MENUITEM *item, const int repeating) {
 	*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 }
 
-void menuitem_inc_flen(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_flen(const menuitem_t *item, const int repeating) {
 	if (*item->parm.menuitem_int.value < 10)
 		*item->parm.menuitem_int.value += 1;
 	else if (*item->parm.menuitem_int.value < 20)
@@ -176,7 +176,7 @@ void menuitem_inc_flen(const type_MENUITEM *item, const int repeating) {
 		*item->parm.menuitem_int.value += 200;
 }
 
-void menuitem_inc_enum(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_enum(const menuitem_t *item, const int repeating) {
 	if (*item->parm.menuitem_enum.value >= item->parm.menuitem_enum.list->length - 1) {
 		if (item->parm.menuitem_enum.cycle || *item->parm.menuitem_enum.value > item->parm.menuitem_enum.list->length - 1)
 			*item->parm.menuitem_enum.value = 0;
@@ -184,38 +184,38 @@ void menuitem_inc_enum(const type_MENUITEM *item, const int repeating) {
 		(*item->parm.menuitem_enum.value)++;
 }
 
-void menuitem_inc_sub(const type_MENUITEM *item, const int repeating) {
+void menuitem_inc_sub(const menuitem_t *item, const int repeating) {
 	if (!repeating)
 		menu_set_page(item->parm.menuitem_submenu.page);
 }
 
-void menuitem_dec_ec(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_ec(const menuitem_t *item, const int repeating) {
 	if (item->parm.menuitem_ec.zero_means_off && *item->parm.menuitem_ec.value < 0x05)
 		*item->parm.menuitem_ec.value = item->parm.menuitem_ec.can_do_zero ? 0x00 : (DPData.cf_explevel_inc_third ? 0x04 : 0x03);
 	else
 		*item->parm.menuitem_ec.value = ec_dec(*item->parm.menuitem_ec.value);
 }
 
-void menuitem_dec_av(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_av(const menuitem_t *item, const int repeating) {
 	*item->parm.menuitem_av.value = av_dec(*item->parm.menuitem_av.value);
 }
 
-void menuitem_dec_tv(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_tv(const menuitem_t *item, const int repeating) {
 	*item->parm.menuitem_tv.value = tv_dec(*item->parm.menuitem_tv.value);
 }
 
-void menuitem_dec_bulb(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_bulb(const menuitem_t *item, const int repeating) {
 	*item->parm.menuitem_tv.value = bulb_prev(*item->parm.menuitem_tv.value);
 }
 
-void menuitem_dec_iso(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_iso(const menuitem_t *item, const int repeating) {
 	if (repeating || item->parm.menuitem_iso.full)
 		*item->parm.menuitem_iso.value = iso_prev(*item->parm.menuitem_iso.value);
 	else
 		*item->parm.menuitem_iso.value = iso_dec(*item->parm.menuitem_iso.value);
 }
 
-void menuitem_dec_int(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_int(const menuitem_t *item, const int repeating) {
 	int small_step = item->parm.menuitem_int.small_step;
 	int big_step   = item->parm.menuitem_int.big_step;
 
@@ -234,7 +234,7 @@ void menuitem_dec_int(const type_MENUITEM *item, const int repeating) {
 	*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
 }
 
-void menuitem_dec_flen(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_flen(const menuitem_t *item, const int repeating) {
 	if (*item->parm.menuitem_int.value > 600)
 		*item->parm.menuitem_int.value -= 200;
 	else if (*item->parm.menuitem_int.value > 200)
@@ -249,7 +249,7 @@ void menuitem_dec_flen(const type_MENUITEM *item, const int repeating) {
 		*item->parm.menuitem_int.value -= 1;
 }
 
-void menuitem_dec_enum(const type_MENUITEM *item, const int repeating) {
+void menuitem_dec_enum(const menuitem_t *item, const int repeating) {
 	if (*item->parm.menuitem_enum.value <= 0) {
 		if (item->parm.menuitem_enum.cycle || *item->parm.menuitem_enum.value < 0)
 			*item->parm.menuitem_enum.value = item->parm.menuitem_enum.list->length - 1;
