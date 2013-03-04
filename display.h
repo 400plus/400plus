@@ -22,4 +22,6 @@ extern void display_countdown(int seconds);
 
 extern void display_brightness();
 
+extern void display_message_set(char *message, int timeout);
+
 #endif /* DISPLAY_H_ */

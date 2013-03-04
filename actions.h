@@ -7,6 +7,8 @@
 #ifndef ACTIONS_H_
 #define ACTIONS_H_
 
+#define ACTION_MSG_TIMEOUT 2000
+
 extern void start_up();
 
 extern void dp_action();
