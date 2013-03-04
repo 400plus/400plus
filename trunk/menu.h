@@ -27,7 +27,7 @@ typedef enum {
 	MENU_COLOR_YELLOW_AND_GREEN = 0x10, // nice
 	MENU_COLOR_WHITE_ON_BLACK   = 0x12, // dark one
 	MENU_COLOR_ORANGE           = 0x67,
-} type_MENU_COLOR;
+} menu_color_t;
 
 typedef struct MENU     type_MENU;
 typedef struct MENUITEM type_MENUITEM;
@@ -59,12 +59,12 @@ typedef enum {
 	MENU_EVENT_COUNT,
 	MENU_EVENT_FIRST = 0,
 	MENU_EVENT_LAST  = MENU_EVENT_COUNT - 1
-} type_MENU_EVENT;
+} menu_event_t;
 
 typedef void(*menuaction_t)(type_MENU *menu);
 
 struct MENU {
-	type_MENU_COLOR   color;
+	menu_color_t   color;
 	int               length;
 	type_MENUPAGE   **pages;
 	menuaction_t      actions[MENU_EVENT_COUNT];
@@ -111,7 +111,7 @@ extern void menu_event_refresh();
 extern void menu_event_finish();
 extern void menu_event_save();
 
-extern void menu_event(type_MENU_EVENT);
+extern void menu_event(menu_event_t);
 
 extern void menu_set  (type_MENU *menu);
 extern void menu_right(type_MENU *menu);

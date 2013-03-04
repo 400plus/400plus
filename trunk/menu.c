@@ -225,7 +225,7 @@ void menu_event_refresh(){ menu_event(MENU_EVENT_REFRESH); };
 void menu_event_finish() { menu_event(MENU_EVENT_FINISH);  };
 void menu_event_save()   { menu_event(MENU_EVENT_SAVE);    };
 
-void menu_event(type_MENU_EVENT event) {
+void menu_event(menu_event_t event) {
 	type_MENU     *menu = current_menu;
 	type_MENUPAGE *page = menu->current_page;
 
