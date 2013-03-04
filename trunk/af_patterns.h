@@ -50,7 +50,7 @@ typedef struct {
 	int next_left;
 	int next_right;
 	int _eol_;
-} type_PATTERN_MAP_ITEM;
+} pattern_map_item_t;
 
 typedef enum {
 	DIRECTION_CENTER,
@@ -58,7 +58,7 @@ typedef enum {
 	DIRECTION_DOWN,
 	DIRECTION_LEFT,
 	DIRECTION_RIGHT
-} type_DIRECTION;
+} direction_t;
 
 extern void afp_enter ();
 
