@@ -29,7 +29,7 @@ void script_stop();
 void script_feedback();
 void script_restore_parameters();
 
-void script_action(type_SHOT_ACTION action);
+void script_action(shot_action_t action);
 
 void action_ext_aeb();
 void action_efl_aeb();
@@ -400,7 +400,7 @@ void script_feedback() {
 	}
 }
 
-void script_action(type_SHOT_ACTION action) {
+void script_action(shot_action_t action) {
 	switch (action) {
 	case SHOT_ACTION_SHOT:
 		shutter_release();
