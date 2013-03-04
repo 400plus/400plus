@@ -63,7 +63,7 @@ static inline int *bmp_vram(void) {
 #define FONT_BG(font) (((font) & 0xFF00) >> 8)
 #define FONT_FG(font) (((font) & 0x00FF) >> 0)
 
-static inline struct font * fontspec_font(unsigned fontspec) {
+static inline font_t * fontspec_font(unsigned fontspec) {
 	switch( fontspec & FONT_MASK ) {
 	default:
 #ifdef USE_FONT_SMALL
@@ -90,9 +90,9 @@ static inline unsigned fontspec_height(unsigned fontspec) {
 	return fontspec_font(fontspec)->height;
 }
 
-extern void bmp_printf(unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...) __attribute__((format(printf,4,5)));
-extern void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, int len);
-extern void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s);
+extern void bmp_printf (unsigned fontspec, unsigned  x, unsigned  y, const char *fmt, ...) __attribute__((format(printf,4,5)));
+extern void bmp_hexdump(unsigned fontspec, unsigned  x, unsigned  y, const void *buf, int len);
+extern void bmp_puts   (unsigned fontspec, unsigned *x, unsigned *y, const char *s);
 
 #define bmp_printf_timed(time, font, x, y, f...) do { \
 	bmp_printf(font, x, y, ##f);                  \

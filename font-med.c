@@ -8,7 +8,7 @@
 
 #include "font.h"
 
-struct font font_med = {
+font_t font_med = {
 	.width		= 12,
 	.height		= 20,
 	.bitmap		= {
