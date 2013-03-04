@@ -19,7 +19,7 @@ typedef enum {
 	VF_STATUS_NONE,
 	VF_STATUS_MSM,
 	VF_STATUS_ISO,
-} vf_status_r;
+} vf_status_t;
 
 // Global status
 typedef struct {
@@ -46,7 +46,7 @@ typedef struct {
 	ec_t        ev_comp;           // Exposure compensation for AutoISO + M
 	type_SCRIPT last_script;       // Last executed script
 	ic_event_t  ignore_msg;   // Event to be ignored at intercom
-	vf_status_r vf_status;         // Status of viewfinder
+	vf_status_t vf_status;         // Status of viewfinder
 } status_t;
 
 // Our own code
