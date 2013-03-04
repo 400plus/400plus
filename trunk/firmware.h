@@ -142,7 +142,7 @@ typedef enum {
 	IC_SET_REALTIME_ISO_0          = 0xF0, //
 	IC_SET_REALTIME_ISO_1          = 0xF1, //
 	IC_EXIT_MCELL_TEST             = 0xF4  //
-} intercom_event_t;
+} ic_event_t;
 
 typedef enum {
 	//GUI_PRESS_DISP_BUTTON          = 0x10000000,
@@ -300,7 +300,7 @@ typedef enum { // GUIModes
 	GUIMODE_400PLUS = 0x40,  // 400Plus mode
 	GUIMODE_FACE    = 0x41,	 // Face mode
 	GUIMODE_COUNT   = 0x4F   // Total number of active GUIMODEs (plus a safe margin)
-} type_GUIMODE;
+} guimode_t;
 
 // Dialog Item struct
 typedef struct {
