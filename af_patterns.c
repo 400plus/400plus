@@ -16,7 +16,7 @@
 
 #include "af_patterns.h"
 
-type_PATTERN_MAP_ITEM pattern_map[] = {
+pattern_map_item_t pattern_map[] = {
 		{AF_PATTERN_CENTER,         AF_PATTERN_SQUARE, AF_PATTERN_TOPHALF,        AF_PATTERN_BOTTOMHALF,     AF_PATTERN_LEFTHALF,      AF_PATTERN_RIGHTHALF},
 		{AF_PATTERN_SQUARE,         AF_PATTERN_HLINE,  AF_PATTERN_TOPHALF,        AF_PATTERN_BOTTOMHALF,     AF_PATTERN_LEFTHALF,      AF_PATTERN_RIGHTHALF},
 
@@ -53,7 +53,7 @@ type_PATTERN_MAP_ITEM pattern_map[] = {
 		END_OF_LIST
 };
 
-int afp_transformer (int pattern, type_DIRECTION direction);
+int afp_transformer (int pattern, direction_t direction);
 
 void afp_enter() {
 	beep();
@@ -79,8 +79,8 @@ void afp_right () {
 	send_to_intercom(IC_SET_AF_POINT, afp_transformer(DPData.af_point, DIRECTION_RIGHT));
 }
 
-int afp_transformer (int pattern, type_DIRECTION direction) {
-	type_PATTERN_MAP_ITEM *item;
+int afp_transformer (int pattern, direction_t direction) {
+	pattern_map_item_t *item;
 
 	// Loop over all items in the pattern map
 	for (item = pattern_map; ! IS_EOL(item); item++) {
