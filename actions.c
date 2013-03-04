@@ -28,7 +28,7 @@
 void set_intermediate_iso();
 void repeat_last_script();
 
-void button_action(type_BUTTON_ACTION action);
+void button_action(button_action_t action);
 
 void start_up() {
 
@@ -237,7 +237,7 @@ void button_trash_action() {
 	button_action(settings.button_trash);
 }
 
-void button_action(type_BUTTON_ACTION action) {
+void button_action(button_action_t action) {
 	switch (action) {
 	case BUTTON_ACTION_ISO:
 		set_intermediate_iso();

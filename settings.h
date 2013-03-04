@@ -24,7 +24,7 @@ typedef enum {
 	SHOT_ACTION_COUNT,
 	SHOT_ACTION_FIRST = 0,
 	SHOT_ACTION_LAST  = SHOT_ACTION_COUNT - 1
-} type_SHOT_ACTION;
+} shot_action_t;
 
 typedef enum {
 	BUTTON_ACTION_NONE,
@@ -37,7 +37,7 @@ typedef enum {
 	BUTTON_ACTION_COUNT,
 	BUTTON_ACTION_FIRST = 0,
 	BUTTON_ACTION_LAST  = BUTTON_ACTION_COUNT - 1
-} type_BUTTON_ACTION;
+} button_action_t;
 
 typedef enum {
 	EAEB_DIRECTION_UP,
@@ -46,7 +46,7 @@ typedef enum {
 	EAEB_DIRECTION_COUNT,
 	EAEB_DIRECTION_FIRST = 0,
 	EAEB_DIRECTION_LAST  = EAEB_DIRECTION_COUNT - 1
-} type_EAEB_DIRECTION;
+} eaeb_direction_t;
 
 typedef enum {
 	SCRIPT_INDICATOR_NONE,
@@ -56,7 +56,7 @@ typedef enum {
 	SCRIPT_INDICATOR_COUNT,
 	SCRIPT_INDICATOR_FIRST = 0,
 	SCRIPT_INDICATOR_LAST  = SCRIPT_INDICATOR_COUNT - 1
-} type_SCRIPT_INDICATOR;
+} script_indicator_t;
 
 typedef enum {
 	SCRIPT_LCD_KEEP,
@@ -65,7 +65,7 @@ typedef enum {
 	SCRIPT_LCD_COUNT,
 	SCRIPT_LCD_FIRST = 0,
 	SCRIPT_LCD_LAST  = SCRIPT_LCD_COUNT - 1
-} type_SCRIPT_LCD;
+} script_lcd_t;
 
 typedef enum {
 	LOGFILE_MODE_OVERWRITE,
@@ -74,7 +74,7 @@ typedef enum {
 	LOGFILE_MODE_COUNT,
 	LOGFILE_MODE_FIRST = 0,
 	LOGFILE_MODE_LAST  = LOGFILE_MODE_COUNT - 1
-} type_LOGFILE_MODE;
+} logfile_mode_t;
 
 typedef enum {
 	FLASH_MODE_ENABLED,
@@ -83,7 +83,7 @@ typedef enum {
 	FLASH_MODE_COUNT,
 	FLASH_MODE_FIRST = 0,
 	FLASH_MODE_LAST  = FLASH_MODE_COUNT - 1
-} type_FLASH_MODE;
+} flash_mode_t;
 
 typedef enum {
 	QEXP_WEIGHT_NONE,
