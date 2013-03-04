@@ -181,14 +181,23 @@ void toggle_img_format() {
 void toggle_CfMLU() {
 	char message[LP_MAX_WORD];
 
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, DPData.cf_mirror_up_lock ^ 0x01);
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, !DPData.cf_mirror_up_lock);
 
-	sprintf(message, "%s:%s", LP_WORD(L_I_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_V_YES) : LP_WORD(L_V_NO));
+	sprintf(message, "%s: %s", LP_WORD(L_I_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_V_YES) : LP_WORD(L_V_NO));
+	display_message_set(message, ACTION_MSG_TIMEOUT);
+}
+
+void toggle_CfEmitFlash() {
+	char message[LP_MAX_WORD];
+
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
+
+	sprintf(message, "%s: %s",LP_WORD(L_S_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_V_NO) : LP_WORD(L_V_YES)));
 	display_message_set(message, ACTION_MSG_TIMEOUT);
 }
 
 void toggle_CfFlashSyncRear() {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, DPData.cf_flash_sync_rear ^ 0x01);
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, !DPData.cf_flash_sync_rear);
 }
 
 void toggle_AEB() {
@@ -252,20 +261,15 @@ void button_action(button_action_t action) {
 		break;
 	case BUTTON_ACTION_MLU:
 		toggle_CfMLU();
-		beep();
 		break;
 	case BUTTON_ACTION_AEB:
 		toggle_AEB();
-		beep();
 		break;
 	case BUTTON_ACTION_HACK_MENU:
 		menu_main_start();
 		break;
 	case BUTTON_ACTION_TOGGLE_FLASH:
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
-		char buf[20];
-		sprintf(buf, "%-11s: %-5s",LP_WORD(L_S_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_V_NO) : LP_WORD(L_V_YES)));
-		bmp_printf_timed(250, FONT_LARGE, 0, 0, buf);
+		toggle_CfEmitFlash();
 		break;
 	default:
 		break;
