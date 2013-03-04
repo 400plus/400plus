@@ -14,21 +14,21 @@ typedef struct {
 	int  *value;
 	int   can_do_zero;
 	int   zero_means_off;
-} type_MENUITEM_EC;
+} menuitem_ec_t;
 
 typedef struct {
 	int  *value;
-} type_MENUITEM_AV;
+} menuitem_av_t;
 
 typedef struct {
 	int  *value;
 	int   bulb;
-} type_MENUITEM_TV;
+} menuitem_tv_t;
 
 typedef struct {
 	int  *value;
 	int   full;
-} type_MENUITEM_ISO;
+} menuitem_iso_t;
 
 typedef struct {
 	int   *value;
@@ -39,43 +39,43 @@ typedef struct {
 	int    base_log;
 	int    zero_means_unlimited;
 	char  *format;
-} type_MENUITEM_INT;
+} menuitem_int_t;
 
 typedef struct {
 	int     *value;
 	int      cycle;
 	list_t  *list;
-} type_MENUITEM_ENUM;
+} menuitem_enum_t;
 
 typedef struct {
 	char *value;
-} type_MENUITEM_INFO;
+} menuitem_info_t;
 
 typedef struct {
-	type_MENUPAGE *page;
-} type_MENUITEM_SUBMENU;
+	menupage_t *page;
+} menuitem_submenu_t;
 
 typedef union {
-	type_MENUITEM_EC      menuitem_ec;
-	type_MENUITEM_AV      menuitem_av;
-	type_MENUITEM_TV      menuitem_tv;
-	type_MENUITEM_ISO     menuitem_iso;
-	type_MENUITEM_INT     menuitem_int;
-	type_MENUITEM_ENUM    menuitem_enum;
-	type_MENUITEM_INFO    menuitem_info;
-	type_MENUITEM_SUBMENU menuitem_submenu;
-} type_MENUITEM_PARM;
+	menuitem_ec_t      menuitem_ec;
+	menuitem_av_t      menuitem_av;
+	menuitem_tv_t      menuitem_tv;
+	menuitem_iso_t     menuitem_iso;
+	menuitem_int_t     menuitem_int;
+	menuitem_enum_t    menuitem_enum;
+	menuitem_info_t    menuitem_info;
+	menuitem_submenu_t menuitem_submenu;
+} menuitem_parm_t;
 
-typedef void (*itemaction_t)(const type_MENUITEM *item);
+typedef void (*itemaction_t)(const menuitem_t *item);
 
 struct MENUITEM {
-	int   id;
-	char *name;
-	int   readonly;
-	type_MENUITEM_PARM  parm;
-	void (*display)(const type_MENUITEM *item, char *buffer, const int length);
-	void (*inc)    (const type_MENUITEM *item, const int repeating);
-	void (*dec)    (const type_MENUITEM *item, const int repeating);
+	int             id;
+	char           *name;
+	int             readonly;
+	menuitem_parm_t parm;
+	void (*display)(const menuitem_t *item, char *buffer, const int length);
+	void (*inc)    (const menuitem_t *item, const int repeating);
+	void (*dec)    (const menuitem_t *item, const int repeating);
 	itemaction_t   action;
 	itemaction_t   change;
 };
@@ -278,35 +278,35 @@ struct MENUITEM {
 #define MENUITEM_BRTIME( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_TIME(_ID_, _NAME_, _VALUE_, false,    0, 18000,   1,  10, 60, _ON_CHANGE_)
 #define MENUITEM_INFTIME(_ID_, _NAME_, _VALUE_)              MENUITEM_TIME(_ID_, _NAME_, _VALUE_, true,     1, 18000,   1,  10, 60, NULL)
 
-extern void menuitem_display      (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_ec   (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_av   (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_tv   (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_bulb (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_iso  (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_int  (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_time (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_enum (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_info (const type_MENUITEM *item, char *buffer, const int length);
-extern void menuitem_display_sub  (const type_MENUITEM *item, char *buffer, const int length);
+extern void menuitem_display      (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_ec   (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_av   (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_tv   (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_bulb (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_iso  (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_int  (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_time (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_enum (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_info (const menuitem_t *item, char *buffer, const int length);
+extern void menuitem_display_sub  (const menuitem_t *item, char *buffer, const int length);
 
-extern void menuitem_inc_ec   (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_av   (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_tv   (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_bulb (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_iso  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_int  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_flen (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_enum (const type_MENUITEM *item, const int repeating);
-extern void menuitem_inc_sub  (const type_MENUITEM *item, const int repeating);
+extern void menuitem_inc_ec   (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_av   (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_tv   (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_bulb (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_iso  (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_int  (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_flen (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_enum (const menuitem_t *item, const int repeating);
+extern void menuitem_inc_sub  (const menuitem_t *item, const int repeating);
 
-extern void menuitem_dec_ec   (const type_MENUITEM *item, const int repeating);
-extern void menuitem_dec_av   (const type_MENUITEM *item, const int repeating);
-extern void menuitem_dec_tv   (const type_MENUITEM *item, const int repeating);
-extern void menuitem_dec_bulb (const type_MENUITEM *item, const int repeating);
-extern void menuitem_dec_iso  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_dec_int  (const type_MENUITEM *item, const int repeating);
-extern void menuitem_dec_flen (const type_MENUITEM *item, const int repeating);
-extern void menuitem_dec_enum (const type_MENUITEM *item, const int repeating);
+extern void menuitem_dec_ec   (const menuitem_t *item, const int repeating);
+extern void menuitem_dec_av   (const menuitem_t *item, const int repeating);
+extern void menuitem_dec_tv   (const menuitem_t *item, const int repeating);
+extern void menuitem_dec_bulb (const menuitem_t *item, const int repeating);
+extern void menuitem_dec_iso  (const menuitem_t *item, const int repeating);
+extern void menuitem_dec_int  (const menuitem_t *item, const int repeating);
+extern void menuitem_dec_flen (const menuitem_t *item, const int repeating);
+extern void menuitem_dec_enum (const menuitem_t *item, const int repeating);
 
 #endif /* MENUITEM_H_ */

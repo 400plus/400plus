@@ -11,6 +11,6 @@
 #define VERSION "UNDEFINED"
 #endif
 
-extern type_MENUPAGE menupage_info;
+extern menupage_t menupage_info;
 
 #endif /* MENU_INFO_H_ */

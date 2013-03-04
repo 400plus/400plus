@@ -29,9 +29,9 @@ typedef enum {
 	MENU_COLOR_ORANGE           = 0x67,
 } menu_color_t;
 
-typedef struct MENU     type_MENU;
-typedef struct MENUITEM type_MENUITEM;
-typedef struct MENUPAGE type_MENUPAGE;
+typedef struct MENU     menu_t;
+typedef struct MENUITEM menuitem_t;
+typedef struct MENUPAGE menupage_t;
 
 typedef enum {
 	MENU_EVENT_MENU,
@@ -61,65 +61,65 @@ typedef enum {
 	MENU_EVENT_LAST  = MENU_EVENT_COUNT - 1
 } menu_event_t;
 
-typedef void(*menuaction_t)(type_MENU *menu);
+typedef void(*menuaction_t)(menu_t *menu);
 
 struct MENU {
 	menu_color_t   color;
-	int               length;
-	type_MENUPAGE   **pages;
-	menuaction_t      actions[MENU_EVENT_COUNT];
-	int              *ordering;
-	int               current_posn;
-	type_MENUPAGE    *current_page;
-	int               changed;
+	int            length;
+	menupage_t   **pages;
+	menuaction_t   actions[MENU_EVENT_COUNT];
+	int           *ordering;
+	int            current_posn;
+	menupage_t    *current_page;
+	int            changed;
 };
 
 extern dpr_data_t menu_DPData;
 
-extern void menu_create (type_MENU * menu);
+extern void menu_create (menu_t * menu);
 extern void menu_close  ();
 extern void menu_finish ();
 extern void menu_return ();
 
 extern void menu_set_posn(int posn);
-extern void menu_set_page(type_MENUPAGE *page);
+extern void menu_set_page(menupage_t *page);
 
 extern void menu_highlight();
 extern void menu_redraw   ();
 extern void menu_set_text (const int line, const char *text);
 
-extern void menu_event_menu();
-extern void menu_event_disp();
-extern void menu_event_jump();
-extern void menu_event_play();
-extern void menu_event_trash();
-extern void menu_event_set();
-extern void menu_event_prev();
-extern void menu_event_next();
-extern void menu_event_up();
-extern void menu_event_down();
-extern void menu_event_right();
-extern void menu_event_left();
-extern void menu_event_dp();
-extern void menu_event_av();
-extern void menu_event_av_up();
-extern void menu_event_out();
-extern void menu_event_in();
-extern void menu_event_open();
+extern void menu_event_menu   ();
+extern void menu_event_disp   ();
+extern void menu_event_jump   ();
+extern void menu_event_play   ();
+extern void menu_event_trash  ();
+extern void menu_event_set    ();
+extern void menu_event_prev   ();
+extern void menu_event_next   ();
+extern void menu_event_up     ();
+extern void menu_event_down   ();
+extern void menu_event_right  ();
+extern void menu_event_left   ();
+extern void menu_event_dp     ();
+extern void menu_event_av     ();
+extern void menu_event_av_up  ();
+extern void menu_event_out    ();
+extern void menu_event_in     ();
+extern void menu_event_open   ();
 extern void menu_event_display();
 extern void menu_event_refresh();
-extern void menu_event_finish();
-extern void menu_event_save();
+extern void menu_event_finish ();
+extern void menu_event_save   ();
 
 extern void menu_event(menu_event_t);
 
-extern void menu_set  (type_MENU *menu);
-extern void menu_right(type_MENU *menu);
-extern void menu_left (type_MENU *menu);
+extern void menu_set  (menu_t *menu);
+extern void menu_right(menu_t *menu);
+extern void menu_left (menu_t *menu);
 
-extern void menu_next(type_MENU *menu);
-extern void menu_prev(type_MENU *menu);
+extern void menu_next(menu_t *menu);
+extern void menu_prev(menu_t *menu);
 
-extern void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating));
+extern void menu_repeat(menu_t *menu, void (*action)(menu_t *menu, const int repeating));
 
 #endif /* MENU_H_ */

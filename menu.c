@@ -23,24 +23,24 @@ dpr_data_t menu_DPData;
 
 void *menu_handler;
 
-type_MENU *current_menu;
+menu_t *current_menu;
 
 void menu_initialize();
 void menu_destroy();
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
-void menu_set_page(type_MENUPAGE *page);
+void menu_set_page(menupage_t *page);
 void menu_set_text(const int line, const char *text);
 
 void menu_highlight(const int line);
 
-void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating));
+void menu_repeat(menu_t *menu, void (*action)(menu_t *menu, const int repeating));
 
-void menu_repeat_right(type_MENU *menu, const int repeating);
-void menu_repeat_left (type_MENU *menu, const int repeating);
+void menu_repeat_right(menu_t *menu, const int repeating);
+void menu_repeat_left (menu_t *menu, const int repeating);
 
-type_MENUPAGE *get_selected_page();
+menupage_t *get_selected_page();
 
 int my_central_handler(dialog_t *dialog, int event, int r2, int r3) {
 	debug_log("CENTRAL!");
@@ -48,7 +48,7 @@ int my_central_handler(dialog_t *dialog, int event, int r2, int r3) {
 	return DIALOGHandler(dialog, event, r2, r3);
 }
 
-void menu_create(type_MENU *menu) {
+void menu_create(menu_t *menu) {
 	beep();
 
 	//GUI_Command(4,0);
@@ -178,7 +178,7 @@ void menu_set_posn(int posn) {
 		menu_set_page(current_menu->pages[posn]);
 }
 
-void menu_set_page(type_MENUPAGE *page) {
+void menu_set_page(menupage_t *page) {
 	current_menu->current_page = page;
 
 	menupage_initialize(page);
@@ -226,8 +226,8 @@ void menu_event_finish() { menu_event(MENU_EVENT_FINISH);  };
 void menu_event_save()   { menu_event(MENU_EVENT_SAVE);    };
 
 void menu_event(menu_event_t event) {
-	type_MENU     *menu = current_menu;
-	type_MENUPAGE *page = menu->current_page;
+	menu_t     *menu = current_menu;
+	menupage_t *page = menu->current_page;
 
 	if (page->actions && page->actions[event])
 		page->actions[event](menu);
@@ -235,24 +235,24 @@ void menu_event(menu_event_t event) {
 		menu->actions[event](menu);
 }
 
-void menu_set(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
+void menu_set(menu_t *menu) {
+	menupage_t *page = menu->current_page;
+	menuitem_t *item = get_current_item(page);
 
 	if (item && item->action)
 		item->action(item);
 }
 
-void menu_right(type_MENU *menu) {
+void menu_right(menu_t *menu) {
 	menu_repeat(menu, menu_repeat_right);
 }
 
-void menu_left(type_MENU *menu) {
+void menu_left(menu_t *menu) {
 	menu_repeat(menu, menu_repeat_left);
 }
 
-void menu_next(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
+void menu_next(menu_t *menu) {
+	menupage_t *page = menu->current_page;
 
 	if (page->sibilings) {
 		if (menu->current_posn == menu->length - 1)
@@ -264,8 +264,8 @@ void menu_next(type_MENU *menu) {
 	}
 }
 
-void menu_prev(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
+void menu_prev(menu_t *menu) {
+	menupage_t *page = menu->current_page;
 
 	if (page->sibilings) {
 		if (menu->current_posn == 0)
@@ -277,7 +277,7 @@ void menu_prev(type_MENU *menu) {
 	}
 }
 
-void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repeating)){
+void menu_repeat(menu_t *menu, void (*action)(menu_t *menu, const int repeating)){
 	int delay;
 	int button = status.button_down;
 
@@ -296,9 +296,9 @@ void menu_repeat(type_MENU *menu, void (*action)(type_MENU *menu, const int repe
 	} while (status.button_down && status.button_down == button);
 }
 
-void menu_repeat_right(type_MENU *menu, const int repeating) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
+void menu_repeat_right(menu_t *menu, const int repeating) {
+	menupage_t *page = menu->current_page;
+	menuitem_t *item = get_current_item(page);
 
 	if (item && !item->readonly && item->inc) {
 		item->inc(item, repeating);
@@ -311,9 +311,9 @@ void menu_repeat_right(type_MENU *menu, const int repeating) {
 	}
 }
 
-void menu_repeat_left(type_MENU *menu, const int repeating) {
-	type_MENUPAGE *page = menu->current_page;
-	type_MENUITEM *item = get_current_item(page);
+void menu_repeat_left(menu_t *menu, const int repeating) {
+	menupage_t *page = menu->current_page;
+	menuitem_t *item = get_current_item(page);
 
 	if (item && !item->readonly && item->dec) {
 		item->dec(item, repeating);
@@ -326,7 +326,7 @@ void menu_repeat_left(type_MENU *menu, const int repeating) {
 	}
 }
 
-type_MENUPAGE *get_selected_page() {
+menupage_t *get_selected_page() {
 	if (current_menu->ordering)
 		return current_menu->pages[current_menu->ordering[current_menu->current_posn]];
 	else

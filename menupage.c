@@ -20,14 +20,14 @@
 
 int item_grabbed;
 
-void menupage_display_line(type_MENUPAGE *page, const int line);
+void menupage_display_line(menupage_t *page, const int line);
 
-int get_item_id(type_MENUPAGE *page, int item_pos);
-int get_real_id(type_MENUPAGE *page, int item_pos);
+int get_item_id(menupage_t *page, int item_pos);
+int get_real_id(menupage_t *page, int item_pos);
 
-type_MENUITEM *get_item(type_MENUPAGE *page, int item_id);
+menuitem_t *get_item(menupage_t *page, int item_id);
 
-void menupage_initialize(type_MENUPAGE *page) {
+void menupage_initialize(menupage_t *page) {
 	// Correct position if menu has shrunk since last time
 	int offset = page->current_line - (page->length - 1);
 
@@ -40,11 +40,11 @@ void menupage_initialize(type_MENUPAGE *page) {
 	item_grabbed = false;
 }
 
-void menupage_display(type_MENU *menu) {
+void menupage_display(menu_t *menu) {
 	int i;
 	char buffer[LP_MAX_WORD];
 
-	type_MENUPAGE *page = menu->current_page;
+	menupage_t *page = menu->current_page;
 
 	int pad1, pad2, len  = strlen_utf8(page->name);
 
@@ -66,9 +66,9 @@ void menupage_display(type_MENU *menu) {
 	menu_highlight(page->current_line);
 }
 
-void menupage_up(type_MENU *menu) {
+void menupage_up(menu_t *menu) {
 	int display = false;
-	type_MENUPAGE *page = menu->current_page;
+	menupage_t *page = menu->current_page;
 
 	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn > 0) {
 		page->current_posn--;
@@ -90,9 +90,9 @@ void menupage_up(type_MENU *menu) {
 		menu_event_display();
 }
 
-void menupage_down(type_MENU *menu) {
+void menupage_down(menu_t *menu) {
 	int display = false;
-	type_MENUPAGE *page = menu->current_page;
+	menupage_t *page = menu->current_page;
 
 	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn < page->length - 1) {
 		page->current_posn++;
@@ -114,9 +114,9 @@ void menupage_down(type_MENU *menu) {
 		menu_event_display();
 }
 
-void menupage_pgup(type_MENU *menu) {
+void menupage_pgup(menu_t *menu) {
 	int display = false;
-	type_MENUPAGE *page = menu->current_page;
+	menupage_t *page = menu->current_page;
 
 	if (item_grabbed)
 		return;
@@ -137,9 +137,9 @@ void menupage_pgup(type_MENU *menu) {
 		menu_event_display();
 }
 
-void menupage_pgdown(type_MENU *menu) {
+void menupage_pgdown(menu_t *menu) {
 	int display = false;
-	type_MENUPAGE *page = menu->current_page;
+	menupage_t *page = menu->current_page;
 
 	if (item_grabbed)
 		return;
@@ -161,8 +161,8 @@ void menupage_pgdown(type_MENU *menu) {
 		menu_event_display();
 }
 
-void menupage_drag_drop(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
+void menupage_drag_drop(menu_t *menu) {
+	menupage_t *page = menu->current_page;
 
 	if (page->ordering) {
 		item_grabbed  = ! item_grabbed;
@@ -171,20 +171,20 @@ void menupage_drag_drop(type_MENU *menu) {
 	}
 }
 
-void menupage_refresh(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
+void menupage_refresh(menu_t *menu) {
+	menupage_t *page = menu->current_page;
 
 	menupage_display_line(page, page->current_line);
 	menu_redraw();
 }
 
-void menupage_display_line(type_MENUPAGE *page, const int line) {
+void menupage_display_line(menupage_t *page, const int line) {
 	int  i = 0;
 	char message[LP_MAX_WORD] = "";
 
 	int item_id = line + page->current_posn - page->current_line;
 
-	type_MENUITEM *item = get_item(page, item_id);
+	menuitem_t *item = get_item(page, item_id);
 
 	if (item) {
 		if (page->ordering && item_grabbed && get_item_id(page, item_id) == get_item_id(page, page->current_posn))
@@ -209,24 +209,24 @@ void menupage_display_line(type_MENUPAGE *page, const int line) {
 	menu_set_text(line, message);
 }
 
-type_MENUITEM *get_current_item(type_MENUPAGE *page) {
+menuitem_t *get_current_item(menupage_t *page) {
 	return get_item(page, page->current_posn);
 }
 
-type_MENUITEM *get_item(type_MENUPAGE *page, int item_pos) {
+menuitem_t *get_item(menupage_t *page, int item_pos) {
 	const int item_id = get_real_id(page, item_pos);
 
 	return (item_id < page->length) ? &page->items[item_id] : NULL;
 }
 
-int get_real_id(type_MENUPAGE *page, int item_pos) {
+int get_real_id(menupage_t *page, int item_pos) {
 	if (page->ordering)
 		return page->ordering[get_item_id(page, item_pos)];
 	else
 		return get_item_id(page, item_pos);
 }
 
-int get_item_id(type_MENUPAGE *page, int item_pos) {
+int get_item_id(menupage_t *page, int item_pos) {
 	const int max_pos = MAX(page->length, MENU_HEIGHT);
 	const int item_id = item_pos - max_pos * (item_pos / max_pos);
 

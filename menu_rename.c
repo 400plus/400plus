@@ -37,32 +37,32 @@ char *rename_filename;
 int   x, y, z;
 int   caps;
 
-void rename_display_up  (const type_MENUITEM *item, char *buffer, const int length);
-void rename_display_down(const type_MENUITEM *item, char *buffer, const int length);
+void rename_display_up  (const menuitem_t *item, char *buffer, const int length);
+void rename_display_down(const menuitem_t *item, char *buffer, const int length);
 
-void rename_up  (type_MENU *menu);
-void rename_down(type_MENU *menu);
+void rename_up  (menu_t *menu);
+void rename_down(menu_t *menu);
 
-void rename_right  (const type_MENUITEM *item, const int repeating);
-void rename_left   (const type_MENUITEM *item, const int repeating);
+void rename_right  (const menuitem_t *item, const int repeating);
+void rename_left   (const menuitem_t *item, const int repeating);
 
-void rename_prev(type_MENU *menu);
-void rename_next(type_MENU *menu);
+void rename_prev(menu_t *menu);
+void rename_next(menu_t *menu);
 
-void rename_action(const type_MENUITEM *item);
+void rename_action(const menuitem_t *item);
 
-void rename_caps  (type_MENU *menu);
-void rename_toggle(type_MENU *menu);
-void rename_clear (type_MENU *menu);
-void rename_return(type_MENU *menu);
-void rename_close (type_MENU *menu);
-void rename_save  (type_MENU *menu);
+void rename_caps  (menu_t *menu);
+void rename_toggle(menu_t *menu);
+void rename_clear (menu_t *menu);
+void rename_return(menu_t *menu);
+void rename_close (menu_t *menu);
+void rename_save  (menu_t *menu);
 
-void rename_display(type_MENU *menu);
-void rename_refresh(type_MENU *menu);
-void rename_display_line(type_MENUPAGE *page, const int line);
+void rename_display(menu_t *menu);
+void rename_refresh(menu_t *menu);
+void rename_display_line(menupage_t *page, const int line);
 
-type_MENUITEM menupage_rename_items[] = {
+menuitem_t menupage_rename_items[] = {
 	{
 		id      : 0,
 		display : rename_display_up,
@@ -96,7 +96,7 @@ type_MENUITEM menupage_rename_items[] = {
 	}
 };
 
-type_MENUPAGE menupage_rename = {
+menupage_t menupage_rename = {
 	name      : LP_WORD(L_P_RENAME),
 	length    : LENGTH(menupage_rename_items),
 	items     : menupage_rename_items,
@@ -130,7 +130,7 @@ void rename_create(char *filename) {
 	menu_highlight(x);
 }
 
-void rename_display_up(const type_MENUITEM *item, char *buffer, const int length) {
+void rename_display_up(const menuitem_t *item, char *buffer, const int length) {
 	int i, j = 0;
 	int id = item->id;
 
@@ -149,7 +149,7 @@ void rename_display_up(const type_MENUITEM *item, char *buffer, const int length
 	buffer[j] = '\0';
 }
 
-void rename_display_down(const type_MENUITEM *item, char *buffer, const int length) {
+void rename_display_down(const menuitem_t *item, char *buffer, const int length) {
 	int i, j = 0;
 
 	for (i = 0; i < 25; i++) {
@@ -165,7 +165,7 @@ void rename_display_down(const type_MENUITEM *item, char *buffer, const int leng
 	buffer[j] = '\0';
 }
 
-void rename_up(type_MENU *menu) {
+void rename_up(menu_t *menu) {
 	if (x > 0) {
 		x--;
 		menupage_rename.current_line = x;
@@ -176,7 +176,7 @@ void rename_up(type_MENU *menu) {
 	}
 }
 
-void rename_down(type_MENU *menu) {
+void rename_down(menu_t *menu) {
 	if (x < MENU_HEIGHT - 2) {
 		x++;
 		menupage_rename.current_line = x;
@@ -187,7 +187,7 @@ void rename_down(type_MENU *menu) {
 	}
 }
 
-void rename_right(const type_MENUITEM *item, const int repeating) {
+void rename_right(const menuitem_t *item, const int repeating) {
 	if (y == 8) {
 		y = 0;
 	} else {
@@ -197,7 +197,7 @@ void rename_right(const type_MENUITEM *item, const int repeating) {
 	menu_event_refresh();
 }
 
-void rename_left(const type_MENUITEM *item, const int repeating) {
+void rename_left(const menuitem_t *item, const int repeating) {
 	if (y == 0) {
 		y = 8;
 	} else {
@@ -207,7 +207,7 @@ void rename_left(const type_MENUITEM *item, const int repeating) {
 	menu_event_refresh();
 }
 
-void rename_prev(type_MENU *menu) {
+void rename_prev(menu_t *menu) {
 	if (z != 0) {
 		z--;
 		rename_display_line(&menupage_rename, 4);
@@ -215,7 +215,7 @@ void rename_prev(type_MENU *menu) {
 	}
 }
 
-void rename_next(type_MENU *menu) {
+void rename_next(menu_t *menu) {
 	if (z != 24) {
 		z++;
 
@@ -229,18 +229,18 @@ void rename_next(type_MENU *menu) {
 	}
 }
 
-void rename_action(const type_MENUITEM *item) {
+void rename_action(const menuitem_t *item) {
 	rename_filename[z] = letters[caps][x][y];
 	menu_event_in();
 }
 
-void rename_caps(type_MENU *menu) {
+void rename_caps(menu_t *menu) {
 	caps = !caps;
 	rename_display(menu);
 }
 
-void rename_toggle(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
+void rename_toggle(menu_t *menu) {
+	menupage_t *page = menu->current_page;
 
 	if ('a' <= rename_filename[z] && rename_filename[z] <= 'z')
 		rename_filename[z] += 'A' - 'a';
@@ -251,10 +251,10 @@ void rename_toggle(type_MENU *menu) {
 	menu_redraw();
 }
 
-void rename_clear(type_MENU *menu) {
+void rename_clear(menu_t *menu) {
 	int i;
 
-	type_MENUPAGE *page = menu->current_page;
+	menupage_t *page = menu->current_page;
 
 	for (i = z; i < 25; i++)
 		rename_filename[i] = ' ';
@@ -263,17 +263,17 @@ void rename_clear(type_MENU *menu) {
 	menu_redraw();
 }
 
-void rename_return(type_MENU *menu) {
+void rename_return(menu_t *menu) {
 	rename_save(menu);
 	menu_return();
 }
 
-void rename_close(type_MENU *menu) {
+void rename_close(menu_t *menu) {
 	rename_save(menu);
 	menu_main_save(menu);
 }
 
-void rename_save(type_MENU *menu) {
+void rename_save(menu_t *menu) {
 	int i;
 
 	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)
@@ -282,10 +282,10 @@ void rename_save(type_MENU *menu) {
 	menu->changed = true;
 }
 
-void rename_display(type_MENU *menu) {
+void rename_display(menu_t *menu) {
 	int i;
 
-	type_MENUPAGE *page = menu->current_page;
+	menupage_t *page = menu->current_page;
 
 	for(i = 0; i < MENU_HEIGHT; i++)
 		rename_display_line(page, i);
@@ -293,17 +293,17 @@ void rename_display(type_MENU *menu) {
 	menu_redraw();
 }
 
-void rename_refresh(type_MENU *menu) {
-	type_MENUPAGE *page = menu->current_page;
+void rename_refresh(menu_t *menu) {
+	menupage_t *page = menu->current_page;
 
 	rename_display_line(page, x);
 	menu_redraw();
 }
 
-void rename_display_line(type_MENUPAGE *page, const int line) {
+void rename_display_line(menupage_t *page, const int line) {
 	char message[LP_MAX_WORD] = "";
 
-	type_MENUITEM *item = &page->items[line];
+	menuitem_t *item = &page->items[line];
 
 	if (item && item->display)
 		item->display(item, message, 0);
