@@ -9,21 +9,21 @@
 
 #include <stdint.h>
 
-struct font
+typedef struct
 {
 	unsigned        width;
 	unsigned        height;
 	uint16_t        bitmap[];
-};
+} font_t;
 
 #ifdef USE_FONT_SMALL
-extern struct font font_small;
+extern font_t font_small;
 #endif
 #ifdef USE_FONT_MED
-extern struct font font_med;
+extern font_t font_med;
 #endif
 #ifdef USE_FONT_LARGE
-extern struct font font_large;
+extern font_t font_large;
 #endif
 
 #endif

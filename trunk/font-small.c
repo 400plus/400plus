@@ -8,7 +8,7 @@
 
 #include "font.h"
 
-struct font font_small = {
+font_t font_small = {
 	.width		= 8,
 	.height		= 12,
 	.bitmap		= {

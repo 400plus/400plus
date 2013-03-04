@@ -28,7 +28,7 @@
 static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 	//~ if (!bmp_enabled) return;
 	unsigned i,j;
-	const struct font * const font = fontspec_font( fontspec );
+	const font_t * const font = fontspec_font( fontspec );
 
 	uint32_t        fg_color        = fontspec_fg( fontspec ) << 24;
 	uint32_t        bg_color        = fontspec_bg( fontspec ) << 24;
@@ -83,7 +83,7 @@ void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
 
 	char c;
 
-	const struct font * const font = fontspec_font( fontspec );
+	const font_t * const font = fontspec_font( fontspec );
 
 	while( (c = *s++) ) {
 		if( c == '\n' ) {

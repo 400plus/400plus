@@ -6,9 +6,11 @@
 
 #include "firmware.h"
 #include "main.h"
-#include "gui.h"
+
+#include "display.h"
 #include "debug.h"
 
+#include "gui.h"
 
 // GUI_Command(4) for MENU BTN
 
