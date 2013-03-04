@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include <camera.h>
 
@@ -18,6 +19,9 @@
 #include "utils.h"
 
 #include "display.h"
+
+char display_message[LP_MAX_WORD];
+int  message_timeout;
 
 void display_refresh_meteringmode();
 void display_refresh_whitebalance();
@@ -181,6 +185,20 @@ void display_overlay() {
 			if (DPData.wb == WB_MODE_COLORTEMP)
 				bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE),  50, 134, "%d", DPData.color_temp);
 
+			if (*display_message) {
+				if(timestamp() < message_timeout)
+					bmp_printf(FONT(FONT_SMALL, COLOR_WHITE, COLOR_BLACK),  16, 228, display_message);
+				else
+					*display_message = '\0';
+			}
+
 			SleepTask(OVERLAY_DELAY);
 		}
+}
+
+void display_message_set(char *message, int timeout) {
+	strncpy(display_message, message, LP_MAX_WORD);
+	message_timeout = timestamp() + timeout;
+
+	restore_display();
 }

@@ -179,7 +179,12 @@ void toggle_img_format() {
 }
 
 void toggle_CfMLU() {
+	char message[LP_MAX_WORD];
+
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, DPData.cf_mirror_up_lock ^ 0x01);
+
+	sprintf(message, "%s:%s", LP_WORD(L_I_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_V_YES) : LP_WORD(L_V_NO));
+	display_message_set(message, ACTION_MSG_TIMEOUT);
 }
 
 void toggle_CfFlashSyncRear() {
