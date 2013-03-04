@@ -4,7 +4,10 @@
  * $Author$
  */
 
+#ifdef USE_FONT_SMALL
+
 #include "font.h"
+
 struct font font_small = {
 	.width		= 8,
 	.height		= 12,
@@ -1207,3 +1210,5 @@ struct font font_small = {
 
 	},
 };
+
+#endif
