@@ -10,19 +10,19 @@
 typedef struct {
 	int    length;
 	char **data;
-} type_LIST;
+} list_t;
 
-extern type_LIST menuoptions_bool;
-extern type_LIST menuoptions_flash;
-extern type_LIST menuoptions_action;
-extern type_LIST menuoptions_logfile;
-extern type_LIST menuoptions_btnactn;
-extern type_LIST menuoptions_direction;
-extern type_LIST menuoptions_languages;
-extern type_LIST menuoptions_vformat;
-extern type_LIST menuoptions_scrind;
-extern type_LIST menuoptions_scrlcd;
-extern type_LIST menuoptions_qexp_weight;
-extern type_LIST menuoptions_digiso_steps;
+extern list_t menuoptions_bool;
+extern list_t menuoptions_flash;
+extern list_t menuoptions_action;
+extern list_t menuoptions_logfile;
+extern list_t menuoptions_btnactn;
+extern list_t menuoptions_direction;
+extern list_t menuoptions_languages;
+extern list_t menuoptions_vformat;
+extern list_t menuoptions_scrind;
+extern list_t menuoptions_scrlcd;
+extern list_t menuoptions_qexp_weight;
+extern list_t menuoptions_digiso_steps;
 
 #endif

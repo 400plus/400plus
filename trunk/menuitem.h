@@ -42,9 +42,9 @@ typedef struct {
 } type_MENUITEM_INT;
 
 typedef struct {
-	int       *value;
-	int        cycle;
-	type_LIST *list;
+	int     *value;
+	int      cycle;
+	list_t  *list;
 } type_MENUITEM_ENUM;
 
 typedef struct {
