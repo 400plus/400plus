@@ -44,7 +44,7 @@ typedef struct {
 	int         msm_av;            // Multi-spot metering: sum of all Av values registered
 	int         msm_active;        // Multi-spot metering: is active and in M mode
 	ec_t        ev_comp;           // Exposure compensation for AutoISO + M
-	type_SCRIPT last_script;       // Last executed script
+	script_t    last_script;       // Last executed script
 	ic_event_t  ignore_msg;   // Event to be ignored at intercom
 	vf_status_t vf_status;         // Status of viewfinder
 } status_t;

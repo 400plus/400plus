@@ -44,7 +44,7 @@ typedef enum {
 	SCRIPT_COUNT,
 	SCRIPT_FIRST = 0,
 	SCRIPT_LAST  = SCRIPT_COUNT - 1
-} type_SCRIPT;
+} script_t;
 
 extern void script_ext_aeb();
 extern void script_efl_aeb();
