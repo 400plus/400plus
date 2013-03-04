@@ -24,8 +24,6 @@ void display_refresh_whitebalance();
 void display_refresh_flashcomp();
 void display_refresh_iso();
 
-static dialog_t *countdown_dialog = NULL;
-
 void initialize_display() {
 	if (!status.script_running)
 		enqueue_action(restore_display);
@@ -114,6 +112,10 @@ void display_refresh_iso() {
 	dialog_set_property_str(hMainDialog, 0x04, tmp);
 }
 
+#if false
+
+static dialog_t *countdown_dialog = NULL;
+
 void display_countdown_dialog_create() {
 	if (countdown_dialog) // if dialog exists for some reason
 		dialog_redraw(countdown_dialog);
@@ -137,6 +139,8 @@ void display_countdown(int seconds) {
 	dialog_set_property_str(countdown_dialog, 1, buffer);
 	dialog_redraw(countdown_dialog);
 }
+
+#endif
 
 void display_brightness() {
 	if (settings.button_disp)
