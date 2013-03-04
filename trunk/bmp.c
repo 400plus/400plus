@@ -72,11 +72,6 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 	//sei( flags );
 }
 
-
-
-
-
-
 void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
 	const uint32_t pitch = BMPPITCH;
 	int * vram = bmp_vram();
@@ -104,10 +99,6 @@ void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
 	}
 
 }
-
-
-
-
 
 void bmp_printf(unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...) {
 	va_list                 ap;
@@ -151,7 +142,6 @@ void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, in
 	} while(len > 0);
 }
 
-
 /** Draw a picture of the BMP color palette. */
 void bmp_draw_palette( void ) {
 	uint8_t *bitmap = (uint8_t*) ((int)bmp_vram());
@@ -161,4 +151,3 @@ void bmp_draw_palette( void ) {
 		for (y = 0; y < 16 * 8; y++)
 			bitmap[x + y * 360] = (x / 8) | ((y / 8) << 4);
 }
-

@@ -4,7 +4,10 @@
  * $Author$
  */
 
+#ifdef USE_FONT_MED
+
 #include "font.h"
+
 struct font font_med = {
 	.width		= 12,
 	.height		= 20,
@@ -1943,3 +1946,5 @@ struct font font_med = {
 
 	},
 };
+
+#endif

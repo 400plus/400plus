@@ -19,7 +19,11 @@ else
 	W_FLAGS =
 endif
 
+USE_FONTS = -DUSE_FONT_SMALL
+
 COMMON_FLAGS =\
+	$(USE_FONTS)                      \
+	-DVERSION='"$(VERSION)"'          \
 	-Ivxworks                         \
 	-Ifirmware                        \
 	-Wall                             \
@@ -27,7 +31,6 @@ COMMON_FLAGS =\
 	-Wp,-MT,$@                        \
 	-mcpu=arm946e-s                   \
 	-march=armv5te                    \
-	-DVERSION='"$(VERSION)"'          \
 	-fno-builtin                      \
 	-nostdlib                         \
 	-fomit-frame-pointer              \

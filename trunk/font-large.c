@@ -4,7 +4,10 @@
  * $Author$
  */
 
+#ifdef USE_FONT_LARGE
+
 #include "font.h"
+
 struct font font_large = {
 	.width      = 20,
 	.height     = 32,
@@ -3047,3 +3050,5 @@ struct font font_large = {
 
 	},
 };
+
+#endif
