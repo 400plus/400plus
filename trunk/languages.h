@@ -185,6 +185,11 @@
 	LANG_PAIR( V_NAMED_TEMP_D,       "D55"                       ) \
 	LANG_PAIR( V_NAMED_TEMP_E,       "D65"                       ) \
 	LANG_PAIR( V_NAMED_TEMP_F,       "D75"                       ) \
+	LANG_PAIR( A_MIRROR_LOCKUP,      "Mirror Lockup"             ) \
+	LANG_PAIR( A_FLASH,              "Flash"                     ) \
+	LANG_PAIR( A_YES,                "Yes"                       ) \
+	LANG_PAIR( A_NO,                 "No"                        ) \
+
 
 enum LANG_WORDS_ENUM {
 #define LANG_PAIR(key, val) L_##key,
