@@ -39,8 +39,12 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 		bg_color = COLOR_BLACK << 24;
 	}
 
-	const uint32_t  pitch           = BMPPITCH / 4;
-	uint32_t *      front_row       = (uint32_t *) bmp_vram_row;
+	// Protect us from unprintable characters
+	if (c < 32 || c > 126)
+		c = '?';
+
+	const uint32_t  pitch      = BMPPITCH / 4;
+	uint32_t *      front_row  = (uint32_t *) bmp_vram_row;
 
 	//uint32_t flags = cli();
 	for( i=0 ; i<font->height ; i++ ) {
