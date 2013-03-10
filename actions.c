@@ -183,7 +183,7 @@ void toggle_CfMLU() {
 
 	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, !DPData.cf_mirror_up_lock);
 
-	sprintf(message, "%s: %s", LP_WORD(L_I_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_V_YES) : LP_WORD(L_V_NO));
+	sprintf(message, "%s: %s", LP_WORD(L_A_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_A_YES) : LP_WORD(L_A_NO));
 	display_message_set(message, ACTION_MSG_TIMEOUT);
 }
 
@@ -192,7 +192,7 @@ void toggle_CfEmitFlash() {
 
 	send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
 
-	sprintf(message, "%s: %s",LP_WORD(L_S_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_V_NO) : LP_WORD(L_V_YES)));
+	sprintf(message, "%s: %s",LP_WORD(L_A_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_A_NO) : LP_WORD(L_A_YES)));
 	display_message_set(message, ACTION_MSG_TIMEOUT);
 }
 
