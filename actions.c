@@ -19,6 +19,7 @@
 #include "languages.h"
 #include "memspy.h"
 #include "menu_main.h"
+#include "persist.h"
 #include "scripts.h"
 #include "settings.h"
 #include "utils.h"
@@ -44,6 +45,9 @@ void start_up() {
 	if (FIO_CreateDirectory(PathPresets))
 		printf_log(8,8,"Error[%#x]: CreateDir(" PathPresets ")", GetErrorNum());
 #endif
+
+	// Recover persisting information
+	persist_read();
 
 	// Read settings from file
 	settings_read();
@@ -219,7 +223,7 @@ void restore_metering() {
 }
 
 void repeat_last_script() {
-	switch (status.last_script) {
+	switch (persist.last_script) {
 	case SCRIPT_EXT_AEB:
 		script_ext_aeb();
 		break;

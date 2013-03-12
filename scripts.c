@@ -15,6 +15,7 @@
 #include "display.h"
 #include "exposure.h"
 #include "float.h"
+#include "persist.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -52,7 +53,7 @@ void script_ext_aeb() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_EXT_AEB;
+	persist.last_script = SCRIPT_EXT_AEB;
 }
 
 void script_efl_aeb() {
@@ -66,7 +67,7 @@ void script_efl_aeb() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_EFL_AEB;
+	persist.last_script = SCRIPT_EFL_AEB;
 }
 
 void script_apt_aeb() {
@@ -80,7 +81,7 @@ void script_apt_aeb() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_APT_AEB;
+	persist.last_script = SCRIPT_APT_AEB;
 }
 
 void script_iso_aeb() {
@@ -94,7 +95,7 @@ void script_iso_aeb() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_ISO_AEB;
+	persist.last_script = SCRIPT_ISO_AEB;
 }
 
 void script_interval() {
@@ -141,7 +142,7 @@ void script_interval() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_INTERVAL;
+	persist.last_script = SCRIPT_INTERVAL;
 }
 
 void script_bramp() {
@@ -216,7 +217,7 @@ void script_bramp() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_BRAMP;
+	persist.last_script = SCRIPT_BRAMP;
 }
 
 void script_wave() {
@@ -248,7 +249,7 @@ void script_wave() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_WAVE;
+	persist.last_script = SCRIPT_WAVE;
 }
 
 void script_self_timer() {
@@ -266,7 +267,7 @@ void script_self_timer() {
 
 	script_stop();
 
-	status.last_script = SCRIPT_TIMER;
+	persist.last_script = SCRIPT_TIMER;
 }
 
 
@@ -282,7 +283,7 @@ void script_long_exp() {
 	script_restore_parameters();
 	script_stop();
 
-	status.last_script = SCRIPT_LONG_EXP;
+	persist.last_script = SCRIPT_LONG_EXP;
 }
 
 void script_start() {

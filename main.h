@@ -38,14 +38,12 @@ typedef struct {
 	av_t        last_shot_av;      // Aperture of the last shot taken
 	int         last_shot_fl;      // Focal length during last shot
 	int         fexp;              // Fixed exposure is active
-	int       	fexp_ev;           // Combined exposure value for fixed exposure
+	int         fexp_ev;           // Combined exposure value for fixed exposure
 	int         msm_count;         // Multi-spot metering: count of registered points
 	int         msm_tv;            // Multi-spot metering: sum of all Tv values registered
 	int         msm_av;            // Multi-spot metering: sum of all Av values registered
 	int         msm_active;        // Multi-spot metering: is active and in M mode
-	ec_t        ev_comp;           // Exposure compensation for AutoISO + M
-	script_t    last_script;       // Last executed script
-	ic_event_t  ignore_msg;   // Event to be ignored at intercom
+	ic_event_t  ignore_msg;        // Event to be ignored at intercom
 	vf_status_t vf_status;         // Status of viewfinder
 } status_t;
 
