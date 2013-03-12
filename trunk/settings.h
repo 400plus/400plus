@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x47
+#define SETTINGS_VERSION  0x48
 
 #define CCT_COUNT 16
 
@@ -155,7 +155,6 @@ typedef struct {
 	int menu_wrap;
 	int menu_navmain;
 	int menu_entermain;
-	int menu_current_posn;
 	int menu_autosave;
 	int qexp_mintv;
 	int qexp_weight;

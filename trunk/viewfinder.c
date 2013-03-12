@@ -13,6 +13,7 @@
 
 #include "exposure.h"
 #include "fexp.h"
+#include "persist.h"
 #include "qexp.h"
 #include "msm.h"
 #include "settings.h"
@@ -32,7 +33,7 @@ void viewfinder_right() {
 	if (settings.autoiso_enable) {
 		// AutoISO + M => change exposure compensation
 		if (DPData.ae == AE_MODE_M)
-			viewfinder_change_evc(ec_inc(status.ev_comp));
+			viewfinder_change_evc(ec_inc(persist.ev_comp));
 	} else {
 		// Only for creative modes
 		if (AE_IS_CREATIVE(DPData.ae))
@@ -44,7 +45,7 @@ void viewfinder_left() {
 	if (settings.autoiso_enable) {
 		// AutoISO + M => change exposure compensation
 		if (DPData.ae == AE_MODE_M)
-			viewfinder_change_evc(ec_dec(status.ev_comp));
+			viewfinder_change_evc(ec_dec(persist.ev_comp));
 	} else {
 		// Only for creative modes
 		if (AE_IS_CREATIVE(DPData.ae))
@@ -176,5 +177,6 @@ void viewfinder_display_iso(iso_t iso) {
 }
 
 void viewfinder_change_evc(ec_t ev_comp) {
-	status.ev_comp = CLAMP(ev_comp, EV_CODE(-2, 0), EV_CODE(2,0));
+	persist.ev_comp = CLAMP(ev_comp, EV_CODE(-2, 0), EV_CODE(2,0));
+	enqueue_action(persist_write);
 }

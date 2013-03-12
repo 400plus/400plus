@@ -42,7 +42,6 @@ status_t status = {
 	msm_count         : 0,
 	msm_tv            : EV_ZERO,
 	msm_av            : EV_ZERO,
-	ev_comp           : EC_ZERO,
 	ignore_msg        : false,
 	vf_status         : VF_STATUS_NONE,
 };

@@ -4,6 +4,7 @@
  * $Author$
  */
 
+#include "main.h"
 #include "macros.h"
 #include "firmware.h"
 
@@ -18,6 +19,7 @@
 #include "menu_params.h"
 #include "menu_scripts.h"
 #include "menu_settings.h"
+#include "persist.h"
 #include "settings.h"
 #include "snapshots.h"
 #include "utils.h"
@@ -92,7 +94,7 @@ menupage_t main_list = {
 
 void menu_main_start() {
 	if (settings.menu_autosave)
-		menu_main.current_posn = settings.menu_current_posn;
+		menu_main.current_posn = persist.last_page;
 
 	menu_create(&menu_main);
 
@@ -101,10 +103,10 @@ void menu_main_start() {
 }
 
 void menu_main_save(menu_t *menu) {
-	if (settings.menu_autosave)
-		menu->changed = menu->changed || (settings.menu_current_posn != menu_main.current_posn);
-
-	settings.menu_current_posn = menu_main.current_posn;
+	if (persist.last_page != menu_main.current_posn) {
+		persist.last_page = menu_main.current_posn;
+		enqueue_action(persist_write);
+	}
 
 	if (menu->changed) {
 		settings_write();

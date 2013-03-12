@@ -13,6 +13,7 @@
 
 #include "display.h"
 #include "exposure.h"
+#include "persist.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -32,7 +33,7 @@ void autoiso() {
 			enqueue_action(autoiso_disable_restore);
 		} else {
 			// M mode: set ISO to match exposure
-			ec = - (status.measured_ec - status.ev_comp);
+			ec = - (status.measured_ec - persist.ev_comp);
 
 			// Normalize an apply new ISO
 			if (ec != EC_ZERO) {
