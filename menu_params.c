@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 
+#include "main.h"
 #include "macros.h"
 #include "firmware.h"
 
@@ -14,6 +15,7 @@
 #include "menupage.h"
 #include "menuitem.h"
 #include "menu_rename.h"
+#include "persist.h"
 #include "settings.h"
 #include "utils.h"
 
@@ -166,6 +168,9 @@ void menu_params_apply_cf_emit_flash(const menuitem_t *item) {
 
 void menu_params_apply_ae_bkt(const menuitem_t *item) {
 	send_to_intercom(IC_SET_AE_BKT, *item->parm.menuitem_ec.value);
+
+	persist.aeb = *item->parm.menuitem_ec.value;
+	enqueue_action(persist_write);
 }
 
 void menu_params_apply_color_temp(const menuitem_t *item) {

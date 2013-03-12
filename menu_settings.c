@@ -146,6 +146,7 @@ menupage_t restore_page = {
 menuitem_t menu_settings_items[] = {
 	MENUITEM_LANG   (0, LP_WORD(L_I_LANGUAGE),         &settings.language,         reload_language_and_refresh),
 	MENUITEM_DIG_ISO(0, LP_WORD(L_I_DIG_ISO_STEP),     &settings.digital_iso_step, NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_PERSIST_AEB),      &settings.persist_aeb,      NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_SCRIPTS),          &scripts_page,              NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_BUTTONS),          &buttons_page,              NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_CMODES),           &cmodes_page,               NULL),

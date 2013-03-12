@@ -56,13 +56,17 @@ void start_up() {
 	if (settings.debug_on_poweron)
 		start_debug_mode();
 
-	// Enable (hidden) CFn.8 for ISO H
-	// enable IR remote
+	// If configured, restore AEB
+	if (settings.persist_aeb)
+		send_to_intercom(IC_SET_AE_BKT, persist.aeb);
+
+	// Enable IR remote
 	// i'm not sure where to call this? perhaps this isn't the right place.
 	if (settings.remote_enable)
 		remote_on();
 
 	// Enable extended ISOs
+	// Enable (hidden) CFn.8 for ISO H
 	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1);
 
 	// Enable realtime ISO change
@@ -205,7 +209,12 @@ void toggle_CfFlashSyncRear() {
 }
 
 void toggle_AEB() {
-	send_to_intercom(IC_SET_AE_BKT, (EV_TRUNC(DPData.ae_bkt) + 0010) % 0030);
+	int aeb = (EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)) % EV_CODE(3, 0);
+
+	send_to_intercom(IC_SET_AE_BKT, aeb);
+
+	persist.aeb = aeb;
+	enqueue_action(persist_write);
 }
 
 void restore_iso() {
