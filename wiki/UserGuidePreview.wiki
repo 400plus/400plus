@@ -89,6 +89,7 @@ Some advanced settings about your camera and `400plus`; please, see [#Configurat
 ||_*Item*_||_*Description*_||
 ||Language||[#Internationalization Internationalization]||
 ||Digital ISO step||[#Configuring_Extended_ISOs Configuring Extended ISOs]||
+||Persist AEB||[#Persisting_AEB Persisting AEB]||
 ||Restore config.||[#Restore_Configuration Restore Configuration]||
 ||Config. Scripts||[#Configuring_Scripts Configuring Scripts]||
 ||Config. Buttons||[#Configuring_Scripts Configuring Buttons]||
@@ -592,6 +593,10 @@ Currently `400plus` supports several languages:
 You can select an specific language for the menus, using the "Language" item in the [#Settings_Page settings page] at [#The_Menu the menu], or just leave it as "Camera" to use the same language configured at the camera menus.
 
 Our desire is to have `400plus` be supported in as many languages as possible! If you are interested in assisting in the translation of `400plus` to a different language, we would certainly welcome your efforts. Let us know by making a request via the forum!
+
+== Persisting AEB ==
+
+When this option is active (set to "Yes"), the AEB settings will not be lost when the camera is powered off.
 
 == Restore Configuration ==
 
