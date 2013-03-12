@@ -80,6 +80,7 @@ settings_t settings_default = {
 	menu_autosave    : true,
 	qexp_mintv       : EV_CODE(13, 0), // 1/60s
 	qexp_weight      : QEXP_WEIGHT_NONE,
+	persist_aeb      : true,
 };
 
 menu_order_t menu_order_default = {

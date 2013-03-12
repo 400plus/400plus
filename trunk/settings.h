@@ -8,7 +8,7 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x48
+#define SETTINGS_VERSION  0x49
 
 #define CCT_COUNT 16
 
@@ -158,6 +158,7 @@ typedef struct {
 	int menu_autosave;
 	int qexp_mintv;
 	int qexp_weight;
+	int persist_aeb;
 } settings_t;
 
 extern settings_t settings;

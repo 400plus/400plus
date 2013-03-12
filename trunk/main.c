@@ -23,6 +23,7 @@
 #include "menu_main.h"
 #include "menu_rename.h"
 #include "msm.h"
+#include "persist.h"
 #include "utils.h"
 #include "viewfinder.h"
 
@@ -64,6 +65,7 @@ int proxy_wheel          (char *message);
 int proxy_initialize     (char *message);
 int proxy_tv             (char *message);
 int proxy_av             (char *message);
+int proxy_aeb            (char *message);
 
 proxy_t listeners_script[0x100] = {
 	[IC_SHUTDOWN]    = proxy_script_restore,
@@ -85,6 +87,7 @@ proxy_t listeners_menu[0x100] = {
 proxy_t listeners_main[0x100] = {
 	[IC_SET_TV_VAL]    = proxy_tv,
 	[IC_SET_AV_VAL]    = proxy_av,
+	[IC_SET_AE_BKT]    = proxy_aeb,
 	[IC_SET_LANGUAGE]  = proxy_set_language,
 	[IC_DIALOGON]      = proxy_dialog_enter,
 	[IC_MEASURING]     = proxy_measuring,
@@ -304,6 +307,7 @@ int proxy_av(char *message) {
 
 	return false;
 }
+
 int proxy_tv(char *message) {
 	if (message[2] == TV_VAL_BULB) {
 		if (settings.autoiso_enable)
@@ -315,6 +319,13 @@ int proxy_tv(char *message) {
 
 	if (status.fexp)
 		enqueue_action(fexp_update_av);
+
+	return false;
+}
+
+int proxy_aeb(char *message) {
+	persist.aeb = message[2];
+	enqueue_action(persist_write);
 
 	return false;
 }

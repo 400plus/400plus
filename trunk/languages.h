@@ -111,6 +111,7 @@
 	LANG_PAIR( I_DEVELOPERS_MENU,    "Developers' menu"          ) \
 	LANG_PAIR( I_LANGUAGE,           "Language"                  ) \
 	LANG_PAIR( I_DIG_ISO_STEP,       "Digital ISO step"          ) \
+	LANG_PAIR( I_PERSIST_AEB,        "Persist AEB"               ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"              ) \
 	LANG_PAIR( I_TV_VAL,             "Tv"                        ) \
 	LANG_PAIR( I_AV_VAL,             "Av"                        ) \
@@ -189,7 +190,6 @@
 	LANG_PAIR( A_FLASH,              "Flash"                     ) \
 	LANG_PAIR( A_YES,                "Yes"                       ) \
 	LANG_PAIR( A_NO,                 "No"                        ) \
-
 
 enum LANG_WORDS_ENUM {
 #define LANG_PAIR(key, val) L_##key,

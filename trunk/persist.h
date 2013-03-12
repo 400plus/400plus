@@ -17,6 +17,7 @@ typedef struct {
 	ec_t      ev_comp;     // Exposure compensation for AutoISO + M
 	script_t  last_script; // Last executed script
 	int       last_page;   // Last page visited in main menu
+	int       aeb;         // Last AEB used
 } persist_t;
 
 extern persist_t persist;
