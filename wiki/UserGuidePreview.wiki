@@ -52,10 +52,10 @@ This page contains extensions to the camera's shooting parameters, and also prov
 ||ISO||[#Extended_ISOs Extended ISOs]||
 ||Safety Shift||[#Safety_Shift Safety Shift]||
 ||Mirror Lockup||[#Other_Shortcuts Other Shortcuts]||
+||IR remote enable||[#IR_Settings IR Settings]||
 ||Flash > Disable flash||[#Flash_Configuration Flash Configuration]||
 ||Flash > AF Flash||[#Other_Shortcuts Other Shortcuts]||
 ||Flash > Flash 2curt||[#Other_Shortcuts Other Shortcuts]||
-||IR Remote||[#IR_Settings IR Settings]||
 
 === Scripts Page ===
 
@@ -299,11 +299,10 @@ While in one of the scene modes, use the `AV` button to toggle between the follo
 
 == IR Settings ==
 
-There are also some settings related to an infrared remote controller at the "IR Settings" item in the [#Parameters_Page parameters page] at [#The_Menu the menu]:
+There are also some settings related to an infrared remote controller in the [#Parameters_Page parameters page] at [#The_Menu the menu]:
 
 ||_*Item*_||_*Description*_||
 ||IR remote enable||When active (set to "Yes"), will allow the use of an IR remote; when set to "No", camera will ignore an IR remote.||
-||IR remote delay||Select whether the camera should take a shot immediately, or wait 2 seconds when using an IR remote.||
 
 _*Note:*_ Due to a technical limitation, the camera cannot lock the mirror up while using an infrared remote controller; thus `400plus` will disable the MLU custom function when an IR remote is active.
 
