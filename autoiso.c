@@ -89,7 +89,7 @@ void autoiso_enable() {
 
 	if (!settings.autoiso_enable) {
 		settings.autoiso_enable = true;
-		settings_write();
+		enqueue_action(settings_write);
 	}
 
 	print_icu_info();
@@ -99,7 +99,7 @@ void autoiso_enable() {
 void autoiso_disable() {
 	if (settings.autoiso_enable) {
 		settings.autoiso_enable = false;
-		settings_write();
+		enqueue_action(settings_write);
 	}
 }
 

@@ -109,9 +109,9 @@ void menu_main_save(menu_t *menu) {
 	}
 
 	if (menu->changed) {
-		settings_write();
-		cmodes_write();
-		lang_pack_config();
+		enqueue_action(settings_write);
+		enqueue_action(cmodes_write);
+		enqueue_action(lang_pack_config);
 	}
 }
 
