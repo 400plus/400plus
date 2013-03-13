@@ -78,9 +78,11 @@ Scripts are little programs that control your camera, and automate certain tasks
 This page contains some useful information about your camera and `400plus`.
 
 ||_*Item*_||_*Description*_||
+||Version||The version number of the `400plus` software currently installed.||
 ||Release count||The total number of shots (actuations) made by this camera body.||
 ||Body ID||The "BodyID" of the camera body (an internal number, unique to each camera).||
-||Version||The version number of the `400plus` software currently installed.||
+||Firmware||The firmware version (should be 1.1.1 for `400plus` to be working).||
+||Owner||The owner of this camera (use Canon software to change it).||
 
 === Settings Page ===
 
