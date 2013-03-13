@@ -29,9 +29,9 @@ typedef enum {
 	MENU_COLOR_ORANGE           = 0x67,
 } menu_color_t;
 
-typedef struct MENU     menu_t;
-typedef struct MENUITEM menuitem_t;
-typedef struct MENUPAGE menupage_t;
+typedef struct menu_t     menu_t;
+typedef struct menuitem_t menuitem_t;
+typedef struct menupage_t menupage_t;
 
 typedef enum {
 	MENU_EVENT_MENU,
@@ -63,7 +63,7 @@ typedef enum {
 
 typedef void(*menuaction_t)(menu_t *menu);
 
-struct MENU {
+struct menu_t {
 	menu_color_t   color;
 	int            length;
 	menupage_t   **pages;

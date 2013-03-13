@@ -68,7 +68,7 @@ typedef union {
 
 typedef void (*itemaction_t)(const menuitem_t *item);
 
-struct MENUITEM {
+struct menuitem_t {
 	int             id;
 	char           *name;
 	int             readonly;
