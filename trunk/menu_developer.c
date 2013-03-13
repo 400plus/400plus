@@ -60,8 +60,7 @@ menuitem_t menu_developer_items[] = {
 
 menupage_t menupage_developer = {
 	name      : LP_WORD(L_P_DEVELOPERS),
-	length    : LENGTH(menu_developer_items),
-	items     : menu_developer_items,
+	items     : LIST(menu_developer_items),
 	ordering  : menu_order.developer,
 	actions  : {
 		[MENU_EVENT_AV] = menu_return,

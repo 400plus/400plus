@@ -50,8 +50,7 @@ menuitem_t autoiso_items[] = {
 
 menupage_t autoiso_page = {
 	name     : LP_WORD(L_S_AUTOISO),
-	length   : LENGTH(autoiso_items),
-	items    : autoiso_items,
+	items    : LIST(autoiso_items),
 	actions  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -78,8 +77,7 @@ menuitem_t named_temps_items[] = {
 
 menupage_t named_temps_page = {
 	name     : LP_WORD(L_S_NAMED_TEMPS),
-	length   : LENGTH(named_temps_items),
-	items    : named_temps_items,
+	items    : LIST(named_temps_items),
 	ordering : menu_order.named_temps,
 	actions  : {
 		[MENU_EVENT_OPEN] = named_temps_init,
@@ -97,8 +95,7 @@ menuitem_t flash_items[] = {
 
 menupage_t flash_page = {
 	name     : LP_WORD(L_S_FLASH),
-	length   : LENGTH(flash_items),
-	items    : flash_items,
+	items    : LIST(flash_items),
 	actions  : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -135,8 +132,7 @@ menuitem_t menupage_params_items[] = {
 menupage_t menupage_params = {
 	name      : LP_WORD(L_P_PARAMS),
 	sibilings : true,
-	length    : LENGTH(menupage_params_items),
-	items     : menupage_params_items,
+	items     : LIST(menupage_params_items),
 	ordering  : menu_order.params,
 };
 

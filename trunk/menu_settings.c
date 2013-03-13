@@ -81,8 +81,7 @@ menuitem_t restore_items[] = {
 
 menupage_t scripts_page = {
 	name    : LP_WORD(L_S_SCRIPTS),
-	length  : LENGTH(scripts_items),
-	items   : scripts_items,
+	items   : LIST(scripts_items),
 	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -90,8 +89,7 @@ menupage_t scripts_page = {
 
 menupage_t buttons_page = {
 	name    : LP_WORD(L_S_BUTTONS),
-	length  : LENGTH(buttons_items),
-	items   : buttons_items,
+	items   : LIST(buttons_items),
 	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -99,8 +97,7 @@ menupage_t buttons_page = {
 
 menupage_t cmodes_page = {
 	name    : LP_WORD(L_S_CMODES),
-	length  : LENGTH(cmodes_items),
-	items   : cmodes_items,
+	items   : LIST(cmodes_items),
 	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -108,8 +105,7 @@ menupage_t cmodes_page = {
 
 menupage_t menus_page = {
 	name    : LP_WORD(L_S_MENUS),
-	length  : LENGTH(menus_items),
-	items   : menus_items,
+	items   : LIST(menus_items),
 	actions : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -117,8 +113,7 @@ menupage_t menus_page = {
 
 menupage_t qexp_page = {
 	name     : LP_WORD(L_S_QEXP),
-	length   : LENGTH(qexp_items),
-	items    : qexp_items,
+	items    : LIST(qexp_items),
 	actions  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -126,8 +121,7 @@ menupage_t qexp_page = {
 
 menupage_t pages_page = {
 	name     : LP_WORD(L_S_PAGES),
-	length   : LENGTH(pages_items),
-	items    : pages_items,
+	items    : LIST(pages_items),
 	ordering : menu_order.main,
 	actions  : {
 		[MENU_EVENT_AV]   = menu_return,
@@ -136,8 +130,7 @@ menupage_t pages_page = {
 
 menupage_t restore_page = {
 	name     : LP_WORD(L_I_RESTORE),
-	length   : LENGTH(restore_items),
-	items    : restore_items,
+	items    : LIST(restore_items),
 	actions  : {
 		[MENU_EVENT_AV]   = menu_return,
 	}
@@ -160,8 +153,7 @@ menuitem_t menu_settings_items[] = {
 menupage_t menupage_settings = {
 	name      : LP_WORD(L_P_SETTINGS),
 	sibilings : true,
-	length    : LENGTH(menu_settings_items),
-	items     : menu_settings_items,
+	items     : LIST(menu_settings_items),
 	ordering  : menu_order.settings,
 	actions   : {
 		[MENU_EVENT_OPEN] = menu_settings_open,
@@ -177,8 +169,8 @@ void menu_settings_open() {
 	int i;
 
 	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != '\0' && languages_found[i][0] != '\0'; i++) {
-		menupage_settings.items[0].parm.menuitem_enum.list->length  = i + 1;
-		menupage_settings.items[0].parm.menuitem_enum.list->data[i] = languages_found[i];
+		menupage_settings.items.data[0].parm.menuitem_enum.list->size    = i + 1;
+		menupage_settings.items.data[0].parm.menuitem_enum.list->data[i] = languages_found[i];
 	}
 }
 

@@ -7,7 +7,10 @@
 #ifndef MENUOPTIONS_H_
 #define MENUOPTIONS_H_
 
-#include "list.h"
+typedef struct {
+	int    size;
+	char **data;
+} list_t;
 
 extern list_t menuoptions_bool;
 extern list_t menuoptions_flash;

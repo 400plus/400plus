@@ -29,7 +29,6 @@ menuitem_t menupage_info_items[] = {
 menupage_t menupage_info = {
 	name        : LP_WORD(L_P_INFO),
 	sibilings   : true,
-	length      : LENGTH(menupage_info_items),
-	items       : menupage_info_items,
+	items       : LIST(menupage_info_items),
 	ordering    : menu_order.info,
 };

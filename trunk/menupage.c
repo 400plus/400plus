@@ -29,7 +29,7 @@ menuitem_t *get_item(menupage_t *page, int item_id);
 
 void menupage_initialize(menupage_t *page) {
 	// Correct position if menu has shrunk since last time
-	int offset = page->current_line - (page->length - 1);
+	int offset = page->current_line - (page->items.size - 1);
 
 	if (offset > 0) {
 		page->current_posn -= offset;
@@ -70,7 +70,7 @@ void menupage_up(menu_t *menu) {
 	int display = false;
 	menupage_t *page = menu->current_page;
 
-	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn > 0) {
+	if ((page->items.size > MENU_HEIGHT && settings.menu_wrap) || page->current_posn > 0) {
 		page->current_posn--;
 
 		if (item_grabbed) {
@@ -94,7 +94,7 @@ void menupage_down(menu_t *menu) {
 	int display = false;
 	menupage_t *page = menu->current_page;
 
-	if ((page->length > MENU_HEIGHT && settings.menu_wrap) || page->current_posn < page->length - 1) {
+	if ((page->items.size > MENU_HEIGHT && settings.menu_wrap) || page->current_posn < page->items.size - 1) {
 		page->current_posn++;
 
 		if (item_grabbed) {
@@ -103,7 +103,7 @@ void menupage_down(menu_t *menu) {
 		}
 	}
 
-	if (page->current_line < MIN(MENU_HEIGHT, page->length) - 1) {
+	if (page->current_line < MIN(MENU_HEIGHT, page->items.size) - 1) {
 		page->current_line++;
 		menu_highlight(page->current_line);
 	} else {
@@ -123,7 +123,7 @@ void menupage_pgup(menu_t *menu) {
 
 	page->current_posn -= MENU_HEIGHT - 1;
 
-	if (! (page->length > MENU_HEIGHT && settings.menu_wrap))
+	if (! (page->items.size > MENU_HEIGHT && settings.menu_wrap))
 		page->current_posn = MAX(page->current_posn, 0);
 
 	if (page->current_line > 0) {
@@ -146,12 +146,12 @@ void menupage_pgdown(menu_t *menu) {
 
 	page->current_posn += MENU_HEIGHT - 1;
 
-	if (! (page->length > MENU_HEIGHT && settings.menu_wrap)) {
-		page->current_posn = MIN(page->current_posn, page->length - 1);
+	if (! (page->items.size > MENU_HEIGHT && settings.menu_wrap)) {
+		page->current_posn = MIN(page->current_posn, page->items.size - 1);
 	}
 
-	if (page->current_line < MIN(MENU_HEIGHT, page->length) - 1) {
-		page->current_line = MIN(MENU_HEIGHT, page->length) - 1;
+	if (page->current_line < MIN(MENU_HEIGHT, page->items.size) - 1) {
+		page->current_line = MIN(MENU_HEIGHT, page->items.size) - 1;
 		menu_highlight(page->current_line);
 	} else {
 		display = true;
@@ -216,7 +216,7 @@ menuitem_t *get_current_item(menupage_t *page) {
 menuitem_t *get_item(menupage_t *page, int item_pos) {
 	const int item_id = get_real_id(page, item_pos);
 
-	return (item_id < page->length) ? &page->items[item_id] : NULL;
+	return (item_id < page->items.size) ? &page->items.data[item_id] : NULL;
 }
 
 int get_real_id(menupage_t *page, int item_pos) {
@@ -227,7 +227,7 @@ int get_real_id(menupage_t *page, int item_pos) {
 }
 
 int get_item_id(menupage_t *page, int item_pos) {
-	const int max_pos = MAX(page->length, MENU_HEIGHT);
+	const int max_pos = MAX(page->items.size, MENU_HEIGHT);
 	const int item_id = item_pos - max_pos * (item_pos / max_pos);
 
 	return (item_id < 0) ? (item_id + max_pos) : item_id;
