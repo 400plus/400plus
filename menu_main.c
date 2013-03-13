@@ -103,8 +103,10 @@ void menu_main_start() {
 }
 
 void menu_main_save(menu_t *menu) {
-	if (persist.last_page != menu_main.current_posn) {
+	if (persist.last_page != menu_main.current_posn || persist.aeb != DPData.ae_bkt) {
 		persist.last_page = menu_main.current_posn;
+		persist.aeb       = DPData.ae_bkt;
+
 		enqueue_action(persist_write);
 	}
 

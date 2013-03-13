@@ -168,9 +168,6 @@ void menu_params_apply_cf_emit_flash(const menuitem_t *item) {
 
 void menu_params_apply_ae_bkt(const menuitem_t *item) {
 	send_to_intercom(IC_SET_AE_BKT, *item->parm.menuitem_ec.value);
-
-	persist.aeb = *item->parm.menuitem_ec.value;
-	enqueue_action(persist_write);
 }
 
 void menu_params_apply_color_temp(const menuitem_t *item) {
@@ -190,11 +187,10 @@ void menu_params_apply_cf_emit_aux(const menuitem_t *item) {
 }
 
 void menu_params_apply_cf_mirror_up_lock(const menuitem_t *item) {
-	if (!settings.remote_enable) {
+	if (!settings.remote_enable)
 		send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, *item->parm.menuitem_enum.value);
-	} else {
+	else
 		menu_DPData.cf_mirror_up_lock = 0;
-	}
 }
 
 void menu_params_apply_cf_flash_sync_rear(const menuitem_t *item) {
@@ -213,11 +209,10 @@ void menu_params_apply_remote_enable(const menuitem_t *item) {
 }
 
 void menu_params_apply_remote_delay(const menuitem_t *item) {
-	if(*item->parm.menuitem_enum.value){
+	if(*item->parm.menuitem_enum.value)
 		remote_delay(1);
-	} else {
+	else
 		remote_delay(0);
-	}
 }
 
 void menu_params_rename (menu_t *menu) {
