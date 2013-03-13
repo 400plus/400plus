@@ -49,7 +49,6 @@ typedef struct {
 	int next_bottom;
 	int next_left;
 	int next_right;
-	int _eol_;
 } pattern_map_item_t;
 
 typedef enum {

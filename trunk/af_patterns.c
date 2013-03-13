@@ -50,7 +50,7 @@ pattern_map_item_t pattern_map[] = {
 
 		{AF_PATTERN_ALL,            AF_PATTERN_CENTER, AF_PATTERN_TOPHALF,        AF_PATTERN_BOTTOMHALF,     AF_PATTERN_LEFTHALF,      AF_PATTERN_RIGHTHALF},
 
-		END_OF_LIST
+		{AF_PATTERN_NONE}
 };
 
 int afp_transformer (int pattern, direction_t direction);
@@ -83,7 +83,7 @@ int afp_transformer (int pattern, direction_t direction) {
 	pattern_map_item_t *item;
 
 	// Loop over all items in the pattern map
-	for (item = pattern_map; ! IS_EOL(item); item++) {
+	for (item = pattern_map; item->pattern != AF_PATTERN_NONE; item++) {
 
 		// When we find an item matching the current pattern...
 		if (item->pattern == pattern) {
