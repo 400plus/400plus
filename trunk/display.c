@@ -174,6 +174,7 @@ void display_overlay() {
 
 	for (i = 0; i < OVERLAY_RETRY; i++)
 		if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae)) {
+
 			int current_cmode = get_current_cmode();
 
 			if (status.cmode_active && current_cmode != CMODE_NONE)
@@ -191,8 +192,6 @@ void display_overlay() {
 				else
 					*display_message = '\0';
 			}
-
-			SleepTask(OVERLAY_DELAY);
 		}
 }
 

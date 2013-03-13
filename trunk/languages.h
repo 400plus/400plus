@@ -25,8 +25,10 @@
 	LANG_PAIR( P_DEVELOPERS,         "Developers' Menu"          ) \
 	LANG_PAIR( P_CMODES,             "Custom modes"              ) \
 	LANG_PAIR( I_RELEASE_COUNT,      "Release count"             ) \
-	LANG_PAIR( I_BODY_ID,            "Body ID"                   ) \
 	LANG_PAIR( I_VERSION,            "Version"                   ) \
+	LANG_PAIR( I_BODY_ID,            "Body ID"                   ) \
+	LANG_PAIR( I_FIRMWARE,           "Firmware"                  ) \
+	LANG_PAIR( I_OWNER,              "Owner"                     ) \
 	LANG_PAIR( I_DUMP_MEMORY,        "Dump RAM after 5s"         ) \
 	LANG_PAIR( I_MEMSPY_ENABLE,      "MemSpy Enable"             ) \
 	LANG_PAIR( I_MEMSPY_DISABLE,     "MemSpy Disable"            ) \

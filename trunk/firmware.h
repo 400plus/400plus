@@ -364,8 +364,12 @@ struct struct_type_DIALOG {
 	// there are more for sure (perhaps to 0x00B8)
 };
 
-extern /*unsigned*/ int   BodyID;
-extern unsigned short ModelID;
+// Some useful info
+extern int  BodyID;
+#define FLAG_BODY_ID     BodyID
+#define FIRMWARE_VERSION ((char*)0x000053CC)
+#define MODEL_NAME       ((char*)0x000053A8)
+#define OWNER_NAME       ((char*)0x00005410)
 
 extern int BurstCounter;  // remaining shots in burst mode (displayed in VF's bottom right corner)
 extern dialog_t * hInfoCreative; // dialog handle for info screen
