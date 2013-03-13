@@ -9,7 +9,7 @@
 
 #include "menu.h"
 
-struct MENUPAGE {
+struct menupage_t {
 	char        *name;
 	int          length;
 	menuitem_t  *items;
