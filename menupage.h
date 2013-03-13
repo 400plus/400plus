@@ -9,10 +9,14 @@
 
 #include "menu.h"
 
+typedef struct {
+	int         size;
+	menuitem_t *data;
+} list_item_t;
+
 struct menupage_t {
 	char        *name;
-	int          length;
-	menuitem_t  *items;
+	list_item_t  items;
 	menuaction_t actions[MENU_EVENT_COUNT];
 	int          sibilings;
 	int          show_id;

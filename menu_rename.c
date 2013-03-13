@@ -98,8 +98,7 @@ menuitem_t menupage_rename_items[] = {
 
 menupage_t menupage_rename = {
 	name      : LP_WORD(L_P_RENAME),
-	length    : LENGTH(menupage_rename_items),
-	items     : menupage_rename_items,
+	items     : LIST(menupage_rename_items),
 	actions   : {
 		[MENU_EVENT_UP]      = rename_up,
 		[MENU_EVENT_DOWN]    = rename_down,
@@ -303,7 +302,7 @@ void rename_refresh(menu_t *menu) {
 void rename_display_line(menupage_t *page, const int line) {
 	char message[LP_MAX_WORD] = "";
 
-	menuitem_t *item = &page->items[line];
+	menuitem_t *item = &page->items.data[line];
 
 	if (item && item->display)
 		item->display(item, message, 0);

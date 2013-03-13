@@ -145,8 +145,7 @@ menuitem_t dof_calc_items[] = {
 
 menupage_t lexp_calc_page = {
 	name    : LP_WORD(L_S_CALCULATOR),
-	length  : LENGTH(lexp_calc_items),
-	items   : lexp_calc_items,
+	items   : LIST(lexp_calc_items),
 	actions : {
 		[MENU_EVENT_OPEN] = menu_lexp_calc_open,
 		[MENU_EVENT_AV]   = menu_return,
@@ -161,8 +160,7 @@ menuitem_t lexp_items[] = {
 
 menupage_t ext_aeb_page = {
 	name    : LP_WORD(L_S_EXT_AEB),
-	length  : LENGTH(ext_aeb_items),
-	items   : ext_aeb_items,
+	items   : LIST(ext_aeb_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -170,8 +168,7 @@ menupage_t ext_aeb_page = {
 
 menupage_t efl_aeb_page = {
 	name    : LP_WORD(L_S_EFL_AEB),
-	length  : LENGTH(efl_aeb_items),
-	items   : efl_aeb_items,
+	items   : LIST(efl_aeb_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -179,8 +176,7 @@ menupage_t efl_aeb_page = {
 
 menupage_t apt_aeb_page = {
 	name    : LP_WORD(L_S_APT_AEB),
-	length  : LENGTH(apt_aeb_items),
-	items   : apt_aeb_items,
+	items   : LIST(apt_aeb_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -188,8 +184,7 @@ menupage_t apt_aeb_page = {
 
 menupage_t iso_aeb_page = {
 	name    : LP_WORD(L_S_ISO_AEB),
-	length  : LENGTH(iso_aeb_items),
-	items   : iso_aeb_items,
+	items   : LIST(iso_aeb_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -197,8 +192,7 @@ menupage_t iso_aeb_page = {
 
 menupage_t interval_page = {
 	name    : LP_WORD(L_S_INTERVAL),
-	length  : LENGTH(interval_items),
-	items   : interval_items,
+	items   : LIST(interval_items),
 	actions : {
 		[MENU_EVENT_OPEN] = menu_scripts_open_timelapse,
 		[MENU_EVENT_AV]   = menu_return,
@@ -207,8 +201,7 @@ menupage_t interval_page = {
 
 menupage_t bramp_page = {
 	name    : LP_WORD(L_S_BRAMP),
-	length  : LENGTH(bramp_items),
-	items   : bramp_items,
+	items   : LIST(bramp_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -216,8 +209,7 @@ menupage_t bramp_page = {
 
 menupage_t wave_page = {
 	name    : LP_WORD(L_S_HANDWAVE),
-	length  : LENGTH(wave_items),
-	items   : wave_items,
+	items   : LIST(wave_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -225,8 +217,7 @@ menupage_t wave_page = {
 
 menupage_t timer_page = {
 	name    : LP_WORD(L_S_TIMER),
-	length  : LENGTH(timer_items),
-	items   : timer_items,
+	items   : LIST(timer_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -234,8 +225,7 @@ menupage_t timer_page = {
 
 menupage_t lexp_page = {
 	name    : LP_WORD(L_S_LEXP),
-	length  : LENGTH(lexp_items),
-	items   : lexp_items,
+	items   : LIST(lexp_items),
 	actions : {
 		[MENU_EVENT_AV] = menu_return,
 	}
@@ -243,8 +233,7 @@ menupage_t lexp_page = {
 
 menupage_t dof_calc_page = {
 	name    : LP_WORD(L_S_DOF_CALC),
-	length  : LENGTH(dof_calc_items),
-	items   : dof_calc_items,
+	items   : LIST(dof_calc_items),
 	actions : {
 		[MENU_EVENT_OPEN] = menu_dof_calc_open,
 		[MENU_EVENT_AV]   = menu_return,
@@ -267,8 +256,7 @@ menuitem_t menupage_scripts_items[] = {
 menupage_t menupage_scripts = {
 	name      : LP_WORD(L_P_SCRIPTS),
 	sibilings : true,
-	length    : LENGTH(menupage_scripts_items),
-	items     : menupage_scripts_items,
+	items     : LIST(menupage_scripts_items),
 	ordering  : menu_order.scripts,
 };
 

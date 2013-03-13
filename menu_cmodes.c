@@ -39,8 +39,7 @@ menuitem_t menupage_cmodes_items[CMODES_MAX];
 menupage_t menupage_cmodes = {
 	name      : LP_WORD(L_P_CMODES),
 	sibilings : true,
-	length    : LENGTH(menupage_cmodes_items),
-	items     : menupage_cmodes_items,
+	items     : LIST(menupage_cmodes_items),
 	show_id   : true,
 	ordering  : cmodes_config.order,
 	actions   : {
@@ -103,9 +102,9 @@ void menu_cmodes_open() {
 		menupage_cmodes_subitems[i][2].action  = menu_cmodes_delete;
 
 		// Configure sub-menu
-		menupage_cmodes_submenus[i].name    = cmodes_config.names[i];
-		menupage_cmodes_submenus[i].length  = length;
-		menupage_cmodes_submenus[i].items   = menupage_cmodes_subitems[i];
+		menupage_cmodes_submenus[i].name        = cmodes_config.names[i];
+		menupage_cmodes_submenus[i].items.size  = length;
+		menupage_cmodes_submenus[i].items.data  = menupage_cmodes_subitems[i];
 
 		menupage_cmodes_submenus[i].actions[MENU_EVENT_AV] = menu_return;
 
