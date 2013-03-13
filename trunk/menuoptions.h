@@ -7,10 +7,7 @@
 #ifndef MENUOPTIONS_H_
 #define MENUOPTIONS_H_
 
-typedef struct {
-	int    length;
-	char **data;
-} list_t;
+#include "list.h"
 
 extern list_t menuoptions_bool;
 extern list_t menuoptions_flash;
