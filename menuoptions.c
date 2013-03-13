@@ -92,62 +92,15 @@ char *menuoptions_digiso_steps_strings[] = {
 	[2] = "1/2 EV",
 };
 
-list_t menuoptions_bool = {
-	length : LENGTH(menuoptions_bool_strings),
-	data   : menuoptions_bool_strings
-};
-
-list_t menuoptions_flash = {
-	length : LENGTH(menuoptions_flash_strings),
-	data   : menuoptions_flash_strings
-};
-
-list_t menuoptions_action = {
-	length : LENGTH(menuoptions_action_strings),
-	data   : menuoptions_action_strings
-};
-
-list_t menuoptions_logfile = {
-	length : LENGTH(menuoptions_logfile_strings),
-	data   : menuoptions_logfile_strings
-};
-
-list_t menuoptions_btnactn = {
-	length : LENGTH(menuoptions_btnactn_strings),
-	data   : menuoptions_btnactn_strings
-};
-
-list_t menuoptions_direction = {
-	length : LENGTH(menuoptions_direction_strings),
-	data   : menuoptions_direction_strings
-};
-
-list_t menuoptions_languages = {
-	length : LENGTH(menuoptions_languages_strings),
-	data   : menuoptions_languages_strings
-};
-
-list_t menuoptions_vformat = {
-	length : LENGTH(menuoptions_vformat_strings),
-	data   : menuoptions_vformat_strings
-};
-
-list_t menuoptions_scrind = {
-	length : LENGTH(menuoptions_scrind_strings),
-	data   : menuoptions_scrind_strings
-};
-
-list_t menuoptions_scrlcd = {
-	length : LENGTH(menuoptions_scrlcd_strings),
-	data   : menuoptions_scrlcd_strings
-};
-
-list_t menuoptions_qexp_weight = {
-	length : LENGTH(menuoptions_qexp_weight_strings),
-	data   : menuoptions_qexp_weight_strings
-};
-
-list_t menuoptions_digiso_steps = {
-	length : LENGTH(menuoptions_digiso_steps_strings),
-	data   : menuoptions_digiso_steps_strings
-};
+list_t menuoptions_bool         = LIST_T(menuoptions_bool_strings);
+list_t menuoptions_flash        = LIST_T(menuoptions_flash_strings);
+list_t menuoptions_action       = LIST_T(menuoptions_action_strings);
+list_t menuoptions_logfile      = LIST_T(menuoptions_logfile_strings);
+list_t menuoptions_btnactn      = LIST_T(menuoptions_btnactn_strings);
+list_t menuoptions_direction    = LIST_T(menuoptions_direction_strings);
+list_t menuoptions_languages    = LIST_T(menuoptions_languages_strings);
+list_t menuoptions_vformat      = LIST_T(menuoptions_vformat_strings);
+list_t menuoptions_scrind       = LIST_T(menuoptions_scrind_strings);
+list_t menuoptions_scrlcd       = LIST_T(menuoptions_scrlcd_strings);
+list_t menuoptions_qexp_weight  = LIST_T(menuoptions_qexp_weight_strings);
+list_t menuoptions_digiso_steps = LIST_T(menuoptions_digiso_steps_strings);
