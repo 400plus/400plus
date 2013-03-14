@@ -210,8 +210,6 @@ void toggle_CfFlashSyncRear() {
 
 void toggle_AEB() {
 	int aeb;
-	char message[LP_MAX_WORD];
-
 	static int last_toggle = 0;
 
 	if (timestamp() - last_toggle < ACTION_AEB_TIMEOUT)
