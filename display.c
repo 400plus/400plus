@@ -171,6 +171,7 @@ void display_brightness() {
 
 void display_overlay() {
 	int i;
+	char buffer[LP_MAX_WORD];
 
 	for (i = 0; i < OVERLAY_RETRY; i++)
 		if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae)) {
@@ -184,7 +185,13 @@ void display_overlay() {
 				bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 138,  32, "#");
 
 			if (DPData.wb == WB_MODE_COLORTEMP)
-				bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE),  50, 134, "%d", DPData.color_temp);
+				bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE),  50, 138, "%d", DPData.color_temp);
+
+			if (DPData.ae_bkt) {
+				ec_print(buffer, DPData.ae_bkt);
+				bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_WHITE), 224,  96, "%s", buffer);
+			}
+
 
 			if (*display_message) {
 				if(timestamp() < message_timeout)
