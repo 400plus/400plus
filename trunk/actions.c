@@ -214,7 +214,7 @@ void toggle_AEB() {
 
 	static int last_toggle = 0;
 
-	if (timestamp() - last_toggle < 1500)
+	if (timestamp() - last_toggle < ACTION_AEB_TIMEOUT)
 		// Button was pressed recently: roll over all range
 		aeb = (EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)) % EV_CODE(6, 0);
 	else if (DPData.ae_bkt)
