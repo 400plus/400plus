@@ -325,6 +325,10 @@ int proxy_tv(char *message) {
 
 int proxy_aeb(char *message) {
 	persist.aeb = message[2];
+
+	if (persist.aeb)
+		persist.last_aeb = persist.aeb;
+
 	enqueue_action(persist_write);
 
 	return false;

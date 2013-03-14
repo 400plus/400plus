@@ -209,12 +209,30 @@ void toggle_CfFlashSyncRear() {
 }
 
 void toggle_AEB() {
-	int aeb = (EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)) % EV_CODE(3, 0);
+	int aeb;
+	char message[LP_MAX_WORD];
+
+	static int last_toggle = 0;
+
+	if (timestamp() - last_toggle < 1500)
+		// Button was pressed recently: roll over all range
+		aeb = (EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)) % EV_CODE(6, 0);
+	else if (DPData.ae_bkt)
+		// Button was pressed long ago, and AEB is on: switch it off
+		aeb = EC_ZERO;
+	else
+		// Button was pressed long ago, and AEB is off: switch it on
+		aeb = persist.last_aeb;
 
 	send_to_intercom(IC_SET_AE_BKT, aeb);
 
 	persist.aeb = aeb;
+
+	if (persist.aeb)
+		persist.last_aeb = persist.aeb;
+
 	enqueue_action(persist_write);
+	last_toggle = timestamp();
 }
 
 void restore_iso() {
