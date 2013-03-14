@@ -106,6 +106,9 @@ void menu_main_save(menu_t *menu) {
 		persist.last_page = menu_main.current_posn;
 		persist.aeb       = DPData.ae_bkt;
 
+		if (persist.aeb)
+			persist.last_aeb = persist.aeb;
+
 		enqueue_action(persist_write);
 	}
 
