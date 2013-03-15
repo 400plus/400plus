@@ -626,8 +626,8 @@ The following actions can be assigned to the `JUMP` and `TRASH` buttons:
 ||Intermediate ISO||Bump ISO by 1/8 EV (see [#Extended_ISOs Extended ISOs]).||
 ||Repeat last script||Repeat last script executed.||
 ||Mirror lock-up||Toggle the MLU option on / off.||
-||AEB||Roll the AEB separation from 0EV to 1EV, then 2EV, and then back to 0EV (off).||
-||Flash on/off||Toggle the flash on and off, even if it has been raised.||
+||AEB||Press once to toggle AEB on / off; press repeatedly to roll the AEB separation from 0EV to 6EV, and then back to 0EV (off).||
+||Flash on/off||Toggle the flash on and off (even if it has been raised).||
 
 == Configuring Menus ==
 
