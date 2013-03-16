@@ -173,9 +173,9 @@ void menu_set_posn(int posn) {
 	current_menu->current_posn = posn;
 
 	if (current_menu->ordering)
-		menu_set_page(current_menu->pages[current_menu->ordering[posn]]);
+		menu_set_page(current_menu->pages.data[current_menu->ordering[posn]]);
 	else
-		menu_set_page(current_menu->pages[posn]);
+		menu_set_page(current_menu->pages.data[posn]);
 }
 
 void menu_set_page(menupage_t *page) {
@@ -255,7 +255,7 @@ void menu_next(menu_t *menu) {
 	menupage_t *page = menu->current_page;
 
 	if (page->sibilings) {
-		if (menu->current_posn == menu->length - 1)
+		if (menu->current_posn == menu->pages.size - 1)
 			menu->current_posn = 0;
 		else
 			menu->current_posn++;
@@ -269,7 +269,7 @@ void menu_prev(menu_t *menu) {
 
 	if (page->sibilings) {
 		if (menu->current_posn == 0)
-			menu->current_posn = menu->length - 1;
+			menu->current_posn = menu->pages.size - 1;
 		else
 			menu->current_posn--;
 
@@ -328,7 +328,7 @@ void menu_repeat_left(menu_t *menu, const int repeating) {
 
 menupage_t *get_selected_page() {
 	if (current_menu->ordering)
-		return current_menu->pages[current_menu->ordering[current_menu->current_posn]];
+		return current_menu->pages.data[current_menu->ordering[current_menu->current_posn]];
 	else
-		return current_menu->pages[current_menu->current_posn];
+		return current_menu->pages.data[current_menu->current_posn];
 }
