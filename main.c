@@ -250,7 +250,7 @@ int proxy_shoot_start(char *message) {
 }
 
 int proxy_shoot_finish(char *message) {
-	status.last_shot_fl = message[2];
+	status.last_shot_fl = message[2] | (message[3] << 8);
 
 	if (status.msm_active)
 		enqueue_action(msm_stop);
