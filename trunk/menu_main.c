@@ -45,8 +45,7 @@ menupage_t *menu_main_pages[] = {
 };
 
 menu_t menu_main = {
-	length   : LENGTH(menu_main_pages),
-	pages    : menu_main_pages,
+	pages    : LIST(menu_main_pages),
 	ordering : menu_order.main,
 	actions  : {
 		[MENU_EVENT_PLAY]    = menupage_drag_drop,

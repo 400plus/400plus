@@ -63,10 +63,14 @@ typedef enum {
 
 typedef void(*menuaction_t)(menu_t *menu);
 
+typedef struct {
+	int          size;
+	menupage_t **data;
+} list_page_t;
+
 struct menu_t {
 	menu_color_t   color;
-	int            length;
-	menupage_t   **pages;
+	list_page_t    pages;
 	menuaction_t   actions[MENU_EVENT_COUNT];
 	int           *ordering;
 	int            current_posn;
