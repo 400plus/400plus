@@ -116,17 +116,16 @@ menupage_t ir_page = {
 };
 */
 menuitem_t menupage_params_items[] = {
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_AUTOISO),          &autoiso_page,                  NULL),
-	MENUITEM_FULLISO(0, LP_WORD(L_I_ISO),              &menu_DPData.iso,               menu_params_apply_iso),
-	MENUITEM_EVCOMP (0, LP_WORD(L_I_AV_COMP),          &menu_DPData.av_comp,           menu_params_apply_av_comp),
-	MENUITEM_EVSEP  (0, LP_WORD(L_I_AEB),              &menu_DPData.ae_bkt,            menu_params_apply_ae_bkt),
-	MENUITEM_CLRTEMP(0, LP_WORD(L_I_COLOR_TEMP_K),     &menu_DPData.color_temp,        menu_params_apply_color_temp),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_NAMED_TEMPS),      &named_temps_page,              NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_MIRROR_LOCKUP),    &menu_DPData.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_SAFETY_SHIFT),     &menu_DPData.cf_safety_shift,   menu_params_apply_cf_safety_shift),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,        menu_params_apply_remote_enable),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_FLASH),            &flash_page,                    NULL),
-//	MENUITEM_SUBMENU(0, LP_WORD(L_S_IR),               &ir_page,                       NULL),
+	MENUITEM_SUBMENU(MENUPAGE_PARAMS_AUTOISO,       LP_WORD(L_S_AUTOISO),          &autoiso_page,                  NULL),
+	MENUITEM_FULLISO(MENUPAGE_PARAMS_ISO,           LP_WORD(L_I_ISO),              &menu_DPData.iso,               menu_params_apply_iso),
+	MENUITEM_EVCOMP (MENUPAGE_PARAMS_AVCOMP,        LP_WORD(L_I_AV_COMP),          &menu_DPData.av_comp,           menu_params_apply_av_comp),
+	MENUITEM_EVSEP  (MENUPAGE_PARAMS_AEB,           LP_WORD(L_I_AEB),              &menu_DPData.ae_bkt,            menu_params_apply_ae_bkt),
+	MENUITEM_CLRTEMP(MENUPAGE_PARAMS_COLOR_TEMP,    LP_WORD(L_I_COLOR_TEMP_K),     &menu_DPData.color_temp,        menu_params_apply_color_temp),
+	MENUITEM_SUBMENU(MENUPAGE_PARAMS_NAMED_TEMPS,   LP_WORD(L_S_NAMED_TEMPS),      &named_temps_page,              NULL),
+	MENUITEM_BOOLEAN(MENUPAGE_PARAMS_MIRROR_LOCKUP, LP_WORD(L_I_MIRROR_LOCKUP),    &menu_DPData.cf_mirror_up_lock, menu_params_apply_cf_mirror_up_lock),
+	MENUITEM_BOOLEAN(MENUPAGE_PARAMS_SAFETY_SHIFT,  LP_WORD(L_I_SAFETY_SHIFT),     &menu_DPData.cf_safety_shift,   menu_params_apply_cf_safety_shift),
+	MENUITEM_BOOLEAN(MENUPAGE_PARAMS_IR_REMOTE,     LP_WORD(L_I_IR_REMOTE_ENABLE), &settings.remote_enable,        menu_params_apply_remote_enable),
+	MENUITEM_SUBMENU(MENUPAGE_PARAMS_FLASH,         LP_WORD(L_S_FLASH),            &flash_page,                    NULL),
 };
 
 menupage_t menupage_params = {

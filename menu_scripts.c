@@ -241,16 +241,16 @@ menupage_t dof_calc_page = {
 };
 
 menuitem_t menupage_scripts_items[] = {
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_APT_AEB),   &apt_aeb_page,   menu_scripts_apt_aeb),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_ISO_AEB),   &iso_aeb_page,   menu_scripts_iso_aeb),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_BRAMP),     &bramp_page,     menu_scripts_bramp),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_TIMER),     &timer_page,     menu_scripts_self_timer),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_LEXP),      &lexp_page,      menu_scripts_long_exp),
-	MENUITEM_SUBMENU(0, LP_WORD(L_S_DOF_CALC),  &dof_calc_page,  NULL),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_EXTAEB,   LP_WORD(L_S_EXT_AEB),   &ext_aeb_page,   menu_scripts_ext_aeb),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_EFLAEB,   LP_WORD(L_S_EFL_AEB),   &efl_aeb_page,   menu_scripts_efl_aeb),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_APTAEB,   LP_WORD(L_S_APT_AEB),   &apt_aeb_page,   menu_scripts_apt_aeb),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_ISOAEB,   LP_WORD(L_S_ISO_AEB),   &iso_aeb_page,   menu_scripts_iso_aeb),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_INTERVAl, LP_WORD(L_S_INTERVAL),  &interval_page,  menu_scripts_interval),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_BRAMP,    LP_WORD(L_S_BRAMP),     &bramp_page,     menu_scripts_bramp),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_HANDWAVE, LP_WORD(L_S_HANDWAVE),  &wave_page,      menu_scripts_wave),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_TIMER,    LP_WORD(L_S_TIMER),     &timer_page,     menu_scripts_self_timer),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_LEXP,     LP_WORD(L_S_LEXP),      &lexp_page,      menu_scripts_long_exp),
+	MENUITEM_SUBMENU(MENUPAGE_SCRIPTS_DOFC,     LP_WORD(L_S_DOF_CALC),  &dof_calc_page,  NULL),
 };
 
 menupage_t menupage_scripts = {
