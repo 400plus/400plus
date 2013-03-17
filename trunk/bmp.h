@@ -108,37 +108,14 @@ extern void bmp_puts   (unsigned fontspec, unsigned *x, unsigned *y, const char 
 /** Fill the screen with a bitmap palette */
 extern void bmp_draw_palette( void );
 
-
 /** Some selected colors */
-#define COLOR_EMPTY             0x00 // total transparent
-#define COLOR_BG                0x14 // transparent gray
-#define COLOR_BG_DARK           0x03 // transparent black
-#define COLOR_WHITE             0xFF // Normal white
-#define COLOR_BLUE              0x88 // normal blue
-#define COLOR_RED               0x66 // normal red
-#define COLOR_YELLOW            0xDD // normal yellow
-#define COLOR_BLACK 2
-#define COLOR_CYAN 5
-#define COLOR_GREEN1 6
-#define COLOR_GREEN2 7
-#define COLOR_ORANGE 19
-
-
-/*
- 0x11 // lighter gray
- 0x22 // dark gray almost black
- 0x33 // light gray
- 0x44 // light grey background of menu
- 0x55 // light green / lime green
- 0x66 // red
- 0x77 // brown red / maroon
- 0x88 // light blue
- 0x99 // light gray
- 0xAA // darker gray
- 0xBB // brown red / maroon
- 0xCC // light blue
- 0xDD // light orange / pale yellow
- 0xEE // orange
- 0xFF // white
-*/
-
+enum {
+	COLOR_BLACK  = 0x00,
+	COLOR_WHITE  = 0x11,
+	COLOR_GRAY   = 0x33,
+	COLOR_GREEN  = 0x55,
+	COLOR_BLUE   = 0x66,
+	COLOR_RED    = 0x77,
+	COLOR_YELLOW = 0x88,
+	COLOR_ORANGE = 0xCC,
+};

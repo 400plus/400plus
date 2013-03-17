@@ -192,6 +192,7 @@
 	LANG_PAIR( A_FLASH,              "Flash"                     ) \
 	LANG_PAIR( A_YES,                "Yes"                       ) \
 	LANG_PAIR( A_NO,                 "No"                        ) \
+	LANG_PAIR( A_WARNING,            "WARNING: Not intended for general usage!")
 
 enum LANG_WORDS_ENUM {
 #define LANG_PAIR(key, val) L_##key,
