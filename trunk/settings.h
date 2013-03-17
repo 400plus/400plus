@@ -8,11 +8,17 @@
 #define SETTINGS_H_
 
 #define SETTINGS_FILE     "A:/SETTINGS"
-#define SETTINGS_VERSION  0x49
+#define SETTINGS_VERSION  0x4A
 
 #define CCT_COUNT 16
 
 #include "languages.h"
+#include "menu_main.h"
+#include "menu_params.h"
+#include "menu_scripts.h"
+#include "menu_info.h"
+#include "menu_developer.h"
+#include "menu_settings.h"
 
 typedef enum {
 	SHOT_ACTION_SHOT,
@@ -164,12 +170,12 @@ typedef struct {
 extern settings_t settings;
 
 typedef struct {
-	int main       [10];
-	int params     [10];
-	int scripts    [10];
-	int info       [10];
-	int developer  [10];
-	int settings   [10];
+	int main       [MENUPAGE_COUNT];
+	int params     [MENUPAGE_PARAMS_COUNT];
+	int scripts    [MENUPAGE_SCRIPTS_COUNT];
+	int info       [MENUPAGE_INFO_COUNT];
+	int developer  [MENUPAGE_DEVEL_COUNT];
+	int settings   [MENUPAGE_SETTINGS_COUNT];
 	int named_temps[CCT_COUNT];
 } menu_order_t;
 

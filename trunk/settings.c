@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "main.h"
+#include "macros.h"
 #include "firmware.h"
 
 #include "exposure.h"
@@ -83,15 +84,7 @@ settings_t settings_default = {
 	persist_aeb      : true,
 };
 
-menu_order_t menu_order_default = {
-	main        : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	params      : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	scripts     : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	info        : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	developer   : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	settings    : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-	named_temps : {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
-};
+menu_order_t menu_order_default;
 
 named_temps_t named_temps_default = {
 	initd : false,
@@ -120,10 +113,29 @@ menu_order_t  menu_order;
 named_temps_t named_temps;
 
 int settings_read() {
+	int i;
 	int result  = false;
 
 	int file    = -1;
 	int version =  0;
+
+	for (i = 0; i < LENGTH(menu_order_default.main); i++)
+		menu_order_default.main[i] = i;
+
+	for (i = 0; i < LENGTH(menu_order_default.params); i++)
+		menu_order_default.params[i] = i;
+
+	for (i = 0; i < LENGTH(menu_order_default.scripts); i++)
+		menu_order_default.scripts[i] = i;
+
+	for (i = 0; i < LENGTH(menu_order_default.info); i++)
+		menu_order_default.info[i] = i;
+
+	for (i = 0; i < LENGTH(menu_order_default.developer); i++)
+		menu_order_default.developer[i] = i;
+
+	for (i = 0; i < LENGTH(menu_order_default.settings); i++)
+		menu_order_default.settings[i] = i;
 
 	settings_t    settings_buffer;
 	menu_order_t  menu_order_buffer;
