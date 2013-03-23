@@ -22,7 +22,9 @@ struct vram_info_t {
 	int height;
 	int number; // the vram number
 };
+
 SIZE_CHECK_STRUCT(vram_info_t, 0x14);
+
 typedef struct vram_info_t vram_info_t;
 extern vram_info_t VramInfo[2];
 

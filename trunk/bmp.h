@@ -22,6 +22,7 @@
 #include "font.h"
 #include "firmware.h"
 
+#define VramInstance_address *(int*)0x00005190
 
 extern int VramAddr; // MEM:0x00019638 (defined in camera.S)
 // AF: I found 2 more addresses where the VRAM buffer can be found
@@ -30,8 +31,6 @@ extern int VramAddr; // MEM:0x00019638 (defined in camera.S)
 // MEM:0x00019520 with offset 0x08 == MEM:0x00019528
 
 #define vram_start (VramAddr)
-//#define vram_start (0x212D7C) // AF
-//#define vram_start (0x212D08) // Edu
 #define vram_end   (vram_start + (360*240))
 #define vram_size  (vram_end   - vram_start)
 
