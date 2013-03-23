@@ -13,6 +13,9 @@ Installation files made available to the general user
   * *Official Releases:* Ready to use packages with our latest official releases.
     * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable Official releases].
   
+  * *Beta Releases:* Get a taste of the upcoming next release! Remember these are not official releases, and are known to contain bugs; see also the preview for the updated [User_Guide_Preview user guide].
+    * [http://code.google.com/p/400plus/downloads/list?q=label%3ABeta Beta Releases].
+
 = Development Downloads =
 
 The files available below are intended to be used for testing or development purposes only, and are not suited for end-users; please, install one of the files at the [#General_Downloads General Downloads section] if you plan to actually use your camera.
