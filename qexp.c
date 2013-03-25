@@ -90,6 +90,6 @@ void qexp() {
 		send_to_intercom(IC_SET_AV_VAL, ev_normalize(av));
 		send_to_intercom(IC_SET_TV_VAL, ev_normalize(tv));
 
-		beep();
+		enqueue_action(beep);
 	}
 }
