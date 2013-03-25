@@ -85,24 +85,6 @@ void start_up() {
 	// And optionally apply a custom mode
 	enqueue_action(cmode_recall);
 
-#if 0
-	// vram testing
-	SleepTask(1000);
-	beep();
-
-	int i;
-	for (i=0; i<vram_size; i+=4) {
-		MEM(vram_start+i)= 0x88888888;
-	}
-	beep();
-
-	//bmp_draw_palette();
-	bmp_printf(FONT_LARGE, 0, 50, "Hello World!");
-	SleepTask(5000);
-
-	// vram testing - end
-#endif
-
 #ifdef MEMSPY
 	debug_log("starting memspy task");
 	CreateTask("memspy", 0x1e, 0x1000, memspy_task, 0);

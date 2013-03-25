@@ -222,7 +222,6 @@ int proxy_dialog_afoff(char *message) {
 
 int proxy_measuring(char *message) {
 	status.measuring = message[2];
-	enqueue_action(display_overlay);
 
 	return false;
 }
@@ -236,8 +235,6 @@ int proxy_measurement(char *message) {
 		if (settings.autoiso_enable)
 			enqueue_action(autoiso);
 	}
-
-	enqueue_action(display_overlay);
 
 	return false;
 }

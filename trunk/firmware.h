@@ -598,7 +598,7 @@ extern void task_TurnDisplayTask();
 
 // VRAM Semaphore
 
-void TakeVRAMSemaphore(int *address);
+int  TakeVRAMSemaphore(int *address);
 void GiveVRAMSemaphore(int *address);
 
 #endif /* FIRMWARE_H_ */
