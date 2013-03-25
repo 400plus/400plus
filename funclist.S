@@ -17232,6 +17232,7 @@ DEF(hDpRapiPlayMainDialog, 0x00004B74)
 DEF(hDpPaperset1Dialog, 0x00004B78)
 DEF(hDpPrinting2Dialog, 0x00004B88)
 
-// VRAM Semaphore
+// VRAM Semaphore and other display-related functions
 DEF(TakeVramSemaphore, 0xFF92E41C)
 DEF(GiveVramSemaphore, 0xFF92E468)
+DEF(UpdateGUI,         0xFF92D950)
