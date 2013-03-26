@@ -7,6 +7,8 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
+#define AUTOISO_AUTO "AUTO"
+
 extern void initialize_display();
 
 extern void restore_display();
