@@ -83,7 +83,7 @@ void autoiso() {
 }
 
 void autoiso_enable() {
-	if (DPData.tv_val == TV_VAL_BULB)
+	if (DPData.ae == AE_MODE_M && DPData.tv_val == TV_VAL_BULB)
 		return;
 
 	press_button(IC_BUTTON_SET);
