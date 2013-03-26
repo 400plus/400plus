@@ -182,7 +182,7 @@ void display_overlay() {
 		if (status.cmode_active && current_cmode != CMODE_NONE)
 			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  16,  96, "%s", cmodes_config.names[current_cmode]);
 
-		if (status.fexp)
+		if (status.fexp && DPData.tv_val != TV_VAL_BULB)
 			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 138,  32, "#");
 
 		if (DPData.wb == WB_MODE_COLORTEMP)
