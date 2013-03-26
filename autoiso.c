@@ -29,9 +29,7 @@ void autoiso() {
 
 	switch (DPData.ae) {
 	case AE_MODE_M:
-		if (DPData.tv_val == TV_VAL_BULB) {
-			enqueue_action(autoiso_disable_restore);
-		} else {
+		if (DPData.tv_val != TV_VAL_BULB) {
 			// M mode: set ISO to match exposure
 			ec = - (status.measured_ec - persist.ev_comp);
 
