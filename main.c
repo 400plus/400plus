@@ -306,11 +306,6 @@ int proxy_av(char *message) {
 }
 
 int proxy_tv(char *message) {
-	if (message[2] == TV_VAL_BULB) {
-		if (status.fexp)
-			fexp_disable();
-	}
-
 	if (status.fexp)
 		enqueue_action(fexp_update_av);
 
