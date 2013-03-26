@@ -101,19 +101,9 @@ void display_refresh_flashcomp() {
 
 
 void display_refresh_iso() {
-	char tmp[32] = "AUTO";
+	char tmp[32] = "0000";
 
-	switch (DPData.ae) {
-	case AE_MODE_P:
-	case AE_MODE_TV:
-	case AE_MODE_AV:
-	case AE_MODE_M:
-		if (!settings.autoiso_enable || (DPData.ae == AE_MODE_M && DPData.tv_val == TV_VAL_BULB) || status.measuring)
-	default:
-			iso_print(tmp, DPData.iso);
-	break;
-	}
-
+	iso_print(tmp, DPData.iso);
 	dialog_set_property_str(hMainDialog, 0x04, tmp);
 }
 
@@ -184,6 +174,9 @@ void display_overlay() {
 
 		if (status.fexp && DPData.tv_val != TV_VAL_BULB)
 			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 138,  32, "#");
+
+		if (settings.autoiso_enable && (DPData.ae != AE_MODE_M || DPData.tv_val != TV_VAL_BULB))
+			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 237,  14, "%s", AUTOISO_AUTO);
 
 		if (DPData.wb == WB_MODE_COLORTEMP)
 			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  50, 138, "%d", DPData.color_temp);
