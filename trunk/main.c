@@ -287,6 +287,9 @@ int proxy_settings0(char *message) {
 int proxy_settings3(char *message) {
 	enqueue_action(restore_display);
 
+	if (settings.autoiso_enable)
+		enqueue_action(autoiso_restore);
+
 	return false;
 }
 
@@ -306,7 +309,7 @@ int proxy_av(char *message) {
 }
 
 int proxy_tv(char *message) {
-	if (settings.autoiso_enable && message[2] == TV_VAL_BULB)
+	if (settings.autoiso_enable)
 		enqueue_action(autoiso_restore);
 
 	if (status.fexp)

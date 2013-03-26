@@ -105,5 +105,8 @@ void autoiso_disable() {
 }
 
 void autoiso_restore() {
-	send_to_intercom(IC_SET_ISO, ISO_MIN);
+	if (DPData.ae == AE_MODE_M && DPData.tv_val == TV_VAL_BULB) {
+		send_to_intercom(IC_SET_ISO, ISO_MIN);
+		enqueue_action(restore_display);
+	}
 }
