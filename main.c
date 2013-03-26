@@ -306,6 +306,9 @@ int proxy_av(char *message) {
 }
 
 int proxy_tv(char *message) {
+	if (settings.autoiso_enable && message[2] == TV_VAL_BULB)
+		enqueue_action(autoiso_restore);
+
 	if (status.fexp)
 		enqueue_action(fexp_update_av);
 
