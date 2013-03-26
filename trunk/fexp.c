@@ -38,19 +38,23 @@ void fexp_toggle() {
 }
 
 void fexp_update_av() {
-	int av = status.fexp_ev - DPData.tv_val;
+	if (DPData.ae == AE_MODE_M && DPData.tv_val != TV_VAL_BULB) {
+		int av = status.fexp_ev - DPData.tv_val;
 
-	av = CLAMP(av, AV_MIN, AV_MAX);
-	av = ev_normalize(av);
+		av = CLAMP(av, AV_MIN, AV_MAX);
+		av = ev_normalize(av);
 
-	send_to_intercom(IC_SET_AV_VAL, av);
+		send_to_intercom(IC_SET_AV_VAL, av);
+	}
 }
 
 void fexp_update_tv() {
-	int tv = status.fexp_ev - DPData.av_val;
+	if (DPData.ae == AE_MODE_M && DPData.tv_val != TV_VAL_BULB) {
+		int tv = status.fexp_ev - DPData.av_val;
 
-	tv = CLAMP(tv, TV_MIN, TV_MAX);
-	tv = ev_normalize(tv);
+		tv = CLAMP(tv, TV_MIN, TV_MAX);
+		tv = ev_normalize(tv);
 
-	send_to_intercom(IC_SET_TV_VAL, tv);
+		send_to_intercom(IC_SET_TV_VAL, tv);
+	}
 }
