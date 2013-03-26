@@ -108,7 +108,7 @@ void display_refresh_iso() {
 	case AE_MODE_TV:
 	case AE_MODE_AV:
 	case AE_MODE_M:
-		if (!settings.autoiso_enable || DPData.tv_val == TV_VAL_BULB || status.measuring)
+		if (!settings.autoiso_enable || (DPData.ae == AE_MODE_M && DPData.tv_val == TV_VAL_BULB) || status.measuring)
 	default:
 			iso_print(tmp, DPData.iso);
 	break;
