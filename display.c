@@ -169,7 +169,9 @@ void display_overlay() {
 		if (TakeVramSemaphore(VramInstance_address))
 			return;
 
-		if (status.cmode_active && current_cmode != CMODE_NONE)
+		if (status.msm_active)
+			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  35,  96, "[***]");
+		else if (status.cmode_active && current_cmode != CMODE_NONE)
 			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  16,  96, "%s", cmodes_config.names[current_cmode]);
 
 		if (status.fexp && DPData.tv_val != TV_VAL_BULB)
