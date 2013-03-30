@@ -270,7 +270,8 @@ int proxy_initialize(char *message) {
 int proxy_settings0(char *message) {
 	static int first = true;
 
-	status.main_dial_ae = message[2];
+	if (!status.msm_active)
+		status.main_dial_ae = message[2];
 
 	if (first) {
 		first = false;
