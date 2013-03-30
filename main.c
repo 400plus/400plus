@@ -278,7 +278,8 @@ int proxy_settings0(char *message) {
 		if (status.fexp)
 			fexp_disable();
 
-		enqueue_action(cmode_apply);
+		if (!status.msm_active)
+			enqueue_action(cmode_apply);
 	}
 
 	return false;

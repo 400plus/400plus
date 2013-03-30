@@ -23,9 +23,10 @@ tv_t msm_tv_return; // Multi-spot metering: Tv value in M mode to return
 av_t msm_av_return; // Multi-spot metering: Av value in M mode to return
 
 void msm_reset() {
-	status.msm_count = 0;
-	status.msm_tv    = EV_ZERO;
-	status.msm_av    = EV_ZERO;
+	status.msm_count  = 0;
+	status.msm_tv     = EV_ZERO;
+	status.msm_av     = EV_ZERO;
+	status.msm_active = false;
 }
 
 void msm_register() {
@@ -97,8 +98,7 @@ void msm_start() {
 		send_to_intercom(IC_SET_TV_VAL, CLAMP(tv, TV_MIN, TV_MAX));
 		send_to_intercom(IC_SET_AV_VAL, CLAMP(av, av_min, av_max));
 
-		msm_reset();
-		beep();
+		enqueue_action(beep);
 	}
 }
 
@@ -110,5 +110,5 @@ void msm_stop() {
 	send_to_intercom(IC_SET_AV_VAL, msm_av_return);
 	send_to_intercom(IC_SET_AE,     msm_ae_return);
 
-	status.msm_active = false;
+	enqueue_action(msm_reset);
 }
