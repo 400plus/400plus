@@ -172,6 +172,15 @@ int settings_read() {
 
 	result   = true;
 
+#if SETTINGS_VERSION == 0x4A
+	int nt;
+	// Temporal fix for those affected by issue #333
+	// Remove after increasing the version of the settings file
+	if (menu_order.named_temps[0] == 0 && menu_order.named_temps[1] == 0)
+		for (nt = 0; nt < LENGTH(menu_order.named_temps); nt++)
+			menu_order.named_temps[nt] = nt;
+#endif
+
 end:
 	if (file != -1)
 		FIO_CloseFile(file);
