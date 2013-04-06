@@ -137,6 +137,9 @@ int settings_read() {
 	for (i = 0; i < LENGTH(menu_order_default.settings); i++)
 		menu_order_default.settings[i] = i;
 
+	for (i = 0; i < LENGTH(menu_order_default.named_temps); i++)
+		menu_order_default.named_temps[i] = i;
+
 	settings_t    settings_buffer;
 	menu_order_t  menu_order_buffer;
 	named_temps_t named_temps_buffer;
