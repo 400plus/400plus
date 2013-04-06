@@ -147,6 +147,8 @@ To enable the custom white balance, enter the white balance selection dialog (pr
 
 The named color temperatures menu extends the functionality of the custom white balance menu: instead of having to remember several color temperatures for different situations, you can store up to sixteen values here, and assign a name to each one. To set one of the available color temperatures, just press `SET`; use `RIGHT` and `LEFT` to change its value, and `JUMP` to rename it.
 
+_*Note*_: Default names for the named color temperatures are assigned the first time you enter this menu, using the language configured in `400plus` at that moment; you will probably want to set the language before entering this menu for the first time.
+
 == AF-Pattern Selection ==
 
 `400plus` offers a range of additional AF-Pattern selections, instead of just the two (Manual AF point selection, and Automatic AF point selection) which are included standard in the camera. These additional AF-Pattern selections provide a wide range of multi-point selection patterns, using different combinations of the 9 focus points, for some creative AF capabilities.
