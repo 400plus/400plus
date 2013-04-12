@@ -4,6 +4,8 @@
  * $Author$
  */
 
+#include <stdint.h>
+
 #include "firmware.h"
 #include "main.h"
 
@@ -27,7 +29,7 @@ int my_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 }
 
 int my_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int d) {
-    enqueue_action(display_overlay);
+    display_overlay((uint8_t*)(r3 + 0x78));
 
 	return TransferNormalScreen(r0, r1, r2, r3, a, b, c, d);
 }

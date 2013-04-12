@@ -54,8 +54,6 @@ void display_refresh() {
 	display_refresh_iso();
 
 	dialog_redraw(hMainDialog);
-
-	enqueue_action(display_overlay);
 }
 
 void display_refresh_meteringmode() {
@@ -160,14 +158,13 @@ void display_brightness() {
 		press_button(IC_BUTTON_DISP);
 }
 
-void display_overlay() {
+void display_overlay(uint8_t *vram_address) {
 	char buffer[LP_MAX_WORD];
 
 	if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae)) {
 		int current_cmode = get_current_cmode();
 
-		if (TakeVramSemaphore(VramInstance_address))
-			return;
+		VramAddrOverride = vram_address;
 
 		if (status.msm_active)
 			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  35,  96, "[***]");
@@ -201,7 +198,7 @@ void display_overlay() {
 				*display_message = '\0';
 		}
 
-		GiveVramSemaphore(VramInstance_address);
+		VramAddrOverride = NULL;
 	}
 }
 

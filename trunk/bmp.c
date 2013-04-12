@@ -25,7 +25,9 @@
 #include "bmp.h"
 #include "debug.h"
 
-static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
+uint8_t *VramAddrOverride;
+
+static void _draw_char(unsigned fontspec, uint8_t *bmp_vram_row, char c) {
 	//~ if (!bmp_enabled) return;
 	unsigned i,j;
 	const font_t * const font = fontspec_font( fontspec );
@@ -64,7 +66,7 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 				bmp_pixels |= (pixels & 0x8000) ? fg_color : bg_color;
 			}
 
-			if ( (int)row < vram_end && (int)row >= vram_start ) {
+			if ((void *)row >= (void *)vram_start() && (void *)row < (void *)vram_end()) {
 				*(row++) = bmp_pixels;
 			} else {
 				debug_log("VRAM: draw outside vram region (0x%08X)", row);
@@ -78,9 +80,11 @@ static void _draw_char(unsigned fontspec, uint8_t * bmp_vram_row, char c) {
 
 void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
 	const uint32_t pitch = BMPPITCH;
-	int * vram = bmp_vram();
+	uint8_t *vram = vram_start();
+
 	if( !vram || ((int)vram & 1) == 1 )
 		return;
+
 	const unsigned initial_x = *x;
 	uint8_t * first_row = (uint8_t*) ((int)vram + ((*y) * pitch) + (*x));
 	uint8_t * row = first_row;
@@ -148,7 +152,7 @@ void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, in
 
 /** Draw a picture of the BMP color palette. */
 void bmp_draw_palette( void ) {
-	uint8_t *bitmap = (uint8_t*) ((int)bmp_vram());
+	uint8_t *bitmap = vram_start();
 	uint32_t x, y;
 
 	for (x = 0; x < 16 * 8; x++)

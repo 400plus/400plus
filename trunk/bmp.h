@@ -22,21 +22,24 @@
 #include "font.h"
 #include "firmware.h"
 
+#define VramSize (360*240)
+
 #define VramInstance_address *(int*)0x00005190
 
-extern int VramAddr; // MEM:0x00019638 (defined in camera.S)
+extern uint8_t *VramAddr; // MEM:0x00019638 (defined in camera.S)
 // AF: I found 2 more addresses where the VRAM buffer can be found
 // AF: they seems to be structs with the same structure:
 // MEM:0x00019510 with offset 0x08 == MEM:0x00019518
 // MEM:0x00019520 with offset 0x08 == MEM:0x00019528
 
-#define vram_start (VramAddr)
-#define vram_end   (vram_start + (360*240))
-#define vram_size  (vram_end   - vram_start)
+extern uint8_t *VramAddrOverride;
 
-static inline int *bmp_vram(void) {
-	int *x = (int*)vram_start;  //~ location of bmp buffer
-	return x;
+static inline uint8_t *vram_start(void) {
+	return (VramAddrOverride == NULL) ? VramAddr : VramAddrOverride;
+}
+
+static inline uint8_t *vram_end(void) {
+	return vram_start() + VramSize;
 }
 
 #define BMPPITCH 360
