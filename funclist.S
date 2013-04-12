@@ -17233,6 +17233,12 @@ DEF(hDpPaperset1Dialog, 0x00004B78)
 DEF(hDpPrinting2Dialog, 0x00004B88)
 
 // VRAM Semaphore and other display-related functions
-DEF(TakeVramSemaphore, 0xFF92E41C)
-DEF(GiveVramSemaphore, 0xFF92E468)
-DEF(UpdateGUI,         0xFF92D950)
+DEF(TakeVramSemaphore,        0xFF92E41C)
+DEF(GiveVramSemaphore,        0xFF92E468)
+
+DEF(TransferScreen,           0x000051C0)
+DEF(TransferNormalScreen,     0xFF92D950)
+DEF(TransferUpsideDownScreen, 0xFF92E12C)
+DEF(TransferMirrorScreen,     0xFF92E294)
+DEF(TransferRotatedScreen,    0xFF92DCFC)
+

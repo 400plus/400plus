@@ -26,12 +26,10 @@ int my_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
 
-int my_UpdateGUI(int r0, int r1, int r2, int r3, int a, int b, int c, int d) {
-	int result = UpdateGUI(r0, r1, r2, r3, a, b, c, d);  // looks like this function get called everytime GUI updates
-
+int my_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int d) {
     enqueue_action(display_overlay);
 
-    return result;
+	return TransferNormalScreen(r0, r1, r2, r3, a, b, c, d);
 }
 
 #if 0
@@ -225,6 +223,6 @@ void my_GUIInit() {
 	sub_FF82B5AC();
 
 	// Overwrite UpdateGUI
-	(*(int*)0x000051C0) = (int)&my_UpdateGUI;
+	TransferScreen = my_TransferScreen;
 }
 
