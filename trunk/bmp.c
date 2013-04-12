@@ -27,7 +27,7 @@
 
 uint8_t *VramAddrOverride;
 
-static void _draw_char(unsigned fontspec, uint8_t *bmp_vram_row, char c) {
+static void _draw_char(uint8_t *vram_address, unsigned fontspec, uint8_t *bmp_vram_row, char c) {
 	//~ if (!bmp_enabled) return;
 	unsigned i,j;
 	const font_t * const font = fontspec_font( fontspec );
@@ -66,7 +66,7 @@ static void _draw_char(unsigned fontspec, uint8_t *bmp_vram_row, char c) {
 				bmp_pixels |= (pixels & 0x8000) ? fg_color : bg_color;
 			}
 
-			if ((void *)row >= (void *)vram_start() && (void *)row < (void *)vram_end()) {
+			if ((void *)row >= (void *)vram_address && (void *)row < (void *)(vram_address + VramSize)) {
 				*(row++) = bmp_pixels;
 			} else {
 				debug_log("VRAM: draw outside vram region (0x%08X)", row);
@@ -78,15 +78,14 @@ static void _draw_char(unsigned fontspec, uint8_t *bmp_vram_row, char c) {
 	//sei( flags );
 }
 
-void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
+void bmp_puts(uint8_t *vram_address, unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
 	const uint32_t pitch = BMPPITCH;
-	uint8_t *vram = vram_start();
 
-	if( !vram || ((int)vram & 1) == 1 )
+	if( !vram_address || ((int)vram_address & 1) == 1 )
 		return;
 
 	const unsigned initial_x = *x;
-	uint8_t * first_row = (uint8_t*) ((int)vram + ((*y) * pitch) + (*x));
+	uint8_t * first_row = (uint8_t*) ((int)vram_address + ((*y) * pitch) + (*x));
 	uint8_t * row = first_row;
 
 	char c;
@@ -101,14 +100,14 @@ void bmp_puts(unsigned fontspec, unsigned * x, unsigned * y, const char * s) {
 			continue;
 		}
 
-		_draw_char( fontspec, row, c );
+		_draw_char(vram_address, fontspec, row, c );
 		row += font->width;
 		(*x) += font->width;
 	}
 
 }
 
-void bmp_printf(unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...) {
+void bmp_printf(uint8_t *vram_address, unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...) {
 	va_list                 ap;
 	char                    buf[ 256 ];
 
@@ -116,7 +115,7 @@ void bmp_printf(unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...
 	vsnprintf( buf, sizeof(buf), fmt, ap );
 	va_end( ap );
 
-	bmp_puts( fontspec, &x, &y, buf );
+	bmp_puts(vram_address, fontspec, &x, &y, buf);
 }
 
 // Andrew:
@@ -125,7 +124,7 @@ void bmp_printf(unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...
 //
 //~ Scaled in half from ML version. always have len as a multiple of 16. General
 //~ use is 16 * num of lines desired printed.
-void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, int len) {
+void bmp_hexdump(uint8_t *vram_address, unsigned fontspec, unsigned x, unsigned y, const void * buf, int len) {
 	if( len == 0 )
 		return;
 
@@ -135,7 +134,7 @@ void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, in
 	const uint32_t *    d = (uint32_t*) buf;
 
 	do {
-		bmp_printf(fontspec, x, y,
+		bmp_printf(vram_address,fontspec, x, y,
 				"%08x: %08x %08x %08x %08x",
 				(unsigned) d,
 				len >  0 ? MEM(d+0) : 0,
@@ -151,11 +150,10 @@ void bmp_hexdump(unsigned fontspec, unsigned x, unsigned y, const void * buf, in
 }
 
 /** Draw a picture of the BMP color palette. */
-void bmp_draw_palette( void ) {
-	uint8_t *bitmap = vram_start();
+void bmp_draw_palette(uint8_t *vram_address) {
 	uint32_t x, y;
 
 	for (x = 0; x < 16 * 8; x++)
 		for (y = 0; y < 16 * 8; y++)
-			bitmap[x + y * 360] = (x / 8) | ((y / 8) << 4);
+			vram_address[x + y * 360] = (x / 8) | ((y / 8) << 4);
 }

@@ -135,29 +135,29 @@ void my_task_MainCtrl_hijack() {
 
 	int z;
 	for (z=0; z< 100; z++) {
-		bmp_hexdump(FONT_SMALL, 0, 10, (void*)OrgQ, 16);
-		bmp_printf(FONT_SMALL, 0, 30, "%d: OrgQ->name: %s [%X]", timestamp(), OrgQ->name, (unsigned int) OrgQ);
-		bmp_printf(FONT_SMALL, 0, 40, "%d: hMQ->name: %s [%X]", timestamp(), ((struct mq *)hMainMessQueue)->name, (unsigned int)hMainMessQueue );
-		bmp_printf(FONT_SMALL, 0, 120, "%d: MCQ RX @ 0x%08X/0x%08X", timestamp(), (unsigned int)orgptr, (unsigned int)hMainMessQueue);
+		bmp_hexdump(VramAddress, FONT_SMALL, 0, 10, (void*)OrgQ, 16);
+		bmp_printf(VramAddress, FONT_SMALL, 0, 30, "%d: OrgQ->name: %s [%X]", timestamp(), OrgQ->name, (unsigned int) OrgQ);
+		bmp_printf(VramAddress, FONT_SMALL, 0, 40, "%d: hMQ->name: %s [%X]", timestamp(), ((struct mq *)hMainMessQueue)->name, (unsigned int)hMainMessQueue );
+		bmp_printf(VramAddress, FONT_SMALL, 0, 120, "%d: MCQ RX @ 0x%08X/0x%08X", timestamp(), (unsigned int)orgptr, (unsigned int)hMainMessQueue);
 		SleepTask(10);
 	}
 
 	while (1) {
-		bmp_printf(FONT_SMALL, 0, 60, "%d: Gonna RX from OrgQ.", timestamp());
+		bmp_printf(VramAddress, FONT_SMALL, 0, 60, "%d: Gonna RX from OrgQ.", timestamp());
 		SleepTask(2500);
 
 		int msg;
 		ReceiveMessageQueue(OrgQ, &msg, 0);
 
-		bmp_printf(FONT_SMALL, 0, 70, "%d: OrgQ RX", timestamp());
+		bmp_printf(VramAddress, FONT_SMALL, 0, 70, "%d: OrgQ RX", timestamp());
 
 		LEDBLUE ^= 2;
 
-		bmp_printf(FONT_SMALL, 0, 80, "%d: gonna TX to HJQ", timestamp());
+		bmp_printf(VramAddress, FONT_SMALL, 0, 80, "%d: gonna TX to HJQ", timestamp());
 
 		TryPostMessageQueue(hMainMessQueue, &msg, 0);
 
-		bmp_printf(FONT_SMALL, 0, 90, "%d: HJQ TX", timestamp());
+		bmp_printf(VramAddress, FONT_SMALL, 0, 90, "%d: HJQ TX", timestamp());
 	}
 
 }

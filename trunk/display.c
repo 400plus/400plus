@@ -164,41 +164,37 @@ void display_overlay(uint8_t *vram_address) {
 	if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae)) {
 		int current_cmode = get_current_cmode();
 
-		VramAddrOverride = vram_address;
-
 		if (status.msm_active)
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  35,  96, "[***]");
+			bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  35,  96, "[***]");
 		else if (status.cmode_active && current_cmode != CMODE_NONE)
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  16,  96, "%s", cmodes_config.names[current_cmode]);
+			bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  16,  96, "%s", cmodes_config.names[current_cmode]);
 
 		if (status.fexp && DPData.tv_val != TV_VAL_BULB)
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 138,  32, "#");
+			bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 138,  32, "#");
 
 		if (settings.autoiso_enable && (DPData.ae != AE_MODE_M || DPData.tv_val != TV_VAL_BULB))
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 237,  14, "%s", AUTOISO_AUTO);
+			bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 237,  14, "%s", AUTOISO_AUTO);
 
 		if (DPData.wb == WB_MODE_COLORTEMP)
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  50, 138, "%d", DPData.color_temp);
+			bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY),  50, 138, "%d", DPData.color_temp);
 
 		if (DPData.ae_bkt) {
 			ec_print(buffer, DPData.ae_bkt);
-			bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 224,  96, "%s", buffer);
+			bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), 224,  96, "%s", buffer);
 		}
 
 #ifdef RELEASE
-		bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_BLUE), 148, 0, LP_WORD(L_P_400PLUS));
+		bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_BLUE), 148, 0, LP_WORD(L_P_400PLUS));
 #else
-		bmp_printf(FONT(FONT_SMALL, COLOR_BLACK, COLOR_RED ),  20, 0, LP_WORD(L_A_WARNING));
+		bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_BLACK, COLOR_RED ),  20, 0, LP_WORD(L_A_WARNING));
 #endif
 
 		if (*display_message) {
 			if(timestamp() < message_timeout)
-				bmp_printf(FONT(FONT_SMALL, COLOR_WHITE, COLOR_BLACK),  16, 228, display_message);
+				bmp_printf(vram_address, FONT(FONT_SMALL, COLOR_WHITE, COLOR_BLACK),  16, 228, display_message);
 			else
 				*display_message = '\0';
 		}
-
-		VramAddrOverride = NULL;
 	}
 }
 
