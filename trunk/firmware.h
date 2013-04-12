@@ -601,4 +601,13 @@ extern void task_TurnDisplayTask();
 int  TakeVRAMSemaphore(int *address);
 void GiveVRAMSemaphore(int *address);
 
+// VRAM Transfer Screen
+
+extern int(*TransferScreen)         (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
+
+extern int TransferNormalScreen     (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
+extern int TransferUpsideDownScreen (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
+extern int TransferMirrorScreen     (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
+extern int TransferRotatedScreen    (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
+
 #endif /* FIRMWARE_H_ */
