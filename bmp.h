@@ -26,21 +26,11 @@
 
 #define VramInstance_address *(int*)0x00005190
 
-extern uint8_t *VramAddr; // MEM:0x00019638 (defined in camera.S)
+extern uint8_t *VramAddress; // MEM:0x00019638 (defined in camera.S)
 // AF: I found 2 more addresses where the VRAM buffer can be found
 // AF: they seems to be structs with the same structure:
 // MEM:0x00019510 with offset 0x08 == MEM:0x00019518
 // MEM:0x00019520 with offset 0x08 == MEM:0x00019528
-
-extern uint8_t *VramAddrOverride;
-
-static inline uint8_t *vram_start(void) {
-	return (VramAddrOverride == NULL) ? VramAddr : VramAddrOverride;
-}
-
-static inline uint8_t *vram_end(void) {
-	return vram_start() + VramSize;
-}
 
 #define BMPPITCH 360
 
@@ -92,9 +82,9 @@ static inline unsigned fontspec_height(unsigned fontspec) {
 	return fontspec_font(fontspec)->height;
 }
 
-extern void bmp_printf (unsigned fontspec, unsigned  x, unsigned  y, const char *fmt, ...) __attribute__((format(printf,4,5)));
-extern void bmp_hexdump(unsigned fontspec, unsigned  x, unsigned  y, const void *buf, int len);
-extern void bmp_puts   (unsigned fontspec, unsigned *x, unsigned *y, const char *s);
+extern void bmp_printf (uint8_t *vram_address, unsigned fontspec, unsigned  x, unsigned  y, const char *fmt, ...) __attribute__((format(printf, 5, 6)));
+extern void bmp_hexdump(uint8_t *vram_address, unsigned fontspec, unsigned  x, unsigned  y, const void *buf, int len);
+extern void bmp_puts   (uint8_t *vram_address, unsigned fontspec, unsigned *x, unsigned *y, const char *s);
 
 #define bmp_printf_timed(time, font, x, y, f...) do { \
 	bmp_printf(font, x, y, ##f);                  \
@@ -108,7 +98,7 @@ extern void bmp_puts   (unsigned fontspec, unsigned *x, unsigned *y, const char 
 } while (0)
 
 /** Fill the screen with a bitmap palette */
-extern void bmp_draw_palette( void );
+extern void bmp_draw_palette(uint8_t *vram_address);
 
 /** Some selected colors */
 enum {
