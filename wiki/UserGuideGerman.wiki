@@ -1,5 +1,7 @@
 #summary [Guide][German] Deutsches Handbuch für 400plus
 
+||<font color="red">*WARNING*: This guide is at least one major version behind the latest official release, and thus may contain inaccuracies or outdated information.</font>||
+
 = Übersetzung =
 German translation provided by [http://chdk.setepontos.com/index.php?topic=3290.msg63164#msg63164 Speedy]
 Based on english Wiki r1415
