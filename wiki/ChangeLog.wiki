@@ -1,5 +1,46 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20130414-00*_
+ * General enhancements:
+  * Faster initialization.
+  * Added a method to disable 400plus during boot-up.
+  * Added some info to the main display.
+  * Relax Av limits when a manual lens is attached to the camera.
+  * New menu entry to restore settings to its default values.
+ * "Presets" have been renamed to "custom modes":
+  * All "scene modes" can now be configured into a "custom mode".
+  * Up to sixteen "custom modes" can be saved.
+  * The A-DEP mode is no longer special.
+ * Scripts:
+  * New "bulb ramping" script.
+  * New "exposure bracketing" script.
+  * Improved the long-exposure script and calculator.
+  * When available, use lens' focal length for the DOF calculator.
+  * Scripts now honor camera's MLU and self-timer options honored.
+  * Added an option to switch the review off during a script.
+ * Misc functions:
+  * Multi-spot metering.
+  * Fixed exposure for M mode.
+  * Quick auto-exposure for M mode.
+  * Named custom temperatures.
+  * Use the burst count to display ISO in the viewfinder while in P and Av modes.
+ * AutoISO:
+  * New AutoISO algorithm for Tv mode: "Av max" is now relative to max aperture supported by the lens.
+  * New AutoISO algorithm for M mode: use only real ISOs, and respect min / max limits.
+  * Configurable sensitivity for AutoISO in M mode.
+  * Added an option to make AEB persistent.
+  * Added an option to revert D-Pad to its original function.
+  * Configurable intermediate ISO step.
+ * Usability enhancements to menus:
+  * Added an option to disable warp menus.
+  * Added an option to make main menu navigable.
+  * Added an option to enter directly to the main menu.
+  * Enter menu to last active page after a powercycle
+  * Use ZOOM IN / OUT as PAGE UP / DOWN buttons.
+ * Shortcut buttons:
+  * Enhanced quick-AEB action.
+  * New action: toggle flash.
+
 _*20120415-17*_
  * Fixed Polish translation.
 
