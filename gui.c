@@ -16,7 +16,7 @@
 
 // GUI_Command(4) for MENU BTN
 
-int my_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
+int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 
 #ifdef ENABLE_DEBUG
 	printf_log(8, 8, "[400Plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
@@ -28,7 +28,7 @@ int my_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
 
-int my_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int d) {
+int hack_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int d) {
     display_overlay((uint8_t*)(r3 + 0x78));
 
 	return TransferNormalScreen(r0, r1, r2, r3, a, b, c, d);
@@ -41,7 +41,7 @@ int my_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int d
 // this code is broken and will not work, it wont compile either.
 // it's for reference only ... until i translate it as it should be...
 
-void my_task_GuiMainTask() {
+void hack_task_GuiMainTask() {
 
 	int * pMessage;
 	int * hGuiLocalQueue = CreateMessageQueue(aGuiLocalQueue, 0x100);
@@ -152,7 +152,7 @@ loc_FF8283E0:
 }
 #endif
 
-void my_taskcreate_GuiMainTask() {
+void hack_taskcreate_GuiMainTask() {
 	hGuiMainQueue = CreateMessageQueue(aGuiMainQueue, 0x100);
 	CreateTask(aGuiMainTask, 0x18, 0x2000, task_GuiMainTask, 0);
 	//taskcreate_TurnDisplayTask(); // start
@@ -162,7 +162,7 @@ void my_taskcreate_GuiMainTask() {
 	SendOlcSetProcTftNotifyChange(OlcTftNotifyChange); // registers OlcTftNotifyChange() routine to receive notify changes events, it actually posts messages to hGuiMainQueue (takes no parameters)
 }
 
-void my_GUIInit() {
+void hack_GUIInit() {
 
 	m_pSendDisplayModeToMC=0;
 	GUIIdleFlag=0;
@@ -212,19 +212,19 @@ void my_GUIInit() {
 
 	window_instance_redraw(hGUIWindowInstance);
 	//taskcreate_GuiMainTask();
-	my_taskcreate_GuiMainTask();
+	hack_taskcreate_GuiMainTask();
 	CreateGUIPubInstance();
 	taskcreate_tGraphics();
 	CreateQRevImgQueue();
 	Some_DP_GUI();
 	SetGUIFactoryMenuProcInit();
 	GUIuramodeInit();
-	CreateCtrlMain(&my_GUI_IDLEHandler, 0);
+	CreateCtrlMain(&hack_GUI_IDLEHandler, 0);
 	//CreateCtrlMain(&GUI_IDLEHandler, 0);
 	sub_FF833D50();
 	sub_FF82B5AC();
 
 	// Overwrite UpdateGUI
-	TransferScreen = my_TransferScreen;
+	TransferScreen = hack_TransferScreen;
 }
 

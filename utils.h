@@ -89,15 +89,15 @@ char* strncpy0(char* dest, const char* src, size_t size);
 
 #ifdef FGETS_USE_SLOW
 // this version will read byte-by-byte ... it is slow
-char * my_fgets_simple_but_slow(char *s, int n, int fd);
-#define my_fgets_init() do { } while (0)
-#define my_fgets my_fgets_simple_but_slow
+char * hack_fgets_simple_but_slow(char *s, int n, int fd);
+#define hack_fgets_init() do { } while (0)
+#define hack_fgets hack_fgets_simple_but_slow
 #else
 // WARNING: please read the comments in utils.c about this routine.
 // though it is faster than reading byte-by-byte, it has a special init too.
-char * my_fgets_faster(char *s, int n, int fd);
-#define my_fgets_init() my_fgets_faster(NULL, 0, -1)
-#define my_fgets my_fgets_faster
+char * hack_fgets_faster(char *s, int n, int fd);
+#define hack_fgets_init() hack_fgets_faster(NULL, 0, -1)
+#define hack_fgets hack_fgets_faster
 #endif
 
 #endif /* UTILS_H_ */
