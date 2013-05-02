@@ -1,6 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
 _*20130414-00*_
+ * Fixed a bug in the AEB scripts, where an even number of shots was set, and scripts would run endlessly.
+
+_*20130414-00*_
  * General enhancements:
   * Faster initialization.
   * Added a method to disable 400plus during boot-up.
