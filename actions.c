@@ -73,7 +73,7 @@ void start_up() {
 	send_to_intercom(IC_SET_REALTIME_ISO_0, 0);
 	send_to_intercom(IC_SET_REALTIME_ISO_1, 0);
 
-	// turn off the blue led after it was lighten by our hack_task_MainCtrl()
+	// turn off the blue led after it was lighten by our my_task_MainCtrl()
 	eventproc_EdLedOff();
 
 	// Set current language

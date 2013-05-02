@@ -476,8 +476,8 @@ void action_ext_aeb() {
 		}
 
 		// ...and do the rest ourselves
-		while (frames) {
-			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN) {
+		while (frames > 0) {
+			if (frames > 0 && (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_DOWN)) {
 				wait_for_camera();
 
 				tv_inc = tv_add(tv_inc, tv_sep);
@@ -493,7 +493,7 @@ void action_ext_aeb() {
 					break;
 			}
 
-			if (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP) {
+			if (frames > 0 && (settings.eaeb_direction == EAEB_DIRECTION_BOTH || settings.eaeb_direction == EAEB_DIRECTION_UP)) {
 				wait_for_camera();
 
 				tv_dec = tv_sub(tv_dec, tv_sep);
@@ -542,8 +542,8 @@ void action_efl_aeb() {
 	shutter_release();
 	frames--;
 
-	while (frames) {
-		if (settings.efl_aeb_direction == EAEB_DIRECTION_BOTH || settings.efl_aeb_direction == EAEB_DIRECTION_DOWN) {
+	while (frames > 0) {
+		if (frames > 0 && (settings.efl_aeb_direction == EAEB_DIRECTION_BOTH || settings.efl_aeb_direction == EAEB_DIRECTION_DOWN)) {
 			wait_for_camera();
 
 			ef_inc = ec_add(ef_inc, settings.efl_aeb_ev);
@@ -556,7 +556,7 @@ void action_efl_aeb() {
 				break;
 		}
 
-		if (settings.efl_aeb_direction == EAEB_DIRECTION_BOTH || settings.efl_aeb_direction == EAEB_DIRECTION_UP) {
+		if (frames > 0 && (settings.efl_aeb_direction == EAEB_DIRECTION_BOTH || settings.efl_aeb_direction == EAEB_DIRECTION_UP)) {
 			wait_for_camera();
 
 			ef_dec = ec_sub(ef_dec, settings.efl_aeb_ev);
@@ -594,8 +594,8 @@ void action_apt_aeb() {
 	}
 
 	// ...and do the rest ourselves
-	while (frames) {
-		if (settings.apt_aeb_direction == EAEB_DIRECTION_BOTH || settings.apt_aeb_direction == EAEB_DIRECTION_DOWN) {
+	while (frames > 0) {
+		if (frames > 0 && (settings.apt_aeb_direction == EAEB_DIRECTION_BOTH || settings.apt_aeb_direction == EAEB_DIRECTION_DOWN)) {
 			wait_for_camera();
 
 			tv_inc = tv_add(tv_inc, settings.apt_aeb_ev);
@@ -611,7 +611,7 @@ void action_apt_aeb() {
 				break;
 		}
 
-		if (settings.apt_aeb_direction == EAEB_DIRECTION_BOTH || settings.apt_aeb_direction == EAEB_DIRECTION_UP) {
+		if (frames > 0 && (settings.apt_aeb_direction == EAEB_DIRECTION_BOTH || settings.apt_aeb_direction == EAEB_DIRECTION_UP)) {
 			wait_for_camera();
 
 			tv_dec = tv_sub(tv_dec, settings.apt_aeb_ev);
