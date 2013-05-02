@@ -40,7 +40,7 @@ hack from _`0x800000`_ to _`0x7E0000`_.
 As we are not compiled with __PIC__, our code is linked to run from
 _`0x7E0000`_.  You can see this address in the _linker.script_ and _Makefile_
 files.  
-Additionally while we are in our __`my_taskcreate_Startup()`__ [_init.c_]
+Additionally while we are in our __`hack_taskcreate_Startup()`__ [_init.c_]
 we've changed the "_to_" argument of the __`CreateMainHeap(from, to)`__ call,
 from "`0x800000`" to "`0x800000 - 0x20000`".  
 This is so to keep the last _0x20000_ bytes (_128kb_), our hack, out of the
