@@ -67,9 +67,9 @@ int ini_parse_file(int fd, const char* wanted_section, ini_line_handler handler,
 	if (!wanted_section)
 		section_found = 1;
 
-	my_fgets_init();
+	hack_fgets_init();
 	/* Scan through file line by line */
-	while (my_fgets(line, sizeof(line), fd) != NULL) {
+	while (hack_fgets(line, sizeof(line), fd) != NULL) {
 		if (error) // 0xAF
 			return error;
 

@@ -11,13 +11,13 @@
 
 #include "init.h"
 
-void my_romStart(int startType);
-int  my_usrInit(int startType);
-int  my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize);
+void hack_romStart(int startType);
+int  hack_usrInit(int startType);
+int  hack_usrRoot(char* pMemPoolStart, unsigned int memPoolSize);
 
-void my_taskcreate_Startup();
-void my_task_Startup();
-int  my_InitializeIntercom();
+void hack_taskcreate_Startup();
+void hack_task_Startup();
+int  hack_InitializeIntercom();
 
 void COPY() {
 	// AF: check the devinfo for more details on why this routine is needed
@@ -32,16 +32,16 @@ void COPY() {
 }
 
 // entry routine, entry.S calls this, so we enter here after power up.
-void my_romStart(int startType) {
+void hack_romStart(int startType) {
 	if ((*(int*)BTN_ADDR_TRASH == BTN_PRESSED)) {
 		romStart(startType);
 	} else {
 		unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0 >> 2);
-		my_usrInit(startType);
+		hack_usrInit(startType);
 	}
 }
 
-int my_usrInit(int startType) {
+int hack_usrInit(int startType) {
 	sysHwInit0();
 
 	bzero(&bss_begin, (&bss_begin - &bss_end));
@@ -63,12 +63,12 @@ int my_usrInit(int startType) {
 	workQInit();
 
 	/* sysMemTop() - returns the LogBuffer address, the buffer is 1.5mb */
-	kernelInit(my_usrRoot, 0x4000, &bss_end, sysMemTop(), 0xC00, 0);
+	kernelInit(hack_usrRoot, 0x4000, &bss_end, sysMemTop(), 0xC00, 0);
 
 	return 0;
 }
 
-int my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize) {
+int hack_usrRoot(char* pMemPoolStart, unsigned int memPoolSize) {
 	eventLibInit();
 	semBLibInit();
 	semMLibInit();
@@ -120,7 +120,7 @@ int my_usrRoot(char* pMemPoolStart, unsigned int memPoolSize) {
 
 	sub_FFB5F728();
 
-	my_taskcreate_Startup();
+	hack_taskcreate_Startup();
 
 	return 0;
 
@@ -134,17 +134,17 @@ usrRoot_failed:
 	return 0;
 }
 
-void my_taskcreate_Startup() {
+void hack_taskcreate_Startup() {
 	CreateMainHeap(0x200000, 0x800000 - 0x20000); // in end of MainHeap - own code - 128 Kb
 
 	sub_FFB0FF74();
 	sub_FFB2E108(0x386D4380);
 
 	EnableDispatch();
-	CreateTask("Startup", 0x19, 0x2000, my_task_Startup, 0);
+	CreateTask("Startup", 0x19, 0x2000, hack_task_Startup, 0);
 }
 
-void my_task_Startup() {
+void hack_task_Startup() {
 	DebugManager(1, 0x1F, 0x180000, 0x40000, 0x1C0000);
 
 	dmstart();
@@ -158,7 +158,7 @@ void my_task_Startup() {
 #endif
 
 	initialize();
-	
+
 	sub_FFAFE5BC();
 	SetAssert();
 	EventProcedureServiceInit();
@@ -191,7 +191,7 @@ void my_task_Startup() {
 
 	SetAssertProc(AssertPrepare, 0);
 
-	my_InitializeIntercom(); // InitializeIntercom();
+	hack_InitializeIntercom(); // InitializeIntercom();
 
 	AfeGainCmosParamInit();
 
@@ -260,7 +260,7 @@ void my_task_Startup() {
 
 	RegisterISR_EMERGENCY_CARDDOOR();
 
-	my_MainCtrlInit();
+	hack_MainCtrlInit();
 
 	CaptureSemaphoreInit();
 
@@ -340,7 +340,7 @@ void my_task_Startup() {
 
 	CreateMemoryManagerPubInstance();
 
-	my_GUIInit(); //GUIInit();
+	hack_GUIInit(); //GUIInit();
 	GUIApiCalls();
 
 	InitializeImagePlayer();
@@ -417,7 +417,7 @@ void my_task_Startup() {
 	StartConsole();
 }
 
-int my_InitializeIntercom() {
+int hack_InitializeIntercom() {
 	//printf("InitializeIntercom\n");
 	InitIntercomData(intercom_proxy);
 	CreateIntercomSem();

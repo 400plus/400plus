@@ -28,7 +28,7 @@ _start:
                 STR     R1, [R0,#0x10]
                 LDR     SP, =0x1900
                 MOV     R11, #0
-                LDR     PC, =my_romStart
+                LDR     PC, =hack_romStart
 
 
 .align 2
