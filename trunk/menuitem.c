@@ -146,7 +146,7 @@ void menuitem_inc_int(const menuitem_t *item, const int repeating) {
 	int small_step = item->parm.menuitem_int.small_step;
 	int big_step   = item->parm.menuitem_int.big_step;
 
-	if (item->parm.menuitem_int.base_log > 0) {
+	if (item->parm.menuitem_int.base_log) {
 		while (*item->parm.menuitem_int.value / item->parm.menuitem_int.base_log >= big_step) {
 			SWAP(small_step, big_step);
 			big_step *= item->parm.menuitem_int.base_log;
@@ -156,7 +156,9 @@ void menuitem_inc_int(const menuitem_t *item, const int repeating) {
 	int step = repeating ? big_step : small_step;
 
 	*item->parm.menuitem_int.value += step;
-	*item->parm.menuitem_int.value  = step * (*item->parm.menuitem_int.value / step);
+
+	if (item->parm.menuitem_int.base_log)
+		*item->parm.menuitem_int.value  = step * (*item->parm.menuitem_int.value / step);
 
 	*item->parm.menuitem_int.value  = MIN(*item->parm.menuitem_int.value, item->parm.menuitem_int.max);
 }
@@ -219,7 +221,7 @@ void menuitem_dec_int(const menuitem_t *item, const int repeating) {
 	int small_step = item->parm.menuitem_int.small_step;
 	int big_step   = item->parm.menuitem_int.big_step;
 
-	if (item->parm.menuitem_int.base_log > 0) {
+	if (item->parm.menuitem_int.base_log) {
 		while (*item->parm.menuitem_int.value / item->parm.menuitem_int.base_log > big_step) {
 			SWAP(small_step, big_step);
 			big_step *= item->parm.menuitem_int.base_log;
@@ -229,7 +231,9 @@ void menuitem_dec_int(const menuitem_t *item, const int repeating) {
 	int step = repeating ? big_step : small_step;
 
 	*item->parm.menuitem_int.value -= step;
-	*item->parm.menuitem_int.value  = step * (*item->parm.menuitem_int.value / step);
+
+	if (item->parm.menuitem_int.base_log)
+		*item->parm.menuitem_int.value  = step * (*item->parm.menuitem_int.value / step);
 
 	*item->parm.menuitem_int.value  = MAX(*item->parm.menuitem_int.value, item->parm.menuitem_int.min);
 }
