@@ -6,6 +6,8 @@
 
 #include "stub.h"
 
+NSTUB(ofw_entry_point,0xFF810000)
+
 DEF(addr_0x1900,0x1900)
 DEF(cache_0xFFB602F0,0xFFB602F0)
 DEF(bss_begin,0x00DFB0)
@@ -95,7 +97,7 @@ STUB(FFA40390)
 NSTUB(memset_193C8, 0xFF9FED88)
 NSTUB(ColorAdjustments, 0xFFA11BCC)
 STUB(FFA44A28)
-NSTUB(taskcreate_DigProp, 0xFF93B460)
+NSTUB(taskcreate_DigProp, 0xFF93B460)
 NSTUB(taskcreate_ShootMain, 0xFF8114B8)
 NSTUB(taskcreate_OlcInfo, 0xFF94147C)
 NSTUB(SomeISRprocs, 0xFFAF9FC8)

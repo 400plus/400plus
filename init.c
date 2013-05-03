@@ -4,25 +4,62 @@
  * $Author$
  */
 
+// !!! IMPORTANT !!!
+// Keep this code here, it is our entry point
+asm(
+	".text\n"
+	".globl _start\n"
+	"_start:\n"
+	"B hack_entry_point\n"
+);
+
 #include <strings.h>
+#include "cache_hacks.h"
 
 #include "main.h"
 #include "firmware.h"
 
 #include "init.h"
+#include "display.h"
 
-void hack_romStart(int startType);
-int  hack_usrInit(int startType);
-int  hack_usrRoot(char* pMemPoolStart, unsigned int memPoolSize);
+void hack_halt();
+void hack_relocate();
+void cache_hacks();
+void hack_InitializeIntercom();
+void hack_StartConsole();
+void hack_pre_init_hook();
+void hack_post_init_hook();
+void hack_dmProcInit();
+void disable_cache_clearing();
+void set_our_control_register();
 
-void hack_taskcreate_Startup();
-void hack_task_Startup();
-int  hack_InitializeIntercom();
 
-void COPY() {
-	// AF: check the devinfo for more details on why this routine is needed
+// this is ran in the beginning of the OFW's task init process
+void hack_pre_init_hook() {
+	initialize();
+}
+
+// we can run extra code at the end of the OFW's task init
+void hack_post_init_hook() {
+	TransferScreen = hack_TransferScreen;
+}
+
+
+
+// 400Plus entry point
+void hack_entry_point() {
+	if (BTN_TRASH != BTN_PRESSED) {
+		LEDBLUE = LEDON;
+		hack_relocate(); // COPY the hack to our memory
+		cache_hacks(); // hack the caches
+	}
+
+	ofw_entry_point(); // jump to Original FirmWare's entry point
+}
+
+void hack_relocate() {
+	// 0xAF: check the devinfo for more details on why this routine is needed
 	int i;
-
 	long *from = (long*) 0x800000;
 	long *to   = (long*) 0x7E0000;
 
@@ -31,396 +68,112 @@ void COPY() {
 	}
 }
 
-// entry routine, entry.S calls this, so we enter here after power up.
-void hack_romStart(int startType) {
-	if ((*(int*)BTN_ADDR_TRASH == BTN_PRESSED)) {
-		romStart(startType);
-	} else {
-		unknown_cache(&cache_0xFFB602F0, &addr_0x1900, 0xC6B0 >> 2);
-		hack_usrInit(startType);
-	}
+void cache_hacks() {
+	flush_caches();
+
+	//cache_lock(); // lock the caches so nobody replaces our hacks
+	icache_lock();
+
+	// prevent the OFW from clearing the caches
+	disable_cache_clearing();
+
+	// OFW allocates main heap from addr:0x200000 to addr:0x800000
+	// we place our hack at the last 128kb (0x20000) of this space, at addr: 0x7E0000 (see hack_relocate())
+	// the original instruction was: MOV R1, #0x800000
+	// we change it to: MOV R1, #0x7E0000 (in binary the instruction looks like: 0xE3A0187E)
+	cache_fake(0xFF811318, 0xE3A0187E, TYPE_ICACHE);
+
+	// hookup to dmProcInit(), so we can enable massive debug and run our hack_pre_init_hook
+	cache_fake(0xFF8111AC, BL_INSTR(0xFF8111AC, &hack_dmProcInit), TYPE_ICACHE);
+
+	// hookup our MainCtrlInit
+	cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
+
+	// hookup our Intercom
+	cache_fake(0xFF81103C, BL_INSTR(0xFF81103C, &hack_InitializeIntercom), TYPE_ICACHE);
+
+	// hookup GUIInit (hack_GUIInit)
+	//cache_fake(0xFF8111D8, BL_INSTR(0xFF8111D8, &hack_GUIInit), TYPE_ICACHE);
+	//cache_fake(0xFF8112E4, BL_INSTR(0xFF8112E4, &hack_halt), TYPE_ICACHE);
+
+	// hookup StartConsole, so we can run our hack_post_init_hook
+	cache_fake(0xFF8112E8, BL_INSTR(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
 }
 
-int hack_usrInit(int startType) {
-	sysHwInit0();
+void disable_cache_clearing() {
+	// the camera is reseting the control register
+	// i dont know if this code is already ran, when we poison the caches
+	// keep it here just in case (do some testing)
+	//cache_fake(0xFF810194, BL_INSTR(0xFF810194, &set_our_control_register), TYPE_ICACHE);
 
-	bzero(&bss_begin, (&bss_begin - &bss_end));
+	//cache_fake(0xFF810AA8, MOV_R0_1_INSTR, TYPE_ICACHE);
+	// we do not remove the whole routine, remove only the call to sub_FFB5DC58:
+	//cache_fake(0xFFB45E2C, NOP_INSTR, TYPE_ICACHE); // i cache
+	// actually, we do not need to remove this call too, since the hacks below will take care of it
+	// keep it here just in case (do some testing)
 
-	sysStartType = startType;
-	intVecBaseSet(0);
-	cacheLibInit(1, 2);
-	excVecInit();
-	sysHwInit();
-	cacheEnable(0);
-	cacheEnable(1);
-	classLibInit();
-	taskLibInit();
+	cache_fake(0xFF8101A0, NOP_INSTR, TYPE_ICACHE); // i cache
+	cache_fake(0xFFB3736C, NOP_INSTR, TYPE_ICACHE); // i cache
+	cache_fake(0xFFB37378, NOP_INSTR, TYPE_ICACHE); // i cache
+	cache_fake(0xFFB373EC, NOP_INSTR, TYPE_ICACHE); // i cache
 
-	qInit(&readyQHead,  qPriBMapClassId, &readyQBMap, 0x100);
-	qInit(&activeQHead, qFifoClassId);
-	qInit(&tickQHead,   qPriListClassId);
-
-	workQInit();
-
-	/* sysMemTop() - returns the LogBuffer address, the buffer is 1.5mb */
-	kernelInit(hack_usrRoot, 0x4000, &bss_end, sysMemTop(), 0xC00, 0);
-
-	return 0;
+	// D cache clearing addresses: FF8101A4, FFB30028, FFB372EC, FFB3731C, FFB37334, FFB37358, FFB37360, FFB373A4, FFB373C8
 }
 
-int hack_usrRoot(char* pMemPoolStart, unsigned int memPoolSize) {
-	eventLibInit();
-	semBLibInit();
-	semMLibInit();
-	semCLibInit();
-	semQLibInit();
-	wdLibInit();
-	taskHookInit();
-
-	memInit(pMemPoolStart, memPoolSize);
-	memPartLibInit(pMemPoolStart, memPoolSize);
-
-	if (proc_sysMmuLibInit == 0)
-		goto usrRoot_failed;
-
-	int (*_sysMmuLibInit)() = (void*) proc_sysMmuLibInit;
-
-	if (_sysMmuLibInit(0x1000) != 0)
-		goto usrRoot_failed;
-
-	if (vmMpuLibInit(0x1000) != 0)
-		goto usrRoot_failed;
-
-	if (vmBaseGlobalMapInit(&MemDescArray, MemDescArrayCount, 1) == 0)
-		goto usrRoot_failed;
-
-	sysClockConnect(usrClock, 0);
-
-	sysClockRateSet(60);
-	sysClockEnable();
-
-	selectInit(50);
-
-	usrBootLineParse(0x1000);
-
-	iosInit(20, 50, "/null");
-
-	ttyDrv();
-
-	usrSerialInit();
-	hashLibInit();
-	envLibInit(1);
-	sigInit();
-	excInit();
-	logInit(fdConsole, 50);
-	stdioInit();
-	fioLibInit();
-
-	selTaskDeleteHookAdd();
-
-	sub_FFB5F728();
-
-	hack_taskcreate_Startup();
-
-	return 0;
-
-usrRoot_failed:
-
-	printExc("usrRoot: MMU configuration failed, errno = %#x", *(long*) (GetErrorNumAddr()), 0, 0, 0, 0);
-
-	reboot(1);
-
-
-	return 0;
-}
-
-void hack_taskcreate_Startup() {
-	CreateMainHeap(0x200000, 0x800000 - 0x20000); // in end of MainHeap - own code - 128 Kb
-
-	sub_FFB0FF74();
-	sub_FFB2E108(0x386D4380);
-
-	EnableDispatch();
-	CreateTask("Startup", 0x19, 0x2000, hack_task_Startup, 0);
-}
-
-void hack_task_Startup() {
-	DebugManager(1, 0x1F, 0x180000, 0x40000, 0x1C0000);
-
-	dmstart();
+void hack_dmProcInit() {
 	dmProcInit();
-
 #ifdef ENABLE_MASSIVE_DEBUG
 	// the 2nd level is 32 flags for debug classes
 	// the 3rd arg is log level, 0 == full debug, >0 == less debug
 	dmSetStoreLevel(hDbgMgr, 0xFF, 0);
 	dmSetPrintLevel(hDbgMgr, 0xFF, 0);
 #endif
-
-	initialize();
-
-	sub_FFAFE5BC();
-	SetAssert();
-	EventProcedureServiceInit();
-	ShutDownProcInit();
-	Install3VMemory(0xF8000000);
-	RomManagerInit();
-	CreateParamPubInstance();
-	PropertyServiceInit();
-	ErrorNumberListInit();
-	FatalErrorsProcInit();
-	RegisterISRs_OCH();
-	BlockUntilAfterTimeoutProcInit(50);
-
-	sub_FFB07740(0x10, 8, 0x1BBC);
-	ResourceNameServiceInit();
-
-	MemorySuite(0);
-
-	sysClockRateSet_100(3);
-
-	sub_FFB2BD6C();
-
-	InitializeSerialIO();
-
-	RtcInit(0x386D4380);
-
-	AdjDefectsInit();
-
-	CameraAdjsInit();
-
-	SetAssertProc(AssertPrepare, 0);
-
-	hack_InitializeIntercom(); // InitializeIntercom();
-
-	AfeGainCmosParamInit();
-
-	EngineInit();
-
-	EDmacPriorityManager();
-
-	EngineResourceInit();
-
-	PowerMgrInit(0);
-
-	ClockInit(1);
-
-	RegisterISR_CAPREADY();
-
-	FaceSensorInit();
-
-	RemDrvInit();
-	ActSweepInit();
-
-	LcdInit();
-
-	DisplayInit1();
-
-	DisplayInit2();
-
-	PowerSaveProcInit();
-
-	sub_FFA03B0C();
-
-	sub_FFA05114();
-
-	InitializeImagePlayDriver();
-
-	LensNameTblInit();
-
-	LensPOTblInit();
-
-	FlyingInit();
-
-	CaptureInit();
-
-	BathtubSaturateInit();
-
-	Module_CaptureImagePass();
-
-	ClearSomeCapMem();
-
-	ColorAdjustmentsInit();
-
-	Module_PreDarkPassInit();
-
-	LoadSystemInfo();
-
-	SharedBufferInit(0x10800000, 0x18000000, 0xEE0000, 0xEE0000);
-
-	FileCacheInit();
-	PackMemInit();
-
-	ImagePropInit();
-	DigPropInit();
-
-	ShootMainInit();
-
-	OlcInfoInit();
-
-	RegisterISR_EMERGENCY_CARDDOOR();
-
-	hack_MainCtrlInit();
-
-	CaptureSemaphoreInit();
-
-	VShadingInit();
-
-	Module_CaptureDarkPassInit();
-
-	Module_DarkSubtractionPassInit();
-	BathtubInit();
-
-	Module_BathtubCorrectPassInit();
-
-	Module_VObIntegPassInit();
-
-	SetProjectionInit();
-	Module_DefectsDetectPassInit();
-
-	DefsInit();
-	WbDetectionInit();
-	ObInit();
-
-	Module_WbDetectionPassInit();
-	DefsProcInit();
-
-	Module_ObAreaCopyPassInit();
-	Module_AdditionVTwoLinePassInit();
-
-	VShadingProcInit();
-	Module_VShadingCorrectPassInit();
-
-	sub_FFA24838();
-	HuffmanInit();
-
-	RawToJpegPass_L_Init();
-	RawToJpegPass_M2_Init();
-
-	RawToJpegPass_S_Init();
-	YcToJpegLargeFastInit();
-
-	YcToJpegM2FastInit();
-	YcToJpegSFastInit();
-
-	RawToLosslessInit();
-	Module_YcToTwainInit();
-
-	RawToYcPass_S_Init();
-	RawToYPackPass_S_Init();
-
-	DvlpInit();
-	DecodeJpegPassInit();
-	HistPassInit();
-	RectangleColorPassInit();
-	RectangleCopyPassInit();
-
-	ResizeYuvPassInit();
-	sub_FFA35354();
-	LpfPassInit();
-
-	EncodeJpegPassInit();
-	AdjRgbGainInit();
-	LuckyInit();
-
-	SysInfoProcInit();
-
-	TablesInit();
-
-	ColorInit();
-
-	CtrlManRecursiveLock();
-
-	CtrlSrvInit(0x19);
-
-	LangConInit();
-	sub_FF926E40();
-
-	CreateDispSwControlPubInstance();
-
-	CreateMemoryManagerPubInstance();
-
-	hack_GUIInit(); //GUIInit();
-	GUIApiCalls();
-
-	InitializeImagePlayer();
-
-	ColorBarProcsInit();
-	LcdAdjustProcsInit();
-
-	sub_FFB29348();
-	CMOSParamInit();
-
-	CameraSettingsInit();
-	BootDiskProcsInit();
-
-	DDDInit();
-	TFTInit();
-
-	RegisterResourceName(hResourceName, "USR ROOT DEVICE HANDLE", 0x7B);
-
-	RegisterResource_env(0xC02200B8, "U2VBUS");
-	RegisterResource_env(1, "USBC20 VBUS SUPPORT");
-
-	RegisterResource_env(0x14, "DEVICESPEED");
-	USBC20_Init();
-	USBC20_USBIF_Init();
-
-	USBC20_BUFCON_Init();
-	USBC20_CLK_Init();
-	USBC20_HDMAC_Init();
-
-	DCPClassFunctionsInit();
-	USBDriverInit();
-	RapiSwitcherInit();
-
-	DCPClassInit();
-	RAPITransportUSBInit();
-	PTPRespondInit();
-
-	PTPFrameworkInit();
-	StartupPtpResponder();
-
-	RapiTransportManagerInit();
-	DCPClassInit();
-
-	EventProcServerInit();
-	sub_FFA5D8A0();
-	DCPInit();
-
-	SesnMngrInit();
-	MemMngrInit();
-	InitializeRapiTransportManager();
-
-	PrintInit();
-	sub_FF95EC54();
-	SomePrintInit();
-	sub_FF9EB94C();
-
-	InitializeUSBDriver();
-	TransMemoryInit();
-	InitializeComCtrl();
-
-	FactoryModeInit();
-	DP_Init(0, 0x1B, 0, 0);
-	return_0();
-
-	sub_FF98CF4C();
-	EdLedProcsInit();
-	CallBacksInit();
-
-	RegistNotifyConnectDT();
-	DPOF_Initialize();
-
-	MpuMonInit();
-
-	StartConsole();
+	hack_pre_init_hook();
 }
 
-int hack_InitializeIntercom() {
-	//printf("InitializeIntercom\n");
+void hack_InitializeIntercom() {
 	InitIntercomData(intercom_proxy);
 	CreateIntercomSem();
-
-	return 0;
 }
+
+void hack_StartConsole() {
+	hack_post_init_hook();
+	StartConsole(); // should be the last one
+}
+
+#define busy_wait() do { volatile uint32_t i; for (i = 0; i < 1000000; i++); } while (0)
+void hack_halt() {
+	while ( 1 ) {
+		LEDBLUE = LEDON;
+		LEDRED  = LEDOFF;
+		busy_wait();
+
+		LEDBLUE = LEDOFF;
+		LEDRED  = LEDON;
+		busy_wait();
+	}
+}
+
+// 0xAF: keep this in case we need it.
+// after some testing, if everything is ok, we can remove it
+#if 0
+void set_our_control_register() {
+	asm volatile (
+		//"MOV  R1, #0x78           \n" // OFW was setting bit 3:6 only (reserved)
+		"MOV    R1, #0              \n" // we set few bits more
+		//"MRC  p15, 0, R1,c1,c0, 0 \n"
+
+		"ORR    R1, R1, #0x01       \n" // MPU - we need it, otherwise it will disable the caches
+		"ORR    R1, R1, #0x04       \n" // D Cache - w/o this the data is slow
+		"ORR    R1, R1, #0x08       \n" // reserved - OFW requested
+		"ORR    R1, R1, #0x10       \n" // reserved - OFW requested
+		"ORR    R1, R1, #0x20       \n" // reserved - OFW requested
+		"ORR    R1, R1, #0x40       \n" // reserved - OFW requested
+		"ORR    R1, R1, #0x1000     \n" // I Cache - we wont have cache hacks w/o this
+		"ORR    R1, R1, #0x10000    \n" // D TCM - these would be set by the OFW later
+		"ORR    R1, R1, #0x40000    \n" // I TCM - these would be set by the OFW later
+		"MCR    p15, 0, R1,c1,c0, 0 \n"
+	);
+}
+#endif
+

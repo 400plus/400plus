@@ -204,3 +204,10 @@ void display_message_set(char *message, int timeout) {
 
 	restore_display();
 }
+
+int hack_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int d) {
+	display_overlay((uint8_t*)(r3 + 0x78));
+
+	return TransferNormalScreen(r0, r1, r2, r3, a, b, c, d);
+}
+

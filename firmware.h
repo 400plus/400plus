@@ -15,7 +15,14 @@
 #define BTN_NOT_PRESSED 0x21
 // button addresses
 #define BTN_ADDR_TRASH  0xC0220130
+#define BTN_TRASH (*(int*)BTN_ADDR_TRASH)
 #define BTN_ADDR_JUMP   0xC0220134
+#define BTN_JUMP (*(int*)BTN_ADDR_JUMP)
+
+#define LEDRED (*((int*)0xC02200A0))
+#define LEDBLUE (*((int*)0xC0220000))
+#define LEDON   0x46
+#define LEDOFF  0x44
 
 // Events for SendToIntercom
 typedef enum {
