@@ -46,6 +46,7 @@
 #define FAR_CALL_INSTR  0xE51FF004      // ldr pc, [pc,#-4]
 #define LOOP_INSTR      0xEAFFFFFE      // 1: b 1b
 #define NOP_INSTR       0xE1A00000      // mov r0, r0
+#define MOV_R0_1_INSTR  0xE3A00001	// mov r0, 1
 #define BL_INSTR(pc,dest) ( 0xEB000000 | ((( ((uint32_t)dest) - ((uint32_t)pc) - 8 ) >> 2) & 0x00FFFFFF) )
 
 #define TYPE_DCACHE 0
@@ -90,10 +91,11 @@
 /* bitmask to mask out the SEGMENT field in a tag */
 #define CACHE_SEGMENT_ADDRMASK(t)   (CACHE_SEGMENT_BITMASK(t)<<CACHE_SEGMENT_TAGOFFSET(t))
 
+
 static inline uint32_t cli(void)
 {
-	uint32_t old_cpsr;
-	uint32_t new_cpsr;
+	uint32_t old_cpsr = 0;
+	uint32_t new_cpsr = 0;
 	asm volatile (
 		"MRS %0, CPSR\n"
 		"ORR %1, %0, #0x80\n" // set I flag to disable IRQ
@@ -107,7 +109,7 @@ static inline uint32_t cli(void)
 
 static inline void sei( uint32_t old_cpsr )
 {
-	uint32_t new_cpsr;
+	uint32_t new_cpsr = 0;
 	asm volatile (
 		"MRS %0, CPSR\n"
 		"BIC %0, %0, #0x80\n"
@@ -251,7 +253,7 @@ static void cache_get_content(uint32_t segment, uint32_t index, uint32_t word, u
 }
 
 /* check if given address is already used or if it is usable for patching */
-static uint32_t cache_is_patchable(uint32_t address, uint32_t type)
+static uint32_t __attribute__ ((unused)) cache_is_patchable(uint32_t address, uint32_t type)
 {
 	uint32_t stored_tag_index = 0;
 	uint32_t stored_data = 0;
@@ -427,7 +429,7 @@ static void dcache_unlock()
 	sei(old_int);
 }
 
-static void icache_lock()
+static inline void icache_lock()
 {
 	uint32_t old_int = cli();
 
@@ -468,12 +470,15 @@ static void icache_lock()
 	sei(old_int);
 }
 
-static void dcache_lock()
+static void clean_d_cache( void );
+static inline void dcache_lock()
 {
 	uint32_t old_int = cli();
 
 	/* first clean and flush dcache entries */
-	uint32_t segment, index;
+	//uint32_t segment;
+	uint32_t index;
+	/*
 	for(segment = 0; segment < (1U<<CACHE_SEGMENT_BITS(TYPE_DCACHE)); segment++ ) {
 		for(index = 0; index < (1U<<CACHE_INDEX_BITS(TYPE_DCACHE)); index++) {
 			uint32_t seg_index = (segment << CACHE_SEGMENT_TAGOFFSET(TYPE_DCACHE)) | (index << CACHE_INDEX_TAGOFFSET(TYPE_DCACHE));
@@ -485,6 +490,10 @@ static void dcache_lock()
 			);
 		}
 	}
+	*/
+	// XXX: 0xAF: I dont know what is wrong with the code above, but it hangs the camera
+	// the following function clears D Cache w/o problems
+	clean_d_cache();
 
 	/* then lockdown data cache */
 	asm volatile (
@@ -521,7 +530,7 @@ static void dcache_lock()
 
 /* these are the "public" functions. please use only these if you are not sure what the others are for */
 
-static uint32_t cache_locked()
+static uint32_t __attribute__ ((unused)) cache_locked()
 {
 	uint32_t status = 0;
 	asm volatile (
@@ -536,13 +545,13 @@ static uint32_t cache_locked()
 	return status;
 }
 
-static void cache_lock()
+static inline void cache_lock()
 {
 	icache_lock();
 	dcache_lock();
 }
 
-static void cache_unlock()
+static void __attribute__ ((unused)) cache_unlock()
 {
 	icache_unlock();
 	dcache_unlock();
@@ -563,6 +572,35 @@ static uint32_t cache_fake(uint32_t address, uint32_t data, uint32_t type)
 	}
 
 	return cache_patch_single_word(address, data, type);
+}
+
+static inline void flush_caches( void ) {
+	uint32_t reg = 0;
+	asm(
+		"MOV %0, #0\n"
+		"MCR p15, 0, %0, c7, c5, 0\n" // entire I cache
+		"MOV %0, #0\n"
+		"MCR p15, 0, %0, c7, c6, 0\n" // entire D cache
+		"MCR p15, 0, %0, c7, c10, 4\n" // drain write buffer
+
+		:
+		: "r"(reg)
+	);
+}
+
+static inline void clean_d_cache( void ) {
+	uint32_t segment = 0;
+	do {
+		uint32_t line = 0;
+		for( ; line != 0x400 ; line += 0x20 ) {
+			asm(
+				"MCR p15, 0, %0, c7, c14, 2"
+
+				:
+				: "r"( line | segment )
+			);
+		}
+	} while( segment += 0x40000000 );
 }
 
 #endif
