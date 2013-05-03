@@ -30,5 +30,6 @@ typedef enum {
 } button_t;
 
 int button_handler(button_t button, int is_button_down);
+void hack_send_jump_and_trash_buttons(int r0, int r1, int button);
 
 #endif

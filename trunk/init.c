@@ -20,6 +20,7 @@ asm(
 #include "firmware.h"
 
 #include "display.h"
+#include "button.h"
 
 void hack_halt();
 void hack_relocate();
@@ -42,6 +43,7 @@ void hack_pre_init_hook() {
 // we can run extra code at the end of the OFW's task init
 void hack_post_init_hook() {
 	TransferScreen = hack_TransferScreen;
+	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
 }
 
 
@@ -87,7 +89,7 @@ void cache_hacks() {
 	cache_fake(0xFF8111AC, BL_INSTR(0xFF8111AC, &hack_dmProcInit), TYPE_ICACHE);
 
 	// hookup our MainCtrlInit
-	cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
+	//cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
 
 	// hookup our GUI_IdleHandler
 	cache_fake(0xFF82A4F0, BL_INSTR(0xFF82A4F0, &hack_register_gui_idle_handler), TYPE_ICACHE);
