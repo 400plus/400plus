@@ -64,6 +64,7 @@
 	LANG_PAIR( I_AEB,                "AEB"                       ) \
 	LANG_PAIR( I_COLOR_TEMP_K,       "Color temp. (K)"           ) \
 	LANG_PAIR( I_DELAY,              "2s Delay"                  ) \
+	LANG_PAIR( I_TIME,               "Time (s)"                  ) \
 	LANG_PAIR( I_ACTION,             "Action"                    ) \
 	LANG_PAIR( I_REPEAT,             "Repeat"                    ) \
 	LANG_PAIR( I_INSTANT,            "Instant"                   ) \
@@ -72,7 +73,7 @@
 	LANG_PAIR( I_MANUAL_L,           "Bulb min"                  ) \
 	LANG_PAIR( I_MANUAL_R,           "Bulb max"                  ) \
 	LANG_PAIR( I_INTERVAL,           "Interval"                  ) \
-	LANG_PAIR( I_TIME_S,             "Exposure"                  ) \
+	LANG_PAIR( I_EXPOSURE,           "Exposure"                  ) \
 	LANG_PAIR( I_RAMP_T,             "Ramp size (time)"          ) \
 	LANG_PAIR( I_RAMP_S,             "Ramp size (shots)"         ) \
 	LANG_PAIR( I_RAMPING_EXP,        "Ramping (exposure)"        ) \
