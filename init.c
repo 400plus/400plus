@@ -5,7 +5,7 @@
  */
 
 // !!! IMPORTANT !!!
-// Keep this code here, it is our entry point
+// Keep this code here in the beginning of the file, it is our entry point
 asm(
 	".text\n"
 	".globl _start\n"
@@ -19,19 +19,19 @@ asm(
 #include "main.h"
 #include "firmware.h"
 
-#include "init.h"
 #include "display.h"
 
 void hack_halt();
 void hack_relocate();
 void cache_hacks();
-void hack_InitializeIntercom();
 void hack_StartConsole();
 void hack_pre_init_hook();
 void hack_post_init_hook();
 void hack_dmProcInit();
 void disable_cache_clearing();
 void set_our_control_register();
+int  hack_init_intercom_data(void * old_proc);
+int  hack_register_gui_idle_handler(void * org_proc, int zero);
 
 
 // this is ran in the beginning of the OFW's task init process
@@ -89,12 +89,11 @@ void cache_hacks() {
 	// hookup our MainCtrlInit
 	cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
 
-	// hookup our Intercom
-	cache_fake(0xFF81103C, BL_INSTR(0xFF81103C, &hack_InitializeIntercom), TYPE_ICACHE);
+	// hookup our GUI_IdleHandler
+	cache_fake(0xFF82A4F0, BL_INSTR(0xFF82A4F0, &hack_register_gui_idle_handler), TYPE_ICACHE);
 
-	// hookup GUIInit (hack_GUIInit)
-	//cache_fake(0xFF8111D8, BL_INSTR(0xFF8111D8, &hack_GUIInit), TYPE_ICACHE);
-	//cache_fake(0xFF8112E4, BL_INSTR(0xFF8112E4, &hack_halt), TYPE_ICACHE);
+	// hookup our Intercom
+	cache_fake(0xFFA5D590, BL_INSTR(0xFFA5D590, &hack_init_intercom_data), TYPE_ICACHE);
 
 	// hookup StartConsole, so we can run our hack_post_init_hook
 	cache_fake(0xFF8112E8, BL_INSTR(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
@@ -131,14 +130,17 @@ void hack_dmProcInit() {
 	hack_pre_init_hook();
 }
 
-void hack_InitializeIntercom() {
-	InitIntercomData(intercom_proxy);
-	CreateIntercomSem();
+int hack_init_intercom_data(void * old_proc) {
+	return InitIntercomData(intercom_proxy);
 }
 
 void hack_StartConsole() {
 	hack_post_init_hook();
 	StartConsole(); // should be the last one
+}
+
+int hack_register_gui_idle_handler(void * org_proc, int zero) {
+	return CreateCtrlMain(&hack_GUI_IDLEHandler, zero);
 }
 
 #define busy_wait() do { volatile uint32_t i; for (i = 0; i < 1000000; i++); } while (0)
