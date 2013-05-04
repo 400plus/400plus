@@ -165,6 +165,7 @@ typedef struct {
 	int qexp_mintv;
 	int qexp_weight;
 	int persist_aeb;
+	int invert_olc;
 } settings_t;
 
 extern settings_t settings;

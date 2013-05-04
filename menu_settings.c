@@ -140,6 +140,7 @@ menuitem_t menu_settings_items[] = {
 	MENUITEM_LANG   (MENUPAGE_SETTINGS_LANGUAGE, LP_WORD(L_I_LANGUAGE),         &settings.language,         reload_language_and_refresh),
 	MENUITEM_DIG_ISO(MENUPAGE_SETTINGS_ISOSTEP,  LP_WORD(L_I_DIG_ISO_STEP),     &settings.digital_iso_step, NULL),
 	MENUITEM_BOOLEAN(MENUPAGE_SETTINGS_PERSAEB,  LP_WORD(L_I_PERSIST_AEB),      &settings.persist_aeb,      NULL),
+	MENUITEM_OLC_INV(MENUPAGE_SETTINGS_INVERTOLC,LP_WORD(L_I_INVERT_OLC),       &settings.invert_olc,       NULL),
 	MENUITEM_SUBMENU(MENUPAGE_SETTINGS_SCRIPTS,  LP_WORD(L_S_SCRIPTS),          &scripts_page,              NULL),
 	MENUITEM_SUBMENU(MENUPAGE_SETTINGS_BUTTONS,  LP_WORD(L_S_BUTTONS),          &buttons_page,              NULL),
 	MENUITEM_SUBMENU(MENUPAGE_SETTINGS_CMODES,   LP_WORD(L_S_CMODES),           &cmodes_page,               NULL),
