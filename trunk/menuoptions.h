@@ -24,5 +24,6 @@ extern list_t menuoptions_scrind;
 extern list_t menuoptions_scrlcd;
 extern list_t menuoptions_qexp_weight;
 extern list_t menuoptions_digiso_steps;
+extern list_t menuoptions_olcinv_steps;
 
 #endif

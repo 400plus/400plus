@@ -223,3 +223,51 @@ int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
 
+int olc_colors_map[] = {
+	[ 0] = 0,
+	[ 1] = 0x1B, // 27  Blk on Gry
+	[ 2] = 0xE5, // 229 Blk on Yel
+	[ 3] = 0x70, // Grn on Gry
+	[ 4] = 0xC1, // 193 Blu on Gry
+	[ 5] = 0x24, // 36  Blu on Blk
+	[ 6] = 0xF1, // 241 Blu on Yel
+	[ 7] = 0x11, // Cya on Gry
+	[ 8] = 0x44, // 68  Yel on Blk
+	[ 9] = 0x42, // 66  Org on Blk
+	[10] = 0x7C, // 124 Yel on Grn
+	[11] = 0x84, // 132 Yel on Blu
+	[12] = 0x86, // 134 Yel on Blu
+	[13] = 0x88, // 136 Yel on Blu
+	[14] = 0x87, // 135 Yel on Cya
+	[15] = 0x49, // 73  Yel on Red
+	[16] = 0x89, // 137 Yel on Pur
+	[17] = 0x35, // 53  Red on Gry
+	[18] = 0x34, // 52  Red on Gry
+	[19] = 0x72, // 114 Red on Gry
+	[20] = 0x39, // 57  Red on Pnk
+	[21] = 0x3A, // 58  Red on Yel
+	[22] = 0x92, // 146 Red on Blk
+	[23] = 0x22, // 34  Pur on Blk
+	[24] = 0x76, // 118 Wht on Grn
+	[25] = 0x5F, // 95  Gry on Gry
+	[26] = 0x99, // 153 Gry on Red
+	[27] = 0x9C, // 156 Gry on Red
+	[28] = 0xFF, // 255 Gry on Blu
+	[29] = 0x8C, // 140 Wht on Blu
+	[30] = 0x78, // 120 Wht on Cya
+	[31] = 0xBE, // 190 Gry on Yel
+	[32] = 0xDE, // 222 Gry on Yel
+	[33] = 0xFE, // 254 Gry on Yel
+};
+
+void *hack_invert_olc_screen(char *dst, char *src, int size) {
+	if ( settings.invert_olc && (FLAG_GUI_MODE == GUIMODE_OLC || FLAG_GUI_MODE == GUIMODE_ACTIVESWEEP_OLC)) {
+		while (size--) {
+			*dst++ = olc_colors_map[settings.invert_olc] - (*src++);
+		}
+		return dst;
+	}
+
+	return memcpy(dst, src, size);
+}
+

@@ -44,8 +44,11 @@ void hack_pre_init_hook() {
 void hack_post_init_hook() {
 	TransferScreen = hack_TransferScreen;
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
-}
 
+	// take over the vram copy locations, so we can invert the screen
+	cache_fake(0xFF92C5D8, BL_INSTR(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
+	cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
+}
 
 
 // 400Plus entry point

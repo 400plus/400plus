@@ -82,6 +82,7 @@ settings_t settings_default = {
 	qexp_mintv       : EV_CODE(13, 0), // 1/60s
 	qexp_weight      : QEXP_WEIGHT_NONE,
 	persist_aeb      : true,
+	invert_olc       : 0,
 };
 
 menu_order_t menu_order_default;
