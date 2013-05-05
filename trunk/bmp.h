@@ -4,18 +4,7 @@
  * $Author$
  */
 
-/*##################################################################################
- #                                                                                 #
- #                          _____     _       _                                    #
- #                         |  ___|   | |     | |                                   #
- #                         |___ \  __| |_ __ | |_   _ ___                          #
- #                             \ \/ _` | '_ \| | | | / __|                         #
- #                         /\__/ / (_| | |_) | | |_| \__ \                         #
- #                         \____/ \__,_| .__/|_|\__,_|___/                         #
- #                                     | |                                         #
- #                                     |_|                                         #
- #                                                                                 #
- #################################################################################*/
+// Thanks to Coutts for porthing this.
 
 #include <vxworks.h>
 
@@ -82,6 +71,9 @@ static inline unsigned fontspec_height(unsigned fontspec) {
 	return fontspec_font(fontspec)->height;
 }
 
+// max x: 45
+// max y: 20
+#define lcd_printf(x, y, f...) bmp_printf(VramAddress, FONT(FONT_SMALL, COLOR_BLACK, COLOR_GRAY), x*8, y*12, ##f);
 extern void bmp_printf (uint8_t *vram_address, unsigned fontspec, unsigned  x, unsigned  y, const char *fmt, ...) __attribute__((format(printf, 5, 6)));
 extern void bmp_hexdump(uint8_t *vram_address, unsigned fontspec, unsigned  x, unsigned  y, const void *buf, int len);
 extern void bmp_puts   (uint8_t *vram_address, unsigned fontspec, unsigned *x, unsigned *y, const char *s);
