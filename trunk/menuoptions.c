@@ -46,6 +46,9 @@ char *menuoptions_btnactn_strings[BUTTON_ACTION_COUNT] = {
 	[BUTTON_ACTION_AEB]          = LP_WORD(L_I_AEB),
 	[BUTTON_ACTION_HACK_MENU]    = LP_WORD(L_V_HACK_MENU),
 	[BUTTON_ACTION_TOGGLE_FLASH] = LP_WORD(L_V_TOGGLE_FLASH),
+#ifdef DEV_BTN_ACTION
+	[BUTTON_ACTION_DEV_BTN]      = "DevBtn (DO NOT USE)",
+#endif
 };
 
 char *menuoptions_direction_strings[EAEB_DIRECTION_COUNT] = {
