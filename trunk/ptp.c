@@ -1,7 +1,7 @@
 /**
- * $Revision: $
- * $Date: $
- * $Author: $
+ * $Revision$
+ * $Date$
+ * $Author$
  */
 
 #include <stdint.h>
