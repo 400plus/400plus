@@ -48,6 +48,12 @@ void hack_post_init_hook() {
 	// take over the vram copy locations, so we can invert the screen
 	cache_fake(0xFF92C5D8, BL_INSTR(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
 	cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
+
+	cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent screen turn off on ptp (to see the debug on lcd)
+	// these freezes the usb communication
+	//cache_fake(0xFF81B9D0, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
+	//cache_fake(0xFF81B400, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
+	//cache_fake(0xFF9DDB24, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
 }
 
 
