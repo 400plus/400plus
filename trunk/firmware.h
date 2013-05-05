@@ -617,4 +617,7 @@ extern int TransferUpsideDownScreen (int r0, int r1, int r2, int r3, int a, int 
 extern int TransferMirrorScreen     (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
 extern int TransferRotatedScreen    (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
 
+// PTP
+extern void * PTP_Actions (void * arg0, void * arg1, void * arg2, void * arg3, void * arg4);
+
 #endif /* FIRMWARE_H_ */
