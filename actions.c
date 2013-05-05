@@ -23,6 +23,7 @@
 #include "scripts.h"
 #include "settings.h"
 #include "utils.h"
+#include "ptp.h"
 
 #include "actions.h"
 
@@ -30,6 +31,14 @@ void set_intermediate_iso();
 void repeat_last_script();
 
 void button_action(button_action_t action);
+
+#ifdef DEV_BTN_ACTION
+void dev_btn_action() {
+	// quick shortcut for developers to test stuff
+	beep();
+	ptp_dump_info();
+}
+#endif
 
 void start_up() {
 
@@ -282,6 +291,11 @@ void button_action(button_action_t action) {
 	case BUTTON_ACTION_TOGGLE_FLASH:
 		toggle_CfEmitFlash();
 		break;
+#ifdef DEV_BTN_ACTION
+	case BUTTON_ACTION_DEV_BTN:
+		dev_btn_action();
+		break;
+#endif
 	default:
 		break;
 	}
