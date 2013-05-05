@@ -1,7 +1,7 @@
 /**
- * $Revision: $
- * $Date: $
- * $Author: $
+ * $Revision$
+ * $Date$
+ * $Author$
  */
 
 #ifndef _PTP_H_
