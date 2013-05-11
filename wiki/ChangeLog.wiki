@@ -1,6 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
-_*20130414-00*_
+_*20130414-02*_
+ * Fixed some texts in the menus.
+
+_*20130414-01*_
  * Fixed a bug in the AEB scripts, where an even number of shots was set, and scripts would run endlessly.
 
 _*20130414-00*_
