@@ -108,7 +108,7 @@ menuitem_t bramp_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),        &settings.bramp_delay,     NULL),
 	MENUITEM_COUNTER(0, LP_WORD(L_I_SHOTS),        &settings.bramp_shots,     NULL),
 	MENUITEM_TIMEOUT(0, LP_WORD(L_I_INTERVAL),     &settings.bramp_time,      NULL),
-	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S),       &settings.bramp_exp,       NULL),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_EXPOSURE),     &settings.bramp_exp,       NULL),
 	MENUITEM_BRTIME( 0, LP_WORD(L_I_RAMP_T),       &settings.bramp_ramp_t,    NULL),
 	MENUITEM_BRSHOTS(0, LP_WORD(L_I_RAMP_S),       &settings.bramp_ramp_s,    NULL),
 	MENUITEM_EVCOMP (0, LP_WORD(L_I_RAMPING_TIME), &settings.bramp_ramp_time, NULL),
@@ -123,7 +123,7 @@ menuitem_t wave_items[] = {
 };
 
 menuitem_t timer_items[] = {
-	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S), &settings.timer_timeout, NULL),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME),   &settings.timer_timeout, NULL),
 	MENUITEM_ACTION (0, LP_WORD(L_I_ACTION), &settings.timer_action,  NULL)
 };
 
@@ -154,7 +154,7 @@ menupage_t lexp_calc_page = {
 
 menuitem_t lexp_items[] = {
 	MENUITEM_BOOLEAN(0, LP_WORD(L_I_DELAY),      &settings.lexp_delay, NULL),
-	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TIME_S),     &settings.lexp_time,  NULL),
+	MENUITEM_TIMEOUT(0, LP_WORD(L_I_EXPOSURE),   &settings.lexp_time,  NULL),
 	MENUITEM_SUBMENU(0, LP_WORD(L_S_CALCULATOR), &lexp_calc_page,      NULL),
 };
 

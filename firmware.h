@@ -15,14 +15,7 @@
 #define BTN_NOT_PRESSED 0x21
 // button addresses
 #define BTN_ADDR_TRASH  0xC0220130
-#define BTN_TRASH (*(int*)BTN_ADDR_TRASH)
 #define BTN_ADDR_JUMP   0xC0220134
-#define BTN_JUMP (*(int*)BTN_ADDR_JUMP)
-
-#define LEDRED (*((int*)0xC02200A0))
-#define LEDBLUE (*((int*)0xC0220000))
-#define LEDON   0x46
-#define LEDOFF  0x44
 
 // Events for SendToIntercom
 typedef enum {
@@ -616,8 +609,5 @@ extern int TransferNormalScreen     (int r0, int r1, int r2, int r3, int a, int 
 extern int TransferUpsideDownScreen (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
 extern int TransferMirrorScreen     (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
 extern int TransferRotatedScreen    (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
-
-// PTP
-extern void * PTP_Actions (void * arg0, void * arg1, void * arg2, void * arg3, void * arg4);
 
 #endif /* FIRMWARE_H_ */

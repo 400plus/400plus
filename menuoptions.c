@@ -46,9 +46,6 @@ char *menuoptions_btnactn_strings[BUTTON_ACTION_COUNT] = {
 	[BUTTON_ACTION_AEB]          = LP_WORD(L_I_AEB),
 	[BUTTON_ACTION_HACK_MENU]    = LP_WORD(L_V_HACK_MENU),
 	[BUTTON_ACTION_TOGGLE_FLASH] = LP_WORD(L_V_TOGGLE_FLASH),
-#ifdef DEV_BTN_ACTION
-	[BUTTON_ACTION_DEV_BTN]      = "DevBtn (DO NOT USE)",
-#endif
 };
 
 char *menuoptions_direction_strings[EAEB_DIRECTION_COUNT] = {
@@ -95,43 +92,6 @@ char *menuoptions_digiso_steps_strings[] = {
 	[2] = "1/2 EV",
 };
 
-char *menuoptions_olcinv_steps_strings[] = {
-	[0] = LP_WORD(L_V_OFF),
-	[1] = "#1",
-	[2] = "#2",
-	[3] = "#3",
-	[4] = "#4",
-	[5] = "#5",
-	[6] = "#6",
-	[7] = "#7",
-	[8] = "#8",
-	[9] = "#9",
-	[10] = "#10",
-	[11] = "#11",
-	[12] = "#12",
-	[13] = "#13",
-	[14] = "#14",
-	[15] = "#15",
-	[16] = "#16",
-	[17] = "#17",
-	[18] = "#18",
-	[19] = "#19",
-	[20] = "#20",
-	[21] = "#21",
-	[22] = "#22",
-	[23] = "#23",
-	[24] = "#24",
-	[25] = "#25",
-	[26] = "#26",
-	[27] = "#27",
-	[28] = "#28",
-	[29] = "#29",
-	[30] = "#30",
-	[31] = "#31",
-	[32] = "#32",
-	[33] = "#33",
-};
-
 list_t menuoptions_bool         = LIST(menuoptions_bool_strings);
 list_t menuoptions_flash        = LIST(menuoptions_flash_strings);
 list_t menuoptions_action       = LIST(menuoptions_action_strings);
@@ -144,5 +104,3 @@ list_t menuoptions_scrind       = LIST(menuoptions_scrind_strings);
 list_t menuoptions_scrlcd       = LIST(menuoptions_scrlcd_strings);
 list_t menuoptions_qexp_weight  = LIST(menuoptions_qexp_weight_strings);
 list_t menuoptions_digiso_steps = LIST(menuoptions_digiso_steps_strings);
-list_t menuoptions_olcinv_steps = LIST(menuoptions_olcinv_steps_strings);
-
