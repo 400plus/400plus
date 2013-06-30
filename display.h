@@ -9,6 +9,8 @@
 
 #define AUTOISO_AUTO "AUTO"
 
+#define OVERLAY_DELAY 5
+
 extern void initialize_display();
 
 extern void restore_display();
