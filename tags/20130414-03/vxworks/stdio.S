@@ -1,0 +1,39 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
+#include "../stub.h"
+
+DEF(clearerr,  0xFFB578A4)
+DEF(fclose,    0xFFB577B4)
+DEF(fdopen,    0xFFB57750)
+DEF(feof,      0xFFB576F4)
+DEF(ferror,    0xFFB57698)
+DEF(fflush,    0xFFB57630)
+DEF(fgetc,     0xFFB574D8)
+DEF(fgetpos,   0xFFB57470)
+DEF(fgets,     0xFFB57334)
+DEF(fileno,    0xFFB572A4)
+DEF(fopen,     0xFFB570FC)
+DEF(fprintf,   0xFFB57098)
+DEF(fputs,     0xFFB56F50)
+DEF(fread,     0xFFB56E24)
+DEF(freopen,   0xFFB56C3C)
+DEF(fscanf,    0xFFB56B98)
+DEF(fseek,     0xFFB567D4)
+DEF(fsetpos,   0xFFB567C0)
+DEF(ftell,     0xFFB56700)
+DEF(fwrite,    0xFFB562F0)
+DEF(getc,      0xFFB5621C)
+DEF(getchar,   0xFFB56164)
+DEF(gets,      0xFFB56070)
+DEF(printf,    0xFFB50AA0)
+DEF(scanf,     0xFFB559F4)
+DEF(sprintf,   0xFFB506F8)
+DEF(tmpnam,    0xFFB55408)
+DEF(ungetc,    0xFFB551E4)
+DEF(vfprintf,  0xFFB54E70)
+DEF(vsnprintf, 0xFFB1F7B4)
+
