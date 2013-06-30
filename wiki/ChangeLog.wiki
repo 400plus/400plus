@@ -1,5 +1,9 @@
 #summary [ChangeLog] Log of changes made to this project.
 
+_*20130414-03*_
+ * Hopefully fixed camera lock-ups.
+ * Updated Russian translation.
+
 _*20130414-02*_
  * Fixed some texts in the menus.
 
