@@ -11,6 +11,11 @@
 #include "mainctrl.h"
 #include "utils.h"
 
+#define LEDRED (*((int*)0xC02200A0))
+#define LEDBLUE (*((int*)0xC0220000))
+#define LEDON   0x46
+#define LEDOFF  0x44
+
 typedef enum {
 	DEBUG_GENERIC    = 0x00, // +SFACT
 	DEBUG_MAIN       = 0x01, // +MC +TEST

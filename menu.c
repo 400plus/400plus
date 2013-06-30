@@ -42,7 +42,7 @@ void menu_repeat_left (menu_t *menu, const int repeating);
 
 menupage_t *get_selected_page();
 
-int hack_central_handler(dialog_t *dialog, int event, int r2, int r3) {
+int my_central_handler(dialog_t *dialog, int event, int r2, int r3) {
 	debug_log("CENTRAL!");
 	debug_log("central: dlg:0x%08X, ev:0x%08X, r2:0x%08X, r3:0x%08X", dialog, event, r2, r3);
 	return DIALOGHandler(dialog, event, r2, r3);
@@ -69,7 +69,7 @@ void menu_create(menu_t *menu) {
 	GUI_PalleteInit();
 
 	menu_handler = dialog_create(22, menu_event_handler);
-	//*(int*)((int)(menu_handler+0x58)) = (int)hack_central_handler;
+	//*(int*)((int)(menu_handler+0x58)) = (int)my_central_handler;
 	//*(int*)((int)(menu_handler+0x7C)) = (int)menu_event_handler;
 
 	PalettePush();

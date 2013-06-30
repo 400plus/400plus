@@ -22,7 +22,7 @@ typedef struct MC_Table_entry_struct {
 	int arg;
 } mc_table_t;
 
-void hack_MC_T_Button(mc_table_t * event) {
+void my_MC_T_Button(mc_table_t * event) {
 
 	// AF: important original btns handled at 0xFF81C9F0 in the OFW
 
@@ -115,7 +115,7 @@ void hack_MC_T_Button(mc_table_t * event) {
 
 
 
-void hack_task_MainCtrl_hijack() {
+void my_task_MainCtrl_hijack() {
 	SleepTask(2000); // give some time to the original one.
 	// so we simulate a situation where we do not own the original task.
 
@@ -161,7 +161,7 @@ void hack_task_MainCtrl_hijack() {
 	}
 
 }
-void hack_task_MainCtrl() {
+void my_task_MainCtrl() {
 
 	// using printf() in this function makes troubles with shooting...
 	// took me the whole eternity to understand that ...
@@ -190,7 +190,7 @@ void hack_task_MainCtrl() {
 		if (0) {
 		} else if (event->t < 6) {
 			if (event->t == MC_BUTTON) {
-				hack_MC_T_Button(event); // we add our handler here
+				my_MC_T_Button(event); // we add our handler here
 			} else {
 				MC_T_1_5(event);
 			}
@@ -248,7 +248,7 @@ void hack_task_MainCtrl() {
 }
 
 
-void hack_MainCtrlInit() {
+void my_MainCtrlInit() {
 	hMainCtrlMonoSem = CreateBinarySemaphore(aMonoSem, 0);
 
 	MC_dword_2A520 = 0;
@@ -265,9 +265,9 @@ void hack_MainCtrlInit() {
 	SetErrorDetectActSweepProc(ErrorDetectActSweep);
 	hMainMessQueue = (int*)CreateMessageQueue(aMainMessQueue, 0x64);
 	hMainDataQueue = (int*)CreateMessageQueue(aMainDataQueue, 0xC8);
-	CreateTask(aMainCtrl, 0x15, 0x4000, hack_task_MainCtrl, 0);
+	CreateTask(aMainCtrl, 0x15, 0x4000, my_task_MainCtrl, 0);
 	// uncomment to try the hijack stuff... not working as we want though...
-	//CreateTask("HJ_MainCtrl", 0x16, 0x1000, hack_task_MainCtrl_hijack, 0);
+	//CreateTask("HJ_MainCtrl", 0x16, 0x1000, my_task_MainCtrl_hijack, 0);
 	DebugProcsInit();
 	CreateInterComQueue();
 	MC_InitStart();
