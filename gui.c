@@ -225,6 +225,6 @@ void my_GUIInit() {
 	sub_FF82B5AC();
 
 	// Overwrite UpdateGUI
-	TransferScreen = my_TransferScreen;
+	//TransferScreen = my_TransferScreen;
 }
 
