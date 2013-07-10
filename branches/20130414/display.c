@@ -199,7 +199,6 @@ void display_overlay(uint8_t *vram_address) {
 		} else {
 			SleepTask(OVERLAY_DELAY);
 		}
-
 	}
 }
 
