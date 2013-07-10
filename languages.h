@@ -78,7 +78,7 @@
 	LANG_PAIR( I_RAMP_S,             "Ramp size (shots)"         ) \
 	LANG_PAIR( I_RAMPING_EXP,        "Ramping (exposure)"        ) \
 	LANG_PAIR( I_RAMPING_TIME,       "Ramping (interval)"        ) \
-	LANG_PAIR( I_EAEB,               "EAEB"                      ) \
+    LANG_PAIR( I_EAEB,               "EAEB"                      ) \
 	LANG_PAIR( I_SHOTS,              "Shots"                     ) \
 	LANG_PAIR( I_VFORMAT,            "Video format (fps)"        ) \
 	LANG_PAIR( I_RECTIME,            "Recording time"            ) \
@@ -115,7 +115,6 @@
 	LANG_PAIR( I_LANGUAGE,           "Language"                  ) \
 	LANG_PAIR( I_DIG_ISO_STEP,       "Digital ISO step"          ) \
 	LANG_PAIR( I_PERSIST_AEB,        "Persist AEB"               ) \
-	LANG_PAIR( I_INVERT_OLC,         "Change OLC Colors"         ) \
 	LANG_PAIR( I_SAFETY_SHIFT,       "Safety Shift"              ) \
 	LANG_PAIR( I_TV_VAL,             "Tv"                        ) \
 	LANG_PAIR( I_AV_VAL,             "Av"                        ) \

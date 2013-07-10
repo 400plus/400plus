@@ -1,7 +1,7 @@
 /**
- * $Revision: 1404 $
- * $Date: 2012-07-12 00:55:44 +0300 (Thu, 12 Jul 2012) $
- * $Author: eduardo.perezesteban $
+ * $Revision$
+ * $Date$
+ * $Author$
  */
 
 #ifndef INIT_H_

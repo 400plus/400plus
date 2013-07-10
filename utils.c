@@ -427,7 +427,7 @@ char* strncpy0(char* dest, const char* src, size_t size) {
 // this is done by calling the routine with FD == -1, it is sort of init call.
 // you will have to init everytime you open a new file, before the first real call
 // 2. cannot use it in multi-thread/multi-task. use it only at one place in one time.
-char * hack_fgets_faster(char *s, int n, int fd) {
+char * my_fgets_faster(char *s, int n, int fd) {
 	register char *cs;
 
 	static unsigned char buf[256]; // local buffer
@@ -469,7 +469,7 @@ char * hack_fgets_faster(char *s, int n, int fd) {
 }
 
 #ifdef FGETS_USE_SLOW
-char * hack_fgets_simple_but_slow(char *s, int n, int fd) {
+char * my_fgets_simple_but_slow(char *s, int n, int fd) {
 	register char *cs;
 	unsigned char c;
 

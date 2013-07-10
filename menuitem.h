@@ -263,7 +263,6 @@ struct menuitem_t {
 #define MENUITEM_SCRLCD( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_scrlcd,       _ON_CHANGE_)
 #define MENUITEM_WEIGTH( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_qexp_weight,  _ON_CHANGE_)
 #define MENUITEM_DIG_ISO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_digiso_steps, _ON_CHANGE_)
-#define MENUITEM_OLC_INV(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ENUM(_ID_, _NAME_, _VALUE_, true, &menuoptions_olcinv_steps, _ON_CHANGE_)
 
 #define MENUITEM_CLRTEMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false, 1800, 11000, 100, 500,  0, false, "%5u", _ON_CHANGE_, NULL)
 #define MENUITEM_COUNTER(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_INT(_ID_, _NAME_, _VALUE_, false,    0,  9000,   1,  10, 10, true,  "%4u", _ON_CHANGE_, NULL)

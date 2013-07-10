@@ -6,7 +6,6 @@
 
 #include "../stub.h"
 
-DEF(hPtpMgr,                   0x00006538)
 DEF(DPData,                    0x00016B60)
 DEF(LensID,                    0x00005884)
 DEF(is_release_permitted,      0x00001CD4)
