@@ -1,0 +1,35 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
+#ifndef ACTIONS_H_
+#define ACTIONS_H_
+
+#define ACTION_MSG_TIMEOUT 2000
+#define ACTION_AEB_TIMEOUT 1500
+
+extern void start_up();
+
+extern void dp_action();
+
+extern void toggle_img_format();
+extern void toggle_CfMLU();
+extern void toggle_CfFlashSyncRear();
+extern void toggle_AEB();
+
+extern void restore_iso();
+extern void restore_wb();
+extern void restore_metering();
+
+extern void set_intermediate_iso();
+extern void set_metering_spot();
+extern void set_whitebalance_colortemp();
+
+extern void button_jump_action();
+extern void button_trash_action();
+
+void drivemode_set();
+
+#endif

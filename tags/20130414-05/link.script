@@ -1,0 +1,16 @@
+/**
+ * $Revision$
+ * $Date$
+ * $Author$
+ */
+
+SECTIONS {
+	first 0x7E0000 :
+	{
+		/* I guess this one must go first, as it contains the entry point */
+		entry.o;
+
+		/* And now comes the rest */
+		*.o;
+	}
+}
