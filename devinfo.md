@@ -31,20 +31,16 @@ development and reverse engineering. _(if I succeed in writing this file)_
 ## Boot procedure
 So the __BL__ loads our _AUTOEXEC.BIN_ into _0x800000_ address, then jumps
 there to execute our code.  
-Unfortunately once our code is ran, we pretty soon initialize and start the
-__OFW__.  
-The problem with the __OFW__ is that it will overwrite the beginning
-(or the whole maybe?)
-of this area (_0x800000_, where we are loaded) shortly after it is ran and
-this happens while we are executed from there.  
-So we need to move away from this addresses as soon as possible.  
+Unfortunately the __OFW__ will overwrite the beginning (or the whole maybe?)
+of this area shortly after booting while we are executed from there. So we need
+to move away from this addresses as soon as possible.  
 The first thing we do when we are called by the __BL__ is to call our
 __`COPY()`__ [_init.c_] routine (see [_entry.S_]). This routine will copy our
 hack from _`0x800000`_ to _`0x7E0000`_.  
 As we are not compiled with __PIC__, our code is linked to run from
 _`0x7E0000`_.  You can see this address in the _linker.script_ and _Makefile_
 files.  
-Additionally while we are in our __`hack_taskcreate_Startup()`__ [_init.c_]
+Additionally while we are in our __`my_taskcreate_Startup()`__ [_init.c_]
 we've changed the "_to_" argument of the __`CreateMainHeap(from, to)`__ call,
 from "`0x800000`" to "`0x800000 - 0x20000`".  
 This is so to keep the last _0x20000_ bytes (_128kb_), our hack, out of the
@@ -65,48 +61,42 @@ RealImagePosition, perhaps there are the zoom levels and other stuff for the
 ## VRAM buffers
 Our display is 360x240. The buffers store YUV422 data.
 
-Image VRAM (the one which is used in image player) is located:  
-// from: 0x412604    to: 0x4AA404    size: 0x97E00 (622080)  
+Image VRAM (the one which is used in image player) is located:
+	// from: 0x412604    to: 0x4AA404    size: 0x97E00 (622080)
 there are 2 buffers inside, with small data between...
 
-Menu VRAM (the one which will be used for menus, like in ML):  
-	// from: 0x212D7C    to: 0x23D144    size: 0x2A3C8 (173000)  
+Menu VRAM (the one which will be used for menus, like in ML):
+	// from: 0x212D7C    to: 0x23D144    size: 0x2A3C8 (173000)
 
-	// it seems the usable region (360x240) of the menu vram is:  
-	// from: 0x212D7C    to: 0x227EFC    size: 0x15180 (86400)  
-	// then there is some small data  
-	// and the buffer continues, (probably bmp buffer)  
-	// from: 0x227FC4    to: 0x23D144    size: 0x15180 (86400)  
+	// it seems the usable region (360x240) of the menu vram is:
+	// from: 0x212D7C    to: 0x227EFC    size: 0x15180 (86400)
+	// then there is some small data
+	// and the buffer continues, (probably bmp buffer)
+	// from: 0x227FC4    to: 0x23D144    size: 0x15180 (86400)
 
 ## Button addresses (thanks Sergei)
-value:  
-button pressed: 0x20  
-button not pressed: 0x21  
+button pressed: 0x20
+button not pressed: 0x21
 
-address:  
-JUMP: 0xC0220134  
-TRASH: 0xC0220130  
+JUMP: 0xC0220134
+TRASH: 0xC0220130
 
 ## Message Queues
-```
 CreateMessageQueue returns pointer to a structure of this type I believe:
 	struct {
 		int messages_in_the_queue; // unread
 		char * name_of_the_queue;
 	}
-```
 
 ## state machines
-Alex (from ML) made some nice diagrams of [our state machines][]
-  [our state machines]: http://a1ex.bitbucket.org/ML/states/400D-alt/index.html
-
+Alex made some nice diagrams of our state machines:
+http://a1ex.bitbucket.org/ML/states/400D-alt/index.html
 
 
 ---
 
 # IDEAS
 ## bootflags, this is for the .fir enabler
-```
 	// FFFF5720 read_bootflag
 	// FFFF5638 write_bootflag
 
@@ -132,12 +122,12 @@ Alex (from ML) made some nice diagrams of [our state machines][]
 	// if you study the 400d bootloader, the syntax is different
 	// arg0 is either 0 or 1, it sets different flags
 	// (always pass 0 though, didn't recognize the other flags)
-```
+
 
 ## MMIO for buttons
 we should be able to see the buttons on MMIO ports
 the a540 camera (which is vxworks) sees them at:
-```
+
 	volatile long *mmio0 = (void*)0xc0220200;
 	volatile long *mmio1 = (void*)0xc0220204;
 	volatile long *mmio2 = (void*)0xc0220208;
@@ -145,17 +135,15 @@ the a540 camera (which is vxworks) sees them at:
 	dst[0] = *mmio0;
 	dst[1] = *mmio1;
 	dst[2] = *mmio2 & 0xffff;
-```
 
 ## force MF for lens (may be)
-we can try setting `cameraMode->ef\_lens\_exist=0` to force, not sure if it
-works.  
+we can try setting cameraMode->ef\_lens\_exist=0 to force, not sure if it works.
 but if it works, it could be useful for bracketing...
 
 ## HELP messages
 make them show on key press (when over some menu item) zoom-in btn is good
-candidate.  
-use dialog 64 (best), or 91 (or was it 98?), or 101
+candidate.
+use dialog 64 (best), or 91 (or it was 98?), or 101
 
 ## MEMSPY - usability
 Make memspy more usable, perhaps a menu for it would be nice.
@@ -172,7 +160,7 @@ Let's suppose there is some _hMessageQueue_ we know about and want to
 intercept, but we do not know what routine reads that queue, or just do not 
 want to disassemble it. However, we can be pretty sure that the firmware will 
 do something similar to this (example extracted form _main_ctrl_):
-```
+
 	// code should be indented one tab right.
 	firmware_routine() {
 		while (TRUE) {
@@ -181,15 +169,15 @@ do something similar to this (example extracted form _main_ctrl_):
 			// do something about "message"
 		}
 	}
-```
+
 Now, we could insert a proxy, that will read all messages in that queue before 
 they reach _firmware_routine_, like this:
-```
+
 	proxy_routine() {
 		int *hOutputQueue = CreateMessageQueue("ProxyQueue", param); // [1]
-		int *hInputQueue  = hMessageQueue; // take the original queue
+		int *hInputQueue  = hMessageQueue;
 
-		hMessageQueue  = hOutputQueue; // replace the original queue with our output queue
+		hMessageQueue  = hOutputQueue;
 
 		while (TRUE) {
 			ReceiveMessageQueue(hInputQueue, &message, 0);
@@ -199,40 +187,40 @@ they reach _firmware_routine_, like this:
 			PostMessageQueue(hOutputQueue, message, forever); // [2]
 		}
 
-		// [1]: What's "param" here exactly?
-		// [2]: Should "forever" be set to TRUE?
+		// [1] What's "param" here exactly?
+		// [2] Should "forever" be set to TRUE?
 	}
-```
+
 Obviously, that proxy should be launched as a separate task:
-```
+
 	hijack_routine() {
 		CreateTask("ProxyTask", prio, stack_size, proxy_routine, parm); //[3]
 		// [3] Decide values missing values
 	}
-```
 
 
 
-// 0xAF:  
+
+// 0xAF:
 Ok, I did not found a way to steal the queue, it just dont work, perhaps I'm
 not doing it in the right way.
 
-What I found so far is that there is no problem to `ReceiveMessageQueue(someQ);`
-in parallel with the original task.  
-i.e.  
-we start a separate task and call:  
-	`ReceiveMessageQueue(hMainMessQueue, &msg, 0);`  
-and we receive the same events as the original MainCtrl task.  
+What I found so far is that there is no problem to ReceiveMessageQueue(someQ);
+in parallel with the original task.
+i.e.
+we start a separate task and call:
+	ReceiveMessageQueue(hMainMessQueue, &msg, 0);
+and we receive the same events as the original MainCtrl task.
 this is still a good way to catch if something is happening.
 
 i will continue my investigations...
 
-// 0xAF:  
+// 0xAF:
 now while i'm reading what i've done there, i think i did not dereferenced
 the hMainMessQueue and this is the problem... should be checked again.
 
 ## try to get the booting logs from the beginning
-Use the blinking driver for vxworks from owerlord as base.  
+Use the blinking driver for vxworks from owerlord as base.
 Probably make another driver, which just stores messages to big buffer
 (32/64kb) then at the __`task_Startup()`__ write the booting log to the CF.
 
@@ -253,7 +241,7 @@ See [DCF](http://en.wikipedia.org/wiki/Design_rule_for_Camera_File_system).
 It would be nice to have our files in separate folder. See the previous idea.
 
 ## Lens info
-Continue investigation on lens info structures and tables.  
+Continue investigation on lens info structures and tables.
 This info can be useful for _Presets_ based on attached lens.
 
 ## PTP - Picture Transfer Protocol
@@ -299,60 +287,60 @@ Short help messages for every menu. Either as pop-up message
 * `register_ptp_handler`
 
 
-* `ChangeDprData (int what, int value);`  
-  2: red_eye  
-  3: beep  
-  4: auto_power_off  
-  5: view_type  
-  6: review_time  
-  7: auto_rotate  
-  8: lcd_brightness  
-  9: file_numbering  
- 10: language  
- 11: video_system  
- 12: ptp  
- 13: picture_style_mode  
- 14: histogram  
- 15: color_space  
- 16: forbid_rel  
- 17: iso  
- 18: metering  
- 19: selected_af_mode  
- 21: face_sensor_disable  
- 23: drive  
- 24: wb  
- 26: color_temp  
- 27: date_time  
- 28: cfmenupos  
- 29: cf_set_button_func  
- 30: cf_nr_for_long_exposure  
- 31: cf_efav_fix_x  
- 32: cf_afael_active_button  
- 33: cf_emit_aux  
- 34: cf_explevel_inc_third  
- 35: cf_mirror_up_lock  
- 36: cf_flash_metering  
- 37: cf_flash_sync_rear  
- 38: cf_qr_magnify  
- 39: field_188  
- 40: cf_emit_flash  
- 41: cf_extend_iso  
- 42: cf_aeb_sequence  
- 43: cf_si_indicate  
- 44: cf_menu_pos  
- 45: cf_fpsel_method  
- 46: cf_safety_shift  
- 47: cf_lens_button  
- 55: efcomp  
- 66: ae_bkt  
- 90: usb_connect_type  
- 91: menupos  
-113: play_jump_type  
-114: playback_file_id  
-115: playback_file_id_pos  
-138: field_18C  
-156: wb_bkt  
-157: wbcomp_gm  
-158: wbcomp_ab  
+* `ChangeDprData (int what, int value);`
+  2: red_eye
+  3: beep
+  4: auto_power_off
+  5: view_type
+  6: review_time
+  7: auto_rotate
+  8: lcd_brightness
+  9: file_numbering
+ 10: language
+ 11: video_system
+ 12: ptp
+ 13: picture_style_mode
+ 14: histogram
+ 15: color_space
+ 16: forbid_rel
+ 17: iso
+ 18: metering
+ 19: selected_af_mode
+ 21: face_sensor_disable
+ 23: drive
+ 24: wb
+ 26: color_temp
+ 27: date_time
+ 28: cfmenupos
+ 29: cf_set_button_func
+ 30: cf_nr_for_long_exposure
+ 31: cf_efav_fix_x
+ 32: cf_afael_active_button
+ 33: cf_emit_aux
+ 34: cf_explevel_inc_third
+ 35: cf_mirror_up_lock
+ 36: cf_flash_metering
+ 37: cf_flash_sync_rear
+ 38: cf_qr_magnify
+ 39: field_188
+ 40: cf_emit_flash
+ 41: cf_extend_iso
+ 42: cf_aeb_sequence
+ 43: cf_si_indicate
+ 44: cf_menu_pos
+ 45: cf_fpsel_method
+ 46: cf_safety_shift
+ 47: cf_lens_button
+ 55: efcomp
+ 66: ae_bkt
+ 90: usb_connect_type
+ 91: menupos
+113: play_jump_type
+114: playback_file_id
+115: playback_file_id_pos
+138: field_18C
+156: wb_bkt
+157: wbcomp_gm
+158: wbcomp_ab
 
 vim: ft=markdown ts=4 sw=4 cc=80 spell:

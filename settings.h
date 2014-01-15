@@ -40,9 +40,6 @@ typedef enum {
 	BUTTON_ACTION_AEB,
 	BUTTON_ACTION_HACK_MENU,
 	BUTTON_ACTION_TOGGLE_FLASH,
-#ifdef DEV_BTN_ACTION
-	BUTTON_ACTION_DEV_BTN,
-#endif
 	BUTTON_ACTION_COUNT,
 	BUTTON_ACTION_FIRST = 0,
 	BUTTON_ACTION_LAST  = BUTTON_ACTION_COUNT - 1
@@ -168,7 +165,6 @@ typedef struct {
 	int qexp_mintv;
 	int qexp_weight;
 	int persist_aeb;
-	int invert_olc;
 } settings_t;
 
 extern settings_t settings;
