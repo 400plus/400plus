@@ -6,22 +6,22 @@ PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
 
 ifndef CROSS_COMPILE
-	CROSS_COMPILE=arm-elf-
+	CROSS_COMPILE := arm-elf-
 endif
 
 ifdef RELEASE
-	VERSION = V-$(RELEASE)
-	RELNAME = 400plus-$(RELEASE)
-	W_FLAGS = -Werror -Wno-implicit-function-declaration -DRELEASE
+	VERSION := V-$(RELEASE)
+	RELNAME := 400plus-$(RELEASE)
+	W_FLAGS := -Werror -Wno-implicit-function-declaration -DRELEASE
 else
 	VERSION = $(shell [[ -d .svn ]] && echo "R-`svn info | fgrep Revision | cut -d' ' -f2 `" || echo "B-`date +'%Y%m%d'`")
-	RELNAME = 400plus-$(shell date +'%Y%m%d')-0
-	W_FLAGS =
+	RELNAME := 400plus-$(shell date +'%Y%m%d')-0
+	W_FLAGS :=
 endif
 
-USE_FONTS = -DUSE_FONT_SMALL
+USE_FONTS := -DUSE_FONT_SMALL
 
-COMMON_FLAGS =\
+COMMON_FLAGS := \
 	$(USE_FONTS)                      \
 	-DVERSION='"$(VERSION)"'          \
 	-Ivxworks                         \
@@ -84,9 +84,9 @@ C_OBJS := $(C_SRCS:.c=.o)
 
 OBJS  := $(S_OBJS) $(C_OBJS)
 
-BOLD="\033[1m"
-NORM="\033[0m"
-ECHO="/bin/echo"
+BOLD := "\033[1m"
+NORM := "\033[0m"
+ECHO := "/bin/echo"
 
 all: $(PROJECT).BIN languages.ini languages/new_lang.ini
 	@$(ECHO) -e $(BOLD)[ALL]$(NORM)
