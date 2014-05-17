@@ -7,6 +7,8 @@
 #ifndef _STATE_OBJECT_H_
 #define _STATE_OBJECT_H_
 
+#include <string.h>
+
 #include "firmware.h"
 
 // with some help from ML here we have state objects

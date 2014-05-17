@@ -21,7 +21,6 @@ void hack_pre_init_hook();
 void hack_post_init_hook();
 void hack_dmProcInit();
 void disable_cache_clearing();
-void set_our_control_register();
 int  hack_init_intercom_data(void * old_proc);
 int  hack_register_gui_idle_handler(void * org_proc, int zero);
 
@@ -172,7 +171,7 @@ void set_our_control_register() {
 		"ORR    R1, R1, #0x08       \n" // reserved - OFW requested
 		"ORR    R1, R1, #0x10       \n" // reserved - OFW requested
 		"ORR    R1, R1, #0x20       \n" // reserved - OFW requested
-		"ORR    R1, R1, #0x40       \n" // reserved - OFW requested
+		"ORR    R1, R1, #0x40       \n" // reserved - OFdmProcInitW requested
 		"ORR    R1, R1, #0x1000     \n" // I Cache - we wont have cache hacks w/o this
 		"ORR    R1, R1, #0x10000    \n" // D TCM - these would be set by the OFW later
 		"ORR    R1, R1, #0x40000    \n" // I TCM - these would be set by the OFW later
