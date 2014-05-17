@@ -6,7 +6,7 @@
 
 SECTIONS {
 	first 0x7E0000 : {
-		init.o;
+		entry.o;
 		*.o;
 	}
 }

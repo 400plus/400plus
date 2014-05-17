@@ -4,15 +4,6 @@
  * $Author$
  */
 
-// !!! IMPORTANT !!!
-// Keep this code here in the beginning of the file, it is our entry point
-asm(
-	".text\n"
-	".globl _start\n"
-	"_start:\n"
-	"B hack_entry_point\n"
-);
-
 #include <strings.h>
 #include "cache_hacks.h"
 
