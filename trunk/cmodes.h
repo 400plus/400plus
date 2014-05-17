@@ -34,19 +34,19 @@ typedef struct {
 
 extern cmodes_config_t cmodes_config;
 
-extern void cmodes_read    ();
-extern void cmodes_write   ();
-extern void cmodes_restore ();
-extern void cmodes_delete  ();
+extern void cmodes_read    (void);
+extern void cmodes_write   (void);
+extern void cmodes_restore (void);
+extern void cmodes_delete  (void);
 
 extern int  cmode_read   (int id, snapshot_t *cmode);
 extern int  cmode_write  (int id);
 extern int  cmode_delete (int id);
 
-extern void cmode_recall ();
-extern void cmode_apply  ();
+extern void cmode_recall (void);
+extern void cmode_apply  (void);
 
-extern int  get_current_cmode();
+extern int  get_current_cmode(void);
 extern void set_current_cmode(int cmode_id);
 
 #endif /* CMODES_H_ */

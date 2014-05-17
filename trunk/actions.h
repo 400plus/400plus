@@ -10,26 +10,27 @@
 #define ACTION_MSG_TIMEOUT 2000
 #define ACTION_AEB_TIMEOUT 1500
 
-extern void start_up();
+extern void start_up(void);
 
-extern void dp_action();
+extern void dp_action(void);
 
-extern void toggle_img_format();
-extern void toggle_CfMLU();
-extern void toggle_CfFlashSyncRear();
-extern void toggle_AEB();
+extern void toggle_img_format     (void);
+extern void toggle_CfMLU          (void);
+extern void toggle_CfEmitFlash    (void);
+extern void toggle_CfFlashSyncRear(void);
+extern void toggle_AEB            (void);
 
-extern void restore_iso();
-extern void restore_wb();
-extern void restore_metering();
+extern void restore_iso     (void);
+extern void restore_wb      (void);
+extern void restore_metering(void);
 
-extern void set_intermediate_iso();
-extern void set_metering_spot();
-extern void set_whitebalance_colortemp();
+extern void set_intermediate_iso      (void);
+extern void set_metering_spot         (void);
+extern void set_whitebalance_colortemp(void);
 
-extern void button_jump_action();
-extern void button_trash_action();
+extern void button_jump_action (void);
+extern void button_trash_action(void);
 
-void drivemode_set();
+void drivemode_set(void);
 
 #endif

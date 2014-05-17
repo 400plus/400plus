@@ -22,14 +22,16 @@ int  msm_ae_return; // Multi-spot metering: AE mode to return after first shot
 tv_t msm_tv_return; // Multi-spot metering: Tv value in M mode to return
 av_t msm_av_return; // Multi-spot metering: Av value in M mode to return
 
-void msm_reset() {
+void msm_reset(void);
+
+void msm_reset(void) {
 	status.msm_count  = 0;
 	status.msm_tv     = EV_ZERO;
 	status.msm_av     = EV_ZERO;
 	status.msm_active = false;
 }
 
-void msm_register() {
+void msm_register(void) {
 	static int  last_flag; // Last value registered can be deleted
 	static tv_t last_tv;   // Last Tv value registered
 	static av_t last_av;   // Last Av value registered
@@ -75,11 +77,11 @@ void msm_register() {
 	last_av   = status.measured_av;
 }
 
-void msm_release() {
+void msm_release(void) {
 	send_to_intercom(IC_SET_BURST_COUNTER, 9);
 }
 
-void msm_start() {
+void msm_start(void) {
 	if (status.msm_count > 0) {
 		status.msm_active = true;
 
@@ -102,7 +104,7 @@ void msm_start() {
 	}
 }
 
-void msm_stop() {
+void msm_stop(void) {
 	wait_for_camera();
 	SleepTask(RELEASE_WAIT);
 

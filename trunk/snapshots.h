@@ -25,7 +25,7 @@ extern int snapshot_read  (char *name, snapshot_t *snapshot);
 extern int snapshot_write (char *name);
 extern int snapshot_delete(char *name);
 
-extern void snapshot_recall ();
-extern void snapshot_apply  ();
+extern void snapshot_recall(snapshot_t *snapshot);
+extern void snapshot_apply (snapshot_t *snapshot);
 
 #endif /* SNAPSHOTS_H_ */

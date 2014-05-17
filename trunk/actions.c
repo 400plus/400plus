@@ -27,8 +27,8 @@
 
 #include "actions.h"
 
-void set_intermediate_iso();
-void repeat_last_script();
+void set_intermediate_iso(void);
+void repeat_last_script  (void);
 
 void button_action(button_action_t action);
 
@@ -186,7 +186,7 @@ void toggle_CfMLU() {
 	display_message_set(message, ACTION_MSG_TIMEOUT);
 }
 
-void toggle_CfEmitFlash() {
+void toggle_CfEmitFlash(void) {
 	char message[LP_MAX_WORD];
 
 	send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
@@ -238,7 +238,7 @@ void restore_metering() {
 		send_to_intercom(IC_SET_METERING, METERING_MODE_EVAL);
 }
 
-void repeat_last_script() {
+void repeat_last_script(void) {
 	switch (persist.last_script) {
 	case SCRIPT_EXT_AEB:
 		script_ext_aeb();

@@ -21,6 +21,9 @@
 char languages_found[MAX_LANGUAGES][MAX_SECTION];
 static unsigned int languages_found_last = 0;
 
+int lang_pack_sections(void *user, int lineno, const char *section);
+int lang_pack_loader  (void* user, int lineno, const char* section, const char* name, const char* value);
+
 // put the language keys into the hack, we need them to match the keys in languages.ini file
 const char *lang_pack_keys[L_COUNT] = {
 	#define LANG_PAIR(key, val) [L_##key] = #key,

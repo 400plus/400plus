@@ -59,12 +59,12 @@ typedef enum {
 	DIRECTION_RIGHT
 } direction_t;
 
-extern void afp_enter ();
+extern void afp_enter (void);
 
-extern void afp_center ();
-extern void afp_top ();
-extern void afp_bottom ();
-extern void afp_left ();
-extern void afp_right ();
+extern void afp_center (void);
+extern void afp_top    (void);
+extern void afp_bottom (void);
+extern void afp_left   (void);
+extern void afp_right  (void);
 
 #endif /* AF_PATTERNS_H_ */

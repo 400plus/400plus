@@ -25,22 +25,22 @@ void *menu_handler;
 
 menu_t *current_menu;
 
-void menu_initialize();
-void menu_destroy();
+void menu_initialize(void);
+void menu_destroy   (void);
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
 void menu_set_page(menupage_t *page);
 void menu_set_text(const int line, const char *text);
 
-void menu_highlight(const int line);
-
 void menu_repeat(menu_t *menu, void (*action)(menu_t *menu, const int repeating));
 
 void menu_repeat_right(menu_t *menu, const int repeating);
 void menu_repeat_left (menu_t *menu, const int repeating);
 
-menupage_t *get_selected_page();
+menupage_t *get_selected_page(void);
+
+int hack_central_handler(dialog_t *dialog, int event, int r2, int r3);
 
 int hack_central_handler(dialog_t *dialog, int event, int r2, int r3) {
 	debug_log("CENTRAL!");
@@ -100,11 +100,11 @@ void menu_close() {
 	press_button(IC_BUTTON_DISP);
 
 	menu_destroy();
-	menu_finish();
+	menu_finish(NULL); //TODO:FixMe
 }
 
 void menu_initialize() {
-	menu_return();
+	menu_return(current_menu);
 	status.menu_running = true;
 }
 
@@ -117,7 +117,7 @@ void menu_destroy() {
 	}
 }
 
-void menu_finish() {
+void menu_finish(menu_t *menu) {
 	menu_event_save();
 	status.menu_running = false;
 }
@@ -165,7 +165,7 @@ pass_event:
 	return ret;
 }
 
-void menu_return() {
+void menu_return(menu_t *menu) {
 	menu_set_page(get_selected_page());
 }
 
@@ -260,7 +260,7 @@ void menu_next(menu_t *menu) {
 		else
 			menu->current_posn++;
 
-		menu_return();
+		menu_return(menu);
 	}
 }
 
@@ -273,7 +273,7 @@ void menu_prev(menu_t *menu) {
 		else
 			menu->current_posn--;
 
-		menu_return();
+		menu_return(menu);
 	}
 }
 

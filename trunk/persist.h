@@ -23,7 +23,7 @@ typedef struct {
 
 extern persist_t persist;
 
-extern int  persist_read ();
-extern void persist_write();
+extern int  persist_read (void);
+extern void persist_write(void);
 
 #endif

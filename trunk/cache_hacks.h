@@ -329,7 +329,7 @@ static uint32_t cache_get_cached(uint32_t address, uint32_t type)
 	return 0;
 }
 
-static void icache_unlock()
+static void icache_unlock(void)
 {
 	uint32_t old_int = cli();
 
@@ -373,7 +373,7 @@ static void icache_unlock()
 	sei(old_int);
 }
 
-static void dcache_unlock()
+static void dcache_unlock(void)
 {
 	uint32_t old_int = cli();
 
@@ -430,7 +430,7 @@ static void dcache_unlock()
 	sei(old_int);
 }
 
-static inline void icache_lock()
+static inline void icache_lock(void)
 {
 	uint32_t old_int = cli();
 
@@ -471,8 +471,9 @@ static inline void icache_lock()
 	sei(old_int);
 }
 
-static void clean_d_cache( void );
-static inline void dcache_lock()
+static void clean_d_cache(void);
+
+static inline void dcache_lock(void)
 {
 	uint32_t old_int = cli();
 
@@ -531,7 +532,7 @@ static inline void dcache_lock()
 
 /* these are the "public" functions. please use only these if you are not sure what the others are for */
 
-static uint32_t __attribute__ ((unused)) cache_locked()
+static uint32_t __attribute__ ((unused)) cache_locked(void)
 {
 	uint32_t status = 0;
 	asm volatile (
@@ -546,13 +547,13 @@ static uint32_t __attribute__ ((unused)) cache_locked()
 	return status;
 }
 
-static inline void cache_lock()
+static inline void cache_lock(void)
 {
 	icache_lock();
 	dcache_lock();
 }
 
-static void __attribute__ ((unused)) cache_unlock()
+static void __attribute__ ((unused)) cache_unlock(void)
 {
 	icache_unlock();
 	dcache_unlock();

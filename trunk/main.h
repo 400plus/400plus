@@ -48,11 +48,11 @@ typedef struct {
 } status_t;
 
 // Our own code
-extern void initialize();
+extern void initialize(void);
 extern void intercom_proxy(const int handler, char *message);
 extern void enqueue_action(action_t action);
-extern void hack_MainCtrlInit();
-extern void hack_GUIInit();
+extern void hack_MainCtrlInit(void);
+extern void hack_GUIInit(void);
 
 // Shared globals
 extern status_t status;

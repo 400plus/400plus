@@ -7,8 +7,10 @@
 #ifndef MENU_MAIN_H_
 #define MENU_MAIN_H_
 
-extern void menu_main_start();
-extern void menu_main_save ();
+#include "menu.h"
+
+extern void menu_main_start(void);
+extern void menu_main_save (menu_t *menu);
 
 enum {
 	MENUPAGE_PARAMS,

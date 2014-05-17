@@ -264,7 +264,7 @@ void rename_clear(menu_t *menu) {
 
 void rename_return(menu_t *menu) {
 	rename_save(menu);
-	menu_return();
+	menu_return(menu);
 }
 
 void rename_close(menu_t *menu) {

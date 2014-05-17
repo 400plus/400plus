@@ -81,39 +81,39 @@ struct menu_t {
 extern dpr_data_t menu_DPData;
 
 extern void menu_create (menu_t * menu);
-extern void menu_close  ();
-extern void menu_finish ();
-extern void menu_return ();
+extern void menu_close  (void);
+extern void menu_finish (menu_t *menu);
+extern void menu_return (menu_t *menu);
 
 extern void menu_set_posn(int posn);
 extern void menu_set_page(menupage_t *page);
 
-extern void menu_highlight();
-extern void menu_redraw   ();
+extern void menu_redraw   (void);
+extern void menu_highlight(const int line);
 extern void menu_set_text (const int line, const char *text);
 
-extern void menu_event_menu   ();
-extern void menu_event_disp   ();
-extern void menu_event_jump   ();
-extern void menu_event_play   ();
-extern void menu_event_trash  ();
-extern void menu_event_set    ();
-extern void menu_event_prev   ();
-extern void menu_event_next   ();
-extern void menu_event_up     ();
-extern void menu_event_down   ();
-extern void menu_event_right  ();
-extern void menu_event_left   ();
-extern void menu_event_dp     ();
-extern void menu_event_av     ();
-extern void menu_event_av_up  ();
-extern void menu_event_out    ();
-extern void menu_event_in     ();
-extern void menu_event_open   ();
-extern void menu_event_display();
-extern void menu_event_refresh();
-extern void menu_event_finish ();
-extern void menu_event_save   ();
+extern void menu_event_menu   (void);
+extern void menu_event_disp   (void);
+extern void menu_event_jump   (void);
+extern void menu_event_play   (void);
+extern void menu_event_trash  (void);
+extern void menu_event_set    (void);
+extern void menu_event_prev   (void);
+extern void menu_event_next   (void);
+extern void menu_event_up     (void);
+extern void menu_event_down   (void);
+extern void menu_event_right  (void);
+extern void menu_event_left   (void);
+extern void menu_event_dp     (void);
+extern void menu_event_av     (void);
+extern void menu_event_av_up  (void);
+extern void menu_event_out    (void);
+extern void menu_event_in     (void);
+extern void menu_event_open   (void);
+extern void menu_event_display(void);
+extern void menu_event_refresh(void);
+extern void menu_event_finish (void);
+extern void menu_event_save   (void);
 
 extern void menu_event(menu_event_t);
 

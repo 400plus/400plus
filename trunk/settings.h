@@ -193,11 +193,11 @@ typedef struct {
 
 extern named_temps_t named_temps;
 
-extern int  settings_read();
-extern void settings_write();
-extern void settings_apply();
-extern void settings_restore();
+extern int  settings_read(void);
+extern void settings_write(void);
+extern void settings_apply(void);
+extern void settings_restore(void);
 
-extern void named_temps_init();
+extern void named_temps_init(menu_t *menu);
 
 #endif /* SETTINGS_H_ */

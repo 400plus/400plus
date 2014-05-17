@@ -27,6 +27,6 @@ enum {
 
 extern menupage_t menupage_developer;
 
-void menupage_developer_start();
+void menupage_developer_start(menu_t *menu);
 
 #endif /* MENU_DEVELOPER_H_ */
