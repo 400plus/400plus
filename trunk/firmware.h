@@ -372,6 +372,7 @@ struct struct_type_DIALOG {
 };
 
 // Some useful info
+
 extern int  BodyID;
 #define FLAG_BODY_ID     BodyID
 #define FIRMWARE_VERSION ((char*)0x000053CC)
@@ -388,9 +389,16 @@ extern int hFaMain;       // Factory Dialog
 extern int hMnBg;         // Menu Dialog
 extern void *OlcInfoData; // OLC data
 
-extern int logMsg(char *, ...);
+// Main & initialization routines
+
+extern int ofw_entry_point(void);
+extern int dmProcInit(void);
+extern int StartConsole(void);
+extern int SetSendButtonProc(void (*proc)(int, int, int), int unknown);
+
 
 // Memory management
+
 extern void * AllocateMemory( unsigned int len );
 
 // LED management
@@ -440,7 +448,7 @@ extern void  CloseLogFile(void *logFile);
 
 extern void RiseEvent(char *name);
 
-extern int* CreateTask(const char *name, int prio, int stack_size, void (*entry)(), long parm);
+extern int* CreateTask(const char *name, int prio, int stack_size, void (*entry)(void), long parm);
 extern void SleepTask(long msec);
 extern void ExitTask(void);
 
@@ -455,6 +463,7 @@ extern int taskDeleteHookAdd (void *deleteHook);
 
 // Task intercommunication
 
+extern int InitIntercomData(void (*proxy)(const int, char *));
 extern int IntercomHandler(const int handler, const char *message);
 extern int SendToIntercom(int message, int length, int parm);
 extern int IntercomHandlerButton(int button, int unknown);
@@ -469,9 +478,9 @@ extern SEM_ID hMainCtrlMonoSem;
 
 // Event generation
 
-extern int eventproc_PrintICUInfo();
+extern int eventproc_PrintICUInfo(void);
 extern int eventproc_RiseEvent(const char *event);
-extern int eventproc_Release();
+extern int eventproc_Release(void);
 
 // Display
 
@@ -490,13 +499,16 @@ extern int dialog_item_set_str(dialog_t *dialog, const int code, const char *tex
 extern int InfoCreativeAppProc(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 extern int olc_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 
-extern char *sub_FF83A640(); // cf free space - reports wrong ?
+extern char *sub_FF83A640(void); // cf free space - reports wrong ?
 
 extern int PaletteChange(int color);
 
 extern void GUI_Select_Item  (void *menu_handle, int menu_item);
 extern void GUI_Highlight_Sub(void *menu_handle, int menu_item, int enable);
 extern void GUI_Disable_Item (void *menu_handle, int menu_item, int enable);
+
+extern int SetTurnDisplayEvent_1_after_2(void);
+extern int SetTurnDisplayEvent_2_after_1(void);
 
 /*PaletteChange(1); //changes menu to blue
 // 0 red
@@ -508,8 +520,8 @@ extern void GUI_Disable_Item (void *menu_handle, int menu_item, int enable);
 
 // Factory mode and debugging
 
-extern int EnterFactoryMode();
-extern int ExitFactoryMode();
+extern int EnterFactoryMode(void);
+extern int ExitFactoryMode(void);
 extern int hDbgMgr;
 // info on dmSet[Print|Store]Level() routines:
 // second arg is bits field, i guess the debug classes has their own bits
@@ -518,6 +530,10 @@ extern int dmSetPrintLevel(int DbgMgr, int dwFlag, int dwLevel);
 extern int dmSetStoreLevel(int DbgMgr, int dwFlag, int dwLevel);
 
 extern int ioGlobalStdSet(int handle, int file);
+
+extern int dumpf(void);
+extern int logMsg(char *, ...);
+
 
 // Shutter stuff
 
@@ -535,29 +551,32 @@ extern int RemReleaseInstMax;
 extern int RemReleaseSelfMin;
 extern int RemReleaseSelfMax;
 
-extern int eventproc_RemOn();
-extern int eventproc_RemOff();
+extern int eventproc_RemOn(void);
+extern int eventproc_RemOff(void);
 
 // Language
 
 extern void GetLanguageStr(int lang_id, char * lang_str);
 
 // MainCtrl
+
+extern int CreateCtrlMain(int (*handler)(int, int, int, int), int zero);
 extern int MC_dword_2A520;
 extern int MC_dword_259C0;
 extern int MC_State;
 extern int MC_dword_26940;
 extern int MC_dword_27BE0;
 extern int dword_1C78;
-extern int SendToMC_T_28();
-extern int proc_CardDoor_Emergency();
-extern int ErrorDetectActSweep();
+extern int SendToMC_T_28(void);
+extern int proc_CardDoor_Emergency(void);
+extern int ErrorDetectActSweep(void);
 extern int * hMainMessQueue;
 extern int * hMainDataQueue;
-extern int GetMainPreserveData_field_1C();
-extern void task_MainCtrl();
+extern int GetMainPreserveData_field_1C(void);
+extern void task_MainCtrl(void);
 
 // task_MainCtrl
+
 extern int err_MC_T;
 extern void sub_FF825078();
 extern int MC_T_Table[];
@@ -571,6 +590,7 @@ extern char aMainCtrl[];
 extern char aMonoSem[];
 
 // mc_button
+
 extern char asw04d04d[];
 extern int PowerFlag;
 extern int *some_important_structure;
@@ -579,6 +599,7 @@ extern void DDD_Capture(int);
 extern void set_2A0E0_to_1();
 
 // gui / idle handler
+
 extern int m_pSendDisplayModeToMC;
 extern int GUIIdleFlag;
 extern int GUIMode;
@@ -618,6 +639,7 @@ extern int TransferMirrorScreen     (int r0, int r1, int r2, int r3, int a, int 
 extern int TransferRotatedScreen    (int r0, int r1, int r2, int r3, int a, int b, int c, int d);
 
 // PTP
+
 extern void * PTP_Actions (void * arg0, void * arg1, void * arg2, void * arg3, void * arg4);
 
 #endif /* FIRMWARE_H_ */

@@ -20,6 +20,7 @@
 #include "main.h"
 #include "macros.h"
 
+#include "firmware.h"
 #include "float.h"
 #include "languages.h"
 #include "settings.h"

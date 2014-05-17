@@ -6,14 +6,12 @@
 
 #include <stdint.h>
 
+#include "bmp.h"
 #include "ptp.h"
 #include "state_object.h"
-
-#include "bmp.h"
+#include "utils.h"
 
 extern manager_t *hPtpMgr; // defined in camera.S
-
-state_object_t * hack_ptp_actions(state_object_t * self, void * arg1, void * arg2, void * arg3, void * arg4);
 
 static int (*StateTransition)(void*,void*,int,int,int) = 0;
 
@@ -33,9 +31,12 @@ int hack_state_transition(
 	//PTP_SetUILock(0, 2);
 	//PTP_ResetUILock(0);
 
-	lcd_printf(0,(l++ % 20), "[%03d] O:%08X R:%08X N:%08X", l, old_state, res, new_state);
+	lcd_printf(0, l % 20, "[%03d] O:%08X R:%08X N:%08X", l, old_state, res, new_state);
 	printf_log(8,8, "[400Plus-PTP] [%03d] O:%08X R:%08X N:%08X", l, old_state, res, new_state);
 	//bmp_hexdump(VramAddress, FONT_SMALL, 0, l*16, a4, 64);
+
+	l++;
+
 	return res;
 }
 
