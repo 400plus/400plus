@@ -11,17 +11,19 @@
 
 #define OVERLAY_DELAY 5
 
-extern void initialize_display();
+#include <stdint.h>
 
-extern void restore_display();
-extern void display_refresh();
-extern void display_overlay();
+extern void initialize_display(void);
 
-extern void display_countdown_dialog_create();
-extern void display_countdown_dialog_destroy();
-extern void display_countdown(int seconds);
+extern void restore_display(void);
+extern void display_refresh(void);
+extern void display_overlay(uint8_t *vram_address);
 
-extern void display_brightness();
+extern void display_countdown_dialog_create (void);
+extern void display_countdown_dialog_destroy(void);
+extern void display_countdown               (int seconds);
+
+extern void display_brightness(void);
 
 extern void display_message_set(char *message, int timeout);
 

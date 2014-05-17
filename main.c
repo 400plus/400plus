@@ -119,8 +119,8 @@ button_t message2button[0x100] = {
 	[IC_BUTTON_AV]     = BUTTON_AV,
 };
 
-void action_dispatcher();
-void message_logger (char *message);
+void action_dispatcher(void);
+void message_logger   (char *message);
 
 void initialize() {
 	action_queue = (int*)CreateMessageQueue("action_queue", 0x40);
@@ -154,7 +154,7 @@ void intercom_proxy(const int handler, char *message) {
 	IntercomHandler(handler, message);
 }
 
-void action_dispatcher () {
+void action_dispatcher(void) {
 	action_t action;
 
 	// Loop while receiving messages

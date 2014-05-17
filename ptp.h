@@ -9,6 +9,6 @@
 
 #include "state_object.h"
 
-void ptp_dump_info();
+void ptp_dump_info(void);
 
 #endif // _PTP_H_

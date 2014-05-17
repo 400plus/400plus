@@ -17,7 +17,9 @@
 #include "settings.h"
 #include "utils.h"
 
-void qexp() {
+#include "qexp.h"
+
+void qexp(void) {
 	int weight;
 
 	ec_t diff, ec_tmp;

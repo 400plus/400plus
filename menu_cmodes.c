@@ -22,7 +22,7 @@
 
 #include "menu_cmodes.h"
 
-void menu_cmodes_open();
+void menu_cmodes_open(menu_t *menu);
 
 void menu_cmodes_save   (const menuitem_t *item);
 void menu_cmodes_load   (const menuitem_t *item);
@@ -47,7 +47,7 @@ menupage_t menupage_cmodes = {
 	}
 };
 
-void menu_cmodes_open() {
+void menu_cmodes_open(menu_t *menu) {
 	int i, length;
 	int current_cmode = get_current_cmode();
 

@@ -48,7 +48,7 @@ void menu_scripts_apply_dof   (const menuitem_t *item);
 
 void menu_scripts_open_timelapse  (menu_t *menu);
 void menu_scripts_update_timelapse(const menuitem_t *item);
-void menu_scripts_calc_timelapse  ();
+void menu_scripts_calc_timelapse  (void);
 
 void menu_scripts_ext_aeb      (const menuitem_t *item);
 void menu_scripts_efl_aeb      (const menuitem_t *item);
@@ -305,7 +305,7 @@ void menu_scripts_apply_calc(const menuitem_t *item) {
 	send_to_intercom(IC_SET_ISO,    menu_scripts_iso);
 
 	menu_scripts_ev = EV_ZERO;
-	menu_return();
+	menu_return(NULL); //TODO:FixMe
 }
 
 void menu_scripts_apply_dof_av(const menuitem_t *item) {

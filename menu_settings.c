@@ -22,11 +22,11 @@
 
 extern char languages_found[MAX_LANGUAGES][LP_MAX_WORD];
 
-void menu_settings_open();
+void menu_settings_open(menu_t *menu);
 
-void menu_restore_settings();
-void menu_restore_cmodes  ();
-void menu_delete_cmodes   ();
+void menu_restore_settings(const menuitem_t *item);
+void menu_restore_cmodes  (const menuitem_t *item);
+void menu_delete_cmodes   (const menuitem_t *item);
 
 void reload_language_and_refresh(const menuitem_t *item);
 
@@ -166,7 +166,7 @@ void reload_language_and_refresh(const menuitem_t *item) {
 	menu_event_display();
 }
 
-void menu_settings_open() {
+void menu_settings_open(menu_t *menu) {
 	int i;
 
 	for (i = 0; i<MAX_LANGUAGES && languages_found[i] != '\0' && languages_found[i][0] != '\0'; i++) {
@@ -175,20 +175,20 @@ void menu_settings_open() {
 	}
 }
 
-void menu_restore_settings() {
+void menu_restore_settings(const menuitem_t *item) {
 	settings_restore();
-	menu_return();
+	menu_return(NULL); //TODO:FixMe
 	beep();
 }
 
-void menu_restore_cmodes  () {
+void menu_restore_cmodes(const menuitem_t *item) {
 	cmodes_restore();
-	menu_return();
+	menu_return(NULL); //TODO:FixMe
 	beep();
 }
 
-void menu_delete_cmodes   () {
+void menu_delete_cmodes(const menuitem_t *item) {
 	cmodes_delete();
-	menu_return();
+	menu_return(NULL); //TODO:FixMe
 	beep();
 }

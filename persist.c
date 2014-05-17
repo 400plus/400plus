@@ -22,7 +22,7 @@ persist_t persist = {
 	last_script : SCRIPT_NONE,
 };
 
-int persist_read() {
+int persist_read(void) {
 	int result  = false;
 
 	int file    = -1;
@@ -52,7 +52,7 @@ end:
 	return result;
 }
 
-void persist_write() {
+void persist_write(void) {
 	const int version = PERSIST_VERSION;
 	int file = FIO_OpenFile(PERSIST_FILE, O_CREAT | O_WRONLY , 644);
 

@@ -35,11 +35,14 @@ extern void *menu_handler;
 static int   template     = 1;
 static int   curr_palette = 0;
 
-static void test_dialog_create();
+static void test_dialog_create(void);
 
-menuitem_t menu_developer_items[] = {
-	MENUITEM_LAUNCH( MENUPAGE_DEVEL_DUMP,          LP_WORD(L_I_DUMP_LOG_TO_FILE),    dump_log),
-	MENUITEM_LAUNCH( MENUPAGE_DEVEL_PRINT,         LP_WORD(L_I_PRINT_INFO),          print_info),
+void menupage_developer_dump_log  (const menuitem_t *menuitem);
+void menupage_developer_print_info(const menuitem_t *menuitem);
+
+	menuitem_t menu_developer_items[] = {
+	MENUITEM_LAUNCH( MENUPAGE_DEVEL_DUMP,          LP_WORD(L_I_DUMP_LOG_TO_FILE),    menupage_developer_dump_log),
+	MENUITEM_LAUNCH( MENUPAGE_DEVEL_PRINT,         LP_WORD(L_I_PRINT_INFO),          menupage_developer_print_info),
 	MENUITEM_BOOLEAN(MENUPAGE_DEVEL_DEBUG,         LP_WORD(L_I_DEBUG_ON_POWERON),   &settings.debug_on_poweron, NULL),
 	MENUITEM_LOGFILE(MENUPAGE_DEVEL_MODE,          LP_WORD(L_I_LOGFILE_MODE),       &settings.logfile_mode,     NULL),
 #ifdef MEM_DUMP
@@ -73,6 +76,14 @@ void menupage_developer_start(menu_t *menu) {
 	}
 }
 
+void menupage_developer_dump_log(const menuitem_t *menuitem) {
+	dump_log();
+}
+
+void menupage_developer_print_info(const menuitem_t *menuitem) {
+	print_info();
+}
+
 static int test_dialog_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
 	switch (event) {
 	case GUI_BUTTON_DISP:
@@ -104,7 +115,7 @@ static int test_dialog_event_handler(dialog_t * dialog, int *r1, gui_event_t eve
 	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
-static void test_dialog_create() {
+static void test_dialog_create(void) {
 	debug_log("Creating dialog [%d]", template);
 	FLAG_GUI_MODE = 0x30;
 

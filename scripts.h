@@ -46,16 +46,16 @@ typedef enum {
 	SCRIPT_LAST  = SCRIPT_COUNT - 1
 } script_t;
 
-extern void script_ext_aeb();
-extern void script_efl_aeb();
-extern void script_apt_aeb();
-extern void script_iso_aeb();
-extern void script_interval();
-extern void script_bramp();
-extern void script_wave();
-extern void script_self_timer();
-extern void script_long_exp();
+extern void script_ext_aeb   (void);
+extern void script_efl_aeb   (void);
+extern void script_apt_aeb   (void);
+extern void script_iso_aeb   (void);
+extern void script_interval  (void);
+extern void script_bramp     (void);
+extern void script_wave      (void);
+extern void script_self_timer(void);
+extern void script_long_exp  (void);
 
-extern void script_restore();
+extern void script_restore(void);
 
 #endif /* SCRIPTS_H_ */

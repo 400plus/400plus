@@ -15,6 +15,8 @@ extern manager_t *hPtpMgr; // defined in camera.S
 
 static int (*StateTransition)(void*,void*,int,int,int) = 0;
 
+int hack_state_transition(state_object_t * self, manager_t *manager, int input, int event_flag_func, int some_struct);
+
 int hack_state_transition(
 	state_object_t * self,
 	manager_t *manager,
@@ -40,7 +42,7 @@ int hack_state_transition(
 	return res;
 }
 
-void ptp_dump_info() {
+void ptp_dump_info(void) {
 
 	state_object_t *so = hPtpMgr->state_object;
 

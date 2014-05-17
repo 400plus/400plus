@@ -212,7 +212,7 @@ enum LANG_WORDS_ENUM {
 extern const char *lang_pack_keys[L_COUNT];
 extern char lang_pack_current[L_COUNT][LP_MAX_WORD];
 
-extern void lang_pack_init();
-extern void lang_pack_config();
+extern void lang_pack_init(void);
+extern void lang_pack_config(void);
 
 #endif // LANGUAGES_H_

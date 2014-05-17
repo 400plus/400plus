@@ -12,11 +12,11 @@ endif
 ifdef RELEASE
 	VERSION := V-$(RELEASE)
 	RELNAME := 400plus-$(RELEASE)
-	W_FLAGS := -Werror -Wno-implicit-function-declaration -DRELEASE
+	W_FLAGS := -Werror -Wno-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -DRELEASE
 else
 	VERSION = $(shell [[ -d .svn ]] && echo "R-`svn info | fgrep Revision | cut -d' ' -f2 `" || echo "B-`date +'%Y%m%d'`")
 	RELNAME := 400plus-$(shell date +'%Y%m%d')-0
-	W_FLAGS :=
+	W_FLAGS := -Wno-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes
 endif
 
 USE_FONTS := -DUSE_FONT_SMALL

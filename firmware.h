@@ -578,13 +578,13 @@ extern void task_MainCtrl(void);
 // task_MainCtrl
 
 extern int err_MC_T;
-extern void sub_FF825078();
+extern void sub_FF825078(void);
 extern int MC_T_Table[];
 extern char aMcT04dS04xD[];
 extern char aMainMessQueue[];
 extern char aMainDataQueue[];
-extern int  DriveNotifyCallBack();
-extern int  ChangeNotifyCallback_MC();
+extern int  DriveNotifyCallBack(void);
+extern int  ChangeNotifyCallback_MC(void);
 extern char aMainCannotPowo[];
 extern char aMainCtrl[];
 extern char aMonoSem[];
@@ -596,7 +596,7 @@ extern int PowerFlag;
 extern int *some_important_structure;
 extern int unk_258A0;
 extern void DDD_Capture(int);
-extern void set_2A0E0_to_1();
+extern void set_2A0E0_to_1(void);
 
 // gui / idle handler
 
@@ -608,21 +608,21 @@ extern int hGuiSwSem;
 extern char aGuiSwSem[];
 extern int off_1EE0;
 extern int hGUIWindowInstance;
-extern int sub_FF92ADD8();
-extern int sub_FF92AF8C();
-extern int sub_FF92AFD8();
-extern int sub_FF92AF58();
-extern int GUIWindowInstanceProc();
-extern int GUI_IDLEHandler();
+extern int sub_FF92ADD8(void);
+extern int sub_FF92AF8C(void);
+extern int sub_FF92AFD8(void);
+extern int sub_FF92AF58(void);
+extern int GUIWindowInstanceProc(void);
+extern int GUI_IDLEHandler(int unk0, int event, int unused, int unk1);
 extern int * hGuiMainQueue;
 extern char aGuiMainQueue[];
 extern char aGuiMainTask[];
-extern void task_GuiMainTask();
-extern void OlcTftNotifyChange();
+extern void task_GuiMainTask(void);
+extern void OlcTftNotifyChange(void);
 extern int * hTurnDisplayEventFlag;
 extern char aTurndisplayeve[];
 extern char aTurndisplaytas[];
-extern void task_TurnDisplayTask();
+extern void task_TurnDisplayTask(void);
 
 // VRAM Semaphore
 

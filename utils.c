@@ -28,8 +28,8 @@
 
 #include "utils.h"
 
-void lock_sutter     ();
-void wait_for_shutter();
+void lock_sutter     (void);
+void wait_for_shutter(void);
 
 void display_float(char *dest, float value);
 
@@ -246,11 +246,11 @@ int shutter_release_disasm() {
 }
 #endif
 
-void lock_sutter() {
+void lock_sutter(void) {
 	shutter_lock = true;
 }
 
-void wait_for_shutter() {
+void wait_for_shutter(void) {
 	while (shutter_lock)
 		SleepTask(RELEASE_WAIT);
 }

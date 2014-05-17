@@ -25,22 +25,23 @@ int *feedback_task = NULL;
 
 dpr_data_t st_DPData;
 
-void script_start();
-void script_stop();
-void script_feedback();
-void script_restore_parameters();
+void script_start   (void);
+void script_stop    (void);
+void script_feedback(void);
+
+void script_restore_parameters(void);
 
 void script_action(shot_action_t action);
 
-void action_ext_aeb();
-void action_efl_aeb();
-void action_apt_aeb();
-void action_iso_aeb();
-void action_long_exp();
+void action_ext_aeb (void);
+void action_efl_aeb (void);
+void action_apt_aeb (void);
+void action_iso_aeb (void);
+void action_long_exp(void);
 
 void script_delay(int seconds);
 
-int can_continue();
+int can_continue(void);
 
 void script_ext_aeb() {
 	script_start();

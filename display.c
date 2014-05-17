@@ -24,24 +24,24 @@
 char display_message[LP_MAX_WORD];
 int  message_timeout;
 
-void display_refresh_meteringmode();
-void display_refresh_whitebalance();
-void display_refresh_flashcomp();
-void display_refresh_iso();
+void display_refresh_meteringmode(void);
+void display_refresh_whitebalance(void);
+void display_refresh_flashcomp   (void);
+void display_refresh_iso         (void);
 
-void initialize_display() {
+void initialize_display(void) {
 	if (!status.script_running)
 		enqueue_action(restore_display);
 }
 
-void restore_display() {
+void restore_display(void) {
 	SleepTask(100);
 
 	if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae))
 		display_refresh();
 }
 
-void display_refresh() {
+void display_refresh(void) {
 	if (DPData.metering == METERING_MODE_SPOT)
 		display_refresh_meteringmode();
 
@@ -56,15 +56,15 @@ void display_refresh() {
 	dialog_redraw(hMainDialog);
 }
 
-void display_refresh_meteringmode() {
+void display_refresh_meteringmode(void) {
 	dialog_set_property_int(hMainDialog, 0x0D, 0xF6);
 }
 
-void display_refresh_whitebalance() {
+void display_refresh_whitebalance(void) {
 	dialog_set_property_int(hMainDialog, 0x0C, 0xCF);
 }
 
-void display_refresh_flashcomp() {
+void display_refresh_flashcomp(void) {
 	int negative = false, value = 0;
 	int flash_exp_comp = DPData.efcomp;
 
@@ -98,7 +98,7 @@ void display_refresh_flashcomp() {
 }
 
 
-void display_refresh_iso() {
+void display_refresh_iso(void) {
 	char tmp[32] = "0000";
 
 	iso_print(tmp, DPData.iso);

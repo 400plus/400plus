@@ -13,25 +13,32 @@
 #include "display.h"
 #include "button.h"
 
-void hack_halt();
-void hack_relocate();
-void cache_hacks();
-void hack_StartConsole();
-void hack_pre_init_hook();
-void hack_post_init_hook();
-void hack_dmProcInit();
-void disable_cache_clearing();
-int  hack_init_intercom_data(void * old_proc);
+void hack_entry_point(void);
+
+void hack_halt    (void);
+void hack_relocate(void);
+
+void cache_hacks(void);
+
+void hack_StartConsole  (void);
+void hack_pre_init_hook (void);
+void hack_post_init_hook(void);
+
+void hack_dmProcInit(void);
+
+void disable_cache_clearing(void);
+
+int  hack_init_intercom_data       (void * old_proc);
 int  hack_register_gui_idle_handler(void * org_proc, int zero);
 
 
 // this is ran in the beginning of the OFW's task init process
-void hack_pre_init_hook() {
+void hack_pre_init_hook(void) {
 	initialize();
 }
 
 // we can run extra code at the end of the OFW's task init
-void hack_post_init_hook() {
+void hack_post_init_hook(void) {
 	TransferScreen = hack_TransferScreen;
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
 
@@ -48,7 +55,7 @@ void hack_post_init_hook() {
 
 
 // 400Plus entry point
-void hack_entry_point() {
+void hack_entry_point(void) {
 	if (BTN_TRASH != BTN_PRESSED) {
 		LEDBLUE = LEDON;
 		hack_relocate(); // COPY the hack to our memory
@@ -58,7 +65,7 @@ void hack_entry_point() {
 	ofw_entry_point(); // jump to Original FirmWare's entry point
 }
 
-void hack_relocate() {
+void hack_relocate(void) {
 	// 0xAF: check the devinfo for more details on why this routine is needed
 	int i;
 	long *from = (long*) 0x800000;
@@ -69,7 +76,7 @@ void hack_relocate() {
 	}
 }
 
-void cache_hacks() {
+void cache_hacks(void) {
 	flush_caches();
 
 	//cache_lock(); // lock the caches so nobody replaces our hacks
@@ -100,7 +107,7 @@ void cache_hacks() {
 	cache_fake(0xFF8112E8, BL_INSTR(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
 }
 
-void disable_cache_clearing() {
+void disable_cache_clearing(void) {
 	// the camera is reseting the control register
 	// i dont know if this code is already ran, when we poison the caches
 	// keep it here just in case (do some testing)
@@ -120,7 +127,7 @@ void disable_cache_clearing() {
 	// D cache clearing addresses: FF8101A4, FFB30028, FFB372EC, FFB3731C, FFB37334, FFB37358, FFB37360, FFB373A4, FFB373C8
 }
 
-void hack_dmProcInit() {
+void hack_dmProcInit(void) {
 	dmProcInit();
 #ifdef ENABLE_MASSIVE_DEBUG
 	// the 2nd level is 32 flags for debug classes
@@ -135,7 +142,7 @@ int hack_init_intercom_data(void * old_proc) {
 	return InitIntercomData(intercom_proxy);
 }
 
-void hack_StartConsole() {
+void hack_StartConsole(void) {
 	hack_post_init_hook();
 	StartConsole(); // should be the last one
 }
@@ -145,7 +152,7 @@ int hack_register_gui_idle_handler(void * org_proc, int zero) {
 }
 
 #define busy_wait() do { volatile uint32_t i; for (i = 0; i < 1000000; i++); } while (0)
-void hack_halt() {
+void hack_halt(void) {
 	while ( 1 ) {
 		LEDBLUE = LEDON;
 		LEDRED  = LEDOFF;

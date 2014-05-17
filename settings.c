@@ -228,7 +228,7 @@ void settings_restore() {
 	settings_write();
 }
 
-void named_temps_init() {
+void named_temps_init(menu_t *menu) {
 	if (!named_temps.initd) {
 		strncpy(named_temps.names[ 0], LP_WORD(L_V_NAMED_TEMP_0), LP_MAX_WORD);
 		strncpy(named_temps.names[ 1], LP_WORD(L_V_NAMED_TEMP_1), LP_MAX_WORD);

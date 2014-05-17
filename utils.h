@@ -22,7 +22,7 @@
 
 #define MEM(mem) (*(int*)((int)(mem)))
 
-// ((((int)(x)) & 0xF0000000) == 0xC0000000) ? shamem_read(x) : 
+// ((((int)(x)) & 0xF0000000) == 0xC0000000) ? shamem_read(x) :
 
 #define MEMX(x) ( \
 	((((int)(x)) & 0xF0000000) == 0xE0000000) ? (int)0xDEADBEAF : \
@@ -49,32 +49,34 @@
 
 extern void calculate_dof(int focal_length, int focus_distance, int av, char *min, char *max);
 
-extern void beep();
+extern void beep(void);
 
-extern void enter_factory_mode();
-extern void exit_factory_mode();
-extern void start_debug_mode();
-extern void dump_log();
-extern void dump_memory();
-extern void dump_memory_after_5s();
-extern void print_info();
+extern void enter_factory_mode(void);
+extern void exit_factory_mode (void);
+extern void start_debug_mode  (void);
+
+extern void dump_log            (void);
+extern void dump_memory         (void);
+extern void dump_memory_after_5s(void);
+
+extern void print_info(void);
 
 extern int send_to_intercom(int message, int parm);
 
-extern void wait_for_camera();
+extern void wait_for_camera(void);
 
-extern int  shutter_release();
+extern int  shutter_release      (void);
 extern int  shutter_release_bulb(int time);
 
-extern int  print_icu_info();
-extern int  press_button(int button);
+extern int  print_icu_info(void);
+extern int  press_button  (int button);
 
-extern int remote_on();
-extern int remote_off();
-void remote_delay(int x);
+extern int remote_on (void);
+extern int remote_off(void);
+void remote_delay    (int x);
 
-extern int display_on();
-extern int display_off();
+extern int display_on (void);
+extern int display_off(void);
 
 extern void led_flash(int delay);
 
@@ -83,7 +85,7 @@ extern int strlen_utf8(const char *);
 // convert string to upper case in-place
 extern void stoupper(char *s);
 
-extern int timestamp();
+extern int timestamp(void);
 
 char* strncpy0(char* dest, const char* src, size_t size);
 
