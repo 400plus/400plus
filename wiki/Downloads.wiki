@@ -3,28 +3,21 @@
 
 ||*ATTENTION*: _Please, read "[AWordOfWarning A Word of Warning]" at our Wiki before doing downloading anything from here; thanks._||
 
-= General Downloads =
+= All Downloads =
 
 Installation files made available to the general user
 
   * *Hack-activation Firmware:* You will need this file to prepare your camera; please see the [FirmwareHackInstallation installation instructions] for more information.
-    * [http://code.google.com/p/400plus/downloads/list?can=2&q=Hack-activation+firmware Hack-activation Firmware].
+    * [https://googledrive.com/host/0B66DLxueQUdxVFJ3LXdpRDJtNnc Hack-activation Firmware].
 
   * *Official Releases:* Ready to use packages with our latest official releases.
-    * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable Official releases].
+    * [https://googledrive.com/host/0B66DLxueQUdxVnlqXzA5TU9wclU Official releases].
   
-  * *Beta Releases:* Get a taste of the upcoming next release! Remember these are not official releases, and are known to contain bugs; see also the preview for the updated [UserGuidePreview user guide].
-    * [http://code.google.com/p/400plus/downloads/list?q=label%3ABeta Beta Releases].
-
-= Development Downloads =
-
-The files available below are intended to be used for testing or development purposes only, and are not suited for end-users; please, install one of the files at the [#General_Downloads General Downloads section] if you plan to actually use your camera.
-
   * *Source Code:* Targeted to people interested in development, these packages contain the source code used to build each official release.
-      * [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DSource Source Code].
+      * [https://googledrive.com/host/0B66DLxueQUdxRDVsYTQtR2VSNFU Source Code].
 
-  * *Nightly builds:* Binaries created automatically every night, directly from the latest version available in our repository.
-    * [http://code.google.com/p/400plus/downloads/list?q=label%3ANightlyBuild Nightly builds].
+  * *Upcoming Releases:* Get a taste of the next upcoming release! Remember these are not official releases, and are known to contain bugs; see also the [UserGuidePreview updated user guide].
+    * [https://googledrive.com/host/0B66DLxueQUdxVmJGMVVYQnZUd2M Beta Releases].
 
-  * *All Downloads:* A complete list of all files currently available.
-    * [http://code.google.com/p/400plus/downloads/list All downloads].
+  * *Archived Releases:* Both sources and binaries for deprecated releases.
+    * [https://googledrive.com/host/0B66DLxueQUdxMG9lWG1HckZSZDg Archived Releases].
