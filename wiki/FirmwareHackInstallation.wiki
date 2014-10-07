@@ -20,7 +20,7 @@ The following steps prepare your camera to execute `400plus` each time it start 
 
   #. Use a fully charged battery. You need CF card reader and Windows, Linux or Mac. On a mac you can use the native method or, use Windows under Bootcamp/VMware Fusion or use the Linux method.
   #. Update to [http://web.canon.jp/imaging/eosdigital3/e4kr3_firmware-e.html latest firmware (1.1.1)] by copying it into the root of CF with your card reader, then put it in the camera and run "update firmware" in the setup menu.
-  #. Empty your CF, download [http://code.google.com/p/400plus/downloads/list?can=2&q=Hack-activation+firmware 400plus-testfir-1.bin.zip], unpack it and copy the file testfir.fir into of your CF with the card reader.
+  #. Empty your CF, download [https://googledrive.com/host/0B66DLxueQUdxVFJ3LXdpRDJtNnc 400plus-testfir-1.bin.zip], unpack it and copy the file testfir.fir into of your CF with the card reader.
   #. Insert the CF into the camera and run the firmware update using 'testfir.fir', the screen will go blank then. _*<font color="red">Wait at least 2 minutes</font>*_, turn it off, and finally take battery out and back in.
 
 == Preparing each card ==
@@ -57,7 +57,7 @@ The following steps prepare a card to contain `400plus`  and be recognized by th
 }}}
       * exFAT
             This is not going to work directly, because the sector checksums needs to be calculated and written back after writing the strings. Use the above methods.
-  #. Download the [http://code.google.com/p/400plus/downloads/list?q=Release+label%3AFeatured+Type%3DExecutable latest official release], extract it, and copy to CF. 
+  #. Download the [https://googledrive.com/host/0B66DLxueQUdxVnlqXzA5TU9wclU latest official release], extract it, and copy to CF.
   #. Put the languages.ini on the CF too, if you want support for additional languages.
   #. Insert the CF into camera... and you are done!
 

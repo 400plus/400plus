@@ -51,7 +51,7 @@ url="http://mirrors.kernel.org/gentoo/releases/x86/autobuilds"
 wget $url/`curl $url/latest-stage3-i686.txt | tail -1`
 mkdir /mnt/gentoo32
 cd /mnt/gentoo32/
-tar -xvjpf /tmp/stage3-i686-*.tar.bz2 
+tar -xvjpf /tmp/stage3-i686-*.tar.bz2
 # ### UNCOMMENT THE NEXT LINE ONLY IF YOUR HOST IS _NOT_ GENTOO ### #
 # wget http://distfiles.gentoo.org/snapshots/portage-latest.tar.bz2 && tar xjf portage-lat* -C usr/
 cp -L /etc/resolv.conf /mnt/gentoo32/etc/
@@ -67,7 +67,7 @@ You should be in working 32bit chroot now..<br>
 
 Now compile the toolchain (see above)... and use it in the chroot, or copy it to your host system.
 
-next you need to get the [http://code.google.com/p/400plus/downloads/list 400plus sources].<br>
+next you need to get the [https://googledrive.com/host/0B66DLxueQUdxRDVsYTQtR2VSNFU 400plus sources].<br>
 if you want the current svn sources in your chroot, you'll need to install subversion first:<br>
 {{{
 emerge -av subversion
@@ -107,7 +107,7 @@ Once you have your 32bit machine up and running, simply follow the instructions 
 
 === Compile 400plus ===
 
-You need to download the [http://code.google.com/p/400plus/downloads/list 400plus sources] or checkout the current SVN:
+You need to download the [https://googledrive.com/host/0B66DLxueQUdxRDVsYTQtR2VSNFU 400plus sources] or checkout the current SVN:
 {{{
 cd && svn checkout http://400plus.googlecode.com/svn/trunk/ 400plus-read-only
 }}}

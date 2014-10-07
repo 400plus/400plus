@@ -13,7 +13,7 @@ First, you need to download the latest version of  [http://400plus.googlecode.co
 
 Translating the file should be pretty straightforward, but you will have to obey one rule: _DO NOT USE MS-Windows's Notepad_. It does not support UTF-8 and will brake the translations. Use UTF-8 capable editor as [http://notepad-plus-plus.org/ Notepad++] (free).
 
-After you translate the file, save it as "languages.ini", and put it on the camera, replacing the original one. (and use the latest [http://code.google.com/p/400plus/downloads/list NightlyBuild] if possible)
+After you translate the file, save it as "languages.ini", and put it on the camera, replacing the original one. (and use the latest [https://googledrive.com/host/0B66DLxueQUdxRDVsYTQtR2VSNFU source release] if possible)
 
 Test what you have done.
 
