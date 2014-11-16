@@ -454,7 +454,7 @@ To configure and launch the Hand Waving Script, use the "Handwave" sub-menu in t
 This script simply adds a configurable pause before firing the camera.
 
 ||_*Parameter*_||_*Description*_||
-||Delay||Te time (in hours:minutes:seconds) that the script should wait before shooting; values range from 0:00:00 to 5:00:00.||
+||Delay||Time (in hours:minutes:seconds) that the script should wait before shooting; values range from 0:00:00 to 5:00:00.||
 ||Action||See [#Script_Chaining Script Chaining].||
 
 == Long Exposure ==
