@@ -177,19 +177,31 @@ void ppm_vram_screenshot(uint8_t *vram_address) {
 	} else {
 		FIO_WriteFile(file,"P6\n360 240\n255\n",15);
 
-		int addr=(int)vram_address;
+		int addr = (int)vram_address;
+		int padding = 0;
 		//int power_off_state = DPData.auto_power_off;
 
 		// Disabling auto power off
 		//send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
 
-		while (addr < ((int)vram_address+VramSize)) {
-			char buf[0x800];
-
+		// (360*240)/3 = 28800
+		while (padding < 28800) {
+			// Blink the blue LED
 			LEDBLUE ^= 2;
-			memcpy(buf, (void*)addr, 0x800);
-			FIO_WriteFile(file, buf, 0x800);
-			addr += 0x800;
+
+			// One byte buffer
+			char buf[1];
+			char multibuf[3];
+			int i;
+
+			for (i = 0; i < 3; ++i) {
+				memcpy(buf,(void*)(addr+padding+i*360),0x1);
+				multibuf[i] = buf[0];
+			}
+
+			FIO_WriteFile(file,multibuf,0x3);
+
+			padding++;
 		}
 
 		FIO_CloseFile(file);
