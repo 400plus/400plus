@@ -37,6 +37,7 @@
 	LANG_PAIR( I_ENTER_FACTORY_MODE, "Enter factory Mode"        ) \
 	LANG_PAIR( I_EXIT_FACTORY_MODE,  "Exit  factory Mode"        ) \
 	LANG_PAIR( I_TEST_DIALOGS,       "Test dialogs"              ) \
+	LANG_PAIR( I_TAKE_SCREENSHOT,    "Take a screenshot"         ) \
 	LANG_PAIR( I_DEBUG_ON_POWERON,   "Debug on PowerOn"          ) \
 	LANG_PAIR( I_LOGFILE_MODE,       "Log File Mode"             ) \
 	LANG_PAIR( I_AF_FLASH,           "AF Flash"                  ) \

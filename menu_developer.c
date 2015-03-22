@@ -28,6 +28,7 @@
 #include "utils.h"
 #include "settings.h"
 #include "memspy.h"
+#include "bmp.h"
 
 #include "menu_developer.h"
 
@@ -36,6 +37,8 @@ static int   template     = 1;
 static int   curr_palette = 0;
 
 static void test_dialog_create(void);
+
+void make_screenshot(void);
 
 void menupage_developer_dump_log  (const menuitem_t *menuitem);
 void menupage_developer_print_info(const menuitem_t *menuitem);
@@ -59,6 +62,7 @@ void menupage_developer_print_info(const menuitem_t *menuitem);
 #ifdef TEST_DIALOGS
 	MENUITEM_LAUNCH( MENUPAGE_DEVEL_TEST,          LP_WORD(L_I_TEST_DIALOGS),        test_dialog_create),
 #endif
+	MENUITEM_LAUNCH( MENUPAGE_DEVEL_SCREENSHOT,    LP_WORD(L_I_TAKE_SCREENSHOT),     make_screenshot)
 };
 
 menupage_t menupage_developer = {
@@ -136,6 +140,10 @@ static void test_dialog_create(void) {
 	PaletteChange(curr_palette);
 
 	dialog_redraw(menu_handler);
+}
+
+void make_screenshot(void) {
+	ppm_vram_screenshot(VramAddress);
 }
 
 

@@ -103,3 +103,5 @@ enum {
 	COLOR_YELLOW = 0x88,
 	COLOR_ORANGE = 0xCC,
 };
+
+extern void ppm_vram_screenshot(uint8_t *vram_address);

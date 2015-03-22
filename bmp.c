@@ -10,7 +10,13 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
 
+#include "firmware.h"
 #include "bmp.h"
 #include "debug.h"
 
@@ -145,4 +151,52 @@ void bmp_draw_palette(uint8_t *vram_address) {
 	for (x = 0; x < 16 * 8; x++)
 		for (y = 0; y < 16 * 8; y++)
 			vram_address[x + y * 360] = (x / 8) | ((y / 8) << 4);
+}
+
+void ppm_vram_screenshot(uint8_t *vram_address) {
+    char filename[20] = "A:/SCREENSHOT.PPM";
+
+    lcd_printf(0,0,"Vram size : %d",VramSize);
+
+    // Getting the current date
+    time_t t;
+    struct tm tm;
+    time(&t);
+    localtime_r(&t, &tm);
+
+    // Renaming the screenshot file according to the current date
+    sprintf(filename, "A:/%02d%02d%02d%02d.PPM", tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
+    // Opening the file
+    int file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644);
+
+    if (file == -1) {
+		debug_log("ERROR: can't open file for writing (%s)", filename);
+		beep();
+		beep();
+	} else {
+		FIO_WriteFile(file,"P6\n360 240\n255\n",15);
+
+		int addr=(int)vram_address;
+		//int power_off_state = DPData.auto_power_off;
+
+		// Disabling auto power off
+		//send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
+
+		while (addr < ((int)vram_address+VramSize)) {
+			char buf[0x800];
+
+			LEDBLUE ^= 2;
+			memcpy(buf, (void*)addr, 0x800);
+			FIO_WriteFile(file, buf, 0x800);
+			addr += 0x800;
+		}
+
+		FIO_CloseFile(file);
+
+		// Re-enabling auto power off
+		//send_to_intercom(IC_SET_AUTO_POWER_OFF, power_off_state);
+
+		beep();
+	}
 }
