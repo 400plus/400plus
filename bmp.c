@@ -158,8 +158,6 @@ void bmp_draw_palette(uint8_t *vram_address) {
 void bmp_vram_screenshot(uint8_t *vram_address) {
     char filename[20] = "A:/SCREENSHOT.BMP";
 
-    lcd_printf(0,0,"Vram size : %d",VramSize);
-
     // Getting the current date
     time_t t;
     struct tm tm;
@@ -301,5 +299,7 @@ void bmp_vram_screenshot(uint8_t *vram_address) {
 		send_to_intercom(IC_SET_AUTO_POWER_OFF, power_off_state);
 
 		beep();
+
+		lcd_printf(0,0,"Screenshot saved to : %s",filename)
 	}
 }
