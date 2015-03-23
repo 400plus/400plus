@@ -143,7 +143,7 @@ static void test_dialog_create(void) {
 }
 
 void make_screenshot(void) {
-	ppm_vram_screenshot(VramAddress);
+	bmp_vram_screenshot(VramAddress);
 }
 
 

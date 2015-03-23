@@ -104,4 +104,4 @@ enum {
 	COLOR_ORANGE = 0xCC,
 };
 
-extern void ppm_vram_screenshot(uint8_t *vram_address);
+extern void bmp_vram_screenshot(uint8_t *vram_address);

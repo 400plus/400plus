@@ -155,7 +155,7 @@ void bmp_draw_palette(uint8_t *vram_address) {
 			vram_address[x + y * 360] = (x / 8) | ((y / 8) << 4);
 }
 
-void ppm_vram_screenshot(uint8_t *vram_address) {
+void bmp_vram_screenshot(uint8_t *vram_address) {
     char filename[20] = "A:/SCREENSHOT.BMP";
 
     lcd_printf(0,0,"Vram size : %d",VramSize);
