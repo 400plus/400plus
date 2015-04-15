@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MACROS_H_
 #define MACROS_H_
 

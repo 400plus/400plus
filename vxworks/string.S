@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "../stub.h"
 
 DEF(memchr,   0xFFB53D84)

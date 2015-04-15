@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef PERSIST_H_
 #define PERSIST_H_
 

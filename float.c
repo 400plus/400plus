@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "float.h"
 
 #define FLOAT_LOOP_MAX 25

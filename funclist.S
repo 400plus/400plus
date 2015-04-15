@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "stub.h"
 
 NSTUB(ofw_entry_point,0xFF810000)

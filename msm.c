@@ -1,12 +1,3 @@
-/**
- * $Revision$
- * $Date $
- * $Author$
- *
- * Multi-spot metering
- *
- */
-
 #include <stdbool.h>
 
 #include "main.h"

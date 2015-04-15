@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef _PTP_H_
 #define _PTP_H_
 

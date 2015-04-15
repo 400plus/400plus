@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 // memspy tool ported from MagicLantern.
 #ifdef MEMSPY
 #include "debug.h"

@@ -1,9 +1,3 @@
-/**
- * $Revision: 1469 $
- * $Date: 2012-11-07 01:06:12 +0200 (Wed, 07 Nov 2012) $
- * $Author: eduardo.perezesteban $
- */
-
 #include <strings.h>
 
 #include "main.h"

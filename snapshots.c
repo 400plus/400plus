@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdbool.h>

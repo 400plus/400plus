@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "../stub.h"
 
 DEF(hPtpMgr,                   0x00006538)

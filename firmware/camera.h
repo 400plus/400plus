@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef CAMERA_H_
 #define CAMERA_H_
 

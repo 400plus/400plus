@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef LANGUAGES_H_
 #define LANGUAGES_H_
 

@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "../stub.h"
 
 DEF(bcopy, 0xFFB3346C)

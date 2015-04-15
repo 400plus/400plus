@@ -1,12 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- *
- * Fixed exposure for M mode
- *
- */
-
 #include <stdbool.h>
 
 #include "main.h"

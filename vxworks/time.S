@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "../stub.h"
 
 DEF(asctime,       0xFFB53368)

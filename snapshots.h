@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef SNAPSHOTS_H_
 #define SNAPSHOTS_H_
 

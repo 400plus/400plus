@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "../stub.h"
 
 DEF(isalnum,  0xFFB57AD8)

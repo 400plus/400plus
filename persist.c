@@ -1,12 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- *
- * Persistent information
- *
- */
-
 #include <fcntl.h>
 #include <stdbool.h>
 

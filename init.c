@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include <strings.h>
 #include "cache_hacks.h"
 
