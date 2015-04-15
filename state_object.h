@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef _STATE_OBJECT_H_
 #define _STATE_OBJECT_H_
 

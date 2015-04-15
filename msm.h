@@ -1,12 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- *
- * Multi-spot metering
- *
- */
-
 #ifndef MSM_H_
 #define MSM_H_
 

@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifdef USE_FONT_LARGE
 
 #include "font.h"

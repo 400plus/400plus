@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 // Thanks to Coutts for porthing this.
 
 #include <vxworks.h>

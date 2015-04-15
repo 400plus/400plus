@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef EXPOSURE_H_
 #define EXPOSURE_H_
 

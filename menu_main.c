@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #include "main.h"
 #include "macros.h"
 #include "firmware.h"

@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef ACTIONS_H_
 #define ACTIONS_H_
 

@@ -14,8 +14,7 @@ ifdef RELEASE
 	RELNAME := 400plus-$(RELEASE)
 	W_FLAGS := -Werror -Wno-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -DRELEASE
 else
-	VERSION = $(shell [[ -d .svn ]] && echo "R-`svn info | fgrep Revision | cut -d' ' -f2 `" || echo "B-`date +'%Y%m%d'`")
-	RELNAME := 400plus-$(shell date +'%Y%m%d')-0
+	VERSION = $(shell echo "B-`date +'%Y%m%d'`")
 	W_FLAGS := -Wno-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes
 endif
 
@@ -94,8 +93,7 @@ all: $(PROJECT).BIN languages.ini languages/new_lang.ini
 
 release: clean
 	@$(ECHO) -e $(BOLD)[RELEASE]$(NORM)
-	@mkdir $(RELNAME)
-	@svn export . $(RELNAME)/src
+	@git checkout-index -a --prefix $(RELNAME)/src/
 	@zip -9 -r $(RELNAME).src.zip $(RELNAME)
 
 	@mkdir $(RELNAME)/bin
@@ -134,7 +132,7 @@ languages.ini: languages.h languages/*.ini
 
 languages/new_lang.ini: languages.h
 	@$(ECHO) -e $(BOLD)[I18N]:$(NORM) $@
-	@./languages/lang_tool.pl -q -f languages -l languages.h -g `cat languages.h | fgrep "Revision: " | cut -d' ' -f4`
+	@./languages/lang_tool.pl -q -f languages -l languages.h -g
 
 -include .*.d
 

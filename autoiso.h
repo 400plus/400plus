@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef AUTOISO_H_
 #define AUTOISO_H_
 

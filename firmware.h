@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 

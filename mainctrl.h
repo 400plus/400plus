@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef MAINCTRL_H_
 #define MAINCTRL_H_
 

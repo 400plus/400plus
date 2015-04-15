@@ -1,9 +1,3 @@
-/**
- * $Revision$
- * $Date$
- * $Author$
- */
-
 #ifndef SCRIPTS_H_
 #define SCRIPTS_H_
 

@@ -48,12 +48,13 @@ GetOptions (
 	"verbose+"		=> \$verbose,
 	"v+"			=> \$verbose,
 	"version|V"		=> sub { print "Version: $VERSION\n"; exit(0); },
-	'lang-files-dir|f=s'	=> \$lang_files_dir,
-	'header|l=s'		=> \$header_file,
-	'gen-new-lang|g=i'	=> \$gen_new_lang,
-	'check-lang-file|c=s'	=> \$check_lang_file,
-	'output|o=s'		=> \$out_file,
-	'quiet|q'		=> \$quiet,
+	'lang-files-dir|f=s'   => \$lang_files_dir,
+	'header|l=s'           => \$header_file,
+#	'gen-new-lang|g=i'     => \$gen_new_lang,
+	'gen-new-lang|g'       => \$gen_new_lang,
+	'check-lang-file|c=s'  => \$check_lang_file,
+	'output|o=s'           => \$out_file,
+	'quiet|q'              => \$quiet,
 ) || pod2usage(1);
 #}}}
 
@@ -77,31 +78,31 @@ info("Found [".(keys %lang_keys)."] keys in header file.\n");
 
 # generate new_lang.ini {{{
 if ($gen_new_lang) {
-	if (-f "$lang_files_dir/new_lang.ini") {
-		open (NL, "$lang_files_dir/new_lang.ini") || die "cannot open [$lang_files_dir/new_lang.ini], though it exists ???\n";
-		my $fnd = 0;
-		while (<NL>) {
-			chomp;
-			next unless /^; Rev: r(\d+)$/;
-			$fnd=$1;
-			verbose("found new_lang.ini from r$fnd\n");
-			if ($fnd==$gen_new_lang) {
-				info("new_lang.ini already generated from r$gen_new_lang, to force regenerate - remove new_lang.ini\n");
-				close(NL);
-				exit(0);
-			} else {
-				info("new_lang.ini from r$fnd found - regenerating.\n");
-			}
-		}
-		close (NL);
-		info("Cannot find current new_lang.ini's revision.\n") if (!$fnd);
-	}
+#	if (-f "$lang_files_dir/new_lang.ini") {
+#		open (NL, "$lang_files_dir/new_lang.ini") || die "cannot open [$lang_files_dir/new_lang.ini], though it exists ???\n";
+#		my $fnd = 0;
+#		while (<NL>) {
+#			chomp;
+#			next unless /^; Rev: r(\d+)$/;
+#			$fnd=$1;
+#			verbose("found new_lang.ini from r$fnd\n");
+#			if ($fnd==$gen_new_lang) {
+#				info("new_lang.ini already generated from r$gen_new_lang, to force regenerate - remove new_lang.ini\n");
+#				close(NL);
+#				exit(0);
+#			} else {
+#				info("new_lang.ini from r$fnd found - regenerating.\n");
+#			}
+#		}
+#		close (NL);
+#		info("Cannot find current new_lang.ini's revision.\n") if (!$fnd);
+#	}
 	info("Generating new_lang.ini...\n");
 	open(NL, ">$lang_files_dir/new_lang.ini") || die "cannot open $lang_files_dir/new_lang.ini for writing.\n";
 	print NL "; MYLANG language\n";
 	print NL "; Translator: My Name <my\@email.com>\n";
 	print NL "; Date: DD.MM.YYYY\n";
-	print NL "; Rev: r$gen_new_lang\n";
+#	print NL "; Rev: r$gen_new_lang\n";
 	print NL "[MYLANG]\n";
 	foreach (sort(keys(%lang_keys))) {
 		print NL sprintf("%-22s = %s\n", $_, $lang_keys{$_});
@@ -253,12 +254,10 @@ Note: B<languages.ini> and B<new_lang.ini> files are skipped.
 
 Read the language keys from header B<file> (languages.h)
 
-=item B<--gen-new-lang> I<rev>
+=item B<--gen-new-lang>
 
 Generate new_lang.ini file (with english language) and exit.
 This file is a base template for new languages.
-
-I<rev> is the current svn revision number of the languages.h file. It's used for the Rev: comment in the file.
 
 =item B<--check-lang-file> I<file>
 
