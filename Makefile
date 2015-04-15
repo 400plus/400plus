@@ -1,7 +1,3 @@
-# $Revision$
-# $Date$
-# $Author$
-
 PROJECT := AUTOEXEC
 ADDRESS := 0x7E0000
 
