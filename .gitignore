@@ -1,10 +1,6 @@
-*.o
-
-/AUTOEXEC.BIN
-/AUTOEXEC.BIN.elf
-/AUTOEXEC.arm.elf
-/languages.ini
+/AUTOEXEC.*
 /autoexec.map
+/languages.ini
 /..d
-
+*.o
 .DS_Store
