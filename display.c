@@ -47,7 +47,7 @@ void display_refresh(void) {
 //	if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0)
 //		display_refresh_flashcomp();
 
-	display_refresh_iso();
+//	display_refresh_iso();
 
 	dialog_redraw(hMainDialog);
 }
@@ -124,6 +124,23 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data,
 		case 0x0D: // metering mode
 			if (DPData.metering == METERING_MODE_SPOT)
 				my_data = &data_meteringmode_spot;
+		break;
+		}
+	}
+
+	item_set_label_internal(dialog, type, my_data, length, item);
+}
+
+void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data, const int length, const int item)
+{
+	char label[32] = "0000";
+	const char *my_data = data;
+
+	if (dialog == hMainDialog) {
+		switch (item) {
+		case 0x04: // ISO
+			iso_print(label, DPData.iso);
+			my_data = label;
 		break;
 		}
 	}

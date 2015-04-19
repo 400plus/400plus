@@ -48,6 +48,7 @@ void hack_post_init_hook(void) {
 
 	// Various display hacks
 	cache_fake(0xFF838300, BL_INSTR(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
+	cache_fake(0xFF837FEC, BL_INSTR(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
 }
 
 
