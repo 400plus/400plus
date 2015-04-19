@@ -5,9 +5,9 @@
 
 #define OVERLAY_DELAY 5
 
-#include <stdint.h>
+#include "firmware.h"
 
-extern void initialize_display(void);
+#include <stdint.h>
 
 extern void restore_display(void);
 extern void display_refresh(void);

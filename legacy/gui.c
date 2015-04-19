@@ -16,9 +16,6 @@ int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 	printf_log(8, 8, "[400Plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
 #endif
 
-	if (event == GUI_START_OLC_MODE)
-		initialize_display();
-
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
 

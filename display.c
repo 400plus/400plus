@@ -25,11 +25,6 @@ void display_refresh_iso         (void);
 
 int get_efcomp_data(int efcomp);
 
-void initialize_display(void) {
-	if (!status.script_running)
-		enqueue_action(restore_display);
-}
-
 void restore_display(void) {
 	SleepTask(100);
 
@@ -38,17 +33,6 @@ void restore_display(void) {
 }
 
 void display_refresh(void) {
-//	if (DPData.metering == METERING_MODE_SPOT)
-//		display_refresh_meteringmode();
-
-//	if (DPData.wb == WB_MODE_COLORTEMP)
-//		display_refresh_whitebalance();
-
-//	if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0)
-//		display_refresh_flashcomp();
-
-//	display_refresh_iso();
-
 	dialog_redraw(hMainDialog);
 }
 
@@ -264,9 +248,6 @@ int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 #ifdef ENABLE_DEBUG
 	printf_log(8, 8, "[400Plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
 #endif
-
-	if (event == GUI_START_OLC_MODE)
-		initialize_display();
 
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
