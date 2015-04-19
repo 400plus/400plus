@@ -18,11 +18,6 @@
 char display_message[LP_MAX_WORD];
 int  message_timeout;
 
-void display_refresh_meteringmode(void);
-void display_refresh_whitebalance(void);
-void display_refresh_flashcomp   (void);
-void display_refresh_iso         (void);
-
 int get_efcomp_data(int efcomp);
 
 void restore_display(void) {
@@ -34,55 +29,6 @@ void restore_display(void) {
 
 void display_refresh(void) {
 	dialog_redraw(hMainDialog);
-}
-
-void display_refresh_meteringmode(void) {
-	dialog_set_property_int(hMainDialog, 0x0D, 0xF6);
-}
-
-void display_refresh_whitebalance(void) {
-	dialog_set_property_int(hMainDialog, 0x0C, 0xCF);
-}
-
-void display_refresh_flashcomp(void) {
-	int negative = false, value = 0;
-	int flash_exp_comp = DPData.efcomp;
-
-	if (flash_exp_comp > 0x30) {
-		flash_exp_comp = 0x100 - flash_exp_comp;
-		negative = true;
-	}
-
-	switch (flash_exp_comp)	{
-	case 0x13: value =  1; break;
-	case 0x14: value =  0; break;
-	case 0x15: value =  2; break;
-	case 0x18: value =  3; break;
-	case 0x1B: value =  5; break;
-	case 0x1C: value =  4; break;
-	case 0x1D: value =  6; break;
-	case 0x20: value =  7; break;
-	case 0x23: value =  9; break;
-	case 0x24: value =  8; break;
-	case 0x25: value = 10; break;
-	case 0x28: value = 11; break;
-	case 0x2B: value = 13; break;
-	case 0x2C: value = 12; break;
-	case 0x2D: value = 14; break;
-	case 0x30: value = 15; break;
-	}
-
-	value += negative ? 130 : 154;
-
-	dialog_set_property_int(hMainDialog, 0x0B, value);
-}
-
-
-void display_refresh_iso(void) {
-	char tmp[32] = "0000";
-
-	iso_print(tmp, DPData.iso);
-	dialog_set_property_str(hMainDialog, 0x04, tmp);
 }
 
 void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data, const int length, const int item)
