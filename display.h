@@ -25,4 +25,6 @@ extern int  hack_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, in
 extern int  hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1);
 extern void *hack_invert_olc_screen(char *dst, char *src, int size);
 
+extern void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data, const int length, const int item);
+
 #endif /* DISPLAY_H_ */
