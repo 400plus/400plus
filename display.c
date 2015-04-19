@@ -39,8 +39,8 @@ void display_refresh(void) {
 //	if (DPData.metering == METERING_MODE_SPOT)
 //		display_refresh_meteringmode();
 
-	if (DPData.wb == WB_MODE_COLORTEMP)
-		display_refresh_whitebalance();
+//	if (DPData.wb == WB_MODE_COLORTEMP)
+//		display_refresh_whitebalance();
 
 	if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0)
 		display_refresh_flashcomp();
@@ -101,16 +101,20 @@ void display_refresh_iso(void) {
 
 void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data, const int length, const int item)
 {
-	int data_meteringmode_spot = 0xF6;
+	int data_meteringmode_spot  = 0xF6;
+	int data_whitebalance_ctemp = 0xCF;
 
 	const int *my_data = data;
 
 	if (dialog == hMainDialog) {
 		switch (item) {
-		case 0x0D:
+		case 0x0D: // metering mode
 			if (DPData.metering == METERING_MODE_SPOT)
 				my_data = &data_meteringmode_spot;
 		break;
+		case 0x0C: // white balance
+			if (DPData.wb == WB_MODE_COLORTEMP)
+				my_data = &data_whitebalance_ctemp;
 		}
 	}
 
