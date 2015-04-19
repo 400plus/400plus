@@ -23,6 +23,8 @@ void display_refresh_whitebalance(void);
 void display_refresh_flashcomp   (void);
 void display_refresh_iso         (void);
 
+int get_efcomp_data(int efcomp);
+
 void initialize_display(void) {
 	if (!status.script_running)
 		enqueue_action(restore_display);
@@ -42,8 +44,8 @@ void display_refresh(void) {
 //	if (DPData.wb == WB_MODE_COLORTEMP)
 //		display_refresh_whitebalance();
 
-	if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0)
-		display_refresh_flashcomp();
+//	if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0)
+//		display_refresh_flashcomp();
 
 	display_refresh_iso();
 
@@ -103,18 +105,26 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data,
 {
 	int data_meteringmode_spot  = 0xF6;
 	int data_whitebalance_ctemp = 0xCF;
+	int data_efcomp;
 
 	const int *my_data = data;
 
 	if (dialog == hMainDialog) {
 		switch (item) {
-		case 0x0D: // metering mode
-			if (DPData.metering == METERING_MODE_SPOT)
-				my_data = &data_meteringmode_spot;
+		case 0x0B: // flash exposure compensation
+			if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0) {
+				data_efcomp = get_efcomp_data(DPData.efcomp);
+				my_data = &data_efcomp;
+			}
 		break;
 		case 0x0C: // white balance
 			if (DPData.wb == WB_MODE_COLORTEMP)
 				my_data = &data_whitebalance_ctemp;
+		break;
+		case 0x0D: // metering mode
+			if (DPData.metering == METERING_MODE_SPOT)
+				my_data = &data_meteringmode_spot;
+		break;
 		}
 	}
 
@@ -292,3 +302,32 @@ void *hack_invert_olc_screen(char *dst, char *src, int size) {
 	return memcpy(dst, src, size);
 }
 
+int get_efcomp_data(int efcomp) {
+	int negative = false, value = 0;
+
+	if (efcomp > 0x30) {
+		efcomp = 0x100 - efcomp;
+		negative = true;
+	}
+
+	switch (efcomp)	{
+	case 0x13: value =  1; break;
+	case 0x14: value =  0; break;
+	case 0x15: value =  2; break;
+	case 0x18: value =  3; break;
+	case 0x1B: value =  5; break;
+	case 0x1C: value =  4; break;
+	case 0x1D: value =  6; break;
+	case 0x20: value =  7; break;
+	case 0x23: value =  9; break;
+	case 0x24: value =  8; break;
+	case 0x25: value = 10; break;
+	case 0x28: value = 11; break;
+	case 0x2B: value = 13; break;
+	case 0x2C: value = 12; break;
+	case 0x2D: value = 14; break;
+	case 0x30: value = 15; break;
+	}
+
+	return value + (negative ? 130 : 154);
+}
