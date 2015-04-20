@@ -7,7 +7,6 @@
 
 #include <stdint.h>
 
-extern void restore_display(void);
 extern void display_refresh(void);
 extern void display_overlay(uint8_t *vram_address);
 

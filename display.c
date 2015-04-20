@@ -20,13 +20,6 @@ int  message_timeout;
 
 int get_efcomp_data(int efcomp);
 
-void restore_display(void) {
-	SleepTask(100);
-
-	if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae))
-		display_refresh();
-}
-
 void display_refresh(void) {
 	dialog_redraw(hMainDialog);
 }
