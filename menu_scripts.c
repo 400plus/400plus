@@ -381,6 +381,5 @@ void menu_scripts_long_exp(const menuitem_t *item) {
 
 void menu_scripts_launch(action_t script) {
 	enqueue_action(menu_close);
-	enqueue_action(restore_display);
 	enqueue_action(script);
 }
