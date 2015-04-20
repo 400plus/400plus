@@ -3,8 +3,6 @@
 
 #define AUTOISO_AUTO "AUTO"
 
-#define OVERLAY_DELAY 5
-
 #include "firmware.h"
 
 #include <stdint.h>

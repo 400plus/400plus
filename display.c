@@ -169,8 +169,6 @@ void display_overlay(uint8_t *vram_address) {
 				else
 					*display_message = '\0';
 			}
-		} else {
-			SleepTask(OVERLAY_DELAY);
 		}
 
 	}
