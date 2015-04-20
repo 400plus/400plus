@@ -189,14 +189,13 @@ int hack_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int
 	return TransferNormalScreen(r0, r1, r2, r3, a, b, c, d);
 }
 
-int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
-
 #ifdef ENABLE_DEBUG
+int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 	printf_log(8, 8, "[400Plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
-#endif
 
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
+#endif
 
 int olc_colors_map[] = {
 	[ 0] = 0,

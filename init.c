@@ -91,8 +91,10 @@ void cache_hacks(void) {
 	// hookup our MainCtrlInit
 	//cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
 
+#ifdef ENABLE_DEBUG
 	// hookup our GUI_IdleHandler
 	cache_fake(0xFF82A4F0, BL_INSTR(0xFF82A4F0, &hack_register_gui_idle_handler), TYPE_ICACHE);
+#endif
 
 	// hookup our Intercom
 	cache_fake(0xFFA5D590, BL_INSTR(0xFFA5D590, &hack_init_intercom_data), TYPE_ICACHE);
@@ -145,9 +147,11 @@ void hack_StartConsole(void) {
 	StartConsole(); // should be the last one
 }
 
+#ifdef ENABLE_DEBUG
 int hack_register_gui_idle_handler(void * org_proc, int zero) {
 	return CreateCtrlMain(&hack_GUI_IDLEHandler, zero);
 }
+#endif
 
 #define busy_wait() do { volatile uint32_t i; for (i = 0; i < 1000000; i++); } while (0)
 void hack_halt(void) {
