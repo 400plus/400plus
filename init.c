@@ -33,7 +33,10 @@ void hack_pre_init_hook(void) {
 
 // we can run extra code at the end of the OFW's task init
 void hack_post_init_hook(void) {
+	// Inject our hacked_TransferScreen
 	TransferScreen = hack_TransferScreen;
+
+	// Inject hack_send_jump_and_trash_buttons
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
 
 	// take over the vram copy locations, so we can invert the screen
@@ -102,7 +105,7 @@ void cache_hacks(void) {
 	// hookup StartConsole, so we can run our hack_post_init_hook
 	cache_fake(0xFF8112E8, BL_INSTR(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
 
-	// Various display hacks
+	// Hack items in dialogs
 	cache_fake(0xFF838300, BL_INSTR(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
 	cache_fake(0xFF837FEC, BL_INSTR(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
 }
