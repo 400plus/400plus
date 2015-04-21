@@ -56,7 +56,7 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data,
 
 void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data, const int length, const int item)
 {
-	char label[32] = "0000";
+	char label[32] = "";
 	const char *my_data = data;
 
 	if (dialog == hMainDialog) {

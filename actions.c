@@ -129,13 +129,12 @@ void set_whitebalance_colortemp() {
 }
 
 void set_intermediate_iso() {
-	char label[32] = "0000";
-
 	if (AE_IS_CREATIVE(DPData.ae)) {
 		send_to_intercom(IC_SET_ISO, iso_roll(DPData.iso));
 
-		iso_print(label, DPData.iso);
-		dialog_set_property_str(hMainDialog, 0x04, label);
+		// No need to set a proper value here,
+		// we hacked this function at hack_item_set_label_int()
+		dialog_set_property_str(hMainDialog, 0x04, "0000");
 
 		print_icu_info();
 		display_refresh();
