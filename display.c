@@ -18,85 +18,57 @@
 char display_message[LP_MAX_WORD];
 int  message_timeout;
 
-void display_refresh_meteringmode(void);
-void display_refresh_whitebalance(void);
-void display_refresh_flashcomp   (void);
-void display_refresh_iso         (void);
-
-void initialize_display(void) {
-	if (!status.script_running)
-		enqueue_action(restore_display);
-}
-
-void restore_display(void) {
-	SleepTask(100);
-
-	if (FLAG_GUI_MODE == GUIMODE_OLC && AE_IS_CREATIVE(DPData.ae))
-		display_refresh();
-}
+int get_efcomp_data(int efcomp);
 
 void display_refresh(void) {
-	if (DPData.metering == METERING_MODE_SPOT)
-		display_refresh_meteringmode();
-
-	if (DPData.wb == WB_MODE_COLORTEMP)
-		display_refresh_whitebalance();
-
-	if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0)
-		display_refresh_flashcomp();
-
-	display_refresh_iso();
-
 	dialog_redraw(hMainDialog);
 }
 
-void display_refresh_meteringmode(void) {
-	dialog_set_property_int(hMainDialog, 0x0D, 0xF6);
-}
+void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data, const int length, const int item)
+{
+	int data_meteringmode_spot  = 0xF6;
+	int data_whitebalance_ctemp = 0xCF;
+	int data_efcomp;
 
-void display_refresh_whitebalance(void) {
-	dialog_set_property_int(hMainDialog, 0x0C, 0xCF);
-}
+	const int *my_data = data;
 
-void display_refresh_flashcomp(void) {
-	int negative = false, value = 0;
-	int flash_exp_comp = DPData.efcomp;
-
-	if (flash_exp_comp > 0x30) {
-		flash_exp_comp = 0x100 - flash_exp_comp;
-		negative = true;
+	if (dialog == hMainDialog) {
+		switch (item) {
+		case 0x0B: // flash exposure compensation
+			if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0) {
+				data_efcomp = get_efcomp_data(DPData.efcomp);
+				my_data = &data_efcomp;
+			}
+		break;
+		case 0x0C: // white balance
+			if (DPData.wb == WB_MODE_COLORTEMP)
+				my_data = &data_whitebalance_ctemp;
+		break;
+		case 0x0D: // metering mode
+			if (DPData.metering == METERING_MODE_SPOT)
+				my_data = &data_meteringmode_spot;
+		break;
+		}
 	}
 
-	switch (flash_exp_comp)	{
-	case 0x13: value =  1; break;
-	case 0x14: value =  0; break;
-	case 0x15: value =  2; break;
-	case 0x18: value =  3; break;
-	case 0x1B: value =  5; break;
-	case 0x1C: value =  4; break;
-	case 0x1D: value =  6; break;
-	case 0x20: value =  7; break;
-	case 0x23: value =  9; break;
-	case 0x24: value =  8; break;
-	case 0x25: value = 10; break;
-	case 0x28: value = 11; break;
-	case 0x2B: value = 13; break;
-	case 0x2C: value = 12; break;
-	case 0x2D: value = 14; break;
-	case 0x30: value = 15; break;
-	}
-
-	value += negative ? 130 : 154;
-
-	dialog_set_property_int(hMainDialog, 0x0B, value);
+	item_set_label_internal(dialog, type, my_data, length, item);
 }
 
+void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data, const int length, const int item)
+{
+	char label[32] = "";
+	const char *my_data = data;
 
-void display_refresh_iso(void) {
-	char tmp[32] = "0000";
+	if (dialog == hMainDialog) {
+		switch (item) {
+		case 0x04: // ISO
+			iso_print(label, DPData.iso);
+			my_data = label;
+		break;
+		}
+	}
 
-	iso_print(tmp, DPData.iso);
-	dialog_set_property_str(hMainDialog, 0x04, tmp);
+	item_set_label_internal(dialog, type, my_data, length, item);
 }
 
 #if false
@@ -190,8 +162,6 @@ void display_overlay(uint8_t *vram_address) {
 				else
 					*display_message = '\0';
 			}
-		} else {
-			SleepTask(OVERLAY_DELAY);
 		}
 
 	}
@@ -201,7 +171,7 @@ void display_message_set(char *message, int timeout) {
 	strncpy(display_message, message, LP_MAX_WORD);
 	message_timeout = timestamp() + timeout;
 
-	restore_display();
+	display_refresh();
 }
 
 int hack_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int d) {
@@ -210,17 +180,13 @@ int hack_TransferScreen(int r0, int r1, int r2, int r3, int a, int b, int c, int
 	return TransferNormalScreen(r0, r1, r2, r3, a, b, c, d);
 }
 
-int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
-
 #ifdef ENABLE_DEBUG
+int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 	printf_log(8, 8, "[400Plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
-#endif
-
-	if (event == GUI_START_OLC_MODE)
-		initialize_display();
 
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
+#endif
 
 int olc_colors_map[] = {
 	[ 0] = 0,
@@ -270,3 +236,32 @@ void *hack_invert_olc_screen(char *dst, char *src, int size) {
 	return memcpy(dst, src, size);
 }
 
+int get_efcomp_data(int efcomp) {
+	int negative = false, value = 0;
+
+	if (efcomp > 0x30) {
+		efcomp = 0x100 - efcomp;
+		negative = true;
+	}
+
+	switch (efcomp)	{
+	case 0x13: value =  1; break;
+	case 0x14: value =  0; break;
+	case 0x15: value =  2; break;
+	case 0x18: value =  3; break;
+	case 0x1B: value =  5; break;
+	case 0x1C: value =  4; break;
+	case 0x1D: value =  6; break;
+	case 0x20: value =  7; break;
+	case 0x23: value =  9; break;
+	case 0x24: value =  8; break;
+	case 0x25: value = 10; break;
+	case 0x28: value = 11; break;
+	case 0x2B: value = 13; break;
+	case 0x2C: value = 12; break;
+	case 0x2D: value = 14; break;
+	case 0x30: value = 15; break;
+	}
+
+	return value + (negative ? 130 : 154);
+}

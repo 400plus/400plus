@@ -131,6 +131,11 @@ void set_whitebalance_colortemp() {
 void set_intermediate_iso() {
 	if (AE_IS_CREATIVE(DPData.ae)) {
 		send_to_intercom(IC_SET_ISO, iso_roll(DPData.iso));
+
+		// No need to set a proper value here,
+		// we hacked this function at hack_item_set_label_int()
+		dialog_set_property_str(hMainDialog, 0x04, "0000");
+
 		print_icu_info();
 		display_refresh();
 	}

@@ -281,7 +281,7 @@ int proxy_settings0(char *message) {
 }
 
 int proxy_settings3(char *message) {
-	enqueue_action(restore_display);
+//	enqueue_action(restore_display);
 
 	if (settings.autoiso_enable)
 		enqueue_action(autoiso_restore);

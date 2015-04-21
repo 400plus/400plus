@@ -33,7 +33,10 @@ void hack_pre_init_hook(void) {
 
 // we can run extra code at the end of the OFW's task init
 void hack_post_init_hook(void) {
+	// Inject our hacked_TransferScreen
 	TransferScreen = hack_TransferScreen;
+
+	// Inject hack_send_jump_and_trash_buttons
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
 
 	// take over the vram copy locations, so we can invert the screen
@@ -91,14 +94,20 @@ void cache_hacks(void) {
 	// hookup our MainCtrlInit
 	//cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
 
+#ifdef ENABLE_DEBUG
 	// hookup our GUI_IdleHandler
 	cache_fake(0xFF82A4F0, BL_INSTR(0xFF82A4F0, &hack_register_gui_idle_handler), TYPE_ICACHE);
+#endif
 
 	// hookup our Intercom
 	cache_fake(0xFFA5D590, BL_INSTR(0xFFA5D590, &hack_init_intercom_data), TYPE_ICACHE);
 
 	// hookup StartConsole, so we can run our hack_post_init_hook
 	cache_fake(0xFF8112E8, BL_INSTR(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
+
+	// Hack items in dialogs
+	cache_fake(0xFF838300, BL_INSTR(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
+	cache_fake(0xFF837FEC, BL_INSTR(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
 }
 
 void disable_cache_clearing(void) {
@@ -141,9 +150,11 @@ void hack_StartConsole(void) {
 	StartConsole(); // should be the last one
 }
 
+#ifdef ENABLE_DEBUG
 int hack_register_gui_idle_handler(void * org_proc, int zero) {
 	return CreateCtrlMain(&hack_GUI_IDLEHandler, zero);
 }
+#endif
 
 #define busy_wait() do { volatile uint32_t i; for (i = 0; i < 1000000; i++); } while (0)
 void hack_halt(void) {

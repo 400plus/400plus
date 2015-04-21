@@ -151,12 +151,14 @@ void cmode_apply() {
 }
 
 void cmode_recall_apply(int full) {
-	int cmode_active  = false;
 	int current_cmode = get_current_cmode();
 
 	snapshot_t snapshot;
 
 	if(AE_IS_CREATIVE(status.main_dial_ae)) {
+		// Update current status
+		status.cmode_active = false;
+
 		// Try to find a mode file, and load it
 		if (amode_read(status.main_dial_ae, &snapshot)) {
 			amode_delete(status.main_dial_ae);
@@ -165,6 +167,9 @@ void cmode_recall_apply(int full) {
 	} else {
 		// Only if a custom mode was loaded, and we can read it back
 		if (current_cmode != CMODE_NONE && cmode_read(current_cmode, &snapshot)) {
+			// Update current status
+			status.cmode_active = true;
+
 			// First revert to AE mode
 			snapshot_recall(&snapshot);
 
@@ -176,17 +181,11 @@ void cmode_recall_apply(int full) {
 				// Then apply full custom mode
 				snapshot_apply(&snapshot);
 			}
-
-			// Well, looks like we did recall a custom mode after all
-			cmode_active = true;
+		} else {
+			// Update current status
+			status.cmode_active = false;
 		}
 	}
-
-	// Update current status
-	status.cmode_active = cmode_active;
-
-	// Refresh display to show new custom mode (or lack of thereof)
-	display_refresh();
 }
 
 void get_cmode_filename(char *filename, int cmode_id) {
