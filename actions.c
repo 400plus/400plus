@@ -8,6 +8,7 @@
 #include "bmp.h"
 #include "cmodes.h"
 #include "debug.h"
+#include "dirent.h"
 #include "display.h"
 #include "exposure.h"
 #include "languages.h"
@@ -109,6 +110,22 @@ void start_up() {
 		FIO_CloseFile(file);
 		beep();
 	}
+#endif
+#ifdef DEBUG
+    DIR *dirp;
+    struct dirent *dp;
+
+	if ((dirp = opendir("A:\\")) == NULL) {
+		printf_log(8,8, "[400plus-DIR]: opendir error");
+        return;
+    }
+
+    do {
+        if ((dp = readdir(dirp)) != NULL)
+    		printf_log(8,8, "[400plus-DIR]: found '%s'", dp->d_name);
+    } while (dp != NULL);
+
+    closedir(dirp);
 #endif
 }
 
