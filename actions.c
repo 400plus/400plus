@@ -8,7 +8,6 @@
 #include "bmp.h"
 #include "cmodes.h"
 #include "debug.h"
-#include "dirent.h"
 #include "display.h"
 #include "exposure.h"
 #include "languages.h"
@@ -19,6 +18,8 @@
 #include "settings.h"
 #include "utils.h"
 #include "ptp.h"
+
+#include "vxworks/dirent.h"
 
 #include "actions.h"
 

@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <camera.h>
+#include "firmware/camera.h"
 
 #include "main.h"
 #include "firmware.h"

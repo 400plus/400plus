@@ -2,10 +2,9 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include <camera.h>
-
 #include "main.h"
 #include "firmware.h"
+#include "firmware/camera.h"
 
 #include "bmp.h"
 #include "cmodes.h"

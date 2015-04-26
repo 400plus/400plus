@@ -1,9 +1,7 @@
-#include <camera.h>
 #include <stdbool.h>
 
 #include "main.h"
 #include "macros.h"
-#include "firmware.h"
 
 #include "exposure.h"
 #include "fexp.h"
@@ -13,6 +11,8 @@
 #include "settings.h"
 #include "utils.h"
 
+#include "firmware.h"
+#include "firmware/camera.h"
 
 #include "viewfinder.h"
 

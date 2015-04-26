@@ -1,12 +1,11 @@
 #include <stdbool.h>
 
-#include <camera.h>
-
 #include "macros.h"
 #include "main.h"
-#include "firmware.h"
-
 #include "utils.h"
+
+#include "firmware.h"
+#include "firmware/camera.h"
 
 #include "af_patterns.h"
 

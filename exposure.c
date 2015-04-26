@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <camera.h>
-
 #include "float.h"
 #include "macros.h"
 #include "settings.h"
+
+#include "firmware/camera.h"
 
 #include "exposure.h"
 

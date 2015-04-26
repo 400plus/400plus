@@ -2,11 +2,12 @@
 
 #include "main.h"
 #include "macros.h"
-#include "camera.h"
 
 #include "exposure.h"
 #include "settings.h"
 #include "utils.h"
+
+#include "firmware/camera.h"
 
 #include "qexp.h"
 

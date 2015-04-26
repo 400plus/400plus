@@ -4,8 +4,9 @@
 #include "macros.h"
 
 #include "button.h"
-#include "camera.h"
 #include "utils.h"
+
+#include "firmware/camera.h"
 
 #include "msm.h"
 

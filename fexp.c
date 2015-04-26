@@ -2,8 +2,8 @@
 
 #include "main.h"
 #include "macros.h"
-#include "camera.h"
 #include "firmware.h"
+#include "firmware/camera.h"
 
 #include "exposure.h"
 #include "utils.h"
