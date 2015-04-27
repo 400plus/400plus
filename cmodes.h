@@ -1,9 +1,9 @@
 #ifndef CMODES_H_
 #define CMODES_H_
 
-#include <camera.h>
-
 #include "snapshots.h"
+
+#include "firmware/camera.h"
 
 #define CMODES_MAX       16 // Max number of custom modes available
 #define CMODES_MODES      7 // Number of auto modes where a custom mode may be used

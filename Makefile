@@ -19,8 +19,6 @@ USE_FONTS := -DUSE_FONT_SMALL
 COMMON_FLAGS := \
 	$(USE_FONTS)                      \
 	-DVERSION='"$(VERSION)"'          \
-	-Ivxworks                         \
-	-Ifirmware                        \
 	-Wall                             \
 	-Wp,-MMD,$(dir $@).$(notdir $@).d \
 	-Wp,-MT,$@                        \

@@ -1,9 +1,9 @@
 // Thanks to Coutts for porthing this.
 
-#include <vxworks.h>
-
 #include "font.h"
 #include "firmware.h"
+
+#include "vxworks/vxworks.h"
 
 #define VramSize (360*240)
 

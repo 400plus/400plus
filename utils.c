@@ -8,17 +8,17 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#include <clock.h>
-#include <camera.h>
-
 #include "main.h"
 #include "macros.h"
 
-#include "firmware.h"
 #include "float.h"
 #include "languages.h"
 #include "settings.h"
 #include "debug.h"
+
+#include "firmware.h"
+#include "firmware/camera.h"
+#include "vxworks/clock.h"
 
 #include "utils.h"
 

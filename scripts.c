@@ -1,10 +1,10 @@
 #include <stdbool.h>
 
-#include <camera.h>
 
 #include "main.h"
 #include "macros.h"
 #include "firmware.h"
+#include "firmware/camera.h"
 
 #include "display.h"
 #include "exposure.h"

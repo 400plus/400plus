@@ -1,9 +1,9 @@
 #ifndef SNAPSHOTS_H_
 #define SNAPSHOTS_H_
 
-#include <camera.h>
-
 #include "settings.h"
+
+#include "firmware/camera.h"
 
 #define FILENAME_LENGTH 16
 
