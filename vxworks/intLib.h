@@ -1,0 +1,17 @@
+#ifndef VXWORKS_INTLIB_H_
+#define VXWORKS_INTLIB_H_
+
+#include "vxworks.h"
+
+extern int 	    intLevelSet             (int level);
+extern int      intEnable               (int level);
+extern int      intDisable              (int level);
+extern int      intConnect              (VOIDFUNCPTR *vector, VOIDFUNCPTR routine, int parameter);
+extern void     intLockLevelSet         (int newLevel);
+extern int      intLockLevelGet         (void);
+extern int      intVecTableWriteProtect (void);
+extern void     intUninitVecSet         (VOIDFUNCPTR routine);
+extern void     intVecBaseSet           (FUNCPTR *baseAddr);
+extern FUNCPTR *intVecBaseGet           (void);
+
+#endif /* VXWORKS_INTLIB_H_ */

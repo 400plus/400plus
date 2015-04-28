@@ -79,11 +79,6 @@ typedef int BOOL;
 
 #define S_memLib_NOT_ENOUGH_MEMORY              (WIND_MEM_ERR_BASE + 0x0001)
 
-
-
-
-
-
 /* defines for basic tasks handling */
 /* Task Options: */
 
@@ -96,22 +91,16 @@ typedef int BOOL;
 /* do not fill the stack for use by checkStack(). */
 #define VX_NO_STACK_FILL 0x0100
 
-
-
-
 /* defines for all kinds of semaphores */
 #define SEM_Q_FIFO           0x0
 #define SEM_Q_PRIORITY       0x1
 #define SEM_DELETE_SAFE      0x4
 #define SEM_INVERSION_SAFE   0x8
-#define SEM_OPTION_MASK     (SEM_Q_FIFO|SEM_Q_PRIORITY| \
-				SEM_DELETE_SAFE|SEM_INVERSION_SAFE)
-
+#define SEM_OPTION_MASK      (SEM_Q_FIFO | SEM_Q_PRIORITY | SEM_DELETE_SAFE | SEM_INVERSION_SAFE)
 
 /* timeouts when waiting for semaphores */
 #define NO_WAIT (0)
 #define WAIT_FOREVER (-1)
-
 
 typedef short SEM_ID;
 /*for binary semaphores */
@@ -128,22 +117,24 @@ typedef short TASK_ID;
 
 #define MSG_Q_FIFO       0x0
 #define MSG_Q_PRIORITY   0x1
-#define WIND_MSG_Q_OPTION_MASK (MSG_Q_FIFO|MSG_Q_PRIORITY)
+#define WIND_MSG_Q_OPTION_MASK (MSG_Q_FIFO | MSG_Q_PRIORITY)
 
-typedef unsigned int UINT;
+typedef unsigned int  UINT;
 typedef unsigned long ULONG;
-typedef void (*FUNCPTR)(long, long, long, long, long, long, long, long, long, long);
+
+typedef int  (*FUNCPTR)     (void);
+typedef void (*VOIDFUNCPTR) (void);
 
 typedef struct WIND_TCB_PLACEHOLDER {
 	TASK_ID handle;
 } WIND_TCB_PLACEHOLDER;
 
-#define WIND_READY	0x0
-#define WIND_SUSPEND	0x1
-#define WIND_PEND	0x2
-#define WIND_DELAY	0x4
-#define WIND_DEAD	0x8
-#define WIND_STOP	0x10	/* Never reported. */
+#define WIND_READY   0x0
+#define WIND_SUSPEND 0x1
+#define WIND_PEND    0x2
+#define WIND_DELAY   0x4
+#define WIND_DEAD    0x8
+#define WIND_STOP    0x10 /* Never reported. */
 
 typedef struct _TASK_DESC {
 	TASK_ID td_tid;
@@ -174,7 +165,6 @@ typedef void (*wind_tick_handler_t)(long);
 //#define errno (*wind_current_context_errno())
 
 int intCount(void);
-int intLevelSet(int level);
 int intLock(void);
 void intUnlock(int flags);
 STATUS sysClkConnect(wind_tick_handler_t routine, long arg);
@@ -193,16 +183,11 @@ int *wind_current_context_errno(void);
 #define wind_denormalized_prio(prio) \
 	({ int __p = (prio) ? 256 - (prio) : 0; __p; })
 
-
-
-
-
 void printErrno(int status);
 STATUS errnoSet(int status);
 int errnoGet(void);
 int errnoOfTaskGet(TASK_ID task_id);
 STATUS errnoOfTaskSet(TASK_ID task_id, int status);
-
 
 STATUS taskRestart(TASK_ID task_id);
 static inline void taskHookInit(void)
@@ -237,8 +222,6 @@ BOOL	taskIsReady(TASK_ID task_id);
 BOOL	taskIsSuspended (TASK_ID task_id);
 STATUS	taskInfoGet(TASK_ID task_id, TASK_DESC *desc);
 
-
-
 STATUS semGive(SEM_ID sem_id);
 STATUS semTake(SEM_ID sem_id, int timeout);
 STATUS semFlush(SEM_ID sem_id);
@@ -247,22 +230,16 @@ SEM_ID semBCreate(int flags, SEM_B_STATE state);
 SEM_ID semMCreate(int flags);
 SEM_ID semCCreate(int flags, int count);
 
-
-
 WDOG_ID wdCreate(void);
 STATUS wdDelete(WDOG_ID wdog_id);
 STATUS wdStart(WDOG_ID wdog_id, int timeout, wind_timer_t handler, long arg);
 STATUS wdCancel(WDOG_ID wdog_id);
-
-
 
 MSG_Q_ID msgQCreate(int nb_msgs, int length, int flags);
 STATUS msgQDelete(MSG_Q_ID msg);
 int msgQNumMsgs(MSG_Q_ID msg);
 int msgQReceive(MSG_Q_ID msg, char *buf, UINT bytes, int timeout);
 STATUS msgQSend(MSG_Q_ID msg, const char *buf, UINT bytes, int timeout, int prio);
-
-
 
 BOOL intContext(void);
 void sysClkDisable(void);
