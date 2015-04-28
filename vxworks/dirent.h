@@ -9,9 +9,9 @@ struct dirent {
 	char *d_name;
 };
 
-DIR           *opendir   (const char *);
-struct dirent *readdir   (DIR *);
-extern void    rewinddir (DIR *);
-int            closedir  (DIR *);
+extern DIR           *opendir   (const char *);
+extern struct dirent *readdir   (DIR *);
+extern void           rewinddir (DIR *);
+extern int            closedir  (DIR *);
 
 #endif /* VXWORKS_DIRENT_H_ */
