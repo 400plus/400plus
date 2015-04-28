@@ -2,7 +2,7 @@
 #define VXWORKS_DIRENT_H_
 
 /* We do not really care what is inside DIR */
-typedef DIR;
+typedef struct {} DIR;
 
 struct dirent {
 	/* No other info available */
