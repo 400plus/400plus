@@ -3,7 +3,7 @@
 
 #include "vxworks.h"
 
-extern int 	    intLevelSet             (int level);
+extern int      intLevelSet             (int level);
 extern int      intEnable               (int level);
 extern int      intDisable              (int level);
 extern int      intConnect              (VOIDFUNCPTR *vector, VOIDFUNCPTR routine, int parameter);
