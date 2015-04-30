@@ -72,23 +72,23 @@
 #define FSTAT_LNK  0120000
 #define FSTAT_NON  0140000
 
-int     creat          (const char *name, int flag);
-int     open           (const char *name, int flags, int mode);
-STATUS  unlink         (char *name);
-STATUS  remove         (const char *name);
-STATUS  close          (int fd);
-int     rename         (const char *oldname, const char * newname);
-int     read           (int fd, char *buffer, size_t maxbytes);
-int     write          (int fd, char *buffer, size_t nbytes);
-int     ioctl          (int fd, int function, int arg);
-int     lseek          (int fd, long offset, int whence);
-STATUS  ioDefPathSet   (char *name);
-void    ioDefPathGet   (char *pathname);
-STATUS  chdir          (char *pathname);
-char   *getcwd         (char *buffer, int size);
-char   *getwd          (char *pathname);
-void    ioGlobalStdSet (int stdFd, int newFd);
-int     ioGlobalStdGet (int stdFd);
-void    ioTaskStdSet   (int taskId, int stdFd, int newFd);
-int     ioTaskStdGet   (int taskId, int stdFd);
-BOOL    isatty         (int fd);
+extern int     creat          (const char *name, int flag);
+extern int     open           (const char *name, int flags, int mode);
+extern STATUS  unlink         (char *name);
+extern STATUS  remove         (const char *name);
+extern STATUS  close          (int fd);
+extern int     rename         (const char *oldname, const char * newname);
+extern int     read           (int fd, char *buffer, size_t maxbytes);
+extern int     write          (int fd, char *buffer, size_t nbytes);
+extern int     ioctl          (int fd, int function, int arg);
+extern int     lseek          (int fd, long offset, int whence);
+extern STATUS  ioDefPathSet   (char *name);
+extern void    ioDefPathGet   (char *pathname);
+extern STATUS  chdir          (char *pathname);
+extern char   *getcwd         (char *buffer, int size);
+extern char   *getwd          (char *pathname);
+extern void    ioGlobalStdSet (int stdFd, int newFd);
+extern int     ioGlobalStdGet (int stdFd);
+extern void    ioTaskStdSet   (int taskId, int stdFd, int newFd);
+extern int     ioTaskStdGet   (int taskId, int stdFd);
+extern BOOL    isatty         (int fd);
