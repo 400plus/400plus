@@ -1,11 +1,11 @@
 #ifndef VXWORKS_ENVLIB_H_
 #define VXWORKS_ENVLIB_H_
 
-extern int   envLibInit        (BOOL installHooks);
-extern int   envPrivateCreate  (int taskId, int envSource);
-extern int   envPrivateDestroy (int taskId);
-extern int   putenv            (char *pEnvString);
-extern char *getenv            (const char *name);
-extern void  envShow           (int taskId);
+extern STATUS envLibInit        (BOOL installHooks);
+extern STATUS envPrivateCreate  (int taskId, int envSource);
+extern STATUS envPrivateDestroy (int taskId);
+extern STATUS putenv            (char *pEnvString);
+extern char  *getenv            (const char *name);
+extern void   envShow           (int taskId);
 
 #endif /* VXWORKS_ENVLIB_H_ */

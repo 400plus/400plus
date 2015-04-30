@@ -12,6 +12,6 @@ struct dirent {
 extern DIR           *opendir   (const char *);
 extern struct dirent *readdir   (DIR *);
 extern void           rewinddir (DIR *);
-extern int            closedir  (DIR *);
+extern STATUS         closedir  (DIR *);
 
 #endif /* VXWORKS_DIRENT_H_ */
