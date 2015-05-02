@@ -4,6 +4,7 @@
 #include "vxworks.h"
 
 typedef struct {} *PART_ID;
+typedef struct {} MEM_PART_STATS;
 
 STATUS  memPartOptionsSet (PART_ID partId, unsigned options);
 void   *memalign          (unsigned alignment, unsigned size);
