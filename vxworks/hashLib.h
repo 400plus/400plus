@@ -1,7 +1,8 @@
 #ifndef VXWORKS_HASHLIB_H_
 #define VXWORKS_HASHLIB_H_
 
-#include "vxworks/sllLib.h"
+#include "sllLib.h"
+#include "vxworks.h"
 
 typedef struct {} *HASH_ID;
 typedef struct {}  HASH_TBL;

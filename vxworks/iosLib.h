@@ -2,6 +2,7 @@
 #define VXWORKS_IOSLIB_H_
 
 #include "dllLib.h"
+#include "vxworks.h"
 
 typedef struct {
 	DL_NODE	 node;

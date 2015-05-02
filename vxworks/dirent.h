@@ -1,6 +1,8 @@
 #ifndef VXWORKS_DIRENT_H_
 #define VXWORKS_DIRENT_H_
 
+#include "vxworks.h"
+
 /* We do not really care what is inside DIR */
 typedef struct {} DIR;
 

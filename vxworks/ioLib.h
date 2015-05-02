@@ -1,6 +1,8 @@
 #ifndef VXWORKS_IOLIB_H_
 #define VXWORKS_IOLIB_H_
 
+#include "vxworks.h"
+
 /* IOCTL Functions */
 
 #define FIONREAD        1

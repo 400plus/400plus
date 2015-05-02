@@ -1,6 +1,8 @@
 #ifndef VXWORKS_STDIO_H_
 #define VXWORKS_STDIO_H_
 
+#include "vxworks.h"
+
 extern int fdprintf  (int fd, const char *fmt, ...);
 extern int printf    (const char *, ...);
 extern int printErr  (const char *fmt, ...);
