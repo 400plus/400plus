@@ -94,3 +94,5 @@ extern int     ioGlobalStdGet (int stdFd);
 extern void    ioTaskStdSet   (int taskId, int stdFd, int newFd);
 extern int     ioTaskStdGet   (int taskId, int stdFd);
 extern BOOL    isatty         (int fd);
+
+#endif /* VXWORKS_IOLIB_H_ */

@@ -24,4 +24,4 @@ extern int toascii(int);
 extern int tolower(int);
 extern int toupper(int);
 
-#endif
+#endif /* CTYPE_H_ */

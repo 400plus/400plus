@@ -1,4 +1,4 @@
-#include "../stubs.h"
+#include "../stub.h"
 
 DEF(taskVarInit,       0xFFB474A4)
 DEF(taskVarDeleteHook, 0xFFB47480)

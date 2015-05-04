@@ -190,9 +190,6 @@ int errnoOfTaskGet(TASK_ID task_id);
 STATUS errnoOfTaskSet(TASK_ID task_id, int status);
 
 STATUS taskRestart(TASK_ID task_id);
-static inline void taskHookInit(void)
-{
-}
 TASK_ID	taskSpawn(const char *name,
 			int prio,
 			int flags,

@@ -28,4 +28,4 @@ int    raise        (int signo);
 int    kill         (int tid, int signo);
 int    sigqueue     (int tid, int signo, const union sigval value);
 
-#endif
+#endif /* VXWORKS_SIGLIB_H_ */
