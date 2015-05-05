@@ -1,27 +1,23 @@
-#ifndef CTYPE_H_
-#define CTYPE_H_
+#ifndef VWORKS_CTYPE_H_
+#define VWORKS_CTYPE_H_
 
 #include "vxworks.h"
 
-extern int isalnum(int);
-extern int isalpha(int);
+extern int isalnum  (int c);
+extern int isalpha  (int c);
+extern int isascii  (int c);
+extern int isblank  (int c);
+extern int iscntrl  (int c);
+extern int isdigit  (int c);
+extern int isgraph  (int c);
+extern int islower  (int c);
+extern int isprint  (int c);
+extern int ispunct  (int c);
+extern int isspace  (int c);
+extern int isupper  (int c);
+extern int isxdigit (int c);
+extern int toascii  (int c);
+extern int tolower  (int c);
+extern int toupper  (int c);
 
-extern int isascii(int);
-
-extern int isblank(int);
-extern int iscntrl(int);
-extern int isdigit(int);
-extern int isgraph(int);
-extern int islower(int);
-extern int isprint(int);
-extern int ispunct(int);
-extern int isspace(int);
-extern int isupper(int);
-extern int isxdigit(int);
-
-extern int toascii(int);
-
-extern int tolower(int);
-extern int toupper(int);
-
-#endif /* CTYPE_H_ */
+#endif /* VWORKS_CTYPE_H_ */
