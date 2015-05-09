@@ -3,29 +3,28 @@
 
 #include "vxworks.h"
 
-int    sigInit      (void);
-int    sigqueueInit (int nQueues);
-int    sigemptyset  (sigset_t *pSet);
-int    sigfillset   (sigset_t *pSet);
-int    sigaddset    (sigset_t *pSet, int signo);
-int    sigdelset    (sigset_t *pSet, int signo);
-int    sigismember  (const sigset_t *pSet, int signo);
+extern void (*signal(int signo, void (*pHandler)()))();
 
-void (*signal(int signo, void (*pHandler)()))();
-
-int    sigaction    (int signo, const struct sigaction *pAct, struct sigaction *pOact);
-int    sigprocmask  (int how, const sigset_t *pSet, sigset_t *pOset);
-int    sigpending   (sigset_t *pSet);
-int    sigsuspend   (const sigset_t *pSet);
-int    pause        (void);
-int    sigtimedwait (const sigset_t *pSet, struct siginfo *pInfo, const struct timespec *pTimeout);
-int    sigwaitinfo  (const sigset_t *pSet, struct siginfo *pInfo);
-int    sigwait      (const sigset_t *pSet, int *pSig);
-int    sigvec       (int sig, const struct sigvec *pVec, struct sigvec *pOvec);
-int    sigsetmask   (int mask);
-int    sigblock     (int mask);
-int    raise        (int signo);
-int    kill         (int tid, int signo);
-int    sigqueue     (int tid, int signo, const union sigval value);
+extern int    sigInit      (void);
+extern int    sigqueueInit (int nQueues);
+extern int    sigemptyset  (sigset_t *pSet);
+extern int    sigfillset   (sigset_t *pSet);
+extern int    sigaddset    (sigset_t *pSet, int signo);
+extern int    sigdelset    (sigset_t *pSet, int signo);
+extern int    sigismember  (const sigset_t *pSet, int signo);
+extern int    sigaction    (int signo, const struct sigaction *pAct, struct sigaction *pOact);
+extern int    sigprocmask  (int how, const sigset_t *pSet, sigset_t *pOset);
+extern int    sigpending   (sigset_t *pSet);
+extern int    sigsuspend   (const sigset_t *pSet);
+extern int    pause        (void);
+extern int    sigtimedwait (const sigset_t *pSet, struct siginfo *pInfo, const struct timespec *pTimeout);
+extern int    sigwaitinfo  (const sigset_t *pSet, struct siginfo *pInfo);
+extern int    sigwait      (const sigset_t *pSet, int *pSig);
+extern int    sigvec       (int sig, const struct sigvec *pVec, struct sigvec *pOvec);
+extern int    sigsetmask   (int mask);
+extern int    sigblock     (int mask);
+extern int    raise        (int signo);
+extern int    kill         (int tid, int signo);
+extern int    sigqueue     (int tid, int signo, const union sigval value);
 
 #endif /* VXWORKS_SIGLIB_H_ */

@@ -4,9 +4,9 @@
 #include "memLib.h"
 #include "vxworks.h"
 
-void   memShowInit    (void);
-void   memShow        (int type);
-STATUS memPartShow    (PART_ID partId, int type);
-STATUS memPartInfoGet (PART_ID partId, MEM_PART_STATS * ppartStats);
+extern void   memShowInit    (void);
+extern void   memShow        (int type);
+extern STATUS memPartShow    (PART_ID partId, int type);
+extern STATUS memPartInfoGet (PART_ID partId, MEM_PART_STATS * ppartStats);
 
 #endif /* VXWORKS_MEMSHOW_H_ */

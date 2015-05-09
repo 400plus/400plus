@@ -51,20 +51,20 @@ typedef	struct {
 } CACHE_FUNCS;
 
 
-STATUS  cacheLibInit       (CACHE_MODE instMode, CACHE_MODE dataMode);
-STATUS  cacheEnable        (CACHE_TYPE cache);
-STATUS  cacheDisable       (CACHE_TYPE cache);
-STATUS  cacheLock          (CACHE_TYPE cache, void *address, size_t bytes);
-STATUS  cacheUnlock        (CACHE_TYPE cache, void *address, size_t bytes);
-STATUS  cacheFlush         (CACHE_TYPE cache, void *address, size_t bytes);
-STATUS  cacheInvalidate    (CACHE_TYPE cache, void *address, size_t bytes);
-STATUS  cacheClear         (CACHE_TYPE cache, void *address, size_t bytes);
-STATUS  cacheTextUpdate    (void *address, size_t bytes);
-void   *cacheDmaMalloc     (size_t bytes);
-STATUS  cacheDmaFree       (void *pBuf);
-STATUS  cacheDrvFlush      (CACHE_FUNCS *pFuncs, void *address, size_t bytes);
-STATUS  cacheDrvInvalidate (CACHE_FUNCS *pFuncs, void *address, size_t bytes);
-void   *cacheDrvVirtToPhys (CACHE_FUNCS *pFuncs, void *address);
-void   *cacheDrvPhysToVirt (CACHE_FUNCS *pFuncs, void *address);
+extern STATUS  cacheLibInit       (CACHE_MODE instMode, CACHE_MODE dataMode);
+extern STATUS  cacheEnable        (CACHE_TYPE cache);
+extern STATUS  cacheDisable       (CACHE_TYPE cache);
+extern STATUS  cacheLock          (CACHE_TYPE cache, void *address, size_t bytes);
+extern STATUS  cacheUnlock        (CACHE_TYPE cache, void *address, size_t bytes);
+extern STATUS  cacheFlush         (CACHE_TYPE cache, void *address, size_t bytes);
+extern STATUS  cacheInvalidate    (CACHE_TYPE cache, void *address, size_t bytes);
+extern STATUS  cacheClear         (CACHE_TYPE cache, void *address, size_t bytes);
+extern STATUS  cacheTextUpdate    (void *address, size_t bytes);
+extern void   *cacheDmaMalloc     (size_t bytes);
+extern STATUS  cacheDmaFree       (void *pBuf);
+extern STATUS  cacheDrvFlush      (CACHE_FUNCS *pFuncs, void *address, size_t bytes);
+extern STATUS  cacheDrvInvalidate (CACHE_FUNCS *pFuncs, void *address, size_t bytes);
+extern void   *cacheDrvVirtToPhys (CACHE_FUNCS *pFuncs, void *address);
+extern void   *cacheDrvPhysToVirt (CACHE_FUNCS *pFuncs, void *address);
 
 #endif /* VXWORKS_CACHELIB_H_ */

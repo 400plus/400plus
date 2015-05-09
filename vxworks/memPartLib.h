@@ -4,13 +4,13 @@
 #include "memLib.h"
 #include "vxworks.h"
 
-PART_ID  memPartCreate       (char * pPool, unsigned poolSize);
-STATUS   memPartAddToPool    (PART_ID partId, char * pPool, unsigned poolSize);
-void    *memPartAlignedAlloc (PART_ID partId, unsigned nBytes, unsigned alignment);
-void    *memPartAlloc        (PART_ID partId, unsigned nBytes);
-STATUS   memPartFree         (PART_ID partId, char * pBlock);
-void     memAddToPool        (char * pPool, unsigned poolSize);
-void    *malloc              (size_t nBytes);
-void     free                (void * ptr);
+extern PART_ID  memPartCreate       (char * pPool, unsigned poolSize);
+extern STATUS   memPartAddToPool    (PART_ID partId, char * pPool, unsigned poolSize);
+extern void    *memPartAlignedAlloc (PART_ID partId, unsigned nBytes, unsigned alignment);
+extern void    *memPartAlloc        (PART_ID partId, unsigned nBytes);
+extern STATUS   memPartFree         (PART_ID partId, char * pBlock);
+extern void     memAddToPool        (char * pPool, unsigned poolSize);
+extern void    *malloc              (size_t nBytes);
+extern void     free                (void * ptr);
 
 #endif /* VXWORKS_MEMPARTLIB_H_ */

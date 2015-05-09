@@ -3,7 +3,7 @@
 
 #include "vxworks.h"
 
-void   reboot        (int startType);
-STATUS rebootHookAdd (FUNCPTR rebootHook);
+extern void   reboot        (int startType);
+extern STATUS rebootHookAdd (FUNCPTR rebootHook);
 
 #endif /* VXWORKS_REBOOTLIB_H_ */

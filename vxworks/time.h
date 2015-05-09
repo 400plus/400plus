@@ -30,18 +30,18 @@ struct itimerspec {
 	struct timespec it_value;
 };
 
-char      *asctime     (const struct tm *timeptr);
-int        asctime_r   (const struct tm *timeptr, char *asctimeBuf, size_t *buflen);
-clock_t    clock       (void);
-char      *ctime       (const time_t *timer);
-char      *ctime_r     (const time_t *timer, char *asctimeBuf, size_t *buflen);
-double     difftime    (time_t time1, time_t time0);
-struct tm *gmtime      (const time_t *timer);
-int        gmtime_r    (const time_t *timer, struct tm *timeBuffer);
-struct tm *localtime   (const time_t *timer);
-int        localtime_r (const time_t *timer, struct tm *timeBuffer);
-time_t     mktime      (struct tm *timeptr);
-size_t     strftime    (char *s, size_t n, const char *format, const struct tm *tptr);
-time_t     time        (time_t *timer);
+extern char      *asctime     (const struct tm *timeptr);
+extern int        asctime_r   (const struct tm *timeptr, char *asctimeBuf, size_t *buflen);
+extern clock_t    clock       (void);
+extern char      *ctime       (const time_t *timer);
+extern char      *ctime_r     (const time_t *timer, char *asctimeBuf, size_t *buflen);
+extern double     difftime    (time_t time1, time_t time0);
+extern struct tm *gmtime      (const time_t *timer);
+extern int        gmtime_r    (const time_t *timer, struct tm *timeBuffer);
+extern struct tm *localtime   (const time_t *timer);
+extern int        localtime_r (const time_t *timer, struct tm *timeBuffer);
+extern time_t     mktime      (struct tm *timeptr);
+extern size_t     strftime    (char *s, size_t n, const char *format, const struct tm *tptr);
+extern time_t     time        (time_t *timer);
 
 #endif /* VXWORKS_TIME_H_ */

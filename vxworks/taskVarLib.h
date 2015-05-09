@@ -7,11 +7,11 @@ typedef struct taskVar {
 	int             value;
 } TASK_VAR;
 
-STATUS taskVarInit   (void);
-STATUS taskVarAdd    (int tid, int * pVar);
-STATUS taskVarDelete (int tid, int * pVar);
-int    taskVarGet    (int tid, int * pVar);
-STATUS taskVarSet    (int tid, int * pVar, int value);
-int    taskVarInfo   (int tid, TASK_VAR varList[], int maxVars);
+extern STATUS taskVarInit   (void);
+extern STATUS taskVarAdd    (int tid, int * pVar);
+extern STATUS taskVarDelete (int tid, int * pVar);
+extern int    taskVarGet    (int tid, int * pVar);
+extern STATUS taskVarSet    (int tid, int * pVar, int value);
+extern int    taskVarInfo   (int tid, TASK_VAR varList[], int maxVars);
 
 #endif /* VXWORKS_TASKVARLIB_H_ */

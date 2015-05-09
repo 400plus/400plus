@@ -5,46 +5,46 @@
 
 /* bLib.S */
 
-int   bcmp       (char *buf1, char *buf2, int nbytes);
-void  binvert    (char *buf, int nbytes);
-void  bswap      (char *buf1, char *buf2, int nbytes);
-void  swab       (char *source, char *destination, int nbytes);
-void  uswab      (char *source, char *destination, int nbytes);
-void  bzero      (char *buffer, int nbytes);
-void  bcopy      (const char *source, char *destination, int nbytes);
-void  bcopyBytes (char *source, char *destination, int nbytes);
-void  bcopyWords (char *source, char *destination, int nwords);
-void  bcopyLongs (char *source, char *destination, int nlongs);
-void  bfill      (char *buf, int nbytes, int ch);
-void  bfillBytes (char *buf, int nbytes, int ch);
-char *index      (const char *s, int c);
-char *rindex     (const char *s, int c);
+extern int   bcmp       (char *buf1, char *buf2, int nbytes);
+extern void  binvert    (char *buf, int nbytes);
+extern void  bswap      (char *buf1, char *buf2, int nbytes);
+extern void  swab       (char *source, char *destination, int nbytes);
+extern void  uswab      (char *source, char *destination, int nbytes);
+extern void  bzero      (char *buffer, int nbytes);
+extern void  bcopy      (const char *source, char *destination, int nbytes);
+extern void  bcopyBytes (char *source, char *destination, int nbytes);
+extern void  bcopyWords (char *source, char *destination, int nwords);
+extern void  bcopyLongs (char *source, char *destination, int nlongs);
+extern void  bfill      (char *buf, int nbytes, int ch);
+extern void  bfillBytes (char *buf, int nbytes, int ch);
+extern char *index      (const char *s, int c);
+extern char *rindex     (const char *s, int c);
 
 /* ansiString.h */
 
-void   *memchr     (const void *m, int c, size_t n);
-int     memcmp     (const void *s1, const void *s2, size_t n);
-void   *memcpy     (void *destination, const void *source, size_t size);
-void   *memmove    (void *destination, const void *source, size_t size);
-void   *memset     (void *m, int c, size_t size);
-char   *strcat     (char *destination, const char *append);
-char   *strchr     (const char *s, int c);
-int    strcmp      (const char *s1, const char *s2);
-int    strcoll     (const char *s1, const char *s2);
-char   *strcpy     (char *s1, const char *s2);
-size_t  strcspn    (const char *s1, const char *s2);
-STATUS  strerror_r (int errcode, char *buffer);
-char   *strerror   (int errcode);
-size_t  strlen     (const char *s);
-char   *strncat    (char *dst, const char *src, size_t n);
-int     strncmp    (const char *s1, const char *s2, size_t n);
-char   *strncpy    (char *s1, const char *s2, size_t n);
-char   *strpbrk    (const char *s1, const char *s2);
-char   *strrchr    (const char *s, int c);
-size_t  strspn     (const char *s, const char *sep);
-char   *strstr     (const char *s, const char *find);
-char   *strtok     (char *string, const char *separator);
-char   *strtok_r   (char *string, const char *separators, char **ppLast);
-size_t  strxfrm    (char *s1, const char *s2, size_t n);
+extern void   *memchr     (const void *m, int c, size_t n);
+extern int     memcmp     (const void *s1, const void *s2, size_t n);
+extern void   *memcpy     (void *destination, const void *source, size_t size);
+extern void   *memmove    (void *destination, const void *source, size_t size);
+extern void   *memset     (void *m, int c, size_t size);
+extern char   *strcat     (char *destination, const char *append);
+extern char   *strchr     (const char *s, int c);
+extern int    strcmp      (const char *s1, const char *s2);
+extern int    strcoll     (const char *s1, const char *s2);
+extern char   *strcpy     (char *s1, const char *s2);
+extern size_t  strcspn    (const char *s1, const char *s2);
+extern STATUS  strerror_r (int errcode, char *buffer);
+extern char   *strerror   (int errcode);
+extern size_t  strlen     (const char *s);
+extern char   *strncat    (char *dst, const char *src, size_t n);
+extern int     strncmp    (const char *s1, const char *s2, size_t n);
+extern char   *strncpy    (char *s1, const char *s2, size_t n);
+extern char   *strpbrk    (const char *s1, const char *s2);
+extern char   *strrchr    (const char *s, int c);
+extern size_t  strspn     (const char *s, const char *sep);
+extern char   *strstr     (const char *s, const char *find);
+extern char   *strtok     (char *string, const char *separator);
+extern char   *strtok_r   (char *string, const char *separators, char **ppLast);
+extern size_t  strxfrm    (char *s1, const char *s2, size_t n);
 
 #endif /* VXWORKS_STRING_H_ */

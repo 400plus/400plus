@@ -183,12 +183,6 @@ int *wind_current_context_errno(void);
 #define wind_denormalized_prio(prio) \
 	({ int __p = (prio) ? 256 - (prio) : 0; __p; })
 
-void printErrno(int status);
-STATUS errnoSet(int status);
-int errnoGet(void);
-int errnoOfTaskGet(TASK_ID task_id);
-STATUS errnoOfTaskSet(TASK_ID task_id, int status);
-
 STATUS taskRestart(TASK_ID task_id);
 TASK_ID	taskSpawn(const char *name,
 			int prio,
