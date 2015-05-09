@@ -30,8 +30,6 @@ struct itimerspec {
 	struct timespec it_value;
 };
 
-/* ansiTime.S */
-
 char      *asctime     (const struct tm *timeptr);
 int        asctime_r   (const struct tm *timeptr, char *asctimeBuf, size_t *buflen);
 clock_t    clock       (void);
@@ -45,9 +43,5 @@ int        localtime_r (const time_t *timer, struct tm *timeBuffer);
 time_t     mktime      (struct tm *timeptr);
 size_t     strftime    (char *s, size_t n, const char *format, const struct tm *tptr);
 time_t     time        (time_t *timer);
-
-/* libClock.S */
-
-int clock_gettime (clockid_t clock_id, struct timespec *tp);
 
 #endif /* VXWORKS_TIME_H_ */
