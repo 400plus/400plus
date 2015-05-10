@@ -3,6 +3,14 @@
 
 #include "vxworks.h"
 
+/* intLib.S */
+
+extern BOOL intContext (void);
+extern int  intCount   (void);
+
+
+/* intArchLib.S */
+
 extern int      intLevelSet             (int level);
 extern int      intEnable               (int level);
 extern int      intDisable              (int level);
