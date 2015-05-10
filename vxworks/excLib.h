@@ -3,6 +3,14 @@
 
 #include "vxworks.h"
 
+/* excLib.S */
+
+STATUS excInit ();
+void   excHookAdd(FUNCPTR excepHook);
+void   excTask ();
+
+/* excArchLib.S */
+
 extern STATUS excVecInit       (void);
 extern STATUS excConnect       (VOIDFUNCPTR * vector, VOIDFUNCPTR routine);
 extern STATUS excIntConnect    (VOIDFUNCPTR * vector, VOIDFUNCPTR routine);
