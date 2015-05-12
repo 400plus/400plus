@@ -1,8 +1,6 @@
 #include "../stub.h"
 
 DEF(taskVarInit,       0xFFB474A4)
-DEF(taskVarDeleteHook, 0xFFB47480)
-DEF(taskVarSwitchHook, 0xFFB473D4)
 DEF(taskVarAdd,        0xFFB47378)
 DEF(taskVarDelete,     0xFFB472F0)
 DEF(taskVarGet,        0xFFB47280)

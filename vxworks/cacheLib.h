@@ -59,6 +59,7 @@ extern STATUS  cacheUnlock        (CACHE_TYPE cache, void *address, size_t bytes
 extern STATUS  cacheFlush         (CACHE_TYPE cache, void *address, size_t bytes);
 extern STATUS  cacheInvalidate    (CACHE_TYPE cache, void *address, size_t bytes);
 extern STATUS  cacheClear         (CACHE_TYPE cache, void *address, size_t bytes);
+extern STATUS  cachePipeFlush     (void);
 extern STATUS  cacheTextUpdate    (void *address, size_t bytes);
 extern void   *cacheDmaMalloc     (size_t bytes);
 extern STATUS  cacheDmaFree       (void *pBuf);

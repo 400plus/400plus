@@ -50,9 +50,7 @@ typedef int BOOL;
 /* errno values in some functions */
 #define WIND_TASK_ERR_BASE  0x00030000
 #define WIND_MEM_ERR_BASE   0x00110000
-#define WIND_SEM_ERR_BASE   0x00160000
 #define WIND_OBJ_ERR_BASE   0x003d0000
-#define WIND_MSGQ_ERR_BASE  0x00410000
 #define WIND_INT_ERR_BASE   0x00430000
 
 #define S_objLib_OBJ_ID_ERROR                   (WIND_OBJ_ERR_BASE + 0x0001)
@@ -65,15 +63,6 @@ typedef int BOOL;
 #define S_taskLib_ILLEGAL_PRIORITY              (WIND_TASK_ERR_BASE + 0x006d)
 
 #define S_taskLib_TASK_HOOK_TABLE_FULL (WIND_TASK_ERR_BASE + 4) /* FIXME */
-
-#define S_semLib_INVALID_STATE                  (WIND_SEM_ERR_BASE + 0x0065)
-#define S_semLib_INVALID_OPTION                 (WIND_SEM_ERR_BASE + 0x0066)
-#define S_semLib_INVALID_QUEUE_TYPE             (WIND_SEM_ERR_BASE + 0x0067)
-#define S_semLib_INVALID_OPERATION              (WIND_SEM_ERR_BASE + 0x0068)
-
-#define S_msgQLib_INVALID_MSG_LENGTH            (WIND_MSGQ_ERR_BASE + 0x0001)
-#define S_msgQLib_NON_ZERO_TIMEOUT_AT_INT_LEVEL (WIND_MSGQ_ERR_BASE + 0x0002)
-#define S_msgQLib_INVALID_QUEUE_TYPE            (WIND_MSGQ_ERR_BASE + 0x0003)
 
 #define S_intLib_NOT_ISR_CALLABLE               (WIND_INT_ERR_BASE + 0x0001)
 
@@ -91,13 +80,6 @@ typedef int BOOL;
 /* do not fill the stack for use by checkStack(). */
 #define VX_NO_STACK_FILL 0x0100
 
-/* defines for all kinds of semaphores */
-#define SEM_Q_FIFO           0x0
-#define SEM_Q_PRIORITY       0x1
-#define SEM_DELETE_SAFE      0x4
-#define SEM_INVERSION_SAFE   0x8
-#define SEM_OPTION_MASK      (SEM_Q_FIFO | SEM_Q_PRIORITY | SEM_DELETE_SAFE | SEM_INVERSION_SAFE)
-
 /* timeouts when waiting for semaphores */
 #define NO_WAIT (0)
 #define WAIT_FOREVER (-1)
@@ -109,15 +91,7 @@ typedef enum {
 	SEM_FULL =1
 } SEM_B_STATE;
 typedef short WDOG_ID;
-typedef short MSG_Q_ID;
 typedef short TASK_ID;
-
-#define MSG_PRI_NORMAL   0
-#define MSG_PRI_URGENT   1
-
-#define MSG_Q_FIFO       0x0
-#define MSG_Q_PRIORITY   0x1
-#define WIND_MSG_Q_OPTION_MASK (MSG_Q_FIFO | MSG_Q_PRIORITY)
 
 typedef unsigned int  UINT;
 typedef unsigned long ULONG;
@@ -159,14 +133,7 @@ typedef struct wind_wd_utarget {
 } wind_wd_utarget_t;
 typedef void (*wind_tick_handler_t)(long);
 
-//#ifdef errno
-//#undef errno
-//#endif
-//#define errno (*wind_current_context_errno())
 
-int intCount(void);
-int intLock(void);
-void intUnlock(int flags);
 STATUS sysClkConnect(wind_tick_handler_t routine, long arg);
 void tickAnnounce(void);
 int *wind_current_context_errno(void);
@@ -226,20 +193,11 @@ STATUS wdDelete(WDOG_ID wdog_id);
 STATUS wdStart(WDOG_ID wdog_id, int timeout, wind_timer_t handler, long arg);
 STATUS wdCancel(WDOG_ID wdog_id);
 
-MSG_Q_ID msgQCreate(int nb_msgs, int length, int flags);
-STATUS msgQDelete(MSG_Q_ID msg);
-int msgQNumMsgs(MSG_Q_ID msg);
-int msgQReceive(MSG_Q_ID msg, char *buf, UINT bytes, int timeout);
-STATUS msgQSend(MSG_Q_ID msg, const char *buf, UINT bytes, int timeout, int prio);
-
-BOOL intContext(void);
 void sysClkDisable(void);
 void sysClkEnable(void);
 int sysClkRateGet(void);
 STATUS sysClkRateSet(int ticksPerSecond);
 ULONG tickGet(void);
 void tickSet(ULONG ticks);
-STATUS kernelTimeSlice(int ticks);
-const char *kernelVersion(void);
 
 #endif /* !_XENO_VXWORKS_VXWORKS_H */

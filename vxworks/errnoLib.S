@@ -1,6 +1,5 @@
 #include "../stub.h"
 
-DEF(__errno,        0xFFB50E1C)
 DEF(errnoGet,       0xFFB50E0C)
 DEF(errnoOfTaskGet, 0xFFB50DC8)
 DEF(errnoSet,       0xFFB50DB4)
