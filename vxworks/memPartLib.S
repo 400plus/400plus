@@ -1,16 +1,10 @@
 #include "../stub.h"
 
-DEF(memPartLibInit,       0xFFB4BE1C)
 DEF(memPartCreate,        0xFFB4BD20)
-DEF(memPartInit,          0xFFB4BC7C)
-DEF(memPartDestroy,       0xFFB4BC60)
 DEF(memPartAddToPool,     0xFFB4BA10)
 DEF(memPartAlignedAlloc,  0xFFB4B6FC)
 DEF(memPartAlloc,         0xFFB4B690)
 DEF(memPartFree,          0xFFB4B3A8)
-DEF(memPartBlockIsValid,  0xFFB4B26C)
-DEF(memAlignedBlockSplit, 0xFFB4B138)
 DEF(memAddToPool,         0xFFB4B11C)
 DEF(malloc,               0xFFB4B104)
 DEF(free,                 0xFFB4B0EC)
-DEF(memPartSemInit,       0xFFB4B0D4)

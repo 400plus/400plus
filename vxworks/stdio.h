@@ -3,6 +3,19 @@
 
 #include "vxworks.h"
 
+/* fioLib.S */
+
+extern int printf    (const char * fmt, ...);
+extern int printErr  (const char * fmt, ...);
+extern int fdprintf  (int fd, const char * fmt, ...);
+extern int sprintf   (char * buffer, const char * fmt, ...);
+extern int vprintf   (const char * fmt, va_list vaList);
+extern int vfdprintf (int fd, const char * fmt, va_list vaList);
+extern int vsprintf  (char * buffer, const char * fmt, va_list vaList);
+extern int sscanf    (const char * str, const char * fmt, ...);
+
+/* ansiStdio.S */
+
 extern void    clearerr      (FILE *fp);
 extern int     fclose        (FILE *fp);
 extern FILE   *fdopen        (int fd, const char *mode);

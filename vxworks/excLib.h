@@ -5,9 +5,9 @@
 
 /* excLib.S */
 
-extern STATUS excInit ();
-extern void   excHookAdd(FUNCPTR excepHook);
-extern void   excTask ();
+extern STATUS excInit    ();
+extern void   excHookAdd (FUNCPTR excepHook);
+extern void   excTask    ();
 
 /* excArchLib.S */
 
