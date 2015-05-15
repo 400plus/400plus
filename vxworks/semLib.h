@@ -32,5 +32,6 @@ typedef enum {
 typedef struct {} *SEM_ID;
 
 SEM_ID semBCreate (int options, SEM_B_STATE initialState);
+SEM_ID semCCreate (int options, int initialCount);
 
 #endif /* VXWORKS_SEMBLIB_H_ */
