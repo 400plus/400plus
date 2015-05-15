@@ -48,30 +48,12 @@ typedef int BOOL;
 #define ERROR (-1)
 
 /* errno values in some functions */
-#define WIND_MEM_ERR_BASE   0x00110000
 #define WIND_OBJ_ERR_BASE   0x003d0000
-#define WIND_INT_ERR_BASE   0x00430000
 
 #define S_objLib_OBJ_ID_ERROR                   (WIND_OBJ_ERR_BASE + 0x0001)
 #define S_objLib_OBJ_UNAVAILABLE                (WIND_OBJ_ERR_BASE + 0x0002)
 #define S_objLib_OBJ_DELETED                    (WIND_OBJ_ERR_BASE + 0x0003)
 #define S_objLib_OBJ_TIMEOUT                    (WIND_OBJ_ERR_BASE + 0x0004)
-
-#define S_intLib_NOT_ISR_CALLABLE               (WIND_INT_ERR_BASE + 0x0001)
-
-#define S_memLib_NOT_ENOUGH_MEMORY              (WIND_MEM_ERR_BASE + 0x0001)
-
-/* defines for basic tasks handling */
-/* Task Options: */
-
-/* do not allow breakpoint debugging. */
-#define VX_UNBREAKABLE   0x0002
-/* execute with floating-point coprocessor support. */
-#define VX_FP_TASK       0x0008
-/* include private environment support (see envLib). */
-#define VX_PRIVATE_ENV   0x0080
-/* do not fill the stack for use by checkStack(). */
-#define VX_NO_STACK_FILL 0x0100
 
 /* timeouts when waiting for semaphores */
 #define NO_WAIT (0)
@@ -84,7 +66,6 @@ typedef enum {
 	SEM_FULL =1
 } SEM_B_STATE;
 typedef short WDOG_ID;
-typedef short TASK_ID;
 
 typedef unsigned int  UINT;
 typedef unsigned long ULONG;
@@ -92,32 +73,12 @@ typedef unsigned long ULONG;
 typedef int  (*FUNCPTR)     (void);
 typedef void (*VOIDFUNCPTR) (void);
 
-typedef struct WIND_TCB_PLACEHOLDER {
-	TASK_ID handle;
-} WIND_TCB_PLACEHOLDER;
-
 #define WIND_READY   0x0
 #define WIND_SUSPEND 0x1
 #define WIND_PEND    0x2
 #define WIND_DELAY   0x4
 #define WIND_DEAD    0x8
 #define WIND_STOP    0x10 /* Never reported. */
-
-typedef struct _TASK_DESC {
-	TASK_ID td_tid;
-	char    td_name[XNOBJECT_NAME_LEN];
-	int	td_priority;
-	int	td_status;
-	int	td_flags;
-	FUNCPTR	td_entry;
-	int	td_stacksize;
-	char	*td_pStackBase;
-	char	*td_pStackEnd;
-	char	*td_pExcStackBase;
-	char	*td_pExcStackEnd;
-	int	td_errorStatus;
-	unsigned long td_opaque;
-} TASK_DESC;
 
 typedef void (*wind_timer_t)(long);
 typedef struct wind_wd_utarget {
@@ -142,30 +103,6 @@ int *wind_current_context_errno(void);
 	({ int __p = (prio) ? XNSCHED_RT_MAX_PRIO - (prio) - 1 : 0; __p; })
 #define wind_denormalized_prio(prio) \
 	({ int __p = (prio) ? 256 - (prio) : 0; __p; })
-
-STATUS taskRestart(TASK_ID task_id);
-TASK_ID	taskSpawn(const char *name,
-			int prio,
-			int flags,
-			int stacksize,
-			FUNCPTR entry,
-			long arg0, long arg1, long arg2, long arg3, long arg4,
-			long arg5, long arg6, long arg7, long arg8, long arg9);
-STATUS	taskActivate(TASK_ID task_id);
-STATUS	taskDelete(TASK_ID task_id);
-STATUS	taskDeleteForce(TASK_ID task_id);
-STATUS	taskSuspend(TASK_ID task_id);
-STATUS	taskResume(TASK_ID task_id);
-STATUS	taskPrioritySet(TASK_ID task_id, int prio);
-STATUS	taskPriorityGet(TASK_ID task_id, int *pprio);
-void	taskExit(int code);
-STATUS	taskLock(void);
-STATUS	taskUnlock(void);
-TASK_ID	taskIdSelf(void);
-STATUS	taskSafe(void);
-STATUS	taskUnsafe(void);
-STATUS	taskDelay(int ticks);
-STATUS	taskIdVerify(TASK_ID task_id);
 
 STATUS semGive(SEM_ID sem_id);
 STATUS semTake(SEM_ID sem_id, int timeout);

@@ -25,16 +25,39 @@
 #define VX_NO_STACK_FILL   0x0100
 
 typedef struct {} REG_SET;
+typedef struct {} WIND_TCB;
 
-STATUS  taskOptionsSet  (int tid, int mask, int newOptions);
-STATUS  taskOptionsGet  (int tid, int *pOptions);
-STATUS  taskRegsGet     (int tid, REG_SET *pRegs);
-STATUS  taskRegsSet     (int tid, REG_SET *pRegs);
-char   *taskName        (int tid);
-int     taskNameToId    (char *name);
-int     taskIdDefault   (int tid);
-BOOL    taskIsReady     (int tid);
-BOOL    taskIsSuspended (int tid);
-int     taskIdListGet   (int idList[], int maxTasks);
+/* taskLib.S */
+extern int       taskSpawn       (char *name, int priority, int options, int stackSize, FUNCPTR entryPt, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10);
+extern STATUS    taskInit        (WIND_TCB *pTcb, char *name, int priority, int options, char *pStackBase, int stackSize, FUNCPTR entryPt, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10);
+extern STATUS    taskActivate    (int tid);
+extern void      exit            (int code);
+extern STATUS    taskDelete      (int tid);
+extern STATUS    taskDeleteForce (int tid);
+extern STATUS    taskSuspend     (int tid);
+extern STATUS    taskResume      (int tid);
+extern STATUS    taskRestart     (int tid);
+extern STATUS    taskPrioritySet (int tid, int newPriority);
+extern STATUS    taskPriorityGet (int tid, int *pPriority);
+extern STATUS    taskLock        (void);
+extern STATUS    taskUnlock      (void);
+extern STATUS    taskSafe        (void);
+extern STATUS    taskUnsafe      (void);
+extern STATUS    taskDelay       (int ticks);
+extern int       taskIdSelf      (void);
+extern STATUS    taskIdVerify    (int tid);
+extern WIND_TCB *taskTcb         (int tid);
+
+/* taskInfo.S */
+extern STATUS  taskOptionsSet  (int tid, int mask, int newOptions);
+extern STATUS  taskOptionsGet  (int tid, int *pOptions);
+extern STATUS  taskRegsGet     (int tid, REG_SET *pRegs);
+extern STATUS  taskRegsSet     (int tid, REG_SET *pRegs);
+extern char   *taskName        (int tid);
+extern int     taskNameToId    (char *name);
+extern int     taskIdDefault   (int tid);
+extern BOOL    taskIsReady     (int tid);
+extern BOOL    taskIsSuspended (int tid);
+extern int     taskIdListGet   (int idList[], int maxTasks);
 
 #endif /* VXWORKS_TASKLIB_H_ */
