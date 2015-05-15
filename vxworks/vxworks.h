@@ -55,18 +55,6 @@ typedef int BOOL;
 #define S_objLib_OBJ_DELETED                    (WIND_OBJ_ERR_BASE + 0x0003)
 #define S_objLib_OBJ_TIMEOUT                    (WIND_OBJ_ERR_BASE + 0x0004)
 
-/* timeouts when waiting for semaphores */
-#define NO_WAIT (0)
-#define WAIT_FOREVER (-1)
-
-typedef short SEM_ID;
-/*for binary semaphores */
-typedef enum {
-	SEM_EMPTY =0,
-	SEM_FULL =1
-} SEM_B_STATE;
-typedef short WDOG_ID;
-
 typedef unsigned int  UINT;
 typedef unsigned long ULONG;
 
@@ -89,7 +77,6 @@ typedef void (*wind_tick_handler_t)(long);
 
 
 STATUS sysClkConnect(wind_tick_handler_t routine, long arg);
-void tickAnnounce(void);
 int *wind_current_context_errno(void);
 
 /*
@@ -104,19 +91,9 @@ int *wind_current_context_errno(void);
 #define wind_denormalized_prio(prio) \
 	({ int __p = (prio) ? 256 - (prio) : 0; __p; })
 
-STATUS semGive(SEM_ID sem_id);
-STATUS semTake(SEM_ID sem_id, int timeout);
-
-WDOG_ID wdCreate(void);
-STATUS wdDelete(WDOG_ID wdog_id);
-STATUS wdStart(WDOG_ID wdog_id, int timeout, wind_timer_t handler, long arg);
-STATUS wdCancel(WDOG_ID wdog_id);
-
 void sysClkDisable(void);
 void sysClkEnable(void);
 int sysClkRateGet(void);
 STATUS sysClkRateSet(int ticksPerSecond);
-ULONG tickGet(void);
-void tickSet(ULONG ticks);
 
 #endif /* !_XENO_VXWORKS_VXWORKS_H */

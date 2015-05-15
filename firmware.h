@@ -463,13 +463,13 @@ extern int SendToIntercom(int message, int length, int parm);
 extern int IntercomHandlerButton(int button, int unknown);
 
 // Semaphores
-
+/*
 extern SEM_ID CreateBinarySemaphore(char * name, SEM_B_STATE state); // SEM_EMPTY (0), SEM_FULL (1)
 extern int TakeSemaphore(SEM_ID sem, int time);
 extern int GiveSemaphore(SEM_ID sem);
 extern int DeleteSemaphore(int* sem);
 extern SEM_ID hMainCtrlMonoSem;
-
+*/
 // Event generation
 
 extern int eventproc_PrintICUInfo(void);
