@@ -3,14 +3,15 @@
 
 #include "vxworks.h"
 
-/* intLib.S */
+/* status */
 
+
+/* intLib.S */
 extern BOOL intContext (void);
 extern int  intCount   (void);
 
 
 /* intArchLib.S */
-
 extern int      intLevelSet             (int level);
 extern int      intLock                 (void);
 extern void     intUnlock               (int lockKey);

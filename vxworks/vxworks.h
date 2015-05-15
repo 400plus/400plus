@@ -48,7 +48,6 @@ typedef int BOOL;
 #define ERROR (-1)
 
 /* errno values in some functions */
-#define WIND_TASK_ERR_BASE  0x00030000
 #define WIND_MEM_ERR_BASE   0x00110000
 #define WIND_OBJ_ERR_BASE   0x003d0000
 #define WIND_INT_ERR_BASE   0x00430000
@@ -57,12 +56,6 @@ typedef int BOOL;
 #define S_objLib_OBJ_UNAVAILABLE                (WIND_OBJ_ERR_BASE + 0x0002)
 #define S_objLib_OBJ_DELETED                    (WIND_OBJ_ERR_BASE + 0x0003)
 #define S_objLib_OBJ_TIMEOUT                    (WIND_OBJ_ERR_BASE + 0x0004)
-
-#define S_taskLib_NAME_NOT_FOUND                (WIND_TASK_ERR_BASE + 0x0065)
-#define S_taskLib_TASK_HOOK_NOT_FOUND           (WIND_TASK_ERR_BASE + 0x0067)
-#define S_taskLib_ILLEGAL_PRIORITY              (WIND_TASK_ERR_BASE + 0x006d)
-
-#define S_taskLib_TASK_HOOK_TABLE_FULL (WIND_TASK_ERR_BASE + 4) /* FIXME */
 
 #define S_intLib_NOT_ISR_CALLABLE               (WIND_INT_ERR_BASE + 0x0001)
 
@@ -173,12 +166,6 @@ STATUS	taskSafe(void);
 STATUS	taskUnsafe(void);
 STATUS	taskDelay(int ticks);
 STATUS	taskIdVerify(TASK_ID task_id);
-const char *taskName(TASK_ID task_id);
-TASK_ID	taskNameToId(const char *name);
-TASK_ID	taskIdDefault(TASK_ID task_id);
-BOOL	taskIsReady(TASK_ID task_id);
-BOOL	taskIsSuspended (TASK_ID task_id);
-STATUS	taskInfoGet(TASK_ID task_id, TASK_DESC *desc);
 
 STATUS semGive(SEM_ID sem_id);
 STATUS semTake(SEM_ID sem_id, int timeout);
