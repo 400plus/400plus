@@ -182,11 +182,6 @@ STATUS	taskInfoGet(TASK_ID task_id, TASK_DESC *desc);
 
 STATUS semGive(SEM_ID sem_id);
 STATUS semTake(SEM_ID sem_id, int timeout);
-STATUS semFlush(SEM_ID sem_id);
-STATUS semDelete(SEM_ID sem_id);
-SEM_ID semBCreate(int flags, SEM_B_STATE state);
-SEM_ID semMCreate(int flags);
-SEM_ID semCCreate(int flags, int count);
 
 WDOG_ID wdCreate(void);
 STATUS wdDelete(WDOG_ID wdog_id);

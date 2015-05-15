@@ -31,7 +31,18 @@ typedef enum {
 
 typedef struct {} *SEM_ID;
 
+/* semLib.S */
+STATUS semFlush  (SEM_ID semId);
+STATUS semDelete (SEM_ID semId);
+
+/* semBLib.S */
 SEM_ID semBCreate (int options, SEM_B_STATE initialState);
+
+/* semCLib.S */
 SEM_ID semCCreate (int options, int initialCount);
+
+/* semMLib.S */
+extern SEM_ID semMCreate    (int options);
+extern STATUS semMGiveForce (SEM_ID semId);
 
 #endif /* VXWORKS_SEMBLIB_H_ */

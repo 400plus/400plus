@@ -1,3 +1,4 @@
 #include "../stub.h"
 
-DEF(semBCreate, 0xFFB41328)
+DEF(semFlush,  0xFFB40B74)
+DEF(semDelete, 0xFFB40B64)
