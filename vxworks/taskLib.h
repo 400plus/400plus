@@ -27,6 +27,25 @@
 typedef struct {} REG_SET;
 typedef struct {} WIND_TCB;
 
+typedef struct {
+	int      td_id;
+	char    *td_name;
+	int      td_priority;
+	int      td_status;
+	int      td_options;
+	FUNCPTR  td_entry;
+	char    *td_sp;
+	char    *td_pStackBase;
+	char    *td_pStackLimit;
+	char    *td_pStackEnd;
+	int      td_stackSize;
+	int      td_stackCurrent;
+	int      td_stackHigh;
+	int      td_stackMargin;
+	int      td_errorStatus;
+	int      td_delay;
+} TASK_DESC;
+
 /* taskLib.S */
 extern int       taskSpawn       (char *name, int priority, int options, int stackSize, FUNCPTR entryPt, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10);
 extern STATUS    taskInit        (WIND_TCB *pTcb, char *name, int priority, int options, char *pStackBase, int stackSize, FUNCPTR entryPt, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10);
@@ -59,5 +78,13 @@ extern int     taskIdDefault   (int tid);
 extern BOOL    taskIsReady     (int tid);
 extern BOOL    taskIsSuspended (int tid);
 extern int     taskIdListGet   (int idList[], int maxTasks);
+
+/* taskShow.S */
+
+extern void   taskShowInit(void);
+extern STATUS taskInfoGet(int tid, TASK_DESC *pTaskDesc);
+extern STATUS taskShow(int tid, int level);
+extern void   taskRegsShow(int tid);
+extern STATUS taskStatusString(int tid, char *pString);
 
 #endif /* VXWORKS_TASKLIB_H_ */
