@@ -4,7 +4,6 @@
 #include "vxworks.h"
 
 /* bLib.S */
-
 extern int   bcmp       (char *buf1, char *buf2, int nbytes);
 extern void  binvert    (char *buf, int nbytes);
 extern void  bswap      (char *buf1, char *buf2, int nbytes);
@@ -21,7 +20,6 @@ extern char *index      (const char *s, int c);
 extern char *rindex     (const char *s, int c);
 
 /* ansiString.h */
-
 extern void   *memchr     (const void *m, int c, size_t n);
 extern int     memcmp     (const void *s1, const void *s2, size_t n);
 extern void   *memcpy     (void *destination, const void *source, size_t size);
