@@ -1,0 +1,15 @@
+#include "../stub.h"
+
+DEF(tyDevInit,        0xFFB46E5C)
+DEF(tyDevRemove,      0xFFB46DE0)
+DEF(tyIRd,            0xFFB460EC)
+DEF(tyITx,            0xFFB46668)
+DEF(tyIoctl,          0xFFB46A14)
+DEF(tyRead,           0xFFB467BC)
+DEF(tyWrite,          0xFFB46948)
+DEF(tyAbortFuncSet,   0xFFB46CCC)
+DEF(tyAbortSet,       0xFFB46CBC)
+DEF(tyBackspaceSet,   0xFFB46CAC)
+DEF(tyDeleteLineSet,  0xFFB46C9C)
+DEF(tyEOFSet,         0xFFB46C8C)
+DEF(tyMonitorTrapSet, 0xFFB46C7C)

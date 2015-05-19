@@ -3,8 +3,15 @@
 
 #include "vxworks.h"
 
-/* fioLib.S */
+#define	NULL ((void *)0)
 
+#define	EOF	(-1)
+
+#define	SEEK_SET	0
+#define	SEEK_CUR	1
+#define	SEEK_END	2
+
+/* fioLib.S */
 extern int printf    (const char * fmt, ...);
 extern int printErr  (const char * fmt, ...);
 extern int fdprintf  (int fd, const char * fmt, ...);
@@ -15,7 +22,6 @@ extern int vsprintf  (char * buffer, const char * fmt, va_list vaList);
 extern int sscanf    (const char * str, const char * fmt, ...);
 
 /* ansiStdio.S */
-
 extern void    clearerr      (FILE *fp);
 extern int     fclose        (FILE *fp);
 extern FILE   *fdopen        (int fd, const char *mode);
@@ -52,13 +58,29 @@ extern void    setbuf        (FILE *fp, char *buf);
 extern void    setbuffer     (FILE *fp, char *buf, int size);
 extern int     setlinebuf    (FILE *fp);
 extern int     setvbuf       (FILE *fp, char *buf, int mode, size_t size);
-extern STATUS  stdioInit     (void);
-extern FILE   *stdioFp       (int stdFd);
-extern STATUS  stdioShowInit (void);
-extern STATUS  stdioShow     (FILE *fp, int level);
 extern FILE   *tmpfile       (void);
 extern char   *tmpnam        (char *s);
 extern int     ungetc        (int c, FILE *fp);
 extern int     vfprintf      (FILE *fp, const char *fmt, va_list vaList);
 
+/* stdioLib.S */
+extern STATUS   stdioInit     (void);
+extern FILE    *stdioFp       (int stdFd);
+extern STATUS   stdioShowInit (void);
+extern STATUS   stdioShow     (FILE *fp, int level);
+extern FILE   **__stdin       (void);
+extern FILE   **__stdout      (void);
+extern FILE   **__stderr      (void);
+
+#define stdin	(*__stdin())
+#define stdout	(*__stdout())
+#define stderr	(*__stderr()
+
+#define	getchar()	__sgetc(stdin)
+#define	getc(p)		__sgetc(p)
+#define	putchar(c)	(__sputc(c, (stdout)))
+#define	putc(c,p)	__sputc(c, p)
+#define	feof(p)		__sfeof(p)
+#define	ferror(p)	__sferror(p)
+#define	clearerr(p)	__sclearerr(p)
 #endif /*VXWORKS_STDIO_H_ */
