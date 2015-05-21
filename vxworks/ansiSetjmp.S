@@ -1,5 +1,5 @@
 #include "../stub.h"
 
-DEF(longjmp,   0xFFB578F8)
-DEF(setjmp,    0xFFB34740)
-DEF(sigsetjmp, 0xFFB34730)
+DEF(0xFFB578F8,longjmp)
+DEF(0xFFB34740,setjmp)
+DEF(0xFFB34730,sigsetjmp)

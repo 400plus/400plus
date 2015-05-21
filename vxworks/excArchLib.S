@@ -1,6 +1,6 @@
 #include "../stub.h"
 
-DEF(excVecInit,        0xFFB5EE18)
-DEF(excIntConnect,     0xFFB5EDF8)
-DEF(excVecSet,         0xFFB5E918)
-DEF(excVecGet,         0xFFB5E8D4)
+DEF(0xFFB5EE18,excVecInit)
+DEF(0xFFB5EDF8,excIntConnect)
+DEF(0xFFB5E918,excVecSet)
+DEF(0xFFB5E8D4,excVecGet)

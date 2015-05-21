@@ -1,5 +1,5 @@
 #include "../stub.h"
 
-DEF(tickAnnounce, 0xFFB3CB20)
-DEF(tickSet,      0xFFB3CAFC)
-DEF(tickGet,      0xFFB3CAEC)
+DEF(0xFFB3CB20,tickAnnounce)
+DEF(0xFFB3CAFC,tickSet)
+DEF(0xFFB3CAEC,tickGet)

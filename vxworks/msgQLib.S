@@ -1,7 +1,7 @@
 #include "../stub.h"
 
-DEF(msgQCreate,  0xFFB421BC)
-DEF(msgQDelete,  0xFFB41FF0)
-DEF(msgQSend,    0xFFB41B4C)
-DEF(msgQReceive, 0xFFB41814)
-DEF(msgQNumMsgs, 0xFFB41558)
+DEF(0xFFB421BC,msgQCreate)
+DEF(0xFFB41FF0,msgQDelete)
+DEF(0xFFB41B4C,msgQSend)
+DEF(0xFFB41814,msgQReceive)
+DEF(0xFFB41558,msgQNumMsgs)

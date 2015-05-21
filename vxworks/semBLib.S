@@ -1,3 +1,3 @@
 #include "../stub.h"
 
-DEF(semBCreate, 0xFFB41328)
+DEF(0xFFB41328,semBCreate)
