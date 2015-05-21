@@ -1,4 +1,4 @@
 #include "../stub.h"
 
-DEF(semMCreate,    0xFFB40280)
-DEF(semMGiveForce, 0xFFB3FEA0)
+DEF(0xFFB40280,semMCreate)
+DEF(0xFFB3FEA0,semMGiveForce)

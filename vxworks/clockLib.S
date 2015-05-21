@@ -1,6 +1,6 @@
 #include "../stub.h"
 
-DEF(clock_getres,  0xFFB51970)
-DEF(clock_setres,  0xFFB51968)
-DEF(clock_gettime, 0xFFB51834)
-DEF(clock_settime, 0xFFB517BC)
+DEF(0xFFB51970,clock_getres)
+DEF(0xFFB51968,clock_setres)
+DEF(0xFFB51834,clock_gettime)
+DEF(0xFFB517BC,clock_settime)
