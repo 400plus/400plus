@@ -46,17 +46,13 @@ extern int     fwrite        (const void *buf, size_t size, size_t count, FILE *
 extern int     getc          (FILE *fp);
 extern int     getchar       (void);
 extern char   *gets          (char *buf);
-extern int     getw          (FILE *fp);
 extern void    perror        (const char *__s);
 extern int     putc          (int c, FILE *fp);
 extern int     putchar       (int c);
 extern int     puts          (char const *s);
-extern int     putw          (int w, FILE *fp);
 extern void    rewind        (FILE *fp);
 extern int     scanf         (char const *fmt, ...);
 extern void    setbuf        (FILE *fp, char *buf);
-extern void    setbuffer     (FILE *fp, char *buf, int size);
-extern int     setlinebuf    (FILE *fp);
 extern int     setvbuf       (FILE *fp, char *buf, int mode, size_t size);
 extern FILE   *tmpfile       (void);
 extern char   *tmpnam        (char *s);
@@ -76,11 +72,4 @@ extern FILE   **__stderr      (void);
 #define stdout	(*__stdout())
 #define stderr	(*__stderr()
 
-#define	getchar()	__sgetc(stdin)
-#define	getc(p)		__sgetc(p)
-#define	putchar(c)	(__sputc(c, (stdout)))
-#define	putc(c,p)	__sputc(c, p)
-#define	feof(p)		__sfeof(p)
-#define	ferror(p)	__sferror(p)
-#define	clearerr(p)	__sclearerr(p)
 #endif /*VXWORKS_STDIO_H_ */
