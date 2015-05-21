@@ -1,0 +1,17 @@
+#include "../stub.h"
+
+DEF(hashLibInit,       0xFFB4E9A0)
+DEF(hashTblCreate,     0xFFB4E93C)
+DEF(hashTblInit,       0xFFB4E8CC)
+DEF(hashTblDelete,     0xFFB4E8BC)
+DEF(hashTblTerminate,  0xFFB4E8AC)
+DEF(hashTblDestroy,    0xFFB4E834)
+DEF(hashTblPut,        0xFFB4E7BC)
+DEF(hashTblFind,       0xFFB4E718)
+DEF(hashTblRemove,     0xFFB4E688)
+DEF(hashTblEach,       0xFFB4E5B8)
+DEF(hashFuncIterScale, 0xFFB4E570)
+DEF(hashFuncModulo,    0xFFB4E550)
+DEF(hashFuncMultiply,  0xFFB4E52C)
+DEF(hashKeyCmp,        0xFFB4E514)
+DEF(hashKeyStrCmp,     0xFFB4E4F4)

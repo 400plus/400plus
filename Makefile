@@ -55,6 +55,8 @@ CC     := $(CROSS_COMPILE)gcc
 CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
 	-Os                                \
 	-Wno-char-subscripts               \
+	-fdata-sections                    \
+	-ffunction-sections                \
 
 	#-fomit-frame-pointer  \
 	#-fno-strict-aliasing  \
@@ -65,7 +67,7 @@ AS      := $(CROSS_COMPILE)as
 ASFLAGS := $(COMMON_FLAGS)
 
 LD      := $(CROSS_COMPILE)ld
-LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -Wl,-Map,autoexec.map -e _start -lm -lgcc -lc
+LDFLAGS := -Wl,-Ttext,$(ADDRESS) -Wl,-T,link.script -Wl,-Map,autoexec.map -Wl,--gc-sections -e _start -lm -lgcc -lc
 
 OBJCOPY := $(CROSS_COMPILE)objcopy
 

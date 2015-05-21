@@ -1,16 +1,19 @@
-#ifndef DIRENT_H_
-#define DIRENT_H_
+#ifndef VXWORKS_DIRENT_H_
+#define VXWORKS_DIRENT_H_
+
+#include "vxworks.h"
 
 /* We do not really care what is inside DIR */
-typedef struct __dirstream DIR;
+typedef struct {} DIR;
 
 struct dirent {
 	/* No other info available */
-	char d_name[256];
+	char *d_name;
 };
 
-DIR           *opendir (const char *);
-struct dirent *readdir (DIR *);
-int            closedir(DIR *);
+extern DIR           *opendir   (const char *);
+extern struct dirent *readdir   (DIR *);
+extern void           rewinddir (DIR *);
+extern STATUS         closedir  (DIR *);
 
-#endif /* DIRENT_H_ */
+#endif /* VXWORKS_DIRENT_H_ */

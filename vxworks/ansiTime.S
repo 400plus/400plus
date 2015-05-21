@@ -1,0 +1,15 @@
+#include "../stub.h"
+
+DEF(asctime,          0xFFB53368)
+DEF(asctime_r,        0xFFB53348)
+DEF(clock,            0xFFB53340)
+DEF(ctime,            0xFFB53314)
+DEF(ctime_r,          0xFFB532F0)
+DEF(difftime,         0xFFB53270)
+DEF(gmtime,           0xFFB53254)
+DEF(gmtime_r,         0xFFB53244)
+DEF(localtime,        0xFFB52FC8)
+DEF(localtime_r,      0xFFB52F2C)
+DEF(mktime,           0xFFB52E1C)
+DEF(strftime,         0xFFB52C6C)
+DEF(time,             0xFFB5212C)

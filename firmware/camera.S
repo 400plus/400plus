@@ -10,3 +10,6 @@ DEF(VramAddress,               0x00019638)
 DEF(VramInfo,                  0x0000F490)
 
 DEF(shutter_lock,              0x00001CE8) // Just guessing
+
+/* TODO: Does not belong here */
+DEF(vsnprintf,      0xFFB1F7B4)

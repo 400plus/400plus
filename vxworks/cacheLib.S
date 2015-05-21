@@ -1,0 +1,18 @@
+#include "../stub.h"
+
+DEF(cacheLibInit,       0xFFB52100)
+DEF(cacheEnable,        0xFFB520D4)
+DEF(cacheDisable,       0xFFB520A8)
+DEF(cacheLock,          0xFFB5207C)
+DEF(cacheUnlock,        0xFFB52050)
+DEF(cacheFlush,         0xFFB52024)
+DEF(cacheInvalidate,    0xFFB51FF8)
+DEF(cacheClear,         0xFFB51FCC)
+DEF(cachePipeFlush,     0xFFB51FA8)
+DEF(cacheTextUpdate,    0xFFB51F70)
+DEF(cacheDmaMalloc,     0xFFB51F44)
+DEF(cacheDmaFree,       0xFFB51F14)
+DEF(cacheDrvFlush,      0xFFB51DDC)
+DEF(cacheDrvInvalidate, 0xFFB51DB4)
+DEF(cacheDrvVirtToPhys, 0xFFB51D8C)
+DEF(cacheDrvPhysToVirt, 0xFFB51D64)
