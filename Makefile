@@ -8,10 +8,10 @@ endif
 ifdef RELEASE
 	VERSION := V-$(RELEASE)
 	RELNAME := 400plus-$(RELEASE)
-	W_FLAGS := -Werror -Wno-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes -DRELEASE
+	D_FLAGS := -DRELEASE
 else
-	VERSION = $(shell echo "B-`date +'%Y%m%d'`")
-	W_FLAGS := -Wno-implicit-function-declaration -Wstrict-prototypes -Wmissing-prototypes
+	VERSION := $(shell echo "B-`date +'%Y%m%d'`")
+	D_FLAGS := 
 endif
 
 USE_FONTS := -DUSE_FONT_SMALL
@@ -39,21 +39,24 @@ COMMON_FLAGS := \
 	#-fno-builtin-memset               \
 	#-fno-builtin-printf               \
 
-	# -mlong-calls or -fPIC will fix the rellocation problems with the linker on 64bit toolchain
+	#-mlong-calls or -fPIC will fix the rellocation problems with the linker on 64bit toolchain
 	#-mlong-calls                      \
 
-	#-Werror              \
 	#-fomit-frame-pointer \
 	#-fno-strict-aliasing \
 
-
-# alex had issues with struct alignment (gcc-4.6.0, -Os) in ML
-# this fixes them, keep it here in case we need it
+	# alex had issues with struct alignment (gcc-4.6.0, -Os) in ML
+	# this fixes them, keep it here in case we need it
 	#-mstructure-size-boundary=32 \
 
 CC     := $(CROSS_COMPILE)gcc
-CFLAGS += $(COMMON_FLAGS) $(W_FLAGS)   \
+CFLAGS += $(COMMON_FLAGS)              \
+	$(D_FLAGS)                         \
 	-Os                                \
+	-Werror                            \
+	-Wno-implicit-function-declaration \
+	-Wstrict-prototypes                \
+	-Wmissing-prototypes               \
 	-Wno-char-subscripts               \
 	-fdata-sections                    \
 	-ffunction-sections                \
