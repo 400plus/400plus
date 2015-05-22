@@ -4,6 +4,8 @@
 typedef int BOOL;
 typedef int STATUS;
 
+#define	NULL ((void *)0)
+
 #define OK    (0)
 #define ERROR (-1)
 

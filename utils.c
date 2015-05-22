@@ -2,7 +2,6 @@
 #include "vxworks/string.h"
 #include "vxworks/ioLib.h"
 
-#include <sys/types.h>
 #include <time.h>
 
 #include "main.h"

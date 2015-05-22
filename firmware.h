@@ -2,7 +2,6 @@
 #define FIRMWARE_H_
 
 #include "vxworks/vxworks.h"
-#include <sys/types.h>
 
 // Variables, Flags, Pointers, Handlers
 #define BTN_PRESSED     0x20
