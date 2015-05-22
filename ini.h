@@ -15,7 +15,6 @@ http://code.google.com/p/inih/
 extern "C" {
 #endif
 
-//#include <stdio.h> // 0xAF
 #include "firmware.h"
 #include "languages.h"
 
