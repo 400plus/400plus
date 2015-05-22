@@ -1,4 +1,3 @@
-#include <strings.h>
 #include "cache_hacks.h"
 
 #include "main.h"
