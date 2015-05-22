@@ -3,8 +3,8 @@
 
 #define AUTOISO_AUTO "AUTO"
 
-#include "vxworks/vxworks.h"
-#include "vxworks/stdint.h"
+#include <vxworks.h>
+#include <stdint.h>
 
 #include "firmware.h"
 

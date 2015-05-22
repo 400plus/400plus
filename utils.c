@@ -1,8 +1,8 @@
-#include "vxworks/vxworks.h"
-#include "vxworks/string.h"
-#include "vxworks/ioLib.h"
-#include "vxworks/clock.h"
-#include "vxworks/time.h"
+#include <vxworks.h>
+#include <string.h>
+#include <ioLib.h>
+#include <clock.h>
+#include <time.h>
 
 #include "main.h"
 #include "macros.h"

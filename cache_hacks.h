@@ -7,8 +7,8 @@
  * Thanks to Sergei for porting it.
  */
 
-#include "vxworks/vxworks.h"
-#include "vxworks/stdint.h"
+#include <vxworks.h>
+#include <stdint.h>
 
 /*
  * Canon cameras appear to use the ARMv5 946E.

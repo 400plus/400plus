@@ -53,6 +53,8 @@ CC     := $(CROSS_COMPILE)gcc
 CFLAGS += $(COMMON_FLAGS)              \
 	$(D_FLAGS)                         \
 	-Os                                \
+	-nostdinc                          \
+	-Ivxworks                          \
 	-Werror                            \
 	-Wno-implicit-function-declaration \
 	-Wstrict-prototypes                \

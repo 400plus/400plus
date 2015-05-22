@@ -1,7 +1,7 @@
 // Thanks to Coutts for porting this.
 
-#include "vxworks/vxworks.h"
-#include "vxworks/stdarg.h"
+#include <vxworks.h>
+#include <stdarg.h>
 
 #include "bmp.h"
 #include "debug.h"

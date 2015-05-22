@@ -3,7 +3,7 @@
 #include "font.h"
 #include "firmware.h"
 
-#include "vxworks/vxworks.h"
+#include <vxworks.h>
 
 #define VramSize (360*240)
 

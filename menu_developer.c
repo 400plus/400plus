@@ -8,7 +8,7 @@
 // MENU -> exit test mode
 // JUMP -> change color palette (some dialogs are seen in special palettes)
 
-#include "vxworks/vxworks.h"
+#include <vxworks.h>
 
 #include "macros.h"
 

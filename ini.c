@@ -6,9 +6,9 @@ home page for more info:
 http://code.google.com/p/inih/
 */
 
-#include "vxworks/vxworks.h"
-#include "vxworks/string.h"
-#include "vxworks/ioLib.h"
+#include <vxworks.h>
+#include <string.h>
+#include <ioLib.h>
 
 #include "ini.h"
 #include "utils.h"

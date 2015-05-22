@@ -1,5 +1,5 @@
-#include "vxworks/vxworks.h"
-#include "vxworks/ioLib.h"
+#include <vxworks.h>
+#include <ioLib.h>
 
 #include "firmware.h"
 

@@ -1,4 +1,4 @@
-#include "vxworks/vxworks.h"
+#include <vxworks.h>
 
 #include "languages.h"
 #include "macros.h"

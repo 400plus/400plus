@@ -1,5 +1,5 @@
-#include "vxworks/vxworks.h"
-#include "vxworks/dirent.h"
+#include <vxworks.h>
+#include <dirent.h>
 
 #include "macros.h"
 #include "main.h"
