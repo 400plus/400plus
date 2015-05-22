@@ -74,6 +74,13 @@
 #define FSTAT_LNK  0120000
 #define FSTAT_NON  0140000
 
+/* Flags */
+
+#define O_RDONLY 0x0000
+#define O_WRONLY 0x0001
+#define O_RDWR   0x0002
+#define O_CREAT  0x0200
+
 extern int     creat          (const char *name, int flag);
 extern int     open           (const char *name, int flags, int mode);
 extern STATUS  unlink         (char *name);

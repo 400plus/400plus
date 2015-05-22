@@ -525,8 +525,6 @@ extern int hDbgMgr;
 extern int dmSetPrintLevel(int DbgMgr, int dwFlag, int dwLevel);
 extern int dmSetStoreLevel(int DbgMgr, int dwFlag, int dwLevel);
 
-extern int ioGlobalStdSet(int handle, int file);
-
 extern int dumpf(void);
 extern int logMsg(char *, ...);
 

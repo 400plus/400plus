@@ -10,8 +10,12 @@ typedef int STATUS;
 #define FALSE 0
 #define TRUE  1
 
-typedef unsigned int      UINT;
-typedef unsigned long     ULONG;
+#define	STD_IN  0
+#define	STD_OUT 1
+#define	STD_ERR 2
+
+typedef unsigned int  UINT;
+typedef unsigned long ULONG;
 
 typedef long unsigned int size_t;
 

@@ -1,6 +1,5 @@
 #include "vxworks/vxworks.h"
-
-#include <fcntl.h>
+#include "vxworks/ioLib.h"
 
 #include "main.h"
 #include "firmware.h"

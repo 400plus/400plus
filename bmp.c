@@ -1,8 +1,6 @@
 // Thanks to Coutts for porthing this.
 
-//#include <sys/types.h>
 #include <stdarg.h>
-//#include <stdint.h>
 
 #include "bmp.h"
 #include "debug.h"

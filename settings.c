@@ -1,7 +1,6 @@
 #include "vxworks/vxworks.h"
 #include "vxworks/string.h"
-
-#include <fcntl.h>
+#include "vxworks/ioLib.h"
 
 #include "main.h"
 #include "macros.h"

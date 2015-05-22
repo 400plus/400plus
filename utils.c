@@ -1,9 +1,9 @@
 #include "vxworks/vxworks.h"
 #include "vxworks/string.h"
+#include "vxworks/ioLib.h"
 
 #include <sys/types.h>
 
-#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -422,10 +422,11 @@ char* strncpy0(char* dest, const char* src, size_t size) {
 // this is done by calling the routine with FD == -1, it is sort of init call.
 // you will have to init everytime you open a new file, before the first real call
 // 2. cannot use it in multi-thread/multi-task. use it only at one place in one time.
-char * hack_fgets_faster(char *s, int n, int fd) {
+char *hack_fgets_faster(char *s, int n, int fd) {
 	register char *cs;
 
-	static unsigned char buf[256]; // local buffer
+	// TODO: Do not explicitly overflow an unsigned char
+	static char buf[256]; // local buffer
 	static unsigned char bpos = 0; // position in the buffer
 	int rc = 0;                    // last return code from read()
 
@@ -436,7 +437,7 @@ char * hack_fgets_faster(char *s, int n, int fd) {
 	}
 
 	cs = s;
-	while (--n > 0 && ( bpos || (rc = read(fd, &buf, 255)) ) ) {
+	while (--n > 0 && ( bpos || (rc = read(fd, buf, 255)) ) ) {
 		unsigned char c;
 		if (rc < 255)
 			buf[rc] = '\0';

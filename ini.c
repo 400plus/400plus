@@ -6,12 +6,9 @@ home page for more info:
 http://code.google.com/p/inih/
 */
 
-#include <fcntl.h>
-//#include <ctype.h>
-//#include <unistd.h>
-
 #include "vxworks/vxworks.h"
 #include "vxworks/string.h"
+#include "vxworks/ioLib.h"
 
 #include "ini.h"
 #include "utils.h"
