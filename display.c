@@ -1,6 +1,7 @@
-#include <stdio.h>
+#include "vxworks/vxworks.h"
+#include "vxworks/string.h"
+
 #include <stdbool.h>
-#include <string.h>
 
 #include "main.h"
 #include "firmware.h"

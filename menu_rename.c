@@ -1,4 +1,6 @@
-#include <string.h>
+#include "vxworks/vxworks.h"
+#include "vxworks/string.h"
+
 #include <stdbool.h>
 
 #include "macros.h"

@@ -8,7 +8,6 @@
 // MENU -> exit test mode
 // JUMP -> change color palette (some dialogs are seen in special palettes)
 
-#include <stdio.h>
 #include <stdbool.h>
 
 #include "macros.h"

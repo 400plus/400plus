@@ -1,11 +1,13 @@
+#include "vxworks/vxworks.h"
+#include "vxworks/string.h"
+
 #include <sys/types.h>
 
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
-#include <unistd.h>
+//#include <unistd.h>
 #include <stdbool.h>
 
 #include "main.h"

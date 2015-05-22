@@ -1,7 +1,8 @@
 #ifndef _STATE_OBJECT_H_
 #define _STATE_OBJECT_H_
 
-#include <string.h>
+#include "vxworks/vxworks.h"
+#include "vxworks/string.h"
 
 #include "firmware.h"
 

@@ -7,9 +7,11 @@ http://code.google.com/p/inih/
 */
 
 #include <fcntl.h>
-#include <ctype.h>
-#include <string.h>
-#include <unistd.h>
+//#include <ctype.h>
+//#include <unistd.h>
+
+#include "vxworks/vxworks.h"
+#include "vxworks/string.h"
 
 #include "ini.h"
 #include "utils.h"

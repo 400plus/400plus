@@ -1,4 +1,5 @@
-#include <string.h>
+#include "vxworks/vxworks.h"
+#include "vxworks/string.h"
 
 #include "firmware/camera.h"
 

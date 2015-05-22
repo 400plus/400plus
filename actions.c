@@ -1,5 +1,4 @@
 #include <stdbool.h>
-#include <stdio.h>
 
 #include "macros.h"
 #include "main.h"

@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "macros.h"
 #include "firmware.h"
 

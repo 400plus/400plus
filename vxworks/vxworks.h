@@ -8,8 +8,10 @@ typedef int BOOL;
 #define OK    (0)
 #define ERROR (-1)
 
-typedef unsigned int  UINT;
-typedef unsigned long ULONG;
+typedef unsigned int      UINT;
+typedef unsigned long     ULONG;
+
+typedef long unsigned int size_t;
 
 typedef int  (*FUNCPTR)     (void);
 typedef void (*VOIDFUNCPTR) (void);

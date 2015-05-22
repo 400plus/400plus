@@ -1,7 +1,9 @@
+#include "vxworks/vxworks.h"
+#include "vxworks/string.h"
+
 #include <fcntl.h>
-#include <unistd.h>
+//#include <unistd.h>
 #include <stdbool.h>
-#include <string.h>
 
 #include "main.h"
 #include "macros.h"

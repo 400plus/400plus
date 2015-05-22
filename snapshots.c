@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <fcntl.h>
 #include <stdbool.h>
 
