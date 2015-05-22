@@ -3,9 +3,10 @@
 
 #define AUTOISO_AUTO "AUTO"
 
-#include "firmware.h"
+#include "vxworks/vxworks.h"
+#include "vxworks/stdint.h"
 
-#include <stdint.h>
+#include "firmware.h"
 
 extern void display_refresh(void);
 extern void display_overlay(uint8_t *vram_address);

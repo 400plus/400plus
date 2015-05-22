@@ -1,7 +1,8 @@
 #ifndef _font_h_
 #define _font_h_
 
-#include <stdint.h>
+#include "vxworks/vxworks.h"
+#include "vxworks/stdint.h"
 
 typedef struct
 {

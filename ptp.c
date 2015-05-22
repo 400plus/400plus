@@ -1,4 +1,5 @@
-#include <stdint.h>
+#include "vxworks/vxworks.h"
+#include "vxworks/stdint.h"
 
 #include "bmp.h"
 #include "ptp.h"
