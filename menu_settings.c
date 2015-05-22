@@ -1,7 +1,5 @@
 #include "vxworks/vxworks.h"
 
-#include <unistd.h>
-
 #include "macros.h"
 
 #include "cmodes.h"
