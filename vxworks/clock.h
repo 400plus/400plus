@@ -2,6 +2,7 @@
 #define CLOCK_H_
 
 #include "vxworks.h"
+#include "time.h"
 
 extern int clock_getres (clockid_t clk_id, struct timespec *res);
 extern int clock_gettime(clockid_t clk_id, struct timespec *tp);

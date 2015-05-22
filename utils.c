@@ -1,8 +1,8 @@
 #include "vxworks/vxworks.h"
 #include "vxworks/string.h"
 #include "vxworks/ioLib.h"
-
-#include <time.h>
+#include "vxworks/clock.h"
+#include "vxworks/time.h"
 
 #include "main.h"
 #include "macros.h"
@@ -14,7 +14,6 @@
 
 #include "firmware.h"
 #include "firmware/camera.h"
-#include "vxworks/clock.h"
 
 #include "utils.h"
 

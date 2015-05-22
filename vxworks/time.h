@@ -8,6 +8,9 @@ typedef int clockid_t;
 #define CLOCK_REALTIME	0x00
 #define TIMER_ABSTIME	0x01
 
+typedef long int time_t;
+typedef long int clock_t;
+
 struct tm {
 	int tm_sec;
 	int tm_min;
