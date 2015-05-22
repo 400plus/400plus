@@ -7,8 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-//#include <unistd.h>
-#include <stdbool.h>
 
 #include "main.h"
 #include "macros.h"
@@ -109,7 +107,7 @@ void dump_memory() {
 		int addr=0;
 		int power_off_state = DPData.auto_power_off;
 
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, FALSE);
 
 		while (addr<0x800000) { // dump 8MB of RAM
 			char buf[0x800];
@@ -243,7 +241,7 @@ int shutter_release_disasm() {
 #endif
 
 void lock_sutter(void) {
-	shutter_lock = true;
+	shutter_lock = TRUE;
 }
 
 void wait_for_shutter(void) {
@@ -271,7 +269,7 @@ int shutter_release() {
 }
 
 int shutter_release_bulb(int time) {
-	static int first = true;
+	static int first = TRUE;
 
 	int  button;
 	long delay;
@@ -279,7 +277,7 @@ int shutter_release_bulb(int time) {
 	int shutter_lag, mirror_lag;
 
 	if (first) {
-		first = false;
+		first = FALSE;
 		shutter_lag = SHUTTER_LAG_1ST;
 		mirror_lag  = MIRROR_LAG_1ST;
 	} else {

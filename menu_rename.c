@@ -1,8 +1,6 @@
 #include "vxworks/vxworks.h"
 #include "vxworks/string.h"
 
-#include <stdbool.h>
-
 #include "macros.h"
 
 #include "languages.h"
@@ -119,7 +117,7 @@ void rename_create(char *filename) {
 	menupage_rename.current_line = x;
 	menupage_rename.current_posn = x;
 
-	caps = false;
+	caps = FALSE;
 
 	menu_set_page(&menupage_rename);
 	menu_highlight(x);
@@ -274,7 +272,7 @@ void rename_save(menu_t *menu) {
 	for(i = strlen(rename_filename) - 1; rename_filename[i] == ' '; i--)
 		rename_filename[i] = '\0';
 
-	menu->changed = true;
+	menu->changed = TRUE;
 }
 
 void rename_display(menu_t *menu) {

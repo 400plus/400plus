@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include "vxworks/vxworks.h"
 
 #include "macros.h"
 #include "main.h"
@@ -99,7 +99,7 @@ void menu_close() {
 
 void menu_initialize() {
 	menu_return(current_menu);
-	status.menu_running = true;
+	status.menu_running = TRUE;
 }
 
 void menu_destroy() {
@@ -113,7 +113,7 @@ void menu_destroy() {
 
 void menu_finish(menu_t *menu) {
 	menu_event_save();
-	status.menu_running = false;
+	status.menu_running = FALSE;
 }
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
@@ -146,8 +146,8 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 		goto pass_event;
 	}
 
-	if (button_handler(button, true))
-		return false;
+	if (button_handler(button, TRUE))
+		return FALSE;
 
 pass_event:
 	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
@@ -183,7 +183,7 @@ void menu_set_page(menupage_t *page) {
 
 void menu_highlight(const int line) {
 	GUI_Select_Item  (menu_handler, line + 1);
-	GUI_Highlight_Sub(menu_handler, line + 1, false);
+	GUI_Highlight_Sub(menu_handler, line + 1, FALSE);
 
 	menu_redraw();
 }
@@ -277,14 +277,14 @@ void menu_repeat(menu_t *menu, void (*action)(menu_t *menu, const int repeating)
 
 	SleepTask(AUTOREPEAT_DELAY_UNIT);
 
-	action(menu, false);
+	action(menu, FALSE);
 	delay = AUTOREPEAT_DELAY_LONG;
 
 	do {
 		SleepTask(AUTOREPEAT_DELAY_UNIT);
 
 		if (--delay == 0) {
-			action(menu, true);
+			action(menu, TRUE);
 			delay = AUTOREPEAT_DELAY_SHORT;
 		}
 	} while (status.button_down && status.button_down == button);
@@ -300,7 +300,7 @@ void menu_repeat_right(menu_t *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = true;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }
@@ -315,7 +315,7 @@ void menu_repeat_left(menu_t *menu, const int repeating) {
 		if (item->change)
 			item->change(item);
 
-		menu->changed = true;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }

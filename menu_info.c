@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include "vxworks/vxworks.h"
 
 #include "macros.h"
 #include "firmware.h"
@@ -21,7 +21,7 @@ menuitem_t menupage_info_items[] = {
 
 menupage_t menupage_info = {
 	name        : LP_WORD(L_P_INFO),
-	sibilings   : true,
+	sibilings   : TRUE,
 	items       : LIST(menupage_info_items),
 	ordering    : menu_order.info,
 };

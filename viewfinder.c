@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include "vxworks/vxworks.h"
 
 #include "main.h"
 #include "macros.h"
@@ -135,7 +135,7 @@ void viewfinder_display_iso(iso_t iso) {
 	case AE_MODE_M:
 	case AE_MODE_TV:
 		// Change to Tv=ISO, no flash
-		send_to_intercom(IC_SET_CF_EMIT_FLASH, true);
+		send_to_intercom(IC_SET_CF_EMIT_FLASH, TRUE);
 		send_to_intercom(IC_SET_TV_VAL,        (iso & 0xF8) + 0x25);
 
 		break;

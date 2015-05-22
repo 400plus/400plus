@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include "vxworks/vxworks.h"
 
 #include "main.h"
 #include "macros.h"
@@ -20,7 +20,7 @@ void msm_reset(void) {
 	status.msm_count  = 0;
 	status.msm_tv     = EV_ZERO;
 	status.msm_av     = EV_ZERO;
-	status.msm_active = false;
+	status.msm_active = FALSE;
 }
 
 void msm_register(void) {
@@ -47,7 +47,7 @@ void msm_register(void) {
 				status.msm_tv -= last_tv;
 				status.msm_av -= last_av;
 
-				last_flag = false;
+				last_flag = FALSE;
 
 				send_to_intercom(IC_SET_BURST_COUNTER, status.msm_count);
 				beep();
@@ -64,7 +64,7 @@ void msm_register(void) {
 	status.msm_tv += status.measured_tv;
 	status.msm_av += status.measured_av;
 
-	last_flag = true;
+	last_flag = TRUE;
 	last_tv   = status.measured_tv;
 	last_av   = status.measured_av;
 }
@@ -75,7 +75,7 @@ void msm_release(void) {
 
 void msm_start(void) {
 	if (status.msm_count > 0) {
-		status.msm_active = true;
+		status.msm_active = TRUE;
 
 		tv_t tv = ev_normalize(status.msm_tv / status.msm_count);
 		av_t av = ev_normalize(status.msm_av / status.msm_count);

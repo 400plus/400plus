@@ -1,5 +1,6 @@
+#include "vxworks/vxworks.h"
+
 #include <fcntl.h>
-#include <stdbool.h>
 
 #include "main.h"
 #include "firmware.h"
@@ -13,7 +14,7 @@
 #include "snapshots.h"
 
 int snapshot_read(char *name, snapshot_t *snapshot) {
-	int result  = false;
+	int result  = FALSE;
 	int file    = -1;
 	int version =  0;
 
@@ -33,7 +34,7 @@ int snapshot_read(char *name, snapshot_t *snapshot) {
 
 	*snapshot = buffer;
 
-	result = true;
+	result = TRUE;
 
 #if SETTINGS_VERSION == 0x4A
 	int nt;
@@ -54,7 +55,7 @@ end:
 int snapshot_write(char *name) {
 	const int version = SETTINGS_VERSION;
 
-	int  result = false;
+	int  result = FALSE;
 	int  file   = -1;
 
 	snapshot_t buffer = {
@@ -75,7 +76,7 @@ int snapshot_write(char *name) {
 	if (FIO_CloseFile(file) == -1)
 		goto end;
 
-	result = true;
+	result = TRUE;
 
 end:
 	if (file != -1)

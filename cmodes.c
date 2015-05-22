@@ -1,5 +1,6 @@
+#include "vxworks/vxworks.h"
+
 #include <fcntl.h>
-#include <stdbool.h>
 
 #include "main.h"
 #include "firmware.h"
@@ -12,12 +13,12 @@
 #include "cmodes.h"
 
 cmodes_config_t cmodes_default = {
-	recall_camera   : true,
-	recall_400plus  : true,
-	recall_ordering : false,
-	recall_settings : false,
-	recall_image    : true,
-	recall_cfn      : true,
+	recall_camera   : TRUE,
+	recall_400plus  : TRUE,
+	recall_ordering : FALSE,
+	recall_settings : FALSE,
+	recall_image    : TRUE,
+	recall_cfn      : TRUE,
 };
 
 cmodes_config_t cmodes_config;
@@ -142,11 +143,11 @@ int amode_delete(AE_MODE ae_mode) {
 }
 
 void cmode_recall() {
-	cmode_recall_apply(false);
+	cmode_recall_apply(FALSE);
 }
 
 void cmode_apply() {
-	cmode_recall_apply(true);
+	cmode_recall_apply(TRUE);
 }
 
 void cmode_recall_apply(int full) {
@@ -156,7 +157,7 @@ void cmode_recall_apply(int full) {
 
 	if(AE_IS_CREATIVE(status.main_dial_ae)) {
 		// Update current status
-		status.cmode_active = false;
+		status.cmode_active = FALSE;
 
 		// Try to find a mode file, and load it
 		if (amode_read(status.main_dial_ae, &snapshot)) {
@@ -167,7 +168,7 @@ void cmode_recall_apply(int full) {
 		// Only if a custom mode was loaded, and we can read it back
 		if (current_cmode != CMODE_NONE && cmode_read(current_cmode, &snapshot)) {
 			// Update current status
-			status.cmode_active = true;
+			status.cmode_active = TRUE;
 
 			// First revert to AE mode
 			snapshot_recall(&snapshot);
@@ -182,7 +183,7 @@ void cmode_recall_apply(int full) {
 			}
 		} else {
 			// Update current status
-			status.cmode_active = false;
+			status.cmode_active = FALSE;
 		}
 	}
 }

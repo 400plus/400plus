@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include "vxworks/vxworks.h"
 
 #include "languages.h"
 #include "macros.h"
@@ -7,8 +7,8 @@
 #include "menuoptions.h"
 
 char *menuoptions_bool_strings[] = {
-	[false] = LP_WORD(L_V_NO),
-	[true]  = LP_WORD(L_V_YES),
+	[FALSE] = LP_WORD(L_V_NO),
+	[TRUE]  = LP_WORD(L_V_YES),
 };
 
 char *menuoptions_flash_strings[FLASH_MODE_COUNT] = {

@@ -2,8 +2,6 @@
 #include "vxworks/string.h"
 
 #include <fcntl.h>
-//#include <unistd.h>
-#include <stdbool.h>
 
 #include "main.h"
 #include "macros.h"
@@ -15,34 +13,34 @@
 #include "settings.h"
 
 settings_t settings_default = {
-	use_dpad         : true,
-	autoiso_enable   : false,
+	use_dpad         : TRUE,
+	autoiso_enable   : FALSE,
 	autoiso_miniso   : ISO_MIN, // ISO100
 	autoiso_maxiso   : ISO_MAX, // ISO1600
 	autoiso_mintv    : EV_CODE(13, 0), // 1/60s
 	autoiso_maxav    : EV_CODE( 1, 0), // 1EV
-	autoiso_relaxed  : false,
-	eaeb_delay       : false,
+	autoiso_relaxed  : FALSE,
+	eaeb_delay       : FALSE,
 	eaeb_frames      : 3,
 	eaeb_ev          : EV_CODE( 1, 0), // 1EV
 	eaeb_tv_min      : TV_BULB(EV_CODE(15, 0)), // 1/250s
 	eaeb_tv_max      : TV_BULB(EV_CODE(13, 0)), // 1/60s
 	eaeb_direction   : EAEB_DIRECTION_BOTH,
-	efl_aeb_delay    : false,
+	efl_aeb_delay    : FALSE,
 	efl_aeb_frames   : 3,
 	efl_aeb_ev       : EV_CODE( 1, 0), // 1EV
 	efl_aeb_direction: EAEB_DIRECTION_BOTH,
-	apt_aeb_delay    : false,
+	apt_aeb_delay    : FALSE,
 	apt_aeb_frames   : 3,
 	apt_aeb_ev       : EV_CODE( 1, 0), // 1EV
 	apt_aeb_direction: EAEB_DIRECTION_BOTH,
-	iso_aeb_delay    : false,
-	iso_aeb          : {true, true, true, true, true},
-	interval_delay   : false,
+	iso_aeb_delay    : FALSE,
+	iso_aeb          : {TRUE, TRUE, TRUE, TRUE, TRUE},
+	interval_delay   : FALSE,
 	interval_time    : 2,
 	interval_action  : SHOT_ACTION_SHOT,
 	interval_shots   : 0,
-	bramp_delay      : false,
+	bramp_delay      : FALSE,
 	bramp_time       : 60,
 	bramp_shots      : 100,
 	bramp_exp        : 1,
@@ -50,41 +48,41 @@ settings_t settings_default = {
 	bramp_ramp_s     : 0,
 	bramp_ramp_exp   : EV_CODE(1, 0),
 	bramp_ramp_time  : EV_ZERO,
-	wave_delay       : false,
+	wave_delay       : FALSE,
 	wave_action      : SHOT_ACTION_SHOT,
-	wave_repeat      : false,
-	wave_instant     : false,
-	lexp_delay       : false,
+	wave_repeat      : FALSE,
+	wave_instant     : FALSE,
+	lexp_delay       : FALSE,
 	lexp_time        : 60,
-	remote_delay     : false,
+	remote_delay     : FALSE,
 	timer_timeout    : 5,
 	timer_action     : SHOT_ACTION_SHOT,
-	keep_power_on    : true,
-	review_off       : false,
+	keep_power_on    : TRUE,
+	review_off       : FALSE,
 	script_lcd       : SCRIPT_LCD_KEEP,
 	script_indicator : SCRIPT_INDICATOR_MEDIUM,
-	debug_on_poweron : false,
+	debug_on_poweron : FALSE,
 	logfile_mode     : 0,
-	remote_enable    : false,
-	developers_menu  : false,
+	remote_enable    : FALSE,
+	developers_menu  : FALSE,
 	button_jump      : BUTTON_ACTION_ISO,
 	button_trash     : BUTTON_ACTION_SCRIPT,
-	button_disp      : false,
+	button_disp      : FALSE,
 	language         : 0,
 	digital_iso_step : 0,
-	menu_navmain     : false,
-	menu_entermain   : false,
-	menu_autosave    : true,
+	menu_navmain     : FALSE,
+	menu_entermain   : FALSE,
+	menu_autosave    : TRUE,
 	qexp_mintv       : EV_CODE(13, 0), // 1/60s
 	qexp_weight      : QEXP_WEIGHT_NONE,
-	persist_aeb      : true,
+	persist_aeb      : TRUE,
 	invert_olc       : 0,
 };
 
 menu_order_t menu_order_default;
 
 named_temps_t named_temps_default = {
-	initd : false,
+	initd : FALSE,
 	temps : {
 		1700, // Match flame
 		1900, // Candle flame
@@ -111,7 +109,7 @@ named_temps_t named_temps;
 
 int settings_read() {
 	int i;
-	int result  = false;
+	int result  = FALSE;
 
 	int file    = -1;
 	int version =  0;
@@ -167,7 +165,7 @@ int settings_read() {
 	menu_order  = menu_order_buffer;
 	named_temps = named_temps_buffer;
 
-	result   = true;
+	result   = TRUE;
 
 #if SETTINGS_VERSION == 0x4A
 	int nt;
@@ -243,7 +241,7 @@ void named_temps_init(menu_t *menu) {
 		strncpy(named_temps.names[14], LP_WORD(L_V_NAMED_TEMP_E), LP_MAX_WORD);
 		strncpy(named_temps.names[15], LP_WORD(L_V_NAMED_TEMP_F), LP_MAX_WORD);
 
-		named_temps.initd = true;
+		named_temps.initd = TRUE;
 	}
 }
 

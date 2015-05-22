@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include "vxworks/vxworks.h"
 
 #include "main.h"
 #include "macros.h"
@@ -124,7 +124,7 @@ menuitem_t menupage_params_items[] = {
 
 menupage_t menupage_params = {
 	name      : LP_WORD(L_P_PARAMS),
-	sibilings : true,
+	sibilings : TRUE,
 	items     : LIST(menupage_params_items),
 	ordering  : menu_order.params,
 };
