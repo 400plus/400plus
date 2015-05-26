@@ -1,5 +1,5 @@
-#include <stdbool.h>
-#include <stdio.h>
+#include <vxworks.h>
+#include <dirent.h>
 
 #include "macros.h"
 #include "main.h"
@@ -18,8 +18,6 @@
 #include "settings.h"
 #include "utils.h"
 #include "ptp.h"
-
-#include "vxworks/dirent.h"
 
 #include "actions.h"
 
@@ -167,12 +165,12 @@ void drivemode_set() {
 
 	if (settings.remote_delay) {
 		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote delay");
-		remote_delay(true);
+		remote_delay(TRUE);
 	}
 }
 
 void toggle_img_format() {
-	static int first_call = true;
+	static int first_call = TRUE;
 
 	if (!first_call && AE_IS_AUTO(DPData.ae)) {
 		switch (DPData.img_format) {
@@ -191,7 +189,7 @@ void toggle_img_format() {
 		send_to_intercom(IC_SET_IMG_SIZE,    IMG_SIZE_L);
 	}
 
-	first_call = false;
+	first_call = FALSE;
 }
 
 void toggle_CfMLU() {

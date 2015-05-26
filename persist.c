@@ -1,5 +1,5 @@
-#include <fcntl.h>
-#include <stdbool.h>
+#include <vxworks.h>
+#include <ioLib.h>
 
 #include "firmware.h"
 
@@ -14,7 +14,7 @@ persist_t persist = {
 };
 
 int persist_read(void) {
-	int result  = false;
+	int result  = FALSE;
 
 	int file    = -1;
 	int version =  0;
@@ -34,7 +34,7 @@ int persist_read(void) {
 		goto end;
 
 	persist = persistent_buffer;
-	result     = true;
+	result     = TRUE;
 
 end:
 	if (file != -1)

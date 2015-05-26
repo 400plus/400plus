@@ -1,5 +1,4 @@
-#include <stdbool.h>
-
+#include <vxworks.h>
 
 #include "main.h"
 #include "macros.h"
@@ -284,8 +283,8 @@ void script_long_exp() {
 void script_start() {
 	beep();
 
-	status.script_running  = true;
-	status.script_stopping = false;
+	status.script_running  = TRUE;
+	status.script_stopping = FALSE;
 
 	st_DPData = DPData;
 
@@ -296,7 +295,7 @@ void script_start() {
 	send_to_intercom(IC_SET_AE_BKT, EC_ZERO);
 
 	if (settings.keep_power_on)
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, FALSE);
 
 	if (settings.review_off)
 		send_to_intercom(IC_SET_REVIEW_TIME, REVIEW_OFF);
@@ -324,8 +323,8 @@ void script_start() {
 void script_stop() {
 	beep();
 
-	status.script_running  = false;
-	status.script_stopping = true;
+	status.script_running  = FALSE;
+	status.script_stopping = TRUE;
 
 	script_restore();
 }

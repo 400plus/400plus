@@ -7,6 +7,7 @@
  * Thanks to Sergei for porting it.
  */
 
+#include <vxworks.h>
 #include <stdint.h>
 
 /*

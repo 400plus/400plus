@@ -3,8 +3,6 @@
 
 #include "vxworks.h"
 
-#define	NULL ((void *)0)
-
 #define	EOF	(-1)
 
 #define	SEEK_SET	0

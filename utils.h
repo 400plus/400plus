@@ -1,8 +1,6 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
-#include <sys/types.h>
-
 #define PathBase    "A:/400Plus/"
 #define PathLogs    PathBase "logs/"
 #define PathLang    PathBase "lang/"

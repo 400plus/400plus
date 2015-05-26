@@ -1,3 +1,4 @@
+#include <vxworks.h>
 #include <stdint.h>
 
 #include "bmp.h"

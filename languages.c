@@ -1,3 +1,4 @@
+#include <vxworks.h>
 #include <string.h>
 
 #include "firmware/camera.h"

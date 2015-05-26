@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "firmware.h"
 #include "main.h"
@@ -31,14 +31,14 @@ typedef struct  {
 } chain_t;
 
 reaction_t
-	reaction_main_dp    = {true,  menu_main_start},
-	reaction_main_disp  = {true,  display_brightness} ,
-	reaction_main_jump  = {true,  button_jump_action},
-	reaction_main_trash = {true,  button_trash_action},
-	reaction_main_av    = {false, toggle_img_format},
-	reaction_main_up    = {false, restore_iso},
-	reaction_main_down  = {false, restore_wb},
-	reaction_main_left  = {false, restore_metering}
+	reaction_main_dp    = {TRUE,  menu_main_start},
+	reaction_main_disp  = {TRUE,  display_brightness} ,
+	reaction_main_jump  = {TRUE,  button_jump_action},
+	reaction_main_trash = {TRUE,  button_trash_action},
+	reaction_main_av    = {FALSE, toggle_img_format},
+	reaction_main_up    = {FALSE, restore_iso},
+	reaction_main_down  = {FALSE, restore_wb},
+	reaction_main_left  = {FALSE, restore_metering}
 ;
 
 reaction_t *button_actions_main[BUTTON_COUNT] = {
@@ -53,22 +53,22 @@ reaction_t *button_actions_main[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_400plus_dp          = {true,  menu_event_dp},
-//	reaction_400plus_disp        = {true,  menu_event_disp},
-	reaction_400plus_menu        = {true,  menu_event_menu},
-	reaction_400plus_jump        = {true,  menu_event_jump},
-	reaction_400plus_play        = {true,  menu_event_play},
-	reaction_400plus_trash       = {true,  menu_event_trash},
-	reaction_400plus_wheel_left  = {true,  menu_event_prev},
-	reaction_400plus_wheel_right = {true,  menu_event_next},
-	reaction_400plus_zoom_out    = {true,  menu_event_out},
-	reaction_400plus_zoom_in     = {true,  menu_event_in},
-	reaction_400plus_av          = {true,  menu_event_av, menu_event_av_up},
-	reaction_400plus_set         = {true,  menu_event_set},
-	reaction_400plus_up          = {true,  menu_event_up},
-	reaction_400plus_down        = {true,  menu_event_down},
-	reaction_400plus_right       = {true,  menu_event_right},
-	reaction_400plus_left        = {true,  menu_event_left}
+	reaction_400plus_dp          = {TRUE,  menu_event_dp},
+//	reaction_400plus_disp        = {TRUE,  menu_event_disp},
+	reaction_400plus_menu        = {TRUE,  menu_event_menu},
+	reaction_400plus_jump        = {TRUE,  menu_event_jump},
+	reaction_400plus_play        = {TRUE,  menu_event_play},
+	reaction_400plus_trash       = {TRUE,  menu_event_trash},
+	reaction_400plus_wheel_left  = {TRUE,  menu_event_prev},
+	reaction_400plus_wheel_right = {TRUE,  menu_event_next},
+	reaction_400plus_zoom_out    = {TRUE,  menu_event_out},
+	reaction_400plus_zoom_in     = {TRUE,  menu_event_in},
+	reaction_400plus_av          = {TRUE,  menu_event_av, menu_event_av_up},
+	reaction_400plus_set         = {TRUE,  menu_event_set},
+	reaction_400plus_up          = {TRUE,  menu_event_up},
+	reaction_400plus_down        = {TRUE,  menu_event_down},
+	reaction_400plus_right       = {TRUE,  menu_event_right},
+	reaction_400plus_left        = {TRUE,  menu_event_left}
 ;
 
 
@@ -92,7 +92,7 @@ reaction_t *button_actions_400plus[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_meter_dp = {true, set_metering_spot}
+	reaction_meter_dp = {TRUE, set_metering_spot}
 ;
 
 reaction_t *button_actions_meter[BUTTON_COUNT] = {
@@ -100,7 +100,7 @@ reaction_t *button_actions_meter[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_wb_dp = {true, set_whitebalance_colortemp}
+	reaction_wb_dp = {TRUE, set_whitebalance_colortemp}
 ;
 
 reaction_t *button_actions_wb[BUTTON_COUNT] = {
@@ -108,8 +108,8 @@ reaction_t *button_actions_wb[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_iso_dp  = {true,  autoiso_enable},
-	reaction_iso_set = {false, autoiso_disable}
+	reaction_iso_dp  = {TRUE,  autoiso_enable},
+	reaction_iso_set = {FALSE, autoiso_disable}
 ;
 
 reaction_t *button_actions_iso[BUTTON_COUNT] = {
@@ -118,11 +118,11 @@ reaction_t *button_actions_iso[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_face_set   = {true, viewfinder_set},
-	reaction_face_up    = {true, viewfinder_up,    viewfinder_end},
-	reaction_face_down  = {true, viewfinder_down,  viewfinder_end},
-	reaction_face_right = {true, viewfinder_right, viewfinder_end},
-	reaction_face_left  = {true, viewfinder_left,  viewfinder_end}
+	reaction_face_set   = {TRUE, viewfinder_set},
+	reaction_face_up    = {TRUE, viewfinder_up,    viewfinder_end},
+	reaction_face_down  = {TRUE, viewfinder_down,  viewfinder_end},
+	reaction_face_right = {TRUE, viewfinder_right, viewfinder_end},
+	reaction_face_left  = {TRUE, viewfinder_left,  viewfinder_end}
 ;
 
 reaction_t *button_actions_face[BUTTON_COUNT] = {
@@ -134,12 +134,12 @@ reaction_t *button_actions_face[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_af_set   = {true, afp_center},
-	reaction_af_up    = {true, afp_top},
-	reaction_af_down  = {true, afp_bottom},
-	reaction_af_right = {true, afp_right},
-	reaction_af_left  = {true, afp_left},
-	reaction_af_disp  = {true}
+	reaction_af_set   = {TRUE, afp_center},
+	reaction_af_up    = {TRUE, afp_top},
+	reaction_af_down  = {TRUE, afp_bottom},
+	reaction_af_right = {TRUE, afp_right},
+	reaction_af_left  = {TRUE, afp_left},
+	reaction_af_disp  = {TRUE}
 ;
 
 reaction_t *button_actions_af[BUTTON_COUNT] = {
@@ -152,7 +152,7 @@ reaction_t *button_actions_af[BUTTON_COUNT] = {
 };
 
 reaction_t
-	reaction_drive_set    = {false, drivemode_set};
+	reaction_drive_set    = {FALSE, drivemode_set};
 
 reaction_t *button_actions_drive[BUTTON_COUNT] = {
 	[BUTTON_SET]   = &reaction_drive_set,
@@ -182,16 +182,16 @@ chain_t *button_chains[GUIMODE_COUNT] = {
 };
 
 int can_hold[BUTTON_COUNT] = {
-	[BUTTON_AV]    = true,
-	[BUTTON_UP]    = true,
-	[BUTTON_DOWN]  = true,
-	[BUTTON_RIGHT] = true,
-	[BUTTON_LEFT]  = true,
+	[BUTTON_AV]    = TRUE,
+	[BUTTON_UP]    = TRUE,
+	[BUTTON_DOWN]  = TRUE,
+	[BUTTON_RIGHT] = TRUE,
+	[BUTTON_LEFT]  = TRUE,
 };
 
 int button_handler(button_t button, int is_button_down) {
 	static action_t   button_up_action = NULL;  // Action that must be executed when the current button is released
-	static int        button_up_block  = false; // Reaction when the current button is released
+	static int        button_up_block  = FALSE; // Reaction when the current button is released
 
 	int gui_mode;
 
@@ -212,12 +212,12 @@ int button_handler(button_t button, int is_button_down) {
 		if((chain = button_chains[gui_mode]) == NULL) {
 			// This mode does not have an assigned chain
 			//debug_log("gui_mode[0x%X]: no btn chain", gui_mode);
-			return false;
+			return FALSE;
 		} else if (!chain->condition || *chain->condition) {
 			// Check that we have an action assigned to this button
 			if ((reaction = chain->reaction[button]) == NULL) {
 				//debug_log("gui_mode[0x%X]: btn[0x%X] no action", gui_mode, button);
-				return false;
+				return FALSE;
 			} else {
 				// Launch the defined action
 				if (reaction->action_press)
@@ -237,7 +237,7 @@ int button_handler(button_t button, int is_button_down) {
 			}
 		} else {
 			// This mode is configured off
-			return false;
+			return FALSE;
 		}
 	} else {
 		// Check for button-up events and act immediately
@@ -253,7 +253,7 @@ int button_handler(button_t button, int is_button_down) {
 		}
 
 		// If no action was found, do not block it
-		return false;
+		return FALSE;
 	}
 }
 
@@ -265,12 +265,12 @@ void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
 	case 4: // JUMP_UP
 		break;
 	case 5: // JUMP_DOWN
-		button_handler(BUTTON_JUMP, true);
+		button_handler(BUTTON_JUMP, TRUE);
 		break;
 	case 8: // TRASH_UP
 		break;
 	case 9: // TRASH_DOWN
-		button_handler(BUTTON_TRASH, true);
+		button_handler(BUTTON_TRASH, TRUE);
 		break;
 	}
 }

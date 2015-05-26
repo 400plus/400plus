@@ -1,9 +1,7 @@
-// Thanks to Coutts for porthing this.
+// Thanks to Coutts for porting this.
 
-#include <sys/types.h>
-#include <stdio.h>
+#include <vxworks.h>
 #include <stdarg.h>
-#include <stdint.h>
 
 #include "bmp.h"
 #include "debug.h"
@@ -91,12 +89,12 @@ void bmp_puts(uint8_t *vram_address, unsigned fontspec, unsigned * x, unsigned *
 }
 
 void bmp_printf(uint8_t *vram_address, unsigned fontspec, unsigned x, unsigned y, const char * fmt, ...) {
-	va_list                 ap;
-	char                    buf[ 256 ];
+	va_list ap;
+	char    buf[256];
 
-	va_start( ap, fmt );
-	vsnprintf( buf, sizeof(buf), fmt, ap );
-	va_end( ap );
+	va_start(ap, fmt);
+	vsnprintf(buf, sizeof(buf), fmt, ap);
+	va_end(ap);
 
 	bmp_puts(vram_address, fontspec, &x, &y, buf);
 }

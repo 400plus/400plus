@@ -1,12 +1,8 @@
-#include <sys/types.h>
-
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <vxworks.h>
 #include <string.h>
+#include <ioLib.h>
+#include <clock.h>
 #include <time.h>
-#include <unistd.h>
-#include <stdbool.h>
 
 #include "main.h"
 #include "macros.h"
@@ -18,7 +14,6 @@
 
 #include "firmware.h"
 #include "firmware/camera.h"
-#include "vxworks/clock.h"
 
 #include "utils.h"
 
@@ -107,7 +102,7 @@ void dump_memory() {
 		int addr=0;
 		int power_off_state = DPData.auto_power_off;
 
-		send_to_intercom(IC_SET_AUTO_POWER_OFF, false);
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, FALSE);
 
 		while (addr<0x800000) { // dump 8MB of RAM
 			char buf[0x800];
@@ -241,7 +236,7 @@ int shutter_release_disasm() {
 #endif
 
 void lock_sutter(void) {
-	shutter_lock = true;
+	shutter_lock = TRUE;
 }
 
 void wait_for_shutter(void) {
@@ -269,7 +264,7 @@ int shutter_release() {
 }
 
 int shutter_release_bulb(int time) {
-	static int first = true;
+	static int first = TRUE;
 
 	int  button;
 	long delay;
@@ -277,7 +272,7 @@ int shutter_release_bulb(int time) {
 	int shutter_lag, mirror_lag;
 
 	if (first) {
-		first = false;
+		first = FALSE;
 		shutter_lag = SHUTTER_LAG_1ST;
 		mirror_lag  = MIRROR_LAG_1ST;
 	} else {
@@ -422,10 +417,11 @@ char* strncpy0(char* dest, const char* src, size_t size) {
 // this is done by calling the routine with FD == -1, it is sort of init call.
 // you will have to init everytime you open a new file, before the first real call
 // 2. cannot use it in multi-thread/multi-task. use it only at one place in one time.
-char * hack_fgets_faster(char *s, int n, int fd) {
+char *hack_fgets_faster(char *s, int n, int fd) {
 	register char *cs;
 
-	static unsigned char buf[256]; // local buffer
+	// TODO: Do not explicitly overflow an unsigned char
+	static char buf[256]; // local buffer
 	static unsigned char bpos = 0; // position in the buffer
 	int rc = 0;                    // last return code from read()
 
@@ -436,7 +432,7 @@ char * hack_fgets_faster(char *s, int n, int fd) {
 	}
 
 	cs = s;
-	while (--n > 0 && ( bpos || (rc = read(fd, &buf, 255)) ) ) {
+	while (--n > 0 && ( bpos || (rc = read(fd, buf, 255)) ) ) {
 		unsigned char c;
 		if (rc < 255)
 			buf[rc] = '\0';

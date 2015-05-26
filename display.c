@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
+#include <vxworks.h>
 #include <string.h>
 
 #include "main.h"
@@ -70,7 +69,7 @@ void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data,
 	item_set_label_internal(dialog, type, my_data, length, item);
 }
 
-#if false
+#if FALSE
 
 static dialog_t *countdown_dialog = NULL;
 
@@ -236,11 +235,11 @@ void *hack_invert_olc_screen(char *dst, char *src, int size) {
 }
 
 int get_efcomp_data(int efcomp) {
-	int negative = false, value = 0;
+	int negative = FALSE, value = 0;
 
 	if (efcomp > 0x30) {
 		efcomp = 0x100 - efcomp;
-		negative = true;
+		negative = TRUE;
 	}
 
 	switch (efcomp)	{

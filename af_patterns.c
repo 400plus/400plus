@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "macros.h"
 #include "main.h"

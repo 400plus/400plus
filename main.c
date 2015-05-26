@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "macros.h"
 #include "firmware.h"
@@ -29,15 +28,15 @@ int *action_queue;
 // Global status
 status_t status = {
 	button_down       : BUTTON_NONE,
-	script_running    : false,
-	script_stopping   : false,
-	afp_dialog        : false,
-	measuring         : false,
-	fexp              : false,
+	script_running    : FALSE,
+	script_stopping   : FALSE,
+	afp_dialog        : FALSE,
+	measuring         : FALSE,
+	fexp              : FALSE,
 	msm_count         : 0,
 	msm_tv            : EV_ZERO,
 	msm_av            : EV_ZERO,
-	ignore_msg        : false,
+	ignore_msg        : FALSE,
 	vf_status         : VF_STATUS_NONE,
 };
 
@@ -130,7 +129,7 @@ void intercom_proxy(const int handler, char *message) {
 #endif
 
 	if (status.ignore_msg == message [1]) {
-		status.ignore_msg = false;
+		status.ignore_msg = FALSE;
 	} else {
 		// Fast path for the case of a running script
 		if (status.script_running)
@@ -153,13 +152,13 @@ void action_dispatcher(void) {
 
 	// Loop while receiving messages
 	for (;;) {
-		ReceiveMessageQueue(action_queue, &action, false);
+		ReceiveMessageQueue(action_queue, &action, FALSE);
 		action();
 	}
 }
 
 void enqueue_action(action_t action) {
-	TryPostMessageQueue(action_queue, (action), false);
+	TryPostMessageQueue(action_queue, (action), FALSE);
 }
 
 void message_logger(char *message) {
@@ -176,48 +175,48 @@ void message_logger(char *message) {
 int proxy_script_restore(char *message) {
 	script_restore();
 
-	return false;
+	return FALSE;
 }
 
 int proxy_script_stop(char *message) {
-	status.script_stopping = true;
+	status.script_stopping = TRUE;
 
-	return true;
+	return TRUE;
 }
 
 int proxy_set_language(char *message) {
 	enqueue_action(lang_pack_config);
 
-	return false;
+	return FALSE;
 }
 
 int proxy_dialog_enter(char *message) {
 	status.afp_dialog = (message[2] == IC_SET_AF);
 
-	return false;
+	return FALSE;
 }
 
 int proxy_dialog_exit(char *message) {
 	enqueue_action(menu_event_finish);
 
-	return false;
+	return FALSE;
 }
 
 int proxy_dialog_afoff(char *message) {
 	if (status.afp_dialog) {
 		// Open Extended AF-Point selection dialog
 		message[1] = IC_AFPDLGON;
-		status.afp_dialog = false;
+		status.afp_dialog = FALSE;
 		enqueue_action(afp_enter);
 	}
 
-	return false;
+	return FALSE;
 }
 
 int proxy_measuring(char *message) {
 	status.measuring = message[2];
 
-	return false;
+	return FALSE;
 }
 
 int proxy_measurement(char *message) {
@@ -230,14 +229,14 @@ int proxy_measurement(char *message) {
 			enqueue_action(autoiso);
 	}
 
-	return false;
+	return FALSE;
 }
 
 int proxy_shoot_start(char *message) {
 	status.last_shot_tv = message[2];
 	status.last_shot_av = message[3];
 
-	return false;
+	return FALSE;
 }
 
 int proxy_shoot_finish(char *message) {
@@ -246,29 +245,29 @@ int proxy_shoot_finish(char *message) {
 	if (status.msm_active)
 		enqueue_action(msm_stop);
 
-	return false;
+	return FALSE;
 }
 
 int proxy_initialize(char *message) {
-	static int first = true;
+	static int first = TRUE;
 
 	if (first) {
-		first = false;
+		first = FALSE;
 
 		enqueue_action(start_up);
 	}
 
-	return false;
+	return FALSE;
 }
 
 int proxy_settings0(char *message) {
-	static int first = true;
+	static int first = TRUE;
 
 	if (!status.msm_active)
 		status.main_dial_ae = message[2];
 
 	if (first) {
-		first = false;
+		first = FALSE;
 	} else {
 		if (status.fexp)
 			fexp_disable();
@@ -277,7 +276,7 @@ int proxy_settings0(char *message) {
 			enqueue_action(cmode_apply);
 	}
 
-	return false;
+	return FALSE;
 }
 
 int proxy_settings3(char *message) {
@@ -286,22 +285,22 @@ int proxy_settings3(char *message) {
 	if (settings.autoiso_enable)
 		enqueue_action(autoiso_restore);
 
-	return false;
+	return FALSE;
 }
 
 int proxy_button(char *message) {
-	return button_handler(message2button[message[1]], message[0] > 3 ? message[2] : true);
+	return button_handler(message2button[message[1]], message[0] > 3 ? message[2] : TRUE);
 }
 
 int proxy_wheel(char *message) {
-	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, true);
+	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, TRUE);
 }
 
 int proxy_av(char *message) {
 	if (status.fexp)
 		enqueue_action(fexp_update_tv);
 
-	return false;
+	return FALSE;
 }
 
 int proxy_tv(char *message) {
@@ -311,7 +310,7 @@ int proxy_tv(char *message) {
 	if (status.fexp)
 		enqueue_action(fexp_update_av);
 
-	return false;
+	return FALSE;
 }
 
 int proxy_aeb(char *message) {
@@ -322,6 +321,6 @@ int proxy_aeb(char *message) {
 
 	enqueue_action(persist_write);
 
-	return false;
+	return FALSE;
 }
 

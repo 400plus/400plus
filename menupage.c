@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "macros.h"
 #include "firmware.h"
@@ -31,7 +30,7 @@ void menupage_initialize(menupage_t *page) {
 	}
 
 	// Release item if was grabbed last time we left menu
-	item_grabbed = false;
+	item_grabbed = FALSE;
 }
 
 void menupage_display(menu_t *menu) {
@@ -61,7 +60,7 @@ void menupage_display(menu_t *menu) {
 }
 
 void menupage_up(menu_t *menu) {
-	int display = false;
+	int display = FALSE;
 	menupage_t *page = menu->current_page;
 
 	if ((page->items.size > MENU_HEIGHT && settings.menu_wrap) || page->current_posn > 0) {
@@ -69,7 +68,7 @@ void menupage_up(menu_t *menu) {
 
 		if (item_grabbed) {
 			SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn + 1)]);
-			display = true;
+			display = TRUE;
 		}
 	}
 
@@ -77,7 +76,7 @@ void menupage_up(menu_t *menu) {
 		page->current_line--;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -85,7 +84,7 @@ void menupage_up(menu_t *menu) {
 }
 
 void menupage_down(menu_t *menu) {
-	int display = false;
+	int display = FALSE;
 	menupage_t *page = menu->current_page;
 
 	if ((page->items.size > MENU_HEIGHT && settings.menu_wrap) || page->current_posn < page->items.size - 1) {
@@ -93,7 +92,7 @@ void menupage_down(menu_t *menu) {
 
 		if (item_grabbed) {
 			SWAP(page->ordering[get_item_id(page, page->current_posn)], page->ordering[get_item_id(page, page->current_posn - 1)]);
-			display = true;
+			display = TRUE;
 		}
 	}
 
@@ -101,7 +100,7 @@ void menupage_down(menu_t *menu) {
 		page->current_line++;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -109,7 +108,7 @@ void menupage_down(menu_t *menu) {
 }
 
 void menupage_pgup(menu_t *menu) {
-	int display = false;
+	int display = FALSE;
 	menupage_t *page = menu->current_page;
 
 	if (item_grabbed)
@@ -124,7 +123,7 @@ void menupage_pgup(menu_t *menu) {
 		page->current_line = 0;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -132,7 +131,7 @@ void menupage_pgup(menu_t *menu) {
 }
 
 void menupage_pgdown(menu_t *menu) {
-	int display = false;
+	int display = FALSE;
 	menupage_t *page = menu->current_page;
 
 	if (item_grabbed)
@@ -148,7 +147,7 @@ void menupage_pgdown(menu_t *menu) {
 		page->current_line = MIN(MENU_HEIGHT, page->items.size) - 1;
 		menu_highlight(page->current_line);
 	} else {
-		display = true;
+		display = TRUE;
 	}
 
 	if (display)
@@ -160,7 +159,7 @@ void menupage_drag_drop(menu_t *menu) {
 
 	if (page->ordering) {
 		item_grabbed  = ! item_grabbed;
-		menu->changed = true;
+		menu->changed = TRUE;
 		menu_event_refresh();
 	}
 }

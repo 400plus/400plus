@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "macros.h"
 #include "main.h"
@@ -249,7 +249,7 @@ menuitem_t menupage_scripts_items[] = {
 
 menupage_t menupage_scripts = {
 	name      : LP_WORD(L_P_SCRIPTS),
-	sibilings : true,
+	sibilings : TRUE,
 	items     : LIST(menupage_scripts_items),
 	ordering  : menu_order.scripts,
 };

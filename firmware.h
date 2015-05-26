@@ -1,8 +1,7 @@
 #ifndef FIRMWARE_H_
 #define FIRMWARE_H_
 
-#include "vxworks/vxworks.h"
-#include <sys/types.h>
+#include <vxworks.h>
 
 // Variables, Flags, Pointers, Handlers
 #define BTN_PRESSED     0x20
@@ -524,8 +523,6 @@ extern int hDbgMgr;
 // the 3rd arg is the level - 0 == max, 0xff == min
 extern int dmSetPrintLevel(int DbgMgr, int dwFlag, int dwLevel);
 extern int dmSetStoreLevel(int DbgMgr, int dwFlag, int dwLevel);
-
-extern int ioGlobalStdSet(int handle, int file);
 
 extern int dumpf(void);
 extern int logMsg(char *, ...);

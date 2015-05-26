@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "main.h"
 #include "macros.h"
@@ -11,7 +11,7 @@
 #include "fexp.h"
 
 void fexp_disable () {
-	status.fexp = false;
+	status.fexp = FALSE;
 	enqueue_action(beep);
 }
 
@@ -20,7 +20,7 @@ void fexp_toggle() {
 		if (status.fexp) {
 			fexp_disable();
 		} else {
-			status.fexp    = true;
+			status.fexp    = TRUE;
 			status.fexp_ev = (int)DPData.av_val + (int)DPData.tv_val;
 
 			enqueue_action(beep);

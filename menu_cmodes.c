@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "firmware.h"
 #include "macros.h"
@@ -32,9 +32,9 @@ menuitem_t menupage_cmodes_items[CMODES_MAX];
 
 menupage_t menupage_cmodes = {
 	name      : LP_WORD(L_P_CMODES),
-	sibilings : true,
+	sibilings : TRUE,
 	items     : LIST(menupage_cmodes_items),
-	show_id   : true,
+	show_id   : TRUE,
 	ordering  : cmodes_config.order,
 	actions   : {
 		[MENU_EVENT_OPEN] = menu_cmodes_open,

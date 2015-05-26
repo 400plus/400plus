@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "macros.h"
 
@@ -147,7 +146,7 @@ menuitem_t menu_settings_items[] = {
 
 menupage_t menupage_settings = {
 	name      : LP_WORD(L_P_SETTINGS),
-	sibilings : true,
+	sibilings : TRUE,
 	items     : LIST(menu_settings_items),
 	ordering  : menu_order.settings,
 	actions   : {

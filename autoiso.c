@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <vxworks.h>
 
 #include "main.h"
 #include "macros.h"
@@ -81,7 +81,7 @@ void autoiso_enable() {
 	press_button(IC_BUTTON_SET);
 
 	if (!settings.autoiso_enable) {
-		settings.autoiso_enable = true;
+		settings.autoiso_enable = TRUE;
 		enqueue_action(settings_write);
 	}
 
@@ -91,7 +91,7 @@ void autoiso_enable() {
 
 void autoiso_disable() {
 	if (settings.autoiso_enable) {
-		settings.autoiso_enable = false;
+		settings.autoiso_enable = FALSE;
 		enqueue_action(settings_write);
 	}
 }
