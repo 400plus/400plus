@@ -26,4 +26,7 @@ extern void *hack_invert_olc_screen(char *dst, char *src, int size);
 extern void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data, const int length, const int item);
 extern void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data, const int length, const int item);
 
+extern int hack_FF92E704 (int r0, int r1, int r2, int r3);
+extern int hack_FF92E4C4 (int r0, int r1, int r2, int r3);
+
 #endif /* DISPLAY_H_ */

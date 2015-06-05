@@ -33,16 +33,21 @@ void hack_pre_init_hook(void) {
 // we can run extra code at the end of the OFW's task init
 void hack_post_init_hook(void) {
 	// Inject our hacked_TransferScreen
-	TransferScreen = hack_TransferScreen;
+	//TransferScreen = hack_TransferScreen;
+
+	//cache_fake(0xFF92DA50, BL_INSTR(0xFF92DA50, &hack_FF92E704), TYPE_ICACHE);
+	cache_fake(0xFF92DA88, BL_INSTR(0xFF92DA88, &hack_FF92E4C4), TYPE_ICACHE);
 
 	// Inject hack_send_jump_and_trash_buttons
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
-
+/*
 	// take over the vram copy locations, so we can invert the screen
 	cache_fake(0xFF92C5D8, BL_INSTR(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
 	cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
+*/
+	// prevent screen turn off on ptp (to see the debug on lcd)
+	cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE);
 
-	cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent screen turn off on ptp (to see the debug on lcd)
 	// these freezes the usb communication
 	//cache_fake(0xFF81B9D0, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
 	//cache_fake(0xFF81B400, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock

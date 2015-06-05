@@ -631,6 +631,10 @@ extern int TransferUpsideDownScreen (int r0, int r1, int r2, int r3);
 extern int TransferMirrorScreen     (int r0, int r1, int r2, int r3);
 extern int TransferRotatedScreen    (int r0, int r1, int r2, int r3);
 
+extern int sub_FF92E704 (int r0, int r1, int r2, int r3);
+extern int sub_FF92E4C4 (int r0, int r1, int r2, int r3);
+
+
 // PTP
 
 extern void * PTP_Actions (void * arg0, void * arg1, void * arg2, void * arg3, void * arg4);
