@@ -49,7 +49,16 @@
 #define NOP_INSTR       0xE1A00000      // mov r0, r0
 #define MOV_R0_1_INSTR  0xE3A00001	// mov r0, 1
 #define MOV_R0_0_INSTR  0xE3A00000	// mov r0, 0
-#define BL_INSTR(pc,dest) ( 0xEB000000 | ((( ((uint32_t)dest) - ((uint32_t)pc) - 8 ) >> 2) & 0x00FFFFFF) )
+
+#define BL_INSTR(pc,dest) \
+    ( 0xEB000000 \
+    | ((( ((uint32_t)dest) - ((uint32_t)pc) - 8 ) >> 2) & 0x00FFFFFF) \
+    )
+
+#define B_INSTR(pc,dest) \
+    ( 0xEA000000 \
+    | ((( ((uint32_t)dest) - ((uint32_t)pc) - 8 ) >> 2) & 0x00FFFFFF) \
+    )
 
 #define TYPE_DCACHE 0
 #define TYPE_ICACHE 1
