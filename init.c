@@ -36,7 +36,7 @@ void hack_post_init_hook(void) {
 	//TransferScreen = hack_TransferScreen;
 
 	//cache_fake(0xFF92DA50, BL_INSTR(0xFF92DA50, &hack_FF92E704), TYPE_ICACHE);
-	cache_fake(0xFF92DA88, BL_INSTR(0xFF92DA88, &hack_FF92E4C4), TYPE_ICACHE);
+	//cache_fake(0xFF92DA88, BL_INSTR(0xFF92DA88, &hack_FF92E4C4), TYPE_ICACHE);
 
 	// Inject hack_send_jump_and_trash_buttons
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
