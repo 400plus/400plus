@@ -24,6 +24,7 @@ void disable_cache_clearing(void);
 int  hack_init_intercom_data       (void * old_proc);
 int  hack_register_gui_idle_handler(void * org_proc, int zero);
 
+#define busy_wait() do { volatile uint32_t i; for (i = 0; i < 1000000; i++); } while (0)
 
 // this is ran in the beginning of the OFW's task init process
 void hack_pre_init_hook(void) {
@@ -80,8 +81,8 @@ void hack_relocate(void) {
 void cache_hacks(void) {
 	flush_caches();
 
-	//cache_lock(); // lock the caches so nobody replaces our hacks
-	icache_lock();
+	// lock the caches so nobody replaces our hacks
+	cache_lock();
 
 	// prevent the OFW from clearing the caches
 	disable_cache_clearing();
@@ -115,23 +116,10 @@ void cache_hacks(void) {
 }
 
 void disable_cache_clearing(void) {
-	// the camera is reseting the control register
-	// i dont know if this code is already ran, when we poison the caches
-	// keep it here just in case (do some testing)
-	//cache_fake(0xFF810194, BL_INSTR(0xFF810194, &set_our_control_register), TYPE_ICACHE);
-
-	//cache_fake(0xFF810AA8, MOV_R0_1_INSTR, TYPE_ICACHE);
-	// we do not remove the whole routine, remove only the call to sub_FFB5DC58:
-	//cache_fake(0xFFB45E2C, NOP_INSTR, TYPE_ICACHE); // i cache
-	// actually, we do not need to remove this call too, since the hacks below will take care of it
-	// keep it here just in case (do some testing)
-
 	cache_fake(0xFF8101A0, NOP_INSTR, TYPE_ICACHE); // i cache
 	cache_fake(0xFFB3736C, NOP_INSTR, TYPE_ICACHE); // i cache
 	cache_fake(0xFFB37378, NOP_INSTR, TYPE_ICACHE); // i cache
 	cache_fake(0xFFB373EC, NOP_INSTR, TYPE_ICACHE); // i cache
-
-	// D cache clearing addresses: FF8101A4, FFB30028, FFB372EC, FFB3731C, FFB37334, FFB37358, FFB37360, FFB373A4, FFB373C8
 }
 
 void hack_dmProcInit(void) {
@@ -160,7 +148,6 @@ int hack_register_gui_idle_handler(void * org_proc, int zero) {
 }
 #endif
 
-#define busy_wait() do { volatile uint32_t i; for (i = 0; i < 1000000; i++); } while (0)
 void hack_halt(void) {
 	while ( 1 ) {
 		LEDBLUE = LEDON;
@@ -173,26 +160,4 @@ void hack_halt(void) {
 	}
 }
 
-// 0xAF: keep this in case we need it.
-// after some testing, if everything is ok, we can remove it
-#if 0
-void set_our_control_register() {
-	asm volatile (
-		//"MOV  R1, #0x78           \n" // OFW was setting bit 3:6 only (reserved)
-		"MOV    R1, #0              \n" // we set few bits more
-		//"MRC  p15, 0, R1,c1,c0, 0 \n"
-
-		"ORR    R1, R1, #0x01       \n" // MPU - we need it, otherwise it will disable the caches
-		"ORR    R1, R1, #0x04       \n" // D Cache - w/o this the data is slow
-		"ORR    R1, R1, #0x08       \n" // reserved - OFW requested
-		"ORR    R1, R1, #0x10       \n" // reserved - OFW requested
-		"ORR    R1, R1, #0x20       \n" // reserved - OFW requested
-		"ORR    R1, R1, #0x40       \n" // reserved - OFdmProcInitW requested
-		"ORR    R1, R1, #0x1000     \n" // I Cache - we wont have cache hacks w/o this
-		"ORR    R1, R1, #0x10000    \n" // D TCM - these would be set by the OFW later
-		"ORR    R1, R1, #0x40000    \n" // I TCM - these would be set by the OFW later
-		"MCR    p15, 0, R1,c1,c0, 0 \n"
-	);
-}
-#endif
 
