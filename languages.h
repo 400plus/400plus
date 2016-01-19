@@ -149,7 +149,7 @@
 	LANG_PAIR( V_DIM,                "Dim down"                  ) \
 	LANG_PAIR( V_INTISO,             "Intermediate ISO"          ) \
 	LANG_PAIR( V_REPEAT,             "Repeat last script"        ) \
-	LANG_PAIR( V_HACK_MENU,          "400Plus Main Menu"         ) \
+	LANG_PAIR( V_HACK_MENU,          "400plus Main Menu"         ) \
 	LANG_PAIR( V_TOGGLE_FLASH,       "Flash on/off"              ) \
 	LANG_PAIR( S_CMODE_NAME ,        "Custom mode"               ) \
 	LANG_PAIR( S_INFINITE,           "INF!"                      ) \
