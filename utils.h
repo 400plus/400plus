@@ -29,7 +29,6 @@
 #define TIME_RESOLUTION 1000
 
 #define BEEP_LED_LENGTH  25
-#define INTERCOM_WAIT     1
 #define EVENT_WAIT        5
 #define RELEASE_WAIT    250
 
@@ -52,8 +51,6 @@ extern void dump_memory         (void);
 extern void dump_memory_after_5s(void);
 
 extern void print_info(void);
-
-extern int send_to_intercom(int message, int parm);
 
 extern void wait_for_camera(void);
 

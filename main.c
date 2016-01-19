@@ -3,22 +3,10 @@
 #include "macros.h"
 #include "firmware.h"
 
-#include "actions.h"
-#include "autoiso.h"
-#include "af_patterns.h"
+#include "cache_hacks.h"
 #include "button.h"
-#include "cmodes.h"
 #include "display.h"
-#include "exposure.h"
-#include "fexp.h"
-#include "languages.h"
-#include "menu.h"
-#include "menu_main.h"
-#include "menu_rename.h"
-#include "msm.h"
-#include "persist.h"
-#include "utils.h"
-#include "viewfinder.h"
+#include "intercom.h"
 
 #include "main.h"
 
@@ -40,112 +28,157 @@ status_t status = {
 	vf_status         : VF_STATUS_NONE,
 };
 
-// Proxy listeners
-int proxy_script_restore (char *message);
-int proxy_script_stop    (char *message);
-int proxy_set_language   (char *message);
-int proxy_dialog_enter   (char *message);
-int proxy_dialog_exit    (char *message);
-int proxy_dialog_afoff   (char *message);
-int proxy_measuring      (char *message);
-int proxy_measurement    (char *message);
-int proxy_shoot_start    (char *message);
-int proxy_shoot_finish   (char *message);
-int proxy_settings0      (char *message);
-int proxy_settings3      (char *message);
-int proxy_button         (char *message);
-int proxy_wheel          (char *message);
-int proxy_initialize     (char *message);
-int proxy_tv             (char *message);
-int proxy_av             (char *message);
-int proxy_aeb            (char *message);
+void hack_relocate   (void);
+void cache_hacks     (void);
 
-proxy_t listeners_script[0x100] = {
-	[IC_SHUTDOWN]    = proxy_script_restore,
-	[IC_SHOOT_START] = proxy_shoot_start,
-	[IC_BUTTON_DP]   = proxy_script_stop,
-};
+void disable_cache_clearing (void);
 
-proxy_t listeners_menu[0x100] = {
-	[IC_DIALOGOFF]     = proxy_dialog_exit,
-	[IC_BUTTON_WHEEL]  = proxy_wheel,
-	[IC_BUTTON_DISP]   = proxy_button,
-	[IC_BUTTON_SET]    = proxy_button,
-	[IC_BUTTON_RIGHT]  = proxy_button,
-	[IC_BUTTON_LEFT]   = proxy_button,
-	[IC_BUTTON_DP]     = proxy_button,
-	[IC_BUTTON_AV]     = proxy_button,
-};
+void hack_dmProcInit                (void);
+int  hack_register_gui_idle_handler (void *org_proc, int zero);
+int  hack_init_intercom_data        (void *old_proc);
+void hack_StartConsole              (void);
 
-proxy_t listeners_main[0x100] = {
-	[IC_SET_TV_VAL]    = proxy_tv,
-	[IC_SET_AV_VAL]    = proxy_av,
-	[IC_SET_AE_BKT]    = proxy_aeb,
-	[IC_SET_LANGUAGE]  = proxy_set_language,
-	[IC_DIALOGON]      = proxy_dialog_enter,
-	[IC_MEASURING]     = proxy_measuring,
-	[IC_MEASUREMENT]   = proxy_measurement,
-	[IC_SHOOT_FINISH]  = proxy_shoot_finish,
-	[IC_UNKNOWN_8D]    = proxy_initialize,
-	[IC_SETTINGS_0]    = proxy_settings0,
-	[IC_SETTINGS_3]    = proxy_settings3,
-	[IC_AFPDLGOFF]     = proxy_dialog_afoff,
-	[IC_BUTTON_WHEEL]  = proxy_wheel,
-	[IC_BUTTON_DISP]   = proxy_button,
-	[IC_BUTTON_SET]    = proxy_button,
-	[IC_BUTTON_UP]     = proxy_button,
-	[IC_BUTTON_DOWN]   = proxy_button,
-	[IC_BUTTON_RIGHT]  = proxy_button,
-	[IC_BUTTON_LEFT]   = proxy_button,
-	[IC_BUTTON_DP]     = proxy_button,
-	[IC_BUTTON_AV]     = proxy_button,
-};
-
-button_t message2button[0x100] = {
-	[IC_BUTTON_DISP]   = BUTTON_DISP,
-	[IC_BUTTON_SET]    = BUTTON_SET,
-	[IC_BUTTON_UP]     = BUTTON_UP,
-	[IC_BUTTON_DOWN]   = BUTTON_DOWN,
-	[IC_BUTTON_RIGHT]  = BUTTON_RIGHT,
-	[IC_BUTTON_LEFT]   = BUTTON_LEFT,
-	[IC_BUTTON_DP]     = BUTTON_DP,
-	[IC_BUTTON_AV]     = BUTTON_AV,
-};
+void hack_pre_init_hook  (void);
+void hack_post_init_hook (void);
 
 void action_dispatcher(void);
-void message_logger   (char *message);
 
-void initialize() {
+// 400plus entry point
+int main(void) {
+	// If TRASH button is pressed, do not initialize 400plus at all
+	if (BTN_TRASH != BTN_PRESSED) {
+		// Switch blue LED on, it will be switched back off after initialization
+		LEDBLUE = LEDON;
+
+		// COPY the hack to our memory
+		hack_relocate();
+
+		// hack the caches
+		cache_hacks();
+	}
+
+	// Jump to Original FirmWare's entry point
+	ofw_entry_point();
+
+	// We never reach this line
+	return 0;
+}
+
+// 0xAF: check the devinfo for more details on why this routine is needed
+void hack_relocate(void) {
+	int i;
+
+	long *from = (long*) 0x800000;
+	long *to   = (long*) 0x7E0000;
+
+	for (i = 0; i < 0x8000; i++) {
+		to[i] = from[i];
+	}
+}
+
+void cache_hacks(void) {
+	flush_caches();
+
+	// lock the caches so nobody replaces our hacks
+	cache_lock();
+
+	// prevent the OFW from clearing the caches
+	disable_cache_clearing();
+
+	// OFW allocates main heap from addr:0x200000 to addr:0x800000
+	// we place our hack at the last 128kb (0x20000) of this space, at addr: 0x7E0000 (see hack_relocate())
+	// the original instruction was: MOV R1, #0x800000
+	// we change it to: MOV R1, #0x7E0000 (in binary the instruction looks like: 0xE3A0187E)
+	cache_fake(0xFF811318, 0xE3A0187E, TYPE_ICACHE);
+
+	// hookup to dmProcInit(), so we can enable massive debug and run our hack_pre_init_hook
+	cache_fake(0xFF8111AC, BL_INSTR(0xFF8111AC, &hack_dmProcInit), TYPE_ICACHE);
+
+	// hookup our MainCtrlInit
+	//cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
+
+#ifdef ENABLE_DEBUG
+	// hookup our GUI_IdleHandler
+	cache_fake(0xFF82A4F0, BL_INSTR(0xFF82A4F0, &hack_register_gui_idle_handler), TYPE_ICACHE);
+#endif
+
+	// hookup our Intercom
+	cache_fake(0xFFA5D590, BL_INSTR(0xFFA5D590, &hack_init_intercom_data), TYPE_ICACHE);
+
+	// hookup StartConsole, so we can run our hack_post_init_hook
+	cache_fake(0xFF8112E8, BL_INSTR(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
+
+	// Hack items in dialogs
+	cache_fake(0xFF838300, BL_INSTR(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
+	cache_fake(0xFF837FEC, BL_INSTR(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
+}
+
+void disable_cache_clearing(void) {
+	cache_fake(0xFF8101A0, NOP_INSTR, TYPE_ICACHE); // i cache
+	cache_fake(0xFFB3736C, NOP_INSTR, TYPE_ICACHE); // i cache
+	cache_fake(0xFFB37378, NOP_INSTR, TYPE_ICACHE); // i cache
+	cache_fake(0xFFB373EC, NOP_INSTR, TYPE_ICACHE); // i cache
+}
+
+void hack_dmProcInit(void) {
+	dmProcInit();
+
+#ifdef ENABLE_MASSIVE_DEBUG
+	// the 2nd level is 32 flags for debug classes
+	// the 3rd arg is log level, 0 == full debug, >0 == less debug
+	dmSetStoreLevel(hDbgMgr, 0xFF, 0);
+	dmSetPrintLevel(hDbgMgr, 0xFF, 0);
+#endif
+
+	hack_pre_init_hook();
+}
+
+int hack_register_gui_idle_handler(void * org_proc, int zero) {
+	return CreateCtrlMain(&hack_GUI_IDLEHandler, zero);
+}
+
+int hack_init_intercom_data(void *old_proc) {
+	return InitIntercomData(intercom_proxy);
+}
+
+void hack_StartConsole(void) {
+	hack_post_init_hook();
+
+	// StartConsole does not return
+	StartConsole();
+}
+
+// this is ran in the beginning of the OFW's task init process
+void hack_pre_init_hook(void) {
 	action_queue = (int*)CreateMessageQueue("action_queue", 0x40);
 	CreateTask("Action Dispatcher", 25, 0x2000, action_dispatcher, 0);
 }
 
-void intercom_proxy(const int handler, char *message) {
-	proxy_t  listener;
-	proxy_t *listeners;
+// we can run extra code at the end of the OFW's task init
+void hack_post_init_hook(void) {
+	// Inject our hacked_TransferScreen
+	//TransferScreen = hack_TransferScreen;
 
-#ifdef ENABLE_DEBUG
-	message_logger(message);
-#endif
+	//cache_fake(0xFF92DA50, BL_INSTR(0xFF92DA50, &hack_FF92E704), TYPE_ICACHE);
+	//cache_fake(0xFF92DA88, BL_INSTR(0xFF92DA88, &hack_FF92E4C4), TYPE_ICACHE);
 
-	if (status.ignore_msg == message [1]) {
-		status.ignore_msg = FALSE;
-	} else {
-		// Fast path for the case of a running script
-		if (status.script_running)
-			listeners = listeners_script;
-		else if (status.menu_running)
-			listeners = listeners_menu;
-		else
-			listeners = listeners_main;
+	// Inject hack_send_jump_and_trash_buttons
+	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
+/*
+	// take over the vram copy locations, so we can invert the screen
+	cache_fake(0xFF92C5D8, BL_INSTR(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
+	cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
+*/
+	// prevent screen turn off on ptp (to see the debug on lcd)
+	cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE);
 
-		if ((listener = listeners[message[1]]) != NULL)
-			if (listener(message))
-				return;
-	}
-
-	IntercomHandler(handler, message);
+	// these freezes the usb communication
+	//cache_fake(0xFF81B9D0, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
+	//cache_fake(0xFF81B400, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
+	//cache_fake(0xFF9DDB24, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
 }
+
+// Our own thread uses this dispatcher to execute tasks
 
 void action_dispatcher(void) {
 	action_t action;
@@ -160,167 +193,3 @@ void action_dispatcher(void) {
 void enqueue_action(action_t action) {
 	TryPostMessageQueue(action_queue, (action), FALSE);
 }
-
-void message_logger(char *message) {
-	int i;
-	char text[256];
-	static int id = 0;
-
-	for (i = 0; i < message[0]; i++)
-		sprintf(text + 3 * i, "%02X ", message[i]);
-
-	printf_log(8, 8, "[400plus-MSG%04d-%02X]: %s", id++, FLAG_GUI_MODE, text);
-}
-
-int proxy_script_restore(char *message) {
-	script_restore();
-
-	return FALSE;
-}
-
-int proxy_script_stop(char *message) {
-	status.script_stopping = TRUE;
-
-	return TRUE;
-}
-
-int proxy_set_language(char *message) {
-	enqueue_action(lang_pack_config);
-
-	return FALSE;
-}
-
-int proxy_dialog_enter(char *message) {
-	status.afp_dialog = (message[2] == IC_SET_AF);
-
-	return FALSE;
-}
-
-int proxy_dialog_exit(char *message) {
-	enqueue_action(menu_event_finish);
-
-	return FALSE;
-}
-
-int proxy_dialog_afoff(char *message) {
-	if (status.afp_dialog) {
-		// Open Extended AF-Point selection dialog
-		message[1] = IC_AFPDLGON;
-		status.afp_dialog = FALSE;
-		enqueue_action(afp_enter);
-	}
-
-	return FALSE;
-}
-
-int proxy_measuring(char *message) {
-	status.measuring = message[2];
-
-	return FALSE;
-}
-
-int proxy_measurement(char *message) {
-	if (status.measuring) {
-		status.measured_tv = message[2];
-		status.measured_av = message[3];
-		status.measured_ec = message[4];
-
-		if (settings.autoiso_enable)
-			enqueue_action(autoiso);
-	}
-
-	return FALSE;
-}
-
-int proxy_shoot_start(char *message) {
-	status.last_shot_tv = message[2];
-	status.last_shot_av = message[3];
-
-	return FALSE;
-}
-
-int proxy_shoot_finish(char *message) {
-	status.last_shot_fl = message[2] | (message[3] << 8);
-
-	if (status.msm_active)
-		enqueue_action(msm_stop);
-
-	return FALSE;
-}
-
-int proxy_initialize(char *message) {
-	static int first = TRUE;
-
-	if (first) {
-		first = FALSE;
-
-		enqueue_action(start_up);
-	}
-
-	return FALSE;
-}
-
-int proxy_settings0(char *message) {
-	static int first = TRUE;
-
-	if (!status.msm_active)
-		status.main_dial_ae = message[2];
-
-	if (first) {
-		first = FALSE;
-	} else {
-		if (status.fexp)
-			fexp_disable();
-
-		if (!status.msm_active)
-			enqueue_action(cmode_apply);
-	}
-
-	return FALSE;
-}
-
-int proxy_settings3(char *message) {
-//	enqueue_action(restore_display);
-
-	if (settings.autoiso_enable)
-		enqueue_action(autoiso_restore);
-
-	return FALSE;
-}
-
-int proxy_button(char *message) {
-	return button_handler(message2button[message[1]], message[0] > 3 ? message[2] : TRUE);
-}
-
-int proxy_wheel(char *message) {
-	return button_handler((message[2] & 0x80) ? BUTTON_WHEEL_LEFT : BUTTON_WHEEL_RIGHT, TRUE);
-}
-
-int proxy_av(char *message) {
-	if (status.fexp)
-		enqueue_action(fexp_update_tv);
-
-	return FALSE;
-}
-
-int proxy_tv(char *message) {
-	if (settings.autoiso_enable)
-		enqueue_action(autoiso_restore);
-
-	if (status.fexp)
-		enqueue_action(fexp_update_av);
-
-	return FALSE;
-}
-
-int proxy_aeb(char *message) {
-	persist.aeb = message[2];
-
-	if (persist.aeb)
-		persist.last_aeb = persist.aeb;
-
-	enqueue_action(persist_write);
-
-	return FALSE;
-}
-

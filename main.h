@@ -7,7 +7,6 @@
 
 // Action definitions
 typedef void(*action_t)(void);
-typedef int (*proxy_t) (char*);
 
 typedef enum {
 	VF_STATUS_NONE,
@@ -43,10 +42,7 @@ typedef struct {
 
 // Our own code
 extern void initialize(void);
-extern void intercom_proxy(const int handler, char *message);
 extern void enqueue_action(action_t action);
-extern void hack_MainCtrlInit(void);
-extern void hack_GUIInit(void);
 
 // Shared globals
 extern status_t status;
