@@ -159,7 +159,7 @@ void message_logger(char *message) {
 	for (i = 0; i < message[0]; i++)
 		sprintf(text + 3 * i, "%02X ", message[i]);
 
-	printf_log(8, 8, "[400plus-MSG%04d-%02X]: %s", id++, FLAG_GUI_MODE, text);
+	debug_log("MSG%04d-%02X: %s", id++, FLAG_GUI_MODE, text);
 }
 
 int proxy_script_restore(char *message) {

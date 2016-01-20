@@ -152,9 +152,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 pass_event:
 	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
 
-#ifdef ENABLE_DEBUG
-	printf_log(1,6, "_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
-#endif
+	debug_log("_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
 
 	return ret;
 }
