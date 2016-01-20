@@ -16,7 +16,6 @@
 #include "scripts.h"
 #include "settings.h"
 #include "utils.h"
-#include "ptp.h"
 
 #include "actions.h"
 
