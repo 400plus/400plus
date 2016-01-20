@@ -29,7 +29,7 @@ int hack_state_transition(
 	//PTP_ResetUILock(0);
 
 	lcd_printf(0, l % 20, "[%03d] O:%08X R:%08X N:%08X", l, old_state, res, new_state);
-	printf_log(8,8, "[400Plus-PTP] [%03d] O:%08X R:%08X N:%08X", l, old_state, res, new_state);
+	printf_log(8,8, "[400plus-PTP] [%03d] O:%08X R:%08X N:%08X", l, old_state, res, new_state);
 	//bmp_hexdump(VramAddress, FONT_SMALL, 0, l*16, a4, 64);
 
 	l++;

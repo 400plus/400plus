@@ -13,12 +13,9 @@
 #include "debug.h"
 
 #include "firmware.h"
-#include "firmware/camera.h"
+//#include "firmware/camera.h"
 
 #include "utils.h"
-
-void lock_sutter     (void);
-void wait_for_shutter(void);
 
 void display_float(char *dest, float value);
 
@@ -182,122 +179,6 @@ void start_debug_mode() {
 	printf("\n");
 
 	beep();
-}
-
-int send_to_intercom(int message, int parm) {
-	int result, length = 1;
-
-	switch (message) {
-	case IC_SET_AE:
-		status.ignore_msg = IC_SETTINGS_0;
-		break;
-	case IC_SET_AV_VAL:
-	case IC_SET_TV_VAL:
-		status.ignore_msg = message;
-		break;
-	case IC_RELEASE:
-	case IC_SET_REALTIME_ISO_0:
-	case IC_SET_REALTIME_ISO_1:
-		length = 0;
-		break;
-	case IC_SET_ISO:
-	case IC_SET_AF_POINT:
-	case IC_SET_COLOR_TEMP:
-		length = 2;
-		break;
-	}
-
-	result = SendToIntercom(message, length, parm);
-	SleepTask(INTERCOM_WAIT);
-
-	return result;
-}
-
-#if 0
-// this is a disassembled version of eventproc_release()
-int shutter_release_disasm() {
-
-	extern char * aRelSem;
-
-	if (hRelSem == 0) {
-		hRelSem = CreateBinarySemaphore(aRelSem, 0);
-	}
-
-	SendToIntercom(IC_RELEASE, 0, 0);
-	SendToIntercom(0x6D, 1, 1); // set burst counter
-
-	TakeSemaphore(hRelSem, 30000);
-	DeleteSemaphore(hRelSem);
-	hRelSem = 0;
-
-	SleepTask(EVENT_WAIT); // we added this
-	return 0;
-}
-#endif
-
-void lock_sutter(void) {
-	shutter_lock = TRUE;
-}
-
-void wait_for_shutter(void) {
-	while (shutter_lock)
-		SleepTask(RELEASE_WAIT);
-}
-
-void wait_for_camera() {
-	while (! able_to_release())
-		SleepTask(RELEASE_WAIT);
-}
-
-int shutter_release() {
-	wait_for_camera();
-	lock_sutter    ();
-
-	int result = press_button(IC_BUTTON_FULL_SHUTTER);
-
-	if (DPData.drive == DRIVE_MODE_TIMER)
-		SleepTask(SELF_TIMER_MS);
-
-	wait_for_shutter();
-
-	return result;
-}
-
-int shutter_release_bulb(int time) {
-	static int first = TRUE;
-
-	int  button;
-	long delay;
-
-	int shutter_lag, mirror_lag;
-
-	if (first) {
-		first = FALSE;
-		shutter_lag = SHUTTER_LAG_1ST;
-		mirror_lag  = MIRROR_LAG_1ST;
-	} else {
-		shutter_lag = SHUTTER_LAG_2ND;
-		mirror_lag  = MIRROR_LAG_2ND;
-	}
-
-	if (DPData.drive == DRIVE_MODE_TIMER) {
-		button = IC_BUTTON_FULL_SHUTTER;
-		delay  = time + shutter_lag + mirror_lag;
-	} else {
-		button = IC_BUTTON_HALF_SHUTTER;
-		delay  = time + shutter_lag;
-	}
-
-	wait_for_camera();
-	lock_sutter    ();
-
-	press_button(button);
-	SleepTask   (delay);
-	press_button(button);
-
-	wait_for_shutter();
-
-	return 0;
 }
 
 int print_icu_info() {

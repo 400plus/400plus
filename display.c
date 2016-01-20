@@ -174,21 +174,21 @@ void display_message_set(char *message, int timeout) {
 
 int hack_TransferScreen(int r0, int r1, int r2, int r3) {
 #ifdef ENABLE_DEBUG
-	printf_log(8, 8, "[400Plus-TEST0] 0x%08X, 0x%08X, 0x%08X, 0x%08X", r0, r1, r2, r3);
+	printf_log(8, 8, "[400plus-TEST0] 0x%08X, 0x%08X, 0x%08X, 0x%08X", r0, r1, r2, r3);
 #endif
 	return TransferNormalScreen(r0, r1, r2, r3);
 }
 
 int hack_FF92E704 (int r0, int r1, int r2, int r3) {
 #ifdef ENABLE_DEBUG
-	printf_log(8, 8, "[400Plus-TEST1] 0x%08X, 0x%08X, 0x%08X, 0x%08X", r0, r1, r2, r3);
+	printf_log(8, 8, "[400plus-TEST1] 0x%08X, 0x%08X, 0x%08X, 0x%08X", r0, r1, r2, r3);
 #endif
 	return sub_FF92E704(r0, r1, r2, r3);
 }
 
 int hack_FF92E4C4 (int r0, int r1, int r2, int r3) {
 #ifdef ENABLE_DEBUG
-	printf_log(8, 8, "[400Plus-TEST2] 0x%08X, 0x%08X, 0x%08X, 0x%08X", r0, r1, r2, r3);
+	printf_log(8, 8, "[400plus-TEST2] 0x%08X, 0x%08X, 0x%08X, 0x%08X", r0, r1, r2, r3);
 #endif
 	display_overlay((uint8_t*)(r3 + 0x78));
 	return sub_FF92E4C4(r0, r1, r2, r3);
@@ -196,7 +196,7 @@ int hack_FF92E4C4 (int r0, int r1, int r2, int r3) {
 
 #ifdef ENABLE_DEBUG
 int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
-	printf_log(8, 8, "[400Plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
+	printf_log(8, 8, "[400plus-IDLE] 0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
 
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }

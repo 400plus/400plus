@@ -259,7 +259,7 @@ int button_handler(button_t button, int is_button_down) {
 
 void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
 #ifdef ENABLE_DEBUG
-	printf_log(1, 6, "[400Plus-JMP-TRS] r0=%x, r1=%x, button=%x", r0, r1, button);
+	printf_log(1, 6, "[400plus-JMP-TRS] r0=%x, r1=%x, button=%x", r0, r1, button);
 #endif
 	switch (button) {
 	case 4: // JUMP_UP

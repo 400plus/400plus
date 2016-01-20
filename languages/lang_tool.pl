@@ -5,7 +5,7 @@
 #
 # Author: Stanislav Lechev [0xAF.org] <firedust@gmail.com>
 #
-# this tool is used in 400Plus project to generate the languages.ini file.
+# this tool is used in 400plus project to generate the languages.ini file.
 # http://code.google.com/p/400plus
 #
 # If you need some new functionality in this script, please fill a new issue with request/patch:
@@ -58,7 +58,7 @@ GetOptions (
 ) || pod2usage(1);
 #}}}
 
-info("lang_tool.pl - Language tool for 400Plus project. http://code.google.com/p/400plus\n\n");
+info("lang_tool.pl - Language tool for 400plus project. http://code.google.com/p/400plus\n\n");
 
 # parse header file {{{
 my %lang_keys;
@@ -205,7 +205,7 @@ __END__
 
 =head1 NAME
 
-lang_tool.pl - Tool to verify language files and generate languages.ini for 400Plus project.
+lang_tool.pl - Tool to verify language files and generate languages.ini for 400plus project.
 
 =head1 SYNOPSIS
 
@@ -273,8 +273,8 @@ The output file B<languages.ini>.
 
 =head1 DESCRIPTION
 
-B<lang_too.pl> will check the language files and generate the I<languages.ini> for B<400Plus> project.
-For more information about B<400Plus>, check: http://code.google.com/p/400plus
+B<lang_too.pl> will check the language files and generate the I<languages.ini> for B<400plus> project.
+For more information about B<400plus>, check: http://code.google.com/p/400plus
 
 =cut
 

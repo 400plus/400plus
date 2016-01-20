@@ -19,8 +19,8 @@ typedef enum {
 
 #ifdef ENABLE_DEBUG
 
-#define debug_log(f, p...) printf_log(8, 8, "[400Plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
-#define debug_printf(f, p...) printf("\n[400Plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
+#define debug_log(f, p...) printf_log(8, 8, "[400plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
+#define debug_printf(f, p...) printf("\n[400plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
 
 #define blink_cycles 1000000
 #define blink_red() do { int i; LEDRED=LEDON; for (i=0;i<blink_cycles; i++); LEDRED=LEDOFF; for (i=0;i<blink_cycles; i++); } while (0)

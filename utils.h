@@ -1,7 +1,7 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
-#define PathBase    "A:/400Plus/"
+#define PathBase    "A:/400PLUS/"
 #define PathLogs    PathBase "logs/"
 #define PathLang    PathBase "lang/"
 #define PathPresets PathBase "presets/"
@@ -29,7 +29,6 @@
 #define TIME_RESOLUTION 1000
 
 #define BEEP_LED_LENGTH  25
-#define INTERCOM_WAIT     1
 #define EVENT_WAIT        5
 #define RELEASE_WAIT    250
 
@@ -52,13 +51,6 @@ extern void dump_memory         (void);
 extern void dump_memory_after_5s(void);
 
 extern void print_info(void);
-
-extern int send_to_intercom(int message, int parm);
-
-extern void wait_for_camera(void);
-
-extern int  shutter_release      (void);
-extern int  shutter_release_bulb(int time);
 
 extern int  print_icu_info(void);
 extern int  press_button  (int button);

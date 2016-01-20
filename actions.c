@@ -6,7 +6,6 @@
 #include "firmware.h"
 
 #include "bmp.h"
-#include "cmodes.h"
 #include "debug.h"
 #include "display.h"
 #include "exposure.h"
@@ -33,100 +32,6 @@ void dev_btn_action() {
 	ptp_dump_info();
 }
 #endif
-
-void start_up() {
-
-#if 0
-	debug_log("AF: Creating directories (%#x)", GetErrorNum());
-
-	if (FIO_CreateDirectory(PathBase))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathBase ")", GetErrorNum());
-	if (FIO_CreateDirectory(PathLogs))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathLogs ")", GetErrorNum());
-	if (FIO_CreateDirectory(PathLang))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathLang ")", GetErrorNum());
-	if (FIO_CreateDirectory(PathPresets))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathPresets ")", GetErrorNum());
-#endif
-
-	// Recover persisting information
-	persist_read();
-
-	// Read settings from file
-	settings_read();
-
-	// If configured, start debug mode
-	if (settings.debug_on_poweron)
-		start_debug_mode();
-
-	// If configured, restore AEB
-	if (settings.persist_aeb)
-		send_to_intercom(IC_SET_AE_BKT, persist.aeb);
-
-	// Enable IR remote
-	// i'm not sure where to call this? perhaps this isn't the right place.
-	if (settings.remote_enable)
-		remote_on();
-
-	// Enable extended ISOs
-	// Enable (hidden) CFn.8 for ISO H
-	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1);
-
-	// Enable realtime ISO change
-	send_to_intercom(IC_SET_REALTIME_ISO_0, 0);
-	send_to_intercom(IC_SET_REALTIME_ISO_1, 0);
-
-	// turn off the blue led after it was lighten by our hack_task_MainCtrl()
-	eventproc_EdLedOff();
-
-	// Set current language
-	enqueue_action(lang_pack_init);
-
-	// Read custom modes configuration from file
-	enqueue_action(cmodes_read);
-
-	// And optionally apply a custom mode
-	enqueue_action(cmode_recall);
-
-#ifdef MEMSPY
-	debug_log("starting memspy task");
-	CreateTask("memspy", 0x1e, 0x1000, memspy_task, 0);
-#endif
-
-#if 0
-	debug_log("=== DUMPING DDD ===");
-	printf_DDD_log( (void*)(int)(0x00007604+0x38) );
-
-	debug_log("maindlg @ 0x%08X, handler @ 0x%08X", hMainDialog, hMainDialog->event_handler);
-
-	debug_log("dumping");
-	long *addr   = (long*) 0x7F0000;
-
-	int file = FIO_OpenFile("A:/dump.bin", O_CREAT | O_WRONLY , 644);
-
-	if (file != -1) {
-		FIO_WriteFile(file, addr, 0xFFFF);
-		FIO_CloseFile(file);
-		beep();
-	}
-#endif
-#ifdef DEBUG
-    DIR *dirp;
-    struct dirent *dp;
-
-	if ((dirp = opendir("A:\\")) == NULL) {
-		printf_log(8,8, "[400plus-DIR]: opendir error");
-        return;
-    }
-
-    do {
-        if ((dp = readdir(dirp)) != NULL)
-    		printf_log(8,8, "[400plus-DIR]: found '%s'", dp->d_name);
-    } while (dp != NULL);
-
-    closedir(dirp);
-#endif
-}
 
 void set_metering_spot() {
 	press_button(IC_BUTTON_SET);
@@ -159,12 +64,12 @@ void set_intermediate_iso() {
 
 void drivemode_set() {
 	if (settings.remote_enable) {
-		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote enable");
+		printf_log(8,8, "[400plus-DRIVE]: re-setting IR remote enable");
 		remote_on();
 	}
 
 	if (settings.remote_delay) {
-		printf_log(8,8, "[400Plus-DRIVE]: re-setting IR remote delay");
+		printf_log(8,8, "[400plus-DRIVE]: re-setting IR remote delay");
 		remote_delay(TRUE);
 	}
 }
