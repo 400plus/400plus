@@ -4,8 +4,6 @@
 #define ACTION_MSG_TIMEOUT 2000
 #define ACTION_AEB_TIMEOUT 1500
 
-extern void start_up(void);
-
 extern void dp_action(void);
 
 extern void toggle_img_format     (void);

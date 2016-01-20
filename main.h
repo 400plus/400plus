@@ -41,8 +41,9 @@ typedef struct {
 } status_t;
 
 // Our own code
-extern void initialize(void);
-extern void enqueue_action(action_t action);
+extern void enqueue_action (action_t action);
+extern void start_up       (void);
+
 
 // Shared globals
 extern status_t status;

@@ -7,6 +7,9 @@
 #include "button.h"
 #include "display.h"
 #include "intercom.h"
+#include "settings.h"
+#include "persist.h"
+#include "cmodes.h"
 
 #include "main.h"
 
@@ -164,11 +167,11 @@ void hack_post_init_hook(void) {
 
 	// Inject hack_send_jump_and_trash_buttons
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
-/*
+
 	// take over the vram copy locations, so we can invert the screen
-	cache_fake(0xFF92C5D8, BL_INSTR(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
-	cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
-*/
+	//cache_fake(0xFF92C5D8, BL_INSTR(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
+	//cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
+
 	// prevent screen turn off on ptp (to see the debug on lcd)
 	cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE);
 
@@ -192,4 +195,97 @@ void action_dispatcher(void) {
 
 void enqueue_action(action_t action) {
 	TryPostMessageQueue(action_queue, (action), FALSE);
+}
+
+void start_up() {
+#if 0
+	debug_log("AF: Creating directories (%#x)", GetErrorNum());
+
+	if (FIO_CreateDirectory(PathBase))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathBase ")", GetErrorNum());
+	if (FIO_CreateDirectory(PathLogs))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathLogs ")", GetErrorNum());
+	if (FIO_CreateDirectory(PathLang))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathLang ")", GetErrorNum());
+	if (FIO_CreateDirectory(PathPresets))
+		printf_log(8,8,"Error[%#x]: CreateDir(" PathPresets ")", GetErrorNum());
+#endif
+
+	// Recover persisting information
+	persist_read();
+
+	// Read settings from file
+	settings_read();
+
+	// If configured, start debug mode
+	if (settings.debug_on_poweron)
+		start_debug_mode();
+
+	// If configured, restore AEB
+	if (settings.persist_aeb)
+		send_to_intercom(IC_SET_AE_BKT, persist.aeb);
+
+	// Enable IR remote
+	// i'm not sure where to call this? perhaps this isn't the right place.
+	if (settings.remote_enable)
+		remote_on();
+
+	// Enable extended ISOs
+	// Enable (hidden) CFn.8 for ISO H
+	send_to_intercom(IC_SET_CF_EXTEND_ISO, 1);
+
+	// Enable realtime ISO change
+	send_to_intercom(IC_SET_REALTIME_ISO_0, 0);
+	send_to_intercom(IC_SET_REALTIME_ISO_1, 0);
+
+	// Set current language
+	enqueue_action(lang_pack_init);
+
+	// Read custom modes configuration from file
+	enqueue_action(cmodes_read);
+
+	// And optionally apply a custom mode
+	enqueue_action(cmode_recall);
+
+#ifdef MEMSPY
+	debug_log("starting memspy task");
+	CreateTask("memspy", 0x1e, 0x1000, memspy_task, 0);
+#endif
+
+#if 0
+	debug_log("=== DUMPING DDD ===");
+	printf_DDD_log( (void*)(int)(0x00007604+0x38) );
+
+	debug_log("maindlg @ 0x%08X, handler @ 0x%08X", hMainDialog, hMainDialog->event_handler);
+
+	debug_log("dumping");
+	long *addr   = (long*) 0x7F0000;
+
+	int file = FIO_OpenFile("A:/dump.bin", O_CREAT | O_WRONLY , 644);
+
+	if (file != -1) {
+		FIO_WriteFile(file, addr, 0xFFFF);
+		FIO_CloseFile(file);
+		beep();
+	}
+#endif
+#ifdef DEBUG
+    DIR *dirp;
+    struct dirent *dp;
+
+	if ((dirp = opendir("A:\\")) == NULL) {
+		printf_log(8,8, "[400plus-DIR]: opendir error");
+        return;
+    }
+
+    do {
+        if ((dp = readdir(dirp)) != NULL)
+    		printf_log(8,8, "[400plus-DIR]: found '%s'", dp->d_name);
+    } while (dp != NULL);
+
+    closedir(dirp);
+#endif
+
+    // turn off the blue led after it was lighten by our hack_task_MainCtrl()
+	eventproc_EdLedOff();
 }
