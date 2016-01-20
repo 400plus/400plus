@@ -52,11 +52,6 @@ extern void dump_memory_after_5s(void);
 
 extern void print_info(void);
 
-extern void wait_for_camera(void);
-
-extern int  shutter_release      (void);
-extern int  shutter_release_bulb(int time);
-
 extern int  print_icu_info(void);
 extern int  press_button  (int button);
 
