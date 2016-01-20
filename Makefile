@@ -6,11 +6,11 @@ ifndef CROSS_COMPILE
 endif
 
 ifdef RELEASE
-	VERSION := V-$(RELEASE)
+	VERSION := VER-$(RELEASE)
 	RELNAME := 400plus-$(RELEASE)
 	D_FLAGS := -DRELEASE
 else
-	VERSION := $(shell echo "B-`date +'%Y%m%d'`")
+	VERSION := REV-$(shell git rev-parse --short HEAD)
 	D_FLAGS := 
 endif
 
