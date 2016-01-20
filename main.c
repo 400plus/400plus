@@ -269,7 +269,7 @@ void start_up() {
 		beep();
 	}
 #endif
-#ifdef DEBUG
+#ifdef DEBUG_
     DIR *dirp;
     struct dirent *dp;
 

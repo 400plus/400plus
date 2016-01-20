@@ -11,7 +11,7 @@ ifdef RELEASE
 	D_FLAGS := -DRELEASE
 else
 	VERSION := REV-$(shell git rev-parse --short HEAD)
-	D_FLAGS := 
+	D_FLAGS :=
 endif
 
 USE_FONTS := -DUSE_FONT_SMALL

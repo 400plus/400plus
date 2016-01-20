@@ -20,11 +20,10 @@ typedef enum {
 #ifdef ENABLE_DEBUG
 
 #define debug_log(f, p...) printf_log(8, 8, "[400plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
-#define debug_printf(f, p...) printf("\n[400plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
 
 #define blink_cycles 1000000
-#define blink_red() do { int i; LEDRED=LEDON; for (i=0;i<blink_cycles; i++); LEDRED=LEDOFF; for (i=0;i<blink_cycles; i++); } while (0)
-#define blink_blue() do { int i; LEDBLUE=LEDON; for (i=0;i<blink_cycles; i++); LEDBLUE=LEDOFF; for (i=0;i<blink_cycles; i++); } while(0)
+#define blink_red()  do { int i; LEDRED  = LEDON; for (i=0;i<blink_cycles; i++); LEDRED  = LEDOFF; for (i=0;i<blink_cycles; i++); } while(0)
+#define blink_blue() do { int i; LEDBLUE = LEDON; for (i=0;i<blink_cycles; i++); LEDBLUE = LEDOFF; for (i=0;i<blink_cycles; i++); } while(0)
 
 const char * debug_mc_name(int event);
 const char * debug_btn_name(int btn);
@@ -34,10 +33,6 @@ void dump_dpr_data();
 #else // ENABLE_DEBUG
 
 #define debug_log(...)
-#define debug_printf(...)
-//#define debug_mc_name(...) ""
-//#define debug_btn_name(...) ""
-//#define debug_gui_name(...) ""
 
 #endif // ENABLE_DEBUG
 
