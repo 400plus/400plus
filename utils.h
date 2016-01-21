@@ -1,11 +1,6 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
-#define PathBase    "A:/400PLUS/"
-#define PathLogs    PathBase "logs/"
-#define PathLang    PathBase "lang/"
-#define PathPresets PathBase "presets/"
-
 // this is the way canon checks the pointers
 // if (PTR_VALID(some_ptr)) { ... } else { ... }
 // this will check if the pointer is even and not 0

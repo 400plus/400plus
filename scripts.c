@@ -11,6 +11,7 @@
 #include "persist.h"
 #include "settings.h"
 #include "utils.h"
+#include "shutter.h"
 
 #include "scripts.h"
 

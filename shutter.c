@@ -6,10 +6,6 @@
 
 #include "main.h"
 #include "macros.h"
-
-//#include "float.h"
-//#include "languages.h"
-//#include "settings.h"
 #include "debug.h"
 
 #include "firmware.h"
