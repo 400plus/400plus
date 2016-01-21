@@ -13,7 +13,6 @@
 #include "debug.h"
 
 #include "firmware.h"
-//#include "firmware/camera.h"
 
 #include "utils.h"
 
