@@ -1,4 +1,5 @@
 #include <vxworks.h>
+#include <dirent.h>
 
 #include "macros.h"
 #include "firmware.h"
@@ -10,6 +11,7 @@
 #include "settings.h"
 #include "persist.h"
 #include "cmodes.h"
+#include "debug.h"
 
 #include "main.h"
 
@@ -45,6 +47,8 @@ void hack_pre_init_hook  (void);
 void hack_post_init_hook (void);
 
 void action_dispatcher(void);
+
+int check_create_folder(void);
 
 // 400plus entry point
 int main(void) {
@@ -198,18 +202,8 @@ void enqueue_action(action_t action) {
 }
 
 void start_up() {
-#if 0
-	debug_log("AF: Creating directories (%#x)", GetErrorNum());
-
-	if (FIO_CreateDirectory(PathBase))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathBase ")", GetErrorNum());
-	if (FIO_CreateDirectory(PathLogs))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathLogs ")", GetErrorNum());
-	if (FIO_CreateDirectory(PathLang))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathLang ")", GetErrorNum());
-	if (FIO_CreateDirectory(PathPresets))
-		printf_log(8,8,"Error[%#x]: CreateDir(" PathPresets ")", GetErrorNum());
-#endif
+	// Check and create our 400PLUS folder
+	status.folder_exists = check_create_folder();
 
 	// Recover persisting information
 	persist_read();
@@ -247,6 +241,9 @@ void start_up() {
 	// And optionally apply a custom mode
 	enqueue_action(cmode_recall);
 
+    // turn off the blue led after it was lighten by our hack_task_MainCtrl()
+	eventproc_EdLedOff();
+
 #ifdef MEMSPY
 	debug_log("starting memspy task");
 	CreateTask("memspy", 0x1e, 0x1000, memspy_task, 0);
@@ -269,23 +266,23 @@ void start_up() {
 		beep();
 	}
 #endif
-#ifdef DEBUG_
+}
+
+/*
+ * Look for a "400PLUS" folder, and create it if it does not exist
+ */
+int check_create_folder(void)
+{
     DIR *dirp;
-    struct dirent *dp;
 
-	if ((dirp = opendir("A:\\")) == NULL) {
-		printf_log(8,8, "[400plus-DIR]: opendir error");
-        return;
+	if ((dirp = opendir(FOLDER_PATH)) == NULL) {
+		if(FIO_CreateDirectory(FOLDER_PATH)) {
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+    } else {
+    	closedir(dirp);
+    	return TRUE;
     }
-
-    do {
-        if ((dp = readdir(dirp)) != NULL)
-    		printf_log(8,8, "[400plus-DIR]: found '%s'", dp->d_name);
-    } while (dp != NULL);
-
-    closedir(dirp);
-#endif
-
-    // turn off the blue led after it was lighten by our hack_task_MainCtrl()
-	eventproc_EdLedOff();
 }
