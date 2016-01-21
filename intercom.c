@@ -16,6 +16,7 @@
 #include "menu_rename.h"
 #include "msm.h"
 #include "persist.h"
+#include "debug.h"
 
 #include "intercom.h"
 

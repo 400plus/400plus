@@ -28,7 +28,8 @@ typedef enum {
 const char * debug_mc_name(int event);
 const char * debug_btn_name(int btn);
 const char * debug_gui_name(int event);
-void dump_dpr_data();
+
+void dump_dpr_data(void);
 
 #else // ENABLE_DEBUG
 

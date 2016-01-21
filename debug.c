@@ -1,5 +1,4 @@
-
-#include "mainctrl.h"
+#include "debug.h"
 
 #ifdef ENABLE_DEBUG
 
@@ -162,7 +161,7 @@ const char * debug_gui_name(int event) {
 }
 
 #ifdef ENABLE_DEBUG_DPR_DATA
-void dump_dpr_data() {
+void dump_dpr_data(void) {
 	printf("\n\nDUMPING DPR_DATA\n\n");
 	printf("\t%24s : 0x%08X [%d]\n", "ae", DPData.ae, DPData.ae);
 	printf("\t%24s : 0x%08X [%d]\n", "metering", DPData.metering, DPData.metering);
