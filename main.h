@@ -6,9 +6,9 @@
 #include "scripts.h"
 
 // Our folder
-#define FOLDER_ROOT "A:/"
+#define FOLDER_ROOT "A:"
 #define FOLDER_NAME "400PLUS"
-#define FOLDER_PATH FOLDER_ROOT FOLDER_NAME
+#define FOLDER_PATH FOLDER_ROOT "/" FOLDER_NAME
 
 // Action definitions
 typedef void(*action_t)(void);

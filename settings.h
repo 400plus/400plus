@@ -1,7 +1,7 @@
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 
-#define SETTINGS_FILE     "A:/SETTINGS"
+#define SETTINGS_FILENAME "SETTINGS"
 #define SETTINGS_VERSION  0x4A
 
 #define CCT_COUNT 16
