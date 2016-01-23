@@ -49,9 +49,9 @@ void cmodes_read() {
 
 	cmodes_config = cmodes_default;
 
-	if ((file = FIO_OpenFile(CMODES_CONFIG, O_RDONLY, 644)) == -1)
-		goto end;
-
+	if ((file = FIO_OpenFile(FOLDER_ROOT "/" FOLDER_NAME "/" CMODES_CONFIG, O_RDONLY, 644)) == -1)
+		if ((file = FIO_OpenFile(FOLDER_ROOT "/" CMODES_CONFIG, O_RDONLY, 644)) == -1)
+			goto end;
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
 		goto end;
 
@@ -70,14 +70,19 @@ end:
 
 void cmodes_write() {
 	const int version = SNAPSHOT_VERSION;
+	int file = -1;
 
-	int file = FIO_OpenFile(CMODES_CONFIG, O_CREAT | O_WRONLY , 644);
+	if ((file = FIO_OpenFile(FOLDER_ROOT "/" FOLDER_NAME "/" CMODES_CONFIG, O_CREAT | O_WRONLY , 644)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(FOLDER_ROOT "/" CMODES_CONFIG, O_CREAT | O_WRONLY , 644)) == -1)
+			goto end;
 
-	if (file != -1) {
-		FIO_WriteFile(file, (void*)&version,        sizeof(version));
-		FIO_WriteFile(file, (void*)&cmodes_config, sizeof(cmodes_config));
+	FIO_WriteFile(file, (void*)&version,        sizeof(version));
+	FIO_WriteFile(file, (void*)&cmodes_config, sizeof(cmodes_config));
+	FIO_CloseFile(file);
+
+end:
+	if (file != -1)
 		FIO_CloseFile(file);
-	}
 }
 
 void cmodes_restore() {

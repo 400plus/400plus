@@ -8,7 +8,7 @@
 #define CMODES_MAX       16 // Max number of custom modes available
 #define CMODES_MODES      7 // Number of auto modes where a custom mode may be used
 
-#define CMODES_CONFIG  "A:/CMODES"    // File that contains custom modes configuration
+#define CMODES_CONFIG  "CMODES"       // File that contains custom modes configuration
 #define CMODES_FILE    "A:/CMODES_%X" // Each file containing a snapshot for a custom mode
 #define AMODES_FILE    "A:/AMODES_%c" // Each file containing a snapshot for an auto mode
 
