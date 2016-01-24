@@ -5,7 +5,7 @@
 
 #include "firmware/camera.h"
 
-#define FILENAME_LENGTH 16
+#define FILENAME_LENGTH 32
 
 #define SNAPSHOT_VERSION 0x06
 

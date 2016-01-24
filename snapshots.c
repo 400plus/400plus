@@ -63,7 +63,7 @@ int snapshot_write(char *name) {
 		menu_order : menu_order,
 	};
 
-	if ((file = FIO_OpenFile(name, O_CREAT | O_WRONLY , 644)) == -1)
+	if ((file = FIO_OpenFile(name, O_CREAT | O_WRONLY, 644)) == -1)
 		goto end;
 
 	if (FIO_WriteFile(file, (void*)&version, sizeof(version)) != sizeof(version))

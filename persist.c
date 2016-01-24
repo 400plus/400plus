@@ -49,8 +49,8 @@ void persist_write(void) {
 	const int version = PERSIST_VERSION;
 	int file = -1;
 
-	if ((file = FIO_OpenFile(FOLDER_ROOT "/" FOLDER_NAME "/" PERSIST_FILENAME, O_CREAT | O_WRONLY , 644)) == -1)
-		if (status.folder_exists || (file = FIO_OpenFile(FOLDER_ROOT "/" PERSIST_FILENAME, O_CREAT | O_WRONLY , 644)) == -1)
+	if ((file = FIO_OpenFile(FOLDER_ROOT "/" FOLDER_NAME "/" PERSIST_FILENAME, O_CREAT | O_WRONLY, 644)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(FOLDER_ROOT "/" PERSIST_FILENAME, O_CREAT | O_WRONLY, 644)) == -1)
 			goto end;
 
 	FIO_WriteFile(file, (void*)&version, sizeof(version));
