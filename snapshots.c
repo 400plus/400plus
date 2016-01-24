@@ -12,15 +12,16 @@
 
 #include "snapshots.h"
 
-int snapshot_read(char *name, snapshot_t *snapshot) {
+int snapshot_read(char names[][FILENAME_LENGTH], snapshot_t *snapshot) {
 	int result  = FALSE;
 	int file    = -1;
 	int version =  0;
 
 	snapshot_t buffer;
 
-	if ((file = FIO_OpenFile(name, O_RDONLY, 644)) == -1)
-		goto end;
+	if ((file = FIO_OpenFile(names[0], O_RDONLY, 644)) == -1)
+		if ((file = FIO_OpenFile(names[1], O_RDONLY, 644)) == -1)
+			goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
 		goto end;
@@ -51,7 +52,7 @@ end:
 	return result;
 }
 
-int snapshot_write(char *name) {
+int snapshot_write(char names[][FILENAME_LENGTH]) {
 	const int version = SETTINGS_VERSION;
 
 	int  result = FALSE;
@@ -63,8 +64,9 @@ int snapshot_write(char *name) {
 		menu_order : menu_order,
 	};
 
-	if ((file = FIO_OpenFile(name, O_CREAT | O_WRONLY, 644)) == -1)
-		goto end;
+	if ((file = FIO_OpenFile(names[0], O_CREAT | O_WRONLY, 644)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(names[1], O_CREAT | O_WRONLY, 644)) == -1)
+			goto end;
 
 	if (FIO_WriteFile(file, (void*)&version, sizeof(version)) != sizeof(version))
 		goto end;
@@ -84,8 +86,13 @@ end:
 	return result;
 }
 
-int snapshot_delete(char *name) {
-	return (FIO_RemoveFile(name) != -1);
+int snapshot_delete(char names[][FILENAME_LENGTH]) {
+	if (status.folder_exists) {
+		FIO_RemoveFile(names[0]);
+		return (FIO_RemoveFile(names[1]) != -1);
+	} else {
+		return (FIO_RemoveFile(names[0]) != -1);
+	}
 }
 
 void snapshot_recall(snapshot_t *snapshot) {
