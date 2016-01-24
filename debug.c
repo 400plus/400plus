@@ -1,3 +1,10 @@
+#include <vxworks.h>
+#include <ioLib.h>
+#include <clock.h>
+#include <time.h>
+
+#include "settings.h"
+
 #include "debug.h"
 
 #ifdef ENABLE_DEBUG
@@ -160,7 +167,10 @@ const char * debug_gui_name(int event) {
 	}
 }
 
+#endif //ENABLE_DEBUG
+
 #ifdef ENABLE_DEBUG_DPR_DATA
+
 void dump_dpr_data(void) {
 	printf("\n\nDUMPING DPR_DATA\n\n");
 	printf("\t%24s : 0x%08X [%d]\n", "ae", DPData.ae, DPData.ae);
@@ -267,6 +277,118 @@ void dump_dpr_data(void) {
 
 	printf("\n\nEND\n\n");
 }
+
 #endif // ENABLE_DEBUG_DPR_DATA
 
-#endif
+#ifdef MEM_DUMP
+
+void dump_memory() {
+	char filename[20] = "A:/12345678.MEM";
+	time_t t;
+	struct tm tm;
+
+	time(&t);
+	localtime_r(&t, &tm);
+
+	sprintf(filename, "A:/%02d%02d%02d%02d.MEM", tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
+	debug_log("Dumping memory to %s.\n", filename);
+	int file = FIO_OpenFile(filename, O_CREAT | O_WRONLY , 644);
+
+	if (file == -1) {
+		debug_log("ERROR: can't open file for writing (%s)", filename);
+		beep();
+		beep();
+	} else {
+		int addr=0;
+		int power_off_state = DPData.auto_power_off;
+
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, FALSE);
+
+		while (addr<0x800000) { // dump 8MB of RAM
+			char buf[0x800];
+			// i don't know why, but if we try to pass the mem address (addr) directly to
+			// FIO_WriteFile, we get zero-filled file... so we need local buffer as a proxy
+			// note: do not increase the size of the local buffer too much, because it is in the stack
+			LEDBLUE ^= 2;
+			memcpy(buf, (void*)addr, 0x800);
+			FIO_WriteFile(file, buf, 0x800);
+			addr += 0x800;
+		}
+		FIO_CloseFile(file);
+
+		send_to_intercom(IC_SET_AUTO_POWER_OFF, power_off_state);
+	}
+	beep();
+}
+
+static void mem_dumper_task() {
+	int i;
+
+	beep();
+
+	for (i=0; i<10; i++) {
+		LEDBLUE ^= 2;
+		SleepTask(500);
+	}
+
+	dump_memory();
+}
+
+void dump_memory_after_5s() {
+	CreateTask("memdumper", 0x1e, 0x1000, mem_dumper_task, 0);
+}
+
+#endif //MEM_DUMP
+
+void dump_log() {
+	debug_log("Dumping the log.\n");
+	dumpf();
+	beep();
+}
+
+void print_info() {
+	// print some info to the log
+	eventproc_RiseEvent("about");
+
+	// print last errors to the log
+	eventproc_RiseEvent("PrintICUInfo");
+
+	// print current DP settings to the log
+	eventproc_RiseEvent("PrintDPStatus");
+
+	beep();
+	debug_log("Info dumped.\n");
+}
+
+void start_debug_mode() {
+	int file;
+	const char filename[20] = "A:/DEBUG.LOG";
+	const char separator[]  = "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n";
+
+	time_t t;
+	struct tm tm;
+
+	time(&t);
+	localtime_r(&t, &tm);
+
+	if (settings.logfile_mode == LOGFILE_MODE_NEW)
+		sprintf(filename, "A:/%02d%02d%02d%02d.LOG", tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min);
+
+	// O_APPEND is not working in VxWorks, so we seek to the end later
+	if((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY, 644)) > 0) {
+		if (settings.logfile_mode == LOGFILE_MODE_APPEND)
+			FIO_SeekFile(file, 0, 2/*SEEK_END*/);
+
+		// redirect stdout and stderr to our file
+		ioGlobalStdSet(1, file);
+		ioGlobalStdSet(2, file);
+	}
+
+	printf(separator);
+	printf("::::: %04d-%02d-%02d %02d:%02d:%02d :::::\n", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	printf(separator);
+	printf("\n");
+
+	beep();
+}

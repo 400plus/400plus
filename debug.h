@@ -16,7 +16,6 @@ typedef enum {
 	DEBUG_GUI        = 0x18,
 } canon_debug_class_t;
 
-
 #ifdef ENABLE_DEBUG
 
 #define debug_log(f, p...) printf_log(8, 8, "[400plus] %s[%d]: " f, __FILE__, __LINE__, ##p)
@@ -37,5 +36,10 @@ void dump_dpr_data(void);
 
 #endif // ENABLE_DEBUG
 
+extern void dump_log            (void);
+extern void dump_memory         (void);
+extern void dump_memory_after_5s(void);
+
+extern void print_info(void);
 
 #endif // DEBUG_H_
