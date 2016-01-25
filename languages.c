@@ -6,12 +6,12 @@
 #include "main.h"
 #include "firmware.h"
 
-#include "debug.h"
-
-#include "languages.h"
 #include "settings.h"
 #include "utils.h"
 #include "ini.h"
+#include "debug.h"
+
+#include "languages.h"
 
 char languages_found[MAX_LANGUAGES][MAX_SECTION];
 static unsigned int languages_found_last = 0;
@@ -56,15 +56,16 @@ void lang_pack_init() {
 	strncpy0(languages_found[languages_found_last++], "Camera", LP_MAX_WORD-1);
 	languages_found[languages_found_last][0] = '\0';
 
-	res = ini_parse("A:/languages.ini", NULL, NULL, lang_pack_sections, NULL);
+	if ((res = ini_parse(FOLDER_ROOT "/" FOLDER_NAME "/" LANGUAGES_FILENAME, NULL, NULL, lang_pack_sections, NULL)) == -1)
+		res = ini_parse(FOLDER_ROOT "/" LANGUAGES_FILENAME, NULL, NULL, lang_pack_sections, NULL);
 
 	if (res != 0) {
 		debug_log("ERROR: cannot parse sections from language.ini");
-		if (res > 0) {
+
+		if (res > 0)
 			debug_log("Problem on line [%d] in languages.ini ", res);
-		} else {
+		else
 			debug_log("languages.ini not found");
-		}
 	}
 
 	lang_pack_config();
@@ -118,7 +119,9 @@ void lang_pack_config() {
 
 		stoupper(lang); // convert to upper case
 		lang_pack_keys_loaded=0;
-		res = ini_parse("A:/languages.ini", lang, lang_pack_loader, NULL, (void*)lang);
+
+		if ((res = ini_parse(FOLDER_ROOT "/" FOLDER_NAME "/" LANGUAGES_FILENAME, lang, lang_pack_loader, NULL, (void*)lang)) == -1)
+			res = ini_parse(FOLDER_ROOT "/" LANGUAGES_FILENAME, lang, lang_pack_loader, NULL, (void*)lang);
 
 		if (res == 0) {
 			debug_log("[%d] keys loaded from languages.ini.", lang_pack_keys_loaded);
