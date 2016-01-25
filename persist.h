@@ -1,8 +1,8 @@
 #ifndef PERSIST_H_
 #define PERSIST_H_
 
-#define PERSIST_FILE    "A:/PERSIST"
-#define PERSIST_VERSION 0x01
+#define PERSIST_FILENAME "PERSIST"
+#define PERSIST_VERSION  0x01
 
 #include "exposure.h"
 #include "scripts.h"

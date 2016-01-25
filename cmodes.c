@@ -8,6 +8,7 @@
 #include "languages.h"
 #include "snapshots.h"
 #include "utils.h"
+#include "debug.h"
 
 #include "cmodes.h"
 
@@ -28,8 +29,8 @@ int amode_delete (AE_MODE ae_mode);
 
 void cmode_recall_apply(int full);
 
-void get_cmode_filename(char *filename, int cmode_id);
-void get_amode_filename(char *filename, AE_MODE ae_mode);
+void get_cmode_filenames(char filenames[][FILENAME_LENGTH], int cmode_id);
+void get_amode_filenames(char filenames[][FILENAME_LENGTH], AE_MODE ae_mode);
 
 void cmodes_read() {
 	int id;
@@ -49,8 +50,9 @@ void cmodes_read() {
 
 	cmodes_config = cmodes_default;
 
-	if ((file = FIO_OpenFile(CMODES_CONFIG, O_RDONLY, 644)) == -1)
-		goto end;
+	if ((file = FIO_OpenFile(MKPATH_NEW(CMODES_CONFIG), O_RDONLY, 644)) == -1)
+		if ((file = FIO_OpenFile(MKPATH_OLD(CMODES_CONFIG), O_RDONLY, 644)) == -1)
+			goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
 		goto end;
@@ -70,14 +72,19 @@ end:
 
 void cmodes_write() {
 	const int version = SNAPSHOT_VERSION;
+	int file = -1;
 
-	int file = FIO_OpenFile(CMODES_CONFIG, O_CREAT | O_WRONLY , 644);
+	if ((file = FIO_OpenFile(MKPATH_NEW(CMODES_CONFIG), O_CREAT | O_WRONLY, 644)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(CMODES_CONFIG), O_CREAT | O_WRONLY, 644)) == -1)
+			goto end;
 
-	if (file != -1) {
-		FIO_WriteFile(file, (void*)&version,        sizeof(version));
-		FIO_WriteFile(file, (void*)&cmodes_config, sizeof(cmodes_config));
+	FIO_WriteFile(file, (void*)&version,        sizeof(version));
+	FIO_WriteFile(file, (void*)&cmodes_config, sizeof(cmodes_config));
+	FIO_CloseFile(file);
+
+end:
+	if (file != -1)
 		FIO_CloseFile(file);
-	}
 }
 
 void cmodes_restore() {
@@ -94,51 +101,51 @@ void cmodes_delete() {
 }
 
 int cmode_read(int id, snapshot_t *cmode) {
-	char filename[FILENAME_LENGTH];
+	char filenames[2][FILENAME_LENGTH];
 
-	get_cmode_filename(filename, id);
+	get_cmode_filenames(filenames, id);
 
-	return snapshot_read(filename, cmode);
+	return snapshot_read(filenames, cmode);
 }
 
 int cmode_write(int id) {
-	char filename[FILENAME_LENGTH];
+	char filenames[2][FILENAME_LENGTH];
 
-	get_cmode_filename(filename, id);
+	get_cmode_filenames(filenames, id);
 
-	return snapshot_write(filename);
+	return snapshot_write(filenames);
 }
 
 int cmode_delete(int id) {
-	char filename[FILENAME_LENGTH];
+	char filenames[2][FILENAME_LENGTH];
 
-	get_cmode_filename(filename, id);
+	get_cmode_filenames(filenames, id);
 
-	return snapshot_delete(filename);
+	return snapshot_delete(filenames);
 }
 
 int amode_read(AE_MODE ae_mode, snapshot_t *mode) {
-	char filename[FILENAME_LENGTH];
+	char filenames[2][FILENAME_LENGTH];
 
-	get_amode_filename(filename, ae_mode);
+	get_amode_filenames(filenames, ae_mode);
 
-	return snapshot_read(filename, mode);
+	return snapshot_read(filenames, mode);
 }
 
 int amode_write(AE_MODE ae_mode) {
-	char filename[FILENAME_LENGTH];
+	char filenames[2][FILENAME_LENGTH];
 
-	get_amode_filename(filename, ae_mode);
+	get_amode_filenames(filenames, ae_mode);
 
-	return snapshot_write(filename);
+	return snapshot_write(filenames);
 }
 
 int amode_delete(AE_MODE ae_mode) {
-	char filename[FILENAME_LENGTH];
+	char filenames[2][FILENAME_LENGTH];
 
-	get_amode_filename(filename, ae_mode);
+	get_amode_filenames(filenames, ae_mode);
 
-	return snapshot_delete(filename);
+	return snapshot_delete(filenames);
 }
 
 void cmode_recall() {
@@ -187,11 +194,12 @@ void cmode_recall_apply(int full) {
 	}
 }
 
-void get_cmode_filename(char *filename, int cmode_id) {
-	sprintf(filename, CMODES_FILE, cmode_id);
+void get_cmode_filenames(char filenames[][FILENAME_LENGTH], int cmode_id) {
+	sprintf(filenames[0], "%s/%s/" CMODES_FILE, FOLDER_ROOT, FOLDER_NAME, cmode_id);
+	sprintf(filenames[1], "%s/"    CMODES_FILE, FOLDER_ROOT, cmode_id);
 }
 
-void get_amode_filename(char *filename, AE_MODE ae_mode) {
+void get_amode_filenames(char filenames[][FILENAME_LENGTH], AE_MODE ae_mode) {
 	char id;
 
 	switch (ae_mode) {
@@ -216,7 +224,8 @@ void get_amode_filename(char *filename, AE_MODE ae_mode) {
 		break;
 	}
 
-	sprintf(filename, AMODES_FILE, id);
+	sprintf(filenames[0], "%s/%s/" AMODES_FILE, FOLDER_ROOT, FOLDER_NAME, id);
+	sprintf(filenames[1], "%s/"    AMODES_FILE, FOLDER_ROOT, id);
 }
 
 int get_current_cmode() {

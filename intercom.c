@@ -16,6 +16,7 @@
 #include "menu_rename.h"
 #include "msm.h"
 #include "persist.h"
+#include "debug.h"
 
 #include "intercom.h"
 
@@ -151,6 +152,7 @@ void intercom_proxy(const int handler, char *message) {
 	IntercomHandler(handler, message);
 }
 
+#ifdef ENABLE_DEBUG
 void message_logger(char *message) {
 	int i;
 	char text[256];
@@ -161,6 +163,7 @@ void message_logger(char *message) {
 
 	debug_log("MSG%04d-%02X: %s", id++, FLAG_GUI_MODE, text);
 }
+#endif
 
 int proxy_script_restore(char *message) {
 	script_restore();

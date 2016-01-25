@@ -10,6 +10,7 @@
 #include "exposure.h"
 #include "settings.h"
 #include "utils.h"
+#include "debug.h"
 
 #include "display.h"
 

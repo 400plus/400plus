@@ -5,6 +5,9 @@
 #define LP_MAX_WORD 64 // this is valid for the keys and section names too
 #define LP_WORD(word) lang_pack_current[word]
 #define MAX_LANGUAGES 30 // max languages we can choose from
+
+#define LANGUAGES_FILENAME "LANGUAGES.INI"
+
 // * P_ are page names.
 // * I_ are menu items.
 // * V_ are item values.

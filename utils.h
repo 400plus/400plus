@@ -41,18 +41,12 @@ extern void enter_factory_mode(void);
 extern void exit_factory_mode (void);
 extern void start_debug_mode  (void);
 
-extern void dump_log            (void);
-extern void dump_memory         (void);
-extern void dump_memory_after_5s(void);
-
-extern void print_info(void);
-
 extern int  print_icu_info(void);
 extern int  press_button  (int button);
 
-extern int remote_on (void);
-extern int remote_off(void);
-void remote_delay    (int x);
+extern int remote_on   (void);
+extern int remote_off  (void);
+void       remote_delay(int x);
 
 extern int display_on (void);
 extern int display_off(void);

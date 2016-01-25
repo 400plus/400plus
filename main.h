@@ -5,6 +5,13 @@
 #include "exposure.h"
 #include "scripts.h"
 
+// Our folder
+#define FOLDER_ROOT "A:"
+#define FOLDER_NAME "400PLUS"
+#define FOLDER_PATH FOLDER_ROOT "/" FOLDER_NAME
+#define MKPATH_OLD(FILENAME) FOLDER_ROOT "/" FILENAME
+#define MKPATH_NEW(FILENAME) FOLDER_ROOT "/" FOLDER_NAME "/" FILENAME
+
 // Action definitions
 typedef void(*action_t)(void);
 
@@ -38,12 +45,12 @@ typedef struct {
 	int         msm_active;        // Multi-spot metering: is active and in M mode
 	ic_event_t  ignore_msg;        // Event to be ignored at intercom
 	vf_status_t vf_status;         // Status of viewfinder
+	int         folder_exists;     // 400PLUS folder exists
 } status_t;
 
 // Our own code
 extern void enqueue_action (action_t action);
 extern void start_up       (void);
-
 
 // Shared globals
 extern status_t status;
