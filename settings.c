@@ -142,8 +142,8 @@ int settings_read() {
 	menu_order  = menu_order_default;
 	named_temps = named_temps_default;
 
-	if ((file = FIO_OpenFile(FOLDER_ROOT "/" FOLDER_NAME "/" SETTINGS_FILENAME, O_RDONLY, 644)) == -1)
-		if ((file = FIO_OpenFile(FOLDER_ROOT "/" SETTINGS_FILENAME, O_RDONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(SETTINGS_FILENAME), O_RDONLY, 644)) == -1)
+		if ((file = FIO_OpenFile(MKPATH_OLD(SETTINGS_FILENAME), O_RDONLY, 644)) == -1)
 			goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
@@ -187,8 +187,8 @@ void settings_write() {
 	const int version = SETTINGS_VERSION;
 	int file = -1;
 
-	if ((file = FIO_OpenFile(FOLDER_ROOT "/" FOLDER_NAME "/" SETTINGS_FILENAME, O_CREAT | O_WRONLY, 644)) == -1)
-		if (status.folder_exists || (file = FIO_OpenFile(FOLDER_ROOT "/" SETTINGS_FILENAME, O_CREAT | O_WRONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(SETTINGS_FILENAME), O_CREAT | O_WRONLY, 644)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(SETTINGS_FILENAME), O_CREAT | O_WRONLY, 644)) == -1)
 			goto end;
 
 	FIO_WriteFile(file, (void*)&version, sizeof(version));

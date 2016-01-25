@@ -56,8 +56,8 @@ void lang_pack_init() {
 	strncpy0(languages_found[languages_found_last++], "Camera", LP_MAX_WORD-1);
 	languages_found[languages_found_last][0] = '\0';
 
-	if ((res = ini_parse(FOLDER_ROOT "/" FOLDER_NAME "/" LANGUAGES_FILENAME, NULL, NULL, lang_pack_sections, NULL)) == -1)
-		res = ini_parse(FOLDER_ROOT "/" LANGUAGES_FILENAME, NULL, NULL, lang_pack_sections, NULL);
+	if ((res = ini_parse(MKPATH_NEW(LANGUAGES_FILENAME), NULL, NULL, lang_pack_sections, NULL)) == -1)
+		res = ini_parse(MKPATH_OLD(LANGUAGES_FILENAME), NULL, NULL, lang_pack_sections, NULL);
 
 	if (res != 0) {
 		debug_log("ERROR: cannot parse sections from language.ini");
@@ -120,8 +120,8 @@ void lang_pack_config() {
 		stoupper(lang); // convert to upper case
 		lang_pack_keys_loaded=0;
 
-		if ((res = ini_parse(FOLDER_ROOT "/" FOLDER_NAME "/" LANGUAGES_FILENAME, lang, lang_pack_loader, NULL, (void*)lang)) == -1)
-			res = ini_parse(FOLDER_ROOT "/" LANGUAGES_FILENAME, lang, lang_pack_loader, NULL, (void*)lang);
+		if ((res = ini_parse(MKPATH_NEW(LANGUAGES_FILENAME), lang, lang_pack_loader, NULL, (void*)lang)) == -1)
+			res = ini_parse(MKPATH_OLD(LANGUAGES_FILENAME), lang, lang_pack_loader, NULL, (void*)lang);
 
 		if (res == 0) {
 			debug_log("[%d] keys loaded from languages.ini.", lang_pack_keys_loaded);

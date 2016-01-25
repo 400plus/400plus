@@ -9,6 +9,8 @@
 #define FOLDER_ROOT "A:"
 #define FOLDER_NAME "400PLUS"
 #define FOLDER_PATH FOLDER_ROOT "/" FOLDER_NAME
+#define MKPATH_OLD(FILENAME) FOLDER_ROOT "/" FILENAME
+#define MKPATH_NEW(FILENAME) FOLDER_ROOT "/" FOLDER_NAME "/" FILENAME
 
 // Action definitions
 typedef void(*action_t)(void);
