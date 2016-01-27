@@ -56,7 +56,6 @@ CFLAGS += $(COMMON_FLAGS)              \
 	-nostdinc                          \
 	-Ivxworks                          \
 	-Werror                            \
-	-Wno-implicit-function-declaration \
 	-Wstrict-prototypes                \
 	-Wmissing-prototypes               \
 	-Wno-char-subscripts               \
