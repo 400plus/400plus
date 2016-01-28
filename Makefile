@@ -83,9 +83,12 @@ C_OBJS := $(C_SRCS:.c=.o)
 
 OBJS  := $(S_OBJS) $(C_OBJS)
 
-BOLD := "\033[1m"
-NORM := "\033[0m"
 ECHO := "/bin/echo"
+
+ifdef TERM
+	BOLD := "\033[1m"
+	NORM := "\033[0m"
+endif
 
 all: $(PROJECT).BIN languages.ini languages/new_lang.ini
 	@$(ECHO) -e $(BOLD)[ALL]$(NORM)
