@@ -12,4 +12,3 @@ DEF(0x0000F490,VramInfo)
 DEF(0x00001CE8,shutter_lock) // Just guessing
 
 /* TODO: Does not belong here */
-DEF(0xFFB1F7B4,vsnprintf)

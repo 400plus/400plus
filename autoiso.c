@@ -1,5 +1,7 @@
 #include <vxworks.h>
 
+#include "firmware/camera.h"
+
 #include "main.h"
 #include "macros.h"
 
@@ -8,8 +10,7 @@
 #include "persist.h"
 #include "settings.h"
 #include "utils.h"
-
-#include "firmware/camera.h"
+#include "intercom.h"
 
 #include "autoiso.h"
 

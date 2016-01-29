@@ -1,5 +1,6 @@
 #include <vxworks.h>
 #include <dirent.h>
+#include <stdio.h>
 
 #include "macros.h"
 #include "main.h"
@@ -16,6 +17,7 @@
 #include "scripts.h"
 #include "settings.h"
 #include "utils.h"
+#include "intercom.h"
 
 #include "actions.h"
 

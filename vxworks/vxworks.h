@@ -4,7 +4,7 @@
 typedef int BOOL;
 typedef int STATUS;
 
-#define	NULL ((void *)0)
+#define	NULL        ((void *)0)
 
 #define OK    (0)
 #define ERROR (-1)
@@ -20,6 +20,12 @@ typedef unsigned int  UINT;
 typedef unsigned long ULONG;
 
 typedef long unsigned int size_t;
+typedef long unsigned int fpos_t;
+
+typedef unsigned int  uint_t;
+typedef unsigned long ulong_t;
+
+typedef unsigned long wchar_t;
 
 typedef int  (*FUNCPTR)     (void);
 typedef void (*VOIDFUNCPTR) (void);

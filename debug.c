@@ -3,6 +3,8 @@
 #include <clock.h>
 #include <time.h>
 
+#include "firmware/fio.h"
+
 #include "settings.h"
 
 #include "debug.h"
@@ -363,7 +365,7 @@ void print_info() {
 
 void start_debug_mode() {
 	int file;
-	const char filename[20] = "A:/DEBUG.LOG";
+	char filename[20] = "A:/DEBUG.LOG";
 	const char separator[]  = "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n";
 
 	time_t t;
@@ -376,7 +378,7 @@ void start_debug_mode() {
 		sprintf(filename, "A:/%02d%02d%02d%02d.LOG", tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min);
 
 	// O_APPEND is not working in VxWorks, so we seek to the end later
-	if((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY, 644)) > 0) {
+	if((file = FIO_OpenFile(filename, O_CREAT | O_WRONLY)) != -1) {
 		if (settings.logfile_mode == LOGFILE_MODE_APPEND)
 			FIO_SeekFile(file, 0, 2/*SEEK_END*/);
 

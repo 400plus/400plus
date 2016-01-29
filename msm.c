@@ -1,12 +1,14 @@
 #include <vxworks.h>
 
+#include "firmware/camera.h"
+
 #include "main.h"
 #include "macros.h"
 
 #include "button.h"
 #include "utils.h"
-
-#include "firmware/camera.h"
+#include "shutter.h"
+#include "intercom.h"
 
 #include "msm.h"
 

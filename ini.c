@@ -9,6 +9,9 @@ http://code.google.com/p/inih/
 #include <vxworks.h>
 #include <string.h>
 #include <ioLib.h>
+#include <ctype.h>
+
+#include "firmware/fio.h"
 
 #include "ini.h"
 #include "utils.h"
@@ -43,7 +46,7 @@ static char* find_char_or_comment(const char* s, char c) {
 }
 
 /* See documentation in header file. */
-int ini_parse_file(int fd, const char* wanted_section, ini_line_handler handler, ini_section_handler shandler, void* user) {
+int ini_parse_file(int file, const char* wanted_section, ini_line_handler handler, ini_section_handler shandler, void* user) {
 	/* Uses a fair bit of stack (use heap instead if you need to) */
 	char line[MAX_LINE];
 	char section[MAX_SECTION] = "";
@@ -62,7 +65,7 @@ int ini_parse_file(int fd, const char* wanted_section, ini_line_handler handler,
 
 	hack_fgets_init();
 	/* Scan through file line by line */
-	while (hack_fgets(line, sizeof(line), fd) != NULL) {
+	while (hack_fgets(line, sizeof(line), file) != NULL) {
 		if (error) // 0xAF
 			return error;
 
@@ -129,12 +132,16 @@ int ini_parse_file(int fd, const char* wanted_section, ini_line_handler handler,
 
 /* See documentation in header file. */
 int ini_parse(const char* filename, const char* wanted_section, ini_line_handler handler, ini_section_handler shandler, void* user) {
-	int fd;
 	int error;
 
-	if ( (fd = FIO_OpenFile(filename, O_RDONLY, 644)) < 0 )
+	int file = -1;
+
+	if ((file = FIO_OpenFile(filename, O_RDONLY)) == -1)
 		return -1;
-	error = ini_parse_file(fd, wanted_section, handler, shandler, user);
-	close(fd);
+
+	error = ini_parse_file(file, wanted_section, handler, shandler, user);
+
+	FIO_CloseFile(file);
+
 	return error;
 }

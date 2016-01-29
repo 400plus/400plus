@@ -3,8 +3,11 @@
 #include <vxworks.h>
 #include <stdarg.h>
 
-#include "bmp.h"
+#include "firmware/misc.h"
+
 #include "debug.h"
+
+#include "bmp.h"
 
 uint8_t *VramAddrOverride;
 

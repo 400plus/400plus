@@ -1,11 +1,13 @@
 #include <vxworks.h>
 
-#include "macros.h"
-#include "main.h"
-#include "utils.h"
-
 #include "firmware.h"
 #include "firmware/camera.h"
+
+#include "main.h"
+#include "macros.h"
+
+#include "utils.h"
+#include "intercom.h"
 
 #include "af_patterns.h"
 

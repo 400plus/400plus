@@ -2,6 +2,8 @@
 #include <string.h>
 #include <ioLib.h>
 
+#include "firmware/fio.h"
+
 #include "main.h"
 #include "macros.h"
 #include "firmware.h"
@@ -108,10 +110,10 @@ named_temps_t named_temps;
 
 int settings_read() {
 	int i;
-	int result  = FALSE;
 
+	int result    = FALSE;
 	int file    = -1;
-	int version =  0;
+	int   version = 0;
 
 	for (i = 0; i < LENGTH(menu_order_default.main); i++)
 		menu_order_default.main[i] = i;
@@ -142,8 +144,8 @@ int settings_read() {
 	menu_order  = menu_order_default;
 	named_temps = named_temps_default;
 
-	if ((file = FIO_OpenFile(MKPATH_NEW(SETTINGS_FILENAME), O_RDONLY, 644)) == -1)
-		if ((file = FIO_OpenFile(MKPATH_OLD(SETTINGS_FILENAME), O_RDONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(SETTINGS_FILENAME), O_RDONLY)) == -1)
+		if ((file = FIO_OpenFile(MKPATH_OLD(SETTINGS_FILENAME), O_RDONLY)) == -1)
 			goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
@@ -185,10 +187,11 @@ end:
 
 void settings_write() {
 	const int version = SETTINGS_VERSION;
+
 	int file = -1;
 
-	if ((file = FIO_OpenFile(MKPATH_NEW(SETTINGS_FILENAME), O_CREAT | O_WRONLY, 644)) == -1)
-		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(SETTINGS_FILENAME), O_CREAT | O_WRONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(SETTINGS_FILENAME), O_CREAT | O_WRONLY)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(SETTINGS_FILENAME), O_CREAT | O_WRONLY)) == -1)
 			goto end;
 
 	FIO_WriteFile(file, (void*)&version, sizeof(version));

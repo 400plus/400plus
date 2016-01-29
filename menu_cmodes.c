@@ -13,6 +13,7 @@
 #include "menu_rename.h"
 #include "menu_settings.h"
 #include "utils.h"
+#include "intercom.h"
 
 #include "menu_cmodes.h"
 

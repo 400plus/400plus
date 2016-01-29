@@ -2,6 +2,7 @@
 #include <ioLib.h>
 
 #include "firmware.h"
+#include "firmware/fio.h"
 
 #include "main.h"
 #include "exposure.h"
@@ -15,15 +16,14 @@ persist_t persist = {
 };
 
 int persist_read(void) {
-	int result  = FALSE;
-
+	int result    = FALSE;
 	int file    = -1;
-	int version =  0;
+	int   version = 0;
 
 	persist_t persistent_buffer;
 
-	if ((file = FIO_OpenFile(MKPATH_NEW(PERSIST_FILENAME), O_RDONLY, 644)) == -1)
-		if ((file = FIO_OpenFile(MKPATH_OLD(PERSIST_FILENAME), O_RDONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(PERSIST_FILENAME), O_RDONLY)) == -1)
+		if ((file = FIO_OpenFile(MKPATH_OLD(PERSIST_FILENAME), O_RDONLY)) == -1)
 			goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
@@ -49,8 +49,8 @@ void persist_write(void) {
 	const int version = PERSIST_VERSION;
 	int file = -1;
 
-	if ((file = FIO_OpenFile(MKPATH_NEW(PERSIST_FILENAME), O_CREAT | O_WRONLY, 644)) == -1)
-		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(PERSIST_FILENAME), O_CREAT | O_WRONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(PERSIST_FILENAME), O_CREAT | O_WRONLY)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(PERSIST_FILENAME), O_CREAT | O_WRONLY)) == -1)
 			goto end;
 
 	FIO_WriteFile(file, (void*)&version, sizeof(version));
