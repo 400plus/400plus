@@ -1,9 +1,10 @@
 #include <vxworks.h>
 
-#include "main.h"
-#include "macros.h"
 #include "firmware.h"
 #include "firmware/camera.h"
+
+#include "main.h"
+#include "macros.h"
 
 #include "display.h"
 #include "exposure.h"
@@ -12,6 +13,7 @@
 #include "settings.h"
 #include "utils.h"
 #include "shutter.h"
+#include "intercom.h"
 
 #include "scripts.h"
 

@@ -1,8 +1,9 @@
 #include <vxworks.h>
+#include <stdio.h>
 
-#include "macros.h"
 #include "firmware.h"
 
+#include "macros.h"
 #include "languages.h"
 #include "menu.h"
 #include "menuitem.h"

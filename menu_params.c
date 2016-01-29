@@ -1,8 +1,9 @@
 #include <vxworks.h>
 
+#include "firmware.h"
+
 #include "main.h"
 #include "macros.h"
-#include "firmware.h"
 
 #include "languages.h"
 #include "menu.h"
@@ -12,6 +13,7 @@
 #include "persist.h"
 #include "settings.h"
 #include "utils.h"
+#include "intercom.h"
 
 #include "menu_params.h"
 

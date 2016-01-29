@@ -13,6 +13,7 @@
 #include "settings.h"
 #include "scripts.h"
 #include "utils.h"
+#include "intercom.h"
 
 #include "menu_scripts.h"
 

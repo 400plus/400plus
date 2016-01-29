@@ -1,8 +1,10 @@
 #include <vxworks.h>
 #include <dirent.h>
 
-#include "macros.h"
 #include "firmware.h"
+#include "firmware/fio.h"
+
+#include "macros.h"
 
 #include "cache_hacks.h"
 #include "button.h"
@@ -177,7 +179,7 @@ void hack_post_init_hook(void) {
 	//cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
 
 	// prevent screen turn off on ptp (to see the debug on lcd)
-	cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE);
+	//cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE);
 
 	// these freezes the usb communication
 	//cache_fake(0xFF81B9D0, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock

@@ -1,12 +1,13 @@
 #include <vxworks.h>
 
-#include "main.h"
-#include "macros.h"
 #include "firmware.h"
 #include "firmware/camera.h"
 
+#include "main.h"
+#include "macros.h"
 #include "exposure.h"
 #include "utils.h"
+#include "intercom.h"
 
 #include "fexp.h"
 

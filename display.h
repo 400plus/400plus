@@ -6,6 +6,8 @@
 #include <vxworks.h>
 #include <stdint.h>
 
+#include "firmware/gui.h"
+
 #include "firmware.h"
 
 extern void display_refresh(void);

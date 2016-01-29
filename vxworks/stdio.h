@@ -2,22 +2,25 @@
 #define VXWORKS_STDIO_H_
 
 #include "vxworks.h"
+#include "stdarg.h"
 
 #define	EOF	(-1)
 
-#define	SEEK_SET	0
-#define	SEEK_CUR	1
-#define	SEEK_END	2
+#define	SEEK_SET 0
+#define	SEEK_CUR 1
+#define	SEEK_END 2
+
+typedef struct _file *FILE;
 
 /* fioLib.S */
-extern int printf    (const char * fmt, ...);
-extern int printErr  (const char * fmt, ...);
-extern int fdprintf  (int fd, const char * fmt, ...);
-extern int sprintf   (char * buffer, const char * fmt, ...);
-extern int vprintf   (const char * fmt, va_list vaList);
-extern int vfdprintf (int fd, const char * fmt, va_list vaList);
-extern int vsprintf  (char * buffer, const char * fmt, va_list vaList);
-extern int sscanf    (const char * str, const char * fmt, ...);
+extern int printf    (const char *fmt, ...);
+extern int printErr  (const char *fmt, ...);
+extern int fdprintf  (int fd, const char *fmt, ...);
+extern int sprintf   (char *buffer, const char *fmt, ...);
+extern int vprintf   (const char *fmt, va_list vaList);
+extern int vfdprintf (int fd, const char *fmt, va_list vaList);
+extern int vsprintf  (char *buffer, const char *fmt, va_list vaList);
+extern int sscanf    (const char *str, const char *fmt, ...);
 
 /* ansiStdio.S */
 extern void    clearerr      (FILE *fp);
@@ -38,7 +41,7 @@ extern int     fread         (void *buf, size_t size, size_t count, FILE *fp);
 extern FILE   *freopen       (const char *file, const char *mode, FILE *fp);
 extern int     fscanf        (FILE *fp, char const *fmt, ...);
 extern int     fseek         (FILE *fp, long offset, int whence);
-extern int     fsetpos       (FILE *iop, const fpos_t *pos);
+extern int     fsetpos       (FILE *fp, const fpos_t *pos);
 extern long    ftell         (FILE *fp);
 extern int     fwrite        (const void *buf, size_t size, size_t count, FILE *fp);
 extern int     getc          (FILE *fp);

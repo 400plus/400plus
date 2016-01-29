@@ -1,5 +1,7 @@
 #include <vxworks.h>
 
+#include "firmware/gui.h"
+
 #include "macros.h"
 #include "main.h"
 
@@ -34,14 +36,6 @@ void menu_repeat_left (menu_t *menu, const int repeating);
 
 menupage_t *get_selected_page(void);
 
-int hack_central_handler(dialog_t *dialog, int event, int r2, int r3);
-
-int hack_central_handler(dialog_t *dialog, int event, int r2, int r3) {
-	debug_log("CENTRAL!");
-	debug_log("central: dlg:0x%08X, ev:0x%08X, r2:0x%08X, r3:0x%08X", dialog, event, r2, r3);
-	return DIALOGHandler(dialog, event, r2, r3);
-}
-
 void menu_create(menu_t *menu) {
 	beep();
 
@@ -60,19 +54,17 @@ void menu_create(menu_t *menu) {
 	menu_initialize();
 
 	GUI_Lock();
-	GUI_PalleteInit();
+	GUI_PaletteInit();
 
 	menu_handler = dialog_create(22, menu_event_handler);
-	//*(int*)((int)(menu_handler+0x58)) = (int)hack_central_handler;
-	//*(int*)((int)(menu_handler+0x7C)) = (int)menu_event_handler;
 
-	PalettePush();
-	PaletteChange(current_menu->color);
+	GUI_PalettePush();
+	GUI_PaletteChange(current_menu->color);
 
 	menu_event_display();
 
 	GUI_UnLock();
-	GUI_PalleteUnInit();
+	GUI_PaletteUnInit();
 }
 
 void menu_close() {
@@ -104,7 +96,7 @@ void menu_initialize() {
 
 void menu_destroy() {
 	if (menu_handler != NULL) {
-		PalettePop();
+		GUI_PalettePop();
 		DeleteDialogBox(menu_handler);
 		menu_handler = NULL;
 		GUI_ClearImage();
@@ -150,7 +142,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 		return FALSE;
 
 pass_event:
-	ret = InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+	ret = dialog_event_handler(dialog, r1, event, r3, r4, r5, r6, code);
 
 	debug_log("_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
 

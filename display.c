@@ -10,6 +10,7 @@
 #include "exposure.h"
 #include "settings.h"
 #include "utils.h"
+#include "intercom.h"
 #include "debug.h"
 
 #include "display.h"
@@ -50,7 +51,7 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data,
 		}
 	}
 
-	item_set_label_internal(dialog, type, my_data, length, item);
+	dialog_item_set_label(dialog, type, my_data, length, item);
 }
 
 void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data, const int length, const int item)
@@ -67,7 +68,7 @@ void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data,
 		}
 	}
 
-	item_set_label_internal(dialog, type, my_data, length, item);
+	dialog_item_set_label(dialog, type, my_data, length, item);
 }
 
 #if FALSE

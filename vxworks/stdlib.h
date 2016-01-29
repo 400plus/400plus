@@ -3,6 +3,16 @@
 
 #include "vxworks.h"
 
+typedef struct {
+	int quot;
+	int rem;
+} div_t;
+
+typedef struct {
+	long int quot;
+	long int rem;
+} ldiv_t;
+
 extern void     abort    (void);
 extern int      abs      (int i);
 extern int      atexit   (void (*__func)(void));

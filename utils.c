@@ -2,6 +2,10 @@
 #include <string.h>
 #include <clock.h>
 #include <time.h>
+#include <ioLib.h>
+
+#include "firmware.h"
+#include "firmware/gui.h"
 
 #include "main.h"
 #include "macros.h"
@@ -10,8 +14,7 @@
 #include "languages.h"
 #include "settings.h"
 #include "debug.h"
-
-#include "firmware.h"
+#include "intercom.h"
 
 #include "utils.h"
 

@@ -1,14 +1,17 @@
 #include <vxworks.h>
 #include <ioLib.h>
 
-#include "main.h"
 #include "firmware.h"
+#include "firmware/fio.h"
+
+#include "main.h"
 #include "macros.h"
 
 #include "cmodes.h"
 #include "display.h"
 #include "languages.h"
 #include "utils.h"
+#include "intercom.h"
 
 #include "snapshots.h"
 
@@ -19,8 +22,8 @@ int snapshot_read(char names[][FILENAME_LENGTH], snapshot_t *snapshot) {
 
 	snapshot_t buffer;
 
-	if ((file = FIO_OpenFile(names[0], O_RDONLY, 644)) == -1)
-		if ((file = FIO_OpenFile(names[1], O_RDONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(names[0], O_RDONLY)) == -1)
+		if ((file = FIO_OpenFile(names[1], O_RDONLY)) == -1)
 			goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
@@ -64,8 +67,8 @@ int snapshot_write(char names[][FILENAME_LENGTH]) {
 		menu_order : menu_order,
 	};
 
-	if ((file = FIO_OpenFile(names[0], O_CREAT | O_WRONLY, 644)) == -1)
-		if (status.folder_exists || (file = FIO_OpenFile(names[1], O_CREAT | O_WRONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(names[0], O_CREAT | O_WRONLY)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(names[1], O_CREAT | O_WRONLY)) == -1)
 			goto end;
 
 	if (FIO_WriteFile(file, (void*)&version, sizeof(version)) != sizeof(version))
@@ -74,8 +77,7 @@ int snapshot_write(char names[][FILENAME_LENGTH]) {
 	if (FIO_WriteFile(file, (void*)&buffer, sizeof(buffer)) != sizeof(buffer))
 		goto end;
 
-	if (FIO_CloseFile(file) == -1)
-		goto end;
+	FIO_CloseFile(file);
 
 	result = TRUE;
 

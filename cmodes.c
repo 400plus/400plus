@@ -1,8 +1,11 @@
 #include <vxworks.h>
 #include <ioLib.h>
+#include <stdio.h>
+
+#include "firmware.h"
+#include "firmware/fio.h"
 
 #include "main.h"
-#include "firmware.h"
 
 #include "display.h"
 #include "languages.h"
@@ -33,9 +36,9 @@ void get_cmode_filenames(char filenames[][FILENAME_LENGTH], int cmode_id);
 void get_amode_filenames(char filenames[][FILENAME_LENGTH], AE_MODE ae_mode);
 
 void cmodes_read() {
-	int id;
+	int   id;
+	int   version =  0;
 	int file    = -1;
-	int version =  0;
 
 	cmodes_config_t buffer;
 
@@ -50,8 +53,8 @@ void cmodes_read() {
 
 	cmodes_config = cmodes_default;
 
-	if ((file = FIO_OpenFile(MKPATH_NEW(CMODES_CONFIG), O_RDONLY, 644)) == -1)
-		if ((file = FIO_OpenFile(MKPATH_OLD(CMODES_CONFIG), O_RDONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(CMODES_CONFIG), O_RDONLY)) == -1)
+		if ((file = FIO_OpenFile(MKPATH_OLD(CMODES_CONFIG), O_RDONLY)) == -1)
 			goto end;
 
 	if (FIO_ReadFile(file, &version, sizeof(version)) != sizeof(version))
@@ -74,8 +77,8 @@ void cmodes_write() {
 	const int version = SNAPSHOT_VERSION;
 	int file = -1;
 
-	if ((file = FIO_OpenFile(MKPATH_NEW(CMODES_CONFIG), O_CREAT | O_WRONLY, 644)) == -1)
-		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(CMODES_CONFIG), O_CREAT | O_WRONLY, 644)) == -1)
+	if ((file = FIO_OpenFile(MKPATH_NEW(CMODES_CONFIG), O_CREAT | O_WRONLY)) == -1)
+		if (status.folder_exists || (file = FIO_OpenFile(MKPATH_OLD(CMODES_CONFIG), O_CREAT | O_WRONLY)) == -1)
 			goto end;
 
 	FIO_WriteFile(file, (void*)&version,        sizeof(version));

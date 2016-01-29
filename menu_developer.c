@@ -9,6 +9,9 @@
 // JUMP -> change color palette (some dialogs are seen in special palettes)
 
 #include <vxworks.h>
+#include <stdio.h>
+
+#include "firmware/gui.h"
 
 #include "macros.h"
 
@@ -105,7 +108,7 @@ static int test_dialog_event_handler(dialog_t * dialog, int *r1, gui_event_t eve
 		break;
 	}
 
-	return InfoCreativeAppProc(dialog, r1, event, r3, r4, r5, r6, code);
+	return dialog_event_handler(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
 static void test_dialog_create(void) {
@@ -126,7 +129,7 @@ static void test_dialog_create(void) {
 		dialog_set_property_str(menu_handler, i, s);
 	}
 
-	PaletteChange(curr_palette);
+	GUI_PaletteChange(curr_palette);
 
 	dialog_redraw(menu_handler);
 }
