@@ -17,6 +17,7 @@
 #include "settings.h"
 #include "utils.h"
 #include "viewfinder.h"
+#include "shortcuts.h"
 
 #include "button.h"
 
@@ -34,8 +35,8 @@ typedef struct  {
 reaction_t
 	reaction_main_dp    = {TRUE,  menu_main_start},
 	reaction_main_disp  = {TRUE,  display_brightness} ,
-	reaction_main_jump  = {TRUE,  button_jump_down, button_jump_up},
-	reaction_main_trash = {TRUE,  button_trash_down, button_trash_up},
+	reaction_main_jump  = {TRUE,  shortcut_jump_down,  shortcut_jump_up},
+	reaction_main_trash = {TRUE,  shortcut_trash_down, shortcut_trash_up},
 	reaction_main_av    = {FALSE, toggle_img_format},
 	reaction_main_up    = {FALSE, restore_iso},
 	reaction_main_down  = {FALSE, restore_wb},
