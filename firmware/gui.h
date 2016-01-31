@@ -265,4 +265,8 @@ extern void GUI_UnLock       (void);
 extern void GUI_ClearImage   (void);
 extern void GUI_RefreshImage (void);
 
+// Udocumented
+
+extern int GUI_IDLEHandler(int unk0, int event, int unused, int unk1);
+
 #endif

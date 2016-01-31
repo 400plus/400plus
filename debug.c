@@ -4,6 +4,7 @@
 #include <time.h>
 
 #include "firmware/fio.h"
+#include "firmware/gui.h"
 
 #include "settings.h"
 
