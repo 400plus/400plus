@@ -24,7 +24,8 @@
 void set_intermediate_iso(void);
 void repeat_last_script  (void);
 
-void button_action(button_action_t action);
+void button_action_down(button_action_t action);
+void button_action_up  (button_action_t action);
 
 #ifdef DEV_BTN_ACTION
 void dev_btn_action() {
@@ -184,15 +185,23 @@ void repeat_last_script(void) {
 	}
 }
 
-void button_jump_action() {
-	button_action(settings.button_jump);
+void button_jump_down() {
+	button_action_down(settings.button_jump);
 }
 
-void button_trash_action() {
-	button_action(settings.button_trash);
+void button_jump_up() {
+	button_action_up(settings.button_jump);
 }
 
-void button_action(button_action_t action) {
+void button_trash_down() {
+	button_action_down(settings.button_trash);
+}
+
+void button_trash_up() {
+	button_action_up(settings.button_trash);
+}
+
+void button_action_down(button_action_t action) {
 	switch (action) {
 	case BUTTON_ACTION_ISO:
 		set_intermediate_iso();
@@ -220,4 +229,7 @@ void button_action(button_action_t action) {
 	default:
 		break;
 	}
+}
+
+void button_action_up(button_action_t action) {
 }

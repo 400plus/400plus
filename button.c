@@ -1,6 +1,7 @@
 #include <vxworks.h>
 
 #include "firmware.h"
+
 #include "main.h"
 #include "macros.h"
 #include "debug.h"
@@ -33,8 +34,8 @@ typedef struct  {
 reaction_t
 	reaction_main_dp    = {TRUE,  menu_main_start},
 	reaction_main_disp  = {TRUE,  display_brightness} ,
-	reaction_main_jump  = {TRUE,  button_jump_action},
-	reaction_main_trash = {TRUE,  button_trash_action},
+	reaction_main_jump  = {TRUE,  button_jump_down, button_jump_up},
+	reaction_main_trash = {TRUE,  button_trash_down, button_trash_up},
 	reaction_main_av    = {FALSE, toggle_img_format},
 	reaction_main_up    = {FALSE, restore_iso},
 	reaction_main_down  = {FALSE, restore_wb},
@@ -187,6 +188,8 @@ int can_hold[BUTTON_COUNT] = {
 	[BUTTON_DOWN]  = TRUE,
 	[BUTTON_RIGHT] = TRUE,
 	[BUTTON_LEFT]  = TRUE,
+	[BUTTON_JUMP]  = TRUE,
+	[BUTTON_TRASH] = TRUE,
 };
 
 int button_handler(button_t button, int is_button_down) {
@@ -260,11 +263,13 @@ int button_handler(button_t button, int is_button_down) {
 void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
 	switch (button) {
 	case 4: // JUMP_UP
+		button_handler(BUTTON_JUMP, FALSE);
 		break;
 	case 5: // JUMP_DOWN
 		button_handler(BUTTON_JUMP, TRUE);
 		break;
 	case 8: // TRASH_UP
+		button_handler(BUTTON_TRASH, FALSE);
 		break;
 	case 9: // TRASH_DOWN
 		button_handler(BUTTON_TRASH, TRUE);

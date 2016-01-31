@@ -20,8 +20,10 @@ extern void set_intermediate_iso      (void);
 extern void set_metering_spot         (void);
 extern void set_whitebalance_colortemp(void);
 
-extern void button_jump_action (void);
-extern void button_trash_action(void);
+extern void button_jump_down (void);
+extern void button_jump_up   (void);
+extern void button_trash_down(void);
+extern void button_trash_up  (void);
 
 void drivemode_set(void);
 
