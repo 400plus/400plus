@@ -162,24 +162,24 @@ reaction_t *button_actions_drive[BUTTON_COUNT] = {
 
 chain_t
 	chain_actions_main    = {button_actions_main},
-	chain_actions_400plus = {button_actions_meter},
+	chain_actions_face    = {button_actions_meter},
 	chain_actions_meter   = {button_actions_wb},
 	chain_actions_wb      = {button_actions_iso},
 	chain_actions_iso     = {button_actions_af},
 	chain_actions_drive   = {button_actions_drive},
-	chain_actions_face    = {button_actions_400plus},
+	chain_actions_400plus = {button_actions_400plus},
 	chain_actions_af      = {button_actions_face, &settings.use_dpad}
 ;
 
 chain_t *button_chains[GUIMODE_COUNT] = {
 	[GUIMODE_OLC]       = &chain_actions_main,
 	[GUIMODE_OFF]       = &chain_actions_main,
-	[GUIMODE_METER]     = &chain_actions_400plus,
+	[GUIMODE_METER]     = &chain_actions_face,
 	[GUIMODE_WB]        = &chain_actions_meter,
 	[GUIMODE_ISO]       = &chain_actions_wb,
 	[GUIMODE_AFPATTERN] = &chain_actions_iso,
 	[GUIMODE_DRIVE]     = &chain_actions_drive,
-	[GUIMODE_400PLUS]   = &chain_actions_face,
+	[GUIMODE_400PLUS]   = &chain_actions_400plus,
 	[GUIMODE_FACE]      = &chain_actions_af,
 };
 
