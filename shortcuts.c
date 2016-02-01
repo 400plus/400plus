@@ -24,86 +24,6 @@ void shortcut_start(shortcut_action_t action);
 void shortcut_iso_toggle (void);
 void shortcut_iso_set    (iso_t iso);
 
-#ifdef DEV_BTN_ACTION
-void dev_btn_action() {
-	// quick shortcut for developers to test stuff
-	beep();
-	ptp_dump_info();
-}
-#endif
-
-void toggle_CfMLU() {
-	char message[LP_MAX_WORD];
-
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, !DPData.cf_mirror_up_lock);
-
-	sprintf(message, "%s: %s", LP_WORD(L_A_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_A_YES) : LP_WORD(L_A_NO));
-	display_message_set(message, ACTION_MSG_TIMEOUT);
-}
-
-void toggle_CfEmitFlash() {
-	char message[LP_MAX_WORD];
-
-	send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
-
-	sprintf(message, "%s: %s",LP_WORD(L_A_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_A_NO) : LP_WORD(L_A_YES)));
-	display_message_set(message, ACTION_MSG_TIMEOUT);
-}
-
-void toggle_CfFlashSyncRear() {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, !DPData.cf_flash_sync_rear);
-}
-
-void toggle_AEB() {
-	int aeb;
-	static int last_toggle = 0;
-
-	if (timestamp() - last_toggle < ACTION_AEB_TIMEOUT)
-		// Button was pressed recently: roll over all range
-		aeb = (EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)) % EV_CODE(6, 0);
-	else if (DPData.ae_bkt)
-		// Button was pressed long ago, and AEB is on: switch it off
-		aeb = EC_ZERO;
-	else
-		// Button was pressed long ago, and AEB is off: switch it on
-		aeb = persist.last_aeb;
-
-	send_to_intercom(IC_SET_AE_BKT, aeb);
-
-	persist.aeb = aeb;
-
-	if (persist.aeb)
-		persist.last_aeb = persist.aeb;
-
-	enqueue_action(persist_write);
-	last_toggle = timestamp();
-}
-
-void repeat_last_script(void) {
-	switch (persist.last_script) {
-	case SCRIPT_EXT_AEB:
-		script_ext_aeb();
-		break;
-	case SCRIPT_EFL_AEB:
-		script_efl_aeb();
-		break;
-	case SCRIPT_ISO_AEB:
-		script_iso_aeb();
-		break;
-	case SCRIPT_INTERVAL:
-		script_interval();
-		break;
-	case SCRIPT_WAVE:
-		script_wave();
-		break;
-	case SCRIPT_TIMER:
-		script_self_timer();
-		break;
-	default:
-		break;
-	}
-}
-
 void shortcut_jump() {
 	shortcut_start(settings.shortcut_jump);
 }
@@ -273,4 +193,84 @@ void shortcut_iso_set(iso_t iso) {
 
 	dialog_item_set_label(hMainDialog, 0x08, label, 4, 0x04);
 	display_refresh();
+}
+
+#ifdef DEV_BTN_ACTION
+void dev_btn_action() {
+	// quick shortcut for developers to test stuff
+	beep();
+	ptp_dump_info();
+}
+#endif
+
+void toggle_CfMLU() {
+	char message[LP_MAX_WORD];
+
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, !DPData.cf_mirror_up_lock);
+
+	sprintf(message, "%s: %s", LP_WORD(L_A_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_A_YES) : LP_WORD(L_A_NO));
+	display_message_set(message, ACTION_MSG_TIMEOUT);
+}
+
+void toggle_CfEmitFlash() {
+	char message[LP_MAX_WORD];
+
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
+
+	sprintf(message, "%s: %s",LP_WORD(L_A_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_A_NO) : LP_WORD(L_A_YES)));
+	display_message_set(message, ACTION_MSG_TIMEOUT);
+}
+
+void toggle_CfFlashSyncRear() {
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, !DPData.cf_flash_sync_rear);
+}
+
+void toggle_AEB() {
+	int aeb;
+	static int last_toggle = 0;
+
+	if (timestamp() - last_toggle < ACTION_AEB_TIMEOUT)
+		// Button was pressed recently: roll over all range
+		aeb = (EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)) % EV_CODE(6, 0);
+	else if (DPData.ae_bkt)
+		// Button was pressed long ago, and AEB is on: switch it off
+		aeb = EC_ZERO;
+	else
+		// Button was pressed long ago, and AEB is off: switch it on
+		aeb = persist.last_aeb;
+
+	send_to_intercom(IC_SET_AE_BKT, aeb);
+
+	persist.aeb = aeb;
+
+	if (persist.aeb)
+		persist.last_aeb = persist.aeb;
+
+	enqueue_action(persist_write);
+	last_toggle = timestamp();
+}
+
+void repeat_last_script(void) {
+	switch (persist.last_script) {
+	case SCRIPT_EXT_AEB:
+		script_ext_aeb();
+		break;
+	case SCRIPT_EFL_AEB:
+		script_efl_aeb();
+		break;
+	case SCRIPT_ISO_AEB:
+		script_iso_aeb();
+		break;
+	case SCRIPT_INTERVAL:
+		script_interval();
+		break;
+	case SCRIPT_WAVE:
+		script_wave();
+		break;
+	case SCRIPT_TIMER:
+		script_self_timer();
+		break;
+	default:
+		break;
+	}
 }
