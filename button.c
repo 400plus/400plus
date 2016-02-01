@@ -279,20 +279,3 @@ int button_handler(button_t button, int is_button_down) {
 		return FALSE;
 	}
 }
-
-void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
-	switch (button) {
-	case 4: // JUMP_UP
-		button_handler(BUTTON_RELEASE, TRUE);
-		break;
-	case 5: // JUMP_DOWN
-		button_handler(BUTTON_JUMP, TRUE);
-		break;
-	case 8: // TRASH_UP
-		button_handler(BUTTON_RELEASE, TRUE);
-		break;
-	case 9: // TRASH_DOWN
-		button_handler(BUTTON_TRASH, TRUE);
-		break;
-	}
-}
