@@ -17,7 +17,6 @@ void toggle_CfEmitFlash     (void);
 void toggle_CfFlashSyncRear (void);
 void toggle_AEB             (void);
 
-void cycle_intermediate_iso (void);
 void repeat_last_script     (void);
 
 void shortcut_start(shortcut_action_t action);
@@ -78,19 +77,6 @@ void toggle_AEB() {
 
 	enqueue_action(persist_write);
 	last_toggle = timestamp();
-}
-
-void cycle_intermediate_iso() {
-	if (AE_IS_CREATIVE(DPData.ae)) {
-		send_to_intercom(IC_SET_ISO, iso_roll(DPData.iso));
-
-		// No need to set a proper value here,
-		// we hacked this function at hack_item_set_label_int()
-		dialog_set_property_str(hMainDialog, 0x04, "0000");
-
-		print_icu_info();
-		display_refresh();
-	}
 }
 
 void repeat_last_script(void) {
