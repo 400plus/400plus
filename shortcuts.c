@@ -1,6 +1,7 @@
 #include "firmware.h"
 
 #include "main.h"
+#include "macros.h"
 
 #include "autoiso.h"
 #include "display.h"
@@ -12,17 +13,18 @@
 
 #include "shortcuts.h"
 
-void toggle_AEB             (void);
-
 void repeat_last_script     (void);
 
 void shortcut_start(shortcut_action_t action);
 
 void shortcut_iso_toggle (void);
+void shortcut_aeb_toggle (void);
+
 void shortcut_iso_set    (iso_t iso);
 void shortcut_mlu_set    (int status);
 void shortcut_efl_set    (int status);
 void shortcut_f2c_set    (int status);
+void shortcut_aeb_set    (int aeb);
 
 void shortcut_jump() {
 	shortcut_start(settings.shortcut_jump);
@@ -41,11 +43,6 @@ void shortcut_start(shortcut_action_t action) {
 	case SHORTCUT_ACTION_SCRIPT:
 		repeat_last_script();
 		break;
-	case SHORTCUT_ACTION_MLU:
-		break;
-	case SHORTCUT_ACTION_AEB:
-		toggle_AEB();
-		break;
 	case SHORTCUT_ACTION_HACK_MENU:
 		menu_main_start();
 		break;
@@ -62,6 +59,14 @@ void shortcut_start(shortcut_action_t action) {
 }
 
 void shortcut_event_end() {
+	switch (status.shortcut_running) {
+	case SHORTCUT_ACTION_AEB:
+		enqueue_action(persist_write);
+		break;
+	default:
+		break;
+	}
+
 	status.shortcut_running = SHORTCUT_ACTION_NONE;
 }
 
@@ -71,10 +76,7 @@ void shortcut_event_set   (void) {
 		shortcut_iso_toggle();
 		break;
 	case SHORTCUT_ACTION_AEB:
-		break;
-	case SHORTCUT_ACTION_HACK_MENU:
-		break;
-	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		shortcut_aeb_toggle();
 		break;
 	default:
 		break;
@@ -90,8 +92,7 @@ void shortcut_event_up    (void) {
 		shortcut_mlu_set(TRUE);
 		break;
 	case SHORTCUT_ACTION_AEB:
-		break;
-	case SHORTCUT_ACTION_HACK_MENU:
+		shortcut_aeb_set(MIN((EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)), EC_MAX));
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_efl_set(FALSE);
@@ -110,8 +111,7 @@ void shortcut_event_down  (void) {
 		shortcut_mlu_set(FALSE);
 		break;
 	case SHORTCUT_ACTION_AEB:
-		break;
-	case SHORTCUT_ACTION_HACK_MENU:
+		shortcut_aeb_set(MAX((EV_TRUNC(DPData.ae_bkt) - EV_CODE(1, 0)), EC_ZERO));
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_efl_set(TRUE);
@@ -127,8 +127,7 @@ void shortcut_event_right (void) {
 		shortcut_iso_set(iso_inc(DPData.iso));
 		break;
 	case SHORTCUT_ACTION_AEB:
-		break;
-	case SHORTCUT_ACTION_HACK_MENU:
+		shortcut_aeb_set(MIN(ec_inc(DPData.ae_bkt), EC_MAX));
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_f2c_set(TRUE);
@@ -144,8 +143,7 @@ void shortcut_event_left  (void) {
 		shortcut_iso_set(iso_dec(DPData.iso));
 		break;
 	case SHORTCUT_ACTION_AEB:
-		break;
-	case SHORTCUT_ACTION_HACK_MENU:
+		shortcut_aeb_set(MAX(ec_dec(DPData.ae_bkt), EV_ZERO));
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_f2c_set(FALSE);
@@ -166,6 +164,10 @@ void shortcut_iso_toggle() {
 
 	dialog_item_set_label(hMainDialog, 0x08, label, 4, 0x04);
 	display_refresh();
+}
+
+void shortcut_aeb_toggle() {
+	shortcut_aeb_set(DPData.ae_bkt ? EC_ZERO : persist.last_aeb);
 }
 
 void shortcut_iso_set(iso_t iso) {
@@ -199,6 +201,15 @@ void shortcut_f2c_set(int status) {
 	enqueue_action(beep);
 }
 
+void shortcut_aeb_set(int aeb) {
+	send_to_intercom(IC_SET_AE_BKT, aeb);
+
+	persist.aeb = aeb;
+
+	if (persist.aeb)
+		persist.last_aeb = persist.aeb;
+}
+
 #ifdef DEV_BTN_ACTION
 void dev_btn_action() {
 	// quick shortcut for developers to test stuff
@@ -206,31 +217,6 @@ void dev_btn_action() {
 	ptp_dump_info();
 }
 #endif
-
-void toggle_AEB() {
-	int aeb;
-	static int last_toggle = 0;
-
-	if (timestamp() - last_toggle < ACTION_AEB_TIMEOUT)
-		// Button was pressed recently: roll over all range
-		aeb = (EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)) % EV_CODE(6, 0);
-	else if (DPData.ae_bkt)
-		// Button was pressed long ago, and AEB is on: switch it off
-		aeb = EC_ZERO;
-	else
-		// Button was pressed long ago, and AEB is off: switch it on
-		aeb = persist.last_aeb;
-
-	send_to_intercom(IC_SET_AE_BKT, aeb);
-
-	persist.aeb = aeb;
-
-	if (persist.aeb)
-		persist.last_aeb = persist.aeb;
-
-	enqueue_action(persist_write);
-	last_toggle = timestamp();
-}
 
 void repeat_last_script(void) {
 	switch (persist.last_script) {
