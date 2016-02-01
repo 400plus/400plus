@@ -12,8 +12,6 @@
 
 #include "shortcuts.h"
 
-void toggle_CfEmitFlash     (void);
-void toggle_CfFlashSyncRear (void);
 void toggle_AEB             (void);
 
 void repeat_last_script     (void);
@@ -22,8 +20,9 @@ void shortcut_start(shortcut_action_t action);
 
 void shortcut_iso_toggle (void);
 void shortcut_iso_set    (iso_t iso);
-
-void shortcut_mlu_set (int status);
+void shortcut_mlu_set    (int status);
+void shortcut_efl_set    (int status);
+void shortcut_f2c_set    (int status);
 
 void shortcut_jump() {
 	shortcut_start(settings.shortcut_jump);
@@ -51,7 +50,6 @@ void shortcut_start(shortcut_action_t action) {
 		menu_main_start();
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
-		toggle_CfEmitFlash();
 		break;
 #ifdef DEV_BTN_ACTION
 	case SHORTCUT_ACTION_DEV_BTN:
@@ -96,6 +94,7 @@ void shortcut_event_up    (void) {
 	case SHORTCUT_ACTION_HACK_MENU:
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		shortcut_efl_set(FALSE);
 		break;
 	default:
 		break;
@@ -115,6 +114,7 @@ void shortcut_event_down  (void) {
 	case SHORTCUT_ACTION_HACK_MENU:
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		shortcut_efl_set(TRUE);
 		break;
 	default:
 		break;
@@ -131,6 +131,7 @@ void shortcut_event_right (void) {
 	case SHORTCUT_ACTION_HACK_MENU:
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		shortcut_f2c_set(TRUE);
 		break;
 	default:
 		break;
@@ -147,6 +148,7 @@ void shortcut_event_left  (void) {
 	case SHORTCUT_ACTION_HACK_MENU:
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		shortcut_f2c_set(FALSE);
 		break;
 	default:
 		break;
@@ -187,6 +189,16 @@ void shortcut_mlu_set(int status) {
 	enqueue_action(beep);
 }
 
+void shortcut_efl_set(int status) {
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, status);
+	enqueue_action(beep);
+}
+
+void shortcut_f2c_set(int status) {
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, status);
+	enqueue_action(beep);
+}
+
 #ifdef DEV_BTN_ACTION
 void dev_btn_action() {
 	// quick shortcut for developers to test stuff
@@ -194,19 +206,6 @@ void dev_btn_action() {
 	ptp_dump_info();
 }
 #endif
-
-void toggle_CfEmitFlash() {
-	char message[LP_MAX_WORD];
-
-	send_to_intercom(IC_SET_CF_EMIT_FLASH, !DPData.cf_emit_flash);
-
-	sprintf(message, "%s: %s",LP_WORD(L_A_FLASH),(DPData.cf_emit_flash ? LP_WORD(L_A_NO) : LP_WORD(L_A_YES)));
-	display_message_set(message, ACTION_MSG_TIMEOUT);
-}
-
-void toggle_CfFlashSyncRear() {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, !DPData.cf_flash_sync_rear);
-}
 
 void toggle_AEB() {
 	int aeb;
