@@ -38,15 +38,11 @@ void shortcut_start(shortcut_action_t action) {
 	status.shortcut_running = action;
 
 	switch (action) {
-	case SHORTCUT_ACTION_ISO:
-		break;
 	case SHORTCUT_ACTION_SCRIPT:
 		repeat_last_script();
 		break;
 	case SHORTCUT_ACTION_HACK_MENU:
 		menu_main_start();
-		break;
-	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		break;
 #ifdef DEV_BTN_ACTION
 	case SHORTCUT_ACTION_DEV_BTN:
