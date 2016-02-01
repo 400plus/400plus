@@ -2,6 +2,7 @@
 
 #include "main.h"
 
+#include "autoiso.h"
 #include "display.h"
 #include "persist.h"
 #include "settings.h"
@@ -20,7 +21,9 @@ void cycle_intermediate_iso (void);
 void repeat_last_script     (void);
 
 void shortcut_start(shortcut_action_t action);
-void shortcut_end  (void);
+
+void shortcut_iso_toggle (void);
+void shortcut_iso_set    (iso_t iso);
 
 #ifdef DEV_BTN_ACTION
 void dev_btn_action() {
@@ -128,7 +131,6 @@ void shortcut_start(shortcut_action_t action) {
 
 	switch (action) {
 	case SHORTCUT_ACTION_ISO:
-		cycle_intermediate_iso();
 		break;
 	case SHORTCUT_ACTION_SCRIPT:
 		repeat_last_script();
@@ -160,16 +162,129 @@ void shortcut_event_end() {
 }
 
 void shortcut_event_set   (void) {
+	switch (status.shortcut_running) {
+	case SHORTCUT_ACTION_ISO:
+		shortcut_iso_toggle();
+		break;
+	case SHORTCUT_ACTION_SCRIPT:
+		break;
+	case SHORTCUT_ACTION_MLU:
+		break;
+	case SHORTCUT_ACTION_AEB:
+		break;
+	case SHORTCUT_ACTION_HACK_MENU:
+		break;
+	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		break;
+	default:
+		break;
+	}
 }
 
 void shortcut_event_up    (void) {
+	switch (status.shortcut_running) {
+	case SHORTCUT_ACTION_ISO:
+		shortcut_iso_set(iso_next(DPData.iso));
+		break;
+	case SHORTCUT_ACTION_SCRIPT:
+		break;
+	case SHORTCUT_ACTION_MLU:
+		break;
+	case SHORTCUT_ACTION_AEB:
+		break;
+	case SHORTCUT_ACTION_HACK_MENU:
+		break;
+	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		break;
+	default:
+		break;
+	}
 }
 
 void shortcut_event_down  (void) {
+	switch (status.shortcut_running) {
+	case SHORTCUT_ACTION_ISO:
+		shortcut_iso_set(iso_prev(DPData.iso));
+		break;
+	case SHORTCUT_ACTION_SCRIPT:
+		break;
+	case SHORTCUT_ACTION_MLU:
+		break;
+	case SHORTCUT_ACTION_AEB:
+		break;
+	case SHORTCUT_ACTION_HACK_MENU:
+		break;
+	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		break;
+	default:
+		break;
+	}
 }
 
 void shortcut_event_right (void) {
+	switch (status.shortcut_running) {
+	case SHORTCUT_ACTION_ISO:
+		shortcut_iso_set(iso_inc(DPData.iso));
+		break;
+	case SHORTCUT_ACTION_SCRIPT:
+		break;
+	case SHORTCUT_ACTION_MLU:
+		break;
+	case SHORTCUT_ACTION_AEB:
+		break;
+	case SHORTCUT_ACTION_HACK_MENU:
+		break;
+	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		break;
+	default:
+		break;
+	}
 }
 
 void shortcut_event_left  (void) {
+	switch (status.shortcut_running) {
+	case SHORTCUT_ACTION_ISO:
+		shortcut_iso_set(iso_dec(DPData.iso));
+		break;
+	case SHORTCUT_ACTION_SCRIPT:
+		break;
+	case SHORTCUT_ACTION_MLU:
+		break;
+	case SHORTCUT_ACTION_AEB:
+		break;
+	case SHORTCUT_ACTION_HACK_MENU:
+		break;
+	case SHORTCUT_ACTION_TOGGLE_FLASH:
+		break;
+	default:
+		break;
+	}
+}
+
+void shortcut_iso_toggle() {
+	char label[8] = "AUTO";
+
+	settings.autoiso_enable = ! settings.autoiso_enable;
+	enqueue_action(settings_write);
+
+	if (!settings.autoiso_enable)
+		iso_print(label, DPData.iso);
+
+	dialog_item_set_label(hMainDialog, 0x08, label, 4, 0x04);
+	display_refresh();
+}
+
+void shortcut_iso_set(iso_t iso) {
+	char label[8] = "AUTO";
+
+	if (settings.autoiso_enable) {
+		settings.autoiso_enable = FALSE;
+		enqueue_action(settings_write);
+	}
+
+	send_to_intercom(IC_SET_ISO, iso);
+	iso_print(label, iso);
+
+	dialog_item_set_label(hMainDialog, 0x08, label, 4, 0x04);
+	display_refresh();
 }
