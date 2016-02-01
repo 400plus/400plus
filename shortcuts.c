@@ -12,7 +12,6 @@
 
 #include "shortcuts.h"
 
-void toggle_CfMLU           (void);
 void toggle_CfEmitFlash     (void);
 void toggle_CfFlashSyncRear (void);
 void toggle_AEB             (void);
@@ -23,6 +22,8 @@ void shortcut_start(shortcut_action_t action);
 
 void shortcut_iso_toggle (void);
 void shortcut_iso_set    (iso_t iso);
+
+void shortcut_mlu_set (int status);
 
 void shortcut_jump() {
 	shortcut_start(settings.shortcut_jump);
@@ -42,7 +43,6 @@ void shortcut_start(shortcut_action_t action) {
 		repeat_last_script();
 		break;
 	case SHORTCUT_ACTION_MLU:
-		toggle_CfMLU();
 		break;
 	case SHORTCUT_ACTION_AEB:
 		toggle_AEB();
@@ -72,10 +72,6 @@ void shortcut_event_set   (void) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_toggle();
 		break;
-	case SHORTCUT_ACTION_SCRIPT:
-		break;
-	case SHORTCUT_ACTION_MLU:
-		break;
 	case SHORTCUT_ACTION_AEB:
 		break;
 	case SHORTCUT_ACTION_HACK_MENU:
@@ -92,9 +88,8 @@ void shortcut_event_up    (void) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_next(DPData.iso));
 		break;
-	case SHORTCUT_ACTION_SCRIPT:
-		break;
 	case SHORTCUT_ACTION_MLU:
+		shortcut_mlu_set(TRUE);
 		break;
 	case SHORTCUT_ACTION_AEB:
 		break;
@@ -112,9 +107,8 @@ void shortcut_event_down  (void) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_prev(DPData.iso));
 		break;
-	case SHORTCUT_ACTION_SCRIPT:
-		break;
 	case SHORTCUT_ACTION_MLU:
+		shortcut_mlu_set(FALSE);
 		break;
 	case SHORTCUT_ACTION_AEB:
 		break;
@@ -132,10 +126,6 @@ void shortcut_event_right (void) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_inc(DPData.iso));
 		break;
-	case SHORTCUT_ACTION_SCRIPT:
-		break;
-	case SHORTCUT_ACTION_MLU:
-		break;
 	case SHORTCUT_ACTION_AEB:
 		break;
 	case SHORTCUT_ACTION_HACK_MENU:
@@ -151,10 +141,6 @@ void shortcut_event_left  (void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_dec(DPData.iso));
-		break;
-	case SHORTCUT_ACTION_SCRIPT:
-		break;
-	case SHORTCUT_ACTION_MLU:
 		break;
 	case SHORTCUT_ACTION_AEB:
 		break;
@@ -186,6 +172,7 @@ void shortcut_iso_set(iso_t iso) {
 	if (settings.autoiso_enable) {
 		settings.autoiso_enable = FALSE;
 		enqueue_action(settings_write);
+		enqueue_action(beep);
 	}
 
 	send_to_intercom(IC_SET_ISO, iso);
@@ -195,6 +182,11 @@ void shortcut_iso_set(iso_t iso) {
 	display_refresh();
 }
 
+void shortcut_mlu_set(int status) {
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, status);
+	enqueue_action(beep);
+}
+
 #ifdef DEV_BTN_ACTION
 void dev_btn_action() {
 	// quick shortcut for developers to test stuff
@@ -202,15 +194,6 @@ void dev_btn_action() {
 	ptp_dump_info();
 }
 #endif
-
-void toggle_CfMLU() {
-	char message[LP_MAX_WORD];
-
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, !DPData.cf_mirror_up_lock);
-
-	sprintf(message, "%s: %s", LP_WORD(L_A_MIRROR_LOCKUP), DPData.cf_mirror_up_lock ? LP_WORD(L_A_YES) : LP_WORD(L_A_NO));
-	display_message_set(message, ACTION_MSG_TIMEOUT);
-}
 
 void toggle_CfEmitFlash() {
 	char message[LP_MAX_WORD];
