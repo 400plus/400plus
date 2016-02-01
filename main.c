@@ -25,6 +25,8 @@ status_t status = {
 	button_down       : BUTTON_NONE,
 	script_running    : FALSE,
 	script_stopping   : FALSE,
+	menu_running      : FALSE,
+	shortcut_running  : SHORTCUT_ACTION_NONE,
 	afp_dialog        : FALSE,
 	measuring         : FALSE,
 	fexp              : FALSE,

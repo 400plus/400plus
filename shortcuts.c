@@ -19,8 +19,8 @@ void toggle_AEB             (void);
 void cycle_intermediate_iso (void);
 void repeat_last_script     (void);
 
-void shortcut_down(shortcut_action_t action);
-void shortcut_up  (shortcut_action_t action);
+void shortcut_start(shortcut_action_t action);
+void shortcut_end  (void);
 
 #ifdef DEV_BTN_ACTION
 void dev_btn_action() {
@@ -115,23 +115,17 @@ void repeat_last_script(void) {
 	}
 }
 
-void shortcut_jump_down() {
-	shortcut_down(settings.button_jump);
+void shortcut_jump() {
+	shortcut_start(settings.shortcut_jump);
 }
 
-void shortcut_jump_up() {
-	shortcut_up(settings.button_jump);
+void shortcut_trash() {
+	shortcut_start(settings.shortcut_trash);
 }
 
-void shortcut_trash_down() {
-	shortcut_down(settings.button_trash);
-}
+void shortcut_start(shortcut_action_t action) {
+	status.shortcut_running = action;
 
-void shortcut_trash_up() {
-	shortcut_up(settings.button_trash);
-}
-
-void shortcut_down(shortcut_action_t action) {
 	switch (action) {
 	case SHORTCUT_ACTION_ISO:
 		cycle_intermediate_iso();
@@ -161,5 +155,21 @@ void shortcut_down(shortcut_action_t action) {
 	}
 }
 
-void shortcut_up(shortcut_action_t action) {
+void shortcut_event_end() {
+	status.shortcut_running = SHORTCUT_ACTION_NONE;
+}
+
+void shortcut_event_set   (void) {
+}
+
+void shortcut_event_up    (void) {
+}
+
+void shortcut_event_down  (void) {
+}
+
+void shortcut_event_right (void) {
+}
+
+void shortcut_event_left  (void) {
 }

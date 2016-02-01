@@ -33,25 +33,25 @@ typedef struct  {
 } chain_t;
 
 reaction_t
-	reaction_main_dp    = {TRUE,  menu_main_start},
-	reaction_main_disp  = {TRUE,  display_brightness} ,
-	reaction_main_jump  = {TRUE,  shortcut_jump_down,  shortcut_jump_up},
-	reaction_main_trash = {TRUE,  shortcut_trash_down, shortcut_trash_up},
-	reaction_main_av    = {FALSE, toggle_img_format},
-	reaction_main_up    = {FALSE, restore_iso},
-	reaction_main_down  = {FALSE, restore_wb},
-	reaction_main_left  = {FALSE, restore_metering}
+	reaction_main_dp      = {TRUE,  menu_main_start},
+	reaction_main_disp    = {TRUE,  display_brightness} ,
+	reaction_main_jump    = {TRUE,  shortcut_jump},
+	reaction_main_trash   = {TRUE,  shortcut_trash},
+	reaction_main_av      = {FALSE, toggle_img_format},
+	reaction_main_up      = {FALSE, restore_iso},
+	reaction_main_down    = {FALSE, restore_wb},
+	reaction_main_left    = {FALSE, restore_metering}
 ;
 
 reaction_t *button_actions_main[BUTTON_COUNT] = {
-	[BUTTON_DP]    = &reaction_main_dp,
-	[BUTTON_DISP]  = &reaction_main_disp,
-	[BUTTON_JUMP]  = &reaction_main_jump,
-	[BUTTON_TRASH] = &reaction_main_trash,
-	[BUTTON_AV]    = &reaction_main_av,
-	[BUTTON_UP]    = &reaction_main_up,
-	[BUTTON_DOWN]  = &reaction_main_down,
-	[BUTTON_LEFT]  = &reaction_main_left,
+	[BUTTON_DP]          = &reaction_main_dp,
+	[BUTTON_DISP]        = &reaction_main_disp,
+	[BUTTON_JUMP]        = &reaction_main_jump,
+	[BUTTON_TRASH]       = &reaction_main_trash,
+	[BUTTON_AV]          = &reaction_main_av,
+	[BUTTON_UP]          = &reaction_main_up,
+	[BUTTON_DOWN]        = &reaction_main_down,
+	[BUTTON_LEFT]        = &reaction_main_left,
 };
 
 reaction_t
@@ -73,7 +73,6 @@ reaction_t
 	reaction_400plus_left        = {TRUE,  menu_event_left}
 ;
 
-
 reaction_t *button_actions_400plus[BUTTON_COUNT] = {
 	[BUTTON_DP]          = &reaction_400plus_dp,
 //	[BUTTON_DISP]        = &reaction_400plus_disp,
@@ -91,6 +90,24 @@ reaction_t *button_actions_400plus[BUTTON_COUNT] = {
 	[BUTTON_DOWN]        = &reaction_400plus_down,
 	[BUTTON_RIGHT]       = &reaction_400plus_right,
 	[BUTTON_LEFT]        = &reaction_400plus_left,
+};
+
+reaction_t
+	reaction_shortcut_set         = {TRUE,  shortcut_event_set},
+	reaction_shortcut_up          = {TRUE,  shortcut_event_up},
+	reaction_shortcut_down        = {TRUE,  shortcut_event_down},
+	reaction_shortcut_right       = {TRUE,  shortcut_event_right},
+	reaction_shortcut_left        = {TRUE,  shortcut_event_left},
+	reaction_shortcut_release     = {TRUE,  shortcut_event_end}
+;
+
+reaction_t *button_actions_shortcut[BUTTON_COUNT] = {
+	[BUTTON_SET]         = &reaction_shortcut_set,
+	[BUTTON_UP]          = &reaction_shortcut_up,
+	[BUTTON_DOWN]        = &reaction_shortcut_down,
+	[BUTTON_RIGHT]       = &reaction_shortcut_right,
+	[BUTTON_LEFT]        = &reaction_shortcut_left,
+	[BUTTON_RELEASE]     = &reaction_shortcut_release,
 };
 
 reaction_t
@@ -161,26 +178,28 @@ reaction_t *button_actions_drive[BUTTON_COUNT] = {
 };
 
 chain_t
-	chain_actions_main    = {button_actions_main},
-	chain_actions_face    = {button_actions_meter},
-	chain_actions_meter   = {button_actions_wb},
-	chain_actions_wb      = {button_actions_iso},
-	chain_actions_iso     = {button_actions_af},
-	chain_actions_drive   = {button_actions_drive},
-	chain_actions_400plus = {button_actions_400plus},
-	chain_actions_af      = {button_actions_face, &settings.use_dpad}
+	chain_actions_main     = {button_actions_main},
+	chain_actions_meter    = {button_actions_meter},
+	chain_actions_wb       = {button_actions_wb},
+	chain_actions_iso      = {button_actions_iso},
+	chain_actions_drive    = {button_actions_drive},
+	chain_actions_400plus  = {button_actions_400plus},
+	chain_actions_shortcut = {button_actions_shortcut},
+	chain_actions_af       = {button_actions_af},
+	chain_actions_face     = {button_actions_face, &settings.use_dpad}
 ;
 
 chain_t *button_chains[GUIMODE_COUNT] = {
 	[GUIMODE_OLC]       = &chain_actions_main,
 	[GUIMODE_OFF]       = &chain_actions_main,
-	[GUIMODE_METER]     = &chain_actions_face,
-	[GUIMODE_WB]        = &chain_actions_meter,
-	[GUIMODE_ISO]       = &chain_actions_wb,
-	[GUIMODE_AFPATTERN] = &chain_actions_iso,
+	[GUIMODE_METER]     = &chain_actions_meter,
+	[GUIMODE_WB]        = &chain_actions_wb,
+	[GUIMODE_ISO]       = &chain_actions_iso,
+	[GUIMODE_AFPATTERN] = &chain_actions_af,
 	[GUIMODE_DRIVE]     = &chain_actions_drive,
 	[GUIMODE_400PLUS]   = &chain_actions_400plus,
-	[GUIMODE_FACE]      = &chain_actions_af,
+	[GUIMODE_FACE]      = &chain_actions_face,
+	[GUIMODE_SHORTCUT]  = &chain_actions_shortcut,
 };
 
 int can_hold[BUTTON_COUNT] = {
@@ -189,15 +208,13 @@ int can_hold[BUTTON_COUNT] = {
 	[BUTTON_DOWN]  = TRUE,
 	[BUTTON_RIGHT] = TRUE,
 	[BUTTON_LEFT]  = TRUE,
-	[BUTTON_JUMP]  = TRUE,
-	[BUTTON_TRASH] = TRUE,
 };
 
 int button_handler(button_t button, int is_button_down) {
 	static action_t   button_up_action = NULL;  // Action that must be executed when the current button is released
 	static int        button_up_block  = FALSE; // Reaction when the current button is released
 
-	int gui_mode;
+	guimode_t gui_mode;
 
 	chain_t    *chain;
 	reaction_t *reaction;
@@ -209,6 +226,8 @@ int button_handler(button_t button, int is_button_down) {
 			gui_mode = GUIMODE_FACE;
 		else if(status.menu_running)
 			gui_mode = GUIMODE_400PLUS;
+		else if(status.shortcut_running != SHORTCUT_ACTION_NONE)
+			gui_mode = GUIMODE_SHORTCUT;
 		else
 			gui_mode = FLAG_GUI_MODE;
 
@@ -264,13 +283,13 @@ int button_handler(button_t button, int is_button_down) {
 void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
 	switch (button) {
 	case 4: // JUMP_UP
-		button_handler(BUTTON_JUMP, FALSE);
+		button_handler(BUTTON_RELEASE, TRUE);
 		break;
 	case 5: // JUMP_DOWN
 		button_handler(BUTTON_JUMP, TRUE);
 		break;
 	case 8: // TRASH_UP
-		button_handler(BUTTON_TRASH, FALSE);
+		button_handler(BUTTON_RELEASE, TRUE);
 		break;
 	case 9: // TRASH_DOWN
 		button_handler(BUTTON_TRASH, TRUE);

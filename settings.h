@@ -150,8 +150,8 @@ typedef struct {
 	int logfile_mode;
 	int remote_enable;
 	int developers_menu;
-	int button_jump;
-	int button_trash;
+	int shortcut_jump;
+	int shortcut_trash;
 	int button_disp;
 	int language;
 	int digital_iso_step;

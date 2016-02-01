@@ -31,10 +31,10 @@ menuitem_t scripts_items[] = {
 };
 
 menuitem_t buttons_items[] = {
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_USE_DPAD),    &settings.use_dpad,     NULL),
-	MENUITEM_BOOLEAN(0, LP_WORD(L_I_BUTTON_DISP), &settings.button_disp,  NULL),
-	MENUITEM_BTNACTN(0, LP_WORD(L_I_BTN_JUMP),    &settings.button_jump,  NULL),
-	MENUITEM_BTNACTN(0, LP_WORD(L_I_BTN_TRASH),   &settings.button_trash, NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_USE_DPAD),    &settings.use_dpad,       NULL),
+	MENUITEM_BOOLEAN(0, LP_WORD(L_I_BUTTON_DISP), &settings.button_disp,    NULL),
+	MENUITEM_BTNACTN(0, LP_WORD(L_I_BTN_JUMP),    &settings.shortcut_jump,  NULL),
+	MENUITEM_BTNACTN(0, LP_WORD(L_I_BTN_TRASH),   &settings.shortcut_trash, NULL),
 };
 
 menuitem_t cmodes_items[] = {

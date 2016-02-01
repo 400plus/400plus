@@ -20,6 +20,7 @@ typedef enum {
 	BUTTON_DOWN,
 	BUTTON_RIGHT,
 	BUTTON_LEFT,
+	BUTTON_RELEASE,
 	BUTTON_COUNT,
 } button_t;
 
