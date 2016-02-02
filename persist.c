@@ -16,7 +16,7 @@ persist_t persist = {
 };
 
 int persist_read(void) {
-	int result    = FALSE;
+	int result  = FALSE;
 	int file    = -1;
 	int   version = 0;
 
@@ -36,7 +36,7 @@ int persist_read(void) {
 		goto end;
 
 	persist = persistent_buffer;
-	result     = TRUE;
+	result  = TRUE;
 
 end:
 	if (file != -1)

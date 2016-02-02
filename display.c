@@ -26,8 +26,9 @@ void display_refresh(void) {
 
 void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data, const int length, const int item)
 {
-	int data_meteringmode_spot  = 0xF6;
-	int data_whitebalance_ctemp = 0xCF;
+	const int data_meteringmode_spot  = 0xF6;
+	const int data_whitebalance_ctemp = 0xCF;
+
 	int data_efcomp;
 
 	const int *my_data = data;
@@ -56,13 +57,15 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data,
 
 void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data, const int length, const int item)
 {
-	char label[32] = "";
+	char label[8] = "AUTO";
 	const char *my_data = data;
 
 	if (dialog == hMainDialog) {
 		switch (item) {
 		case 0x04: // ISO
-			iso_print(label, DPData.iso);
+			if (!settings.autoiso_enable || status.measuring)
+				iso_print(label, DPData.iso);
+
 			my_data = label;
 		break;
 		}
@@ -100,29 +103,6 @@ void display_countdown(int seconds) {
 }
 
 #endif
-
-void display_brightness() {
-	if (settings.button_disp)
-		switch (FLAG_GUI_MODE) {
-		case GUIMODE_OFF:
-			send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1);
-			press_button(IC_BUTTON_DISP);
-			break;
-
-		case GUIMODE_OLC:
-			if (DPData.lcd_brightness < 7)
-				send_to_intercom(IC_SET_LCD_BRIGHTNESS, 1 + DPData.lcd_brightness);
-			else
-				press_button(IC_BUTTON_DISP);
-			break;
-
-		default:
-			press_button(IC_BUTTON_DISP);
-			break;
-		}
-	else
-		press_button(IC_BUTTON_DISP);
-}
 
 void display_overlay(uint8_t *vram_address) {
 	char buffer[LP_MAX_WORD];

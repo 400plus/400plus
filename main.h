@@ -27,6 +27,7 @@ typedef struct {
 	int         script_running;    // A script is running
 	int         script_stopping;   // The currently running script mist stop
 	int         menu_running;      // A menu is running
+	int         shortcut_running;  // A shortcut is running
 	int         afp_dialog;        // The last active dialog was the AF Point selection dialog
 	int         main_dial_ae;      // AE mode selected in the main dial
 	int         cmode_active;      // There is a custom mode currently active

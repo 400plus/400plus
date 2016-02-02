@@ -89,13 +89,13 @@ ec_t ec_normalize(ec_t ec) {
 }
 
 ec_t ec_inc(ec_t ec) {
-	ec = ec_normalize(ec_normalize(ec) + (DPData.cf_explevel_inc_third ? 0004 : 0003));
+	ec = ec_normalize(ec_normalize(ec) + EV_CODE(0, DPData.cf_explevel_inc_third ? 4: 3));
 
 	return MIN(ec, EC_MAX);
 }
 
 ec_t ec_dec(ec_t ec) {
-	ec = ec_normalize(ec_normalize(ec) - (DPData.cf_explevel_inc_third ? 0004 : 0003));
+	ec = ec_normalize(ec_normalize(ec) - EV_CODE(0, DPData.cf_explevel_inc_third ? 4: 3));
 
 	return MAX(ec, EC_MIN);
 }

@@ -25,6 +25,8 @@ status_t status = {
 	button_down       : BUTTON_NONE,
 	script_running    : FALSE,
 	script_stopping   : FALSE,
+	menu_running      : FALSE,
+	shortcut_running  : SHORTCUT_ACTION_NONE,
 	afp_dialog        : FALSE,
 	measuring         : FALSE,
 	fexp              : FALSE,
@@ -51,6 +53,8 @@ void hack_post_init_hook (void);
 void action_dispatcher(void);
 
 int check_create_folder(void);
+
+void hack_send_jump_and_trash_buttons(int r0, int r1, int button);
 
 // 400plus entry point
 int main(void) {
@@ -287,4 +291,22 @@ int check_create_folder(void)
     	closedir(dirp);
     	return TRUE;
     }
+}
+
+
+void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
+	switch (button) {
+	case 4: // JUMP_UP
+		button_handler(BUTTON_RELEASE, TRUE);
+		break;
+	case 5: // JUMP_DOWN
+		button_handler(BUTTON_JUMP, TRUE);
+		break;
+	case 8: // TRASH_UP
+		button_handler(BUTTON_RELEASE, TRUE);
+		break;
+	case 9: // TRASH_DOWN
+		button_handler(BUTTON_TRASH, TRUE);
+		break;
+	}
 }

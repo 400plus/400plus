@@ -42,9 +42,10 @@ typedef enum {
 	GUIMODE_ACTIVESWEEP,     // 0x1E - Sweeping the sensor
 	GUIMODE_ACTIVESWEEP_OLC, // 0x1F - Sweeping the sensor
 // Fictitious modes
-	GUIMODE_400PLUS = 0x40,  // 400plus mode
-	GUIMODE_FACE    = 0x41,	 // Face mode
-	GUIMODE_COUNT   = 0x4F   // Total number of active GUIMODEs (plus a safe margin)
+	GUIMODE_400PLUS  = 0x40,  // 400plus mode
+	GUIMODE_FACE     = 0x41,  // Face mode
+	GUIMODE_SHORTCUT = 0x42,  // A shortcut button is down
+	GUIMODE_COUNT    = 0x4F   // Total number of active GUIMODEs (plus a safe margin)
 } guimode_t;
 
 // GUI Events
@@ -264,5 +265,9 @@ extern void GUI_Lock         (void);
 extern void GUI_UnLock       (void);
 extern void GUI_ClearImage   (void);
 extern void GUI_RefreshImage (void);
+
+// Udocumented
+
+extern int GUI_IDLEHandler(int unk0, int event, int unused, int unk1);
 
 #endif

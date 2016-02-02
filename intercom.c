@@ -1,8 +1,10 @@
 #include <vxworks.h>
 
+#include "firmware.h"
+#include "firmware/gui.h"
+
 #include "main.h"
 #include "macros.h"
-#include "firmware.h"
 
 #include "actions.h"
 #include "autoiso.h"

@@ -27,20 +27,21 @@ typedef enum {
 } shot_action_t;
 
 typedef enum {
-	BUTTON_ACTION_NONE,
-	BUTTON_ACTION_ISO,
-	BUTTON_ACTION_SCRIPT,
-	BUTTON_ACTION_MLU,
-	BUTTON_ACTION_AEB,
-	BUTTON_ACTION_HACK_MENU,
-	BUTTON_ACTION_TOGGLE_FLASH,
+	SHORTCUT_ACTION_NONE,
+	SHORTCUT_ACTION_ISO,
+	SHORTCUT_ACTION_SCRIPT,
+	SHORTCUT_ACTION_MLU,
+	SHORTCUT_ACTION_AEB,
+	SHORTCUT_ACTION_HACK_MENU,
+	SHORTCUT_ACTION_TOGGLE_FLASH,
+	SHORTCUT_ACTION_DISPLAY,
 #ifdef DEV_BTN_ACTION
-	BUTTON_ACTION_DEV_BTN,
+	SHORTCUT_ACTION_DEV_BTN,
 #endif
-	BUTTON_ACTION_COUNT,
-	BUTTON_ACTION_FIRST = 0,
-	BUTTON_ACTION_LAST  = BUTTON_ACTION_COUNT - 1
-} button_action_t;
+	SHORTCUT_ACTION_COUNT,
+	SHORTCUT_ACTION_FIRST = 0,
+	SHORTCUT_ACTION_LAST  = SHORTCUT_ACTION_COUNT - 1
+} shortcut_action_t;
 
 typedef enum {
 	EAEB_DIRECTION_UP,
@@ -150,8 +151,8 @@ typedef struct {
 	int logfile_mode;
 	int remote_enable;
 	int developers_menu;
-	int button_jump;
-	int button_trash;
+	int shortcut_jump;
+	int shortcut_trash;
 	int button_disp;
 	int language;
 	int digital_iso_step;
