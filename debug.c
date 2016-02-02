@@ -5,6 +5,7 @@
 
 #include "firmware/fio.h"
 #include "firmware/gui.h"
+#include "firmware/eventproc.h"
 
 #include "settings.h"
 
