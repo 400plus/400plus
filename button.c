@@ -34,7 +34,7 @@ typedef struct  {
 
 reaction_t
 	reaction_main_dp      = {TRUE,  menu_main_start},
-	reaction_main_disp    = {TRUE,  display_brightness} ,
+	reaction_main_disp    = {TRUE,  shortcut_disp} ,
 	reaction_main_jump    = {TRUE,  shortcut_jump},
 	reaction_main_trash   = {TRUE,  shortcut_trash},
 	reaction_main_av      = {FALSE, toggle_img_format},
@@ -93,6 +93,7 @@ reaction_t *button_actions_400plus[BUTTON_COUNT] = {
 };
 
 reaction_t
+	reaction_shortcut_disp        = {TRUE,  shortcut_event_disp},
 	reaction_shortcut_set         = {TRUE,  shortcut_event_set},
 	reaction_shortcut_up          = {TRUE,  shortcut_event_up},
 	reaction_shortcut_down        = {TRUE,  shortcut_event_down},
@@ -102,6 +103,7 @@ reaction_t
 ;
 
 reaction_t *button_actions_shortcut[BUTTON_COUNT] = {
+	[BUTTON_DISP]        = &reaction_shortcut_disp,
 	[BUTTON_SET]         = &reaction_shortcut_set,
 	[BUTTON_UP]          = &reaction_shortcut_up,
 	[BUTTON_DOWN]        = &reaction_shortcut_down,

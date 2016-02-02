@@ -25,6 +25,7 @@ void shortcut_mlu_set    (int status);
 void shortcut_efl_set    (int status);
 void shortcut_f2c_set    (int status);
 void shortcut_aeb_set    (int aeb);
+void shortcut_disp_set   (int brightness);
 
 void shortcut_jump() {
 	shortcut_start(settings.shortcut_jump);
@@ -32,6 +33,16 @@ void shortcut_jump() {
 
 void shortcut_trash() {
 	shortcut_start(settings.shortcut_trash);
+}
+
+void shortcut_disp() {
+	if (settings.button_disp) {
+		status.shortcut_running = SHORTCUT_ACTION_DISPLAY;
+
+		if (FLAG_GUI_MODE == GUIMODE_OFF)
+			press_button(IC_BUTTON_DISP);
+	} else
+		press_button(IC_BUTTON_DISP);
 }
 
 void shortcut_start(shortcut_action_t action) {
@@ -54,6 +65,12 @@ void shortcut_start(shortcut_action_t action) {
 	}
 }
 
+void shortcut_event_disp() {
+	press_button(IC_BUTTON_DISP);
+	enqueue_action(beep);
+	shortcut_event_end();
+}
+
 void shortcut_event_end() {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ACTION_AEB:
@@ -66,7 +83,7 @@ void shortcut_event_end() {
 	status.shortcut_running = SHORTCUT_ACTION_NONE;
 }
 
-void shortcut_event_set   (void) {
+void shortcut_event_set(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_toggle();
@@ -74,12 +91,16 @@ void shortcut_event_set   (void) {
 	case SHORTCUT_ACTION_AEB:
 		shortcut_aeb_toggle();
 		break;
+	case SHORTCUT_ACTION_DISPLAY:
+		enqueue_action(beep);
+		shortcut_event_end();
+		break;
 	default:
 		break;
 	}
 }
 
-void shortcut_event_up    (void) {
+void shortcut_event_up(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_next(DPData.iso));
@@ -93,12 +114,15 @@ void shortcut_event_up    (void) {
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_efl_set(FALSE);
 		break;
+	case SHORTCUT_ACTION_DISPLAY:
+		shortcut_disp_set(7);
+		break;
 	default:
 		break;
 	}
 }
 
-void shortcut_event_down  (void) {
+void shortcut_event_down(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_prev(DPData.iso));
@@ -112,12 +136,15 @@ void shortcut_event_down  (void) {
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_efl_set(TRUE);
 		break;
+	case SHORTCUT_ACTION_DISPLAY:
+		shortcut_disp_set(1);
+		break;
 	default:
 		break;
 	}
 }
 
-void shortcut_event_right (void) {
+void shortcut_event_right(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_inc(DPData.iso));
@@ -128,12 +155,15 @@ void shortcut_event_right (void) {
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_f2c_set(TRUE);
 		break;
+	case SHORTCUT_ACTION_DISPLAY:
+		shortcut_disp_set(MIN(DPData.lcd_brightness + 1, 7));
+		break;
 	default:
 		break;
 	}
 }
 
-void shortcut_event_left  (void) {
+void shortcut_event_left(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ACTION_ISO:
 		shortcut_iso_set(iso_dec(DPData.iso));
@@ -143,6 +173,9 @@ void shortcut_event_left  (void) {
 		break;
 	case SHORTCUT_ACTION_TOGGLE_FLASH:
 		shortcut_f2c_set(FALSE);
+		break;
+	case SHORTCUT_ACTION_DISPLAY:
+		shortcut_disp_set(MAX(DPData.lcd_brightness - 1, 1));
 		break;
 	default:
 		break;
@@ -204,6 +237,10 @@ void shortcut_aeb_set(int aeb) {
 
 	if (persist.aeb)
 		persist.last_aeb = persist.aeb;
+}
+
+void shortcut_disp_set(int brightness) {
+	send_to_intercom(IC_SET_LCD_BRIGHTNESS, brightness);
 }
 
 #ifdef DEV_BTN_ACTION

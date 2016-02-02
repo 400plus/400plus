@@ -2,9 +2,10 @@
 #include <dirent.h>
 #include <stdio.h>
 
+#include "firmware.h"
+
 #include "macros.h"
 #include "main.h"
-#include "firmware.h"
 
 #include "bmp.h"
 #include "debug.h"
