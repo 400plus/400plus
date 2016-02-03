@@ -40,6 +40,7 @@ char *menuoptions_btnactn_strings[SHORTCUT_COUNT] = {
 	[SHORTCUT_AEB]          = LP_WORD(L_I_AEB),
 	[SHORTCUT_HACK_MENU]    = LP_WORD(L_V_HACK_MENU),
 	[SHORTCUT_TOGGLE_FLASH] = LP_WORD(L_V_TOGGLE_FLASH),
+	[SHORTCUT_DISPLAY]      = LP_WORD(L_I_BUTTON_DISP),
 #ifdef DEV_BTN_ACTION
 	[SHORTCUT_DEV_BTN]      = "DevBtn (DO NOT USE)",
 #endif
