@@ -89,13 +89,13 @@ ec_t ec_normalize(ec_t ec) {
 }
 
 ec_t ec_inc(ec_t ec) {
-	ec = ec_normalize(ec_normalize(ec) + EV_CODE(0, DPData.cf_explevel_inc_third ? 4: 3));
+	ec = ec_normalize(ec_normalize(ec) + EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 
 	return MIN(ec, EC_MAX);
 }
 
 ec_t ec_dec(ec_t ec) {
-	ec = ec_normalize(ec_normalize(ec) - EV_CODE(0, DPData.cf_explevel_inc_third ? 4: 3));
+	ec = ec_normalize(ec_normalize(ec) - EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 
 	return MAX(ec, EC_MIN);
 }
@@ -129,10 +129,10 @@ void ec_print(char *dest, ec_t ec) {
 
 	ec = abs(ec);
 
-	int   dsp_int = ec / 8;
+	int   dsp_int = EV_VAL(ec);
 	char *dsp_dec = " ?/?";
 
-	switch (ec - 8 * dsp_int) {
+	switch (EV_SUB(ec)) {
 	case 0x00:
 		dsp_dec = " -/-";
 		break;
@@ -167,11 +167,11 @@ av_t av_sub(av_t ying, av_t yang) {
 }
 
 av_t av_inc(av_t av) {
-	return av_add(av, DPData.cf_explevel_inc_third ? 0004 : 0003);
+	return av_add(av, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 }
 
 av_t av_dec(av_t av) {
-	return av_sub(av, DPData.cf_explevel_inc_third ? 0004 : 0003);
+	return av_sub(av, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 }
 
 void av_print(char *dest, av_t av) {
@@ -217,21 +217,21 @@ tv_t tv_sub(tv_t ying, tv_t yang) {
 }
 
 tv_t tv_inc(tv_t tv) {
-	return tv_add(tv, (DPData.cf_explevel_inc_third ? 0004 : 0003));
+	return tv_add(tv, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 }
 
 tv_t tv_dec(tv_t tv) {
-	return tv_sub(tv, (DPData.cf_explevel_inc_third ? 0004 : 0003));
+	return tv_sub(tv, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 }
 
 tv_t bulb_next(tv_t tv) {
-	tv += 0010;
+	tv += EV_CODE(1, 0);
 
 	return MIN(tv, BULB_MAX);
 }
 
 tv_t bulb_prev(tv_t tv) {
-	tv -= 0010;
+	tv -= EV_CODE(1, 0);
 
 	return MAX(tv, BULB_MIN);
 }
@@ -265,7 +265,7 @@ void tv_print(char *dest, tv_t tv) {
 }
 
 void bulb_print(char *dest, tv_t tv) {
-	if (tv < 0120)
+	if (tv < BULB_VAL)
 		sprintf(dest, "%2i'", BULB_MN(tv));
 	else
 		tv_print(dest, BULB_TV(tv));
