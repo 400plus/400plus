@@ -314,7 +314,8 @@ int proxy_aeb(char *message) {
 	if (persist.aeb)
 		persist.last_aeb = persist.aeb;
 
-	enqueue_action(persist_write);
+	if (!status.shortcut_running)
+		enqueue_action(persist_write);
 
 	return FALSE;
 }
