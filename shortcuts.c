@@ -15,7 +15,7 @@
 
 void repeat_last_script     (void);
 
-void shortcut_start(shortcut_action_t action);
+void shortcut_start(shortcut_t action);
 
 void shortcut_iso_toggle (void);
 void shortcut_aeb_toggle (void);
@@ -37,7 +37,7 @@ void shortcut_trash() {
 
 void shortcut_disp() {
 	if (settings.button_disp) {
-		status.shortcut_running = SHORTCUT_ACTION_DISPLAY;
+		status.shortcut_running = SHORTCUT_DISPLAY;
 
 		if (FLAG_GUI_MODE == GUIMODE_OFF)
 			press_button(IC_BUTTON_DISP);
@@ -45,18 +45,18 @@ void shortcut_disp() {
 		press_button(IC_BUTTON_DISP);
 }
 
-void shortcut_start(shortcut_action_t action) {
+void shortcut_start(shortcut_t action) {
 	status.shortcut_running = action;
 
 	switch (action) {
-	case SHORTCUT_ACTION_SCRIPT:
+	case SHORTCUT_SCRIPT:
 		repeat_last_script();
 		break;
-	case SHORTCUT_ACTION_HACK_MENU:
+	case SHORTCUT_HACK_MENU:
 		menu_main_start();
 		break;
 #ifdef DEV_BTN_ACTION
-	case SHORTCUT_ACTION_DEV_BTN:
+	case SHORTCUT_DEV_BTN:
 		dev_btn_action();
 		break;
 #endif
@@ -73,25 +73,25 @@ void shortcut_event_disp() {
 
 void shortcut_event_end() {
 	switch (status.shortcut_running) {
-	case SHORTCUT_ACTION_AEB:
+	case SHORTCUT_AEB:
 		enqueue_action(persist_write);
 		break;
 	default:
 		break;
 	}
 
-	status.shortcut_running = SHORTCUT_ACTION_NONE;
+	status.shortcut_running = SHORTCUT_NONE;
 }
 
 void shortcut_event_set(void) {
 	switch (status.shortcut_running) {
-	case SHORTCUT_ACTION_ISO:
+	case SHORTCUT_ISO:
 		shortcut_iso_toggle();
 		break;
-	case SHORTCUT_ACTION_AEB:
+	case SHORTCUT_AEB:
 		shortcut_aeb_toggle();
 		break;
-	case SHORTCUT_ACTION_DISPLAY:
+	case SHORTCUT_DISPLAY:
 		enqueue_action(beep);
 		shortcut_event_end();
 		break;
@@ -102,19 +102,19 @@ void shortcut_event_set(void) {
 
 void shortcut_event_up(void) {
 	switch (status.shortcut_running) {
-	case SHORTCUT_ACTION_ISO:
+	case SHORTCUT_ISO:
 		shortcut_iso_set(iso_next(DPData.iso));
 		break;
-	case SHORTCUT_ACTION_MLU:
+	case SHORTCUT_MLU:
 		shortcut_mlu_set(TRUE);
 		break;
-	case SHORTCUT_ACTION_AEB:
+	case SHORTCUT_AEB:
 		shortcut_aeb_set(MIN((EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)), EC_MAX));
 		break;
-	case SHORTCUT_ACTION_TOGGLE_FLASH:
+	case SHORTCUT_TOGGLE_FLASH:
 		shortcut_efl_set(FALSE);
 		break;
-	case SHORTCUT_ACTION_DISPLAY:
+	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(7);
 		break;
 	default:
@@ -124,19 +124,19 @@ void shortcut_event_up(void) {
 
 void shortcut_event_down(void) {
 	switch (status.shortcut_running) {
-	case SHORTCUT_ACTION_ISO:
+	case SHORTCUT_ISO:
 		shortcut_iso_set(iso_prev(DPData.iso));
 		break;
-	case SHORTCUT_ACTION_MLU:
+	case SHORTCUT_MLU:
 		shortcut_mlu_set(FALSE);
 		break;
-	case SHORTCUT_ACTION_AEB:
+	case SHORTCUT_AEB:
 		shortcut_aeb_set(MAX((EV_TRUNC(DPData.ae_bkt) - EV_CODE(1, 0)), EC_ZERO));
 		break;
-	case SHORTCUT_ACTION_TOGGLE_FLASH:
+	case SHORTCUT_TOGGLE_FLASH:
 		shortcut_efl_set(TRUE);
 		break;
-	case SHORTCUT_ACTION_DISPLAY:
+	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(1);
 		break;
 	default:
@@ -146,16 +146,16 @@ void shortcut_event_down(void) {
 
 void shortcut_event_right(void) {
 	switch (status.shortcut_running) {
-	case SHORTCUT_ACTION_ISO:
+	case SHORTCUT_ISO:
 		shortcut_iso_set(iso_inc(DPData.iso));
 		break;
-	case SHORTCUT_ACTION_AEB:
+	case SHORTCUT_AEB:
 		shortcut_aeb_set(MIN(ec_inc(DPData.ae_bkt), EC_MAX));
 		break;
-	case SHORTCUT_ACTION_TOGGLE_FLASH:
+	case SHORTCUT_TOGGLE_FLASH:
 		shortcut_f2c_set(TRUE);
 		break;
-	case SHORTCUT_ACTION_DISPLAY:
+	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(MIN(DPData.lcd_brightness + 1, 7));
 		break;
 	default:
@@ -165,16 +165,16 @@ void shortcut_event_right(void) {
 
 void shortcut_event_left(void) {
 	switch (status.shortcut_running) {
-	case SHORTCUT_ACTION_ISO:
+	case SHORTCUT_ISO:
 		shortcut_iso_set(iso_dec(DPData.iso));
 		break;
-	case SHORTCUT_ACTION_AEB:
+	case SHORTCUT_AEB:
 		shortcut_aeb_set(MAX(ec_dec(DPData.ae_bkt), EV_ZERO));
 		break;
-	case SHORTCUT_ACTION_TOGGLE_FLASH:
+	case SHORTCUT_TOGGLE_FLASH:
 		shortcut_f2c_set(FALSE);
 		break;
-	case SHORTCUT_ACTION_DISPLAY:
+	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(MAX(DPData.lcd_brightness - 1, 1));
 		break;
 	default:
