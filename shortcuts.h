@@ -1,9 +1,6 @@
 #ifndef SHORTCUTS_H_
 #define SHORTCUTS_H_
 
-#define ACTION_MSG_TIMEOUT 2000
-#define ACTION_AEB_TIMEOUT 1500
-
 extern void shortcut_jump  (void);
 extern void shortcut_trash (void);
 extern void shortcut_disp  (void);
