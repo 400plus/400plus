@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "firmware.h"
 
 #include "main.h"
@@ -191,7 +193,7 @@ void shortcut_iso_toggle() {
 	if (!settings.autoiso_enable)
 		iso_print(label, DPData.iso);
 
-	dialog_item_set_label(hMainDialog, 0x08, label, 4, 0x04);
+	dialog_item_set_str(hMainDialog, 0x04, label);
 	display_refresh();
 }
 
@@ -209,9 +211,9 @@ void shortcut_iso_set(iso_t iso) {
 	}
 
 	send_to_intercom(IC_SET_ISO, iso);
-	iso_print(label, iso);
 
-	dialog_item_set_label(hMainDialog, 0x08, label, 4, 0x04);
+	iso_print(label, iso);
+	dialog_item_set_str(hMainDialog, 0x04, label);
 	display_refresh();
 }
 

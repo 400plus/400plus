@@ -3,6 +3,7 @@
 
 #include "firmware.h"
 #include "firmware/fio.h"
+#include "firmware/eventproc.h"
 
 #include "macros.h"
 

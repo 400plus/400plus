@@ -171,11 +171,6 @@ extern int SetSendButtonProc(void (*proc)(int, int, int), int unknown);
 
 extern void * AllocateMemory( unsigned int len );
 
-// LED management
-
-extern long eventproc_EdLedOn(void);
-extern long eventproc_EdLedOff(void);
-extern long eventproc_EdLedBlink(void);
 
 // String management
 
@@ -235,12 +230,6 @@ extern int GiveSemaphore(SEM_ID sem);
 extern int DeleteSemaphore(int* sem);
 extern SEM_ID hMainCtrlMonoSem;
 */
-// Event generation
-
-extern int eventproc_PrintICUInfo(void);
-extern int eventproc_RiseEvent(const char *event);
-extern int eventproc_Release(void);
-
 // Display
 
 extern char *sub_FF83A640(void); // cf free space - reports wrong ?
@@ -275,9 +264,6 @@ extern int RemReleaseInstMin;
 extern int RemReleaseInstMax;
 extern int RemReleaseSelfMin;
 extern int RemReleaseSelfMax;
-
-extern int eventproc_RemOn(void);
-extern int eventproc_RemOff(void);
 
 // Language
 
@@ -323,24 +309,6 @@ extern int *some_important_structure;
 extern int unk_258A0;
 extern void DDD_Capture(int);
 extern void set_2A0E0_to_1(void);
-
-// VRAM Semaphore
-
-int  TakeVRAMSemaphore(int *address);
-void GiveVRAMSemaphore(int *address);
-
-// VRAM Transfer Screen
-
-extern int(*TransferScreen)         (int r0, int r1, int r2, int r3);
-
-extern int TransferNormalScreen     (int r0, int r1, int r2, int r3);
-extern int TransferUpsideDownScreen (int r0, int r1, int r2, int r3);
-extern int TransferMirrorScreen     (int r0, int r1, int r2, int r3);
-extern int TransferRotatedScreen    (int r0, int r1, int r2, int r3);
-
-extern int sub_FF92E704 (int r0, int r1, int r2, int r3);
-extern int sub_FF92E4C4 (int r0, int r1, int r2, int r3);
-
 
 // PTP
 

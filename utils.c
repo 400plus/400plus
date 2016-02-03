@@ -6,6 +6,7 @@
 
 #include "firmware.h"
 #include "firmware/gui.h"
+#include "firmware/eventproc.h"
 
 #include "main.h"
 #include "macros.h"
