@@ -26,7 +26,7 @@ void display_refresh(void) {
 	dialog_redraw(hMainDialog);
 }
 
-void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data, const int length, const int item)
+void hack_item_set_label_int(dialog_t *dialog, const int type, const int *data, const int length, const int item)
 {
 	const int data_meteringmode_spot  = 0xF6;
 	const int data_whitebalance_ctemp = 0xCF;
@@ -34,6 +34,12 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data,
 	int data_efcomp;
 
 	const int *my_data = data;
+
+	debug_log("LABEL_INT: DIALOG = 0x%08X",  dialog);
+	debug_log("LABEL_INT: TYPE   = %02X",    type);
+	debug_log("LABEL_INT: DATA   = %d",     &data);
+	debug_log("LABEL_INT: LENGTH = %04d",    length);
+	debug_log("LABEL_INT: ITEM   = 0x%02X",  item);
 
 	if (dialog == hMainDialog) {
 		switch (item) {
@@ -57,10 +63,16 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const void *data,
 	dialog_item_set_label(dialog, type, my_data, length, item);
 }
 
-void hack_item_set_label_str(dialog_t *dialog, const int type, const void *data, const int length, const int item)
+void hack_item_set_label_str(dialog_t *dialog, const int type, const char *data, const int length, const int item)
 {
 	char label[8] = "AUTO";
 	const char *my_data = data;
+
+	debug_log("LABEL_STR: DIALOG = 0x%08X", dialog);
+	debug_log("LABEL_STR: TYPE   = %02X",   type);
+	debug_log("LABEL_STR: DATA   = '%s'",   data);
+	debug_log("LABEL_STR: LENGTH = %04d",   length);
+	debug_log("LABEL_STR: ITEM   = 0x%02X", item);
 
 	if (dialog == hMainDialog) {
 		switch (item) {
