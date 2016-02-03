@@ -228,7 +228,7 @@ int button_handler(button_t button, int is_button_down) {
 			gui_mode = GUIMODE_FACE;
 		else if(status.menu_running)
 			gui_mode = GUIMODE_400PLUS;
-		else if(status.shortcut_running != SHORTCUT_ACTION_NONE)
+		else if(status.shortcut_running != SHORTCUT_NONE)
 			gui_mode = GUIMODE_SHORTCUT;
 		else
 			gui_mode = FLAG_GUI_MODE;

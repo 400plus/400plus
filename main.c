@@ -27,7 +27,7 @@ status_t status = {
 	script_running    : FALSE,
 	script_stopping   : FALSE,
 	menu_running      : FALSE,
-	shortcut_running  : SHORTCUT_ACTION_NONE,
+	shortcut_running  : SHORTCUT_NONE,
 	afp_dialog        : FALSE,
 	measuring         : FALSE,
 	fexp              : FALSE,
