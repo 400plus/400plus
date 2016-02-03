@@ -80,12 +80,20 @@ void hack_item_set_label_str(dialog_t *dialog, const int type, const char *data,
 			if (!settings.autoiso_enable || status.measuring)
 				iso_print(label, DPData.iso);
 
-			my_data = label;
+			if (status.shortcut_running)
+				my_data = NULL;
+			else
+				my_data = label;
+		break;
+		case 0x26: // Avaliable shots on card
+			if (status.shortcut_running)
+				my_data = NULL;
 		break;
 		}
 	}
 
-	dialog_item_set_label(dialog, type, my_data, length, item);
+	if (my_data != NULL)
+		dialog_item_set_label(dialog, type, my_data, length, item);
 }
 
 #if FALSE

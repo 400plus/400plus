@@ -1,8 +1,11 @@
 #ifndef SHORTCUTS_H_
 #define SHORTCUTS_H_
 
-#define ACTION_MSG_TIMEOUT 2000
-#define ACTION_AEB_TIMEOUT 1500
+#define SHORTCUT_LABEL_ISO     " ISO "
+#define SHORTCUT_LABEL_MLU     " MLU "
+#define SHORTCUT_LABEL_AEB     " AEB "
+#define	SHORTCUT_LABEL_FLASH   "FLASH"
+#define	SHORTCUT_LABEL_DISPLAY "DISPL"
 
 extern void shortcut_jump  (void);
 extern void shortcut_trash (void);
