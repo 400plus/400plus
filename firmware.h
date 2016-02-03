@@ -310,24 +310,6 @@ extern int unk_258A0;
 extern void DDD_Capture(int);
 extern void set_2A0E0_to_1(void);
 
-// VRAM Semaphore
-
-int  TakeVRAMSemaphore(int *address);
-void GiveVRAMSemaphore(int *address);
-
-// VRAM Transfer Screen
-
-extern int(*TransferScreen)         (int r0, int r1, int r2, int r3);
-
-extern int TransferNormalScreen     (int r0, int r1, int r2, int r3);
-extern int TransferUpsideDownScreen (int r0, int r1, int r2, int r3);
-extern int TransferMirrorScreen     (int r0, int r1, int r2, int r3);
-extern int TransferRotatedScreen    (int r0, int r1, int r2, int r3);
-
-extern int sub_FF92E704 (int r0, int r1, int r2, int r3);
-extern int sub_FF92E4C4 (int r0, int r1, int r2, int r3);
-
-
 // PTP
 
 extern void * PTP_Actions (void * arg0, void * arg1, void * arg2, void * arg3, void * arg4);

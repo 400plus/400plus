@@ -2,8 +2,10 @@
 #include <string.h>
 
 #include "main.h"
+
 #include "firmware.h"
 #include "firmware/camera.h"
+#include "firmware/vram.h"
 
 #include "bmp.h"
 #include "cmodes.h"

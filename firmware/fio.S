@@ -14,8 +14,8 @@ DEF(0xFFA9EB98,FIO_GetFileTime)
 DEF(0xFFA9EBFC,FIO_SetFileTime)
 DEF(0xFFA9EC30,FIO_GetFileInfo)
 DEF(0xFFA9ECA8,FIO_CreateDirectory)
-DEF(0xFFA9ECB4,FIO_something1) // good candidate for FindNext
-DEF(0xFFA9ECC0,FIO_something2) // good candidate for FindNext
+//DEF(0xFFA9ECB4,FIO_something1) // good candidate for FindNext
+//DEF(0xFFA9ECC0,FIO_something2) // good candidate for FindNext
 DEF(0xFFA9EEC4,FIO_FindFirst)
-DEF(0xFFA9EF54,FIO_something3) // good candidate for FindNext
-DEF(0xFFA9EFA8,FIO_something4) // good candidate for FindNext
+//DEF(0xFFA9EF54,FIO_something3) // good candidate for FindNext
+//DEF(0xFFA9EFA8,FIO_something4) // good candidate for FindNext
