@@ -55,14 +55,15 @@ void shortcut_trash() {
 
 void shortcut_disp() {
 	if (settings.button_disp) {
-		status.shortcut_running = SHORTCUT_DISPLAY;
-
-		if (FLAG_GUI_MODE == GUIMODE_OFF)
+		if (FLAG_GUI_MODE == GUIMODE_OFF) {
 			press_button(IC_BUTTON_DISP);
-
-		shortcut_info_display();
-	} else
+		} else {
+			status.shortcut_running = SHORTCUT_DISPLAY;
+			shortcut_info_display();
+		}
+	} else {
 		press_button(IC_BUTTON_DISP);
+	}
 }
 
 void shortcut_start(shortcut_t action) {
