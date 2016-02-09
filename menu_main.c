@@ -1,3 +1,5 @@
+#include "firmware/gui.h"
+
 #include "main.h"
 #include "macros.h"
 #include "firmware.h"

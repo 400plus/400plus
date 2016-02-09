@@ -10,6 +10,7 @@ DEF(0xFF93680C,GUI_UnLock)
 DEF(0xFF936820,GUI_Lock)
 DEF(0xFF832F94,GUI_ClearImage)
 DEF(0xFF83302C,GUI_RefreshImage)
+DEF(0xFF82B518,GUI_StartMode)
 
 DEF(0xFF840AC4,dialog_event_handler)
 

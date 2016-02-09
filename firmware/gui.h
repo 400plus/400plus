@@ -6,7 +6,7 @@
 #define FLAG_GUI_MODE       GUIMode
 #define FLAG_DISPLAY_ON     DisplayOn
 
- // GUIModes
+// GUIModes
 
 typedef enum {
 	GUIMODE_OFF,             // 0x00 - main screen off
@@ -234,10 +234,10 @@ extern dialog_t *hMainDialog;   // the main OLC dialog (white screen)
 extern dialog_t *CreateDialogBox(int parm1, int parm2, event_handler_t, int template, int is_busy_maybe);
 extern int       DeleteDialogBox(dialog_t *dialog);
 
-extern int dialog_redraw        (dialog_t *dialog);
-extern int dialog_item_set_int  (dialog_t *dialog, const int item, const int   data);
-extern int dialog_item_set_str  (dialog_t *dialog, const int item, const char *data);
-extern int dialog_item_set_label(dialog_t *dialog, const int type, const void *data, const int length, const int item);
+extern void dialog_redraw        (dialog_t *dialog);
+extern void dialog_item_set_int  (dialog_t *dialog, const int item, const int   data);
+extern void dialog_item_set_str  (dialog_t *dialog, const int item, const char *data);
+extern void dialog_item_set_label(dialog_t *dialog, const int type, const void *data, const int length, const int item);
 
 extern int dialog_event_handler (dialog_t *dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
 extern int olc_event_handler    (dialog_t *dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code);
@@ -251,7 +251,7 @@ extern void GUI_Disable_Item (void *menu_handle, int menu_item, int enable);
 extern int SetTurnDisplayEvent_1_after_2(void);
 extern int SetTurnDisplayEvent_2_after_1(void);
 
-// Pallete
+// Palette
 
 extern void GUI_PaletteInit   (void);
 extern void GUI_PaletteUnInit (void);
@@ -265,6 +265,7 @@ extern void GUI_Lock         (void);
 extern void GUI_UnLock       (void);
 extern void GUI_ClearImage   (void);
 extern void GUI_RefreshImage (void);
+extern void GUI_StartMode    (guimode_t mode);
 
 // Udocumented
 
