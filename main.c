@@ -53,7 +53,7 @@ void hack_pre_init_hook  (void);
 void hack_post_init_hook (void);
 
 void hack_send_jump_and_trash_buttons (int r0, int r1, int button);
-void hack_dialog_redraw               (dialog_t *dialog);
+void hack_dialog_redraw               (window_t *window);
 
 void action_dispatcher(void);
 
@@ -194,15 +194,7 @@ void hack_post_init_hook(void) {
 	//cache_fake(0xFF9DDB24, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
 
 	// Hack redraw on some dialogs, to prevent flickering when entering our menu
-	cache_fake(0xFF857E6C, BL_INSTR(0xFF857E6C, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainCreative1App
-	cache_fake(0xFF858788, BL_INSTR(0xFF858788, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainCreativeR2App
-	cache_fake(0xFF857364, BL_INSTR(0xFF857364, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainCreativeP1App
-	cache_fake(0xFF85935C, BL_INSTR(0xFF85935C, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainCreativeS1App
-	cache_fake(0xFF85A128, BL_INSTR(0xFF85A128, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainCreativeS2App
-	cache_fake(0xFF855184, BL_INSTR(0xFF855184, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainAuto1App
-	cache_fake(0xFF856888, BL_INSTR(0xFF856888, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainAutoP1App
-	cache_fake(0xFF855AD4, BL_INSTR(0xFF855AD4, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainAutoS1App
-	cache_fake(0xFF854768, BL_INSTR(0xFF854768, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainAutoS2App
+	cache_fake(0xFF916434, B_INSTR(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainAutoS2App
 }
 
 
@@ -223,9 +215,9 @@ void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
 	}
 }
 
-void hack_dialog_redraw(dialog_t *dialog) {
+void hack_dialog_redraw(window_t *window) {
 	if (! status.lock_redraw)
-		dialog_redraw(dialog);
+		window_instance_redraw(window);
 }
 
 // Our own thread uses this dispatcher to execute tasks

@@ -218,6 +218,10 @@ struct dialog_t {
 	// there are more for sure (perhaps to 0x00B8)
 };
 
+// Undocumented
+
+typedef struct _window_t window_t;
+
 extern int GUIMode;       // Current GUI Mode
 extern int DisplayOn;     // Is display on?
 
@@ -245,6 +249,8 @@ extern int olc_event_handler    (dialog_t *dialog, int *r1, gui_event_t event, i
 extern void GUI_Select_Item  (void *menu_handle, int menu_item);
 extern void GUI_Highlight_Sub(void *menu_handle, int menu_item, int enable);
 extern void GUI_Disable_Item (void *menu_handle, int menu_item, int enable);
+
+extern void window_instance_redraw(window_t *window);
 
 // Switch display on / off
 
