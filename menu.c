@@ -65,7 +65,7 @@ void menu_create(menu_t *menu) {
 }
 
 void menu_close() {
-	press_button(IC_BUTTON_DISP);
+	press_button(IC_BUTTON_MENU);
 
 	menu_destroy();
 	menu_finish(NULL); //TODO:FixMe
@@ -104,7 +104,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 
 	switch (event) {
 	case GUI_BUTTON_MENU            : button = BUTTON_MENU;     break;
-//	case GUI_BUTTON_DISP            : button = BUTTON_DISP;     break;
+	case GUI_BUTTON_DISP            : button = BUTTON_DISP;     break;
 	case GUI_BUTTON_JUMP            : button = BUTTON_JUMP;     break;
 	case GUI_BUTTON_PLAY            : button = BUTTON_PLAY;     break;
 	case GUI_BUTTON_TRASH           : button = BUTTON_TRASH;    break;

@@ -56,8 +56,7 @@ reaction_t *button_actions_main[BUTTON_COUNT] = {
 
 reaction_t
 	reaction_400plus_dp          = {TRUE,  menu_event_dp},
-//	reaction_400plus_disp        = {TRUE,  menu_event_disp},
-	reaction_400plus_menu        = {TRUE,  menu_event_menu},
+	reaction_400plus_disp        = {TRUE,  menu_event_disp},
 	reaction_400plus_jump        = {TRUE,  menu_event_jump},
 	reaction_400plus_play        = {TRUE,  menu_event_play},
 	reaction_400plus_trash       = {TRUE,  menu_event_trash},
@@ -75,8 +74,7 @@ reaction_t
 
 reaction_t *button_actions_400plus[BUTTON_COUNT] = {
 	[BUTTON_DP]          = &reaction_400plus_dp,
-//	[BUTTON_DISP]        = &reaction_400plus_disp,
-	[BUTTON_MENU]        = &reaction_400plus_menu,
+	[BUTTON_DISP]        = &reaction_400plus_disp,
 	[BUTTON_JUMP]        = &reaction_400plus_jump,
 	[BUTTON_PLAY]        = &reaction_400plus_play,
 	[BUTTON_TRASH]       = &reaction_400plus_trash,
