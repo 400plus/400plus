@@ -21,6 +21,7 @@ DEF(0xFF9163FC,dialog_redraw)
 DEF(0xFF837FA8,dialog_item_set_str)
 DEF(0xFF8382DC,dialog_item_set_int)
 DEF(0xFF915FFC,dialog_item_set_label)
+DEF(0xFF936144,window_instance_redraw)
 
 DEF(0xFF914F94,GUI_Select_Item)
 DEF(0xFF838714,GUI_Highlight_Sub)
