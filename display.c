@@ -126,6 +126,8 @@ void display_countdown(int seconds) {
 
 #endif
 
+#if FALSE  // Temporarily disable until we make it stable
+
 void display_overlay(uint8_t *vram_address) {
 	char buffer[LP_MAX_WORD];
 
@@ -195,12 +197,16 @@ int hack_FF92E4C4 (int r0, int r1, int r2, int r3) {
 	return sub_FF92E4C4(r0, r1, r2, r3);
 }
 
+# endif
+
 #ifdef ENABLE_DEBUG
+
 int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 	debug_log("0x%08X, %s, 0x%08X, 0x%08X", unk0, debug_gui_name(event), unused, unk1);
 
 	return GUI_IDLEHandler(unk0, event, unused, unk1);
 }
+
 #endif
 
 int olc_colors_map[] = {

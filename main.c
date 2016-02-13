@@ -194,7 +194,7 @@ void hack_post_init_hook(void) {
 	//cache_fake(0xFF9DDB24, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
 
 	// Hack redraw on some dialogs, to prevent flickering when entering our menu
-	cache_fake(0xFF916434, B_INSTR(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainAutoS2App
+	cache_fake(0xFF916434, B_INSTR(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
 }
 
 
