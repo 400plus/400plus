@@ -10,7 +10,9 @@
 
 #include "firmware.h"
 
-extern void display_refresh(void);
+extern void display_refresh    (void);
+extern void hack_dialog_redraw (window_t *window);
+
 extern void display_overlay(uint8_t *vram_address);
 
 extern void display_countdown_dialog_create (void);

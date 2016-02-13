@@ -52,8 +52,7 @@ void hack_StartConsole              (void);
 void hack_pre_init_hook  (void);
 void hack_post_init_hook (void);
 
-void hack_send_jump_and_trash_buttons (int r0, int r1, int button);
-void hack_dialog_redraw               (window_t *window);
+void hack_jump_trash_events (int r0, int r1, int button);
 
 void action_dispatcher(void);
 
@@ -174,8 +173,8 @@ void hack_post_init_hook(void) {
 	//cache_fake(0xFF92DA50, ASM_BL(0xFF92DA50, &hack_FF92E704), TYPE_ICACHE);
 	//cache_fake(0xFF92DA88, ASM_BL(0xFF92DA88, &hack_FF92E4C4), TYPE_ICACHE);
 
-	// Inject hack_send_jump_and_trash_buttons
-	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
+	// Intercept JUMP and TRASH buttons
+	SetSendButtonProc(&hack_jump_trash_events, 0);
 
 	// take over the vram copy locations, so we can invert the screen
 	//cache_fake(0xFF92C5D8, ASM_BL(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
@@ -197,7 +196,7 @@ void hack_post_init_hook(void) {
 	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
 }
 
-void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
+void hack_jump_trash_events(int r0, int r1, int button) {
 	switch (button) {
 	case 4: // JUMP_UP
 		button_handler(BUTTON_RELEASE, TRUE);
@@ -212,11 +211,6 @@ void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
 		button_handler(BUTTON_TRASH, TRUE);
 		break;
 	}
-}
-
-void hack_dialog_redraw(window_t *window) {
-	if (! status.lock_redraw)
-		window_instance_redraw(window);
 }
 
 // Our own thread uses this dispatcher to execute tasks

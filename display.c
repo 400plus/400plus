@@ -26,6 +26,11 @@ void display_refresh(void) {
 	dialog_redraw(hMainDialog);
 }
 
+void hack_dialog_redraw(window_t *window) {
+	if (! status.lock_redraw)
+		window_instance_redraw(window);
+}
+
 void hack_item_set_label_int(dialog_t *dialog, const int type, const int *data, const int length, const int item)
 {
 	const int data_meteringmode_spot  = 0xF6;
