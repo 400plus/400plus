@@ -123,10 +123,6 @@ void cache_hacks(void) {
 
 	// hookup StartConsole, so we can run our hack_post_init_hook
 	cache_fake(0xFF8112E8, ASM_BL(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
-
-	// Hack items in dialogs
-	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
-	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
 }
 
 void disable_cache_clearing(void) {
@@ -195,8 +191,11 @@ void hack_post_init_hook(void) {
 
 	// Hack redraw on some dialogs, to prevent flickering when entering our menu
 	cache_fake(0xFF916434, ASM_B(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
-}
 
+	// Hack items in dialogs
+	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
+	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
+}
 
 void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
 	switch (button) {
