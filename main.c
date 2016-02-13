@@ -108,32 +108,32 @@ void cache_hacks(void) {
 	cache_fake(0xFF811318, 0xE3A0187E, TYPE_ICACHE);
 
 	// hookup to dmProcInit(), so we can enable massive debug and run our hack_pre_init_hook
-	cache_fake(0xFF8111AC, BL_INSTR(0xFF8111AC, &hack_dmProcInit), TYPE_ICACHE);
+	cache_fake(0xFF8111AC, ASM_BL(0xFF8111AC, &hack_dmProcInit), TYPE_ICACHE);
 
 	// hookup our MainCtrlInit
-	//cache_fake(0xFF8110E4, BL_INSTR(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
+	//cache_fake(0xFF8110E4, ASM_BL(0xFF8110E4, &hack_MainCtrlInit), TYPE_ICACHE);
 
 #ifdef ENABLE_DEBUG
 	// hookup our GUI_IdleHandler
-	cache_fake(0xFF82A4F0, BL_INSTR(0xFF82A4F0, &hack_register_gui_idle_handler), TYPE_ICACHE);
+	cache_fake(0xFF82A4F0, ASM_BL(0xFF82A4F0, &hack_register_gui_idle_handler), TYPE_ICACHE);
 #endif
 
 	// hookup our Intercom
-	cache_fake(0xFFA5D590, BL_INSTR(0xFFA5D590, &hack_init_intercom_data), TYPE_ICACHE);
+	cache_fake(0xFFA5D590, ASM_BL(0xFFA5D590, &hack_init_intercom_data), TYPE_ICACHE);
 
 	// hookup StartConsole, so we can run our hack_post_init_hook
-	cache_fake(0xFF8112E8, BL_INSTR(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
+	cache_fake(0xFF8112E8, ASM_BL(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
 
 	// Hack items in dialogs
-	cache_fake(0xFF838300, BL_INSTR(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
-	cache_fake(0xFF837FEC, BL_INSTR(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
+	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
+	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
 }
 
 void disable_cache_clearing(void) {
-	cache_fake(0xFF8101A0, NOP_INSTR, TYPE_ICACHE);
-	cache_fake(0xFFB3736C, NOP_INSTR, TYPE_ICACHE);
-	cache_fake(0xFFB37378, NOP_INSTR, TYPE_ICACHE);
-	cache_fake(0xFFB373EC, NOP_INSTR, TYPE_ICACHE);
+	cache_fake(0xFF8101A0, ASM_NOP, TYPE_ICACHE);
+	cache_fake(0xFFB3736C, ASM_NOP, TYPE_ICACHE);
+	cache_fake(0xFFB37378, ASM_NOP, TYPE_ICACHE);
+	cache_fake(0xFFB373EC, ASM_NOP, TYPE_ICACHE);
 }
 
 void hack_dmProcInit(void) {
@@ -175,26 +175,26 @@ void hack_post_init_hook(void) {
 	// Inject our hacked_TransferScreen
 	//TransferScreen = hack_TransferScreen;
 
-	//cache_fake(0xFF92DA50, BL_INSTR(0xFF92DA50, &hack_FF92E704), TYPE_ICACHE);
-	//cache_fake(0xFF92DA88, BL_INSTR(0xFF92DA88, &hack_FF92E4C4), TYPE_ICACHE);
+	//cache_fake(0xFF92DA50, ASM_BL(0xFF92DA50, &hack_FF92E704), TYPE_ICACHE);
+	//cache_fake(0xFF92DA88, ASM_BL(0xFF92DA88, &hack_FF92E4C4), TYPE_ICACHE);
 
 	// Inject hack_send_jump_and_trash_buttons
 	SetSendButtonProc(&hack_send_jump_and_trash_buttons, 0);
 
 	// take over the vram copy locations, so we can invert the screen
-	//cache_fake(0xFF92C5D8, BL_INSTR(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
-	//cache_fake(0xFF92C5FC, BL_INSTR(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
+	//cache_fake(0xFF92C5D8, ASM_BL(0xFF92C5D8, &hack_invert_olc_screen), TYPE_ICACHE);
+	//cache_fake(0xFF92C5FC, ASM_BL(0xFF92C5FC, &hack_invert_olc_screen), TYPE_ICACHE);
 
 	// prevent screen turn off on ptp (to see the debug on lcd)
-	//cache_fake(0xFF9DE0DC, MOV_R0_0_INSTR, TYPE_ICACHE);
+	//cache_fake(0xFF9DE0DC, ASM_MOV_R0_INT(0), TYPE_ICACHE);
 
 	// these freezes the usb communication
-	//cache_fake(0xFF81B9D0, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
-	//cache_fake(0xFF81B400, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
-	//cache_fake(0xFF9DDB24, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
+	//cache_fake(0xFF81B9D0, ASM_MOV_R0_INT(0), TYPE_ICACHE); // prevent ui lock
+	//cache_fake(0xFF81B400, ASM_MOV_R0_INT(0), TYPE_ICACHE); // prevent ui lock
+	//cache_fake(0xFF9DDB24, ASM_MOV_R0_INT(0), TYPE_ICACHE); // prevent ui lock
 
 	// Hack redraw on some dialogs, to prevent flickering when entering our menu
-	cache_fake(0xFF916434, B_INSTR(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
+	cache_fake(0xFF916434, ASM_B(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
 }
 
 

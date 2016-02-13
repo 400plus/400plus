@@ -10,6 +10,8 @@
 #include <vxworks.h>
 #include <stdint.h>
 
+#include "asm.h"
+
 /*
  * Canon cameras appear to use the ARMv5 946E.
  * (Confirmed on: 550D, ... )
@@ -42,23 +44,6 @@
  *
  * Dcache is automatically disabled and flushed on reset.
  */
-
-#define RET_INSTR       0xE12FFF1E  // bx lr
-#define FAR_CALL_INSTR  0xE51FF004  // ldr pc, [pc,#-4]
-#define LOOP_INSTR      0xEAFFFFFE  // 1: b 1b
-#define NOP_INSTR       0xE1A00000  // mov r0, r0
-#define MOV_R0_1_INSTR  0xE3A00001	// mov r0, 1
-#define MOV_R0_0_INSTR  0xE3A00000	// mov r0, 0
-
-#define BL_INSTR(pc,dest) \
-    ( 0xEB000000 \
-    | ((( ((uint32_t)dest) - ((uint32_t)pc) - 8 ) >> 2) & 0x00FFFFFF) \
-    )
-
-#define B_INSTR(pc,dest) \
-    ( 0xEA000000 \
-    | ((( ((uint32_t)dest) - ((uint32_t)pc) - 8 ) >> 2) & 0x00FFFFFF) \
-    )
 
 #define TYPE_DCACHE 0
 #define TYPE_ICACHE 1
