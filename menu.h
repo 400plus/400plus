@@ -3,6 +3,8 @@
 
 #include "firmware/camera.h"
 
+#define MENU_WAIT_FW 100
+
 #define MENU_WIDTH  27
 #define MENU_HEIGHT  5
 

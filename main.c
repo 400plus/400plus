@@ -36,6 +36,7 @@ status_t status = {
 	msm_av            : EV_ZERO,
 	ignore_msg        : FALSE,
 	vf_status         : VF_STATUS_NONE,
+	lock_redraw       : FALSE,
 };
 
 void hack_relocate   (void);
@@ -51,11 +52,12 @@ void hack_StartConsole              (void);
 void hack_pre_init_hook  (void);
 void hack_post_init_hook (void);
 
+void hack_send_jump_and_trash_buttons (int r0, int r1, int button);
+void hack_dialog_redraw               (window_t *window);
+
 void action_dispatcher(void);
 
 int check_create_folder(void);
-
-void hack_send_jump_and_trash_buttons(int r0, int r1, int button);
 
 // 400plus entry point
 int main(void) {
@@ -128,10 +130,10 @@ void cache_hacks(void) {
 }
 
 void disable_cache_clearing(void) {
-	cache_fake(0xFF8101A0, NOP_INSTR, TYPE_ICACHE); // i cache
-	cache_fake(0xFFB3736C, NOP_INSTR, TYPE_ICACHE); // i cache
-	cache_fake(0xFFB37378, NOP_INSTR, TYPE_ICACHE); // i cache
-	cache_fake(0xFFB373EC, NOP_INSTR, TYPE_ICACHE); // i cache
+	cache_fake(0xFF8101A0, NOP_INSTR, TYPE_ICACHE);
+	cache_fake(0xFFB3736C, NOP_INSTR, TYPE_ICACHE);
+	cache_fake(0xFFB37378, NOP_INSTR, TYPE_ICACHE);
+	cache_fake(0xFFB373EC, NOP_INSTR, TYPE_ICACHE);
 }
 
 void hack_dmProcInit(void) {
@@ -190,6 +192,32 @@ void hack_post_init_hook(void) {
 	//cache_fake(0xFF81B9D0, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
 	//cache_fake(0xFF81B400, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
 	//cache_fake(0xFF9DDB24, MOV_R0_0_INSTR, TYPE_ICACHE); // prevent ui lock
+
+	// Hack redraw on some dialogs, to prevent flickering when entering our menu
+	cache_fake(0xFF916434, B_INSTR(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE); // StartMnMainAutoS2App
+}
+
+
+void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
+	switch (button) {
+	case 4: // JUMP_UP
+		button_handler(BUTTON_RELEASE, TRUE);
+		break;
+	case 5: // JUMP_DOWN
+		button_handler(BUTTON_JUMP, TRUE);
+		break;
+	case 8: // TRASH_UP
+		button_handler(BUTTON_RELEASE, TRUE);
+		break;
+	case 9: // TRASH_DOWN
+		button_handler(BUTTON_TRASH, TRUE);
+		break;
+	}
+}
+
+void hack_dialog_redraw(window_t *window) {
+	if (! status.lock_redraw)
+		window_instance_redraw(window);
 }
 
 // Our own thread uses this dispatcher to execute tasks
@@ -278,6 +306,7 @@ void start_up() {
 /*
  * Look for a "400PLUS" folder, and create it if it does not exist
  */
+
 int check_create_folder(void)
 {
     DIR *dirp;
@@ -292,22 +321,4 @@ int check_create_folder(void)
     	closedir(dirp);
     	return TRUE;
     }
-}
-
-
-void hack_send_jump_and_trash_buttons(int r0, int r1, int button) {
-	switch (button) {
-	case 4: // JUMP_UP
-		button_handler(BUTTON_RELEASE, TRUE);
-		break;
-	case 5: // JUMP_DOWN
-		button_handler(BUTTON_JUMP, TRUE);
-		break;
-	case 8: // TRASH_UP
-		button_handler(BUTTON_RELEASE, TRUE);
-		break;
-	case 9: // TRASH_DOWN
-		button_handler(BUTTON_TRASH, TRUE);
-		break;
-	}
 }

@@ -37,26 +37,23 @@ void menu_repeat_left (menu_t *menu, const int repeating);
 menupage_t *get_selected_page(void);
 
 void menu_create(menu_t *menu) {
-	beep();
+	status.lock_redraw = TRUE;
+	press_button(IC_BUTTON_MENU);
+	SleepTask(MENU_WAIT_FW);
+	status.lock_redraw = FALSE;
 
-	//GUI_Command(4,0);
-	//press_button(IC_BUTTON_MENU);
-	SendToMC(6, 2, 0);
-	SleepTask(100);
-
-	FLAG_GUI_MODE = 0x2D; // In theory, we do not need this, but menu_close does not work properly without it...
-	//DPData.gui_mode = 0x2D; // this is not the same as FLAG_GUI_MODE, but so far i do not see what it does
+	GUI_StartMode(0x2D);
 
 	current_menu = menu;
 	menu_DPData  = DPData;
 
-	menu_destroy();
-	menu_initialize();
-
 	GUI_Lock();
 	GUI_PaletteInit();
 
-	menu_handler = dialog_create(22, menu_event_handler);
+	menu_destroy();
+	menu_initialize();
+
+	menu_handler = dialog_create(0x16, menu_event_handler);
 
 	GUI_PalettePush();
 	GUI_PaletteChange(current_menu->color);
@@ -68,22 +65,7 @@ void menu_create(menu_t *menu) {
 }
 
 void menu_close() {
-/*
-	GUI_Lock();
-	GUI_PalleteInit();
-
-	DeleteDialogBox(menu_handler);
-	menu_destroy();
-	menu_finish();
-
-	GUI_StartMode(GUIMODE_OLC);
-	CreateDialogBox_OlMain();
-	GUIMode = GUIMODE_OLC;
-
-	GUI_UnLock();
-	GUI_PalleteUnInit();
-*/
-	press_button(IC_BUTTON_DISP);
+	press_button(IC_BUTTON_MENU);
 
 	menu_destroy();
 	menu_finish(NULL); //TODO:FixMe
@@ -109,24 +91,20 @@ void menu_finish(menu_t *menu) {
 }
 
 int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, int r4, int r5, int r6, int code) {
-	int ret;
 	button_t button;
 
-// FW:FF915990
-// this seems to be one of the addresses where the handler is called
-
-// standard menu 55-63
-#ifdef ENABLE_DEBUG
-	// print the dialog structure and diff the both cases of menu creation
-	debug_log("_BTN_ [%s][guimode:%08X]", debug_btn_name(event), FLAG_GUI_MODE);
-	//debug_log("_BTN_: 84=[%08X] 88=[%08X]", GET_FROM_MEM(menu_handler+0x84), GET_FROM_MEM(menu_handler+0x88) );
-	//debug_log("_BTN_: r1=[%08X], r3=[%08X], 90=[%08X]", *r1, *r3, /* *(int*) */(*(int*)((int)dialog+0x90)) );
-	//debug_log("_BTN_: r4=[%08X], r5=[%08X], r6=[%08X]", r4, r5, r6);
-#endif
+	debug_log("r0: %08X", dialog);
+	debug_log("r1: %08X", r1);
+	debug_log("r2: %08X", event);
+	debug_log("r3: %08X", r3);
+	debug_log("r4: %08X", r4);
+	debug_log("r5: %08X", r6);
+	debug_log("r6: %08X", r6);
+	debug_log("r7: %08X", code);
 
 	switch (event) {
 	case GUI_BUTTON_MENU            : button = BUTTON_MENU;     break;
-//	case GUI_BUTTON_DISP            : button = BUTTON_DISP;     break;
+	case GUI_BUTTON_DISP            : button = BUTTON_DISP;     break;
 	case GUI_BUTTON_JUMP            : button = BUTTON_JUMP;     break;
 	case GUI_BUTTON_PLAY            : button = BUTTON_PLAY;     break;
 	case GUI_BUTTON_TRASH           : button = BUTTON_TRASH;    break;
@@ -142,11 +120,7 @@ int menu_event_handler(dialog_t * dialog, int *r1, gui_event_t event, int *r3, i
 		return FALSE;
 
 pass_event:
-	ret = dialog_event_handler(dialog, r1, event, r3, r4, r5, r6, code);
-
-	debug_log("_BTN_ after: r1=[%08X], r3=[%08X]", *r1, *r3);
-
-	return ret;
+	return dialog_event_handler(dialog, r1, event, r3, r4, r5, r6, code);
 }
 
 void menu_return(menu_t *menu) {

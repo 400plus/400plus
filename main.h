@@ -47,6 +47,7 @@ typedef struct {
 	ic_event_t  ignore_msg;        // Event to be ignored at intercom
 	vf_status_t vf_status;         // Status of viewfinder
 	int         folder_exists;     // 400PLUS folder exists
+	int         lock_redraw;       // Lock redrawing of dialogs
 } status_t;
 
 // Our own code
