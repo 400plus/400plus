@@ -264,7 +264,7 @@ void menu_lexp_calc_open (menu_t *menu) {
 	menu_scripts_tv = settings.lexp_time;
 
 	// Adjust exposure compensation
-	menu_scripts_ev = DPData.tv_val - ev_time(settings.lexp_time);
+	menu_scripts_ev = ec_normalize(DPData.tv_val - ev_time(settings.lexp_time));
 }
 
 void menu_dof_calc_open (menu_t *menu) {
