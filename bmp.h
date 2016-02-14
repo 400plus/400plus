@@ -1,5 +1,7 @@
 // Thanks to Coutts for porthing this.
 
+#if FALSE  // Temporarily disable until we make it stable
+
 #include "font.h"
 #include "firmware.h"
 
@@ -97,3 +99,5 @@ enum {
 	COLOR_YELLOW = 0x88,
 	COLOR_ORANGE = 0xCC,
 };
+
+#endif

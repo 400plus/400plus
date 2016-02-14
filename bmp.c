@@ -1,5 +1,7 @@
 // Thanks to Coutts for porting this.
 
+#if FALSE  // Temporarily disable until we make it stable
+
 #include <vxworks.h>
 #include <stdarg.h>
 
@@ -141,3 +143,5 @@ void bmp_draw_palette(uint8_t *vram_address) {
 		for (y = 0; y < 16 * 8; y++)
 			vram_address[x + y * 360] = (x / 8) | ((y / 8) << 4);
 }
+
+#endif
