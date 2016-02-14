@@ -14,6 +14,7 @@
 #include "scripts.h"
 #include "utils.h"
 #include "intercom.h"
+#include "float.h"
 
 #include "menu_scripts.h"
 
@@ -36,6 +37,7 @@ void menu_dof_calc_open (menu_t *menu);
 void menu_scripts_apply_eaeb_tvmin (const menuitem_t *item);
 void menu_scripts_apply_eaeb_tvmax (const menuitem_t *item);
 void menu_scripts_apply_calc_ev    (const menuitem_t *item);
+void menu_scripts_apply_calc_tv    (const menuitem_t *item);
 void menu_scripts_apply_calc       (const menuitem_t *item);
 
 void menu_scripts_apply_dof_av(const menuitem_t *item);
@@ -126,7 +128,7 @@ menuitem_t lexp_calc_items[] = {
 	MENUITEM_BASEISO(0, LP_WORD(L_I_ISO),    &menu_scripts_iso,        menu_scripts_apply_calc_ev),
 	MENUITEM_AV     (0, LP_WORD(L_I_AV_VAL), &menu_scripts_av,         menu_scripts_apply_calc_ev),
 	MENUITEM_TIMEOUT(0, LP_WORD(L_I_TV_VAL), &menu_scripts_tv,         menu_scripts_apply_calc_ev),
-	MENUITEM_EVINFO (0, LP_WORD(L_I_EV_VAL), &menu_scripts_ev,         NULL),
+	MENUITEM_EVINFO (0, LP_WORD(L_I_EV_VAL), &menu_scripts_ev,         menu_scripts_apply_calc_tv),
 	MENUITEM_LAUNCH (0, LP_WORD(L_I_APPLY),   menu_scripts_apply_calc),
 };
 
@@ -287,9 +289,20 @@ void menu_scripts_apply_eaeb_tvmax(const menuitem_t *item) {
 void menu_scripts_apply_calc_ev(const menuitem_t *item) {
 	int ev = (menu_scripts_iso - DPData.iso) - (ev_time(menu_scripts_tv) - DPData.tv_val) - (menu_scripts_av - DPData.av_val);
 
-	ev = CLAMP(ev, EV_CODE(-15, 0), EV_CODE(15, 0));
+	ev = CLAMP(ev, EC_MIN_EXT, EC_MAX_EXT);
 
 	menu_scripts_ev = ec_normalize(ev);
+	menu_event_display();
+}
+
+void menu_scripts_apply_calc_tv(const menuitem_t *item) {
+	menu_scripts_tv = float_pow(2.0f, (EV_CODE(7, 0) - (menu_scripts_iso - DPData.iso) + (menu_scripts_av - DPData.av_val) + menu_scripts_ev - DPData.tv_val) / 8.0f);
+
+	if (menu_scripts_tv == 0) {
+		menu_scripts_tv = 1;
+		menu_scripts_apply_calc_ev(item);
+	}
+
 	menu_event_display();
 }
 

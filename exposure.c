@@ -88,16 +88,16 @@ ec_t ec_normalize(ec_t ec) {
 	return ec + SIGN(ec) * ev_normalization[DPData.cf_explevel_inc_third][abs(EV_SUB(ec))];
 }
 
-ec_t ec_inc(ec_t ec) {
+ec_t ec_inc(ec_t ec, int extended) {
 	ec = ec_normalize(ec_normalize(ec) + EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 
-	return MIN(ec, EC_MAX);
+	return MIN(ec, extended ? EC_MAX_EXT : EC_MAX);
 }
 
-ec_t ec_dec(ec_t ec) {
+ec_t ec_dec(ec_t ec, int extended) {
 	ec = ec_normalize(ec_normalize(ec) - EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
 
-	return MAX(ec, EC_MIN);
+	return MAX(ec, extended ? EC_MIN_EXT : EC_MIN);
 }
 
 ec_t ec_add(ec_t ying, ec_t yang) {

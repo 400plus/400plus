@@ -6,6 +6,7 @@
 
 typedef struct {
 	int  *value;
+	int   extended;
 	int   can_do_zero;
 	int   zero_means_off;
 } menuitem_ec_t;
@@ -74,12 +75,13 @@ struct menuitem_t {
 	itemaction_t   change;
 };
 
-#define MENUITEM_EC(_ID_, _NAME_, _VALUE_, _RO_, _CDZ_, _ZMO_, _CHANGE_) { \
+#define MENUITEM_EC(_ID_, _NAME_, _VALUE_, _RO_, _EXT_, _CDZ_, _ZMO_, _CHANGE_) { \
 	id       : _ID_, \
 	name     : _NAME_, \
 	readonly : _RO_, \
 	parm     : { menuitem_ec : { \
 		value          : _VALUE_, \
+		extended       : _EXT_, \
 		can_do_zero    : _CDZ_, \
 		zero_means_off : _ZMO_, \
 	}}, \
@@ -237,10 +239,10 @@ struct menuitem_t {
 	display : menuitem_display_info, \
 }
 
-#define MENUITEM_EVCOMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, FALSE, TRUE,  FALSE, _ON_CHANGE_)
-#define MENUITEM_EVSEP( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, FALSE, TRUE,  TRUE,  _ON_CHANGE_)
-#define MENUITEM_EVEAEB(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, FALSE, FALSE, TRUE,  _ON_CHANGE_)
-#define MENUITEM_EVINFO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, TRUE,  TRUE,  FALSE, _ON_CHANGE_)
+#define MENUITEM_EVCOMP(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, FALSE, FALSE, TRUE,  FALSE, _ON_CHANGE_)
+#define MENUITEM_EVSEP( _ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, FALSE, FALSE, TRUE,  TRUE,  _ON_CHANGE_)
+#define MENUITEM_EVEAEB(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, FALSE, FALSE, FALSE, TRUE,  _ON_CHANGE_)
+#define MENUITEM_EVINFO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_EC(_ID_, _NAME_, _VALUE_, FALSE, TRUE,  TRUE,  FALSE, _ON_CHANGE_)
 
 #define MENUITEM_BASEISO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_ID_, _NAME_, _VALUE_, TRUE,  _ON_CHANGE_)
 #define MENUITEM_FULLISO(_ID_, _NAME_, _VALUE_, _ON_CHANGE_) MENUITEM_ISO(_ID_, _NAME_, _VALUE_, FALSE, _ON_CHANGE_)
