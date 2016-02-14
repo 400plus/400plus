@@ -112,7 +112,7 @@ void menuitem_print(char *buffer, const char *name, const char *parameter, const
 }
 
 void menuitem_inc_ec(const menuitem_t *item, const int repeating) {
-	*item->parm.menuitem_ec.value = ec_inc(*item->parm.menuitem_ec.value);
+	*item->parm.menuitem_ec.value = ec_inc(*item->parm.menuitem_ec.value, item->parm.menuitem_ec.extended);
 }
 
 void menuitem_inc_av(const menuitem_t *item, const int repeating) {
@@ -187,7 +187,7 @@ void menuitem_dec_ec(const menuitem_t *item, const int repeating) {
 	if (item->parm.menuitem_ec.zero_means_off && *item->parm.menuitem_ec.value < 0x05)
 		*item->parm.menuitem_ec.value = item->parm.menuitem_ec.can_do_zero ? 0x00 : (DPData.cf_explevel_inc_third ? 0x04 : 0x03);
 	else
-		*item->parm.menuitem_ec.value = ec_dec(*item->parm.menuitem_ec.value);
+		*item->parm.menuitem_ec.value = ec_dec(*item->parm.menuitem_ec.value, item->parm.menuitem_ec.extended);
 }
 
 void menuitem_dec_av(const menuitem_t *item, const int repeating) {

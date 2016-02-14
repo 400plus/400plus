@@ -17,9 +17,11 @@ typedef unsigned char iso_t;
 
 #define EV_ZERO EV_CODE( 0, 0)  //  0EV
 
-#define EC_ZERO EV_CODE( 0, 0)  //  0EV
-#define EC_MIN  EV_CODE(-6, 0)  // +6EV
-#define EC_MAX  EV_CODE(+6, 0)  // -6EV
+#define EC_ZERO    EV_CODE(  0, 0)  //   0EV
+#define EC_MIN     EV_CODE( -6, 0)  //  +6EV
+#define EC_MAX     EV_CODE( +6, 0)  //  -6EV
+#define EC_MIN_EXT EV_CODE(-15, 0)  // -15EV
+#define EC_MAX_EXT EV_CODE(+15, 0)  // +15EV
 
 #define AV_MIN EV_CODE( 1, 0)  // f/1.0
 #define AV_MAX EV_CODE(13, 0)  // f/64
@@ -50,8 +52,8 @@ extern ev_t ev_time     (int s);
 extern ev_t ev_normalize(ev_t ec);
 extern ec_t ec_normalize(ec_t ec);
 
-extern ec_t ec_inc(ec_t ev);
-extern ec_t ec_dec(ec_t ev);
+extern ec_t ec_inc(ec_t ev, int extended);
+extern ec_t ec_dec(ec_t ev, int extended);
 extern ec_t ec_add(ec_t ying, ec_t yang);
 extern ec_t ec_sub(ec_t ying, ec_t yang);
 
