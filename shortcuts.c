@@ -195,7 +195,7 @@ void shortcut_event_right(void) {
 		shortcut_iso_set(iso_inc(DPData.iso));
 		break;
 	case SHORTCUT_AEB:
-		shortcut_aeb_set(MIN(ec_inc(DPData.ae_bkt), EC_MAX));
+		shortcut_aeb_set(MIN(ec_inc(DPData.ae_bkt, FALSE), EC_MAX));
 		break;
 	case SHORTCUT_TOGGLE_FLASH:
 		shortcut_f2c_set(TRUE);
@@ -214,7 +214,7 @@ void shortcut_event_left(void) {
 		shortcut_iso_set(iso_dec(DPData.iso));
 		break;
 	case SHORTCUT_AEB:
-		shortcut_aeb_set(MAX(ec_dec(DPData.ae_bkt), EV_ZERO));
+		shortcut_aeb_set(MAX(ec_dec(DPData.ae_bkt, FALSE), EV_ZERO));
 		break;
 	case SHORTCUT_TOGGLE_FLASH:
 		shortcut_f2c_set(FALSE);
