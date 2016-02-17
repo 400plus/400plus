@@ -273,16 +273,6 @@ void bulb_print(char *dest, tv_t tv) {
 
 /* ISO related --------------------------------------------------------- */
 
-iso_t iso_roll(iso_t iso) {
-	int step = (1 << settings.digital_iso_step);
-	int mask = 0x100 - step;
-
-	iso = iso & mask;
-	iso = EV_CODE(EV_VAL(iso), (EV_SUB(iso) + step) % 8);
-
-	return MIN(iso, ISO_EXT);
-}
-
 iso_t iso_next(iso_t iso) {
 	iso = EV_CODE(EV_VAL(iso) + 1, 0);
 
