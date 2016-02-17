@@ -89,13 +89,13 @@ ec_t ec_normalize(ec_t ec) {
 }
 
 ec_t ec_inc(ec_t ec, int extended) {
-	ec = ec_normalize(ec_normalize(ec) + EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
+	ec = ec_normalize(ec_normalize(ec) + EV_STEP);
 
 	return MIN(ec, extended ? EC_MAX_EXT : EC_MAX);
 }
 
 ec_t ec_dec(ec_t ec, int extended) {
-	ec = ec_normalize(ec_normalize(ec) - EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
+	ec = ec_normalize(ec_normalize(ec) - EV_STEP);
 
 	return MAX(ec, extended ? EC_MIN_EXT : EC_MIN);
 }
@@ -167,11 +167,11 @@ av_t av_sub(av_t ying, av_t yang) {
 }
 
 av_t av_inc(av_t av) {
-	return av_add(av, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
+	return av_add(av, EV_STEP);
 }
 
 av_t av_dec(av_t av) {
-	return av_sub(av, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
+	return av_sub(av, EV_STEP);
 }
 
 void av_print(char *dest, av_t av) {
@@ -217,11 +217,11 @@ tv_t tv_sub(tv_t ying, tv_t yang) {
 }
 
 tv_t tv_inc(tv_t tv) {
-	return tv_add(tv, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
+	return tv_add(tv, EV_STEP);
 }
 
 tv_t tv_dec(tv_t tv) {
-	return tv_sub(tv, EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3));
+	return tv_sub(tv, EV_STEP);
 }
 
 tv_t bulb_next(tv_t tv) {
