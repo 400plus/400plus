@@ -12,6 +12,7 @@
 #include "button.h"
 #include "cmodes.h"
 #include "fexp.h"
+#include "qexp.h"
 #include "languages.h"
 #include "menu.h"
 #include "menu_main.h"
@@ -220,8 +221,15 @@ int proxy_measurement(char *message) {
 		status.measured_av = message[3];
 		status.measured_ec = message[4];
 
-		if (settings.autoiso_enable)
-			enqueue_action(autoiso);
+		switch(status.vf_status) {
+		case VF_STATUS_QEXP:
+			enqueue_action(qexp_update);
+			break;
+		default:
+			if (settings.autoiso_enable)
+				enqueue_action(autoiso);
+			break;
+		}
 	}
 
 	return FALSE;
@@ -264,7 +272,7 @@ int proxy_settings0(char *message) {
 	if (first) {
 		first = FALSE;
 	} else {
-		if (status.fexp)
+		if (status.vf_status == VF_STATUS_FEXP)
 			fexp_disable();
 
 		if (!status.msm_active)
@@ -292,7 +300,7 @@ int proxy_wheel(char *message) {
 }
 
 int proxy_av(char *message) {
-	if (status.fexp)
+	if (status.vf_status == VF_STATUS_FEXP)
 		enqueue_action(fexp_update_tv);
 
 	return FALSE;
@@ -302,7 +310,7 @@ int proxy_tv(char *message) {
 	if (settings.autoiso_enable)
 		enqueue_action(autoiso_restore);
 
-	if (status.fexp)
+	if (status.vf_status == VF_STATUS_FEXP)
 		enqueue_action(fexp_update_av);
 
 	return FALSE;
