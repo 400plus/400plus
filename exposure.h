@@ -77,7 +77,6 @@ extern tv_t bulb_prev(tv_t tv);
 extern void tv_print  (char *dest, tv_t tv);
 extern void bulb_print(char *dest, tv_t tv);
 
-extern iso_t iso_roll(iso_t iso);
 extern iso_t iso_next(iso_t iso);
 extern iso_t iso_prev(iso_t iso);
 extern iso_t iso_inc (iso_t iso);
