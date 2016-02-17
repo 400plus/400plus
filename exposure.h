@@ -16,6 +16,7 @@ typedef unsigned char iso_t;
 #define EV_ROUND(code) EV_TRUNC(code + EV_CODE(0, 4))
 
 #define EV_ZERO EV_CODE( 0, 0)  //  0EV
+#define EV_STEP EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3) // 1/3 or 1/5
 
 #define EC_ZERO    EV_CODE(  0, 0)  //   0EV
 #define EC_MIN     EV_CODE( -6, 0)  //  +6EV
@@ -77,7 +78,6 @@ extern tv_t bulb_prev(tv_t tv);
 extern void tv_print  (char *dest, tv_t tv);
 extern void bulb_print(char *dest, tv_t tv);
 
-extern iso_t iso_roll(iso_t iso);
 extern iso_t iso_next(iso_t iso);
 extern iso_t iso_prev(iso_t iso);
 extern iso_t iso_inc (iso_t iso);
