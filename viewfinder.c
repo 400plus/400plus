@@ -63,7 +63,7 @@ void viewfinder_up() {
 void viewfinder_down() {
 	switch (DPData.ae) {
 	case AE_MODE_M:
-		qexp();
+		qexp_enable();
 		break;
 	case AE_MODE_P:
 	case AE_MODE_TV:
@@ -114,6 +114,9 @@ void viewfinder_end() {
 		break;
 	case(VF_STATUS_FEXP):
 		fexp_disable();
+		break;
+	case(VF_STATUS_QEXP):
+		qexp_disable();
 		break;
 	default:
 		break;

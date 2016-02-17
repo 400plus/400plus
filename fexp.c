@@ -11,7 +11,7 @@
 
 #include "fexp.h"
 
-void fexp_enable() {
+void fexp_enable(void) {
 	status.vf_status = VF_STATUS_FEXP;
 	status.fexp_ev   = (int)DPData.av_val + (int)DPData.tv_val;
 }

@@ -20,6 +20,7 @@ typedef enum {
 	VF_STATUS_MSM,
 	VF_STATUS_ISO,
 	VF_STATUS_FEXP,
+	VF_STATUS_QEXP,
 } vf_status_t;
 
 // Global status
