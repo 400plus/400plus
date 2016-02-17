@@ -1,4 +1,5 @@
 #include <vxworks.h>
+#include <stdlib.h>
 
 #include "firmware/camera.h"
 
@@ -12,7 +13,15 @@
 
 #include "qexp.h"
 
-void qexp(void) {
+void qexp_enable(void) {
+	status.vf_status = VF_STATUS_QEXP;
+}
+
+void qexp_disable(void) {
+	status.vf_status = VF_STATUS_NONE;
+}
+
+void qexp_update(void) {
 	int weight;
 
 	ec_t diff, ec_tmp;
@@ -24,7 +33,7 @@ void qexp(void) {
 	av_t av_max = DPData.ef_lens_exist ? DPData.avmax : AV_MAX;
 	av_t av_min = DPData.ef_lens_exist ? DPData.avo   : AV_MIN;
 
-	if (status.measuring) {
+	if (status.measuring && abs(status.measured_ec) > QEXP_TOLERANCE) {
 		// Set lens to maximum aperture
 		diff = av_min - av;
 
@@ -82,9 +91,13 @@ void qexp(void) {
 			ec -= diff;
 		}
 
-		send_to_intercom(IC_SET_AV_VAL, ev_normalize(av));
-		send_to_intercom(IC_SET_TV_VAL, ev_normalize(tv));
+		av = ev_normalize(av);
+		tv = ev_normalize(tv);
 
-		enqueue_action(beep);
+		if (av != DPData.av_val)
+			send_to_intercom(IC_SET_AV_VAL, ev_normalize(av));
+
+		if (tv != DPData.tv_val)
+			send_to_intercom(IC_SET_TV_VAL, ev_normalize(tv));
 	}
 }
