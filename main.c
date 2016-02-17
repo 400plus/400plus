@@ -30,7 +30,6 @@ status_t status = {
 	shortcut_running  : SHORTCUT_NONE,
 	afp_dialog        : FALSE,
 	measuring         : FALSE,
-	fexp              : FALSE,
 	msm_count         : 0,
 	msm_tv            : EV_ZERO,
 	msm_av            : EV_ZERO,

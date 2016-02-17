@@ -19,6 +19,7 @@ typedef enum {
 	VF_STATUS_NONE,
 	VF_STATUS_MSM,
 	VF_STATUS_ISO,
+	VF_STATUS_FEXP,
 } vf_status_t;
 
 // Global status
@@ -38,7 +39,6 @@ typedef struct {
 	tv_t        last_shot_tv;      // Shutter speed of the last shot taken
 	av_t        last_shot_av;      // Aperture of the last shot taken
 	int         last_shot_fl;      // Focal length during last shot
-	int         fexp;              // Fixed exposure is active
 	int         fexp_ev;           // Combined exposure value for fixed exposure
 	int         msm_count;         // Multi-spot metering: count of registered points
 	int         msm_tv;            // Multi-spot metering: sum of all Tv values registered

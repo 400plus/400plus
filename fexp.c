@@ -11,25 +11,16 @@
 
 #include "fexp.h"
 
-void fexp_disable () {
-	status.fexp = FALSE;
-	enqueue_action(beep);
+void fexp_enable() {
+	status.vf_status = VF_STATUS_FEXP;
+	status.fexp_ev   = (int)DPData.av_val + (int)DPData.tv_val;
 }
 
-void fexp_toggle() {
-	if (DPData.ae == AE_MODE_M) {
-		if (status.fexp) {
-			fexp_disable();
-		} else {
-			status.fexp    = TRUE;
-			status.fexp_ev = (int)DPData.av_val + (int)DPData.tv_val;
-
-			enqueue_action(beep);
-		}
-	}
+void fexp_disable(void) {
+	status.vf_status = VF_STATUS_NONE;
 }
 
-void fexp_update_av() {
+void fexp_update_av(void) {
 	if (DPData.ae == AE_MODE_M && DPData.tv_val != TV_VAL_BULB) {
 		int av = status.fexp_ev - DPData.tv_val;
 
@@ -40,7 +31,7 @@ void fexp_update_av() {
 	}
 }
 
-void fexp_update_tv() {
+void fexp_update_tv(void) {
 	if (DPData.ae == AE_MODE_M && DPData.tv_val != TV_VAL_BULB) {
 		int tv = status.fexp_ev - DPData.av_val;
 
