@@ -154,14 +154,14 @@ void ec_print(char *dest, ec_t ec) {
 
 av_t av_add(av_t ying, av_t yang) {
 	av_t  av = ev_normalize(ying + yang);
-	av_t max = DPData.ef_lens_exist ? DPData.avmax : AV_MAX;
+	av_t max = DPData.ef_lens_exist ? ev_normalize(DPData.avmax) : AV_MAX;
 
 	return MIN(av, max);
 }
 
 av_t av_sub(av_t ying, av_t yang) {
 	av_t av  = ev_normalize(ying - yang);
-	av_t min = DPData.ef_lens_exist ? DPData.avo : AV_MIN;
+	av_t min = DPData.ef_lens_exist ? ev_normalize(DPData.avo) : AV_MIN;
 
 	return MAX(av, min);
 }
