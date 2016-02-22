@@ -20,8 +20,6 @@ COMMON_FLAGS := \
 	$(USE_FONTS)                      \
 	-DVERSION='"$(VERSION)"'          \
 	-Wall                             \
-	-Wp,-MMD,$(dir $@).$(notdir $@).d \
-	-Wp,-MT,$@                        \
 	-mcpu=arm946e-s                   \
 	-march=armv5te                    \
 	-fno-builtin                      \
@@ -52,6 +50,8 @@ COMMON_FLAGS := \
 CC     := $(CROSS_COMPILE)gcc
 CFLAGS += $(COMMON_FLAGS)              \
 	$(D_FLAGS)                         \
+	-Wp,-MMD,$(patsubst %.o,.%.d,$(@)) \
+	-Wp,-MT,$@                         \
 	-Os                                \
 	-nostdinc                          \
 	-Ivxworks                          \
@@ -82,6 +82,7 @@ S_OBJS := $(S_SRCS:.S=.o)
 C_OBJS := $(C_SRCS:.c=.o)
 
 OBJS  := $(S_OBJS) $(C_OBJS)
+DEPS  := $(patsubst %.o,.%.d,$(C_OBJS))
 
 ECHO := "/bin/echo"
 
@@ -126,7 +127,7 @@ $(PROJECT).arm.elf: $(OBJS) link.script
 
 clean:
 	@$(ECHO) -e $(BOLD)[CLEAN]$(NORM)
-	rm -f $(OBJS) .*.o.d
+	rm -f $(OBJS) $(DEPS)
 	rm -f $(PROJECT).arm.elf $(PROJECT).BIN
 
 languages.ini: languages.h languages/*.ini
