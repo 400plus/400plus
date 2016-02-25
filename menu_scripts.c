@@ -266,7 +266,7 @@ void menu_lexp_calc_open (menu_t *menu) {
 	menu_scripts_tv = settings.lexp_time;
 
 	// Adjust exposure compensation
-	menu_scripts_ev = ec_normalize(DPData.tv_val - ev_time(settings.lexp_time));
+	menu_scripts_ev = ec_normalize(8.0f * (float_log2(menu_scripts_tv) - (DPData.tv_val - TV_SEC) / 8.0f));
 }
 
 void menu_dof_calc_open (menu_t *menu) {
@@ -287,7 +287,10 @@ void menu_scripts_apply_eaeb_tvmax(const menuitem_t *item) {
 }
 
 void menu_scripts_apply_calc_ev(const menuitem_t *item) {
-	int ev = (menu_scripts_iso - DPData.iso) - (ev_time(menu_scripts_tv) - DPData.tv_val) - (menu_scripts_av - DPData.av_val);
+	float camera_ev = (DPData.iso       - ISO_100) / 8.0f - (DPData.av_val   - AV_MIN) / 8.0f + (DPData.tv_val - TV_SEC) / 8.0f;
+	float script_ev = (menu_scripts_iso - ISO_100) / 8.0f - (menu_scripts_av - AV_MIN) / 8.0f + float_log2(menu_scripts_tv);
+
+	int ev = 8.0f * (script_ev - camera_ev);
 
 	ev = CLAMP(ev, EC_MIN_EXT, EC_MAX_EXT);
 
@@ -296,14 +299,20 @@ void menu_scripts_apply_calc_ev(const menuitem_t *item) {
 }
 
 void menu_scripts_apply_calc_tv(const menuitem_t *item) {
-	menu_scripts_tv = float_pow(2.0f, (EV_CODE(7, 0) - (menu_scripts_iso - DPData.iso) + (menu_scripts_av - DPData.av_val) + menu_scripts_ev - DPData.tv_val) / 8.0f);
+	float camera_ev = (DPData.iso       - ISO_100) / 8.0f - (DPData.av_val   - AV_MIN) / 8.0f + (DPData.tv_val - TV_SEC) / 8.0f;
+	float script_ev = (menu_scripts_iso - ISO_100) / 8.0f - (menu_scripts_av - AV_MIN) / 8.0f;
+
+	menu_scripts_tv = float_pow2(menu_scripts_ev / 8.0f - (script_ev - camera_ev));
 
 	if (menu_scripts_tv == 0) {
 		menu_scripts_tv = 1;
 		menu_scripts_apply_calc_ev(item);
+	} else if (menu_scripts_tv > 18000) {
+		menu_scripts_tv = 18000;
+		menu_scripts_apply_calc_ev(item);
+	} else {
+		menu_event_display();
 	}
-
-	menu_event_display();
 }
 
 void menu_scripts_apply_calc(const menuitem_t *item) {

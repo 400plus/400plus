@@ -15,7 +15,7 @@ typedef unsigned char iso_t;
 #define EV_TRUNC(code) EV_CODE(EV_VAL(code), 0)
 #define EV_ROUND(code) EV_TRUNC(code + EV_CODE(0, 4))
 
-#define EV_ZERO EV_CODE( 0, 0)  //  0EV
+#define EV_ZERO EV_CODE(0, 0)  //  0EV
 #define EV_STEP EV_CODE(0, DPData.cf_explevel_inc_third ? 4 : 3) // 1/3 or 1/5
 
 #define EC_ZERO    EV_CODE(  0, 0)  //   0EV
@@ -28,6 +28,7 @@ typedef unsigned char iso_t;
 #define AV_MAX EV_CODE(13, 0)  // f/64
 
 #define TV_MIN EV_CODE( 2, 0)  // 30"
+#define TV_SEC EV_CODE( 7, 0)  // 1s
 #define TV_MAX EV_CODE(23, 0)  // 1/4000s
 
 // We use a special "BULB" code to store large values for the EAEB script
