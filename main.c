@@ -121,6 +121,13 @@ void cache_hacks(void) {
 
 	// hookup StartConsole, so we can run our hack_post_init_hook
 	cache_fake(0xFF8112E8, ASM_BL(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
+
+	// Hack items in dialogs
+	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
+	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
+
+	// Hack redraw on some dialogs, to prevent flickering when entering our menu
+	cache_fake(0xFF916434, ASM_B(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
 }
 
 void disable_cache_clearing(void) {
@@ -186,13 +193,6 @@ void hack_post_init_hook(void) {
 	//cache_fake(0xFF81B9D0, ASM_MOV_R0_INT(0), TYPE_ICACHE); // prevent ui lock
 	//cache_fake(0xFF81B400, ASM_MOV_R0_INT(0), TYPE_ICACHE); // prevent ui lock
 	//cache_fake(0xFF9DDB24, ASM_MOV_R0_INT(0), TYPE_ICACHE); // prevent ui lock
-
-	// Hack redraw on some dialogs, to prevent flickering when entering our menu
-	cache_fake(0xFF916434, ASM_B(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
-
-	// Hack items in dialogs
-	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
-	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
 }
 
 void hack_jump_trash_events(int r0, int r1, int button) {
