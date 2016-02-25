@@ -179,8 +179,8 @@ void script_bramp() {
 
 	for (shot = 0; shot < settings.bramp_shots || settings.bramp_shots == 0; shot++) {
 		int delay = (float)TIME_RESOLUTION * (float)settings.bramp_time *
-				float_pow(2.0f, (float)shot * coef_s_delay) *
-				float_pow(2.0f, (float)(timestamp() - start) * coef_t_delay);
+				float_pow2((float)shot * coef_s_delay) *
+				float_pow2((float)(timestamp() - start) * coef_t_delay);
 
 		if (shot > 0) {
 			wait_for_camera();
@@ -201,8 +201,8 @@ void script_bramp() {
 		target += delay;
 
 		int expo = (float)TIME_RESOLUTION * (float)settings.bramp_exp  *
-				float_pow(2.0f, (float)shot * coef_s_expo) *
-				float_pow(2.0f, (float)(timestamp() - start) * coef_t_expo);
+				float_pow2((float)shot * coef_s_expo) *
+				float_pow2((float)(timestamp() - start) * coef_t_expo);
 
 		if (expo > BRAMP_MAX_EXPOSURE)
 			break;

@@ -25,7 +25,7 @@ void calculate_dof(int focal_length, int focus_distance, int av, char *min, char
 	float fl =    1.0f * focal_length;
 	float fd = 1000.0f * focus_distance;
 
-	float fn = float_pow(2.0f, ((float)av / 8.0f - 1) / 2.0f); // Precise F-Number = 2^(n/2), 1/8 EV resolution
+	float fn = float_pow2(((float)av / 8.0f - 1) / 2.0f); // Precise F-Number = 2^(n/2), 1/8 EV resolution
 	float cof = 0.019f; // Circle of confusion
 
 	// Hyperfocal
