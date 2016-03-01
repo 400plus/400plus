@@ -108,6 +108,10 @@ void shortcut_start(shortcut_t action) {
 	}
 }
 
+void shortcut_stop() {
+	status.shortcut_running = SHORTCUT_NONE;
+}
+
 void shortcut_event_disp() {
 	press_button(IC_BUTTON_DISP);
 	enqueue_action(beep);

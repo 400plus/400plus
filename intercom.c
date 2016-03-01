@@ -19,6 +19,7 @@
 #include "menu_rename.h"
 #include "msm.h"
 #include "persist.h"
+#include "shortcuts.h"
 #include "debug.h"
 
 #include "intercom.h"
@@ -189,6 +190,8 @@ int proxy_set_language(char *message) {
 int proxy_dialog_enter(char *message) {
 	status.afp_dialog = (message[2] == IC_SET_AF);
 
+	shortcut_stop();
+
 	return FALSE;
 }
 
@@ -245,6 +248,8 @@ int proxy_shoot_start(char *message) {
 int proxy_shoot_finish(char *message) {
 	status.last_shot_fl = message[2] | (message[3] << 8);
 
+	shortcut_stop();
+
 	if (status.msm_active)
 		enqueue_action(msm_stop);
 
@@ -278,6 +283,8 @@ int proxy_settings0(char *message) {
 		if (!status.msm_active)
 			enqueue_action(cmode_apply);
 	}
+
+	shortcut_stop();
 
 	return FALSE;
 }
