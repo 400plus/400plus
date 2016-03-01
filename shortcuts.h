@@ -10,6 +10,7 @@
 extern void shortcut_jump  (void);
 extern void shortcut_trash (void);
 extern void shortcut_disp  (void);
+extern void shortcut_stop  (void);
 
 extern void shortcut_event_disp  (void);
 extern void shortcut_event_end   (void);
