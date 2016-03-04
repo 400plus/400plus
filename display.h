@@ -6,9 +6,10 @@
 #include <vxworks.h>
 #include <stdint.h>
 
+#include "firmware.h"
 #include "firmware/gui.h"
 
-#include "firmware.h"
+#include "exposure.h"
 
 extern void display_refresh    (void);
 extern void hack_dialog_redraw (window_t *window);
@@ -17,6 +18,8 @@ extern int  hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1);
 
 extern void hack_item_set_label_int(dialog_t *dialog, const int type, const int  *data, const int length, const int item);
 extern void hack_item_set_label_str(dialog_t *dialog, const int type, const char *data, const int length, const int item);
+
+extern int get_efcomp_data(ec_t efcomp);
 
 #if FALSE
 
