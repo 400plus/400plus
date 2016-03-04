@@ -52,7 +52,7 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const int *data, 
 
 	debug_log("LABEL_INT: DIALOG = 0x%08X",  dialog);
 	debug_log("LABEL_INT: TYPE   = %02X",    type);
-	debug_log("LABEL_INT: DATA   = %d",     &data);
+	debug_log("LABEL_INT: DATA   = %d",     *data);
 	debug_log("LABEL_INT: LENGTH = %04d",    length);
 	debug_log("LABEL_INT: ITEM   = 0x%02X",  item);
 
