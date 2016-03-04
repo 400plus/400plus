@@ -20,7 +20,7 @@
 char display_message[LP_MAX_WORD];
 int  message_timeout;
 
-int get_efcomp_data(int efcomp);
+int get_efcomp_data(ec_t efcomp);
 
 void display_refresh(void) {
 	dialog_redraw(hMainDialog);
@@ -59,10 +59,8 @@ void hack_item_set_label_int(dialog_t *dialog, const int type, const int *data, 
 	if (dialog == hMainDialog) {
 		switch (item) {
 		case 0x0B: // flash exposure compensation
-			if (DPData.efcomp > 0x10 && DPData.efcomp < 0xF0) {
-				data_efcomp = get_efcomp_data(DPData.efcomp);
-				my_data = &data_efcomp;
-			}
+			data_efcomp = get_efcomp_data(DPData.efcomp);
+			my_data = &data_efcomp;
 		break;
 		case 0x0C: // white balance
 			if (DPData.wb == WB_MODE_COLORTEMP)
@@ -262,32 +260,21 @@ void *hack_invert_olc_screen(char *dst, char *src, int size) {
 
 # endif
 
-int get_efcomp_data(int efcomp) {
-	int negative = FALSE, value = 0;
+int get_efcomp_data(ec_t efcomp) {
+	int value = 145;
 
-	if (efcomp > 0x30) {
+	if (efcomp < EV_ZERO) {
 		efcomp = 0x100 - efcomp;
-		negative = TRUE;
+		value -= 24;
 	}
 
-	switch (efcomp)	{
-	case 0x13: value =  1; break;
-	case 0x14: value =  0; break;
-	case 0x15: value =  2; break;
-	case 0x18: value =  3; break;
-	case 0x1B: value =  5; break;
-	case 0x1C: value =  4; break;
-	case 0x1D: value =  6; break;
-	case 0x20: value =  7; break;
-	case 0x23: value =  9; break;
-	case 0x24: value =  8; break;
-	case 0x25: value = 10; break;
-	case 0x28: value = 11; break;
-	case 0x2B: value = 13; break;
-	case 0x2C: value = 12; break;
-	case 0x2D: value = 14; break;
-	case 0x30: value = 15; break;
+	value += 4 * EV_VAL(efcomp);
+
+	switch (EV_SUB(efcomp)) {
+	case 4: value += 1; break; // +1/2 EV
+	case 3: value += 2; break; // +1/3 EV
+	case 5: value += 3; break; // +2/3 EV
 	}
 
-	return value + (negative ? 130 : 154);
+	return value;
 }
