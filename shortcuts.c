@@ -43,6 +43,8 @@ void shortcut_info_display (void);
 
 void shortcut_info_str(const char *label, const char *value);
 void shortcut_info_int(const char *label, const int   value);
+void shortcut_info_ec (const char *label, const ec_t  value);
+
 void shortcut_info_end(void);
 
 void shortcut_jump() {
@@ -331,25 +333,7 @@ void shortcut_info_mlu() {
 }
 
 void shortcut_info_aeb() {
-	char buffer[8] = "", *sub;
-
-	switch (EV_SUB(DPData.ae_bkt)) {
-	case 0x03:
-		sub = "+";
-		break;
-	case 0x04:
-		sub = "*";
-		break;
-	case 0x05:
-		sub = "++";
-		break;
-	default:
-		sub = "";
-	}
-
-	sprintf(buffer, "%i %s", EV_VAL(DPData.ae_bkt), sub);
-	shortcut_info_str(label_aeb, buffer);
-
+	shortcut_info_ec(label_aeb, DPData.ae_bkt);
 }
 
 void shortcut_info_flash() {
@@ -377,11 +361,26 @@ void shortcut_info_int(const char *label, const int value) {
 	shortcut_info_str(label, buffer);
 }
 
+void shortcut_info_ec(const char *label, const ec_t value) {
+	int symbol = get_efcomp_data(value);
+
+	if (value != EC_ZERO)
+		dialog_item_set_label(hMainDialog, 0x12, &symbol, 0x04, 0x09);
+
+	shortcut_info_str(label, "");
+}
+
 void shortcut_info_end() {
 	char label[8], value[8];
+	const int symbol = 0xFC;
 
 	sprintf(label, "%i", DPData.avail_shot);
-	iso_print(value, DPData.iso);
+	dialog_item_set_label(hMainDialog, 0x08, label, 1 + strlen(label), 0x26);
 
-	shortcut_info_str(label, value);
+	iso_print(value, DPData.iso);
+	dialog_item_set_label(hMainDialog, 0x08, value, 1 + strlen(value), 0x04);
+
+	dialog_item_set_label(hMainDialog, 0x12, &symbol, 0x04, 0x09);
+
+	display_refresh();
 }
