@@ -123,8 +123,8 @@ void cache_hacks(void) {
 	cache_fake(0xFF8112E8, ASM_BL(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
 
 	// Hack items in dialogs
-	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label_int), TYPE_ICACHE);
-	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label_str), TYPE_ICACHE);
+	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label), TYPE_ICACHE);
+	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label), TYPE_ICACHE);
 
 	// Hack redraw on some dialogs, to prevent flickering when entering our menu
 	cache_fake(0xFF916434, ASM_B(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);

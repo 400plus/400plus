@@ -41,66 +41,71 @@ int hack_GUI_IDLEHandler(int unk0, int event, int unused, int unk1) {
 
 #endif
 
-void hack_item_set_label_int(dialog_t *dialog, const int type, const int *data, const int length, const int item)
+void hack_item_set_label(dialog_t *dialog, const int type, const void *data, const int length, const int item)
 {
-	const int data_meteringmode_spot  = 0xF6;
-	const int data_whitebalance_ctemp = 0xCF;
+	char my_label[8] = "AUTO";
+	int  my_value;
 
-	int data_efcomp;
+	const void *my_data = data;
 
-	const int *my_data = data;
+#ifdef ENABLE_DEBUG
+	int  i;
+	char buffer[1024];
 
-	debug_log("LABEL_INT: DIALOG = 0x%08X",  dialog);
-	debug_log("LABEL_INT: TYPE   = %02X",    type);
-	debug_log("LABEL_INT: DATA   = %d",     *data);
-	debug_log("LABEL_INT: LENGTH = %04d",    length);
-	debug_log("LABEL_INT: ITEM   = 0x%02X",  item);
+	debug_log("LABEL: DIALOG = 0x%08X",  dialog);
+	debug_log("LABEL: ITEM   = 0x%02X",  item);
+	debug_log("LABEL: TYPE   = 0x%02X",  type);
+	debug_log("LABEL: LENGTH = %04d",    length);
 
-	if (dialog == hMainDialog) {
-		switch (item) {
-		case 0x0B: // flash exposure compensation
-			data_efcomp = get_efcomp_data(DPData.efcomp);
-			my_data = &data_efcomp;
+	switch (type) {
+	case 0x08:
+		debug_log("LABEL: DATA   = '%s'", data);
 		break;
-		case 0x0C: // white balance
-			if (DPData.wb == WB_MODE_COLORTEMP)
-				my_data = &data_whitebalance_ctemp;
+	case 0x12:
+		debug_log("LABEL: DATA   = 0x%02X", *(char*)data);
 		break;
-		case 0x0D: // metering mode
-			if (DPData.metering == METERING_MODE_SPOT)
-				my_data = &data_meteringmode_spot;
+	default:
+		for (i = 0; i < length; i ++)
+			sprintf(&(buffer[3 * i]), "%02X,", ((char*)data)[i]);
+		buffer[3 * i] = '\0';
+		debug_log("LABEL: DATA   = %s", buffer);
 		break;
-		}
 	}
 
-	dialog_item_set_label(dialog, type, my_data, length, item);
-}
-
-void hack_item_set_label_str(dialog_t *dialog, const int type, const char *data, const int length, const int item)
-{
-	char label[8] = "AUTO";
-	const char *my_data = data;
-
-	debug_log("LABEL_STR: DIALOG = 0x%08X", dialog);
-	debug_log("LABEL_STR: TYPE   = %02X",   type);
-	debug_log("LABEL_STR: DATA   = '%s'",   data);
-	debug_log("LABEL_STR: LENGTH = %04d",   length);
-	debug_log("LABEL_STR: ITEM   = 0x%02X", item);
+#endif
 
 	if (dialog == hMainDialog) {
 		switch (item) {
 		case 0x04: // ISO
 			if (!settings.autoiso_enable || status.measuring)
-				iso_print(label, DPData.iso);
+				iso_print(my_label, DPData.iso);
 
 			if (status.shortcut_running)
 				my_data = NULL;
 			else
-				my_data = label;
+				my_data = my_label;
 		break;
-		case 0x26: // Avaliable shots on card
+		case 0x26: // Available shots on card
 			if (status.shortcut_running)
 				my_data = NULL;
+		break;
+		case 0x0B: // flash exposure compensation
+			if (DPData.efcomp != EC_ZERO) {
+				my_value = get_efcomp_data(DPData.efcomp);
+				my_data  = &my_value;
+			}
+		break;
+		case 0x0C: // white balance
+			if (DPData.wb == WB_MODE_COLORTEMP) {
+				my_value = 0xCF;
+				my_data  = &my_value;
+			}
+		break;
+		case 0x0D: // metering mode
+			if (DPData.metering == METERING_MODE_SPOT) {
+				my_value = 0xF6;
+				my_data  = &my_value;
+			}
 		break;
 		}
 	}
@@ -264,7 +269,7 @@ int get_efcomp_data(ec_t efcomp) {
 	int value = 145;
 
 	if (efcomp < EV_ZERO) {
-		efcomp = 0x100 - efcomp;
+		efcomp = EV_MINUS(efcomp);
 		value -= 24;
 	}
 
