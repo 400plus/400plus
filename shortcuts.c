@@ -29,10 +29,11 @@ void shortcut_iso_toggle (void);
 void shortcut_aeb_toggle (void);
 
 void shortcut_iso_set    (iso_t iso);
-void shortcut_mlu_set    (int status);
-void shortcut_efl_set    (int status);
-void shortcut_f2c_set    (int status);
-void shortcut_aeb_set    (int aeb);
+void shortcut_mlu_toggle (void);
+void shortcut_efl_toggle (void);
+void shortcut_efl_set    (ec_t value);
+void shortcut_f2c_toggle (void);
+void shortcut_aeb_set    (ec_t value);
 void shortcut_disp_set   (int brightness);
 
 void shortcut_info_iso     (void);
@@ -89,7 +90,7 @@ void shortcut_start(shortcut_t action) {
 	case SHORTCUT_HACK_MENU:
 		menu_main_start();
 		break;
-	case SHORTCUT_TOGGLE_FLASH:
+	case SHORTCUT_FLASH:
 		shortcut_info_flash();
 		break;
 	case SHORTCUT_DISPLAY:
@@ -134,16 +135,29 @@ void shortcut_event_end() {
 	shortcut_info_end();
 }
 
+void shortcut_event_av(void) {
+	switch (status.shortcut_running) {
+	case SHORTCUT_FLASH:
+		shortcut_f2c_toggle();
+		break;
+	default:
+		break;
+	}
+}
+
 void shortcut_event_set(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ISO:
 		shortcut_iso_toggle();
 		break;
 	case SHORTCUT_MLU:
-		shortcut_mlu_set(1 - DPData.cf_mirror_up_lock);
+		shortcut_mlu_toggle();
 		break;
 	case SHORTCUT_AEB:
 		shortcut_aeb_toggle();
+		break;
+	case SHORTCUT_FLASH:
+		shortcut_efl_toggle();
 		break;
 	case SHORTCUT_DISPLAY:
 		enqueue_action(beep);
@@ -162,8 +176,8 @@ void shortcut_event_up(void) {
 	case SHORTCUT_AEB:
 		shortcut_aeb_set(MIN((EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)), EC_MAX));
 		break;
-	case SHORTCUT_TOGGLE_FLASH:
-		shortcut_efl_set(TRUE);
+	case SHORTCUT_FLASH:
+		shortcut_efl_set(MIN((EV_TRUNC(DPData.efcomp) + EV_CODE(1, 0)), EC_MAX));
 		break;
 	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(7);
@@ -181,8 +195,8 @@ void shortcut_event_down(void) {
 	case SHORTCUT_AEB:
 		shortcut_aeb_set(MAX((EV_TRUNC(DPData.ae_bkt) - EV_CODE(1, 0)), EC_ZERO));
 		break;
-	case SHORTCUT_TOGGLE_FLASH:
-		shortcut_efl_set(FALSE);
+	case SHORTCUT_FLASH:
+		shortcut_efl_set(MAX((EV_TRUNC(DPData.efcomp) - EV_CODE(1, 0)), EC_MIN));
 		break;
 	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(1);
@@ -198,10 +212,10 @@ void shortcut_event_right(void) {
 		shortcut_iso_set(iso_inc(DPData.iso));
 		break;
 	case SHORTCUT_AEB:
-		shortcut_aeb_set(MIN(ec_inc(DPData.ae_bkt, FALSE), EC_MAX));
+		shortcut_aeb_set(ec_inc(DPData.ae_bkt, FALSE));
 		break;
-	case SHORTCUT_TOGGLE_FLASH:
-		shortcut_f2c_set(TRUE);
+	case SHORTCUT_FLASH:
+		shortcut_efl_set(ec_inc(DPData.efcomp, FALSE));
 		break;
 	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(MIN(DPData.lcd_brightness + 1, 7));
@@ -219,8 +233,8 @@ void shortcut_event_left(void) {
 	case SHORTCUT_AEB:
 		shortcut_aeb_set(MAX(ec_dec(DPData.ae_bkt, FALSE), EV_ZERO));
 		break;
-	case SHORTCUT_TOGGLE_FLASH:
-		shortcut_f2c_set(FALSE);
+	case SHORTCUT_FLASH:
+		shortcut_efl_set(ec_dec(DPData.efcomp, FALSE));
 		break;
 	case SHORTCUT_DISPLAY:
 		shortcut_disp_set(MAX(DPData.lcd_brightness - 1, 1));
@@ -252,25 +266,30 @@ void shortcut_iso_set(iso_t iso) {
 	shortcut_info_iso();
 }
 
-void shortcut_mlu_set(int status) {
-	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, status);
+void shortcut_mlu_toggle() {
+	send_to_intercom(IC_SET_CF_MIRROR_UP_LOCK, 1 - DPData.cf_mirror_up_lock);
 	shortcut_info_mlu();
 }
 
-void shortcut_efl_set(int status) {
-	send_to_intercom(IC_SET_CF_EMIT_FLASH, status);
+void shortcut_efl_toggle() {
+	send_to_intercom(IC_SET_CF_EMIT_FLASH, 1 - DPData.cf_emit_flash);
 	shortcut_info_flash();
 }
 
-void shortcut_f2c_set(int status) {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, status);
+void shortcut_efl_set(ec_t value) {
+	send_to_intercom(IC_SET_EFCOMP, value);
 	shortcut_info_flash();
 }
 
-void shortcut_aeb_set(int aeb) {
-	send_to_intercom(IC_SET_AE_BKT, aeb);
+void shortcut_f2c_toggle(void) {
+	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1 - DPData.cf_flash_sync_rear);
+	shortcut_info_flash();
+}
 
-	persist.aeb = aeb;
+void shortcut_aeb_set(ec_t value) {
+	send_to_intercom(IC_SET_AE_BKT, value);
+
+	persist.aeb = value;
 
 	if (persist.aeb)
 		persist.last_aeb = persist.aeb;
@@ -336,7 +355,7 @@ void shortcut_info_aeb() {
 void shortcut_info_flash() {
 	char buffer[8] = "";
 
-	sprintf(buffer, "%s%s", DPData.cf_emit_flash ? "On " : "Off", DPData.cf_flash_sync_rear ? "2" : "1");
+	sprintf(buffer, "%s", DPData.cf_emit_flash ? (DPData.cf_flash_sync_rear ? "2nd" : "On" ) : "Off");
 	shortcut_info_str(label_flash, buffer);
 }
 
