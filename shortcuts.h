@@ -14,6 +14,7 @@ extern void shortcut_stop  (void);
 
 extern void shortcut_event_disp  (void);
 extern void shortcut_event_end   (void);
+extern void shortcut_event_av    (void);
 extern void shortcut_event_set   (void);
 extern void shortcut_event_up    (void);
 extern void shortcut_event_down  (void);
