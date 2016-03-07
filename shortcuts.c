@@ -283,7 +283,9 @@ void shortcut_efl_set(ec_t value) {
 }
 
 void shortcut_f2c_toggle(void) {
-	send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1 - DPData.cf_flash_sync_rear);
+	if (DPData.cf_emit_flash)
+		send_to_intercom(IC_SET_CF_FLASH_SYNC_REAR, 1 - DPData.cf_flash_sync_rear);
+
 	shortcut_info_flash();
 }
 
