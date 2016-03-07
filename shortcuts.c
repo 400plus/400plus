@@ -42,6 +42,7 @@ void shortcut_info_aeb     (void);
 void shortcut_info_flash   (void);
 void shortcut_info_display (void);
 
+void shortcut_info    (const char *label);
 void shortcut_info_str(const char *label, const char *value);
 void shortcut_info_int(const char *label, const int   value);
 void shortcut_info_ec (const char *label, const ec_t  value);
@@ -363,11 +364,16 @@ void shortcut_info_display() {
 	shortcut_info_int(label_display, DPData.lcd_brightness);
 }
 
-void shortcut_info_str(const char *label, const char *value) {
+void shortcut_info(const char *label) {
 	dialog_item_set_label(hMainDialog, 0x08, label, 1 + strlen(label), 0x26);
-	dialog_item_set_label(hMainDialog, 0x08, value, 1 + strlen(value), 0x04);
 
 	display_refresh();
+}
+
+void shortcut_info_str(const char *label, const char *value) {
+	dialog_item_set_label(hMainDialog, 0x08, value, 1 + strlen(value), 0x04);
+
+	shortcut_info(label);
 }
 
 void shortcut_info_int(const char *label, const int value) {
@@ -383,7 +389,7 @@ void shortcut_info_ec(const char *label, const ec_t value) {
 	if (value != EC_ZERO)
 		dialog_item_set_label(hMainDialog, 0x12, &symbol, 0x04, 0x09);
 
-	shortcut_info_str(label, "");
+	shortcut_info(label);
 }
 
 void shortcut_info_end() {
