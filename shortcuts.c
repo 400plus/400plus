@@ -139,6 +139,9 @@ void shortcut_event_set(void) {
 	case SHORTCUT_ISO:
 		shortcut_iso_toggle();
 		break;
+	case SHORTCUT_MLU:
+		shortcut_mlu_set(1 - DPData.cf_mirror_up_lock);
+		break;
 	case SHORTCUT_AEB:
 		shortcut_aeb_toggle();
 		break;
@@ -155,9 +158,6 @@ void shortcut_event_up(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ISO:
 		shortcut_iso_set(iso_next(DPData.iso));
-		break;
-	case SHORTCUT_MLU:
-		shortcut_mlu_set(TRUE);
 		break;
 	case SHORTCUT_AEB:
 		shortcut_aeb_set(MIN((EV_TRUNC(DPData.ae_bkt) + EV_CODE(1, 0)), EC_MAX));
@@ -177,9 +177,6 @@ void shortcut_event_down(void) {
 	switch (status.shortcut_running) {
 	case SHORTCUT_ISO:
 		shortcut_iso_set(iso_prev(DPData.iso));
-		break;
-	case SHORTCUT_MLU:
-		shortcut_mlu_set(FALSE);
 		break;
 	case SHORTCUT_AEB:
 		shortcut_aeb_set(MAX((EV_TRUNC(DPData.ae_bkt) - EV_CODE(1, 0)), EC_ZERO));
