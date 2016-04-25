@@ -53,7 +53,8 @@ int lang_pack_sections(void *user, int lineno, const char *section) {
 void lang_pack_init() {
 	int res = 0;
 
-	strncpy0(languages_found[languages_found_last++], "Camera", LP_MAX_WORD-1);
+	strncpy0(languages_found[languages_found_last++], "Camera",  LP_MAX_WORD-1);
+	strncpy0(languages_found[languages_found_last++], "ENGLISH", LP_MAX_WORD-1);
 	languages_found[languages_found_last][0] = '\0';
 
 	if ((res = ini_parse(MKPATH_NEW(LANGUAGES_FILENAME), NULL, NULL, lang_pack_sections, NULL)) == -1)
