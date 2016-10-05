@@ -215,6 +215,9 @@ int proxy_dialog_afoff(char *message) {
 int proxy_measuring(char *message) {
 	status.measuring = message[2];
 
+	if (status.vf_status == VF_STATUS_FEXP && ! status.measuring)
+		fexp_disable();
+
 	return FALSE;
 }
 
