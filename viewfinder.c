@@ -96,10 +96,14 @@ void viewfinder_end() {
 		switch (DPData.ae) {
 		case AE_MODE_M:
 		case AE_MODE_TV:
-			beep();
 			// Restore previous state
 			send_to_intercom(IC_SET_CF_EMIT_FLASH, vf_DPData.cf_emit_aux);
 			send_to_intercom(IC_SET_TV_VAL,        vf_DPData.tv_val);
+
+			// Do not reset VF_STATUS if Tv was not restored
+			if (DPData.tv_val != vf_DPData.tv_val)
+				return;
+
 			break;
 		case AE_MODE_P:
 		case AE_MODE_AV:
