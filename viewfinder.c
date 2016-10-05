@@ -96,6 +96,7 @@ void viewfinder_end() {
 		switch (DPData.ae) {
 		case AE_MODE_M:
 		case AE_MODE_TV:
+			beep();
 			// Restore previous state
 			send_to_intercom(IC_SET_CF_EMIT_FLASH, vf_DPData.cf_emit_aux);
 			send_to_intercom(IC_SET_TV_VAL,        vf_DPData.tv_val);
@@ -111,6 +112,9 @@ void viewfinder_end() {
 		break;
 	case(VF_STATUS_MSM):
 		msm_release();
+		break;
+	case(VF_STATUS_FEXP):
+		fexp_disable();
 		break;
 	case(VF_STATUS_QEXP):
 		qexp_disable();
