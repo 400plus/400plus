@@ -50,11 +50,13 @@ void shortcut_info_ec (const char *label, const ec_t  value);
 void shortcut_info_end(void);
 
 void shortcut_jump() {
-	shortcut_start(settings.shortcut_jump);
+	if (DPData.cf_set_button_func != 4)
+		shortcut_start(settings.shortcut_jump);
 }
 
 void shortcut_trash() {
-	shortcut_start(settings.shortcut_trash);
+	if (DPData.cf_set_button_func != 4)
+		shortcut_start(settings.shortcut_trash);
 }
 
 void shortcut_disp() {
