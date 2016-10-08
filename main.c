@@ -121,13 +121,6 @@ void cache_hacks(void) {
 
 	// hookup StartConsole, so we can run our hack_post_init_hook
 	cache_fake(0xFF8112E8, ASM_BL(0xFF8112E8, &hack_StartConsole), TYPE_ICACHE);
-
-	// Hack labels in some dialogs
-	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label), TYPE_ICACHE);
-	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label), TYPE_ICACHE);
-
-	// Hack redraw on some dialogs, to prevent flickering when entering our menu
-	cache_fake(0xFF916434, ASM_B(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
 }
 
 void disable_cache_clearing(void) {
@@ -169,6 +162,13 @@ void hack_StartConsole(void) {
 void hack_pre_init_hook(void) {
 	action_queue = (int*)CreateMessageQueue("action_queue", 0x40);
 	CreateTask("Action Dispatcher", 25, 0x2000, action_dispatcher, 0);
+
+	// Hack labels in some dialogs
+	cache_fake(0xFF837FEC, ASM_BL(0xFF837FEC, &hack_item_set_label), TYPE_ICACHE);
+	cache_fake(0xFF838300, ASM_BL(0xFF838300, &hack_item_set_label), TYPE_ICACHE);
+
+	// Hack redraw on some dialogs, to prevent flickering when entering our menu
+	cache_fake(0xFF916434, ASM_B(0xFF916434, &hack_dialog_redraw), TYPE_ICACHE);
 }
 
 // we can run extra code at the end of the OFW's task init
