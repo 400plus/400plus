@@ -91,6 +91,22 @@ ifdef TERM
 	NORM := "\033[0m"
 endif
 
+install: all
+ifdef INSTALL_HOST
+	@$(ECHO) -e $(BOLD)[UPLOAD]:AUTOEXEC.BIN$(NORM)
+	@curl -s http://$(INSTALL_HOST)/upload.cgi?UPDIR=/                                | fgrep -io SUCCESS
+	@curl -s -F file=@AUTOEXEC.BIN -F submit=submit http://$(INSTALL_HOST)/upload.cgi | fgrep -io SUCCESS
+	
+	@$(ECHO) -e $(BOLD)[UPLOAD]:languages.ini$(NORM)
+	@curl -s http://$(INSTALL_HOST)/upload.cgi?UPDIR=/400PLUS                          | fgrep -io SUCCESS
+	@curl -s -F file=@languages.ini -F submit=submit http://$(INSTALL_HOST)/upload.cgi | fgrep -io SUCCESS
+endif
+ifdef INSTALL_PATH
+	@install    AUTOEXEC.BIN  $(INSTALL_PATH)/
+	@install -D languages.ini $(INSTALL_PATH)/400PLUS
+	@umount $(INSTALL_PATH)
+endif
+
 all: $(PROJECT).BIN languages.ini languages/new_lang.ini
 	@$(ECHO) -e $(BOLD)[ALL]$(NORM)
 	@ls -l AUTOEXEC.BIN
