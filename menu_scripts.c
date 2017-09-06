@@ -287,7 +287,7 @@ void menu_scripts_apply_eaeb_tvmax(const menuitem_t *item) {
 }
 
 void menu_scripts_apply_calc_ev(const menuitem_t *item) {
-	float camera_ev = (DPData.iso       - ISO_100) / 8.0f - (DPData.av_val   - AV_MIN) / 8.0f + (DPData.tv_val - TV_SEC) / 8.0f;
+	float camera_ev = (DPData.iso       - ISO_100) / 8.0f - (DPData.av_val   - AV_MIN) / 8.0f - (DPData.tv_val - TV_SEC) / 8.0f;
 	float script_ev = (menu_scripts_iso - ISO_100) / 8.0f - (menu_scripts_av - AV_MIN) / 8.0f + float_log2(menu_scripts_tv);
 
 	int ev = 8.0f * (script_ev - camera_ev);
@@ -302,7 +302,7 @@ void menu_scripts_apply_calc_tv(const menuitem_t *item) {
 	float camera_ev = (DPData.iso       - ISO_100) / 8.0f - (DPData.av_val   - AV_MIN) / 8.0f + (DPData.tv_val - TV_SEC) / 8.0f;
 	float script_ev = (menu_scripts_iso - ISO_100) / 8.0f - (menu_scripts_av - AV_MIN) / 8.0f;
 
-	menu_scripts_tv = float_pow2(menu_scripts_ev / 8.0f - (script_ev - camera_ev));
+	menu_scripts_tv = float_pow2(menu_scripts_ev / 8.0f - (camera_ev - script_ev));
 
 	if (menu_scripts_tv == 0) {
 		menu_scripts_tv = 1;
