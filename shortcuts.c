@@ -358,10 +358,7 @@ void shortcut_info_aeb() {
 }
 
 void shortcut_info_flash() {
-	char buffer[8] = "";
-
-	sprintf(buffer, "%s", DPData.cf_emit_flash ? (DPData.cf_flash_sync_rear ? "2nd" : "On" ) : "Off");
-	shortcut_info_str(label_flash, buffer);
+	shortcut_info_str(label_flash, DPData.cf_emit_flash ? "Off" : (DPData.cf_flash_sync_rear ? "2nd" : "On" ));
 }
 
 void shortcut_info_display() {
